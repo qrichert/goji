@@ -1,0 +1,128 @@
+@charset "utf-8";
+
+/* <FONTS> */
+
+@import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans');
+
+/*
+@font-face {
+	font-family: 'FONT_FAMILY';
+	src: url('PATH_TO_FONT_FILE');
+}
+*/
+
+/* <VARIABLES> */
+
+:root {
+
+/* Fonts */
+
+	--font-title:	'Open Sans', sans-serif;
+	--font-default:	'Lato', sans-serif;
+
+/* Sizes */
+
+	--gutter-default: 20px;
+	--gutter-medium: 15px;
+	--gutter-thin: 7px;
+
+	--footer-height:	92px;
+
+/* Colors */
+
+	--color-body:	white;
+	--color-nav:	#727272;
+	--color-footer:	#292929;
+
+	--color-text-default:	black;
+	--color-text-light:		white;
+
+/* Black & White */
+
+/*	filter: grayscale(100%);*/
+}
+
+/* <ANIMATIONS> */
+
+/*
+@keyframes ANIMATION_NAME {
+	0%		{ PROPERTY }
+	100%	{ PROPERTY }
+}
+*/
+
+/* <EXTRAS> */
+
+/*
+::-moz-selection {
+	background-color: #d91c88;
+	color: white;
+}
+
+::selection {
+	background-color: #d91c88;
+	color: white;
+}
+
+::placeholder			{ color: #939393; }
+:-ms-input-placeholder	{ color: #939393; }
+*/
+
+/* <GENERAL> */
+
+*:focus { outline: 0; }
+
+html {
+	position: relative;
+	min-height: 100%;
+	font-size: 16px;
+}
+
+body {
+	font-family: var(--font-default);
+	padding: 0;
+	margin: 73px 0px calc(var(--footer-height) + var(--gutter-default)) 0px; /* 53px for nav, 112px for footer */
+	background-color: var(--color-body);
+	color: var(--color-text-default);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-title);
+}
+
+a {
+	color: var(--color-text-default);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* <NAV> */
+
+nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: 0;
+	width: 100%;
+	height: 53px;
+	z-index: 3000;
+	background-color: var(--color-nav);
+}
+
+/* <MAIN> */
+
+main {
+	margin: var(--gutter-default);
+}
+
+/* <FOOTER> */
+
+footer {
+	position: absolute;
+	width: 100%;
+	height: var(--footer-height);
+	bottom: 0;
+	margin: 0;
+	padding: 0;
+	background-color: var(--color-footer);
+}

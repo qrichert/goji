@@ -1,0 +1,6 @@
+# --- BLOCK ACCESS TO PRIVATE FOLDER ---
+
+Order Deny,Allow
+Deny from all
+Allow from 127.0.0.1
+Allow from localhost

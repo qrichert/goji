@@ -1,0 +1,85 @@
+# --- ALLOW ACCESS TO PUBLIC FOLDER ---
+
+Order Deny,Allow
+Allow from all
+
+# --- URL REWRITING ---
+
+Options +FollowSymlinks
+RewriteEngine on
+
+# REWRITE : HTTPS AND WWW -----------------------------------------------------
+
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{HTTP_HOST} !^(.+).SITE_URL.com$
+RewriteCond %{HTTP_HOST} !localhost
+RewriteRule ^(.*) http://www.SITE_URL.com/$1 [QSA,L,R=301]
+
+# REWRITE : PAGES -------------------------------------------------------------
+
+# RewriteRule ^{TRANSLATED ALIAS}$		index.php?page={SYSTEM ID}&lang={ALIAS LANG}
+
+# Make sure you don't use the same name for a same page in different languages
+# If so, the first to be declared will be used.
+
+# Common
+RewriteRule ^$					index.php?page=no-page&lang=no-lang [L]
+
+# English
+RewriteRule ^home$				index.php?page=home&lang=en [L]
+
+# French
+RewriteRule ^accueil$			index.php?page=home&lang=fr [L]
+
+# REWRITE : XHR ---------------------------------------------------------------
+# REWRITE : OPERATORS ---------------------------------------------------------
+
+# Don't forget 'rel="nofollow"' for these links
+
+RewriteRule ^lang-([a-z]{2})$	index.php?page=lang&lang=$1 [QSA,L]
+
+# REWRITE : STATIC ------------------------------------------------------------
+
+# Match merged files (css/lib.min.css/css/main.css|css/responsive.css)
+# Or single files that are not minified (!.min.css)
+RewriteRule ((?:.+)\|(?:.+)\.css)$	static.php?type=css&file=$1 [QSA,L]
+RewriteCond %{REQUEST_URI}			!\.min\.css$
+RewriteRule ((?:.+)\.css)$			static.php?type=css&file=$1 [QSA,L]
+
+#RewriteRule ((?:.+)\|(?:.+)\.js)$	static.php?type=js&file=$1 [QSA,L]
+#RewriteCond %{REQUEST_URI}			!\.min\.js$
+#RewriteRule ((?:.+)\.js)$			static.php?type=js&file=$1 [QSA,L]
+
+# --- ERRORS ---
+
+ErrorDocument 403 /index.php?page=error
+ErrorDocument 404 /index.php?page=error
+ErrorDocument 500 /index.php?page=error
+
+# --- NOINDEX, NOFOLLOW ---
+
+# For just one file
+#<Files "myfile.pdf">
+#	Header set X-Robots-Tag "noindex, nofollow"
+#</Files>
+
+# For regexp
+#<FilesMatch "\.(png|jpe?g|gif)$">
+#	Header set X-Robots-Tag "noindex, nofollow"
+#</FilesMatch>
+
+# --- DENY ACCESS TO PRIVATE FILES AND FOLDERS ---
+
+RedirectMatch 404 /\.git
+#RedirectMatch 404 /tmp/
+
+# --- IGNORE FILES IN INDEX BASED ON NAME ---
+
+#IndexIgnore *.secret
+
+# --- AVOID FOLDER LISTING ---
+
+Options -Indexes
+#IndexOptions Charset=UTF-8

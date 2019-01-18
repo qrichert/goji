@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+		<title>%{SUBJECT}</title>
+
+		<style>
+			html {
+				font-size: 15px;
+			}
+
+			body {
+				font-family: 'Open Sans', Arial, sans-serif;
+				background-color: white;
+				margin: 1em;
+			}
+
+			a {
+				color: black;
+				text-decoration: underline;
+			}
+
+			a:hover {
+				color: grey;
+			}
+
+			hr {
+				border: none;
+				border-top: 1px dashed lightgrey;
+			}
+
+			#main-logo {
+				width: 120px;
+			}
+
+			#main-text {
+				margin: 2% 5% 2.3em 3%;
+				font-size: 1em;
+			}
+
+			#main-text p {
+				margin: 1em 0 1em 0;
+			}
+
+			#main-footer {
+				font-size: 0.8em;
+				margin: 1.7em 5% 3% 3%;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="%{COMPANY_LOGO}"
+			 alt="%{COMPANY_NAME}"
+			 id="main-logo" />
+
+		<div id="main-text">
+			%{MESSAGE}
+		</div>
+
+		<hr>
+
+		<p id="main-footer">
+			Copyright © <a href="%{WEBSITE_URL}">%{DOMAIN_NAME}</a>
+		</p>
+	</body>
+</html>
