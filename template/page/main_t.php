@@ -49,7 +49,7 @@
 	</head>
 	<body id="<?= CURRENT_PAGE; ?>">
 		<?php require_once '../template/page/include/body_v.inc.php'; ?>
-		<?php require_once '../template/page/include/nav_v.inc.php'; ?>
+		<?php require_once '../template/page/include/header_v.inc.php'; ?>
 
 		<?= $_TEMPLATE->getPageContent(); ?>
 
