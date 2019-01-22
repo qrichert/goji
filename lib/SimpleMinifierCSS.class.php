@@ -50,8 +50,8 @@
 			// Same for calc() operators +, -, / etc.
 			// Remove white-space between numbers and units
 			$code = preg_replace('#([\d\.]+)[\s\r\n\t]+(' . $cssUnits . ')#ims', '$1$2', $code);
-			// Replace '0px' by 0
-			$code = preg_replace('#([\D]0)px#ims', '$1', $code);
+			// Replace '0px' by 0 -> Nope, because of calc(0px - var()); doesn't work with calc(0 - var());
+			//$code = preg_replace('#([\D]0)px#ims', '$1', $code);
 			// Remove redundant white-space
 			$code = preg_replace('#\p{Zs}+#ims', ' ', $code);
 			// Remove new lines
