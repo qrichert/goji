@@ -31,7 +31,7 @@
 				'css/responsive.css'
 			);
 
-//			echo '<link rel="stylesheet" type="text/css" href="' . implode('|', $CSS_FILES_INCLUDE) . '">' . PHP_EOL;
+//			echo '<link rel="stylesheet" type="text/css" href="' . implode(urlencode('|'), $CSS_FILES_INCLUDE) . '">' . PHP_EOL;
 
 			foreach ($CSS_FILES_INCLUDE as $f) {
 				echo '<link rel="stylesheet" type="text/css" href="' . $f . '">' . PHP_EOL;

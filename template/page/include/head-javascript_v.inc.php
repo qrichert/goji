@@ -46,7 +46,7 @@
 		'js/vendor/SimpleXMLHttpRequest-17.12.5.min.js'
 	);
 
-	//echo '<script src="' . implode('|', $JS_FILES_INCLUDE) . '"></script>' . PHP_EOL;
+	//echo '<script src="' . implode(urlencode('|'), $JS_FILES_INCLUDE) . '"></script>' . PHP_EOL;
 
 	foreach ($JS_FILES_INCLUDE as $f) {
 		echo '<script src="' . $f . '"></script>' . PHP_EOL;
