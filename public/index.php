@@ -12,7 +12,7 @@
 	define('SITE_DOMAIN_FULL',	"www.SITE_URL.com"); // subdomain.domain.com
 	define('COOKIES_PREFIX',	"prfx-");
 
-	require_once '../lib/functions.lib.php';
+	require_once '../lib/App.class.php';
 	require_once '../lib/SimpleCache.class.php';
 	require_once '../src/include/passwords.inc.php';
 	require_once '../translation/table.lang.php';
