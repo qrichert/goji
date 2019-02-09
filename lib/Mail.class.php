@@ -7,7 +7,7 @@
 			// Don't forget this is HTML
 			// Don't put HTML chars in it without escaping them
 			$COMPANY_NAME			= SITE_NAME; // AwesomeWebsite
-			$COMPANY_LOGO			= SITE_URL . '/img/logo_mail.png'; // Logo image
+			$COMPANY_LOGO			= SITE_URL . '/img/logo-mail.png'; // Logo image
 			$COMPANY_EMAIL			= isset($senderEmail) ? $senderEmail : ('support@' . SITE_DOMAIN); // || 'support@awesomewebsite.com''
 			$COMPANY_DOMAIN_NAME	= SITE_DOMAIN_FULL; // www.awesomewebsite.com
 			$COMPANY_WEBSITE_URL	= SITE_URL; // https://www.awesomewebsite.com
