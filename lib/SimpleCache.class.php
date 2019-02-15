@@ -206,7 +206,6 @@
 					readfile($cacheFile);
 				else
 					return file_get_contents($cacheFile);
-
 			}
 
 			return null;

@@ -22,6 +22,18 @@
 //	require_once '../src/include/keep-me-logged-in.inc.php';
 //	require_once '../src/include/connected.inc.php';
 
+/* <LOCAL TESTING> */
+
+	if (!isset($_LOCAL_TESTING) || !is_bool($_LOCAL_TESTING)) {
+
+		if (CURRENT_MODE == 'release')
+			$_LOCAL_TESTING = false; // If release, default = no
+		else
+			$_LOCAL_TESTING = true; // If debug, default = yes
+	}
+
+	define('LOCAL_TESTING', $_LOCAL_TESTING);
+
 /* <PAGE> */
 
 	/*

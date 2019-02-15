@@ -1,14 +1,15 @@
 /*
 	Takes regular form
-	Prevents submit and sends it via ajax instead,
-	Then fires events submisucces / submiterror containing the response.
+	Prevents submit and sends it via AJAX instead,
+	Then fires events submitsuccess / submiterror containing the response
 	Response from the server must be JSON with at least one key called 'status' containing 'SUCCESS' or 'ERROR'
 
 	While uploading a class called 'loading' is added to the sumbit button
-	When loading has finished it is replace by either 'loaded' or 'loading-error'
-	Classes are removed 1,5s after laoding ended
+	When loading has finished it is replaced by either 'loaded' or 'loading-error'
+	Classes are removed 1.5s after loading ended
 
 	If a progress bar was specified it will update according to upload progress (width in %)
+	And add a class 'shown' to it while loading
 */
 
 function Form(parent,

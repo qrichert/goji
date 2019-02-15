@@ -8,4 +8,4 @@
 <!-- Favicons -->
 <!--<link rel="shortcut icon" href="img/favicon/favicon_medium_256x256.png"> <!- Favicon -->
 <!--<link rel="apple-touch-icon" sizes="512x512" href="img/favicon/favicon_large_512x512.png"> <!- Safari favorite -->
-<!--<link rel="mask-icon" href="img/favicon/bookmark_icon.svg" color="#ff005c"> <!- Safari bookmark -->
+<!--<link rel="mask-icon" href="img/favicon/bookmark-icon.svg" color="#ff005c"> <!- Safari bookmark -->

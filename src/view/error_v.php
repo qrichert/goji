@@ -2,7 +2,7 @@
 <html lang="<?= CURRENT_LANGUAGE; ?>">
 	<head>
 		<?php
-			if (!$_LOCAL_TESTING)
+			if (!LOCAL_TESTING)
 				require_once '../template/page/include/tracking_v.inc.php';
 		?>
 

@@ -13,7 +13,7 @@
 
 	/*********************/
 
-	if ($_LOCAL_TESTING
+	if (LOCAL_TESTING
 		&& isset($_GET['error'])
 		&& !empty($_GET['error'])) { // Giving direct access on localhost for testing
 
