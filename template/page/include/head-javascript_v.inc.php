@@ -40,14 +40,8 @@
 
 <?php
 
-	$JS_FILES_INCLUDE = array(
-//		'js/vendor/Polyfills.js',
-//		'js/vendor/WindowSizeDisplay-18.12.8.js',
+	App::linkFiles('js', array(
+		'js/vendor/Polyfills.js',
+		'js/vendor/WindowSizeDisplay-18.12.8.js',
 		'js/vendor/SimpleXMLHttpRequest-17.12.5.min.js'
-	);
-
-	//echo '<script src="' . implode(urlencode('|'), $JS_FILES_INCLUDE) . '"></script>' . PHP_EOL;
-
-	foreach ($JS_FILES_INCLUDE as $f) {
-		echo '<script src="' . $f . '"></script>' . PHP_EOL;
-	}
+	));

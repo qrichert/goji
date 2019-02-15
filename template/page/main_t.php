@@ -26,16 +26,10 @@
 		<!-- Style -->
 		<?php
 
-			$CSS_FILES_INCLUDE = array(
+			App::linkFiles('css', array(
 				'css/main.css',
 				'css/responsive.css'
-			);
-
-//			echo '<link rel="stylesheet" type="text/css" href="' . implode(urlencode('|'), $CSS_FILES_INCLUDE) . '">' . PHP_EOL;
-
-			foreach ($CSS_FILES_INCLUDE as $f) {
-				echo '<link rel="stylesheet" type="text/css" href="' . $f . '">' . PHP_EOL;
-			}
+			));
 
 		?>
 

@@ -6,6 +6,8 @@
 //	ini_set('display_startup_errors', 1);
 //	error_reporting(E_ALL);
 
+	define('CURRENT_MODE',		"debug"); // debug || release
+
 	define('SITE_URL',			"https://www.SITE_URL.com");
 	define('SITE_NAME',			"SITE_NAME");
 	define('SITE_DOMAIN',		"SITE_URL.com"); // domain.com
@@ -33,6 +35,15 @@
 	}
 
 	define('LOCAL_TESTING', $_LOCAL_TESTING);
+
+/* <LINKED FILES MERGING> */
+
+	$_LINKED_FILES_MODE = 'normal'; // Separate
+
+	if (CURRENT_MODE != 'debug')
+		$_LINKED_FILES_MODE = 'merged';
+
+	define('LINKED_FILES_MODE', $_LINKED_FILES_MODE);
 
 /* <PAGE> */
 
