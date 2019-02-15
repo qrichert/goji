@@ -6,7 +6,12 @@
 //	ini_set('display_startup_errors', 1);
 //	error_reporting(E_ALL);
 
-	define('CURRENT_MODE',		"debug"); // debug || release
+/* <MODE> */
+
+	// CURRENT_MODE = debug || release;
+	require_once '../src/include/mode.inc.php';
+
+/* <GENERAL> */
 
 	define('SITE_URL',			"https://www.SITE_URL.com");
 	define('SITE_NAME',			"SITE_NAME");
