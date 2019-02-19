@@ -1,3 +1,10 @@
+/*
+	Copyright © 2019 Quentin Richert <https://www.quentinrichert.com/>
+	Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License
+	See http://creativecommons.org/licenses/by-nc-nd/4.0/
+	Please contact the author for commercial use.
+*/
+
 function TextAreaAutoResize(parent) {
 
 	var _this = this;
