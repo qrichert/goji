@@ -48,7 +48,7 @@
 		 *
 		 * @param string $param The parameter you want the value of
 		 * @param string $queryString The query string in which to look for the value (could be $_SERVER['QUERY_STRING'])
-		 * @return string The value of the first occurrence of $param
+		 * @return string|null The value of the first occurrence of $param, null if not found
 		 */
 		public static function getFirstParamOccurrence($param, $queryString) {
 
@@ -70,6 +70,8 @@
 					return urldecode(substr($p, $paramLength)); // |param=|foo -> foo
 				}
 			}
+
+			return null; // If not found
 		}
 
 		public static function print_array($array) {
