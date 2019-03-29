@@ -18,7 +18,6 @@
 		&& !empty($_GET['error'])) { // Giving direct access on localhost for testing
 
 		$ERROR = intval($_GET['error']);
-
 	}
 
 	/*********************/

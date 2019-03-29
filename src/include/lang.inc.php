@@ -11,7 +11,7 @@
 
 	/*
 		Make sure the user isn't trying to cheat
-		If he adds a lang paramater the page would not be displayed in the right language
+		If he adds a lang parameter the page would not be displayed in the right language
 		ex: ? page=home & lang=fr & lang=en -> Would show the English version instead of the French one
 	*/
 
@@ -50,4 +50,4 @@
 	if (!in_array($_SESSION['lang'], ACCEPTED_LANGUAGES)) // If calculated lang is not valid
 		$_SESSION['lang'] = DEFAULT_LANGUAGE;
 
-	require_once '../translation/' . $_SESSION['lang'] . '.lang.php';
+	require_once '../translation/' . $_SESSION['lang'] . '.tr.php';

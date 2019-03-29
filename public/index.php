@@ -22,7 +22,7 @@
 	require_once '../lib/App.class.php';
 	require_once '../lib/SimpleCache.class.php';
 	require_once '../src/include/passwords.inc.php';
-	require_once '../translation/table.lang.php';
+	require_once '../translation/table.tr.php';
 	require_once '../src/include/lang.inc.php';
 	require_once '../src/include/database.inc.php';
 //	require_once '../src/model/Member.class.php';
