@@ -9,25 +9,8 @@
 		return (!empty($lang)) ? $lang : $default;
 	}
 
-	/*
-		Make sure the user isn't trying to cheat
-		If he adds a lang parameter the page would not be displayed in the right language
-		ex: ? page=home & lang=fr & lang=en -> Would show the English version instead of the French one
-	*/
-
-	$query = explode('&', $_SERVER['QUERY_STRING']);
-
-	foreach ($query as $param) {
-
-		if (substr($param, 0, 5) == 'lang=') {
-
-			$_GET['lang'] = urldecode(substr($param, 5)); // From 5 to end (= $param w/o 'lang=')
-
-			// We found the first occurrence of 'lang=', the one from the system
-			// so we quit and ignore any other coming from the user
-			break;
-		}
-	}
+	// Make sure the user isn't trying to cheat
+	$_GET['lang'] = \App::getFirstParamOccurrence('lang', $_SERVER['QUERY_STRING']);
 
 	if (isset($_GET['lang'])
 		&& !empty($_GET['lang'])

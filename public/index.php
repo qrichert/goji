@@ -52,25 +52,8 @@
 
 /* <PAGE> */
 
-	/*
-		Make sure the user isn't trying to cheat
-		If he adds a page paramater the page displayed might not be the one expected
-		ex: ? page=home & page=user-input -> Would show the page 'user-input'
-	*/
-
-	$query = explode('&', $_SERVER['QUERY_STRING']);
-
-	foreach ($query as $param) {
-
-		if (substr($param, 0, 5) == 'page=') {
-
-			$_GET['page'] = urldecode(substr($param, 5)); // From 5 to end (= $param w/o 'page=')
-
-			// We found the first occurrence of 'page=', the one from the system
-			// so we quit and ignore any other coming from the user
-			break;
-		}
-	}
+	// Make sure the user isn't trying to cheat
+	$_GET['page'] = App::getFirstParamOccurrence('page', $_SERVER['QUERY_STRING']);
 
 	$_PAGE = 'no-page'; // default
 

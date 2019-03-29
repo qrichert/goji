@@ -29,6 +29,49 @@
 			}
 		}
 
+		/**
+		 * Returns the value of the first occurrence of a query string parameter.
+		 *
+		 * In PHP, $_GET['param'] always returns the value of the last occurrence of 'param'.
+		 *
+		 * For example :
+		 * ```php
+		 * ?param=foo&param=bar
+		 * $_GET['param'] == 'bar'
+		 * ```
+		 *
+		 * Sometimes it causes security issues because the user could override the
+		 * system value.
+		 *
+		 * This function returns the value of the first time the parameter appears,
+		 * thus ignoring any user addition.
+		 *
+		 * @param string $param The parameter you want the value of
+		 * @param string $queryString The query string in which to look for the value (could be $_SERVER['QUERY_STRING'])
+		 * @return string The value of the first occurrence of $param
+		 */
+		public static function getFirstParamOccurrence($param, $queryString) {
+
+			// Ex :
+			// $param = 'param'
+			// $queryString = 'param=foo&param=bar'
+
+			$param = $param . '='; // $param = 'param='
+			$paramLength = strlen($param); // $paramLength = 6 (param + =)
+
+			$query = explode('&', $queryString); // [0] => param=foo, [1] => param=bar
+
+			foreach ($query as $p) {
+
+				// if (substr('param=foo', 0, 6) == 'param='))
+				if (substr($p, 0, $paramLength) == $param) { // substr('param=foo', 0, 6) == 'param='
+
+					// substr('param=foo', 6) -> Remove first 6 chars
+					return urldecode(substr($p, $paramLength)); // |param=|foo -> foo
+				}
+			}
+		}
+
 		public static function print_array($array) {
 			echo '<pre>';
 			print_r($array);
@@ -77,31 +120,38 @@
 			return intval($boolean) === 1;
 		}
 
-		/*
-			CSS Example for mardown output styling
-			--------------------------------------
-
-			.markdown-container .markdown-heading.h1 {
-				font-family: var(--font-title);
-				color: var(--color-text-dark);
-				font-weight: bold;
-				font-size: 1.17em;
-				margin: 0 0 0.7em 0;
-				padding: 0;
-			}
-
-			.markdown-container hr {
-				border: none;
-				border-top: 1px solid var(--color-separator);
-				margin: 1.5em 0 1.7em 0;
-			}
-
-			.markdown-container ul,
-			.markdown-container ol {
-				list-style-position: inside;
-				padding-left: var(--gutter-default);
-			}
-		*/
+		/**
+		 * Transforms texts with Markdown syntax into HTML.
+		 *
+		 * CSS Example for Markdown output styling :
+		 *
+		 * ```css
+		 * .markdown-container .markdown-heading.h1 {
+		 * 		font-family: var(--font-title);
+		 * 		color: var(--color-text-dark);
+		 * 		font-weight: bold;
+		 * 		font-size: 1.17em;
+		 * 		margin: 0 0 0.7em 0;
+		 * 		padding: 0;
+		 * }
+		 *
+		 * .markdown-container hr {
+		 * 		border: none;
+		 * 		border-top: 1px solid var(--color-separator);
+		 * 		margin: 1.5em 0 1.7em 0;
+		 * }
+		 *
+		 * .markdown-container ul,
+		 * .markdown-container ol {
+		 * 		list-style-position: inside;
+		 * 		padding-left: var(--gutter-default);
+		 * }
+		 * ```
+		 *
+		 * @param $text Text to transform
+		 * @param bool $fakeHeadings Apply a 'markdown-heading' class instead instead of using the real HTML tags
+		 * @return string Transformed text (HTML)
+		 */
 		public static function basicMarkdown($text, $fakeHeadings = false) {
 
 			$lines = preg_split('#\R#', $text);
@@ -149,27 +199,27 @@
 				}
 
 				// OL LIST
-	//			if (preg_match('#^[0-9]{0,3}\.(.+)#i', $lines[$i])) { // {0,3} = 0-999
-	//
-	//				// Put <li></li> around and remove the dash (-) and any following white space
-	//				$lines[$i] = preg_replace('#^[0-9]{0,3}\.\s*(.+)#i', '<li>$1</li>', $lines[$i]);
-	//
-	//				// Check if first <li>
-	//				if ($firstLiTag) {
-	//
-	//					$lines[$i] = '<ol>' . $lines[$i]; // Prepend <ul>
-	//					$firstLiTag = false; // Next one won't be first anymore
-	//				}
-	//
-	//				// Check if last <li>
-	//				// IF current line is last line OR next line is not <li>
-	//				if (($i == ($linesCount - 1))
-	//					|| !(preg_match('#^[0-9]{0,3}\.(.+)#i', $lines[$i + 1]))) {
-	//
-	//					$lines[$i] .= '</ol>';
-	//					$firstLiTag = true; // Next one will be first again
-	//				}
-	//			}
+				if (preg_match('#^[0-9]{0,3}\.(.+)#i', $lines[$i])) { // {0,3} = 0-999
+
+					// Put <li></li> around and remove the dash (-) and any following white space
+					$lines[$i] = preg_replace('#^[0-9]{0,3}\.\s*(.+)#i', '<li>$1</li>', $lines[$i]);
+
+					// Check if first <li>
+					if ($firstLiTag) {
+
+						$lines[$i] = '<ol>' . $lines[$i]; // Prepend <ul>
+						$firstLiTag = false; // Next one won't be first anymore
+					}
+
+					// Check if last <li>
+					// IF current line is last line OR next line is not <li>
+					if (($i == ($linesCount - 1))
+						|| !(preg_match('#^[0-9]{0,3}\.(.+)#i', $lines[$i + 1]))) {
+
+						$lines[$i] .= '</ol>';
+						$firstLiTag = true; // Next one will be first again
+					}
+				}
 			}
 
 			$text = implode("\n", $lines);
@@ -203,8 +253,8 @@
 			// Cleaned : domainname.com (domain name)
 
 			return preg_replace('#((https?://)?([\d\w\.-]+\.[\w\.]{2,6})([^\s\]\[\<\>]*/?))#i',
-								'<a href="$1" ' . ($clean ? 'title="$1"' : '') . '>' . ($clean ? '$3' : '$1') . '</a>',
-								$text);
+				'<a href="$1" ' . ($clean ? 'title="$1"' : '') . '>' . ($clean ? '$3' : '$1') . '</a>',
+				$text);
 		}
 
 		public static function formatTextAndEscape($text) {
