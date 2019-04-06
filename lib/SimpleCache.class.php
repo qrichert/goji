@@ -1,57 +1,5 @@
 <?php
 
-	/*
-		Caching a simple fragment:
-		--------------------------
-
-			if (SimpleCache::isValid($fragmentId)) {
-
-				SimpleCache::loadFragment($fragmentId, true); // == echo SimpleCache::loadFragment($fragmentId); w/o 'return'
-
-			} else {
-
-				SimpleCache::startBuffer();
-				...
-				SimpleCache::cacheBuffer($fragmentId);
-
-				OR SIMPLY:
-
-				SimpleCache::cacheFragment($string, $fragmentId);
-			}
-
-		Preprocessing a file and caching it:
-		------------------------------------
-
-			if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) {
-
-				SimpleCache::loadFilePreprocessed($cacheId, true);
-
-			} else {
-
-				$content = ... // Loading and preprocessing file (ex: minify CSS)
-
-				SimpleCache::cacheFilePreprocessed($content, $file, $cacheId);
-
-				echo $content;
-			}
-
-		Caching an Array:
-		-----------------
-
-			// Can be used in destructor to store object values
-
-			if (SimpleCache::isValid($fragmentId)) {
-
-				$array = SimpleCache::loadArray($fragmentId);
-
-			} else {
-
-				$array = ... // Generate values
-
-				SimpleCache::cacheArray($array, $fragmentId);
-			}
-	*/
-
 	// If SimpleCache is called from a __destruct(), relative path may vary
 	// Here we make sure it stays the same
 	if (!defined('SIMPLE_CACHE_PATH')) {
@@ -70,10 +18,66 @@
 		define('SIMPLE_CACHE_PATH', $cachePath);
 	}
 
+	/**
+	 * A class to use caching in a very simple way.
+	 *
+	 * This class is made to be used statically. Following are some examples of use.
+	 *
+	 * Caching a simple fragment:
+	 * --------------------------
+	 *
+	 * if (SimpleCache::isValid($fragmentId)) {
+	 *
+	 * 		SimpleCache::loadFragment($fragmentId, true); // == echo SimpleCache::loadFragment($fragmentId); w/o 'return'
+	 *
+	 * } else {
+	 *
+	 * 		SimpleCache::startBuffer();
+	 * 		...
+	 * 		SimpleCache::cacheBuffer($fragmentId);
+	 *
+	 * 		OR SIMPLY:
+	 *
+	 * 		SimpleCache::cacheFragment($string, $fragmentId);
+	 * }
+	 *
+	 * Preprocessing a file and caching it:
+	 * ------------------------------------
+	 *
+	 * if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) {
+	 *
+	 * 		SimpleCache::loadFilePreprocessed($cacheId, true);
+	 *
+	 * } else {
+	 *
+	 * 		$content = ... // Loading and preprocessing file (ex: minify CSS)
+	 *
+	 * 		SimpleCache::cacheFilePreprocessed($content, $file, $cacheId);
+	 *
+	 * 		echo $content;
+	 * }
+	 *
+	 * Caching an Array:
+	 * -----------------
+	 *
+	 * // Can be used in destructor to store object values
+	 *
+	 * if (SimpleCache::isValid($fragmentId)) {
+	 *
+	 * 		$array = SimpleCache::loadArray($fragmentId);
+	 *
+	 * } else {
+	 *
+	 * 		$array = ... // Generate values
+	 *
+	 * 		SimpleCache::cacheArray($array, $fragmentId);
+	 * }
+	 *
+	 */
 	class SimpleCache {
 
 		const CACHE_PATH = SIMPLE_CACHE_PATH;
-		const CACHE_FILE_EXTENSION = '.txt';
+		const CACHE_FILE_EXTENSION = '.cache.txt';
 		const DEFAULT_CACHE_MAX_AGE = -1; // Default maximum page age in seconds (-1 = no limit)
 
 		const TIME_1MIN = 60;
@@ -88,24 +92,46 @@
 
 /* <GENERIC BUFFERING FUNCTIONS> */
 
-		// Start buffering
+		/**
+		 * Start buffering.
+		 *
+		 * Used to collect all output for later use.
+		 * You could use that if you want to cache a whole page for instance.
+		 */
 		public static function startBuffer() {
 			ob_start();
 		}
 
-		// Close buffer and load fragment into variable
+		/**
+		 * Stop buffering and save the collected output.
+		 *
+		 * Stops the buffer and loads all the output that has been collected into a variable.
+		 * This variable can then be stored.
+		 */
 		public static function readBuffer() {
 			return ob_get_clean();
 		}
 
-		// Close buffer and discard content
+		/**
+		 * Stop buffering and discard content.
+		 *
+		 * Stops the buffer and forgets all the output that has been collected.
+		 * It's like a "cancel" button.
+		 */
 		public static function closeBuffer() {
 			ob_end_clean();
 		}
 
 /* <GENERIC CACHE HANDLING FUNCTIONS> */
 
-		// Remove fragment from cache
+		/**
+		 * Remove specific fragment from cache.
+		 *
+		 * The cache consists of files with unique file names (= ID).
+		 * This functions deletes the file with the given ID.
+		 *
+		 * @param string $id The ID of the fragment
+		 */
 		public static function invalidateFragment($id) {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
@@ -114,10 +140,15 @@
 				unlink($cacheFile);
 		}
 
-		// Delete all cached files
+		/**
+		 * Purge cache.
+		 *
+		 * Empties the cache by deleting ALL cache files.
+		 */
 		public static function purgeCache() {
 
-			$fragments = glob(self::CACHE_PATH . '*'); // Get all file names
+			// Get all *.txt file names (unsorted = faster)
+			$fragments = glob(self::CACHE_PATH . '*' . self::CACHE_FILE_EXTENSION, GLOB_NOSORT);
 
 			foreach ($fragments as $fragment) { // Iterate fragments
 
@@ -131,7 +162,15 @@
 
 /* --- Save --- */
 
-		// Cache HTML or TEXT (string)
+		/**
+		 * Cache a string.
+		 *
+		 * The string could be anything: text, HTML, etc.
+		 *
+		 * @param string $frag The text to cache
+		 * @param string $id The ID of the cached fragment
+		 * @return bool Returns always true
+		 */
 		public static function cacheFragment($frag, $id) { // (string) $frag
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
@@ -144,7 +183,16 @@
 			return true;
 		}
 
-		// Close buffer and cache content
+		/**
+		 * Close buffer and cache content.
+		 *
+		 * This is a shortcut function that stops the buffer and caches its content
+		 * at the same time.
+		 *
+		 * @param string $id The ID of the cached fragment
+		 * @param bool $returnContent (optional) If set to true, the cached content will be returned. false by default.
+		 * @return bool|string|null true if successful, null if not, string if successful and $returnContent = true
+		 */
 		public static function cacheBuffer($id, $returnContent = false) {
 
 			// Get content
@@ -168,13 +216,19 @@
 
 /* --- Check Validity --- */
 
-		// If is fragment cache and if cache is valid (not too old)
+		/**
+		 * If is fragment cache and if cache is valid (not too old).
+		 *
+		 * @param string $id Fragment ID
+		 * @param int $maxAge (optional) Infinite by default
+		 * @return bool true if fragment is valid (exists and not too old), false if not (doesn't exist or too old)
+		 */
 		public static function isValid($id, $maxAge = self::DEFAULT_CACHE_MAX_AGE) {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			return (
-				   file_exists($cacheFile) // File with corresponsding ID must exist
+				file_exists($cacheFile) // File with corresponding ID must exist
 				&& ( // And also:
 					$maxAge == -1 // Max age must be infinite
 					|| (time() - filemtime($cacheFile)) <= $maxAge // OR, file must be recent enough
@@ -182,20 +236,35 @@
 			);
 		}
 
-		// See if file is not too recent to be written
+		/**
+		 * See if file is not too recent to be written.
+		 *
+		 * This functions uses time() and filemtime().
+		 * Precision of both may vary according to file system. So adapt $minAge param.
+		 *
+		 * @param string $id Fragment ID
+		 * @param int $minAge (optional) Minimum age the cache file must have to be overwritten. 0 by default.
+		 * @return bool true if file old enough, false if too recent
+		 */
 		public static function canCache($id, $minAge = 0) { // 0 = Can't write the file twice at the same time
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			return (
-					!file_exists($cacheFile) // File does not exist
+				!file_exists($cacheFile) // File does not exist
 				|| (time() - filemtime($cacheFile)) > $minAge // OR, file old enough
 			);
 		}
 
 /* --- Load --- */
 
-		// Load HTML or TEXT Fragment
+		/**
+		 * Load HTML or TEXT Fragment
+		 *
+		 * @param string $id Fragment ID
+		 * @param bool $outputContent (optional) echo fragment's content instead of returning it. false by default
+		 * @return string|null string if $outputContent = false (default), null if echoed or fragment doesn't exist
+		 */
 		public static function loadFragment($id, $outputContent = false) {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
@@ -215,9 +284,39 @@
 
 /* --- Save --- */
 
-		// Cache file content (usually preprocessed) with last edit timestamp
-		// Can be multiple files too (array)
-		public static function cacheFilePreprocessed($content, $file, $id) { // (string), (string|array), (string)
+		/**
+		 * Caching method designed specifically for files (usually preprocessed).
+		 *
+		 * When you preprocess files before display, it can be useful to cache
+		 * the preprocessed version instead of re-preprocessing it for each request.
+		 *
+		 * For example, if you minify and merge all CSS files into one you could
+		 * use this function to cache the output.
+		 *
+		 * The advantage over simply caching the output as a string is that
+		 * this method saves the last modified timestamp of the file.
+		 *
+		 * Thanks to that, you can update the cache or not according to whether the
+		 * original file has been modified or not.
+		 *
+		 * If you cache a single file, give the preprocessed content as $content and
+		 * the file full path as $file. The path will be used to determine the timestamp
+		 * of the file's last edit. So that if you update the file, you can detect it
+		 * and updated he cached version accordingly.
+		 *
+		 * If you cache merged files (so multiple files combined into one), give the
+		 * preprocessed content as $content. That is, one string containing the result
+		 * of the merge. The whole thing. Then give the paths for all concerned (original)
+		 * files as an array with $file. This method will collect last edit timestamps for
+		 * all original files, so that if one gets modified you can detect it and update
+		 * the cached version.
+		 *
+		 * @param string $content Text to be cached
+		 * @param string|array $file A single file or a list of files
+		 * @param string $id Fragment ID
+		 * @return bool true if success, false if error
+		 */
+		public static function cacheFilePreprocessed($content, $file, $id) {
 
 			// If single file we handle it as array, so we can use the same code for all
 			if (!is_array($file))
@@ -233,8 +332,6 @@
 				$filesLastEditTimes[] = filemtime($f);
 			}
 
-			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
-
 			/*
 				Prepend file last edit time()s
 				We combine them with '|' delimiter in the order of call.
@@ -248,7 +345,19 @@
 
 /* --- Check Validity --- */
 
-		// Look if original file has been edited since last caching
+		/**
+		 * Look if original file has been edited since last caching.
+		 *
+		 * This is the complement for cacheFilePreprocessed().
+		 *
+		 * It compares the last edit timestamp(s) of the original file(s) with those that
+		 * have been cached. If the timestamps match, the cache is still valid. If one or
+		 * more don't match, cache is outdated.
+		 *
+		 * @param string $id Fragment ID
+		 * @param string|array $file A single file or a list of files
+		 * @return bool true if cache is valid, false if not (one or more original file has been edited)
+		 */
 		public static function isValidFilePreprocessed($id, $file) {
 
 			// If single file we handle it as array, so we can use the same code for all
@@ -296,7 +405,22 @@
 
 /* --- Load --- */
 
-		// Load preprocessed content from cache, w/o first line (timestamp);
+		/**
+		 * Load preprocessed content from cache.
+		 *
+		 * Load a preprocessed fragment from the cache.
+		 *
+		 * loadFragment() just reads the cache file and returns it. But with preprocessed
+		 * files, the timestamp(s) are saved within the cached file. So loadFragment()
+		 * would return the content and the timestamp(s) which we don't want.
+		 *
+		 * This method however returns the content alone, as we want it. Meaning a clean
+		 * version without the timestamp(s).
+		 *
+		 * @param string $id Fragment ID
+		 * @param bool $outputContent (optional) echo fragment's content instead of returning it. false by default
+		 * @return string|null string if $outputContent = false (default), null if echoed or fragment doesn't exist
+		 */
 		public static function loadFilePreprocessed($id, $outputContent = false) {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
@@ -323,7 +447,15 @@
 
 /* --- Save --- */
 
-		// Shortcut for caching arrays
+		/**
+		 * Caching method designed specifically for arrays.
+		 *
+		 * Caches the content of an array.
+		 *
+		 * @param array $arr Array to cache
+		 * @param string $id Fragment ID
+		 * @return bool true if successful, false if not
+		 */
 		public static function cacheArray($arr, $id) {
 
 			if (is_array($arr)) {
@@ -342,6 +474,12 @@
 
 /* --- Load --- */
 
+		/**
+		 * Load a cached array.
+		 *
+		 * @param string $id Fragment ID
+		 * @return array|null array if successful, null if not
+		 */
 		public static function loadArray($id) {
 
 			$arr = self::loadFragment($id);
