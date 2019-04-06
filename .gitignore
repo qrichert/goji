@@ -27,10 +27,5 @@ Thumbs.db
 .idea
 venv
 
-/_BACKUP_/
-/_FACTORY_/
-
-/public/upload/
 /src/include/passwords.inc.php
-/var/
-/vendor/
+
