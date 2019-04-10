@@ -21,18 +21,18 @@ Directory Structure
 - **`_FACTORY_`**, *used to store work files unrelated to development (*e.g.* Photoshop or Illustrator files).*
 - **`lib`**, *reserved for Goji source files.*
 - **`public`**, *contains all files accessible from the Web.*
-	- **`css`**, *everything that is linked to styling*
-	- **`img`**, *images that are part of the content (not styling)*
-	- **`js`**, *JavaScript files*
-	- **`upload`**, *public uploads are stored here*
+	- **`css`**, *everything that is linked to styling.*
+	- **`img`**, *images that are part of the content (not styling).*
+	- **`js`**, *JavaScript files.*
+	- **`upload`**, *public uploads are stored here.*
 - **`src`**, *contains user code (yours).*
-	- **`controller`**, *controller files*
-	- **`include`**, **
-	- **`model`**, *model files*
-	- **`operator`**, *mini-controllers performing one specific action (*e.g.* log out or change language)*
-	- **`static`**, *scripts for serving static files*
-	- **`view`**, *view files*
-	- **`xhr`**, *mini controllers specific to Ajax requests*
+	- **`controller`**, *controller files.*
+	- **`include`**, *code that has been isolated (often from `index.php`) to make for smaller files.*
+	- **`model`**, *model files.*
+	- **`operator`**, *mini-controllers performing one specific action (*e.g.* log out or change language).*
+	- **`static`**, *scripts for serving static files.*
+	- **`view`**, *view files.*
+	- **`xhr`**, *mini controllers specific to Ajax requests.*
 - **`template`**, *contains template files (*e.g.* page templates).*
 - **`translation`**, *contains all files related to translation.*
 - **`upload`**, *private uploads are stored here.*
