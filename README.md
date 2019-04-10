@@ -22,7 +22,7 @@ Directory Structure
 - **`lib`**, *reserved for Goji source files.*
 - **`public`**, *contains all files accessible from the Web.*
 	- **`css`**, *everything that is linked to styling*
-	- **`img`**, **
+	- **`img`**, *images that are part of the content (not styling)*
 	- **`js`**, *JavaScript files*
 	- **`upload`**, *public uploads are stored here*
 - **`src`**, *contains user code (yours).*
