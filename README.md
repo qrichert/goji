@@ -14,16 +14,16 @@ Installation & Directory Structure
 * Apache
 * PHP 7+
 
-- **`_BACKUP_`**, *Used to store backups of your files or databases.*
-- **`_FACTORY_`**, *Used to store work files unrelated to development (*e.g.* Photoshop or Illustrator files).*
-- **`lib`**, *Reserved for Goji source files.*
-- **`public`**, *Contains all files accessible from the Web.*
-- **`src`**, *Contains user code (yours).*
-- **`template`**, *Contains template files (*e.g.* page templates).*
-- **`translation`**, *Contains all files related to translation.*
-- **`upload`**, *Private uploads are stored here.*
-- **`var`**, *For data storage (*e.g.* cache files or metrics files).*
-- **`vendor`**, *For external libraries.*
+- **`_BACKUP_`**, *used to store backups of your files or databases.*
+- **`_FACTORY_`**, *used to store work files unrelated to development (*e.g.* Photoshop or Illustrator files).*
+- **`lib`**, *reserved for Goji source files.*
+- **`public`**, *contains all files accessible from the Web.*
+- **`src`**, *contains user code (yours).*
+- **`template`**, *contains template files (*e.g.* page templates).*
+- **`translation`**, *contains all files related to translation.*
+- **`upload`**, *private uploads are stored here.*
+- **`var`**, *for data storage (*e.g.* cache files or metrics files).*
+- **`vendor`**, *for external libraries.*
 
 Documentation
 -------------
