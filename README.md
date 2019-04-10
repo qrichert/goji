@@ -3,8 +3,8 @@ Goji
 
 A simple and minimal PHP framework.
 
-Installation & Directory Structure
-----------------------------------
+Installation
+------------
 
 1. Download the source files.
 2. Put them on your server.
@@ -13,6 +13,9 @@ Installation & Directory Structure
 **Requirements:**
 * Apache
 * PHP 7+
+
+Directory Structure
+-------------------
 
 - **`_BACKUP_`**, *used to store backups of your files or databases.*
 - **`_FACTORY_`**, *used to store work files unrelated to development (*e.g.* Photoshop or Illustrator files).*
