@@ -48,3 +48,11 @@ Documentation
 -------------
 
 It it's the first time you use Goji, please read the [Getting Started guide](#) (when it comes out).
+
+<p align="center">
+	<a href="#" target="_blank">
+		<img src="http://drive.quentinrichert.com/files/goji-berries.svg"
+			 width="75"
+			 height="75">
+	</a>
+</p>
