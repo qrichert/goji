@@ -6,17 +6,6 @@
 	</a>
 </p>
 
-Goji
-====
-
-<p align="center">
-	<a href="#" target="_blank">
-		<img src="http://drive.quentinrichert.com/files/goji-text.svg"
-			 width="150"
-			 height="150">
-	</a>
-</p>
-
 A simple and minimal PHP framework.
 
 Installation
