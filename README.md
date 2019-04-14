@@ -1,6 +1,3 @@
-Goji
-====
-
 <p align="center">
 	<a href="#" target="_blank">
 		<img src="http://drive.quentinrichert.com/files/goji-berries.svg"
@@ -9,7 +6,10 @@ Goji
 	</a>
 </p>
 
-<p style="text-align: center;">
+Goji
+====
+
+<p align="center">
 	<a href="#" target="_blank">
 		<img src="http://drive.quentinrichert.com/files/goji-text.svg"
 			 width="150"
