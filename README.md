@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-	*A simple and minimal PHP framework.*
+	<em>A simple and minimal PHP framework.</em>
 </p>
 
 Installation
