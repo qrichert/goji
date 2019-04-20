@@ -7,7 +7,7 @@
 
 		Ex:
 
-			require_once '../lib/Goji/SimpleTemplate.class.php';
+			use Goji\SimpleTemplate;
 
 			$_TEMPLATE = new SimpleTemplate();
 				$_TEMPLATE->setPageTitle('Title'); // Set page title

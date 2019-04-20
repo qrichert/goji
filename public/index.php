@@ -1,5 +1,9 @@
 <?php
 
+	use Goji\App;
+	use Goji\SwissKnife;
+	use Goji\SimpleMetrics;
+
 	session_start();
 
 //	ini_set('display_errors', 1);
@@ -19,9 +23,14 @@
 	define('SITE_DOMAIN_FULL',	"www.SITE_URL.com"); // subdomain.domain.com
 	define('COOKIES_PREFIX',	"prfx-");
 
-	require_once '../lib/Goji/SwissKnife.class.php';
-	require_once '../lib/Goji/App.class.php';
-	require_once '../lib/Goji/SimpleCache.class.php';
+	require_once '../lib/AutoLoad.php';
+
+/* <APP> */
+
+	$app = new App();
+
+/* <INCLUDES> */
+
 	require_once '../src/include/passwords.inc.php';
 	require_once '../translation/table.tr.php';
 	require_once '../src/include/lang.inc.php';
@@ -55,7 +64,7 @@
 /* <PAGE> */
 
 	// Make sure the user isn't trying to cheat
-	$_GET['page'] = \Goji\SwissKnife::getFirstParamOccurrence('page', $_SERVER['QUERY_STRING']);
+	$_GET['page'] = SwissKnife::getFirstParamOccurrence('page', $_SERVER['QUERY_STRING']);
 
 	$_PAGE = 'no-page'; // default
 
@@ -81,9 +90,7 @@
 
 /* <SIMPLE METRICS> */
 
-	require_once '../lib/Goji/SimpleMetrics.class.php';
-
-	\Goji\SimpleMetrics::addPageView($_PAGE);
+	SimpleMetrics::addPageView($_PAGE);
 
 /* <PAGE SELECTION> */
 

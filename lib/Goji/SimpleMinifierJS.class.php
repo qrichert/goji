@@ -2,8 +2,6 @@
 
 	namespace Goji;
 
-	require_once '../lib/Goji/SimpleMinifierAbstract.class.php';
-
 	class SimpleMinifierJS extends SimpleMinifierAbstract {
 
 		public static function minify($code) {

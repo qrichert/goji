@@ -2,6 +2,8 @@
 
 	namespace App\Lang;
 
+	use Goji\SwissKnife;
+
 	function getLanguage($default) {
 
 		$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2); // fr-FR (français - France)
@@ -10,7 +12,7 @@
 	}
 
 	// Make sure the user isn't trying to cheat
-	$_GET['lang'] = \Goji\SwissKnife::getFirstParamOccurrence('lang', $_SERVER['QUERY_STRING']);
+	$_GET['lang'] = SwissKnife::getFirstParamOccurrence('lang', $_SERVER['QUERY_STRING']);
 
 	if (isset($_GET['lang'])
 		&& !empty($_GET['lang'])

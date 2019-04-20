@@ -2,8 +2,6 @@
 
 	namespace Goji;
 
-	require_once '../lib/Goji/ImageSize.class.php';
-
 	class SaveImage {
 
 		public static function save($image, // $_FILES['image']
