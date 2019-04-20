@@ -1,6 +1,7 @@
 <p align="center">
 	<a href="#" target="_blank">
 		<img src="https://drive.quentinrichert.com/files/goji-text.svg"
+			 alt="Goji"
 			 width="150"
 			 height="150">
 	</a>
