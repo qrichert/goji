@@ -1,5 +1,7 @@
 <?php
 
+	namespace Goji;
+
 	class ImageSize {
 
 		public static function shrinkToMaxSize($width, $height, $maxSize) {
@@ -7,12 +9,12 @@
 			$scaleFactor = 1;
 
 			if ($width >= $height
-			   && $width > $maxSize) {
+				&& $width > $maxSize) {
 
 				$scaleFactor = $maxSize / $width;
 
 			} else if ($height > $width
-					  && $height > $maxSize) {
+				&& $height > $maxSize) {
 
 				$scaleFactor = $maxSize / $height;
 			}

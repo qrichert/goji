@@ -1,5 +1,7 @@
 <?php
 
+	namespace Goji;
+
 	class reCaptcha {
 
 		public static function isValid($code, $ip = null) {

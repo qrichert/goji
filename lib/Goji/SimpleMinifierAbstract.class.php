@@ -1,5 +1,7 @@
 <?php
 
+	namespace Goji;
+
 	abstract class SimpleMinifierAbstract {
 
 		abstract public static function minify($code);

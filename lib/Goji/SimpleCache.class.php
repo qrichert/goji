@@ -1,5 +1,7 @@
 <?php
 
+	namespace Goji;
+
 	// If SimpleCache is called from a __destruct(), relative path may vary
 	// Here we make sure it stays the same
 	if (!defined('SIMPLE_CACHE_PATH')) {

@@ -1,5 +1,7 @@
 <?php
 
+	namespace Goji;
+
 	class TagManager {
 
 		public static function sanitizeTags($tagsArray) {
@@ -58,7 +60,7 @@
 				$tagsArray = array();
 
 			$tagsArray = array_merge($tagsArray, $newTags); // Merging the arrays
-			$tagsArray = $this->sanitizeTags($tagsArray);
+			$tagsArray = self::sanitizeTags($tagsArray);
 
 			return $tagsArray;
 		}
@@ -70,7 +72,7 @@
 				$tagsToRemove = array($tagsToRemove);
 			}
 
-			$tagsArray = $this->sanitizeTags($tagsArray);
+			$tagsArray = self::sanitizeTags($tagsArray);
 
 			foreach ($tagsToRemove as $tag) {
 				if (in_array($tag, $tagsArray)) {

@@ -1,11 +1,13 @@
 <?php
 
+	namespace Goji;
+
 	/*
 		Easily handles page templates.
 
 		Ex:
 
-			require_once '../lib/SimpleTemplate.class.php';
+			require_once '../lib/Goji/SimpleTemplate.class.php';
 
 			$_TEMPLATE = new SimpleTemplate();
 				$_TEMPLATE->setPageTitle('Title'); // Set page title

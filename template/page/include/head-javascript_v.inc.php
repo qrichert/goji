@@ -40,7 +40,7 @@
 
 <?php
 
-	App::linkFiles('js', array(
+	\Goji\SwissKnife::linkFiles('js', array(
 		'js/vendor/Polyfills.js',
 		'js/vendor/WindowSizeDisplay-18.12.8.js',
 		'js/vendor/SimpleXMLHttpRequest-17.12.5.min.js'

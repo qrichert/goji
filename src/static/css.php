@@ -2,7 +2,7 @@
 
 	header('Content-type: text/css; charset=utf-8');
 
-	require_once '../lib/SimpleCache.class.php';
+	require_once '../lib/Goji/SimpleCache.class.php';
 
 	// Generating cache ID
 	$cacheId = is_array($FILE) ? implode('|', $FILE) : $FILE;
@@ -17,7 +17,7 @@
 
 	} else { // Regenerate and cache
 
-		require_once '../lib/SimpleMinifierCSS.class.php';
+		require_once '../lib/Goji/SimpleMinifierCSS.class.php';
 
 		$content = SimpleMinifierCSS::minifyFile($FILE);
 

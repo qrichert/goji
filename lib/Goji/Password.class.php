@@ -1,5 +1,7 @@
 <?php
 
+	namespace Goji;
+
 	class Password {
 
 		// To strengthen weak user passwords (against brute force)
@@ -29,10 +31,10 @@
 
 			// Generate random strings
 
-				$lower		= str_shuffle("abcdefghijklmnopqrstuvwxyz");
-				$upper		= str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-				$number		= str_shuffle("0123456789");
-				$symbols	= str_shuffle("-_$@()!?#<>:/*;.&=+%");
+				$lower		= str_shuffle('abcdefghijklmnopqrstuvwxyz');
+				$upper		= str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+				$number		= str_shuffle('0123456789');
+				$symbols	= str_shuffle('-_$@()!?#<>:/*;.&=+%');
 
 			// Generate random proportions
 

@@ -10,7 +10,7 @@
 	}
 
 	// Make sure the user isn't trying to cheat
-	$_GET['lang'] = \App::getFirstParamOccurrence('lang', $_SERVER['QUERY_STRING']);
+	$_GET['lang'] = \Goji\SwissKnife::getFirstParamOccurrence('lang', $_SERVER['QUERY_STRING']);
 
 	if (isset($_GET['lang'])
 		&& !empty($_GET['lang'])

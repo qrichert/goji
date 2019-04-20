@@ -2,9 +2,9 @@
 
 /* <RENDERING> */
 
-	require_once '../lib/SimpleTemplate.class.php';
+	require_once '../lib/Goji/SimpleTemplate.class.php';
 
-	$_TEMPLATE = new SimpleTemplate(TITLE_HOME,
+	$_TEMPLATE = new \Goji\SimpleTemplate(TITLE_HOME,
 									DESCRIPTION_HOME);
 
 		$_TEMPLATE->startBuffer();

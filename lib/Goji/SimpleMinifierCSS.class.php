@@ -1,6 +1,8 @@
 <?php
 
-	require_once '../lib/SimpleMinifierAbstract.class.php';
+	namespace Goji;
+
+	require_once '../lib/Goji/SimpleMinifierAbstract.class.php';
 
 	class SimpleMinifierCSS extends SimpleMinifierAbstract {
 

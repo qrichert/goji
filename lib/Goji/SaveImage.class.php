@@ -1,6 +1,8 @@
 <?php
 
-	require_once '../lib/ImageSize.class.php';
+	namespace Goji;
+
+	require_once '../lib/Goji/ImageSize.class.php';
 
 	class SaveImage {
 

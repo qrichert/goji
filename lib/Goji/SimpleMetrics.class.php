@@ -1,5 +1,7 @@
 <?php
 
+	namespace Goji;
+
 	class SimpleMetrics {
 
 		const METRICS_PATH = '../var/log/metrics/';
