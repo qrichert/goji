@@ -55,6 +55,7 @@ It it's the first time you use Goji, please read the [Getting Started guide](#) 
 <p align="center">
 	<a href="#" target="_blank">
 		<img src="https://drive.quentinrichert.com/files/goji-berries.svg"
+			 width="Goji Berries"
 			 width="75"
 			 height="75">
 	</a>
