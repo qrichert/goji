@@ -63,11 +63,7 @@
 
 			$this->m_dataBaseID = null;
 
-			if (!file_exists($configFile))
-				throw new Exception('Database configuration file not found. (' . $configFile . ')', 0);
-
-			$config = file_get_contents(self::CONFIG_FILE);
-			$config = json_decode($config, true);
+			$config = ConfigurationLoader::loadFileToArray($configFile);
 
 			$connectionSuccessful = false;
 			$lastException = null;

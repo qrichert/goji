@@ -1,7 +1,7 @@
 <?php
 
 	use Goji\Core\App;
-	use Goji\Core\DataBase;
+	//use Goji\Core\DataBase;
 	use Goji\SwissKnife;
 	use Goji\SimpleMetrics;
 
@@ -27,7 +27,7 @@
 
 	require_once '../lib/AutoLoad.php';
 
-	$db = new DataBase();
+	//$db = new DataBase();
 
 	$app = new App();
 		$app->setSiteURL('https://www.SITE_URL.com');
