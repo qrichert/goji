@@ -1,6 +1,6 @@
 <?php
 
-	use Goji\App;
+	use Goji\Core\App;
 	use Goji\SwissKnife;
 	use Goji\SimpleMetrics;
 
@@ -17,17 +17,23 @@
 
 /* <GENERAL> */
 
+	// TODO: Remove these in other files (template, mail, maybe others too)
 	define('SITE_URL',			"https://www.SITE_URL.com");
 	define('SITE_NAME',			"SITE_NAME");
 	define('SITE_DOMAIN',		"SITE_URL.com"); // domain.com
-	define('SITE_DOMAIN_FULL',	"www.SITE_URL.com"); // subdomain.domain.com
+	define('SITE_DOMAIN_FULL',	""); // subdomain.domain.com
 	define('COOKIES_PREFIX',	"prfx-");
 
 	require_once '../lib/AutoLoad.php';
 
-/* <APP> */
-
 	$app = new App();
+		$app->setSiteURL('https://www.SITE_URL.com');
+		$app->setSiteName('SITE_NAME');
+		$app->setSiteDomainName('www.SITE_URL.com');
+		$app->setSiteFullDomain('www.SITE_URL.com');
+		$app->setCookiesPrefix('prfx-');
+		$app->setIsLocalEnvironment(true);
+		$app->setAppMode(App::DEBUG);
 
 /* <INCLUDES> */
 
@@ -42,6 +48,7 @@
 
 /* <LOCAL TESTING> */
 
+	// TODO: Use App->getIsLocalTesting();
 	if (!isset($_LOCAL_TESTING) || !is_bool($_LOCAL_TESTING)) {
 
 		if (CURRENT_MODE == 'release')
@@ -54,6 +61,7 @@
 
 /* <LINKED FILES MERGING> */
 
+	// TODO: Integrate it to SimpleTemplate
 	$_LINKED_FILES_MODE = 'normal'; // Separate
 
 	if (CURRENT_MODE != 'debug')

@@ -89,6 +89,7 @@
 
 		const CACHE_PATH = SIMPLE_CACHE_PATH;
 		const CACHE_FILE_EXTENSION = '.cache.txt';
+		// TODO: Make DEFAULT_CACHE_MAX_AGE settable
 		const DEFAULT_CACHE_MAX_AGE = -1; // Default maximum page age in seconds (-1 = no limit)
 
 		const TIME_1MIN = 60;

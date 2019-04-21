@@ -81,7 +81,7 @@
 		 * @param string $pageDescription (optional) default = ''
 		 * @param int $robotsBehaviour (optional) default = SimpleTemplate::ROBOTS_ALLOW_INDEX_AND_FOLLOW
 		 */
-		function __construct($pageTitle = '',
+		public function __construct($pageTitle = '',
 							 $pageDescription = '',
 							 $robotsBehaviour = self::ROBOTS_ALLOW_INDEX_AND_FOLLOW) {
 
@@ -168,7 +168,7 @@
 		 * SimpleTemplate::NOINDEX_NOFOLLOW
 		 * ``
 		 *
-		 * @param \Goji\SimpleTemplate::ROBOTS_(NOINDEX|NOFOLLOW|NOINDEX_NOFOLLOW) $behaviour
+		 * @param \Goji\SimpleTemplate::ROBOTS_BEHAVIOUR $behaviour
 		 */
 		public function setRobotsBehaviour($behaviour) {
 			$this->m_robotsBehaviour = $behaviour;
@@ -194,8 +194,6 @@
 			if (is_string($content))
 				$this->m_pageContent = $content;
 		}
-
-		// Get specific index from array, ex: $template->getSpecial('tracking_event');
 
 		/**
 		 * Get the value of a specific special.
