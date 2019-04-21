@@ -81,7 +81,7 @@
 	 *
 	 * 		SimpleCache::cacheArray($array, $fragmentId);
 	 * }
-	 *```
+	 * ```
 	 *
 	 * @package Goji
 	 */
