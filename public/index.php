@@ -27,8 +27,7 @@
 
 	require_once '../lib/AutoLoad.php';
 
-	// TODO: Read from config file
-//	$db = new DataBase();
+	$db = new DataBase();
 
 	$app = new App();
 		$app->setSiteURL('https://www.SITE_URL.com');
