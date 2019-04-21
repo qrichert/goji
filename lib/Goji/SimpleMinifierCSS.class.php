@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class SimpleMinifierCSS
+	 *
+	 * @package Goji
+	 */
 	class SimpleMinifierCSS extends SimpleMinifierAbstract {
 
 		public static function minify($code, $replaceCSSVariablesByValue = true) {

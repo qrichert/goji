@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class SimpleMinifierAbstract
+	 *
+	 * @package Goji
+	 */
 	abstract class SimpleMinifierAbstract {
 
 		abstract public static function minify($code);

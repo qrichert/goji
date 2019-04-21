@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class SaveImage
+	 *
+	 * @package Goji
+	 */
 	class SaveImage {
 
 		public static function save($image, // $_FILES['image']

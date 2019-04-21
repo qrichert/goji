@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class SimpleMinifierJS
+	 *
+	 * @package Goji
+	 */
 	class SimpleMinifierJS extends SimpleMinifierAbstract {
 
 		public static function minify($code) {

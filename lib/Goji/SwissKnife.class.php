@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class SwissKnife
+	 *
+	 * @package Goji
+	 */
 	class SwissKnife {
 
 		public static function linkFiles($type, $files) {

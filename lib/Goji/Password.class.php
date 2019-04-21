@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class Password
+	 *
+	 * @package Goji
+	 */
 	class Password {
 
 		// To strengthen weak user passwords (against brute force)

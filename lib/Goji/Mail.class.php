@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class Mail
+	 *
+	 * @package Goji
+	 */
 	class Mail {
 
 		public static function sendMail($to, $subject, $message, $senderEmail = null, $replyToName = null, $replyToEmail = null) {

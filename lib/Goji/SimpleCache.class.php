@@ -21,6 +21,8 @@
 	}
 
 	/**
+	 * Class SimpleCache
+	 *
 	 * A class to use caching in a very simple way.
 	 *
 	 * This class is made to be used statically. Following are some examples of use.
@@ -75,6 +77,7 @@
 	 * 		SimpleCache::cacheArray($array, $fragmentId);
 	 * }
 	 *
+	 * @package Goji
 	 */
 	class SimpleCache {
 

@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class TagManager
+	 *
+	 * @package Goji
+	 */
 	class TagManager {
 
 		public static function sanitizeTags($tagsArray) {

@@ -2,39 +2,42 @@
 
 	namespace Goji;
 
-	/*
-		Easily handles page templates.
-
-		Ex:
-
-			use Goji\SimpleTemplate;
-
-			$_TEMPLATE = new SimpleTemplate();
-				$_TEMPLATE->setPageTitle('Title'); // Set page title
-				$_TEMPLATE->setPageDescription('Description'); // Set page description
-				$_TEMPLATE->setRobotsBehaviour(SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW); // Disallow robot indexing
-				$_TEMPLATE->setSpecials(array(
-					'tracking_event' => 'View page',
-					'og_image' => 'img/og.jpg'
-				));
-
-			$_TEMPLATE->startBuffer(); // Start buffering HTML
-
-				// Main page content goes here
-
-			$_TEMPLATE->saveBuffer(); // Saves content internally.
-
-			require_once '../template/page/app_t.php'; // Load template file
-
-			// Inside the template you can read values like this
-
-				echo SimpleTemplate::getPageTitle();
-				echo SimpleTemplate::getPageDescription();
-				echo SimpleTemplate::getPageContent(); // Get buffered HTML
-				echo SimpleTemplate::getRobotsBehaviour(); // Returns string like <meta name="robots...>
-				echo SimpleTemplate::getSpecial('tracking_event'); // Here would return 'View page' as set before
-	*/
-
+	/**
+	 * Class SimpleTemplate
+	 *
+	 * Easily handles page templates.
+	 *
+	 * Ex:
+	 *
+	 * 	use Goji\SimpleTemplate;
+	 *
+	 * 	$_TEMPLATE = new SimpleTemplate();
+	 * 		$_TEMPLATE->setPageTitle('Title'); // Set page title
+	 * 		$_TEMPLATE->setPageDescription('Description'); // Set page description
+	 * 		$_TEMPLATE->setRobotsBehaviour(SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW); // Disallow robot indexing
+	 * 		$_TEMPLATE->setSpecials(array(
+	 * 			'tracking_event' => 'View page',
+	 * 			'og_image' => 'img/og.jpg'
+	 * 		));
+	 *
+	 * 	$_TEMPLATE->startBuffer(); // Start buffering HTML
+	 *
+	 * 		// Main page content goes here
+	 *
+	 * 	$_TEMPLATE->saveBuffer(); // Saves content internally.
+	 *
+	 * 	require_once '../template/page/app_t.php'; // Load template file
+	 *
+	 * 	// Inside the template you can read values like this
+	 *
+	 * 		echo SimpleTemplate::getPageTitle();
+	 * 		echo SimpleTemplate::getPageDescription();
+	 * 		echo SimpleTemplate::getPageContent(); // Get buffered HTML
+	 * 		echo SimpleTemplate::getRobotsBehaviour(); // Returns string like <meta name="robots...>
+	 * 		echo SimpleTemplate::getSpecial('tracking_event'); // Here would return 'View page' as set before
+	 *
+	 * @package Goji
+	 */
 	class SimpleTemplate {
 
 		/* <ATTRIBUTES> */

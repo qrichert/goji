@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class ImageSize
+	 *
+	 * @package Goji
+	 */
 	class ImageSize {
 
 		public static function shrinkToMaxSize($width, $height, $maxSize) {

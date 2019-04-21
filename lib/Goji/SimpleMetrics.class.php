@@ -2,6 +2,11 @@
 
 	namespace Goji;
 
+	/**
+	 * Class SimpleMetrics
+	 *
+	 * @package Goji
+	 */
 	class SimpleMetrics {
 
 		const METRICS_PATH = '../var/log/metrics/';
