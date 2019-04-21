@@ -27,6 +27,7 @@ Directory Structure
 
 - **`_BACKUP_`**, *used to store backups of your files or databases.*
 - **`_FACTORY_`**, *used to store work files unrelated to development (*e.g.* Photoshop or Illustrator files).*
+- **`config`**, *contains project configuration files.*
 - **`lib`**, *your project libraries.*
 	- **`Goji`**, *reserved for Goji source files (Goji core library).*
 	- **`AutoLoad.php`**, *Auto-loading functions, add your own if needed.*
