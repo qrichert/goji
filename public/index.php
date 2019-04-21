@@ -1,6 +1,7 @@
 <?php
 
 	use Goji\Core\App;
+	use Goji\Core\DataBase;
 	use Goji\SwissKnife;
 	use Goji\SimpleMetrics;
 
@@ -26,6 +27,9 @@
 
 	require_once '../lib/AutoLoad.php';
 
+	// TODO: Read from config file
+//	$db = new DataBase();
+
 	$app = new App();
 		$app->setSiteURL('https://www.SITE_URL.com');
 		$app->setSiteName('SITE_NAME');
@@ -40,7 +44,6 @@
 	require_once '../src/include/passwords.inc.php';
 	require_once '../translation/table.tr.php';
 	require_once '../src/include/lang.inc.php';
-	require_once '../src/include/database.inc.php';
 
 //	require_once '../src/model/Member.class.php';
 //	require_once '../src/include/keep-me-logged-in.inc.php';
