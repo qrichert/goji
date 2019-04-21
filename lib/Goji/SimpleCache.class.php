@@ -30,6 +30,7 @@
 	 * Caching a simple fragment:
 	 * --------------------------
 	 *
+	 * ```php
 	 * if (SimpleCache::isValid($fragmentId)) {
 	 *
 	 * 		SimpleCache::loadFragment($fragmentId, true); // == echo SimpleCache::loadFragment($fragmentId); w/o 'return'
@@ -44,10 +45,12 @@
 	 *
 	 * 		SimpleCache::cacheFragment($string, $fragmentId);
 	 * }
+	 * ```
 	 *
 	 * Preprocessing a file and caching it:
 	 * ------------------------------------
 	 *
+	 * ```php
 	 * if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) {
 	 *
 	 * 		SimpleCache::loadFilePreprocessed($cacheId, true);
@@ -60,10 +63,12 @@
 	 *
 	 * 		echo $content;
 	 * }
+	 * ```
 	 *
 	 * Caching an Array:
 	 * -----------------
 	 *
+	 * ```php
 	 * // Can be used in destructor to store object values
 	 *
 	 * if (SimpleCache::isValid($fragmentId)) {
@@ -76,6 +81,7 @@
 	 *
 	 * 		SimpleCache::cacheArray($array, $fragmentId);
 	 * }
+	 *```
 	 *
 	 * @package Goji
 	 */

@@ -42,6 +42,7 @@
 		 * In PHP, $_GET['param'] always returns the value of the last occurrence of 'param'.
 		 *
 		 * For example :
+		 *
 		 * ```php
 		 * ?param=foo&param=bar
 		 * $_GET['param'] == 'bar'

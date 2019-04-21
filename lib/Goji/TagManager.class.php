@@ -9,6 +9,12 @@
 	 */
 	class TagManager {
 
+		/**
+		 * Sorts tags, makes sure they are strings and removes duplicates.
+		 *
+		 * @param array|string $tagsArray
+		 * @return array
+		 */
 		public static function sanitizeTags($tagsArray) {
 
 			// Converting tags to Array
@@ -22,11 +28,18 @@
 			}
 
 			$tagsArray = array_unique($tagsArray); // Removing doubles
-						 sort($tagsArray); // Sorting to alphabetical order
+			sort($tagsArray); // Sorting to alphabetical order
 
 			return $tagsArray;
 		}
 
+		/**
+		 * Converts array to JSON string.
+		 *
+		 * @param array $array
+		 * @param bool $sanitize default = true
+		 * @return false|string
+		 */
 		public static function encode($array, $sanitize = true) {
 
 			if ($sanitize)
@@ -35,25 +48,51 @@
 			return json_encode($array);
 		}
 
+		/**
+		 * Converts JSON string to array.
+		 *
+		 * @param string $json
+		 * @param bool $sanitize default = false
+		 * @return array|mixed
+		 */
 		public static function decode($json, $sanitize = false) {
+
+			$array = json_decode($json, true);
 
 			if ($sanitize)
 				$array = self::sanitizeTags($array);
 
-			return json_decode($json);
+			return $array;
 		}
 
+		/**
+		 * Converts array of tags to string for display.
+		 *
+		 * array('list', 'of', 'tags') -> 'list, of, tags'
+		 *
+		 * @param array $tagsArray
+		 * @return string
+		 */
 		public static function toString($tagsArray) {
 			return implode(', ', $tagsArray);
 		}
 
+		/**
+		 * Adds a single or multiple tags to a tag list and sanitizes the list.
+		 *
+		 * If no parent array specified, the function is equal to TagManager::sanitizeTags().
+		 *
+		 * ```php
+		 * $tags = TagManager::addTags('single-tag');
+		 * $tags = TagManager::addTags(array('array', 'of', 'tags'));
+		 * $tags = TagManager::addTags(array('array', 'of', 'tags'), $tags);
+		 * ```
+		 *
+		 * @param array|string $newTags
+		 * @param array $tagsArray (optional)
+		 * @return array|null
+		 */
 		public static function addTags($newTags, $tagsArray = null) {
-
-			/*
-				$tags = TagManager::addTags('single-tag');
-				$tags = TagManager::addTags(array('array', 'of', 'tags'));
-				$tags = TagManager::addTags(array('array', 'of', 'tags'), $tags);
-			*/
 
 			// Making sure $newTags is an Array
 			if (!is_array($newTags)) {
@@ -70,6 +109,13 @@
 			return $tagsArray;
 		}
 
+		/**
+		 * Removes a single or multiple tags from a tag list.
+		 *
+		 * @param array|string $tagsToRemove
+		 * @param array $tagsArray
+		 * @return array
+		 */
 		public static function removeTags($tagsToRemove, $tagsArray) {
 
 			// Making sure $tagsToRemove is an Array
