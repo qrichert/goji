@@ -1,6 +1,6 @@
 <?php
 
-	use Goji\SimpleTemplate;
+	use Goji\Toolkit\SimpleTemplate;
 
 /* <RENDERING> */
 

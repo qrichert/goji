@@ -1,6 +1,6 @@
 <?php
 
-	namespace Goji;
+	namespace Goji\Toolkit;
 
 	/**
 	 * Class SimpleMinifierJS

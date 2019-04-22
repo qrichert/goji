@@ -1,7 +1,7 @@
 <?php
 
-	use Goji\SimpleCache;
-	use Goji\SimpleMinifierJS;
+	use Goji\Toolkit\SimpleCache;
+	use Goji\Toolkit\SimpleMinifierJS;
 
 	header('Content-type: application/javascript; charset=utf-8');
 

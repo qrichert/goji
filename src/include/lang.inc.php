@@ -2,7 +2,7 @@
 
 	namespace App\Lang;
 
-	use Goji\SwissKnife;
+	use Goji\Toolkit\SwissKnife;
 
 	function getLanguage($default) {
 

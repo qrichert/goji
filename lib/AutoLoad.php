@@ -8,11 +8,11 @@
 	 * Libraries must be in their own project folder inside /lib, and their
 	 * namespace must reflect that architecture.
 	 *
-	 * For example, SimpleCache class from Goji core library is in
-	 * Goji\SimpleCache namespace. So, auto-loading it will look for
-	 * SimpleCache.class.php inside a Goji folder, inside /lib.
+	 * For example, SimpleCache class from Goji Toolkit library is in
+	 * Goji\Toolkit\SimpleCache namespace. So, auto-loading it will look for
+	 * SimpleCache.class.php inside a Goji/Toolkit folder, inside /lib.
 	 *
-	 * \Goji\SimpleCache -> '/lib/' + Goji + '/' + SimpleCache + '.class.php'
+	 * \Goji\Toolkit\SimpleCache -> '/lib/' + Goji + '/' + 'Toolkit' + '/' + SimpleCache + '.class.php'
 	 *
 	 * @param string $className The class which needs to be loaded (no initial backslash '\')
 	 */

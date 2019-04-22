@@ -26,7 +26,7 @@
 		<!-- Style -->
 		<?php
 
-			\Goji\SwissKnife::linkFiles('css', array(
+			\Goji\Toolkit\SwissKnife::linkFiles('css', array(
 				'css/main.css',
 				'css/responsive.css'
 			));

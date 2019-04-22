@@ -1,6 +1,6 @@
 <?php
 
-	namespace Goji;
+	namespace Goji\Toolkit;
 
 	// If SimpleCache is called from a __destruct(), relative path may vary
 	// Here we make sure it stays the same

@@ -1,6 +1,6 @@
 <?php
 
-	namespace Goji;
+	namespace Goji\Toolkit;
 
 	/**
 	 * Class SimpleTemplate
@@ -12,7 +12,7 @@
 	 * ```php
 	 * // Controller
 	 *
-	 * use Goji\SimpleTemplate;
+	 * use Goji\Toolkit\SimpleTemplate;
 	 *
 	 * // Template is an object containing all the data the template
 	 * // file may need to be generated, like page title and content.

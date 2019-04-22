@@ -2,8 +2,8 @@
 
 	use Goji\Core\App;
 	//use Goji\Core\DataBase;
-	use Goji\SwissKnife;
-	use Goji\SimpleMetrics;
+	use Goji\Toolkit\SwissKnife;
+	use Goji\Toolkit\SimpleMetrics;
 
 	session_start();
 
