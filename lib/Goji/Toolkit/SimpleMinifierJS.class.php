@@ -18,7 +18,8 @@
 			// Backup values within single or double quotes
 			preg_match_all('#(\'[^\']*?\'|"[^"]*?")#ims', $code, $hit, PREG_PATTERN_ORDER);
 
-			for ($i = 0; $i < count($hit[1]); $i++) {
+			$count = count($hit[1]);
+			for ($i = 0; $i < $count; $i++) {
 				$code = str_replace($hit[1][$i], '##########' . $i . '##########', $code);
 			}
 
@@ -70,7 +71,8 @@
 			$code = str_replace(array("\r\n", "\r", "\n", PHP_EOL), '', $code);
 
 			// Restore backupped values within single or double quotes
-			for ($i = 0; $i < count($hit[1]); $i++) {
+			$count = count($hit[1]);
+			for ($i = 0; $i < $count; $i++) {
 				$code = str_replace('##########' . $i . '##########', $hit[1][$i], $code);
 			}
 

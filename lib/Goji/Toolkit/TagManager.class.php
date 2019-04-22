@@ -22,7 +22,8 @@
 				$tagsArray = array($tagsArray);
 
 			// Converting tags to String
-			for ($i = 0; $i < count($tagsArray); $i++) {
+			$count = count($tagsArray);
+			for ($i = 0; $i < $count; $i++) {
 				if (!is_string($tagsArray[$i]))
 					$tagsArray[$i] = strval($tagsArray[$i]);
 			}

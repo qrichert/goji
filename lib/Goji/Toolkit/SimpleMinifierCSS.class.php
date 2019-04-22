@@ -21,7 +21,8 @@
 			// Backup values within single or double quotes
 			preg_match_all('#(\'[^\']*?\'|"[^"]*?")#ims', $code, $hit, PREG_PATTERN_ORDER);
 
-			for ($i = 0; $i < count($hit[1]); $i++) {
+			$count = count($hit[1]);
+			for ($i = 0; $i < $count; $i++) {
 				$code = str_replace($hit[1][$i], '##########' . $i . '##########', $code);
 			}
 
@@ -146,7 +147,8 @@
 			*/
 
 			// Restore backupped values within single or double quotes
-			for ($i = 0; $i < count($hit[1]); $i++) {
+			$count = count($hit[1]);
+			for ($i = 0; $i < $count; $i++) {
 				$code = str_replace('##########' . $i . '##########', $hit[1][$i], $code);
 			}
 
@@ -193,7 +195,8 @@
 						// Match @import url() || @import || url() -- If parentheses quotes are optional
 						preg_match_all('#(@import\s+url|@import|url)\s*(?:\(?\s*(\'[^\']*?\'|"[^"]*?")\s*\)?|\(\s*(.+?)\s*\))#ims', $content, $hit, PREG_PATTERN_ORDER);
 
-						for ($i = 0; $i < count($hit[0]); $i++) {
+						$count = count($hit[0]);
+						for ($i = 0; $i < $count; $i++) {
 							// $hit[0] = full match
 							// $hit[1] = first capturing group (@import url|@import|@url)
 							// $hit[2] = second capturing group URL w/ quotes (parentheses optional)

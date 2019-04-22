@@ -404,7 +404,8 @@
 				return false;
 
 			// If timestamps don't match -> invalid
-			for ($i = 0; $i < count($filesLastEditTimes); $i++) {
+			$count = count($filesLastEditTimes);
+			for ($i = 0; $i < $count; $i++) {
 
 				if ($filesLastEditTimes[$i] != $timestamps[$i])
 					return false;
