@@ -11,6 +11,7 @@
 
 		private $m_requestURI;
 		private $m_requestPageURI;
+		private $m_rawQueryString;
 		private $m_queryString;
 		private $m_scriptName;
 		private $m_rootFolder;
@@ -42,7 +43,10 @@
 				}
 
 			// q=query
-			$this->m_queryString = $_SERVER['QUERY_STRING'] ?? '';
+			$this->m_rawQueryString = $_SERVER['QUERY_STRING'] ?? '';
+
+			// array('q' => 'query')
+			$this->m_queryString = self::queryStringToArray($this->m_rawQueryString);
 
 			// /index.php
 			// /goji/public/index.php
@@ -90,7 +94,8 @@
 			// TODO: Remove this after test
 			echo 'Request URI: ' . $this->m_requestURI . PHP_EOL;
 			echo 'Request Page URI: ' . $this->m_requestPageURI . PHP_EOL;
-			echo 'Query String: ' . $this->m_queryString . PHP_EOL;
+			echo 'Raw Query String: ' . $this->m_rawQueryString . PHP_EOL;
+			echo 'Query String: ' . print_r($this->m_queryString, true) . PHP_EOL;
 			echo 'Script Name: ' . $this->m_scriptName . PHP_EOL;
 			echo 'Root Folder: ' . $this->m_rootFolder . PHP_EOL;
 			echo 'Request Page: ' . $this->m_requestPage . PHP_EOL;
@@ -121,10 +126,25 @@
 		}
 
 		/**
-		 * Query String.
+		 * Raw Query String.
 		 *
 		 * Query String only:
 		 * q=query
+		 *
+		 * @return string
+		 */
+		public function getRawQueryString() {
+			return $this->m_rawQueryString;
+		}
+
+		/**
+		 * Query String.
+		 *
+		 * Query String as array:
+		 * array(
+		 *      'foo' => ['value1', value3'],
+		 *      'bar' => 'value2'
+		 * )
 		 *
 		 * @return string
 		 */
@@ -172,6 +192,82 @@
 		 */
 		public function getRequestPage() {
 			return $this->m_requestPage;
+		}
+
+		/**
+		 * Parses Query String and returns an array.
+		 *
+		 * This is similar to PHP's parse_str(), but instead of overwriting duplicate
+		 * parameters, it saves them under the same key, in order of appearance.
+		 *
+		 * foo=value1&bar=value2&foo=value3
+		 *
+		 * parse_str():
+		 * array(
+		 *      'foo' => 'value3',
+		 *      'bar' => 'value2'
+		 * )
+		 *
+		 * queryStringToArray():
+		 * array(
+		 *      'foo' => ['value1', value3'],
+		 *      'bar' => 'value2'
+		 * )
+		 *
+		 * @param string $queryString
+		 * @return array
+		 */
+		public static function queryStringToArray($queryString) {
+
+			// foo=value1&bar=value2&foo=value3
+
+			// array('foo=value1', 'bar=value2', 'foo=value3');
+			$tmpQueryString = explode('&', $queryString);
+
+			foreach ($tmpQueryString as &$paramValue) {
+
+				// First portion = 'foo'=value1
+				// Second portion = foo='value1'
+				// We use the 3rd parameter (limit) to have maximum 2 chunks (in case there is an '=' in the value)
+				list($param, $value) = explode('=', $paramValue, 2);
+
+				// We passed $paramValue by reference, so we can modify it
+				$paramValue = array(
+					'param' => $param,
+					'value' => $value
+				);
+			}
+			// Break the reference
+			unset($paramValue);
+
+			$queryString = array();
+
+			// array(['param' => 'foo', 'value' => 'value1'], etc.);
+			foreach ($tmpQueryString as $paramValue) {
+
+				// If parameter already in list (duplicate)
+				if (isset($queryString[$paramValue['param']])) {
+
+					// If the index is already an array (so 3rd+ occurence of param)
+					if (is_array($queryString[$paramValue['param']])) {
+
+						// Append to array
+						$queryString[$paramValue['param']][] = $paramValue['value'];
+
+					} else {
+
+						// Replace value by array containing it
+						$queryString[$paramValue['param']] = array($queryString[$paramValue['param']]);
+						$queryString[$paramValue['param']][] = $paramValue['value'];
+					}
+
+				} else {
+
+					$queryString[$paramValue['param']] = $paramValue['value'];
+				}
+			}
+
+			return $queryString;
 		}
 
 		/**
