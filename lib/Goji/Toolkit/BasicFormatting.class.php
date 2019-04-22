@@ -5,7 +5,7 @@
 	/**
 	 * Class BasicFormatting
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class BasicFormatting {
 

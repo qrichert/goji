@@ -5,7 +5,7 @@
 	/**
 	 * Class App
 	 *
-	 * @package Goji
+	 * @package Goji\Core
 	 */
 	class App {
 

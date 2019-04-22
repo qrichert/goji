@@ -55,7 +55,7 @@
 	 * If you want to add elements not supported by default, you can use Specials.
 	 * See SimpleTemplate::setSpecials(), SimpleTemplate::addSpecial() and SimpleTemplate::getSpecial()
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class SimpleTemplate {
 

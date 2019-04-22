@@ -5,7 +5,7 @@
 	/**
 	 * Class Mail
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class Mail {
 

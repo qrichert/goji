@@ -5,7 +5,7 @@
 	/**
 	 * Class SaveImage
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class SaveImage {
 

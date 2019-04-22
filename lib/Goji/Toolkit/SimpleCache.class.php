@@ -83,7 +83,7 @@
 	 * }
 	 * ```
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class SimpleCache {
 

@@ -5,7 +5,7 @@
 	/**
 	 * Class SimpleMinifierCSS
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class SimpleMinifierCSS extends SimpleMinifierAbstract {
 

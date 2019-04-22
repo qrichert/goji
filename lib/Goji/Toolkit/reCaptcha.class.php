@@ -5,7 +5,7 @@
 	/**
 	 * Class reCaptcha
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class reCaptcha {
 

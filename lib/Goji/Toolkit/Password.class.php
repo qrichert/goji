@@ -5,7 +5,7 @@
 	/**
 	 * Class Password
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class Password {
 

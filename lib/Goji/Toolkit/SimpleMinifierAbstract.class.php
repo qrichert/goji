@@ -5,7 +5,7 @@
 	/**
 	 * Class SimpleMinifierAbstract
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	abstract class SimpleMinifierAbstract {
 

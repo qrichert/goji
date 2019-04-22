@@ -5,7 +5,7 @@
 	/**
 	 * Class TagManager
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class TagManager {
 

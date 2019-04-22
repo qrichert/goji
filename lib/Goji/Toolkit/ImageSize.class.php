@@ -5,7 +5,7 @@
 	/**
 	 * Class ImageSize
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class ImageSize {
 

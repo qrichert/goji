@@ -5,7 +5,7 @@
 	/**
 	 * Class SimpleMetrics
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class SimpleMetrics {
 

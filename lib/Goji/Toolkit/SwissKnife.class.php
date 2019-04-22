@@ -5,7 +5,7 @@
 	/**
 	 * Class SwissKnife
 	 *
-	 * @package Goji
+	 * @package Goji\Toolkit
 	 */
 	class SwissKnife {
 
