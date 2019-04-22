@@ -19,19 +19,10 @@ RewriteRule ^(.*) http://www.SITE_URL.com/$1 [QSA,L,R=301]
 
 # REWRITE : PAGES -------------------------------------------------------------
 
-# RewriteRule ^{TRANSLATED ALIAS}$		index.php?page={SYSTEM ID}&lang={ALIAS LANG}
-
-# Make sure you don't use the same name for a same page in different languages
-# If so, the first to be declared will be used.
-
-# Common
-RewriteRule ^$					index.php?page=no-page&lang=no-lang [L]
-
-# English
-RewriteRule ^home$				index.php?page=home&lang=en [L]
-
-# French
-RewriteRule ^accueil$			index.php?page=home&lang=fr [L]
+# Everythin that is not a static file
+RewriteCond %{REQUEST_URI} !(assets?|css|img|js|music|upload|video)/
+RewriteCond %{REQUEST_URI} !\.php$
+RewriteRule ^(.*)$ index.php [QSA,L]
 
 # REWRITE : XHR ---------------------------------------------------------------
 # REWRITE : OPERATORS ---------------------------------------------------------

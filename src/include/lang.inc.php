@@ -2,7 +2,7 @@
 
 	namespace App\Lang;
 
-	use Goji\Toolkit\SwissKnife;
+	use Goji\Core\RequestHandler;
 
 	function getLanguage($default) {
 
@@ -12,7 +12,7 @@
 	}
 
 	// Make sure the user isn't trying to cheat
-	$_GET['lang'] = SwissKnife::getFirstParamOccurrence('lang', $_SERVER['QUERY_STRING']);
+	$_GET['lang'] = RequestHandler::getFirstParamOccurrence('lang', $_SERVER['QUERY_STRING']);
 
 	if (isset($_GET['lang'])
 		&& !empty($_GET['lang'])

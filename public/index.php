@@ -1,8 +1,20 @@
 <?php
+	require_once '../lib/AutoLoad.php';
+	use Goji\Core\RequestHandler;
 
+	echo '<pre>';
+
+	$rh = new RequestHandler();
+
+	print_r($_GET);
+	print_r($_SERVER);
+
+	echo '</pre>';
+	exit;
+
+////////////////////////////////////////////////
 	use Goji\Core\App;
 	//use Goji\Core\DataBase;
-	use Goji\Toolkit\SwissKnife;
 	use Goji\Toolkit\SimpleMetrics;
 
 	session_start();
@@ -74,7 +86,7 @@
 /* <PAGE> */
 
 	// Make sure the user isn't trying to cheat
-	$_GET['page'] = SwissKnife::getFirstParamOccurrence('page', $_SERVER['QUERY_STRING']);
+	$_GET['page'] = RequestHandler::getFirstParamOccurrence('page', $_SERVER['QUERY_STRING']);
 
 	$_PAGE = 'no-page'; // default
 

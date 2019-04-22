@@ -36,52 +36,6 @@
 			}
 		}
 
-		/**
-		 * Returns the value of the first occurrence of a query string parameter.
-		 *
-		 * In PHP, $_GET['param'] always returns the value of the last occurrence of 'param'.
-		 *
-		 * For example :
-		 *
-		 * ```php
-		 * ?param=foo&param=bar
-		 * $_GET['param'] == 'bar'
-		 * ```
-		 *
-		 * Sometimes it causes security issues because the user could override the
-		 * system value.
-		 *
-		 * This function returns the value of the first time the parameter appears,
-		 * thus ignoring any user addition.
-		 *
-		 * @param string $param The parameter you want the value of
-		 * @param string $queryString The query string in which to look for the value (could be $_SERVER['QUERY_STRING'])
-		 * @return string|null The value of the first occurrence of $param, null if not found
-		 */
-		public static function getFirstParamOccurrence($param, $queryString) {
-
-			// Ex :
-			// $param = 'param'
-			// $queryString = 'param=foo&param=bar'
-
-			$param = $param . '='; // $param = 'param='
-			$paramLength = strlen($param); // $paramLength = 6 (param + =)
-
-			$query = explode('&', $queryString); // [0] => param=foo, [1] => param=bar
-
-			foreach ($query as $p) {
-
-				// if (substr('param=foo', 0, 6) == 'param='))
-				if (substr($p, 0, $paramLength) == $param) { // substr('param=foo', 0, 6) == 'param='
-
-					// substr('param=foo', 6) -> Remove first 6 chars
-					return urldecode(substr($p, $paramLength)); // |param=|foo -> foo
-				}
-			}
-
-			return null; // If not found
-		}
-
 		public static function print_array($array) {
 			echo '<pre>';
 			print_r($array);
