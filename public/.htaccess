@@ -29,6 +29,7 @@ RewriteRule ^(.*)$ index.php [QSA,L]
 
 # Don't forget 'rel="nofollow"' for these links
 
+# TODO: Clean useless rewritings like these, onece it is implemented in code
 RewriteRule ^lang-([a-z]{2})$	index.php?page=lang&lang=$1 [QSA,L]
 
 # REWRITE : STATIC ------------------------------------------------------------

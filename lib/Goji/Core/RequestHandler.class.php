@@ -5,6 +5,15 @@
 	/**
 	 * Class RequestHandler
 	 *
+	 * Isolates elements from current request:
+	 *  - Request URI
+	 *  - Request Page URI
+	 *  - Raw Query String
+	 *  - Query String
+	 *  - Script Name
+	 *  - Root Folder
+	 *  - Request Page
+	 *
 	 * @package Goji\Core
 	 */
 	class RequestHandler {
@@ -19,12 +28,8 @@
 
 		/**
 		 * RequestHandler constructor.
-		 *
-		 * @param string $url
 		 */
 		public function __construct() {
-
-			// TODO: Clean useless rewritings in htacces
 
 			// /home?q=query
 			// /goji/public/home?q=query
@@ -90,8 +95,10 @@
 					$len *= -1;
 
 				$this->m_requestPage = substr($this->m_requestPageURI, $len);
+		}
 
-			// TODO: Remove this after test
+		public function __debugInfo() {
+
 			echo 'Request URI: ' . $this->m_requestURI . PHP_EOL;
 			echo 'Request Page URI: ' . $this->m_requestPageURI . PHP_EOL;
 			echo 'Raw Query String: ' . $this->m_rawQueryString . PHP_EOL;
@@ -293,7 +300,7 @@
 		 */
 		public static function getFirstParamOccurrence($param, $queryString) {
 
-			// TODO: Is this still relevant ? Maybe keep it anyways
+			// TODO: Is this still relevant? Maybe keep it anyways, but don't use queryStringToArray(), this one is more efficient
 
 			// Ex :
 			// $param = 'param'
