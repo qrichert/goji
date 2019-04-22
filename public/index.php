@@ -1,21 +1,8 @@
 <?php
-	require_once '../lib/AutoLoad.php';
-	use Goji\Core\RequestHandler;
 
-	echo '<pre>';
-
-	$rh = new RequestHandler();
-
-	var_dump($rh);
-	print_r($_GET);
-	print_r($_SERVER);
-
-	echo '</pre>';
-	exit;
-
-////////////////////////////////////////////////
 	use Goji\Core\App;
-	//use Goji\Core\DataBase;
+	use Goji\Core\RequestHandler;
+	use Goji\Core\DataBase;
 	use Goji\Toolkit\SimpleMetrics;
 
 	session_start();
@@ -40,8 +27,6 @@
 
 	require_once '../lib/AutoLoad.php';
 
-	//$db = new DataBase();
-
 	$app = new App();
 		$app->setSiteURL('https://www.SITE_URL.com');
 		$app->setSiteName('SITE_NAME');
@@ -50,6 +35,9 @@
 		$app->setCookiesPrefix('prfx-');
 		$app->setIsLocalEnvironment(true);
 		$app->setAppMode(App::DEBUG);
+
+		$app->setDataBase();
+		$app->setRequestHandler();
 
 /* <INCLUDES> */
 

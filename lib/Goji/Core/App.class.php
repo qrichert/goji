@@ -2,6 +2,8 @@
 
 	namespace Goji\Core;
 
+	use Exception;
+
 	/**
 	 * Class App
 	 *
@@ -20,10 +22,16 @@
 		private $m_isLocalEnvironment;
 		private $m_appMode;
 
+		private $m_dataBase;
+		private $m_requestHandler;
+
 		/* <CONSTANTS> */
 
 		const DEBUG = 'debug';
 		const RELEASE = 'release';
+
+		const E_NO_DATABASE = 0;
+		const E_NO_REQUEST_HANDLER = 1;
 
 		public function __construct() {
 
@@ -35,6 +43,9 @@
 
 			$this->m_isLocalEnvironment = false;
 			$this->m_appMode = self::DEBUG;
+
+			$this->m_dataBase = null;
+			$this->m_requestHandler = null;
 		}
 
 		/**
@@ -148,5 +159,52 @@
 
 				$this->m_appMode = $appMode;
 			}
+		}
+
+		/**
+		 * @return \Goji\Core\DataBase|\Exception
+		 * @throws \Exception
+		 */
+		public function getDataBase() {
+
+			if (isset($this->m_dataBase))
+				return $this->m_dataBase;
+			else
+				throw new Exception('No database has been set.', self::E_NO_DATABASE);
+		}
+
+		/**
+		 * @param \Goji\Core\DataBase $database (optional)
+		 * @throws \Exception
+		 */
+		public function setDataBase(DataBase $database = null) {
+
+			if (!isset($database))
+				$database = new DataBase();
+
+			$this->m_dataBase = $database;
+		}
+
+		/**
+		 * @return \Goji\Core\RequestHandler|\Exception
+		 * @throws \Exception
+		 */
+		public function getRequestHandler() {
+
+			if (isset($this->m_requestHandler))
+				return $this->m_requestHandler;
+			else
+				throw new Exception('No request handler has been set.', self::E_NO_REQUEST_HANDLER);
+		}
+
+		/**
+		 * @param \Goji\Core\RequestHandler $requestHandler (optional)
+		 */
+		public function setRequestHandler(RequestHandler $requestHandler = null) {
+
+			if (!isset($requestHandler))
+				$requestHandler = new RequestHandler();
+
+			$this->m_requestHandler = $requestHandler;
 		}
 	}
