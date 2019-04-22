@@ -11,6 +11,11 @@
 	 */
 	class ConfigurationLoader {
 
+		/* <CONSTANTS> */
+
+		const E_FILE_DOES_NOT_EXIST = 0;
+		const E_FILE_CANNOT_BE_READ = 1;
+
 		/**
 		 * Return configuration file as array.
 		 *
@@ -21,14 +26,14 @@
 		public static function loadFileToArray($file) {
 
 			if (!is_string($file) || !is_file($file))
-				throw new Exception("Configuration file doesn't exist. (" . strval($file) . ")", 0);
+				throw new Exception("Configuration file doesn't exist. (" . strval($file) . ")", self::E_FILE_DOES_NOT_EXIST);
 
 			$extension = pathinfo($file, PATHINFO_EXTENSION);
 
 			switch ($extension) {
 				case 'json':    return self::loadJSONFileToArray($file);    break;
 				default:
-					throw new Exception("Configuration file cannot be read. (" . $file . ")", 1);
+					throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);
 					break;
 			}
 
@@ -47,7 +52,7 @@
 			$config = json_decode($config, true);
 
 			if (!is_array($config))
-				throw new Exception("Configuration file cannot be read. (" . $file . ")", 1);
+				throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);
 
 			return $config;
 		}
