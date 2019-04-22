@@ -16,7 +16,7 @@ Installation
 
 1. Download the source files.
 2. Put them on your server.
-2. Make your domain point to the `public` folder (*i.e.* document root).
+2. Make your domain points to the `public` folder (*i.e.* document root).
 
 **Requirements:**
 * Apache
