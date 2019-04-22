@@ -2,7 +2,7 @@
 
 	use Goji\Core\App;
 	use Goji\Core\RequestHandler;
-	use Goji\Core\DataBase;
+	use Goji\Core\Router;
 	use Goji\Toolkit\SimpleMetrics;
 
 	session_start();
@@ -36,8 +36,10 @@
 		$app->setIsLocalEnvironment(true);
 		$app->setAppMode(App::DEBUG);
 
-		$app->setDataBase();
-		$app->setRequestHandler();
+//		$app->createDataBase();
+
+	$router = new Router($app);
+		$router->route();
 
 /* <INCLUDES> */
 

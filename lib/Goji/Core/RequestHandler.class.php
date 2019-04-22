@@ -84,17 +84,21 @@
 			// home
 			$this->m_requestPage = '';
 
-				//   /goji/public/home
-				// - /goji/public/
-				//   -----------------
-				// =              home
-				$len = strlen($this->m_requestPageURI) - strlen($this->m_rootFolder);
+				// if ('/goji/public/' == '/goji/public/') -> Empty Page (nothing specified, probably home)
+				if ($this->m_requestPageURI != $this->m_rootFolder) {
 
-				// Make sure $len is negative
-				if ($len > 0)
-					$len *= -1;
+					//   /goji/public/home
+					// - /goji/public/
+					//   -----------------
+					// =              home
+					$len = strlen($this->m_requestPageURI) - strlen($this->m_rootFolder);
 
-				$this->m_requestPage = substr($this->m_requestPageURI, $len);
+					// Make sure $len is negative
+					if ($len > 0)
+						$len *= -1;
+
+					$this->m_requestPage = substr($this->m_requestPageURI, $len);
+				}
 		}
 
 		public function __debugInfo() {
@@ -225,6 +229,9 @@
 		 * @return array
 		 */
 		public static function queryStringToArray($queryString) {
+
+			if (empty($queryString))
+				return array();
 
 			// foo=value1&bar=value2&foo=value3
 

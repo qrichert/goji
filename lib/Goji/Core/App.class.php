@@ -31,8 +31,10 @@
 		const RELEASE = 'release';
 
 		const E_NO_DATABASE = 0;
-		const E_NO_REQUEST_HANDLER = 1;
 
+		/**
+		 * App constructor.
+		 */
 		public function __construct() {
 
 			$this->m_siteUrl = '';
@@ -45,7 +47,7 @@
 			$this->m_appMode = self::DEBUG;
 
 			$this->m_dataBase = null;
-			$this->m_requestHandler = null;
+			$this->m_requestHandler = new RequestHandler();
 		}
 
 		/**
@@ -162,7 +164,16 @@
 		}
 
 		/**
-		 * @return \Goji\Core\DataBase|\Exception
+		 * Creates a new database instance. If one existed before, it will be replaced.
+		 *
+		 * @throws \Exception
+		 */
+		public function createDataBase() {
+			$this->m_dataBase = new DataBase();
+		}
+
+		/**
+		 * @return \Goji\Core\DataBase
 		 * @throws \Exception
 		 */
 		public function getDataBase() {
@@ -176,7 +187,7 @@
 		/**
 		 * Alias to App::getDataBase(), only shorter.
 		 *
-		 * @return \Goji\Core\DataBase|\Exception
+		 * @return \Goji\Core\DataBase
 		 * @throws \Exception
 		 */
 		public function db() {
@@ -184,37 +195,24 @@
 		}
 
 		/**
-		 * @param \Goji\Core\DataBase $database (optional)
+		 * @param \Goji\Core\DataBase $database
 		 * @throws \Exception
 		 */
-		public function setDataBase(DataBase $database = null) {
-
-			if (!isset($database))
-				$database = new DataBase();
-
+		public function setDataBase(DataBase $database) {
 			$this->m_dataBase = $database;
 		}
 
 		/**
-		 * @return \Goji\Core\RequestHandler|\Exception
-		 * @throws \Exception
+		 * @return bool
 		 */
-		public function getRequestHandler() {
-
-			if (isset($this->m_requestHandler))
-				return $this->m_requestHandler;
-			else
-				throw new Exception('No request handler has been set.', self::E_NO_REQUEST_HANDLER);
+		public function hasDataBase() {
+			return isset($this->m_dataBase);
 		}
 
 		/**
-		 * @param \Goji\Core\RequestHandler $requestHandler (optional)
+		 * @return \Goji\Core\RequestHandler
 		 */
-		public function setRequestHandler(RequestHandler $requestHandler = null) {
-
-			if (!isset($requestHandler))
-				$requestHandler = new RequestHandler();
-
-			$this->m_requestHandler = $requestHandler;
+		public function getRequestHandler() {
+			return $this->m_requestHandler;
 		}
 	}

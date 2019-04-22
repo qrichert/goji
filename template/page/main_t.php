@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="<?= CURRENT_LANGUAGE; ?>">
 	<head>
+		<!-- TODO: Add base tag so we can use urls with slashes /. Use App->getRequestHandler()->getRootFolder();
+			Does this solve CSS relative path problem w/ SimpleMinifierCSS() ??
+			<base href="/goji/public/">
+		-->
 		<!-- Analytics -->
 		<?php
 			if (!LOCAL_TESTING)
