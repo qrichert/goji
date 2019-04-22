@@ -79,18 +79,21 @@
 				// - /goji/public/
 				//   -----------------
 				// =              home
-				$this->m_requestPage = ltrim($this->m_requestPageURI, $this->m_rootFolder);
+				$len = strlen($this->m_requestPageURI) - strlen($this->m_rootFolder);
 
+				// Make sure $len is negative
+				if ($len > 0)
+					$len *= -1;
+
+				$this->m_requestPage = substr($this->m_requestPageURI, $len);
+
+			// TODO: Remove this after test
 			echo 'Request URI: ' . $this->m_requestURI . PHP_EOL;
 			echo 'Request Page URI: ' . $this->m_requestPageURI . PHP_EOL;
 			echo 'Query String: ' . $this->m_queryString . PHP_EOL;
 			echo 'Script Name: ' . $this->m_scriptName . PHP_EOL;
 			echo 'Root Folder: ' . $this->m_rootFolder . PHP_EOL;
 			echo 'Request Page: ' . $this->m_requestPage . PHP_EOL;
-
-//			$this->m_fullRequestPath = self::getFirstParamOccurrence('page', $_SERVER['QUERY_STRING']);
-//			echo $this->m_fullRequestPath;
-			return;
 		}
 
 		/**
