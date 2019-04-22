@@ -174,6 +174,16 @@
 		}
 
 		/**
+		 * Alias to App::getDataBase(), only shorter.
+		 *
+		 * @return \Goji\Core\DataBase|\Exception
+		 * @throws \Exception
+		 */
+		public function db() {
+			return $this->getDataBase();
+		}
+
+		/**
 		 * @param \Goji\Core\DataBase $database (optional)
 		 * @throws \Exception
 		 */
