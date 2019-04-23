@@ -16,7 +16,7 @@
 	 *
 	 * @param string $className The class which needs to be loaded (no initial backslash '\')
 	 */
-	function autoLoadLibraries($className) {
+	function autoLoadLibrary($className) {
 
 		// There shouldn't be a leading backslash, but you never know
 		$className = ltrim($className, '\\');
@@ -28,4 +28,32 @@
 			require_once $classFile;
 	}
 
-	spl_autoload_register('AutoLoad\autoLoadLibraries');
+	/**
+	 * Auto-load function for controllers.
+	 *
+	 * Controllers must be in /src/controller/ folder.
+	 *
+	 * \App\Controller\HomeController -> '/src/controler/' + HomeController + '.class.php'
+	 *
+	 * @param string $className The class which needs to be loaded
+	 */
+	function autoLoadController($className) {
+
+		// There shouldn't be a leading backslash, but you never know
+		$className = ltrim($className, '\\');
+
+		// App\Controller\HomeController -> HomeController
+		// We want only the class name, not the rest of the namespace
+		// $len = strlen('App\Controller\\');
+		// $len = 15;
+		$className = substr($className, 15);
+
+		// HomeController -> ../src/controller/HomeController.class.php
+		$classFile = '../src/controller/' . $className . '.class.php';
+
+		if (is_file($classFile))
+			require_once $classFile;
+	}
+
+	spl_autoload_register('AutoLoad\autoLoadLibrary');
+	spl_autoload_register('AutoLoad\autoLoadController');

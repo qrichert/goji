@@ -14,9 +14,9 @@
 		<?php require_once '../template/page/include/head_v.inc.php'; ?>
 
 		<!-- SEO -->
-		<title><?= $_TEMPLATE->getPageTitle(); ?></title>
-		<meta name="description" content="<?= $_TEMPLATE->getPageDescription(); ?>">
-		<?= $_TEMPLATE->getRobotsBehaviour(); ?>
+		<title><?= $template->getPageTitle(); ?></title>
+		<meta name="description" content="<?= $template->getPageDescription(); ?>">
+		<?= $template->getRobotsBehaviour(); ?>
 		<link rel="canonical" href="<?= SITE_URL; ?>/<?= PAGES[CURRENT_LANGUAGE][CURRENT_PAGE]; ?>">
 		<?php
 
@@ -38,8 +38,8 @@
 		?>
 
 		<!-- Social -->
-		<meta property="og:title" content="<?= $_TEMPLATE->getPageTitle(); ?>">
-		<meta property="og:description" content="<?= $_TEMPLATE->getPageDescription(); ?>">
+		<meta property="og:title" content="<?= $template->getPageTitle(); ?>">
+		<meta property="og:description" content="<?= $template->getPageDescription(); ?>">
 		<?php require_once '../template/page/include/opengraph_v.inc.php'; ?>
 
 		<!-- Scripts -->
@@ -49,7 +49,7 @@
 		<?php require_once '../template/page/include/body_v.inc.php'; ?>
 		<?php require_once '../template/page/include/header_v.inc.php'; ?>
 
-		<?= $_TEMPLATE->getPageContent(); ?>
+		<?= $template->getPageContent(); ?>
 
 		<?php require_once '../template/page/include/footer_v.inc.php'; ?>
 

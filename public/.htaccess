@@ -19,9 +19,10 @@ RewriteRule ^(.*) http://www.SITE_URL.com/$1 [QSA,L,R=301]
 
 # REWRITE : PAGES -------------------------------------------------------------
 
-# Everythin that is not a static file
+# TODO: Must come after other rewrites, like static ones.
+# Everything that is not a static file
 RewriteCond %{REQUEST_URI} !(assets?|css|img|js|music|upload|video)/
-RewriteCond %{REQUEST_URI} !\.php$
+RewriteCond %{REQUEST_URI} !\.(php|html)$
 RewriteRule ^(.*)$ index.php [QSA,L]
 
 # REWRITE : XHR ---------------------------------------------------------------

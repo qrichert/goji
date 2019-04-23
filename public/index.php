@@ -38,9 +38,11 @@
 
 //		$app->createDataBase();
 
+	// If you don't want to use Goji's Router, you don't have to.
 	$router = new Router($app);
 		$router->route();
 
+exit;
 /* <INCLUDES> */
 
 	require_once '../src/include/passwords.inc.php';
@@ -110,10 +112,6 @@
 	define('CURRENT_PAGE', $_PAGE);
 
 	switch ($_PAGE) {
-
-// <PAGES>
-
-		case 'home':						require_once '../src/controller/home_c.php';							break;
 
 // <XHR>
 // <OPERATORS>
