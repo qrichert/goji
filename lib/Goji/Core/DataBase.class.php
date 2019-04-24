@@ -18,12 +18,12 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/database.json';
+		const CONFIG_FILE = '../config/databases.json5';
 
 		/**
 		 * DataBase constructor.
 		 *
-		 * Loads config file (/config/database.json) and creates new PDO from it.
+		 * Loads config file (/config/databases.json5) and creates new PDO from it.
 		 *
 		 * The first database appearing in the config and that works is selected.
 		 * You could have a production, test and local one for example.
@@ -51,7 +51,7 @@
 		 * ```
 		 *
 		 * The database identification name is entirely up to you (here we have 'production' and 'localhost').
-		 * You'll be able to access the selected one via DataBase::getdataBaseID();
+		 * You'll be able to access the selected one via DataBase::getDataBaseID();
 		 *
 		 * Usable parameters are prefix, host, port, dbname, unix_socket, charset, username, password.
 		 * If a parameter is missing or null it will be ignored.

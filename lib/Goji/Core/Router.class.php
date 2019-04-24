@@ -20,7 +20,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/routes.json';
+		const CONFIG_FILE = '../config/routes.json5';
 
 		const E_ROUTES_ARE_MISCONFIGURED = 0;
 		const E_ROUTE_LACKING_CONTROLLER = 1;

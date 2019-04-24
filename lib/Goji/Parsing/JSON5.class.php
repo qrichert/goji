@@ -2,6 +2,11 @@
 
 	namespace Goji\Parsing;
 
+	/**
+	 * Class JSON5
+	 *
+	 * @package Goji\Parsing
+	 */
 	class JSON5 {
 
 		/**
@@ -14,6 +19,10 @@
 		 */
 		public static function toJSON($json5) {
 
+			// Remove comments
+			$json5 = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $json5); // Multi line : /* hello, world */
+			$json5 = preg_replace('#//.*$#m', '', $json5); // Single line : // hello, world
+
 			// Backup values within single or double quotes
 			preg_match_all(RegexPatterns::quotedStrings(), $json5, $hit, PREG_PATTERN_ORDER);
 
@@ -21,10 +30,6 @@
 			for ($i = 0; $i < $hitCount; $i++) {
 				$json5 = str_replace($hit[1][$i], '##########' . $i . '##########', $json5);
 			}
-
-			// Remove comments
-			$json5 = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $json5); // Multi line : /* hello, world */
-			$json5 = preg_replace('#//.*$#m', '', $json5); // Single line : // hello, world
 
 			// Now we make strings (quotes values) comply by:
 			// Replacing single quotes with double quotes
@@ -101,9 +106,10 @@ EOT;
 		 * JSON5 to array.
 		 *
 		 * @param string $json5
-		 * @return array
+		 * @param bool $assoc (optional) default = false Return array instead of stdClass object
+		 * @return array|\stdClass
 		 */
-		public static function decode($json5): array {
-			return json_decode(self::toJSON($json5), true);
+		public static function decode($json5, $assoc = false) {
+			return json_decode(self::toJSON($json5), $assoc);
 		}
 	}

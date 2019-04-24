@@ -36,7 +36,7 @@
 		$app->setIsLocalEnvironment(true);
 		$app->setAppMode(App::DEBUG);
 
-//		$app->createDataBase();
+		$app->createDataBase();
 
 	// If you don't want to use Goji's Router, you don't have to.
 	$router = new Router($app);

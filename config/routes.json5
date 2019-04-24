@@ -1,0 +1,47 @@
+{
+	"home": {
+		// If you have multiple languages, use 'routes' with an 's'
+		routes: {
+			// Keyword 'all' means the page is is not tied to a specific language
+			// If you don't need translation, use 'route' instead (see "some-other-page")
+			// Here it just means that '/' (no page specified) is tied to the home page
+			// and also that it doesn't force any language. If French is selected, and we load
+			// /home, English will replace French as the new language. Whereas with 'all', it won't.
+			all: "/",
+
+			// 'en_US' and 'en_GB' are two separate pages (but are both in English).
+			// Note that you can't have two different pages with the same variant
+			// (like if we had en_GB -> /home). In that case, the first occurrence
+			// would always be selected (here en_US). If you don't want to support
+			// variants, use the syntax that is used for French below.
+			en_US: "/home", // Ame
+			en_GB: "/welcome", // BrE
+
+			// 'fr_FR' means French, without any particular variant (usually that's what you want)
+			fr: "/accueil"
+		},
+		// 'controller' is the controller to which the page is tied to.
+		// In this example, the "home" controller is \App\Controller\HomeController()
+		// in /src/controller/HomeController.class.php
+		// The class is imported and called automatically, this is why you only
+		// need to enter the class name. But it's also why you have to respect the
+		// naming convention and make it implement \Goji\Design\ControllerInterface().
+		controller: "HomeController"
+	},
+	// URLs can contain characters that are not valid in JSON,
+	// like the dash - here. So we just put it in quotes ;)
+	"other-page": {
+		// This works, but it's equivalent to the shorter syntax of "some-other-page"
+		routes: {
+			// TODO: Make regex work in page names
+			// in code make preg_match( ^ + ROUTE + $ , REQUEST PAGE );
+			all: "/other-page-([0-9])"
+		},
+		controller: "OtherPageController"
+	},
+	"some-other-page": {
+		// If you don't have multiple languages, use 'route' without an 's', and attach the route directly.
+		route: "/some-other-page-([0-9])",
+		controller: "SomeOtherPageController"
+	}
+}

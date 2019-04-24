@@ -2,6 +2,7 @@
 
 	namespace Goji\Core;
 
+	use Goji\Parsing\JSON5;
 	use Exception;
 
 	/**
@@ -32,6 +33,7 @@
 
 			switch ($extension) {
 				case 'json':    return self::loadJSONFileToArray($file);    break;
+				case 'json5':   return self::loadJSON5FileToArray($file);   break;
 				default:
 					throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);
 					break;
@@ -50,6 +52,24 @@
 
 			$config = file_get_contents($file);
 			$config = json_decode($config, true);
+
+			if (!is_array($config))
+				throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);
+
+			return $config;
+		}
+
+		/**
+		 * Load configuration from JSON5 file.
+		 *
+		 * @param string $file
+		 * @return array
+		 * @throws \Exception
+		 */
+		private static function loadJSON5FileToArray($file) {
+
+			$config = file_get_contents($file);
+			$config = JSON5::decode($config, true);
 
 			if (!is_array($config))
 				throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);

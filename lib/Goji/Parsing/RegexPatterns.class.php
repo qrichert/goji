@@ -2,6 +2,11 @@
 
 	namespace Goji\Parsing;
 
+	/**
+	 * Class RegexPatterns
+	 *
+	 * @package Goji\Parsing
+	 */
 	class RegexPatterns {
 
 		/**

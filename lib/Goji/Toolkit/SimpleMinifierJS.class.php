@@ -13,6 +13,10 @@
 
 		public static function minify($code) {
 
+			// Remove comments
+			$code = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $code); // Multi line : /* hello, world */
+			$code = preg_replace('#//.*$#m', '', $code); // Single line : // hello, world
+
 			// Backup values within single or double quotes
 			// TODO: Make sure the regex works or switch back to '#(\'[^\']*?\'|"[^"]*?")#ims' (which doesn't handle escaped quotes)
 			preg_match_all(RegexPatterns::quotedStrings(), $code, $hit, PREG_PATTERN_ORDER);
@@ -21,10 +25,6 @@
 			for ($i = 0; $i < $hitCount; $i++) {
 				$code = str_replace($hit[1][$i], '##########' . $i . '##########', $code);
 			}
-
-			// Remove comments
-			$code = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $code); // Multi line : /* hello, world */
-			$code = preg_replace('#//.*$#m', '', $code); // Single line : // hello, world
 
 			// Remove white-space around ';'
 			$code = preg_replace('#[\s\r\n\t]*;[\s\r\n\t]*?([^\s\r\n\t])#ims', ';$1', $code);
