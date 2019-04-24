@@ -22,8 +22,7 @@
 
 			$imageName = uniqid($prefix);
 
-			$imageExtension = pathinfo($image['name']);
-				$imageExtension = $imageExtension['extension'];
+			$imageExtension = pathinfo($image['name'], PATHINFO_EXTENSION);
 				$imageExtension = mb_strtolower($imageExtension);
 
 				if ($imageExtension == 'jpeg')
@@ -103,8 +102,7 @@
 
 			$imageSize = intval($image['size']);
 
-			$imageExtension = pathinfo($image['name']);
-				$imageExtension = $imageExtension['extension'];
+			$imageExtension = pathinfo($image['name'], PATHINFO_EXTENSION);
 
 			// Uniformization for validation
 			$imageExtension = mb_strtolower($imageExtension);

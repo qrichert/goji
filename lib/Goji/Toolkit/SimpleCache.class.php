@@ -502,4 +502,25 @@
 
 			return $arr;
 		}
+
+/* <OTHER FUNCTIONS> */
+
+		/**
+		 * Converts file path to cache ID.
+		 *
+		 * js/main.js -> // js-js-main--js
+		 *
+		 * @param string|array $file
+		 * @return string
+		 */
+		public static function cacheIDFromFileFullPath($file): string {
+
+			$cacheId = is_array($file) ? implode('|', $file) : $file;
+				$cacheId = mb_strtolower($cacheId); // js/main.js
+				$cacheId = str_replace('.', '--', $cacheId); // js/main--js
+				$cacheId = preg_replace('#\W#', '-', $cacheId); // js-main--js
+				$cacheId = pathinfo($file, PATHINFO_EXTENSION) . '-' . $cacheId; // js-js-main--js
+
+			return $cacheId;
+		}
 	}

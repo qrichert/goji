@@ -17,7 +17,7 @@
 		 * @param string $json5
 		 * @return string
 		 */
-		public static function toJSON($json5) {
+		public static function toJSON($json5): string {
 
 			// Remove comments
 			$json5 = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $json5); // Multi line : /* hello, world */
@@ -30,6 +30,23 @@
 			for ($i = 0; $i < $hitCount; $i++) {
 				$json5 = str_replace($hit[1][$i], '##########' . $i . '##########', $json5);
 			}
+
+			// Remove white-space around ':' (not selectors ! only those followed by a space)
+			$json5 = preg_replace('#[\s\r\n\t]*:[\s\r\n\t]+([^\s\r\n\t])#ims', ':$1', $json5);
+			// Remove white-space around ','
+			$json5 = preg_replace('#[\s\r\n\t]*,[\s\r\n\t]*?([^\s\r\n\t])#ims', ',$1', $json5);
+			// Remove white-space around '{'
+			$json5 = preg_replace('#[\s\r\n\t]*{[\s\r\n\t]*?([^\s\r\n\t])#ims', '{$1', $json5);
+			// Remove white-space around '}'
+			$json5 = preg_replace('#[\s\r\n\t]*\}[\s\r\n\t]*?([^\s\r\n\t])#ims', '}$1', $json5);
+			// Remove white-space around '['
+			$json5 = preg_replace('#[\s\r\n\t]*\[[\s\r\n\t]*?([^\s\r\n\t])#ims', '[$1', $json5);
+			// Remove white-space around ']'
+			$json5 = preg_replace('#[\s\r\n\t]*\][\s\r\n\t]*?([^\s\r\n\t])#ims', ']$1', $json5);
+			// Remove redundant white-space
+			$json5 = preg_replace('#\p{Zs}+#ims', ' ', $json5);
+			// Remove new lines
+			$json5 = str_replace(array("\r\n", "\r", "\n", PHP_EOL), '', $json5);
 
 			// Now we make strings (quotes values) comply by:
 			// Replacing single quotes with double quotes
