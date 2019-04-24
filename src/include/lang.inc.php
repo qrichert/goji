@@ -6,7 +6,7 @@
 
 	function getLanguage($default) {
 
-		$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2); // fr-FR (français - France)
+		$lang = mb_substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2); // fr-FR (français - France)
 
 		return (!empty($lang)) ? $lang : $default;
 	}
@@ -18,7 +18,7 @@
 		&& !empty($_GET['lang'])
 		&& $_GET['lang'] != 'no-lang') { // If $_GET['lang'] is set (force language from page)
 
-		$_SESSION['lang'] = strtolower($_GET['lang']);
+		$_SESSION['lang'] = mb_strtolower($_GET['lang']);
 
 	} else { // No forced language (no_page or other languageless page)
 

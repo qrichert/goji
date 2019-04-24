@@ -15,7 +15,7 @@
 			return (PASSWORD_PEPPER_BEFORE
 					. $password
 					. PASSWORD_PEPPER_AFTER
-					. strlen($password)); // Simple salt technique adding length of password
+					. mb_strlen($password)); // Simple salt technique adding length of password
 		}
 
 		public static function hashPassword($password) {
@@ -57,19 +57,19 @@
 
 			// Mixing them together
 
-				$password = substr($lower, 0, $propLower)
-						  . substr($upper, 0, $propUpper)
-						  . substr($number, 0, $propNumber)
-						  . substr($symbols, 0, $propSymbols);
+				$password = mb_substr($lower, 0, $propLower)
+						  . mb_substr($upper, 0, $propUpper)
+						  . mb_substr($number, 0, $propNumber)
+						  . mb_substr($symbols, 0, $propSymbols);
 
 			$password = str_shuffle($password);
 
-			while (strlen($password) < $length) { // If $length is greater than the available characters, $password will not be long enough
-				$password .= self::generatePassword($length - strlen($password));
+			while (mb_strlen($password) < $length) { // If $length is greater than the available characters, $password will not be long enough
+				$password .= self::generatePassword($length - mb_strlen($password));
 			}
 
-			if (strlen($password) > $length) { // Because of ceil(), password may be longer than length
-				$password = substr($password, 0, $length);
+			if (mb_strlen($password) > $length) { // Because of ceil(), password may be longer than length
+				$password = mb_substr($password, 0, $length);
 			}
 
 			return $password;

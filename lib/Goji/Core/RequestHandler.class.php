@@ -41,10 +41,10 @@
 
 				// We only want the page, not the query string
 				// /home?q=query -> /home
-				$pos = strpos($this->m_requestPageURI, '?');
+				$pos = mb_strpos($this->m_requestPageURI, '?');
 
 				if ($pos !== false) {
-					$this->m_requestPageURI = substr($this->m_requestPageURI, 0, $pos);
+					$this->m_requestPageURI = mb_substr($this->m_requestPageURI, 0, $pos);
 				}
 
 			// q=query
@@ -65,19 +65,19 @@
 				// It includes public/ when server isn't configured to use public as docroot
 
 				// /goji/public/index.php -> /goji/public/
-				$pos = strpos($this->m_rootFolder, 'index.php');
+				$pos = mb_strpos($this->m_rootFolder, 'index.php');
 
 				if ($pos !== false) {
 
-					$this->m_rootFolder = substr($this->m_rootFolder, 0, $pos);
+					$this->m_rootFolder = mb_substr($this->m_rootFolder, 0, $pos);
 
 				} else { // Try with static.php
 
 					// /goji/public/static.php -> /goji/public/
-					$pos = strpos($this->m_rootFolder, 'static.php');
+					$pos = mb_strpos($this->m_rootFolder, 'static.php');
 
 					if ($pos !== false) {
-						$this->m_rootFolder = substr($this->m_rootFolder, 0, $pos);
+						$this->m_rootFolder = mb_substr($this->m_rootFolder, 0, $pos);
 					}
 				}
 
@@ -91,13 +91,13 @@
 					// - /goji/public/
 					//   -----------------
 					// =              home
-					$len = strlen($this->m_requestPageURI) - strlen($this->m_rootFolder);
+					$len = mb_strlen($this->m_requestPageURI) - mb_strlen($this->m_rootFolder);
 
 					// Make sure $len is negative
 					if ($len > 0)
 						$len *= -1;
 
-					$this->m_requestPage = substr($this->m_requestPageURI, $len);
+					$this->m_requestPage = mb_substr($this->m_requestPageURI, $len);
 				}
 		}
 
@@ -314,17 +314,17 @@
 			// $queryString = 'param=foo&param=bar'
 
 			$param = $param . '='; // $param = 'param='
-			$paramLength = strlen($param); // $paramLength = 6 (param + =)
+			$paramLength = mb_strlen($param); // $paramLength = 6 (param + =)
 
 			$query = explode('&', $queryString); // [0] => param=foo, [1] => param=bar
 
 			foreach ($query as $p) {
 
-				// if (substr('param=foo', 0, 6) == 'param='))
-				if (substr($p, 0, $paramLength) == $param) { // substr('param=foo', 0, 6) == 'param='
+				// if (mb_substr('param=foo', 0, 6) == 'param='))
+				if (mb_substr($p, 0, $paramLength) == $param) { // mb_substr('param=foo', 0, 6) == 'param='
 
-					// substr('param=foo', 6) -> Remove first 6 chars
-					return urldecode(substr($p, $paramLength)); // |param=|foo -> foo
+					// mb_substr('param=foo', 6) -> Remove first 6 chars
+					return urldecode(mb_substr($p, $paramLength)); // |param=|foo -> foo
 				}
 			}
 

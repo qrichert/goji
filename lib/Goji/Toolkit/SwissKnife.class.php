@@ -54,7 +54,7 @@
 
 		// Cuts string if longer than $max
 		public static function ceil_str($str, $max) {
-			return (strlen($str) > $max ? substr($str, 0, $max) : $str);
+			return (mb_strlen($str) > $max ? mb_substr($str, 0, $max) : $str);
 		}
 
 		// Keep it 250 just so client never sees 255 for "security"
@@ -70,7 +70,7 @@
 		// Cleans email & uniformization
 		public static function sanitizeEmail(&$email) {
 			$email = filter_var($email, FILTER_SANITIZE_EMAIL);
-			$email = strtolower($email);
+			$email = mb_strtolower($email);
 		}
 
 		// user.name@domain.com -> user.name

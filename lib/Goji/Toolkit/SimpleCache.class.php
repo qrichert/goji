@@ -14,7 +14,7 @@
 
 		$cachePath = realpath($cachePath);
 
-		if (substr($cachePath, -1) != '/')
+		if (mb_substr($cachePath, -1) != '/')
 			$cachePath .= '/';
 
 		define('SIMPLE_CACHE_PATH', $cachePath);

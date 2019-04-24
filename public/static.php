@@ -6,7 +6,7 @@
 	$TYPE = null;
 
 		if (isset($_GET['type']) && !empty($_GET['type'])) {
-			$_GET['type'] = strtolower($_GET['type']);
+			$_GET['type'] = mb_strtolower($_GET['type']);
 		}
 
 		if (in_array($_GET['type'], array('css', 'js'))) {
@@ -21,7 +21,7 @@
 		if (isset($_GET['file'])
 			&& !empty($_GET['file'])) {
 
-			if (strpos($_GET['file'], '|') !== false) { // If there are several files given
+			if (mb_strpos($_GET['file'], '|') !== false) { // If there are several files given
 
 				// css/main.css|css/responsive.css
 				$_GET['file'] = explode('|', $_GET['file']);

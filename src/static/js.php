@@ -7,7 +7,7 @@
 
 	// Generating cache ID
 	$cacheId = is_array($FILE) ? implode('|', $FILE) : $FILE;
-		$cacheId = strtolower($cacheId); // js/main.js
+		$cacheId = mb_strtolower($cacheId); // js/main.js
 		$cacheId = str_replace('.', '--', $cacheId); // js/main--js
 		$cacheId = preg_replace('#\W#', '-', $cacheId); // js-main--js
 		$cacheId = 'js-' . $cacheId; // js-js-main--js

@@ -24,7 +24,7 @@
 
 			$imageExtension = pathinfo($image['name']);
 				$imageExtension = $imageExtension['extension'];
-				$imageExtension = strtolower($imageExtension);
+				$imageExtension = mb_strtolower($imageExtension);
 
 				if ($imageExtension == 'jpeg')
 					$imageExtension = 'jpg'; // Standard
@@ -72,7 +72,7 @@
 
 			// Save name
 
-			if (substr($directory, -1) != '/')
+			if (mb_substr($directory, -1) != '/')
 				$directory .= '/';
 
 			$saveName = $directory; // + $imageName
@@ -107,7 +107,7 @@
 				$imageExtension = $imageExtension['extension'];
 
 			// Uniformization for validation
-			$imageExtension = strtolower($imageExtension);
+			$imageExtension = mb_strtolower($imageExtension);
 
 			if ($imageExtension == 'jpeg')
 				$imageExtension = 'jpg'; // Standard

@@ -119,12 +119,12 @@
 					// nav__header--big:hover {} (--big: hover)
 					// We make sure the character that comes just before '--' is not selector material
 					// This character gets included in the matched string however, and we must delete it
-					$var[0] = substr($var[0], 1);
+					$var[0] = mb_substr($var[0], 1);
 
 					// If --var is the last property it may not have an end ';' and the regex will end on '}' instead
 					// We don't want to delete '}' in the next step, so we remove it
-					if (substr($var[0], -1) == '}')
-						$var[0] = substr($var[0], 0, -1);
+					if (mb_substr($var[0], -1) == '}')
+						$var[0] = mb_substr($var[0], 0, -1);
 
 					// Replace var(--var-name) by value in whole file
 					$code = preg_replace('#var\s*\(\s*' . $var[1] . '\s*\)#imU', $var[2], $code);
@@ -184,8 +184,8 @@
 
 						$path = self::getWebRootPath($f);
 
-						if (substr($path, -3) == '/./') // public/./ (if file is at root)
-							$path = substr($path, 0, strlen($path) - 2); // Remove ./
+						if (mb_substr($path, -3) == '/./') // public/./ (if file is at root)
+							$path = mb_substr($path, 0, mb_strlen($path) - 2); // Remove ./
 
 						$content = file_get_contents($f);
 

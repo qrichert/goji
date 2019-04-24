@@ -15,7 +15,7 @@
 
 			$folder = self::METRICS_PATH . $folder;
 
-			if (substr($folder, -1) != '/')
+			if (mb_substr($folder, -1) != '/')
 				$folder .= '/'; // metrics/pageview/
 
 			$folder .= date('Y/m/d'); // metrics/pageview/2018/03/11

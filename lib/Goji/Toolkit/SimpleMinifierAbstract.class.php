@@ -54,11 +54,11 @@
 			// Get request path (ex: '/WEBROOT/folder/public/css/main.css|css/responsive.css')
 			$path = '';
 
-			if (strpos($_SERVER['REQUEST_URI'], 'public/') !== false) { // We're in a sub folder (www.domain.com/testsite/public/)
+			if (mb_strpos($_SERVER['REQUEST_URI'], 'public/') !== false) { // We're in a sub folder (www.domain.com/testsite/public/)
 
 				// We need to extract the whole path until public/
 				$path = $_SERVER['REQUEST_URI']; // /WEBROOT/folder/public/css/main.css|css/responsive.css
-				$path = substr($path, 0, strpos($path, '/public/')) . '/public'; // /WEBROOT/folder/public
+				$path = mb_substr($path, 0, mb_strpos($path, '/public/')) . '/public'; // /WEBROOT/folder/public
 
 				$dir = dirname($file); // css/main.css -> css
 
@@ -79,7 +79,7 @@
 				// $path = /css
 			}
 
-			if (substr($path, -1) != '/')
+			if (mb_substr($path, -1) != '/')
 				$path = $path . '/';
 
 			return $path;

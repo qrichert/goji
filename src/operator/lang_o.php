@@ -4,10 +4,10 @@
 		&& !empty($_GET['lang'])
 		&& $_GET['lang'] != 'no-lang') {
 
-		if (strlen($_GET['lang']) > 2)
-			$_GET['lang'] = substr($_GET['lang'], 0, 2);
+		if (mb_strlen($_GET['lang']) > 2)
+			$_GET['lang'] = mb_substr($_GET['lang'], 0, 2);
 
-		$_SESSION['lang'] = strtolower($_GET['lang']);
+		$_SESSION['lang'] = mb_strtolower($_GET['lang']);
 
 	} else {
 

@@ -43,6 +43,8 @@
 			$headers.= 'Reply-To: "' . $replyToName . '" <' . $replyToEmail . '>' . "\n";
 			$headers.= 'Content-Transfer-Encoding: 8bit' . "\n\n";
 
-			return mail($to, $subject, $emailContent, $headers);
+			//return mail($to, $subject, $emailContent, $headers);
+			// TODO: Check if it really works, then remove the old mail() version
+			return mb_send_mail($to, $subject, $emailContent, $headers);
 		}
 	}

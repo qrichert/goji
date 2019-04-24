@@ -44,9 +44,9 @@
 
 		// App\Controller\HomeController -> HomeController
 		// We want only the class name, not the rest of the namespace
-		// $len = strlen('App\Controller\\');
+		// $len = mb_strlen('App\Controller\\');
 		// $len = 15;
-		$className = substr($className, 15);
+		$className = mb_substr($className, 15);
 
 		// HomeController -> ../src/controller/HomeController.class.php
 		$classFile = '../src/controller/' . $className . '.class.php';
