@@ -15,16 +15,16 @@
 										   'em', 'rem', 'vw', 'vh', 'vmin', 'vmax', '%',
 										   'deg', 'ms', 's'));
 
-			// Remove comments
-  			$code = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $code); // Multi line : /* hello, world */
-
 			// Backup values within single or double quotes
 			preg_match_all('#(\'[^\']*?\'|"[^"]*?")#ims', $code, $hit, PREG_PATTERN_ORDER);
 
-			$count = count($hit[1]);
-			for ($i = 0; $i < $count; $i++) {
+			$hitCount = count($hit[1]);
+			for ($i = 0; $i < $hitCount; $i++) {
 				$code = str_replace($hit[1][$i], '##########' . $i . '##########', $code);
 			}
+
+			// Remove comments
+			$code = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $code); // Multi line : /* hello, world */
 
 			// Remove ';' of last property
 			$code = preg_replace('#;[\s\r\n\t]*?}[\s\r\n\t]*#ims', "}\r\n", $code);
@@ -147,8 +147,7 @@
 			*/
 
 			// Restore backupped values within single or double quotes
-			$count = count($hit[1]);
-			for ($i = 0; $i < $count; $i++) {
+			for ($i = 0; $i < $hitCount; $i++) {
 				$code = str_replace('##########' . $i . '##########', $hit[1][$i], $code);
 			}
 
