@@ -2,6 +2,8 @@
 
 	namespace Goji\Toolkit;
 
+	use Goji\Parsing\RegexPatterns;
+
 	/**
 	 * Class SimpleMinifierCSS
 	 *
@@ -16,7 +18,8 @@
 										   'deg', 'ms', 's'));
 
 			// Backup values within single or double quotes
-			preg_match_all('#(\'[^\']*?\'|"[^"]*?")#ims', $code, $hit, PREG_PATTERN_ORDER);
+			// TODO: Make sure the regex works or switch back to '#(\'[^\']*?\'|"[^"]*?")#ims' (which doesn't handle escaped quotes)
+			preg_match_all(RegexPatterns::quotedStrings(), $code, $hit, PREG_PATTERN_ORDER);
 
 			$hitCount = count($hit[1]);
 			for ($i = 0; $i < $hitCount; $i++) {
