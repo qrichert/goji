@@ -4,7 +4,7 @@
  */
 
 {
-	app_mode: 'debug', // debug|release (case insensitive)
+	app_mode: "debug", // debug|release (case insensitive)
 	// Trailing slash will be removed
 	site_url: "https://www.SITE_URL.com",
 	site_name: "SITE_NAME",
