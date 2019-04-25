@@ -2,6 +2,7 @@
 
 	namespace Goji\Core;
 
+	use PDO;
 	use Exception;
 
 	/**
@@ -195,10 +196,9 @@
 		}
 
 		/**
-		 * @param \Goji\Core\DataBase $database
-		 * @throws \Exception
+		 * @param \PDO|\Goji\Core\DataBase $database
 		 */
-		public function setDataBase(DataBase $database) {
+		public function setDataBase(PDO $database) {
 			$this->m_dataBase = $database;
 		}
 
