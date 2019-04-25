@@ -28,14 +28,6 @@
 	require_once '../lib/AutoLoad.php';
 
 	$app = new App();
-		$app->setSiteURL('https://www.SITE_URL.com');
-		$app->setSiteName('SITE_NAME');
-		$app->setSiteDomainName('www.SITE_URL.com');
-		$app->setSiteFullDomain('www.SITE_URL.com');
-		$app->setCookiesPrefix('prfx-');
-		$app->setIsLocalEnvironment(true);
-		$app->setAppMode(App::DEBUG);
-
 		$app->createDataBase();
 
 	// If you don't want to use Goji's Router, you don't have to.

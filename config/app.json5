@@ -1,0 +1,14 @@
+/*
+ * Missing info will be ignored.
+ * Setting new values using set*() won't change config file, it will only affect current runtime.
+ */
+
+{
+	app_mode: 'debug', // debug|release (case insensitive)
+	// Trailing slash will be removed
+	site_url: "https://www.SITE_URL.com",
+	site_name: "SITE_NAME",
+	site_domain_name: "SITE_URL.com",
+	site_full_domain: "www.SITE_URL.com",
+	cookies_prefix: "prfx-"
+}

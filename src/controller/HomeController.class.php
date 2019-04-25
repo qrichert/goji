@@ -19,7 +19,7 @@
 			// if (isset($_POST[''])) ...
 		}
 
-		public function render() {
+		public function render() {echo 'render home';return;
 
 			$template = new SimpleTemplate(TITLE_HOME,
 			                                DESCRIPTION_HOME);

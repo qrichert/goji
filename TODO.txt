@@ -5,3 +5,4 @@ TODO: Clean SwissKnife, make it more modular
 TODO: Import menu from funnel.css
 TODO: SwissKnife::linkFiles() to Template module (attention LINKED_FILES_MODE), to SimpleTemplate first
 TODO: Add base (<base href="/goji/public|/">) to SimpleTemplate (app->requestHandler->rootFolder by default). Can be replace w/ setBase() and if called echoes <base href="">... !!! make sure requestHandler returns "/" and not empty() if root = docroot
+TODO: Add type hints "public function setDataBase(PDO $database): void {"
