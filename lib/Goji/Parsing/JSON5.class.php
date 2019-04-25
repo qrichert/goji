@@ -17,7 +17,7 @@
 		 * @param string $json5
 		 * @return string
 		 */
-		public static function toJSON($json5): string {
+		public static function toJSON(string $json5): string {
 
 			// Remove comments first (safely)
 
@@ -130,7 +130,7 @@ EOT;
 		 * @param bool $assoc (optional) default = false Return array instead of stdClass object
 		 * @return array|\stdClass
 		 */
-		public static function decode($json5, $assoc = false) {
+		public static function decode(string $json5, bool $assoc = false) {
 			return json_decode(self::toJSON($json5), $assoc);
 		}
 	}

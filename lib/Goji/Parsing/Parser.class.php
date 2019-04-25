@@ -2,6 +2,8 @@
 
 	namespace Goji\Parsing;
 
+	use Generator;
+
 	/**
 	 * Class Parser
 	 *
@@ -15,7 +17,7 @@
 		 * @param string $str
 		 * @return \Generator
 		 */
-		public static function getStringLineByLine(string $str) {
+		public static function getStringLineByLine(string $str): Generator {
 
 			$token = "\n\t";
 
