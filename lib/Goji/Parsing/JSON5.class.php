@@ -19,9 +19,13 @@
 		 */
 		public static function toJSON($json5): string {
 
-			// Remove comments
-			$json5 = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $json5); // Multi line : /* hello, world */
-			$json5 = preg_replace('#//.*$#m', '', $json5); // Single line : // hello, world
+			// Remove comments first (safely)
+
+			// Multiline comments first
+			$json5 = Parser::removeMultiLineCStyleComments($json5);
+
+			// Single-line comments next
+			$json5 = Parser::removeSingleLineCStyleComments($json5);
 
 			// Backup values within single or double quotes
 			preg_match_all(RegexPatterns::quotedStrings(), $json5, $hit, PREG_PATTERN_ORDER);
@@ -49,10 +53,10 @@
 			$json5 = str_replace(array("\r\n", "\r", "\n", PHP_EOL), '', $json5);
 
 			// Now we make strings (quotes values) comply by:
-			// Replacing single quotes with double quotes
+			// 1. Replacing single quotes with double quotes
 			for ($i = 0; $i < $hitCount; $i++) {
 
-				// Now quotes
+				// Current quotes
 				$quoteType = mb_substr($hit[1][$i], 0, 1);
 
 				// We don't want single quotes, double quotes are fine
@@ -71,9 +75,9 @@
 					$hit[1][$i] = '"' . $hit[1][$i] . '"';
 				}
 
-				// Remove escaped new lines \\n
+				// 2. Remove escaped new lines \\n
 				$hit[1][$i] = preg_replace(RegexPatterns::escapedNewLines(), '\\n', $hit[1][$i]);
-				// Remove forbidden characters from strings
+				// 3. Remove forbidden characters from strings
 				$hit[1][$i] = preg_replace('#(\r\n|\n|\r|\t)#', '', $hit[1][$i]);
 			}
 

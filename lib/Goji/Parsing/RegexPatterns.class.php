@@ -55,6 +55,46 @@ EOT;
 		}
 
 		/**
+		 * Matches unescaped single quotes.
+		 *
+		 * foo \'bar' foo \\' bar
+		 * -> Matches the one after bar and the one after \\ (\\' <- escapes the \, not the ')
+		 * -> Doesn't match the first one \', it is escaped
+		 *
+		 * @return string
+		 */
+		public static function unescapedSingleQuotes(): string {
+
+			return <<<'EOT'
+#(?<!\\)(?:\\{2})*\K\'#
+EOT;
+		}
+
+		/**
+		 * Matches C style multiline comments.
+		 *
+		 * /* comment * /
+		 *
+		 * @return string
+		 */
+		public static function multiLineCStyleComments(): string {
+
+			return '#/\*[^*]*\*+([^/][^*]*\*+)*/#';
+		}
+
+		/**
+		 * Matches C style single-line comments.
+		 *
+		 * // comment
+		 *
+		 * @return string
+		 */
+		public static function singleLineCStyleComments(): string {
+
+			return '#//.*$#m';
+		}
+
+		/**
 		 * Matches hexadecimal numbers like 0xDECAF.
 		 *
 		 * @return string
