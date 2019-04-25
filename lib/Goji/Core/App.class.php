@@ -25,6 +25,7 @@
 
 		private $m_dataBase;
 		private $m_requestHandler;
+		private $m_router;
 
 		/* <CONSTANTS> */
 
@@ -34,6 +35,7 @@
 		const RELEASE = 'release';
 
 		const E_NO_DATABASE = 0;
+		const E_NO_ROUTER = 1;
 
 		/**
 		 * App constructor.
@@ -62,6 +64,7 @@
 
 			$this->m_dataBase = null;
 			$this->m_requestHandler = new RequestHandler();
+			$this->m_router = null;
 		}
 
 		/**
@@ -235,5 +238,38 @@
 		 */
 		public function getRequestHandler(): RequestHandler {
 			return $this->m_requestHandler;
+		}
+
+		/**
+		 * @return \Goji\Core\Router
+		 * @throws \Exception
+		 */
+		public function getRouter(): Router {
+
+			if (isset($this->m_router))
+				return $this->m_router;
+			else
+				throw new Exception('No router has been set.', self::E_NO_ROUTER);
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function hasRouter(): bool {
+			return isset($this->m_router);
+		}
+
+		/**
+		 * Starts the routing process.
+		 *
+		 * @throws \Exception
+		 */
+		public function exec(): void {
+
+			if (!isset($this->m_router))
+				$this->m_router = new Router($this);
+
+
+			$this->m_router->route();
 		}
 	}
