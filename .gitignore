@@ -29,5 +29,7 @@ venv
 
 #/TODO.txt
 /src/include/passwords.inc.php
-/config/databases.json*
-/config/passwords.json*
+/config/databases.json
+/config/databases.json5
+/config/passwords.json
+/config/passwords.json5
