@@ -238,6 +238,13 @@
 		}
 
 		/**
+		 * @param \Goji\Core\Router $router
+		 */
+		public function setRouter(Router $router): void {
+			$this->m_router = $router;
+		}
+
+		/**
 		 * @return bool
 		 */
 		public function hasRouter(): bool {

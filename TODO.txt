@@ -1,3 +1,5 @@
+TODO: Make Translation class
+TODO: Make it possible to change languages
 TODO: Create configuration file, instead of constants in index.php
 TODO: Update SimpleXMLHttpRequest JS plugin
 TODO: Refactor `js` folder (SimpleXMLHttpRequest)
@@ -7,3 +9,4 @@ TODO: SwissKnife::linkFiles() to Template module (attention LINKED_FILES_MODE), 
 TODO: Add base (<base href="/goji/public|/">) to SimpleTemplate (app->requestHandler->rootFolder by default). Can be replace w/ setBase() and if called echoes <base href="">... !!! make sure requestHandler returns "/" and not empty() if root = docroot
 TODO: Add type hints "public function setDataBase(PDO $database): void {"
 TODO: Put minifiers into Parsing namespace update algorithm with the one from Parsing::Parser()
+TODO: App is to goji what mayonnaise is to a sandwich. It keeps it al together. It is the linked between the different parts
