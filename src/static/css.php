@@ -1,7 +1,7 @@
 <?php
 
 	use Goji\Toolkit\SimpleCache;
-	use Goji\Toolkit\SimpleMinifierCSS;
+	use Goji\Parsing\SimpleMinifierCSS;
 
 	header('Content-type: text/css; charset=utf-8');
 

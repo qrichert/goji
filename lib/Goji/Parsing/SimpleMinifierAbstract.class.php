@@ -1,11 +1,11 @@
 <?php
 
-	namespace Goji\Toolkit;
+	namespace Goji\Parsing;
 
 	/**
 	 * Class SimpleMinifierAbstract
 	 *
-	 * @package Goji\Toolkit
+	 * @package Goji\Parsing
 	 */
 	abstract class SimpleMinifierAbstract {
 

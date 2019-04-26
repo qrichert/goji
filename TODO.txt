@@ -1,5 +1,6 @@
 TODO: Make Translation class
 TODO: Make it possible to change languages
+TODO: Delete all obsolete lang files & statements
 TODO: Create configuration file, instead of constants in index.php
 TODO: Update SimpleXMLHttpRequest JS plugin
 TODO: Refactor `js` folder (SimpleXMLHttpRequest)
@@ -10,3 +11,4 @@ TODO: Add base (<base href="/goji/public|/">) to SimpleTemplate (app->requestHan
 TODO: Add type hints "public function setDataBase(PDO $database): void {"
 TODO: Put minifiers into Parsing namespace update algorithm with the one from Parsing::Parser()
 TODO: App is to goji what mayonnaise is to a sandwich. It keeps it al together. It is the linked between the different parts
+TODO: Standardize error redirects

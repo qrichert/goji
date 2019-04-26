@@ -1,13 +1,11 @@
 <?php
 
-	namespace Goji\Toolkit;
-
-	use Goji\Parsing\RegexPatterns;
+	namespace Goji\Parsing;
 
 	/**
 	 * Class SimpleMinifierJS
 	 *
-	 * @package Goji\Toolkit
+	 * @package Goji\Parsing
 	 */
 	class SimpleMinifierJS extends SimpleMinifierAbstract {
 
