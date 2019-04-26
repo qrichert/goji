@@ -36,22 +36,6 @@
 			}
 		}
 
-		public static function print_array($array) {
-			echo '<pre>';
-			print_r($array);
-			echo '</pre>';
-		}
-
-		public static function log_array($array) {
-			error_log(print_r($array, true));
-		}
-
-		public static function log_var_dump($var) {
-			ob_start();
-			var_dump($var);
-			error_log(ob_get_clean());
-		}
-
 		// Cuts string if longer than $max
 		public static function ceil_str($str, $max) {
 			return (mb_strlen($str) > $max ? mb_substr($str, 0, $max) : $str);
