@@ -1,7 +1,6 @@
 TODO: Make Translation class
 TODO: Make it possible to change languages
 TODO: Delete all obsolete lang files & statements
-TODO: Create configuration file, instead of constants in index.php
 TODO: Update SimpleXMLHttpRequest JS plugin
 TODO: Refactor `js` folder (SimpleXMLHttpRequest)
 TODO: Clean SwissKnife, make it more modular

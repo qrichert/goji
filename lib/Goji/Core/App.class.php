@@ -21,8 +21,8 @@
 		private $m_siteFullDomain;
 		private $m_cookiesPrefix;
 
-		private $m_isLocalEnvironment;
 		private $m_appMode;
+		private $m_linkedFilesMode;
 
 		private $m_languages;
 		private $m_requestHandler;
@@ -35,6 +35,9 @@
 
 		const DEBUG = 'debug';
 		const RELEASE = 'release';
+
+		const NORMAL = 'normal';
+		const MERGED = 'merged';
 
 		const E_NO_LANGUAGES = 0;
 		const E_NO_ROUTER = 1;
@@ -62,8 +65,13 @@
 			// TODO: Cookies class, prefix auto loaded
 			$this->setCookiesPrefix($config['cookies_prefix'] ?? '');
 
-			$this->setIsLocalEnvironment(false);
 			$this->setAppMode($config['app_mode']);
+			$this->setLinkedFilesMode($config['linked_files_mode']);
+
+			Logger::log($this->m_appMode);
+			Logger::log($this->getAppMode());
+			Logger::log($this->m_linkedFilesMode);
+			Logger::log($this->getLinkedFilesMode());
 
 			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
@@ -160,20 +168,6 @@
 		}
 
 		/**
-		 * @return bool
-		 */
-		public function getIsLocalEnvironment(): bool {
-			return $this->m_isLocalEnvironment;
-		}
-
-		/**
-		 * @param bool $isLocalEnvironment
-		 */
-		public function setIsLocalEnvironment(bool $isLocalEnvironment): void {
-			$this->m_isLocalEnvironment = $isLocalEnvironment;
-		}
-
-		/**
 		 * @return string
 		 */
 		public function getAppMode(): string {
@@ -185,10 +179,41 @@
 		 */
 		public function setAppMode($appMode): void {
 
+			$appMode = mb_strtolower($appMode);
+
 			if ($appMode == self::DEBUG
 				|| $appMode == self::RELEASE) {
 
 				$this->m_appMode = $appMode;
+
+			} else {
+
+				$this->m_appMode = self::DEBUG; // Default
+			}
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getLinkedFilesMode(): string {
+			return $this->m_linkedFilesMode ?? self::NORMAL;
+		}
+
+		/**
+		 * @param \Goji\Core\App::LINKED_FILES_MODE $linkedFilesMode
+		 */
+		public function setLinkedFilesMode($linkedFilesMode): void {
+
+			$linkedFilesMode = mb_strtolower($linkedFilesMode);
+
+			if ($linkedFilesMode == self::NORMAL
+			|| $linkedFilesMode == self::MERGED) {
+
+				$this->m_linkedFilesMode = $linkedFilesMode;
+
+			} else {
+
+				$this->m_linkedFilesMode = self::NORMAL; // Default
 			}
 		}
 

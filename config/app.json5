@@ -5,6 +5,7 @@
 
 {
 	app_mode: "debug", // debug|release (case insensitive)
+	linked_files_mode: "normal", // normal|merged (case insensitive)
 	// Trailing slash will be removed
 	site_url: "https://www.SITE_URL.com",
 	site_name: "SITE_NAME",
