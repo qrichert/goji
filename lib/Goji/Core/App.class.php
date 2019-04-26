@@ -299,6 +299,8 @@
 			if (!isset($this->m_languages))
 				$this->m_languages = new Languages();
 
+			Logger::log($this->m_languages->getCurrentLocale(), Logger::BROWSER);
+
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);
 

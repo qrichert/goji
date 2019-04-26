@@ -46,10 +46,37 @@
 
 				$this->m_configurationLocales = $this->formatConfigurationLocales($config);
 
-				if (!empty($this->m_configurationLocales))
-					$this->fetchCurrentLocale();
-				else
+				// If config is used and valid, we look for a current locale,
+				// either a cookie, or we generate it
+				if (!empty($this->m_configurationLocales)) {
+
+					// If it's in a cookie, load cookie
+					if (isset($_COOKIE['locale']) && !empty($_COOKIE['locale'])) {
+
+						$locale = $_COOKIE['locale'];
+
+						// Look if the locale is a valid one
+						if (isset($this->m_configurationLocales[$locale])) {
+
+							$this->m_currentLocale = $locale;
+
+						} else {
+
+							$this->fetchCurrentLocale();
+							setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
+						}
+
+					} else {
+
+						$this->fetchCurrentLocale();
+						// TODO: cookies prefix in cookies config file
+						// TODO: also, in cookies class, make a fetch method where you can pass an array of accepted return values, and if it's not in it, return null, or !isset
+						setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
+					}
+
+				}  else {
 					$this->m_useLanguages = false;
+				}
 			}
 
 			if ($this->m_useLanguages === false) {
@@ -157,7 +184,6 @@
 		private function formatConfigurationLocales(array $locales): array {
 
 			// Not the most memory efficient (references will be copied) but the safest
-			// Also it will be cached so whatever
 			$newLocales = array();
 
 			foreach ($locales as $locale => $alias) {
