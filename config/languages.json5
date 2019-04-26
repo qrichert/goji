@@ -1,0 +1,16 @@
+/*
+ * List of all supported languages with their alias.
+ */
+
+{
+	// Which language to select if user language not supported or no user
+	// language and nothing set. If not set, and is needed, first language
+	// in the list will be selected as default.
+	fallback: "en_US", // Must match one of the languages below
+	// Identifiers must match those of routes.json5
+	// If in this configuration, user only has 'en', or an unsupported locale
+	// like 'en_NZ', the first one appearing (en_US) will be selected as default.
+	en_US: "English (US)",
+	en_GB: "English (GB)",
+	fr: "Français"
+}

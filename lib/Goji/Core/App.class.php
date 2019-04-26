@@ -2,6 +2,7 @@
 
 	namespace Goji\Core;
 
+	use Goji\Translation\Languages;
 	use PDO;
 	use Exception;
 
@@ -23,9 +24,10 @@
 		private $m_isLocalEnvironment;
 		private $m_appMode;
 
-		private $m_dataBase;
+		private $m_languages;
 		private $m_requestHandler;
 		private $m_router;
+		private $m_dataBase;
 
 		/* <CONSTANTS> */
 
@@ -34,8 +36,9 @@
 		const DEBUG = 'debug';
 		const RELEASE = 'release';
 
-		const E_NO_DATABASE = 0;
+		const E_NO_LANGUAGES = 0;
 		const E_NO_ROUTER = 1;
+		const E_NO_DATABASE = 2;
 
 		/**
 		 * App constructor.
@@ -62,9 +65,10 @@
 			$this->setIsLocalEnvironment(false);
 			$this->setAppMode($config['app_mode']);
 
-			$this->m_dataBase = null;
+			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
 			$this->m_router = null;
+			$this->m_dataBase = null;
 		}
 
 		/**
@@ -179,13 +183,65 @@
 		/**
 		 * @param \Goji\Core\App::APP_MODE $applicationMode
 		 */
-		public function setAppMode(string $appMode): void {
+		public function setAppMode($appMode): void {
 
 			if ($appMode == self::DEBUG
 				|| $appMode == self::RELEASE) {
 
 				$this->m_appMode = $appMode;
 			}
+		}
+
+		/**
+		 * @return \Goji\Translation\Languages
+		 * @throws \Exception
+		 */
+		public function getLanguages(): Languages {
+
+			if (isset($this->m_languages))
+				return $this->m_languages;
+			else
+				throw new Exception('No languages have been set.', self::E_NO_LANGUAGES);
+		}
+
+		/**
+		 * @param \Goji\Translation\Languages $languages
+		 */
+		public function setLanguages(Languages $languages): void {
+			$this->m_languages = $languages;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function hasLanguages(): bool {
+			return isset($this->m_languages);
+		}
+
+		/**
+		 * @return \Goji\Core\RequestHandler
+		 */
+		public function getRequestHandler(): RequestHandler {
+			return $this->m_requestHandler;
+		}
+
+		/**
+		 * @return \Goji\Core\Router
+		 * @throws \Exception
+		 */
+		public function getRouter(): Router {
+
+			if (isset($this->m_router))
+				return $this->m_router;
+			else
+				throw new Exception('No router has been set.', self::E_NO_ROUTER);
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function hasRouter(): bool {
+			return isset($this->m_router);
 		}
 
 		/**
@@ -234,37 +290,14 @@
 		}
 
 		/**
-		 * @return \Goji\Core\RequestHandler
-		 */
-		public function getRequestHandler(): RequestHandler {
-			return $this->m_requestHandler;
-		}
-
-		/**
-		 * @return \Goji\Core\Router
-		 * @throws \Exception
-		 */
-		public function getRouter(): Router {
-
-			if (isset($this->m_router))
-				return $this->m_router;
-			else
-				throw new Exception('No router has been set.', self::E_NO_ROUTER);
-		}
-
-		/**
-		 * @return bool
-		 */
-		public function hasRouter(): bool {
-			return isset($this->m_router);
-		}
-
-		/**
 		 * Starts the routing process.
 		 *
 		 * @throws \Exception
 		 */
 		public function exec(): void {
+
+			if (!isset($this->m_languages))
+				$this->m_languages = new Languages();
 
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);

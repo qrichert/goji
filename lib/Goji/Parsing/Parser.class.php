@@ -28,6 +28,9 @@
 				yield $line;
 				$line = strtok($token);
 			}
+
+			// Reset strtok(), by default it keeps $str in memory.
+			strtok('', '');
 		}
 
 		/**
@@ -103,6 +106,7 @@
 			// real comments from mistake comments
 
 			$commentStartEscapeSequence = '##########commentstart##########';
+
 			$lines = Parser::getStringLineByLine($str);
 			foreach ($lines as $line) {
 

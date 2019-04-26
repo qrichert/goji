@@ -14,6 +14,7 @@
 		/* <ATTRIBUTES> */
 
 		private $m_app;
+		private $m_languages;
 		private $m_requestHandler;
 		private $m_routes;
 		private $m_mappedRoutes;
@@ -37,6 +38,7 @@
 		public function __construct(App $app, $configFile = self::CONFIG_FILE) {
 
 			$this->m_app = $app;
+			$this->m_languages = $app->getLanguages();
 			$this->m_requestHandler = $app->getRequestHandler();
 			// TODO: Cache routes & mapped routes
 			$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
@@ -78,7 +80,7 @@
 		 * @return array
 		 * @throws \Exception
 		 */
-		private function mapRoutes($routes) {
+		private function mapRoutes(array $routes): array {
 
 			$mappedRoutes = array();
 
@@ -112,7 +114,6 @@
 
 					throw new Exception('Routes are misconfigured. Configuration syntax is invalid.', self::E_ROUTES_ARE_MISCONFIGURED);
 				}
-
 			}
 
 			return $mappedRoutes;
@@ -121,7 +122,7 @@
 		/**
 		 * Loads the appropriate controller.
 		 */
-		public function route() {
+		public function route(): void {
 
 			/*
 			 * TODO: Lang
@@ -152,9 +153,9 @@
 		}
 
 		/**
-		 * @param Route::HTTP_ERROR_CODE|string $where
+		 * @param \Goji\Core\Router::HTTP_ERROR_CODE|string $where
 		 */
-		private function redirect($where) {
+		private function redirect($where): void {
 			// TODO: Maybe put this in separate Redirection class that could be a member & passed along to controllers
 			$where = null;
 			echo PHP_EOL . '<br>' . 'REDIRECT';

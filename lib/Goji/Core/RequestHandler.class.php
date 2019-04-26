@@ -120,7 +120,7 @@
 		 *
 		 * @return string
 		 */
-		public function getRequestURI() {
+		public function getRequestURI(): string {
 			return $this->m_requestURI;
 		}
 
@@ -132,7 +132,7 @@
 		 *
 		 * @return string
 		 */
-		public function getRequestPageURI() {
+		public function getRequestPageURI(): string {
 			return $this->m_requestPageURI;
 		}
 
@@ -144,7 +144,7 @@
 		 *
 		 * @return string
 		 */
-		public function getRawQueryString() {
+		public function getRawQueryString(): string {
 			return $this->m_rawQueryString;
 		}
 
@@ -157,9 +157,9 @@
 		 *      'bar' => 'value2'
 		 * )
 		 *
-		 * @return string
+		 * @return array
 		 */
-		public function getQueryString() {
+		public function getQueryString(): array {
 			return $this->m_queryString;
 		}
 
@@ -171,7 +171,7 @@
 		 *
 		 * @return string
 		 */
-		public function getScriptName() {
+		public function getScriptName(): string {
 			return $this->m_scriptName;
 		}
 
@@ -183,7 +183,7 @@
 		 *
 		 * @return string
 		 */
-		public function getRootFolder() {
+		public function getRootFolder(): string {
 			return $this->m_rootFolder;
 		}
 
@@ -201,7 +201,7 @@
 		 *
 		 * @return string
 		 */
-		public function getRequestPage() {
+		public function getRequestPage(): string {
 			return $this->m_requestPage;
 		}
 
@@ -228,7 +228,7 @@
 		 * @param string $queryString
 		 * @return array
 		 */
-		public static function queryStringToArray($queryString) {
+		public static function queryStringToArray(string $queryString): array {
 
 			if (empty($queryString))
 				return array();
@@ -305,9 +305,9 @@
 		 * @param string $queryString The query string in which to look for the value (could be $_SERVER['QUERY_STRING'])
 		 * @return string|null The value of the first occurrence of $param, null if not found
 		 */
-		public static function getFirstParamOccurrence($param, $queryString) {
+		public static function getFirstParamOccurrence(string $param, string $queryString): string {
 
-			// TODO: Is this still relevant? Maybe keep it anyways, but don't use queryStringToArray(), this one is more efficient
+			// TODO: Is this still relevant? Maybe keep it anyways, but don't use queryStringToArray() in here, this one is more efficient
 
 			// Ex :
 			// $param = 'param'

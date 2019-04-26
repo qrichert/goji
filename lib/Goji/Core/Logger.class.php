@@ -2,6 +2,11 @@
 
 	namespace Goji\Core;
 
+	/**
+	 * Class Logger
+	 *
+	 * @package Goji\Core
+	 */
 	class Logger {
 
 		/* <CONSTANTS> */
@@ -11,10 +16,12 @@
 		const BOTH = 3;
 
 		/**
+		 * Log element into console or browser.
+		 *
 		 * @param $el
 		 * @param int $output
 		 */
-		public static function log($el, $output = self::CONSOLE): void {
+		public static function log($el, $output = self::BOTH): void {
 
 			$console = $output == self::CONSOLE || $output == self::BOTH;
 			$browser = $output == self::BROWSER || $output == self::BOTH;
@@ -42,10 +49,12 @@
 		}
 
 		/**
+		 * Log var_dump() into console or browser.
+		 *
 		 * @param $el
 		 * @param int $output
 		 */
-		public static function dump($el, $output = self::CONSOLE): void {
+		public static function dump($el, $output = self::BOTH): void {
 
 			$console = $output == self::CONSOLE || $output == self::BOTH;
 			$browser = $output == self::BROWSER || $output == self::BOTH;
