@@ -1,4 +1,6 @@
 /*
+ * Configuration file for \Goji\Core\App
+ *
  * Missing info will be ignored.
  * Setting new values using set*() won't change config file, it will only affect current runtime.
  */
@@ -10,6 +12,5 @@
 	site_url: "https://www.SITE_URL.com",
 	site_name: "SITE_NAME",
 	site_domain_name: "SITE_URL.com",
-	site_full_domain: "www.SITE_URL.com",
-	cookies_prefix: "prfx-"
+	site_full_domain: "www.SITE_URL.com"
 }

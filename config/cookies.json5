@@ -1,0 +1,12 @@
+/*
+ * Configuration file for \Goji\Core\Cookies
+ */
+
+{
+	// If set to false, no cookie will be settable using Cookies::set();
+	// Those that already exist won't be affected and will still be readable.
+	use_cookies: true,
+	// Prefix will be prepended automatically to the cookie's names.
+	// Ex: Cookie::set('key') will actually be saved as "prefix-key".
+	cookies_prefix: ""
+}

@@ -3,6 +3,7 @@
 	namespace Goji\Translation;
 
 	use Goji\Core\ConfigurationLoader;
+	use Goji\Core\Cookies;
 	use Exception;
 
 	/**
@@ -143,7 +144,7 @@
 				$this->m_currentLocale = $locale;
 			}
 
-			setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
+			Cookies::set('locale', $this->m_currentLocale);
 		}
 
 		/**
@@ -354,9 +355,9 @@
 			// either in a cookie, or we generate it
 
 			// If it's in a cookie, load cookie
-			if (isset($_COOKIE['locale']) && !empty($_COOKIE['locale'])) {
+			if (!empty(Cookies::get('locale'))) {
 
-				$locale = $_COOKIE['locale'];
+				$locale = Cookies::get('locale');
 
 				// Look if the locale is a valid one
 				if (isset($this->m_configurationLocales[$locale])) {
@@ -366,15 +367,13 @@
 				} else {
 
 					$this->fetchCurrentLocale();
-					setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
+					Cookies::set('locale', $this->m_currentLocale);
 				}
 
 			} else {
 
 				$this->fetchCurrentLocale();
-				// TODO: cookies prefix in cookies config file
-				// TODO: also, in cookies class, make a fetch method where you can pass an array of accepted return values, and if it's not in it, return null, or !isset
-				setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
+				Cookies::set('locale', $this->m_currentLocale);
 			}
 		}
 	}

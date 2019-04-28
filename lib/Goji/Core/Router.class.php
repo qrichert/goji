@@ -151,8 +151,6 @@
 				}
 			}
 
-			Logger::log($this->m_app->getLanguages()->getCurrentLocale());
-
 			// If we found a match, a controller will be set
 			if ($controller !== null) {
 

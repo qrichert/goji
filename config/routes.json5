@@ -1,3 +1,7 @@
+/*
+ * Configuration file for \Goji\Core\Router
+ */
+
 {
 	"home": {
 		// If you have multiple languages, use 'routes' with an 's'

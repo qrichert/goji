@@ -19,7 +19,6 @@
 		private $m_siteName;
 		private $m_siteDomainName;
 		private $m_siteFullDomain;
-		private $m_cookiesPrefix;
 
 		private $m_appMode;
 		private $m_linkedFilesMode;
@@ -62,8 +61,6 @@
 			$this->setSiteName($config['site_name'] ?? '');
 			$this->setSiteDomainName($config['site_domain_name'] ?? '');
 			$this->setSiteFullDomain($config['site_full_domain'] ?? '');
-			// TODO: Cookies class, prefix auto loaded
-			$this->setCookiesPrefix($config['cookies_prefix'] ?? '');
 
 			$this->setAppMode($config['app_mode']);
 			$this->setLinkedFilesMode($config['linked_files_mode']);
@@ -146,20 +143,6 @@
 		 */
 		public function setSiteFullDomain(string $siteFullDomain): void {
 			$this->m_siteFullDomain = $siteFullDomain;
-		}
-
-		/**
-		 * @return string
-		 */
-		public function getCookiesPrefix(): string {
-			return $this->m_cookiesPrefix;
-		}
-
-		/**
-		 * @param string $cookiesPrefix
-		 */
-		public function setCookiesPrefix(string $cookiesPrefix): void {
-			$this->m_cookiesPrefix = $cookiesPrefix;
 		}
 
 		/**

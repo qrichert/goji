@@ -7,6 +7,8 @@ duplicate and rename it "databases.json5".
 */
 
 /*
+ * Configuration file for \Goji\Core\DataBase
+ *
  * The first database appearing in the config and that works is selected.
  * You could have a production, test and local one for example.
  *
