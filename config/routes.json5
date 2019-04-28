@@ -33,15 +33,13 @@
 	"other-page": {
 		// This works, but it's equivalent to the shorter syntax of "some-other-page"
 		routes: {
-			// TODO: Make regex work in page names
-			// in code make preg_match( ^ + ROUTE + $ , REQUEST PAGE );
-			all: "/other-page-([0-9])"
+			all: "/other-page"
 		},
 		controller: "OtherPageController"
 	},
 	"some-other-page": {
 		// If you don't have multiple languages, use 'route' without an 's', and attach the route directly.
-		route: "/some-other-page-([0-9])",
+		route: "/some-other-page-([0-9]+)(?:-([0-9]+))?",
 		controller: "SomeOtherPageController"
 	}
 }

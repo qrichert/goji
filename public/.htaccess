@@ -17,22 +17,6 @@ RewriteCond %{HTTP_HOST} !^(.+).SITE_URL.com$
 RewriteCond %{HTTP_HOST} !localhost
 RewriteRule ^(.*) http://www.SITE_URL.com/$1 [QSA,L,R=301]
 
-# REWRITE : PAGES -------------------------------------------------------------
-
-# TODO: Must come after other rewrites, like static ones.
-# Everything that is not a static file
-RewriteCond %{REQUEST_URI} !(assets?|css|img|js|music|upload|video)/
-RewriteCond %{REQUEST_URI} !\.(php|html)$
-RewriteRule ^(.*)$ index.php [QSA,L]
-
-# REWRITE : XHR ---------------------------------------------------------------
-# REWRITE : OPERATORS ---------------------------------------------------------
-
-# Don't forget 'rel="nofollow"' for these links
-
-# TODO: Clean useless rewritings like these, onece it is implemented in code
-RewriteRule ^lang-([a-z]{2})$	index.php?page=lang&lang=$1 [QSA,L]
-
 # REWRITE : STATIC ------------------------------------------------------------
 
 # Match merged files (css/lib.min.css/css/main.css|css/responsive.css)
@@ -44,6 +28,22 @@ RewriteRule ^lang-([a-z]{2})$	index.php?page=lang&lang=$1 [QSA,L]
 #RewriteRule ((?:.+)\|(?:.+)\.js)$	static.php?type=js&file=$1 [QSA,L]
 #RewriteCond %{REQUEST_URI}			!\.min\.js$
 #RewriteRule ((?:.+)\.js)$			static.php?type=js&file=$1 [QSA,L]
+
+# REWRITE : PAGES -------------------------------------------------------------
+
+# TODO: Must come after other rewrites, like static ones.
+# Everything that is not a static file
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# REWRITE : XHR ---------------------------------------------------------------
+# REWRITE : OPERATORS ---------------------------------------------------------
+
+# Don't forget 'rel="nofollow"' for these links
+
+# TODO: Clean useless rewritings like these, onece it is implemented in code
+RewriteRule ^lang-([a-z]{2})$	index.php?page=lang&lang=$1 [QSA,L]
 
 # --- ERRORS ---
 

@@ -40,7 +40,6 @@
 			$this->m_app = $app;
 			$this->m_languages = $app->getLanguages();
 			$this->m_requestHandler = $app->getRequestHandler();
-			// TODO: Cache routes & mapped routes
 			$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
 			$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
 		}
@@ -95,10 +94,10 @@
 
 				if (isset($config['routes']) && is_array($config['routes'])) {
 
-					foreach ($config['routes'] as $lang => $route) {
+					foreach ($config['routes'] as $locale => $route) {
 
 						$mappedRoutes[$route] = array(
-							'lang' => $lang,
+							'locale' => $locale,
 							'controller' => $controller
 						);
 					}
@@ -106,7 +105,7 @@
 				} else if (isset($config['route']) && is_string($config['route'])) {
 
 					$mappedRoutes[$config['route']] = array(
-						'lang' => 'all', // No specific language
+						'locale' => 'all', // No specific language
 						'controller' => $controller
 					);
 
@@ -124,30 +123,46 @@
 		 */
 		public function route(): void {
 
-			/*
-			 * TODO: Lang
-			 * Get current lang (last used) or default (browser).
-			 * Also allow setting a default lang in config to overwrite browser one
-			 */
-			$defaultLang = 'en';
-
 			$page = '/' . $this->m_requestHandler->getRequestPage();
+			$locale = null;
 			$controller = null;
 
-			// If request page exists in config (note that controller is set, otherwise mapRoutes() would have failed).
-			if (isset($this->m_mappedRoutes[$page])) {
+			// Loop through the routes in configuration, and match them again the requested route
+			// We use a regex so we can have variable parameters
+			// (Note that controller is given, otherwise mapRoutes() would have failed).
+			foreach ($this->m_mappedRoutes as $pagePattern => $route) { // contains controller & lang
 
-				// $controller = \App\Controller\HomeController
-				$controller = '\App\Controller\\' . $this->m_mappedRoutes[$page]['controller'];
+				// If the pattern is config matches a request
+				// We extract controller, locale and parameters
+				if (preg_match('#^' . $pagePattern . '$#', $page, $matches)) {
+
+					if (!isset($route['locale']) || empty($route['locale']) || $route['locale'] == 'all')
+						$this->m_languages->getCurrentLocale();
+					else
+						$this->m_languages->setCurrentLocale($route['locale']);
+
+					// $controller = \App\Controller\HomeController
+					$controller = '\App\Controller\\' . $route['controller'];
+
+					$this->m_requestHandler->setRequestParameters($matches);
+
+					// Stop searching after first match.
+					break;
+				}
 			}
 
+			Logger::log($this->m_app->getLanguages()->getCurrentLocale());
+
+			// If we found a match, a controller will be set
 			if ($controller !== null) {
 
 				// $controller = new \App\Controller\HomeController()
 				$controller = new $controller($this->m_app);
 				$controller->render();
 
+			// If not, it's a 404
 			} else {
+
 				$this->redirect(self::HTTP_ERROR_404);
 			}
 		}

@@ -21,7 +21,7 @@
 		 * @param $el
 		 * @param int $output
 		 */
-		public static function log($el, $output = self::BOTH): void {
+		public static function log($el, $output = self::BROWSER): void {
 
 			$console = $output == self::CONSOLE || $output == self::BOTH;
 			$browser = $output == self::BROWSER || $output == self::BOTH;
@@ -54,7 +54,7 @@
 		 * @param $el
 		 * @param int $output
 		 */
-		public static function dump($el, $output = self::BOTH): void {
+		public static function dump($el, $output = self::BROWSER): void {
 
 			$console = $output == self::CONSOLE || $output == self::BOTH;
 			$browser = $output == self::BROWSER || $output == self::BOTH;

@@ -181,18 +181,16 @@
 		 *
 		 * @param string $frag The text to cache
 		 * @param string $id The ID of the cached fragment
-		 * @return bool Returns always true
+		 * @return int|bool The function returns the number of bytes that were written to the file, or false on failure.
 		 */
-		public static function cacheFragment($frag, $id) { // (string) $frag
+		public static function cacheFragment(string $frag, string $id) {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			if (!is_dir(self::CACHE_PATH))
 				mkdir(self::CACHE_PATH, 0777, true);
 
-			file_put_contents($cacheFile, $frag);
-
-			return true;
+			return file_put_contents($cacheFile, $frag);
 		}
 
 		/**
@@ -235,7 +233,7 @@
 		 * @param int $maxAge (optional) Infinite by default
 		 * @return bool true if fragment is valid (exists and not too old), false if not (doesn't exist or too old)
 		 */
-		public static function isValid($id, $maxAge = self::DEFAULT_CACHE_MAX_AGE) {
+		public static function isValid($id, $maxAge = self::DEFAULT_CACHE_MAX_AGE): bool {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
@@ -275,18 +273,18 @@
 		 *
 		 * @param string $id Fragment ID
 		 * @param bool $outputContent (optional) echo fragment's content instead of returning it. false by default
-		 * @return string|null string if $outputContent = false (default), null if echoed or fragment doesn't exist
+		 * @return int|string|false string if $outputContent = false (default), null if echoed or fragment doesn't exist
 		 */
-		public static function loadFragment($id, $outputContent = false) {
+		public static function loadFragment(string $id, bool $outputContent = false) {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			if (file_exists($cacheFile)) {
 
 				if ($outputContent)
-					readfile($cacheFile);
+					readfile($cacheFile); // (int|false)
 				else
-					return file_get_contents($cacheFile);
+					return file_get_contents($cacheFile); // (string|false)
 			}
 
 			return null;
@@ -326,7 +324,7 @@
 		 * @param string $content Text to be cached
 		 * @param string|array $file A single file or a list of files
 		 * @param string $id Fragment ID
-		 * @return bool true if success, false if error
+		 * @return int|bool true if success, false if error
 		 */
 		public static function cacheFilePreprocessed($content, $file, $id) {
 
@@ -370,7 +368,7 @@
 		 * @param string|array $file A single file or a list of files
 		 * @return bool true if cache is valid, false if not (one or more original file has been edited)
 		 */
-		public static function isValidFilePreprocessed($id, $file) {
+		public static function isValidFilePreprocessed($id, $file): bool {
 
 			// If single file we handle it as array, so we can use the same code for all
 			if (!is_array($file))
@@ -434,7 +432,7 @@
 		 * @param bool $outputContent (optional) echo fragment's content instead of returning it. false by default
 		 * @return string|null string if $outputContent = false (default), null if echoed or fragment doesn't exist
 		 */
-		public static function loadFilePreprocessed($id, $outputContent = false) {
+		public static function loadFilePreprocessed($id, $outputContent = false): ?string {
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
@@ -493,7 +491,7 @@
 		 * @param string $id Fragment ID
 		 * @return array|null array if successful, null if not
 		 */
-		public static function loadArray($id) {
+		public static function loadArray($id): ?array {
 
 			$arr = self::loadFragment($id);
 

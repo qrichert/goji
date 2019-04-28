@@ -15,7 +15,7 @@
 		 * @param array|string $tagsArray
 		 * @return array
 		 */
-		public static function sanitizeTags($tagsArray) {
+		public static function sanitizeTags($tagsArray): array {
 
 			// Converting tags to Array
 			if (!is_array($tagsArray))
@@ -39,7 +39,7 @@
 		 *
 		 * @param array $array
 		 * @param bool $sanitize default = true
-		 * @return false|string
+		 * @return string|false
 		 */
 		public static function encode($array, $sanitize = true) {
 
@@ -54,9 +54,9 @@
 		 *
 		 * @param string $json
 		 * @param bool $sanitize default = false
-		 * @return array|mixed
+		 * @return array
 		 */
-		public static function decode($json, $sanitize = false) {
+		public static function decode($json, $sanitize = false): array {
 
 			$array = json_decode($json, true);
 
@@ -74,7 +74,7 @@
 		 * @param array $tagsArray
 		 * @return string
 		 */
-		public static function toString($tagsArray) {
+		public static function toString($tagsArray): string {
 			return implode(', ', $tagsArray);
 		}
 
@@ -91,9 +91,9 @@
 		 *
 		 * @param array|string $newTags
 		 * @param array $tagsArray (optional)
-		 * @return array|null
+		 * @return array
 		 */
-		public static function addTags($newTags, $tagsArray = null) {
+		public static function addTags($newTags, $tagsArray = null): array {
 
 			// Making sure $newTags is an Array
 			if (!is_array($newTags)) {
@@ -117,7 +117,7 @@
 		 * @param array $tagsArray
 		 * @return array
 		 */
-		public static function removeTags($tagsToRemove, $tagsArray) {
+		public static function removeTags($tagsToRemove, $tagsArray): array {
 
 			// Making sure $tagsToRemove is an Array
 			if (!is_array($tagsToRemove)) {

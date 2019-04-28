@@ -68,11 +68,6 @@
 			$this->setAppMode($config['app_mode']);
 			$this->setLinkedFilesMode($config['linked_files_mode']);
 
-			Logger::log($this->m_appMode);
-			Logger::log($this->getAppMode());
-			Logger::log($this->m_linkedFilesMode);
-			Logger::log($this->getLinkedFilesMode());
-
 			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
 			$this->m_router = null;
@@ -330,8 +325,6 @@
 
 			if (!isset($this->m_languages))
 				$this->m_languages = new Languages();
-
-			Logger::log($this->m_languages->getCurrentLocale(), Logger::BROWSER);
 
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);

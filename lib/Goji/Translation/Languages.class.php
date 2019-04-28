@@ -14,78 +14,75 @@
 
 		/* <ATTRIBUTES> */
 
-		private $m_useLanguages;
-		private $m_userPreferredLocales;
-		private $m_configurationLocales;
-		private $m_fallbackLocale;
-		private $m_currentLocale;
+		private $m_configurationLocales; // Loaded from config file + $this->formatConfigurationLocales($config);
+		private $m_fallbackLocale; // Loaded from config file + $this->formatConfigurationLocales($config);
+		private $m_userPreferredLocales; // $this->fetchUserPreferredLocales(); Defined in HTTP header, formatted
+		private $m_currentLocale; // $this->fetchCurrentLocale(); Best match between config & user
 
 		/* <CONSTANTS> */
 
 		const CONFIG_FILE = '../config/languages.json5';
 
 		const E_NO_LANGUAGES_CONFIGURED = 0;
+		const E_LOCALE_DOES_NOT_EXIST = 1;
 
 		public function __construct($configFile = self::CONFIG_FILE) {
 
-			$this->m_useLanguages = true;
+			// First we load config
 			$config = null;
 
 			try {
 
 				$config = ConfigurationLoader::loadFileToArray($configFile);
 
+				// If loading was successful, we format it so we can use it more easily
+				list($this->m_configurationLocales, $this->m_fallbackLocale) = $this->formatConfigurationLocales($config);
+
 			} catch (Exception $e) {
 
-				$this->m_useLanguages = false;
-			}
-
-			$this->fetchUserPreferredLocales();
-
-			if ($this->m_useLanguages) {
-
-				$this->m_configurationLocales = $this->formatConfigurationLocales($config);
-
-				// If config is used and valid, we look for a current locale,
-				// either a cookie, or we generate it
-				if (!empty($this->m_configurationLocales)) {
-
-					// If it's in a cookie, load cookie
-					if (isset($_COOKIE['locale']) && !empty($_COOKIE['locale'])) {
-
-						$locale = $_COOKIE['locale'];
-
-						// Look if the locale is a valid one
-						if (isset($this->m_configurationLocales[$locale])) {
-
-							$this->m_currentLocale = $locale;
-
-						} else {
-
-							$this->fetchCurrentLocale();
-							setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
-						}
-
-					} else {
-
-						$this->fetchCurrentLocale();
-						// TODO: cookies prefix in cookies config file
-						// TODO: also, in cookies class, make a fetch method where you can pass an array of accepted return values, and if it's not in it, return null, or !isset
-						setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
-					}
-
-				}  else {
-					$this->m_useLanguages = false;
-				}
-			}
-
-			if ($this->m_useLanguages === false) {
-
+				// If we couldn't load the file, we can't fill-in those attributes
 				$this->m_configurationLocales = null;
 				$this->m_fallbackLocale = null;
-				$this->m_currentLocale = null;
 			}
 
+			// Get user language config (from HTTP headers)
+			$this->fetchUserPreferredLocales();
+
+			// Set with setCurrentLocale() or by loadCurrentLocale() if getCurrentLocale() is
+			// called and $this->m_currentLocale is still null
+			// This is because pages "force" their language, but there are some pages
+			// without a specific language, so we must get the best one possible (last one used
+			// and if there's no last one used (first visit) we get the best match according to
+			// the user's browser preferences.)
+			$this->m_currentLocale = null;
+		}
+
+		function __debugInfo() {
+
+			$configurationLocales = isset($this->m_configurationLocales) ?
+									print_r($this->m_configurationLocales, true) :
+									'NULL';
+
+			$userPreferredLocales = isset($this->m_userPreferredLocales) ?
+									print_r($this->m_userPreferredLocales, true) :
+									'NULL';
+
+			echo 'Configuration Locales: ' . $configurationLocales . PHP_EOL;
+			echo 'Fallback Locale: ' . ($this->m_fallbackLocale ?? 'NULL') . PHP_EOL;
+			echo 'User Preferred Locales: ' . $userPreferredLocales . PHP_EOL;
+			echo 'Current Locale: ' . ($this->m_currentLocale ?? 'NULL') . PHP_EOL;
+		}
+
+		/**
+		 * @return array
+		 * @throws \Exception
+		 */
+		public function getConfigurationLocales(): array {
+
+			if (isset($this->m_configurationLocales))
+				return $this->m_configurationLocales;
+			else
+				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
 		}
 
 		/**
@@ -96,13 +93,13 @@
 		}
 
 		/**
-		 * @return array
+		 * @return string
 		 * @throws \Exception
 		 */
-		public function getConfigurationLocales(): array {
+		public function getFallbackLocale(): string {
 
-			if ($this->m_useLanguages)
-				return $this->m_configurationLocales;
+			if (isset($this->m_configurationLocales))
+				return $this->m_fallbackLocale;
 			else
 				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
 		}
@@ -111,20 +108,42 @@
 		 * @return string
 		 * @throws \Exception
 		 */
-		public function getFallbackLocale(): string {
-
-			if ($this->m_useLanguages)
-				return $this->m_fallbackLocale;
-			else
-				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
-		}
-
 		public function getCurrentLocale(): string {
 
-			if ($this->m_useLanguages)
+			// If a locale is set (this getter has already been called, or one has been set by hand)
+			if (isset($this->m_currentLocale))
 				return $this->m_currentLocale;
-			else
-				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
+
+			// If not (first time this getter called & none set by hand)
+			// We must load the last locale or generate one into $this->m_currentLocale;
+			$this->loadCurrentLocale();
+
+			return $this->m_currentLocale;
+		}
+
+		/**
+		 * Set the current locale by hand.
+		 *
+		 * @param string $locale
+		 * @throws \Exception
+		 */
+		public function setCurrentLocale(string $locale): void {
+
+			// If we use config, locale must comply
+			if (isset($this->m_configurationLocales)) {
+
+				if (isset($this->m_configurationLocales[$locale]))
+					$this->m_currentLocale = $locale;
+				else
+					throw new Exception('Locale does not exist: ' . $locale, self::E_LOCALE_DOES_NOT_EXIST);
+
+			} else {
+
+				// If we don't use config, it's not useful, but it doesn't matter either
+				$this->m_currentLocale = $locale;
+			}
+
+			setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
 		}
 
 		/**
@@ -132,6 +151,8 @@
 		 *
 		 * Extracted from $_SERVER['HTTP_ACCEPT_LANGUAGE']
 		 * Returned as array('en_US', 'en_GB', 'fr')
+		 *
+		 * Called from __construct()
 		 */
 		private function fetchUserPreferredLocales(): void {
 
@@ -178,6 +199,8 @@
 		 *      [fr] => Français
 		 * )
 		 *
+		 * Called from __construct()
+		 *
 		 * @param array $locales
 		 * @return array
 		 */
@@ -185,6 +208,8 @@
 
 			// Not the most memory efficient (references will be copied) but the safest
 			$newLocales = array();
+
+			$fallbackLocale = null;
 
 			foreach ($locales as $locale => $alias) {
 
@@ -195,7 +220,7 @@
 					else
 						$alias = mb_strtolower($alias);
 
-					$this->m_fallbackLocale = $alias;
+					$fallbackLocale = $alias;
 
 					continue;
 				}
@@ -210,13 +235,28 @@
 				$newLocales[$locale] = $alias;
 			}
 
-			return $newLocales;
+			return array($newLocales, $fallbackLocale);
 		}
 
 		/**
 		 * Matches config locales with user locales and selects best match (first one)
+		 *
+		 * ALWAYS returns a locale.
+		 * 1. Perfect match (lang + region)
+		 * 2. First locale of preferred language in config (lang)
+		 * 3. Fallback locale
+		 * 4. First locale in config
+		 *
+		 * If no locale in config, throws Exception(E_NO_LANGUAGES_CONFIGURED)
+		 *
+		 * Called from loadCurrentLocale()
+		 *
+		 * @throws \Exception
 		 */
 		private function fetchCurrentLocale(): void {
+
+			if (empty($this->m_configurationLocales))
+				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
 
 			$langMatch = null;
 
@@ -291,6 +331,50 @@
 				$this->m_currentLocale = $locale;
 				// Break the loop after first pass, we only want the first
 				return;
+			}
+		}
+
+		/**
+		 * Load $this->m_currentLocale either from cookie or generates it.
+		 *
+		 * Called from getCurrentLocale() if $this->m_currentLocale is null
+		 *
+		 * This function ALWAYS sets a string value for $this->m_currentLocale, because
+		 * it either loads one from a cookie and makes sure it's valid, or it uses
+		 * fetchCurrentLocale() which always returns a locale.
+		 *
+		 * @throws \Exception
+		 */
+		private function loadCurrentLocale(): void {
+
+			if (empty($this->m_configurationLocales))
+				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
+
+			// If config is used and valid, we look for a current locale,
+			// either in a cookie, or we generate it
+
+			// If it's in a cookie, load cookie
+			if (isset($_COOKIE['locale']) && !empty($_COOKIE['locale'])) {
+
+				$locale = $_COOKIE['locale'];
+
+				// Look if the locale is a valid one
+				if (isset($this->m_configurationLocales[$locale])) {
+
+					$this->m_currentLocale = $locale;
+
+				} else {
+
+					$this->fetchCurrentLocale();
+					setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
+				}
+
+			} else {
+
+				$this->fetchCurrentLocale();
+				// TODO: cookies prefix in cookies config file
+				// TODO: also, in cookies class, make a fetch method where you can pass an array of accepted return values, and if it's not in it, return null, or !isset
+				setcookie('locale', $this->m_currentLocale, time() + 10 * 12 * 30 * 24 * 3600, '/', null, false, true); // 10 years
 			}
 		}
 	}

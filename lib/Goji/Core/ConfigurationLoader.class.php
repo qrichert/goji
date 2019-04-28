@@ -49,7 +49,7 @@
 		 * @return array
 		 * @throws \Exception
 		 */
-		private static function loadJSONFileToArray($file) {
+		private static function loadJSONFileToArray($file): array {
 
 			$config = file_get_contents($file);
 			$config = json_decode($config, true);

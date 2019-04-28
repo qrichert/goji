@@ -25,6 +25,7 @@
 		private $m_scriptName;
 		private $m_rootFolder;
 		private $m_requestPage;
+		private $m_requestParameters;
 
 		/**
 		 * RequestHandler constructor.
@@ -99,6 +100,10 @@
 
 					$this->m_requestPage = mb_substr($this->m_requestPageURI, $len);
 				}
+
+			// page-([0-9]) -> { '0' => [ 'page-1', '1' ] }
+			// Filled in by \Goji\Core\Router by default
+			$this->m_requestParameters = array();
 		}
 
 		public function __debugInfo() {
@@ -110,6 +115,7 @@
 			echo 'Script Name: ' . $this->m_scriptName . PHP_EOL;
 			echo 'Root Folder: ' . $this->m_rootFolder . PHP_EOL;
 			echo 'Request Page: ' . $this->m_requestPage . PHP_EOL;
+			echo 'Request Parameters: ' . print_r($this->m_requestParameters, true) . PHP_EOL;
 		}
 
 		/**
@@ -203,6 +209,44 @@
 		 */
 		public function getRequestPage(): string {
 			return $this->m_requestPage;
+		}
+
+		/**
+		 * Returns request parameters as array.
+		 *
+		 * /page-([0-9]+)(?:-([0-9]+))?
+		 * -> /page-937-28
+		 *
+		 * Note that (?: ) is a non-capturing group!
+		 *
+		 * => Array(
+		 *      [0] => [/page-937-28] // Full match (= $0)
+		 *      [1] => [937] // First capturing group (= $1)
+		 *      [2] => [29] // Second capturing group (= $2)
+		 * )
+		 *
+		 * @return array
+		 */
+		public function getRequestParameters(): array {
+			return $this->m_requestParameters;
+		}
+
+		/**
+		 * Get a particular capturing group.
+		 *
+		 * 0 = $0 (full match), 1 = $1 (first capturing group), etc.
+		 *
+		 * See getRequestParameters() for explanation.
+		 *
+		 * @param int $capturingGroup
+		 * @return string|null
+		 */
+		public function getRequestParameter(int $capturingGroup): ?string {
+			return $this->m_requestParameters[$capturingGroup] ?? null;
+		}
+
+		public function setRequestParameters(array $parameters) {
+			$this->m_requestParameters = $parameters;
 		}
 
 		/**
@@ -305,7 +349,7 @@
 		 * @param string $queryString The query string in which to look for the value (could be $_SERVER['QUERY_STRING'])
 		 * @return string|null The value of the first occurrence of $param, null if not found
 		 */
-		public static function getFirstParamOccurrence(string $param, string $queryString): string {
+		public static function getFirstParamOccurrence(string $param, string $queryString): ?string {
 
 			// TODO: Is this still relevant? Maybe keep it anyways, but don't use queryStringToArray() in here, this one is more efficient
 
