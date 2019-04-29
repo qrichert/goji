@@ -2,6 +2,7 @@
 
 	namespace Goji\Translation;
 
+	use Goji\Core\App;
 	use Goji\Core\ConfigurationLoader;
 	use Goji\Core\Cookies;
 	use Exception;
@@ -9,13 +10,18 @@
 	/**
 	 * Class Languages
 	 *
+	 * Determines which language to use is none given.
+	 * You can use this class just to get the user's preferred languages.
+	 *
 	 * @package Goji\Translation
 	 */
 	class Languages {
 
 		/* <ATTRIBUTES> */
 
+		private $m_app;
 		private $m_configurationLocales; // Loaded from config file + $this->formatConfigurationLocales($config);
+		private $m_supportedLocales; // Same as $this->m_configurationLocales, but just the keys, w/o description
 		private $m_fallbackLocale; // Loaded from config file + $this->formatConfigurationLocales($config);
 		private $m_userPreferredLocales; // $this->fetchUserPreferredLocales(); Defined in HTTP header, formatted
 		private $m_currentLocale; // $this->fetchCurrentLocale(); Best match between config & user
@@ -27,7 +33,15 @@
 		const E_NO_LANGUAGES_CONFIGURED = 0;
 		const E_LOCALE_DOES_NOT_EXIST = 1;
 
-		public function __construct($configFile = self::CONFIG_FILE) {
+		/**
+		 * Languages constructor.
+		 *
+		 * @param \Goji\Core\App $app
+		 * @param string $configFile
+		 */
+		public function __construct(App $app, $configFile = self::CONFIG_FILE) {
+
+			$this->m_app = $app;
 
 			// First we load config
 			$config = null;
@@ -39,10 +53,17 @@
 				// If loading was successful, we format it so we can use it more easily
 				list($this->m_configurationLocales, $this->m_fallbackLocale) = $this->formatConfigurationLocales($config);
 
+				$this->m_supportedLocales = array();
+
+				foreach ($this->m_configurationLocales as $locale => $description) {
+					$this->m_supportedLocales[] = $locale;
+				}
+
 			} catch (Exception $e) {
 
 				// If we couldn't load the file, we can't fill-in those attributes
 				$this->m_configurationLocales = null;
+				$this->m_supportedLocales = null;
 				$this->m_fallbackLocale = null;
 			}
 
@@ -75,6 +96,10 @@
 		}
 
 		/**
+		 * Returns all locales in configuration with description.
+		 *
+		 * 'en_US' => 'English (US)'
+		 *
 		 * @return array
 		 * @throws \Exception
 		 */
@@ -84,6 +109,53 @@
 				return $this->m_configurationLocales;
 			else
 				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
+		}
+
+		/**
+		 * Returns all locales, without description.
+		 *
+		 * 'en_US', 'en_GB', 'fr'
+		 *
+		 * @return array
+		 * @throws \Exception
+		 */
+		public function getSupportedLocales(): array {
+
+			if (isset($this->m_supportedLocales))
+				return $this->m_supportedLocales;
+			else
+				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
+		}
+
+		/**
+		 * Returns all locales, without description, and with hyphens instead of underscores.
+		 *
+		 * 'en-US', 'en-GB', 'fr'
+		 *
+		 * @return array
+		 * @throws \Exception
+		 */
+		public function getSupportedHyphenLocales(): array {
+
+			$locales = $this->getSupportedLocales();
+
+			foreach ($locales as &$locale) {
+				$locale = $this->hyphenateLocale($locale);
+			}
+
+			return $locales;
+		}
+
+		/**
+		 * Replace underscore by hyphen in locale.
+		 *
+		 * en_US -> en-US
+		 *
+		 * @param string $locale
+		 * @return string
+		 */
+		public function hyphenateLocale(string $locale): string {
+			return (string) str_replace('_', '-', $locale);
 		}
 
 		/**
@@ -106,6 +178,8 @@
 		}
 
 		/**
+		 * Returns current locale. Ex: en_US.
+		 *
 		 * @return string
 		 * @throws \Exception
 		 */
@@ -120,6 +194,18 @@
 			$this->loadCurrentLocale();
 
 			return $this->m_currentLocale;
+		}
+
+		/**
+		 * Returns current locale but with a hyphen separator. Ex: en-US.
+		 *
+		 * HTML uses the dash version.
+		 *
+		 * @return string
+		 * @throws \Exception
+		 */
+		public function getCurrentHyphenLocale(): string {
+			return $this->hyphenateLocale($this->getCurrentLocale());
 		}
 
 		/**
@@ -145,10 +231,18 @@
 			}
 
 			Cookies::set('locale', $this->m_currentLocale);
+			$this->updateAppTranslator();
+		}
+
+		private function updateAppTranslator(): void {
+
+			if ($this->m_app->hasTranslator()
+				&& isset($this->m_currentLocale))
+					$this->m_app->getTranslator()->setTargetLocale($this->m_currentLocale);
 		}
 
 		/**
-		 * Fetch all accepted locales by user as a list of locales.
+		 * Fetch all user preferred locales as a list of locales.
 		 *
 		 * Extracted from $_SERVER['HTTP_ACCEPT_LANGUAGE']
 		 * Returned as array('en_US', 'en_GB', 'fr')
@@ -236,6 +330,16 @@
 				$newLocales[$locale] = $alias;
 			}
 
+			if (!isset($fallbackLocale)) { // If no fallback set, we use first language in list
+
+				foreach ($newLocales as $locale => $alias) {
+
+					// Break the loop after first pass, we only want the first
+					$fallbackLocale = $locale;
+					break;
+				}
+			}
+
 			return array($newLocales, $fallbackLocale);
 		}
 
@@ -254,7 +358,7 @@
 		 *
 		 * @throws \Exception
 		 */
-		private function fetchCurrentLocale(): void {
+		private function fetchCurrentLocale(): string {
 
 			if (empty($this->m_configurationLocales))
 				throw new Exception('No languages have been configured.', self::E_NO_LANGUAGES_CONFIGURED);
@@ -297,8 +401,7 @@
 						// We found a match
 						if ($configLocale === $userLocale) {
 
-							$this->m_currentLocale = $configLocale;
-							return;
+							return $configLocale;
 						}
 					}
 				}
@@ -315,23 +418,22 @@
 						continue;
 
 					// Select the first matching locale (by lang) and quit
-					$this->m_currentLocale = $configLocale;
-					return;
+					return $configLocale;
 				}
 			}
 
 			// Now, if we are here, it just means that user language isn't supported.
 			// We use our fallback
 			if (isset($this->m_configurationLocales[$this->m_fallbackLocale])) {
-				$this->m_currentLocale = $this->m_fallbackLocale;
-				return;
+
+				return $this->m_fallbackLocale;
 			}
 
 			// If fallback didn't work, we take the first lang in config
 			foreach ($this->m_configurationLocales as $locale => $alias) {
-				$this->m_currentLocale = $locale;
+
 				// Break the loop after first pass, we only want the first
-				return;
+				return $locale;
 			}
 		}
 
@@ -366,14 +468,16 @@
 
 				} else {
 
-					$this->fetchCurrentLocale();
+					$this->m_currentLocale = $this->fetchCurrentLocale();
 					Cookies::set('locale', $this->m_currentLocale);
 				}
 
 			} else {
 
-				$this->fetchCurrentLocale();
+				$this->m_currentLocale = $this->fetchCurrentLocale();
 				Cookies::set('locale', $this->m_currentLocale);
 			}
+
+			$this->updateAppTranslator();
 		}
 	}

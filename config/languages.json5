@@ -12,6 +12,7 @@
 	// Identifiers must match those of routes.json5
 	// If in this configuration, user only has 'en', or an unsupported locale
 	// like 'en_NZ', the first one appearing (en_US) will be selected as default.
+	// Description can be reached via Languages::getConfigurationLocales()['en_US']
 	en_US: "English (US)",
 	en_GB: "English (GB)",
 	fr: "Français"

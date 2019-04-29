@@ -32,8 +32,9 @@
 		// naming convention and make it implement \Goji\Design\ControllerInterface().
 		controller: "HomeController"
 	},
-	// URLs can contain characters that are not valid in JSON,
-	// like the dash - here. So we just put it in quotes ;)
+	// This is the page ID.
+	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )
+	// It is also put as <body id=""> in default template, so make sure it's HTML#id compliant
 	"other-page": {
 		// This works, but it's equivalent to the shorter syntax of "some-other-page"
 		routes: {

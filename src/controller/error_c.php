@@ -13,7 +13,7 @@
 
 	/*********************/
 
-	if (LOCAL_TESTING
+	if ($this->m_app->getAppMode() === \Goji\Core\App::DEBUG
 		&& isset($_GET['error'])
 		&& !empty($_GET['error'])) { // Giving direct access on localhost for testing
 

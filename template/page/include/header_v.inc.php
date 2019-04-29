@@ -1,5 +1,5 @@
 <header>
-	<a href="<?= PAGES[CURRENT_LANGUAGE]['home']; ?>"><?= TITLE_HOME; ?></a>
+	<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>"><?= TITLE_HOME; ?></a>
 
 	<nav>
 		<a href="#">Page 1</a> -

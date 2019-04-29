@@ -14,10 +14,9 @@
 		/* <ATTRIBUTES> */
 
 		private $m_app;
-		private $m_languages;
-		private $m_requestHandler;
 		private $m_routes;
 		private $m_mappedRoutes;
+		private $m_currentPage;
 
 		/* <CONSTANTS> */
 
@@ -25,6 +24,9 @@
 
 		const E_ROUTES_ARE_MISCONFIGURED = 0;
 		const E_ROUTE_LACKING_CONTROLLER = 1;
+		const E_PAGE_DOES_NOT_EXIST = 2;
+		const E_LOCALE_DOES_NOT_EXIST = 3;
+		const E_ROUTING_MUST_BE_DONE_FIRST = 4;
 
 		const HTTP_ERROR_404 = 404;
 
@@ -38,10 +40,9 @@
 		public function __construct(App $app, $configFile = self::CONFIG_FILE) {
 
 			$this->m_app = $app;
-			$this->m_languages = $app->getLanguages();
-			$this->m_requestHandler = $app->getRequestHandler();
 			$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
 			$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
+			$this->m_currentPage = null;
 		}
 
 		/**
@@ -89,7 +90,6 @@
 				if (!isset($config['controller']) || !is_string($config['controller']))
 					throw new Exception('Route is lacking controller. (' . $page .')', self::E_ROUTE_LACKING_CONTROLLER);
 
-
 				$controller = $config['controller'];
 
 				if (isset($config['routes']) && is_array($config['routes'])) {
@@ -98,7 +98,8 @@
 
 						$mappedRoutes[$route] = array(
 							'locale' => $locale,
-							'controller' => $controller
+							'controller' => $controller,
+							'page' => $page
 						);
 					}
 
@@ -106,7 +107,8 @@
 
 					$mappedRoutes[$config['route']] = array(
 						'locale' => 'all', // No specific language
-						'controller' => $controller
+						'controller' => $controller,
+						'page' => $page
 					);
 
 				} else {
@@ -119,11 +121,101 @@
 		}
 
 		/**
+		 * @return string
+		 * @throws \Exception
+		 */
+		public function getCurrentPage(): string {
+
+			if (isset($this->m_currentPage))
+				return $this->m_currentPage;
+			else
+				throw new Exception('Router::getCurrentPage() cannot be called before routing.', self::E_ROUTING_MUST_BE_DONE_FIRST);
+		}
+
+		/**
+		 * Returns the link associated to a given page.
+		 *
+		 * Router::getLinkForPage(null, 'en_US'); -> Current page, en_US version
+		 * Router::getLinkForPage() -> Current page, current locale
+		 * Router::getLinkForPage('home') -> 'home' page, current locale
+		 * Router::getLinkForPage('home', 'fr') -> 'home' page, fr version
+		 * Router::getLinkForPage(null, null, true) -> Current page, current locale, full URL https://www.domain.com/page
+		 *
+		 * @param string|null $page
+		 * @param string|null $locale
+		 * @param bool $includeSiteURL (optional) default = false
+		 * @return string
+		 * @throws \Exception
+		 */
+		public function getLinkForPage(string $page = null, string $locale = null, bool $includeSiteURL = false): string {
+
+			if (!isset($page)) {
+
+				if (isset($this->m_currentPage))
+					$page = $this->m_currentPage;
+				else
+					throw new Exception('Router::getLinkForPage() cannot be called without $page parameter before routing.', self::E_ROUTING_MUST_BE_DONE_FIRST);
+			}
+
+			// Make sure page exists
+			if (!isset($this->m_routes[$page]))
+				throw new Exception('Page does not exist: ' . $page, self::E_PAGE_DOES_NOT_EXIST);
+
+			if (!isset($locale))
+				$locale = $this->m_app->getLanguages()->getCurrentLocale(); // Current one if none given
+
+			// Make sure locale exists
+			if (!isset($this->m_app->getLanguages()->getConfigurationLocales()[$locale]))
+				throw new Exception('Locale does not exist: ' . $locale, self::E_LOCALE_DOES_NOT_EXIST);
+
+			$link = null;
+
+			$locales = array($locale, $this->m_app->getLanguages()->getFallbackLocale());
+			foreach ($locales as $locale) {
+
+				// If we have [page][routes][locale]
+				if (isset($this->m_routes[$page]['routes'][$locale])) {
+
+					$link = $this->m_routes[$page]['routes'][$locale];
+
+				// If we have [page][routes][all]
+				} else if (isset($this->m_routes[$page]['routes']['all'])) {
+
+					$link = $this->m_routes[$page]['routes']['all'];
+
+				// If we have [page][route]
+				} else if (isset($this->m_routes[$page]['route'])) {
+
+					$link = $this->m_routes[$page]['route'];
+				}
+
+				if ($link !== null)
+					break;
+			}
+
+			// If link was not found, there must be a misconfiguration somewhere,
+			// because we already know that the page exists at this point.
+			if (!isset($link))
+				throw new Exception('Page does not exist: ' . $page, self::E_PAGE_DOES_NOT_EXIST);
+
+			// TODO: Do something about regex /some-other-page-([0-9]+)(?:-([0-9]+))?
+
+			// Remove leading / (/home -> home)
+			$link = mb_substr($link, 1);
+			$link = $this->m_app->getRequestHandler()->getRootFolder() . $link;
+
+			if ($includeSiteURL)
+				$link = $this->m_app->getSiteUrl() . $link; // App::getSiteUrl() has no trailing /
+
+			return $link;
+		}
+
+		/**
 		 * Loads the appropriate controller.
 		 */
 		public function route(): void {
 
-			$page = '/' . $this->m_requestHandler->getRequestPage();
+			$page = '/' . $this->m_app->getRequestHandler()->getRequestPage();
 			$locale = null;
 			$controller = null;
 
@@ -137,14 +229,16 @@
 				if (preg_match('#^' . $pagePattern . '$#', $page, $matches)) {
 
 					if (!isset($route['locale']) || empty($route['locale']) || $route['locale'] == 'all')
-						$this->m_languages->getCurrentLocale();
+						$this->m_app->getLanguages()->getCurrentLocale();
 					else
-						$this->m_languages->setCurrentLocale($route['locale']);
+						$this->m_app->getLanguages()->setCurrentLocale($route['locale']);
 
 					// $controller = \App\Controller\HomeController
 					$controller = '\App\Controller\\' . $route['controller'];
 
-					$this->m_requestHandler->setRequestParameters($matches);
+					$this->m_app->getRequestHandler()->setRequestParameters($matches);
+
+					$this->m_currentPage = $route['page'];
 
 					// Stop searching after first match.
 					break;

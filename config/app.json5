@@ -11,6 +11,8 @@
 	// Trailing slash will be removed
 	site_url: "https://www.SITE_URL.com",
 	site_name: "SITE_NAME",
+	// Trailing slash will be removed
 	site_domain_name: "SITE_URL.com",
+	// Trailing slash will be removed
 	site_full_domain: "www.SITE_URL.com"
 }

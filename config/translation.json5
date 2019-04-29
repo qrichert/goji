@@ -1,0 +1,20 @@
+/*
+ * Configuration file for \Goji\Translation\Translator
+ *
+ * List of language source files for each locale (see languages.json5 for the list of locales).
+ */
+
+{
+	all: [], // (optional) Files included regardless of the current locale,,,
+	en_US: [
+		// Base path is always translation/
+		// You can create subfolders as you please
+		"en.tr.php"
+	],
+	en_GB: [
+		"en.tr.php"
+	],
+	fr: [
+		"fr.tr.php"
+	]
+}

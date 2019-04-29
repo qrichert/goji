@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="<?= CURRENT_LANGUAGE; ?>">
+<!-- TODO: we need a propoer controller for this, so we can use $this->m_app -->
+<html lang="<?= $this->m_app->getLanguages()->getCurrentHyphenLocale(); ?>">
 	<head>
 		<?php
-			if (!LOCAL_TESTING)
+			if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
 				require_once '../template/page/include/tracking_v.inc.php';
 		?>
 

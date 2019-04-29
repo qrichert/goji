@@ -2,7 +2,7 @@
 
 	/* CONSTANTS */
 
-	const PAGE = '<?= CURRENT_PAGE; ?>';
+	const PAGE = '<?= $this->m_app->getRouter()->getCurrentPage(); ?>';
 //	var SCREEN_WIDTH  = window.innerWidth;
 //	var SCREEN_HEIGHT = window.innerHeight;
 	const TOUCH_EVENT = 'click'; //'ontouchstart' in window ? 'touchend' : 'click';

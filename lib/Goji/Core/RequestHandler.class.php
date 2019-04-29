@@ -82,6 +82,12 @@
 					}
 				}
 
+				// Make sure there's a trailing slash
+				if (empty($this->m_rootFolder))
+					$this->m_rootFolder = '/';
+				else if (mb_substr($this->m_rootFolder, -1) !== '/')
+					$this->m_rootFolder .= '/';
+
 			// home
 			$this->m_requestPage = '';
 
