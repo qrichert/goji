@@ -135,6 +135,11 @@
 		/**
 		 * Returns the link associated to a given page.
 		 *
+		 * Returns the absolute path, without the domain.
+		 * So https://www.domain.com/my/page would return /my/page
+		 *
+		 * If you want the full path, with the domain, set the $includeSiteURL to true
+		 *
 		 * Router::getLinkForPage(null, 'en_US'); -> Current page, en_US version
 		 * Router::getLinkForPage() -> Current page, current locale
 		 * Router::getLinkForPage('home') -> 'home' page, current locale
