@@ -42,14 +42,15 @@ RewriteRule ^(.*)$ index.php [QSA,L]
 
 # Don't forget 'rel="nofollow"' for these links
 
-# TODO: Clean useless rewritings like these, onece it is implemented in code
+# TODO: Clean useless rewritings like these, once it is implemented in code
 RewriteRule ^lang-([a-z]{2})$	index.php?page=lang&lang=$1 [QSA,L]
 
 # --- ERRORS ---
 
-ErrorDocument 403 /index.php?page=error
-ErrorDocument 404 /index.php?page=error
-ErrorDocument 500 /index.php?page=error
+# You may have to change these on localhost if docroot != webroot
+ErrorDocument 403 /index.php
+ErrorDocument 404 /index.php
+ErrorDocument 500 /index.php
 
 # --- NOINDEX, NOFOLLOW ---
 

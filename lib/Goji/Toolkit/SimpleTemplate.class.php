@@ -64,6 +64,7 @@
 		private $m_pageTitle;
 		private $m_pageDescription;
 		private $m_robotsBehaviour;
+		private $m_showCanonicalPageAndAlternates;
 		private $m_pageContent;
 		private $m_specials;
 
@@ -80,14 +81,17 @@
 		 * @param string $pageTitle (optional) default = ''
 		 * @param string $pageDescription (optional) default = ''
 		 * @param int $robotsBehaviour (optional) default = SimpleTemplate::ROBOTS_ALLOW_INDEX_AND_FOLLOW
+		 * @param bool $showCanonicalPageAndAlternates (optional) default = true
 		 */
-		public function __construct($pageTitle = '',
-							 $pageDescription = '',
-							 $robotsBehaviour = self::ROBOTS_ALLOW_INDEX_AND_FOLLOW) {
+		public function __construct(string $pageTitle = '',
+		                            string $pageDescription = '',
+		                            int $robotsBehaviour = self::ROBOTS_ALLOW_INDEX_AND_FOLLOW,
+									bool $showCanonicalPageAndAlternates = true) {
 
 			$this->m_pageTitle = $pageTitle;
 			$this->m_pageDescription = $pageDescription;
 			$this->m_robotsBehaviour = $robotsBehaviour;
+			$this->m_showCanonicalPageAndAlternates = $showCanonicalPageAndAlternates;
 			$this->m_pageContent = '';
 			$this->m_specials = array();
 		}
@@ -99,7 +103,7 @@
 		 *
 		 * @return string
 		 */
-		public function getPageTitle() {
+		public function getPageTitle(): string {
 			return $this->m_pageTitle;
 		}
 
@@ -108,7 +112,7 @@
 		 *
 		 * @param string $title
 		 */
-		public function setPageTitle($title) {
+		public function setPageTitle(string $title): void {
 			$this->m_pageTitle = $title;
 		}
 
@@ -117,7 +121,7 @@
 		 *
 		 * @return string
 		 */
-		public function getPageDescription() {
+		public function getPageDescription(): string {
 			return $this->m_pageDescription;
 		}
 
@@ -126,7 +130,7 @@
 		 *
 		 * @param string $description
 		 */
-		public function setPageDescription($description) {
+		public function setPageDescription(string $description): void {
 			$this->m_pageDescription = $description;
 		}
 
@@ -144,7 +148,7 @@
 		 *
 		 * @return string
 		 */
-		public function getRobotsBehaviour() {
+		public function getRobotsBehaviour(): string {
 
 			switch ($this->m_robotsBehaviour) {
 
@@ -170,8 +174,24 @@
 		 *
 		 * @param \Goji\SimpleTemplate::ROBOTS_BEHAVIOUR $behaviour
 		 */
-		public function setRobotsBehaviour($behaviour) {
+		public function setRobotsBehaviour(int $behaviour): void {
 			$this->m_robotsBehaviour = $behaviour;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function getShowCanonicalPageAndAlternates(): bool {
+			return $this->m_showCanonicalPageAndAlternates;
+		}
+
+		/**
+		 * Show canonical page link and alternate languages or not.
+		 *
+		 * @param bool $show
+		 */
+		public function setShowCanonicalPageAndAlternates(bool $show): void {
+			$this->m_showCanonicalPageAndAlternates = $show;
 		}
 
 		/**
@@ -179,7 +199,7 @@
 		 *
 		 * @return string
 		 */
-		public function getPageContent() {
+		public function getPageContent(): string {
 			return $this->m_pageContent;
 		}
 
@@ -188,7 +208,7 @@
 		 *
 		 * @param string $content
 		 */
-		public function setPageContent($content) {
+		public function setPageContent(string $content): void {
 
 			// Make sure it's valid
 			if (is_string($content))
@@ -207,7 +227,7 @@
 		 * @param string $key
 		 * @return mixed|null
 		 */
-		public function getSpecial($key) {
+		public function getSpecial(string $key) {
 
 			if (isset($this->m_specials[$key]))
 				return $this->m_specials[$key];
@@ -229,7 +249,7 @@
 		 *
 		 * @param array $arr
 		 */
-		public function setSpecials($arr) {
+		public function setSpecials(array $arr): void {
 
 			if (is_array($arr))
 				$this->m_specials = $arr;
@@ -248,7 +268,7 @@
 		 * @param string $key
 		 * @param mixed $value
 		 */
-		public function addSpecial($key, $value) {
+		public function addSpecial(string $key, $value): void {
 			$this->m_specials[$key] = $value;
 		}
 
@@ -257,7 +277,7 @@
 		/**
 		 * Starts buffering. Calls ob_start().
 		 */
-		public function startBuffer() {
+		public function startBuffer(): void {
 			ob_start();
 		}
 
@@ -273,7 +293,7 @@
 		/**
 		 * Closes buffer and discards content.
 		 */
-		public function closeBuffer() {
+		public function closeBuffer(): void {
 			ob_end_clean();
 		}
 
@@ -287,7 +307,7 @@
 		 * $template->setPageContent($content);
 		 * ```
 		 */
-		public function saveBuffer() {
+		public function saveBuffer(): void {
 
 			// Get content && update page content
 			$this->setPageContent($this->readBuffer());

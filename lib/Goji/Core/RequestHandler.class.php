@@ -2,6 +2,8 @@
 
 	namespace Goji\Core;
 
+	use Goji\Blueprints\HttpStatusInterface;
+
 	/**
 	 * Class RequestHandler
 	 *
@@ -16,7 +18,7 @@
 	 *
 	 * @package Goji\Core
 	 */
-	class RequestHandler {
+	class RequestHandler implements HttpStatusInterface {
 
 		private $m_requestURI;
 		private $m_requestPageURI;
@@ -26,6 +28,8 @@
 		private $m_rootFolder;
 		private $m_requestPage;
 		private $m_requestParameters;
+		private $m_redirectStatus;
+		private $m_errorDetected;
 
 		/**
 		 * RequestHandler constructor.
@@ -66,19 +70,15 @@
 				// It includes public/ when server isn't configured to use public as docroot
 
 				// /goji/public/index.php -> /goji/public/
-				$pos = mb_strpos($this->m_rootFolder, 'index.php');
+				$pagesPossible = array('index.php', 'static.php');
 
-				if ($pos !== false) {
+				foreach ($pagesPossible as $page) {
 
-					$this->m_rootFolder = mb_substr($this->m_rootFolder, 0, $pos);
-
-				} else { // Try with static.php
-
-					// /goji/public/static.php -> /goji/public/
-					$pos = mb_strpos($this->m_rootFolder, 'static.php');
+					$pos = mb_strpos($this->m_rootFolder, $page);
 
 					if ($pos !== false) {
 						$this->m_rootFolder = mb_substr($this->m_rootFolder, 0, $pos);
+						break;
 					}
 				}
 
@@ -110,6 +110,12 @@
 			// page-([0-9]) -> { '0' => [ 'page-1', '1' ] }
 			// Filled in by \Goji\Core\Router by default
 			$this->m_requestParameters = array();
+
+			// 200, 403, 404, 500, etc.
+			$this->m_redirectStatus = $_SERVER['REDIRECT_STATUS'] ?? self::HTTP_SUCCESS_OK;
+				$this->m_redirectStatus = intval($this->m_redirectStatus);
+
+			$this->m_errorDetected = $this->m_redirectStatus >= 400;
 		}
 
 		public function __debugInfo() {
@@ -251,8 +257,29 @@
 			return $this->m_requestParameters[$capturingGroup] ?? null;
 		}
 
+		/**
+		 * @param array $parameters
+		 */
 		public function setRequestParameters(array $parameters) {
 			$this->m_requestParameters = $parameters;
+		}
+
+		/**
+		 * Returns HttpStatusInterface::STATUS_CODE
+		 *
+		 * @return int
+		 */
+		public function getRedirectStatus(): int {
+			return $this->m_redirectStatus;
+		}
+
+		/**
+		 * True if HttpStatusInterface::STATUS_CODE >= 400
+		 *
+		 * @return bool
+		 */
+		public function getErrorDetected(): bool {
+			return $this->m_errorDetected;
 		}
 
 		/**
@@ -356,8 +383,6 @@
 		 * @return string|null The value of the first occurrence of $param, null if not found
 		 */
 		public static function getFirstParamOccurrence(string $param, string $queryString): ?string {
-
-			// TODO: Is this still relevant? Maybe keep it anyways, but don't use queryStringToArray() in here, this one is more efficient
 
 			// Ex :
 			// $param = 'param'

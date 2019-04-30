@@ -3,23 +3,26 @@
 	namespace App\Controller;
 
 	use Goji\Core\App;
-	use Goji\Design\ControllerInterface;
+	use Goji\Blueprints\ControllerInterface;
+	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
 	class HomeController implements ControllerInterface {
 
+		/* <ATTRIBUTES> */
+
 		private $m_app;
 
 		public function __construct(App $app) {
-			// TODO: App needs to contain lang
-			// either set it in Router (according to config) or get it from Language class if not set
 			$this->m_app = $app;
-
-			// Form data goes here:
-			// if (isset($_POST[''])) ...
 		}
 
 		public function render() {
+
+			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
+
+			// Of course you don't need tu use SimpleTemplate.
+			// You could also just include an entire html/php file (use readfile( *.html ))
 
 			$template = new SimpleTemplate(TITLE_HOME,
 			                                DESCRIPTION_HOME);

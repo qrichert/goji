@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="<?= $this->m_app->getLanguages()->getCurrentHyphenLocale(); ?>">
 	<head>
-		<!-- TODO: Add base tag so we can use urls with slashes /. Use App->getRequestHandler()->getRootFolder();
-			Does this solve CSS relative path problem w/ SimpleMinifierCSS() ??
-			better not because the links are prepended by /goji/public, and it's good with a link to / (would be empty)
-			OR instead of prepending root folder, we could just prepend a slash if empty lol
-			<base href="/goji/public/">
-		-->
+		<!-- Document -->
+		<meta charset="utf-8">
+		<base href="<?= $this->m_app->getRequestHandler()->getRootFolder(); ?>">
+
 		<!-- Analytics -->
 		<?php
 			if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
@@ -19,20 +17,24 @@
 		<title><?= $template->getPageTitle(); ?></title>
 		<meta name="description" content="<?= $template->getPageDescription(); ?>">
 		<?= $template->getRobotsBehaviour(); ?>
-		<link rel="canonical" href="<?= $this->m_app->getRouter()->getLinkForPage(null, null, true); ?>">
 		<?php
 
-			foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
+			if ($template->getShowCanonicalPageAndAlternates()) {
 
-				echo '<link rel="alternate" hreflang="'
-				     . $this->m_app->getLanguages()->hyphenateLocale($locale)
-				     . '" href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale, true)
-				     . '">' . PHP_EOL;
+				echo '<link rel="canonical" href="' . $this->m_app->getRouter()->getLinkForPage(null, null, true) . '">';
+
+				foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
+
+					echo '<link rel="alternate" hreflang="'
+					     . $this->m_app->getLanguages()->hyphenateLocale($locale)
+					     . '" href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale, true)
+					     . '">' . PHP_EOL;
+				}
+
+				echo '<link rel="alternate" hreflang="x-default" href="'
+				     . $this->m_app->getRouter()->getLinkForPage(null, $this->m_app->getLanguages()->getFallbackLocale(), true)
+				     . '">';
 			}
-
-			echo '<link rel="alternate" hreflang="x-default" href="'
-			     . $this->m_app->getRouter()->getLinkForPage(null, $this->m_app->getLanguages()->getFallbackLocale(), true)
-			     . '">';
 		?>
 
 		<!-- Style -->

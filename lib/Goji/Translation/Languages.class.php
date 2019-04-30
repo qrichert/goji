@@ -178,7 +178,7 @@
 		}
 
 		/**
-		 * Returns current locale. Ex: en_US.
+		 * Returns current locale, and creates it if it doesn't exist. Ex: en_US.
 		 *
 		 * @return string
 		 * @throws \Exception

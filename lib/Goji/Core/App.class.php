@@ -161,7 +161,7 @@
 		 * @return string
 		 */
 		public function getAppMode(): string {
-			return $this->m_appMode ?? self::DEBUG;
+			return $this->m_appMode ?? self::RELEASE;
 		}
 
 		/**
@@ -178,7 +178,7 @@
 
 			} else {
 
-				$this->m_appMode = self::DEBUG; // Default
+				$this->m_appMode = self::RELEASE; // Default
 			}
 		}
 
@@ -353,6 +353,29 @@
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);
 
-			$this->m_router->route();
+			if ($this->m_requestHandler->getErrorDetected())
+				$this->m_router->requestErrorDocument($this->m_requestHandler->getRedirectStatus());
+			else
+				$this->m_router->route();
+		}
+
+		/**
+		 * Bypasses default routing process to display error page instantly.
+		 *
+		 * @param int|null $errorCode
+		 * @throws \Exception
+		 */
+		public function requestErrorDocument(?int $errorCode): void {
+
+			if (!isset($this->m_languages))
+				$this->m_languages = new Languages($this);
+
+			if (!isset($this->m_translator))
+				$this->m_translator = new Translator($this);
+
+			if (!isset($this->m_router))
+				$this->m_router = new Router($this);
+
+			$this->m_router->requestErrorDocument($errorCode);
 		}
 	}

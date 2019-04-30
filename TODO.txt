@@ -1,14 +1,10 @@
-TODO: Make Translation class
-TODO: Make it possible to change languages & get URLs for the same page in different languages
+TODO: Tackle the LINKED_FILES_MODE_PROBLEM, move it to SimpleTemplate or App or something
 TODO: Delete all obsolete lang files & statements
 TODO: Update SimpleXMLHttpRequest JS plugin
 TODO: Refactor `js` folder (SimpleXMLHttpRequest)
 TODO: Clean SwissKnife, make it more modular
 TODO: Import menu from funnel.css
 TODO: SwissKnife::linkFiles() to Template module (attention LINKED_FILES_MODE), to SimpleTemplate first
-TODO: Add base (<base href="/goji/public|/">) to SimpleTemplate (app->requestHandler->rootFolder by default). Can be replace w/ setBase() and if called echoes <base href="">... !!! make sure requestHandler returns "/" and not empty() if root = docroot
-TODO: Add type hints "public function setDataBase(PDO $database): void {"
 TODO: Update minifiers algorithms with the one from Parsing::Parser()
 TODO: App is to goji what mayonnaise is to a sandwich. It keeps it al together. It is the linked between the different parts
-TODO: Standardize error redirects
 TODO: Rename \Goji\Translation\Languages -> Languages is a bit unclear

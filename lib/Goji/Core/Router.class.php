@@ -2,6 +2,8 @@
 
 	namespace Goji\Core;
 
+	use Goji\Blueprints\HttpStatusInterface;
+	use App\Controller\HttpErrorController;
 	use \Exception;
 
 	/**
@@ -9,7 +11,7 @@
 	 *
 	 * @package Goji\Core
 	 */
-	class Router {
+	class Router implements HttpStatusInterface {
 
 		/* <ATTRIBUTES> */
 
@@ -27,8 +29,6 @@
 		const E_PAGE_DOES_NOT_EXIST = 2;
 		const E_LOCALE_DOES_NOT_EXIST = 3;
 		const E_ROUTING_MUST_BE_DONE_FIRST = 4;
-
-		const HTTP_ERROR_404 = 404;
 
 		/**
 		 * Router constructor.
@@ -130,6 +130,25 @@
 				return $this->m_currentPage;
 			else
 				throw new Exception('Router::getCurrentPage() cannot be called before routing.', self::E_ROUTING_MUST_BE_DONE_FIRST);
+		}
+
+		/**
+		 * Change the current page ID.
+		 *
+		 * This should be used sparingly. Only if hasCurrentPage() return false.
+		 *
+		 * It is notably used by HttpErrorController to make sure it contains
+		 * the same error as the one displayed (since HttpErrorController has the
+		 * power to change the error code according to what can be displayed).
+		 *
+		 * @param string $page
+		 */
+		public function setCurrentPage(string $page): void {
+			$this->m_currentPage = $page;
+		}
+
+		public function hasCurrentPage(): bool {
+			return isset($this->m_currentPage);
 		}
 
 		/**
@@ -259,18 +278,30 @@
 
 			// If not, it's a 404
 			} else {
-
-				$this->redirect(self::HTTP_ERROR_404);
+				$this->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 			}
 		}
 
 		/**
-		 * @param \Goji\Core\Router::HTTP_ERROR_CODE|string $where
+		 * @param int|null $errorCode
+		 * @throws \Exception
 		 */
-		private function redirect($where): void {
-			// TODO: Maybe put this in separate Redirection class that could be a member & passed along to controllers
-			$where = null;
-			echo PHP_EOL . '<br>' . 'REDIRECT';
-			exit; // Always after redirection
+		public function requestErrorDocument(?int $errorCode): void {
+			$this->redirectToErrorDocument($errorCode);
+		}
+
+		/**
+		 * @param int|null $errorCode
+		 * @throws \Exception
+		 */
+		private function redirectToErrorDocument(?int $errorCode): void {
+
+			$this->m_app->getLanguages()->getCurrentLocale();
+
+			$controller = new HttpErrorController($this->m_app);
+			$controller->setHttpError($errorCode);
+			$controller->render();
+
+			exit;
 		}
 	}

@@ -29,7 +29,7 @@
 		// in /src/controller/HomeController.class.php
 		// The class is imported and called automatically, this is why you only
 		// need to enter the class name. But it's also why you have to respect the
-		// naming convention and make it implement \Goji\Design\ControllerInterface().
+		// naming convention and make it implement \Goji\Blueprints\ControllerInterface().
 		controller: "HomeController"
 	},
 	// This is the page ID.
