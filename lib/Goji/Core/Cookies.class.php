@@ -84,10 +84,6 @@
 		/**
 		 * Get a value from a cookie.
 		 *
-		 * Beware, this function never returns null.
-		 * If null, it returns an empty string.
-		 * So you can do empty(Cookies::get())?
-		 *
 		 * @param string $name
 		 * @return mixed|string
 		 */
@@ -100,7 +96,7 @@
 			if (isset($_COOKIE[$name]))
 				return $_COOKIE[$name];
 			else
-				return '';
+				return null;
 		}
 
 		/**

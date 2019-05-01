@@ -5,6 +5,7 @@
 	use Goji\Core\App;
 	use Goji\Core\ConfigurationLoader;
 	use Goji\Core\Cookies;
+	use Goji\Core\Session;
 	use Exception;
 
 	/**
@@ -231,6 +232,8 @@
 			}
 
 			Cookies::set('locale', $this->m_currentLocale);
+			Session::set('locale', $this->m_currentLocale);
+
 			$this->updateAppTranslator();
 		}
 
@@ -456,18 +459,28 @@
 			// If config is used and valid, we look for a current locale,
 			// either in a cookie, or we generate it
 
+			// If it's in a session, load from session
+			if (!empty(Session::get('locale'))) {
+
+				$locale = Session::get('locale');
+
+				// Look if the locale is a valid one
+				if (isset($this->m_configurationLocales[$locale])) {
+					$this->m_currentLocale = $locale;
+				} else {
+					$this->m_currentLocale = $this->fetchCurrentLocale();
+					Session::set('locale', $this->m_currentLocale);
+				}
+
 			// If it's in a cookie, load cookie
-			if (!empty(Cookies::get('locale'))) {
+			} else if (!empty(Cookies::get('locale'))) {
 
 				$locale = Cookies::get('locale');
 
 				// Look if the locale is a valid one
 				if (isset($this->m_configurationLocales[$locale])) {
-
 					$this->m_currentLocale = $locale;
-
 				} else {
-
 					$this->m_currentLocale = $this->fetchCurrentLocale();
 					Cookies::set('locale', $this->m_currentLocale);
 				}
@@ -476,6 +489,7 @@
 
 				$this->m_currentLocale = $this->fetchCurrentLocale();
 				Cookies::set('locale', $this->m_currentLocale);
+				Session::set('locale', $this->m_currentLocale);
 			}
 
 			$this->updateAppTranslator();

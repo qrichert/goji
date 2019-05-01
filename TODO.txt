@@ -1,10 +1,8 @@
-TODO: Tackle the LINKED_FILES_MODE_PROBLEM, move it to SimpleTemplate or App or something
 TODO: Delete all obsolete lang files & statements
 TODO: Update SimpleXMLHttpRequest JS plugin
 TODO: Refactor `js` folder (SimpleXMLHttpRequest)
 TODO: Clean SwissKnife, make it more modular
 TODO: Import menu from funnel.css
-TODO: SwissKnife::linkFiles() to Template module (attention LINKED_FILES_MODE), to SimpleTemplate first
 TODO: Update minifiers algorithms with the one from Parsing::Parser()
 TODO: App is to goji what mayonnaise is to a sandwich. It keeps it al together. It is the linked between the different parts
 TODO: Rename \Goji\Translation\Languages -> Languages is a bit unclear

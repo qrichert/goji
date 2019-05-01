@@ -1,5 +1,9 @@
 /*
  * Configuration file for \Goji\Core\Router
+ *
+ * Reserved page names are:
+ * - error-XXX (HTTP error code)
+ * - switch-locale
  */
 
 {
@@ -22,7 +26,7 @@
 			en_GB: "/welcome", // BrE
 
 			// 'fr_FR' means French, without any particular variant (usually that's what you want)
-			// Here there are two paths pointing to the same page for french
+			// Here there are two paths pointing to the same page for french (first one will be used as default)
 			fr: ["/accueil", "/bienvenue"],
 		},
 		// 'controller' is the controller to which the page is tied to.
