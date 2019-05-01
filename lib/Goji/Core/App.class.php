@@ -22,7 +22,6 @@
 		private $m_siteFullDomain;
 
 		private $m_appMode;
-		private $m_linkedFilesMode;
 
 		private $m_languages;
 		private $m_translator;
@@ -66,7 +65,6 @@
 			$this->setSiteFullDomain($config['site_full_domain'] ?? '');
 
 			$this->setAppMode($config['app_mode']);
-			$this->setLinkedFilesMode($config['linked_files_mode']);
 
 			$this->m_languages = null;
 			$this->m_translator = null;
@@ -179,31 +177,6 @@
 			} else {
 
 				$this->m_appMode = self::RELEASE; // Default
-			}
-		}
-
-		/**
-		 * @return string
-		 */
-		public function getLinkedFilesMode(): string {
-			return $this->m_linkedFilesMode ?? self::NORMAL;
-		}
-
-		/**
-		 * @param \Goji\Core\App::LINKED_FILES_MODE $linkedFilesMode
-		 */
-		public function setLinkedFilesMode($linkedFilesMode): void {
-
-			$linkedFilesMode = mb_strtolower($linkedFilesMode);
-
-			if ($linkedFilesMode == self::NORMAL
-			|| $linkedFilesMode == self::MERGED) {
-
-				$this->m_linkedFilesMode = $linkedFilesMode;
-
-			} else {
-
-				$this->m_linkedFilesMode = self::NORMAL; // Default
 			}
 		}
 

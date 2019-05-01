@@ -40,7 +40,7 @@
 		<!-- Style -->
 		<?php
 
-			\Goji\Toolkit\SwissKnife::linkFiles('css', array(
+			$template->linkFiles(array(
 				'css/main.css',
 				'css/responsive.css'
 			));

@@ -1,0 +1,9 @@
+/*
+ * Configuration file for \Goji\Core\SimpleTemplate (or any other custom template engine)
+ *
+ * Missing info will be ignored.
+ */
+
+{
+	linked_files_mode: "normal" // normal|merged (case insensitive, default = normal)
+}

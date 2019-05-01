@@ -9,33 +9,6 @@
 	 */
 	class SwissKnife {
 
-		public static function linkFiles($type, $files) {
-
-			if (!is_array($files) || count($files) == 0)
-				return;
-
-			$linkStatement = '';
-
-			if ($type == 'css')
-				$linkStatement = '<link rel="stylesheet" type="text/css" href="%{PATH}">';
-			else if ($type = 'js')
-				$linkStatement = '<script src="%{PATH}"></script>';
-			else
-				return;
-
-			if (LINKED_FILES_MODE == 'merged') {
-
-				$f = implode(urlencode('|'), $files);
-				echo str_replace('%{PATH}', $f, $linkStatement) . PHP_EOL;
-
-			} else {
-
-				foreach ($files as $f) {
-					echo str_replace('%{PATH}', $f, $linkStatement) . PHP_EOL;
-				}
-			}
-		}
-
 		// Cuts string if longer than $max
 		public static function ceil_str($str, $max) {
 			return (mb_strlen($str) > $max ? mb_substr($str, 0, $max) : $str);

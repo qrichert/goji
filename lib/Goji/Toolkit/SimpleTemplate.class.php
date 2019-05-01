@@ -2,6 +2,9 @@
 
 	namespace Goji\Toolkit;
 
+	use Goji\Core\ConfigurationLoader;
+	use Exception;
+
 	/**
 	 * Class SimpleTemplate
 	 *
@@ -67,13 +70,24 @@
 		private $m_showCanonicalPageAndAlternates;
 		private $m_pageContent;
 		private $m_specials;
+		private $m_linkedFilesMode;
 
 		/* <CONSTANTS> */
+
+		const CONFIG_FILE = '../config/templating.json5';
 
 		const ROBOTS_ALLOW_INDEX_AND_FOLLOW = 0;
 		const ROBOTS_NOINDEX = 1;
 		const ROBOTS_NOFOLLOW = 2;
 		const ROBOTS_NOINDEX_NOFOLLOW = 3;
+
+		const NORMAL = 'normal';
+		const MERGED = 'merged';
+
+		const CSS = 'css';
+		const JAVASCRIPT = 'js';
+
+		const E_UNSUPPORTED_FILE_TYPE = 0;
 
 		/**
 		 * SimpleTemplate constructor.
@@ -82,11 +96,13 @@
 		 * @param string $pageDescription (optional) default = ''
 		 * @param int $robotsBehaviour (optional) default = SimpleTemplate::ROBOTS_ALLOW_INDEX_AND_FOLLOW
 		 * @param bool $showCanonicalPageAndAlternates (optional) default = true
+		 * @param string $configFile
 		 */
 		public function __construct(string $pageTitle = '',
 		                            string $pageDescription = '',
 		                            int $robotsBehaviour = self::ROBOTS_ALLOW_INDEX_AND_FOLLOW,
-									bool $showCanonicalPageAndAlternates = true) {
+									bool $showCanonicalPageAndAlternates = true,
+									$configFile = self::CONFIG_FILE) {
 
 			$this->m_pageTitle = $pageTitle;
 			$this->m_pageDescription = $pageDescription;
@@ -94,6 +110,22 @@
 			$this->m_showCanonicalPageAndAlternates = $showCanonicalPageAndAlternates;
 			$this->m_pageContent = '';
 			$this->m_specials = array();
+
+			try {
+
+				$config = ConfigurationLoader::loadFileToArray($configFile);
+
+				if (isset($config['linked_files_mode'])
+				    && ($config['linked_files_mode'] == self::NORMAL
+				        || $config['linked_files_mode'] == self::MERGED))
+							$this->m_linkedFilesMode = $config['linked_files_mode'];
+				else
+					$this->m_linkedFilesMode = self::NORMAL;
+
+			} catch (Exception $e) {
+
+				$this->m_linkedFilesMode = self::NORMAL;
+			}
 		}
 
 		/* <GETTERS/SETTERS> */
@@ -311,5 +343,67 @@
 
 			// Get content && update page content
 			$this->setPageContent($this->readBuffer());
+		}
+
+		/**
+		 * @param string|array $files
+		 * @param bool $returnAsString
+		 * @param string|null $forceMode
+		 * @return string|null
+		 * @throws \Exception
+		 */
+		public function linkFiles($files, bool $returnAsString = false, string $forceMode = null): ?string {
+
+			// Make sure it's either string or array
+			if (!is_array($files) && !is_string($files))
+				return null;
+
+			// If it's a string, make it an array
+			if (!is_array($files))
+				$files = array($files);
+
+			// If there's no element in the array, quit
+			if (count($files) === 0)
+				return null;
+
+			$linkedFilesMode = $this->m_linkedFilesMode;
+
+			// If force mode is set & valid, use it
+			if (isset($forceMode)
+			    && ($forceMode === self::NORMAL || $forceMode === self::MERGED))
+					$linkedFilesMode = $forceMode;
+
+			// Now we guess the file type
+			$fileType = pathinfo($files[0], PATHINFO_EXTENSION);
+
+			$linkStatement = '';
+
+			if ($fileType === self::CSS)
+				$linkStatement = '<link rel="stylesheet" type="text/css" href="%{PATH}">';
+			else if ($fileType === self::JAVASCRIPT)
+				$linkStatement = '<script src="%{PATH}"></script>';
+			else
+				throw new Exception('Unsupported file type: ' . $fileType, self::E_UNSUPPORTED_FILE_TYPE);
+
+			$output = '';
+
+			if ($linkedFilesMode === self::MERGED) {
+
+				$output = implode(urlencode('|'), $files);
+				$output = str_replace('%{PATH}', $output, $linkStatement) . PHP_EOL;
+
+			} else { // self::NORMAL
+
+				foreach ($files as $file) {
+					$output .= str_replace('%{PATH}', $file, $linkStatement) . PHP_EOL;
+				}
+			}
+
+			if ($returnAsString)
+				return $output;
+			else
+				echo $output;
+
+			return null;
 		}
 	}
