@@ -71,6 +71,36 @@ EOT;
 		}
 
 		/**
+		 * Matches a group of unescaped capturing parenthesis.
+		 *
+		 * some-other-page-([0-9]+)-(?:-([0-9]+\)))?
+		 * -> Matches ([0-9]+) and ([0-9]+\))
+		 * -> (?: is non capturing and \) is escaped
+		 *
+		 * @return string
+		 */
+		public static function unescapedParenthesisGroups(): string {
+
+			return <<<'EOT'
+#((?<!\\)(?:\\{2})*\K\((?!\?:).*(?<!\\)(?:\\{2})*\K\))#U
+EOT;
+		}
+
+		/**
+		 * Matches unscaped metacharacters.
+		 *
+		 * (?: (?! (?= (?<! (?<= |?*+.()[]{}
+		 *
+		 * @return string
+		 */
+		public static function unescapedMetacharacters(): string {
+
+			return <<<'EOT'
+#(?<!\\)(?:\\{2})*\K(\(\?:|\(\?!|\(\?=|\(\?<!|\(\?<=|[|?*+.()[\]{}])#U
+EOT;
+		}
+
+		/**
 		 * Matches C style multiline comments.
 		 *
 		 * /* comment * /

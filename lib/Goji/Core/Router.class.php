@@ -3,6 +3,7 @@
 	namespace Goji\Core;
 
 	use Goji\Blueprints\HttpStatusInterface;
+	use Goji\Parsing\RegexPatterns;
 	use App\Controller\HttpErrorController;
 	use \Exception;
 
@@ -56,6 +57,8 @@
 		 * [en] => '/home' becomes [en] => ['/home']
 		 * [fr] => ['/accueil', '/bienvenue'] stays the same
 		 *
+		 * Also prepend / if not there (it tells the system, THIS is the beginning of the path)
+		 * home -> /home
 		 *
 		 * @param $routes
 		 * @return array
@@ -76,6 +79,13 @@
 						// $mappedRoutes (with if/else and 'routes'/'route) = 4x, here only 2x
 						if (!is_array($route))
 							$route = array($route);
+
+						foreach ($route as &$alternativePath) {
+
+							if (mb_substr($alternativePath, 0, 1) !== '/')
+								$alternativePath = '/' . $alternativePath;
+						}
+						unset($alternativePath);
 					}
 					unset($route);
 
@@ -84,6 +94,13 @@
 
 					if (!is_array($config['route']))
 						$config['route'] = array($config['route']);
+
+					foreach ($config['route'] as &$alternativePath) {
+
+						if (mb_substr($alternativePath, 0, 1) !== '/')
+							$alternativePath = '/' . $alternativePath;
+					}
+					unset($alternativePath);
 
 				} else {
 
@@ -224,14 +241,16 @@
 		 * @param string|null $page (optional) Page ID (see routes.json5) (default = current page)
 		 * @param string|null $locale (optional) The locale you want the link for (default = current locale)
 		 * @param bool $includeSiteURL (optional) default = false
-		 * @param int $index (optional) if you have multiple paths/link for one page, which one you want (default = 0 = first one)
+		 * @param int|null $index (optional) if you have multiple paths/link for one page, which one you want (default = 0 = first one)
+		 * @param array|null $parameters
 		 * @return string
 		 * @throws \Exception
 		 */
 		public function getLinkForPage(string $page = null,
 		                               string $locale = null,
 		                               bool $includeSiteURL = false,
-		                               int $index = 0): string {
+		                               ?int $index = 0,
+		                               array $parameters = null): string {
 
 			if (!isset($page)) {
 
@@ -252,6 +271,10 @@
 			if (!isset($this->m_app->getLanguages()->getConfigurationLocales()[$locale]))
 				throw new Exception('Locale does not exist: ' . $locale, self::E_LOCALE_DOES_NOT_EXIST);
 
+			// Make sure index is set
+			if ($index === null)
+				$index = 0;
+
 			$link = null;
 
 			$locales = array($locale, $this->m_app->getLanguages()->getFallbackLocale());
@@ -268,9 +291,9 @@
 					$link = $this->m_routes[$page]['routes']['all'][$index];
 
 				// If we have [page][route]
-				} else if (isset($this->m_routes[$page]['route'])) {
+				} else if (isset($this->m_routes[$page]['route'][$index])) {
 
-					$link = $this->m_routes[$page]['route'];
+					$link = $this->m_routes[$page]['route'][$index];
 				}
 
 				if ($link !== null)
@@ -282,12 +305,35 @@
 			if (!isset($link))
 				throw new Exception('Page does not exist: ' . $page, self::E_PAGE_DOES_NOT_EXIST);
 
-			// TODO: Do something about regex /some-other-page-([0-9]+)(?:-([0-9]+))?
-
 			// Remove leading / (/home -> home)
 			$link = mb_substr($link, 1);
 			$link = $this->m_app->getRequestHandler()->getRootFolder() . $link;
 
+			// some-other-page-([0-9]+)(?:-([0-9]+))? -> some-other-page-128-226
+			if (isset($parameters) && !empty($parameters)) {
+
+				preg_match_all(RegexPatterns::unescapedParenthesisGroups(), $link, $hit, PREG_PATTERN_ORDER);
+
+				$hitCount = count($hit[1]);
+				for ($i = 0; $i < $hitCount; $i++) {
+
+					// We only want to replace the first occurrence, like page-([0-9])-([0-9]) -> page-####-([0-9])
+					// str_replace doesn't have this option, so we convert it to regex
+					$re = '#' . preg_quote($hit[1][$i], '#') . '#';
+					$link = preg_replace($re, '##########' . $i . '##########', $link, 1);
+				}
+
+				// Now we can clean the path
+				$link = preg_replace(RegexPatterns::unescapedMetacharacters(), '', $link);
+
+				for ($i = 0; $i < $hitCount; $i++) {
+
+					// Replace ##### by corresponding parameter value (###1### -> param1, ###2### -> param2, etc.)
+					$link = str_replace('##########' . $i . '##########', $parameters[$i], $link);
+				}
+			}
+
+			// home -> http://www.domain.com/home
 			if ($includeSiteURL)
 				$link = $this->m_app->getSiteUrl() . $link; // App::getSiteUrl() has no trailing /
 
