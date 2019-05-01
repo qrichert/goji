@@ -17,6 +17,7 @@
 exit;
 /* <INCLUDES> */
 
+	// TODO: Use configuration, !!! Passwords used in Password class
 	require_once '../src/include/passwords.inc.php';
 
 //	require_once '../src/model/Member.class.php';
