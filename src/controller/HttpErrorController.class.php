@@ -4,6 +4,7 @@
 
 	use Goji\Blueprints\HttpErrorControllerAbstract;
 	use Goji\Core\App;
+	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
@@ -48,6 +49,9 @@
 				$this->m_app->getRouter()->setCurrentPage('http-error-' . $this->m_httpErrorCode);
 
 			SimpleMetrics::addPageView('http-error-' . $this->m_httpErrorCode);
+
+			$translator = new Translator($this->m_app);
+				$translator->loadTranslationResource('%{LOCALE}.tr.php');
 
 			$template = new SimpleTemplate();
 				$template->setPageTitle(TITLE_ERROR . ' ' . $this->m_httpErrorCode);

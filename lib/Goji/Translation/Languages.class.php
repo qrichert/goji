@@ -233,15 +233,6 @@
 
 			Cookies::set('locale', $this->m_currentLocale);
 			Session::set('locale', $this->m_currentLocale);
-
-			$this->updateAppTranslator();
-		}
-
-		private function updateAppTranslator(): void {
-
-			if ($this->m_app->hasTranslator()
-				&& isset($this->m_currentLocale))
-					$this->m_app->getTranslator()->setTargetLocale($this->m_currentLocale);
 		}
 
 		/**
@@ -491,7 +482,5 @@
 				Cookies::set('locale', $this->m_currentLocale);
 				Session::set('locale', $this->m_currentLocale);
 			}
-
-			$this->updateAppTranslator();
 		}
 	}

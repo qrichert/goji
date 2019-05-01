@@ -4,6 +4,7 @@
 
 	use Goji\Core\App;
 	use Goji\Blueprints\ControllerInterface;
+	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
@@ -20,6 +21,13 @@
 		public function render() {
 
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
+
+			$translator = new Translator($this->m_app);
+				// Will be 'en_US.tr.php' or 'fr.tr.php', etc.
+				// If you have a file called 'en.tr.php' it will match for both
+				// en_US & en_GB because the language code is the same (en)
+				// You can send an array of files as well.
+				$translator->loadTranslationResource('%{LOCALE}.tr.php');
 
 			// Of course you don't need tu use SimpleTemplate.
 			// You could also just include an entire html/php file (use readfile( *.html ))

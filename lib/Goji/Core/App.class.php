@@ -3,7 +3,6 @@
 	namespace Goji\Core;
 
 	use Goji\Translation\Languages;
-	use Goji\Translation\Translator;
 	use PDO;
 	use Exception;
 
@@ -24,7 +23,6 @@
 		private $m_appMode;
 
 		private $m_languages;
-		private $m_translator;
 		private $m_requestHandler;
 		private $m_router;
 		private $m_dataBase;
@@ -40,9 +38,8 @@
 		const MERGED = 'merged';
 
 		const E_NO_LANGUAGES = 0;
-		const E_NO_TRANSLATOR = 1;
-		const E_NO_ROUTER = 2;
-		const E_NO_DATABASE = 3;
+		const E_NO_ROUTER = 1;
+		const E_NO_DATABASE = 2;
 
 		/**
 		 * App constructor.
@@ -67,7 +64,6 @@
 			$this->setAppMode($config['app_mode']);
 
 			$this->m_languages = null;
-			$this->m_translator = null;
 			$this->m_requestHandler = new RequestHandler();
 			$this->m_router = null;
 			$this->m_dataBase = null;
@@ -207,32 +203,6 @@
 		}
 
 		/**
-		 * @return \Goji\Translation\Translator
-		 * @throws \Exception
-		 */
-		public function getTranslator(): Translator {
-
-			if (isset($this->m_translator))
-				return $this->m_translator;
-			else
-				throw new Exception('No translator has been set.', self::E_NO_TRANSLATOR);
-		}
-
-		/**
-		 * @param \Goji\Translation\Translator $translator
-		 */
-		public function setTranslator(Translator $translator): void {
-			$this->m_translator = $translator;
-		}
-
-		/**
-		 * @return bool
-		 */
-		public function hasTranslator(): bool {
-			return isset($this->m_translator);
-		}
-
-		/**
 		 * @return \Goji\Core\RequestHandler
 		 */
 		public function getRequestHandler(): RequestHandler {
@@ -320,9 +290,6 @@
 			if (!isset($this->m_languages))
 				$this->m_languages = new Languages($this);
 
-			if (!isset($this->m_translator))
-				$this->m_translator = new Translator($this);
-
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);
 
@@ -342,9 +309,6 @@
 
 			if (!isset($this->m_languages))
 				$this->m_languages = new Languages($this);
-
-			if (!isset($this->m_translator))
-				$this->m_translator = new Translator($this);
 
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);
