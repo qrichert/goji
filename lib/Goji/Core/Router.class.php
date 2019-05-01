@@ -41,8 +41,57 @@
 
 			$this->m_app = $app;
 			$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
+				$this->m_routes = $this->formatRoutes($this->m_routes);
 			$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
 			$this->m_currentPage = null;
+		}
+
+		/**
+		 * We format the routes from config so that they are all standardized.
+		 *
+		 * They are easier to manipulate later if we know in which form they come in.
+		 *
+		 * Mainly we convert all routes to arrays for each language
+		 *
+		 * [en] => '/home' becomes [en] => ['/home']
+		 * [fr] => ['/accueil', '/bienvenue'] stays the same
+		 *
+		 *
+		 * @param $routes
+		 * @return array
+		 * @throws \Exception
+		 */
+		private function formatRoutes($routes): array {
+
+			foreach ($routes as $page => &$config) {
+
+				if (isset($config['routes']) && is_array($config['routes'])) {
+
+					foreach ($config['routes'] as $locale => &$route) {
+
+						// There can be multiple paths for the same page
+						// You could have /home and /home-([0-9+]) with a parameter
+						// Here we standardize them all
+						// It's maybe less efficient but otherwise we would have too much
+						// $mappedRoutes (with if/else and 'routes'/'route) = 4x, here only 2x
+						if (!is_array($route))
+							$route = array($route);
+					}
+					unset($route);
+
+				} else if (isset($config['route'])
+				           && (is_string($config['route']) || is_array($config['route']))) {
+
+					if (!is_array($config['route']))
+						$config['route'] = array($config['route']);
+
+				} else {
+
+					throw new Exception('Routes are misconfigured. Configuration syntax is invalid.', self::E_ROUTES_ARE_MISCONFIGURED);
+				}
+			}
+
+			return $routes;
 		}
 
 		/**
@@ -60,8 +109,8 @@
 		 * Initial:
 		 * [page] => (
 		 *      [routes] => Array(
-		 *          [en] => /english-page,
-		 *          [fr] => /page-francais
+		 *          [en] => [/english-page],
+		 *          [fr] => [/page-francais]
 		 *      ),
 		 *      [controller] => PageController
 		 * )
@@ -96,20 +145,27 @@
 
 					foreach ($config['routes'] as $locale => $route) {
 
-						$mappedRoutes[$route] = array(
-							'locale' => $locale,
+						// We know it's an array because it has been formatted by Router::formatRoutes()
+						foreach ($route as $alternativePath) {
+
+							$mappedRoutes[$alternativePath] = array(
+								'locale' => $locale,
+								'controller' => $controller,
+								'page' => $page
+							);
+						}
+					}
+
+				} else if (isset($config['route']) && is_array($config['route'])) {
+
+					foreach ($config['route'] as $alternativePath) {
+
+						$mappedRoutes[$alternativePath] = array(
+							'locale' => 'all', // No specific language
 							'controller' => $controller,
 							'page' => $page
 						);
 					}
-
-				} else if (isset($config['route']) && is_string($config['route'])) {
-
-					$mappedRoutes[$config['route']] = array(
-						'locale' => 'all', // No specific language
-						'controller' => $controller,
-						'page' => $page
-					);
 
 				} else {
 
@@ -165,13 +221,17 @@
 		 * Router::getLinkForPage('home', 'fr') -> 'home' page, fr version
 		 * Router::getLinkForPage(null, null, true) -> Current page, current locale, full URL https://www.domain.com/page
 		 *
-		 * @param string|null $page
-		 * @param string|null $locale
+		 * @param string|null $page (optional) Page ID (see routes.json5) (default = current page)
+		 * @param string|null $locale (optional) The locale you want the link for (default = current locale)
 		 * @param bool $includeSiteURL (optional) default = false
+		 * @param int $index (optional) if you have multiple paths/link for one page, which one you want (default = 0 = first one)
 		 * @return string
 		 * @throws \Exception
 		 */
-		public function getLinkForPage(string $page = null, string $locale = null, bool $includeSiteURL = false): string {
+		public function getLinkForPage(string $page = null,
+		                               string $locale = null,
+		                               bool $includeSiteURL = false,
+		                               int $index = 0): string {
 
 			if (!isset($page)) {
 
@@ -198,14 +258,14 @@
 			foreach ($locales as $locale) {
 
 				// If we have [page][routes][locale]
-				if (isset($this->m_routes[$page]['routes'][$locale])) {
+				if (isset($this->m_routes[$page]['routes'][$locale][$index])) {
 
-					$link = $this->m_routes[$page]['routes'][$locale];
+					$link = $this->m_routes[$page]['routes'][$locale][$index];
 
 				// If we have [page][routes][all]
-				} else if (isset($this->m_routes[$page]['routes']['all'])) {
+				} else if (isset($this->m_routes[$page]['routes']['all'][$index])) {
 
-					$link = $this->m_routes[$page]['routes']['all'];
+					$link = $this->m_routes[$page]['routes']['all'][$index];
 
 				// If we have [page][route]
 				} else if (isset($this->m_routes[$page]['route'])) {
