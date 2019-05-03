@@ -32,3 +32,13 @@
 											'404' => "Page could not be found",
 											'500' => "Internal error"
 										));
+
+// <NAV>
+
+	define('NAV_ABOUT',                 "About");
+	define('NAV_CONTACT',               "Contact");
+	define('NAV_BLOG',                  "Blog");
+
+// <HOME>
+
+	define('HOME_GOJI_ON_GITHUB',       "Goji on GitHub");

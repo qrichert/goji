@@ -32,3 +32,13 @@
 											'404' => "Page introuvable",
 											'500' => "Erreur interne"
 										));
+
+// <NAV>
+
+	define('NAV_ABOUT',                 "À propos");
+	define('NAV_CONTACT',               "Contact");
+	define('NAV_BLOG',                  "Blog");
+
+// <HOME>
+
+	define('HOME_GOJI_ON_GITHUB',       "Goji sur GitHub");

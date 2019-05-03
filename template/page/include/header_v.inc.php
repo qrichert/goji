@@ -4,9 +4,9 @@
 	</a>
 
 	<nav>
-		<a href="#">About</a>
-		<a href="#">Contact</a>
-		<a href="#">Blog</a>
+		<a href="#"><?= NAV_ABOUT; ?></a>
+		<a href="#"><?= NAV_CONTACT; ?></a>
+		<a href="#"><?= NAV_BLOG; ?></a>
 	</nav>
 
 	<div class="nav__burger-menu">
