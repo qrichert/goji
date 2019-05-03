@@ -1,5 +1,7 @@
-<main>
+<main class="markdown-container">
 	<h1><?= HELLO_WORLD; ?></h1>
+
+	<img src="img/goji__berries.svg" alt="Goji" width="175px">
 
 	<!-- URLs translated -->
 	<p id="language-selector">

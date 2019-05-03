@@ -1,6 +1,6 @@
 <p align="center">
 	<a href="#" target="_blank">
-		<img src="https://drive.quentinrichert.com/files/goji-text.svg"
+		<img src="https://drive.quentinrichert.com/files/goji__text--dark.svg"
 			 alt="Goji"
 			 width="150"
 			 height="150">
@@ -19,9 +19,9 @@ Installation
 2. Make your domain point to the `public` folder (*i.e.* document root).
 
 **Requirements:**
-* Apache
-* PHP 7+
-* No dependencies, works right out of the box
+- Apache
+- PHP 7+
+- No dependencies, works right out of the box
 
 Directory Structure
 -------------------
@@ -58,7 +58,7 @@ It it's the first time you use Goji, please read the [Getting Started guide](#) 
 
 <p align="center">
 	<a href="#" target="_blank">
-		<img src="https://drive.quentinrichert.com/files/goji-berries.svg"
+		<img src="https://drive.quentinrichert.com/files/goji__berries.svg"
 			 width="Goji Berries"
 			 width="75"
 			 height="75">
