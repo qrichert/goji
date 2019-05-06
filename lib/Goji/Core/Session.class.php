@@ -2,8 +2,6 @@
 
 	namespace Goji\Core;
 
-	use Exception;
-
 	/**
 	 * Class Session
 	 *

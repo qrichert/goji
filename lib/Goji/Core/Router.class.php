@@ -5,7 +5,7 @@
 	use Goji\Blueprints\HttpStatusInterface;
 	use Goji\Parsing\RegexPatterns;
 	use App\Controller\HttpErrorController;
-	use \Exception;
+	use Exception;
 
 	/**
 	 * Class Router

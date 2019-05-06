@@ -15,6 +15,7 @@
 
 		private static $m_isInitialized;
 		private static $m_useCookies;
+		private static $m_secure;
 		private static $m_cookiesPrefix;
 
 		/* <CONSTANTS> */
@@ -39,15 +40,42 @@
 				$config = ConfigurationLoader::loadFileToArray($configFile);
 
 				self::$m_useCookies = isset($config['use_cookies']) && $config['use_cookies'] === true;
+				self::$m_secure = self::isSecure($config['secure']);
 				self::$m_cookiesPrefix = $config['cookies_prefix'] ?? '';
 
 			} catch (Exception $e) {
 
 				self::$m_useCookies = true;
+				self::$m_secure = self::isSecure();
 				self::$m_cookiesPrefix = '';
 			}
 
 			self::$m_isInitialized = true;
+		}
+
+		/**
+		 * @param null $secure
+		 * @return bool
+		 */
+		private static function isSecure($secure = null): bool {
+
+			if (!isset($secure)) {
+
+				if (!empty($_SERVER['HTTPS']) && mb_strtolower($_SERVER['HTTPS']) !== 'off') {
+					return true;
+				} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+				        || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && mb_strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on') {
+					return true;
+				} else {
+					return (isset($_SERVER['SERVER_PORT']) && intval($_SERVER['SERVER_PORT']) == 443);
+				}
+			}
+
+			if (isset($secure) && $secure === true)
+				return true;
+
+			// $secure != true
+			return false;
 		}
 
 		/**
@@ -58,12 +86,12 @@
 		 * @param int $expireIn
 		 * @param string $path
 		 * @param string $domain
-		 * @param bool $secure
+		 * @param bool $secure default = null -> use config
 		 * @param bool $httponly
 		 * @return bool
 		 */
 		public static function set(string $name, string $value = '', int $expireIn = -1,
-		                           string $path = '/', string $domain = '', bool $secure = false,
+		                           string $path = '/', string $domain = '', bool $secure = null,
 		                           bool $httponly = true): bool {
 
 			self::initialize();
@@ -77,6 +105,9 @@
 				$expireIn = 10 * 12 * 30 * 24 * 3600; // 10 years
 
 			$expireIn = time() + $expireIn;
+
+			if (!isset($secure))
+				$secure = self::$m_secure;
 
 			return setcookie($name, $value, $expireIn, $path, $domain, $secure, $httponly);
 		}
