@@ -11,12 +11,15 @@
 
 		public static function minify($code) {
 
-			// Remove comments
-			$code = preg_replace('#/\*[^*]*\*+([^/][^*]*\*+)*/#', '', $code); // Multi line : /* hello, world */
-			$code = preg_replace('#//.*$#m', '', $code); // Single line : // hello, world
+			// Remove comments first (safely)
+
+			// Multiline comments first
+			$code = Parser::removeMultiLineCStyleComments($code);
+
+			// Single-line comments next
+			$code = Parser::removeSingleLineCStyleComments($code);
 
 			// Backup values within single or double quotes
-			// TODO: Make sure the regex works or switch back to '#(\'[^\']*?\'|"[^"]*?")#ims' (which doesn't handle escaped quotes)
 			preg_match_all(RegexPatterns::quotedStrings(), $code, $hit, PREG_PATTERN_ORDER);
 
 			$hitCount = count($hit[1]);
