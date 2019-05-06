@@ -166,7 +166,17 @@ header {
 
 .header__logo {
 	margin-right: auto;
-	display: flex; /* To avoid unwanted margins. */
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	color: var(--color-nav-link);
+	font-family: var(--font-title);
+	text-decoration: none !important;
+}
+
+.header__logo :not(:first-child) {
+	margin-left: var(--gutter-thin);
 }
 
 .header__logo > img {

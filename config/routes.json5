@@ -3,7 +3,6 @@
  *
  * Reserved page names are:
  * - error-XXX (HTTP error code)
- * - switch-locale
  */
 
 {
