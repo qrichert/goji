@@ -31,19 +31,10 @@ RewriteRule ^(.*) http://www.SITE_URL.com/$1 [QSA,L,R=301]
 
 # REWRITE : PAGES -------------------------------------------------------------
 
-# TODO: Must come after other rewrites, like static ones.
-# Everything that is not a static file
+# Everything that is not a static file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
-
-# REWRITE : XHR ---------------------------------------------------------------
-# REWRITE : OPERATORS ---------------------------------------------------------
-
-# Don't forget 'rel="nofollow"' for these links
-
-# TODO: Clean useless rewritings like these, once it is implemented in code
-RewriteRule ^lang-([a-z]{2})$	index.php?page=lang&lang=$1 [QSA,L]
 
 # --- ERRORS ---
 

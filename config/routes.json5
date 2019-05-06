@@ -50,7 +50,10 @@
 	"some-other-page": {
 		// If you don't have multiple languages, use 'route' without an 's', and attach the route directly.
 		// In can be a single string, or an array of strings like here
-		route: ["/some-other-page", "/some-other-page-([0-9]+)(?:-([0-9]+))?"],
+		route: [
+			"/some-other-page",
+			"/some-other-page-([0-9]+)(?:-([0-9]+))?"
+		],
 		controller: "SomeOtherPageController"
 	},
 	"some-other-page-again": {
@@ -59,5 +62,11 @@
 		// During routing the expression will always be matched within ^ expr $
 		route: "/some-other-page-again",
 		controller: "SomeOtherPageAgainController"
-	}
+	},
+	/*
+		"xhr-get-last-posts": {
+			route: "/xhr-get-last-posts-([0-9]+)(?:-([0-9]+))?"
+			controller: "XhrGetLastPostsController"
+		}
+	*/
 }

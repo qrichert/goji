@@ -62,12 +62,13 @@
 			if (!isset($secure)) {
 
 				if (!empty($_SERVER['HTTPS']) && mb_strtolower($_SERVER['HTTPS']) !== 'off') {
+
 					return true;
+
 				} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
 				        || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && mb_strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on') {
+
 					return true;
-				} else {
-					return (isset($_SERVER['SERVER_PORT']) && intval($_SERVER['SERVER_PORT']) == 443);
 				}
 			}
 
