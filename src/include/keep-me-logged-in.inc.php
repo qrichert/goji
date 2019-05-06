@@ -6,10 +6,10 @@
 			&& isset($_COOKIE[COOKIES_PREFIX . 'id']) && $_COOKIE[COOKIES_PREFIX . 'id'] != ''
 		    && isset($_COOKIE[COOKIES_PREFIX . 'rm-hash']) && $_COOKIE[COOKIES_PREFIX . 'rm-hash'] != '') {
 
-				require_once '../src/model/HR.class.php';
+				require_once '../src/model/MemberManager.class.php';
 
 				try {
-					HR::autoLogIn($_COOKIE[COOKIES_PREFIX . 'id'], $_COOKIE[COOKIES_PREFIX . 'rm-hash']);
+					MemberManager::autoLogIn($_COOKIE[COOKIES_PREFIX . 'id'], $_COOKIE[COOKIES_PREFIX . 'rm-hash']);
 				} catch (Exception $e) { // If not, cookies are probably broken, so we delete them
 					setcookie(COOKIES_PREFIX . 'remember-me', 'false',	time(), '/', null, false, true); // Delete now
 					setcookie(COOKIES_PREFIX . 'id', '',				time(), '/', null, false, true); // Delete now

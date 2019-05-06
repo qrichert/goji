@@ -41,7 +41,7 @@
 				self::$m_useCookies = isset($config['use_cookies']) && $config['use_cookies'] === true;
 				self::$m_cookiesPrefix = $config['cookies_prefix'] ?? '';
 
-			} catch  (Exception $e) {
+			} catch (Exception $e) {
 
 				self::$m_useCookies = true;
 				self::$m_cookiesPrefix = '';

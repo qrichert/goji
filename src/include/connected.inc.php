@@ -9,9 +9,9 @@
 			$_MEMBER = new Member($_SESSION['user_id']);
 		} catch (Exception $e) {
 
-			require_once '../src/model/HR.class.php';
+			require_once '../src/model/MemberManager.class.php';
 
-			HR::logOut();
+			MemberManager::logOut();
 
 			header('Location: ' . PAGES[CURRENT_LANGUAGE]['join']);
 			exit;

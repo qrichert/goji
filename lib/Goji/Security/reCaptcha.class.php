@@ -1,11 +1,11 @@
 <?php
 
-	namespace Goji\Toolkit;
+	namespace Goji\Security;
 
 	/**
 	 * Class reCaptcha
 	 *
-	 * @package Goji\Toolkit
+	 * @package Goji\Security
 	 */
 	class reCaptcha {
 
@@ -15,7 +15,7 @@
 				return false;
 
 			$data = array(
-				'secret'   => PASSWORDS_GOOGLE_CAPTCHA_PRIVATE_KEY,
+				'secret'   => Passwords::getProperty('google_captcha_private_key'),
 				'response' => $code
 			);
 

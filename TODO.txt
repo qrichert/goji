@@ -1,5 +1,4 @@
 TODO: Refactor Password class to load passwords from config & generate theme
-TODO: Update minifiers algorithms with the one from Parsing::Parser()
 TODO: Delete all obsolete lang files & statements
 TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php https://www.electrictoolbox.com/php-caching-headers/
 TODO: Update SimpleXMLHttpRequest JS plugin

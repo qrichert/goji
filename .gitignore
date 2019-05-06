@@ -27,8 +27,6 @@ Thumbs.db
 .idea
 venv
 
-#/TODO.txt
-/src/include/passwords.inc.php
 /config/databases.json
 /config/databases.json5
 /config/passwords.json
