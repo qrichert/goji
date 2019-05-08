@@ -3,8 +3,8 @@
 	namespace Goji\Translation;
 
 	use Goji\Core\App;
+	use Goji\Toolkit\SimpleCache;
 	use Exception;
-	use Goji\Core\Logger;
 
 	/**
 	 * Class Translator
@@ -78,6 +78,33 @@
 		 */
 		private function loadXML(string $file, bool $loadSegmentsAsConstants = false): void {
 
+			$currentPage = $this->m_app->getRouter()->getCurrentPage();
+
+			// If cached, load from cache
+			$cacheId = SimpleCache::cacheIDFromFileFullPath($file) . '-' .
+			           SimpleCache::cacheIDFromString($currentPage);
+
+			if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) {
+
+				$segments = SimpleCache::loadFilePreprocessed($cacheId);
+				$segments = json_decode($segments, true);
+
+				// Load segments
+				if ($loadSegmentsAsConstants) {
+
+					foreach ($segments as $segmentID => $segmentValue)
+						define($segmentID, $segmentValue);
+
+				} else {
+
+					$this->m_segments = array_merge($this->m_segments, $segments);
+				}
+
+				return;
+			}
+
+			// If we're here, cache is invalid
+
 			libxml_use_internal_errors(true);
 			$xml = simplexml_load_file($file);
 
@@ -92,7 +119,7 @@
 				throw new Exception('XML file could not be parsed: ' . $file . "\n" .  $errors . "\n", self::E_COULD_NOT_PARSE_XML_FILE);
 			}
 
-			$currentPage = $this->m_app->getRouter()->getCurrentPage();
+			$segments = array();
 
 			foreach ($xml->page as $page) {
 
@@ -134,12 +161,23 @@
 						$segmentValue = (string) $segment;
 					}
 
-					if ($loadSegmentsAsConstants)
-						define($segmentID, $segmentValue);
-					else
-						$this->m_segments[$segmentID] = $segmentValue;
+					$segments[$segmentID] = $segmentValue;
 				}
 			}
+
+			// Load segments
+			if ($loadSegmentsAsConstants) {
+
+				foreach ($segments as $segmentID => $segmentValue)
+					define($segmentID, $segmentValue);
+
+			} else {
+
+				$this->m_segments = array_merge($this->m_segments, $segments);
+			}
+
+			// Cache page segments
+			SimpleCache::cacheFilePreprocessed(json_encode($segments), $file, $cacheId);
 		}
 
 		/**

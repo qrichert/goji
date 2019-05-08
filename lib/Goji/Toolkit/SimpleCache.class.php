@@ -521,4 +521,14 @@
 
 			return $cacheId;
 		}
+
+		public static function cacheIDFromString($string): string {
+
+			$cacheId = (string) $string; // _String:-404-*
+				$cacheId = mb_strtolower($cacheId); // _string:-404-*
+				$cacheId = preg_replace('#\W#', '-', $cacheId); // _string--404--
+				$cacheId = str_replace('_', '-', $cacheId); // -string--404--
+
+			return $cacheId;
+		}
 	}
