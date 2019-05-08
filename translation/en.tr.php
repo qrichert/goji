@@ -1,37 +1,14 @@
 <?php
 
 	/*
-		--- <ENGLISH> ---
-
+		~~~ <ENGLISH> ~~~
 		This is the English language file.
 	*/
 
-	define('CURRENT_LANGUAGE', 		"en");    // Don't translate that
-	define('CURRENT_LOCALE', 		"en_US"); // Don't translate that
-	define('HELLO_WORLD',			"hello, world");
+// <GLOBAL>
 
-// <GENERAL>
-
-	define('GO_BACK_HOME',				"← Go back home");
-
-// <TITLES>
-
-	define('TITLE_HOME',					"Home");
-	define('TITLE_ERROR',					"Error"); // + Error code
-	define('TITLE_ERROR_END',				"- SITE_NAME");
-
-// <DESCRIPTIONS>
-
-	define('DESCRIPTION_HOME',					"");
-	define('DESCRIPTION_ERROR',					"We encountered an error while loading this page.");
-
-// <ERROR>
-
-	define('ERROR_DESCRIPTION',			array(
-											'403' => "Access denied",
-											'404' => "Page could not be found",
-											'500' => "Internal error"
-										));
+	define('HELLO_WORLD',			    "hello, world");
+	define('GO_BACK_HOME',			    "← Go back home");
 
 // <NAV>
 
@@ -39,6 +16,21 @@
 	define('NAV_CONTACT',               "Contact");
 	define('NAV_BLOG',                  "Blog");
 
+// <FOOTER>
+
+	define('FOOTER_GOJI_ON_GITHUB',     "Goji on GitHub");
+
+// <ERROR>
+
+	define('ERROR_PAGE_TITLE',			"Error"); // + Error code
+	define('ERROR_PAGE_DESCRIPTION',	"We encountered an error while loading this page.");
+	define('ERROR_DESCRIPTION',			array(
+											'403' => "Access denied",
+											'404' => "Page could not be found",
+											'500' => "Internal error"
+										));
+
 // <HOME>
 
-	define('HOME_GOJI_ON_GITHUB',       "Goji on GitHub");
+	define('HOME_PAGE_TITLE',			"Home");
+	define('HOME_PAGE_DESCRIPTION',		"");

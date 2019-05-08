@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="en">
+	<!--
+		~~~ <ENGLISH> ~~~
+		This is the French language file.
+	-->
+	<page>
+		<!-- Global -->
+		<segment id="HELLO_WORLD">hello, world</segment>
+		<segment id="GO_BACK_HOME">← Go back home</segment>
+
+		<!-- Nav -->
+		<segment id="NAV_ABOUT">About</segment>
+		<segment id="NAV_CONTACT">Contact</segment>
+		<segment id="NAV_BLOG">Blog</segment>
+
+		<!-- Footer -->
+		<segment id="FOOTER_GOJI_ON_GITHUB">Goji on GitHub</segment>
+	</page>
+	<!--
+		You can use the wildcard symbol * to match any character(s).
+		Here it will match anything that begins with http-error-
+	-->
+	<page id="http-error-*">
+		<segment id="ERROR_PAGE_TITLE">Error %{ERROR_CODE}</segment> <!-- + Error code -->
+		<segment id="ERROR_PAGE_DESCRIPTION">We encountered an error while loading this page.</segment>
+		<segment id="ERROR_DESCRIPTION">
+			<option id="403">Access denied</option>
+			<option id="404">Page could not be found</option>
+			<option id="500">Internal error</option>
+		</segment>
+	</page>
+	<!--
+		Page ID must match page ID in routes.json5 if you use \Goji\Translation\Translator.
+		Only segments where page ID matches current ID (and global pages, without ID) will be loaded.
+	-->
+	<page id="home">
+		<segment id="HOME_PAGE_TITLE">Home</segment>
+		<segment id="HOME_PAGE_DESCRIPTION"></segment>
+	</page>
+</translation>

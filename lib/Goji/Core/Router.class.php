@@ -194,6 +194,7 @@
 		}
 
 		/**
+		 * Returns current page ID (key in routes.json5)
 		 * @return string
 		 * @throws \Exception
 		 */

@@ -1,37 +1,14 @@
 <?php
 
 	/*
-		--- <FRENCH> ---
-
+		~~~ <FRENCH> ~~~
 		This is the French language file.
 	*/
 
-	define('CURRENT_LANGUAGE', 		"fr");    // Don't translate that
-	define('CURRENT_LOCALE', 		"fr_FR"); // Don't translate that
-	define('HELLO_WORLD',			"bonjour, monde");
+// <GLOBAL>
 
-// <GENERAL>
-
-	define('GO_BACK_HOME',				"← Retourner vers la page d'accueil");
-
-// <TITLES>
-
-	define('TITLE_HOME',					"Accueil");
-	define('TITLE_ERROR',					"Erreur"); // + Error code
-	define('TITLE_ERROR_END',				"- SITE_NAME");
-
-// <DESCRIPTIONS>
-
-	define('DESCRIPTION_HOME',					"");
-	define('DESCRIPTION_ERROR',					"Nous avons rencontré une erreur lors du chargement de la page.");
-
-// <ERROR>
-
-	define('ERROR_DESCRIPTION',			array(
-											'403' => "Accès interdit",
-											'404' => "Page introuvable",
-											'500' => "Erreur interne"
-										));
+	define('HELLO_WORLD',			    "bonjour, monde");
+	define('GO_BACK_HOME',			    "← Retourner vers la page d'accueil");
 
 // <NAV>
 
@@ -39,6 +16,21 @@
 	define('NAV_CONTACT',               "Contact");
 	define('NAV_BLOG',                  "Blog");
 
+// <FOOTER>
+
+	define('FOOTER_GOJI_ON_GITHUB',     "Goji sur GitHub");
+
+// <ERROR>
+
+	define('ERROR_PAGE_TITLE',			"Erreur"); // + Error code
+	define('ERROR_PAGE_DESCRIPTION',	"Nous avons rencontré une erreur lors du chargement de la page.");
+	define('ERROR_DESCRIPTION',			array(
+											'403' => "Accès interdit",
+											'404' => "Page introuvable",
+											'500' => "Erreur interne"
+										));
+
 // <HOME>
 
-	define('HOME_GOJI_ON_GITHUB',       "Goji sur GitHub");
+	define('HOME_PAGE_TITLE',			"Accueil");
+	define('HOME_PAGE_DESCRIPTION',		"");

@@ -4,6 +4,7 @@
 
 	use Goji\Core\App;
 	use Exception;
+	use Goji\Core\Logger;
 
 	/**
 	 * Class Translator
@@ -17,6 +18,7 @@
 		private $m_app;
 		private $m_targetLocale;
 		private $m_resourcesLoaded;
+		private $m_segments;
 
 		/* <CONSTANTS> */
 
@@ -25,6 +27,8 @@
 		const E_NO_TARGET_LOCALE = 0;
 		const E_RESOURCE_NOT_FOUND = 1;
 		const E_RESOURCE_ALREADY_LOADED = 2;
+		const E_RESOURCE_TYPE_NOT_SUPPORTED = 3;
+		const E_COULD_NOT_PARSE_XML_FILE = 4;
 
 		/**
 		 * Translator constructor.
@@ -37,6 +41,7 @@
 			$this->m_app = $app;
 			$this->m_targetLocale = $app->getLanguages()->getCurrentLocale();
 			$this->m_resourcesLoaded = array();
+			$this->m_segments = array();
 		}
 
 		/**
@@ -60,6 +65,84 @@
 		}
 
 		/**
+		 * @param string $file
+		 */
+		private function loadPHPConstants(string $file): void {
+			require_once $file;
+		}
+
+		/**
+		 * @param string $file
+		 * @param bool $loadSegmentsAsConstants (optional) default = false. Load segments as define( ID , VALUE)
+		 * @throws \Exception
+		 */
+		private function loadXML(string $file, bool $loadSegmentsAsConstants = false): void {
+
+			libxml_use_internal_errors(true);
+			$xml = simplexml_load_file($file);
+
+			if ($xml === false) {
+
+				$errors = "\n";
+
+				foreach(libxml_get_errors() as $error) {
+					$errors .= "\t-> " . $error->message;
+				}
+
+				throw new Exception('XML file could not be parsed: ' . $file . "\n" .  $errors . "\n", self::E_COULD_NOT_PARSE_XML_FILE);
+			}
+
+			$currentPage = $this->m_app->getRouter()->getCurrentPage();
+
+			foreach ($xml->page as $page) {
+
+				// If not isset, it is global and we include it no matter what
+				if (isset($page['id'])) {
+
+					$pageID = (string) $page['id'];
+						$pageID = str_replace('*', '°°°WILDCARD°°°', $pageID); // Protect wildcard * http-error-°°°WILDCARD°°°
+						$pageID = preg_quote($pageID, '#');
+						$pageID = str_replace('°°°WILDCARD°°°', '(?:.*)', $pageID);
+
+					// If ID doesn't match, we don't include it
+					if (!preg_match('#^' . $pageID . '$#i', $currentPage))
+						continue;
+				}
+
+				foreach ($page->segment as $segment) {
+
+					$segmentID = (string) $segment['id'];
+					$segmentValue = null;
+
+					// If segment is an array of values
+					if (isset($segment->option)) {
+
+						/*
+						 * Array => {
+						 *      'option-id-1' => 'option value 1',
+						 *      'option-id-2' => 'option value 2',
+						 * }
+						 */
+						$segmentValue = array();
+
+						foreach ($segment->option as $option) {
+
+							$segmentValue[(string) $option['id']] = (string) $option;
+						}
+
+					} else {
+						$segmentValue = (string) $segment;
+					}
+
+					if ($loadSegmentsAsConstants)
+						define($segmentID, $segmentValue);
+					else
+						$this->m_segments[$segmentID] = $segmentValue;
+				}
+			}
+		}
+
+		/**
 		 * Load a translation resource.
 		 *
 		 * Use %{LOCALE} placeholder in file path to dynamically use the current locale.
@@ -68,10 +151,13 @@
 		 * If current locale is en_US, it will look for the file with en_US locale.
 		 * If it doesn't find it, it looks for a file with the language code alone (en)
 		 *
+		 * You can load all segments as constants by setting $loadSegmentsAsConstants to true.
+		 *
 		 * @param string|array $file
+		 * @param bool $loadSegmentsAsConstants (optional) default = false. Load segments as define( ID , VALUE)
 		 * @throws \Exception
 		 */
-		public function loadTranslationResource($file): void {
+		public function loadTranslationResource($file, bool $loadSegmentsAsConstants = false): void {
 
 			if (!is_array($file))
 				$file = array($file);
@@ -95,7 +181,17 @@
 
 					if (is_file($translationResource)) {
 
-						require_once $translationResource;
+						$extension = pathinfo($translationResource, PATHINFO_EXTENSION);
+						$extension = mb_strtolower($extension);
+
+						switch ($extension) {
+							case 'php': $this->loadPHPConstants($translationResource);                  break;
+							case 'xml': $this->loadXML($translationResource, $loadSegmentsAsConstants); break;
+							default:
+								throw new Exception('Resource type not supported: ' . $extension, self::E_RESOURCE_TYPE_NOT_SUPPORTED);
+								break;
+						}
+
 						$translationResourceFound = true;
 						// Hash tables are faster than array search.
 						$this->m_resourcesLoaded[$translationResource] = 1;
@@ -113,17 +209,40 @@
 			}
 		}
 
-		public function translate(string $textID, int $count = -1): void {
-			// TODO: use domain.key => value instead of constants
+		/**
+		 * @param string $segmentID
+		 * @param int $count
+		 * @return array|string
+		 */
+		public function translate(string $segmentID, int $count = -1) {
+
+			if (isset($this->m_segments[$segmentID])) {
+
+				return $this->m_segments[$segmentID];
+
+			} else {
+				trigger_error("Undefined segment '" . $segmentID . "', ID returned.", E_USER_WARNING);
+				return $segmentID;
+			}
 		}
 
 		/**
 		 * Alias for Translator::translate()
 		 *
-		 * @param string $textID
-		 * @param int $count
+		 * @param array $args
+		 * @return array|string
 		 */
-		public function tr(string $textID, int $count = -1): void {
-			$this->translate($textID, $count);
+		public function tr(...$args) {
+			return $this->translate(...$args);
+		}
+
+		/**
+		 * Alias for Translator::translate()
+		 *
+		 * @param array $args
+		 * @return array|string
+		 */
+		public function _(...$args) {
+			return $this->translate(...$args);
 		}
 	}

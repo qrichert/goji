@@ -50,12 +50,13 @@
 
 			SimpleMetrics::addPageView('http-error-' . $this->m_httpErrorCode);
 
-			$translator = new Translator($this->m_app);
-				$translator->loadTranslationResource('%{LOCALE}.tr.php');
+			$tr = new Translator($this->m_app);
+//				$tr->loadTranslationResource('%{LOCALE}.tr.php');
+				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$template = new SimpleTemplate();
-				$template->setPageTitle(TITLE_ERROR . ' ' . $this->m_httpErrorCode);
-				$template->setPageDescription(DESCRIPTION_ERROR);
+				$template->setPageTitle(str_replace('%{ERROR_CODE}', $this->m_httpErrorCode, $tr->_('ERROR_PAGE_TITLE')));
+				$template->setPageDescription($tr->_('ERROR_PAGE_DESCRIPTION'));
 				$template->setRobotsBehaviour(SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 				$template->setShowCanonicalPageAndAlternates(false);
 
