@@ -1,5 +1,5 @@
 <main class="markdown-container">
-	<h1><?= $tr->_('HELLO_WORLdD'); ?></h1>
+	<h1><?= $tr->_('HELLO_WORLD'); ?></h1>
 
 	<img src="img/goji__berries.svg" alt="Goji" width="175px">
 
