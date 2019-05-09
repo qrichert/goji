@@ -32,6 +32,7 @@
 
 			if (is_numeric(Session::get('user-id'))) {
 
+				// TODO: try { new Member() } catch { loggedIn = false; id = null }
 				$this->m_isLoggedIn = true;
 				$this->m_id = intval(Session::get('user-id'));
 
