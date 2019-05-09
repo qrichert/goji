@@ -21,13 +21,14 @@
 			if (!isset($errorCode))
 				return false;
 
+			// Hash tables are O(1)
 			$supportedErrors = array(
-				self::HTTP_ERROR_FORBIDDEN,
-				self::HTTP_ERROR_NOT_FOUND,
-				self::HTTP_SERVER_INTERNAL_SERVER_ERROR
+				strval(self::HTTP_ERROR_FORBIDDEN) => true,
+				strval(self::HTTP_ERROR_NOT_FOUND) => true,
+				strval(self::HTTP_SERVER_INTERNAL_SERVER_ERROR) => true
 			);
 
-			return in_array($errorCode, $supportedErrors);
+			return isset($supportedErrors[strval($errorCode)]);
 		}
 
 		/**
