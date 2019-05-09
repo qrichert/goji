@@ -37,5 +37,20 @@
 	<page id="home">
 		<segment id="HOME_PAGE_TITLE">Home</segment>
 		<segment id="HOME_PAGE_DESCRIPTION"></segment>
+		<segment id="HOME_PLURALIZATION">
+			<!--
+				For pluralization, put each form in it's own alternative and specify the count attribute.
+				Count attribute is a regex, so:
+				- ^ means start of sequence and $ means end of sequence.
+				- 0|1 means either 0 or 1
+				- You can have more elaborate cases, like for Russian:
+					Numbers that ends in 1, except 11:
+					^[^\D1]*1$|\d*[^\D1]\d*1$|^1{3,}$
+				- Don't forget parenthesis for ORs. ^0|1$ matches anything that starts with 0 OR ends with 1 !!!
+				  whereas ^(0|1)$ matches 0 OR 1
+			-->
+			<alternative count="^1$">There is %{COUNT} foobar.</alternative>
+			<alternative count="rest">There are %{COUNT} foobars.</alternative>
+		</segment>
 	</page>
 </translation>

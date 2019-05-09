@@ -3,6 +3,13 @@
 
 	<img src="img/goji__berries.svg" alt="Goji" width="175px">
 
+	<pre><?php
+			echo $tr->_('HOME_PLURALIZATION', 0) . PHP_EOL .
+				 $tr->_('HOME_PLURALIZATION', 1) . PHP_EOL .
+				 $tr->_('HOME_PLURALIZATION', 2) . PHP_EOL .
+				 $tr->_('HOME_PLURALIZATION', 42) . PHP_EOL;
+	?></pre>
+
 	<!-- URLs translated -->
 	<p id="language-selector">
 		<?php

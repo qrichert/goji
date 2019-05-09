@@ -157,7 +157,29 @@
 							$segmentValue[(string) $option['id']] = (string) $option;
 						}
 
+					} else if (isset($segment->alternative)) {
+
+						/*
+						 * Array => {
+						 *      'count-regex' => 'value',
+						 *      'count-regex' => 'value',
+						 *      'count-regex' => 'value'
+						 * }
+						 */
+						$segmentValue = array();
+
+						foreach ($segment->alternative as $alternative) {
+
+							// Make sure it is lowercase, so that we can safely
+							// use lowercase version in the rest of the code
+							if (mb_strtolower($alternative['count']) == 'rest')
+								$alternative['count'] = 'rest';
+
+							$segmentValue[(string) $alternative['count']] = (string) $alternative;
+						}
+
 					} else {
+
 						$segmentValue = (string) $segment;
 					}
 
@@ -256,10 +278,39 @@
 
 			if (isset($this->m_segments[$segmentID])) {
 
-				return $this->m_segments[$segmentID];
+				// If we don't use count, return the segment as string or array (<option> or not)
+				if ($count === -1)
+					return $this->m_segments[$segmentID];
+
+				// From here on we use the $count option
+
+				// If it's not an array, the segment doesn't support $count
+				// and it's just a regular segment
+				// ($count is an associative array of REGEX => STRING)
+				if (!is_array($this->m_segments[$segmentID])) {
+					trigger_error("Segment '$segmentID' doesn't accept count, string returned.", E_USER_WARNING);
+					return $this->m_segments[$segmentID];
+				}
+
+				// If we use count, we search for the alternative with the corresponding count
+				foreach ($this->m_segments[$segmentID] as $altCount => $alternative) {
+
+					// If $count matches <alternative count="REGEX">, return it
+					// and replace %{COUNT} in string by $count: There are %{COUNT} foobars. -> There are 2 foobars.
+					if (preg_match('#' . $altCount . '#', $count))
+						return str_replace('%{COUNT}', $count, $alternative);
+				}
+
+				// If nothing found, we return the one that has 'rest' as count, or an error if none is set as 'rest'
+				if (isset($this->m_segments[$segmentID]['rest'])) {
+					return str_replace('%{COUNT}', $count, $this->m_segments[$segmentID]['rest']);
+				} else {
+					trigger_error("Segment '$segmentID' has no alternative set for '$count' and no default count, ID returned.", E_USER_WARNING);
+					return $segmentID;
+				}
 
 			} else {
-				trigger_error("Undefined segment '" . $segmentID . "', ID returned.", E_USER_WARNING);
+				trigger_error("Undefined segment '$segmentID', ID returned.", E_USER_WARNING);
 				return $segmentID;
 			}
 		}
