@@ -19,18 +19,29 @@
 		 */
 		public static function getStringLineByLine(string $str): Generator {
 
-			$token = "\n\t";
+			$line = '';
+			// !!!! for() doesn't take Unicode into account, so we can't use mb_strlen()
+			// éÇ -> strlen() = 4
+			// éÇ -> mb_strlen() = 2
+			// In this case we need the four since for() will break it into 4 chars
+			$len = strlen($str);
+			for ($i = 0; $i < $len; $i++) {
 
-			// Get first line
-			$line = strtok($str, $token);
-
-			while ($line !== false) {
-				yield $line;
-				$line = strtok($token);
+				if (($i+1 < $len) && $str[$i] . $str[$i + 1] == "\r\n") {
+					$i++; // Jump an iteration (\r\n = 2 chars...)
+					yield $line; // Export line
+					$line = ''; // Recycle it
+				} else if ($str[$i] == "\r" || $str[$i] == "\n") {
+					yield $line; // Export line
+					$line = ''; // Recycle it
+				} else {
+					$line .= $str[$i];
+				}
 			}
 
-			// Reset strtok(), by default it keeps $str in memory.
-			strtok('', '');
+			// If text doesn't end with newline, we yield it anyways
+			if (!empty($line))
+				yield $line;
 		}
 
 		/**

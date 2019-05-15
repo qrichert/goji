@@ -147,4 +147,15 @@ EOT;
 #\\(\r\n|\n|\r)#
 EOT;
 		}
+
+		/**
+		 * Matches white space.
+		 *
+		 * @return string
+		 */
+		public static function whiteSpace(): string {
+			return <<<'EOT'
+#[\s\r\n\t\p{Z}]+#
+EOT;
+		}
 	}
