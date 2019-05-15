@@ -48,8 +48,11 @@
 					^[^\D1]*1$|\d*[^\D1]\d*1$|^1{3,}$
 				- Don't forget parenthesis for ORs. ^0|1$ matches anything that starts with 0 OR ends with 1 !!!
 				  whereas ^(0|1)$ matches 0 OR 1
+				- This one would match 0 OR 1:
+					<alternative count="^(0|1)$">Il y a %{COUNT} foobar.</alternative>
 			-->
-			<alternative count="^1$">There is %{COUNT} foobar.</alternative>
+			<alternative count="^0$">Sorry, no foobars :(</alternative>
+			<alternative count="^1$">There's only one foobar, %{COUNT}...</alternative>
 			<alternative count="rest">There are %{COUNT} foobars.</alternative>
 		</segment>
 	</page>
