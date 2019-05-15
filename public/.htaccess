@@ -10,12 +10,17 @@ RewriteEngine on
 
 # REWRITE : HTTPS AND WWW -----------------------------------------------------
 
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-RewriteCond %{HTTP_HOST} !^(.+).SITE_URL.com$
+# HTTP to HTTPS
 RewriteCond %{HTTP_HOST} !localhost
-RewriteRule ^(.*) http://www.SITE_URL.com/$1 [QSA,L,R=301]
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
+
+# Redirect two level domains like domain.com to www.domain.com
+RewriteCond %{HTTP_HOST} !localhost
+RewriteCond %{HTTP_HOST} ^([^.]+)\.([^.]+)$
+RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
 
 # REWRITE : STATIC ------------------------------------------------------------
 
