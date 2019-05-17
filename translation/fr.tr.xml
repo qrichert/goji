@@ -53,7 +53,7 @@
 					<alternative count="^(0|1)$">Il y a %{COUNT} foobar.</alternative>
 			-->
 			<alternative count="^0$">Désolé, pas de foobar :(</alternative>
-			<alternative count="^1$">Y a qu'un seul foobar, %{COUNT}...</alternative>
+			<alternative count="^1$">Il n'y a qu'un seul foobar, %{COUNT}...</alternative>
 			<alternative count="rest">Il y a %{COUNT} foobars.</alternative>
 		</segment>
 	</page>
