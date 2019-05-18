@@ -36,6 +36,7 @@
 	--header-height: 116px;
 	--header-height-alt: 55px;
 
+	/* TODO: Cross isn't perfect */
 	--burger-menu-bar-height: 3px;
 	--burger-menu-width: calc(11 * var(--burger-menu-bar-height));
 	--burger-menu-height: calc(5 * var(--burger-menu-bar-height));
@@ -65,12 +66,13 @@
 	--color-nav-link-hover: var(--color-link);
 	--color-nav-link-alt: white;
 	--color-nav-link-alt-hover: var(--color-nav-link-alt);
+
 	--burger-menu-color: var(--color-nav-link);
 	--burger-menu-color-alt: var(--color-nav-link-alt);
 
 	/* Black & White */
 
-	/*	filter: grayscale(100%);*/
+	/* filter: grayscale(100%); */
 }
 
 /* <ANIMATIONS> */
@@ -286,7 +288,7 @@ main > :first-child {
 	margin-top: 0;
 }
 
-/* <ERROR> */
+/* <Main Error> */
 
 main.error {
 	display: flex;
@@ -326,7 +328,7 @@ section > p:last-child {
 	margin-bottom: 0;
 }
 
-/* <Text Section> */
+/* <Section Text> */
 
 section.text {
 	max-width: 800px;
