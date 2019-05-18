@@ -37,6 +37,7 @@
 	<page id="home">
 		<segment id="HOME_PAGE_TITLE">Accueil</segment>
 		<segment id="HOME_PAGE_DESCRIPTION"></segment>
+		<segment id="HOME_FOOBAR">Foobar ?</segment>
 		<segment id="HOME_PLURALIZATION">
 			<!--
 				For pluralization, put each form in it's own alternative and specify the count attribute.
@@ -56,5 +57,6 @@
 			<alternative count="^1$">Il n'y a qu'un seul foobar, %{COUNT}...</alternative>
 			<alternative count="rest">Il y a %{COUNT} foobars.</alternative>
 		</segment>
+		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Essayez une autre langue :</segment>
 	</page>
 </translation>

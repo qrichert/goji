@@ -41,6 +41,7 @@
 		<?php
 
 			$template->linkFiles(array(
+				'css/goji.css',
 				'css/main.css',
 				'css/responsive.css'
 			));

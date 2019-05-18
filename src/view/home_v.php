@@ -1,48 +1,55 @@
 <main>
-	<h1><?= $tr->_('HELLO_WORLD'); ?></h1>
+	<section class="text">
+		<h1><?= $tr->_('HELLO_WORLD'); ?></h1>
 
-	<img src="img/goji__berries.svg" alt="Goji" width="175px">
+		<img src="img/goji__berries.svg" alt="Goji" width="150px">
 
-	<pre><?php
-			echo $tr->_('HOME_PLURALIZATION', 0) . PHP_EOL .
-				 $tr->_('HOME_PLURALIZATION', 1) . PHP_EOL .
-				 $tr->_('HOME_PLURALIZATION', 2) . PHP_EOL .
-				 $tr->_('HOME_PLURALIZATION', 42) . PHP_EOL;
-	?></pre>
+		<h2><?= $tr->_('HOME_FOOBAR') ?></h2>
 
-	<!-- URLs translated -->
-	<p id="language-selector">
-		<?php
+		<p class="pluralization-example"><?=
+				$tr->_('HOME_PLURALIZATION', 0) . '<br>' .
+				$tr->_('HOME_PLURALIZATION', 1) . '<br>' .
+				$tr->_('HOME_PLURALIZATION', 2) . '<br>' .
+				$tr->_('HOME_PLURALIZATION', 42) . '<br>';
+		?></p>
 
-			$count = count($this->m_app->getLanguages()->getSupportedLocales());
-			$i = 0;
-			foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
+		<h2><?= $tr->_('HOME_TRY_A_DIFFERENT_LANGUAGE') ?></h2>
 
-				if ($locale == $this->m_app->getLanguages()->getCurrentLocale())
-					continue;
+		<!-- URLs translated -->
+		<p>
+			👉&nbsp&nbsp
+			<?php
 
-				$i++;
+				$count = count($this->m_app->getLanguages()->getSupportedLocales());
+				$i = 0;
+				foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
 
-				echo '<a href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale) . '">'
-				     . $this->m_app->getLanguages()->getConfigurationLocales()[$locale]
-				     . '</a>',
-					$i < $count - 1 ? ' - ' : '',
-					PHP_EOL;
-			}
+					if ($locale == $this->m_app->getLanguages()->getCurrentLocale())
+						continue;
 
-			/* Or if you prefer to do it manually
+					$i++;
 
-			<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'fr'); ?>">
-				<?= $this->m_app->getLanguages()->getConfigurationLocales()['fr']; ?>
-			</a> -
-			<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_US'); ?>">
-				<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_US']; ?>
-			</a> -
-			<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_GB'); ?>">
-				<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_GB']; ?>
-			</a>
+					echo '<a href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale) . '">'
+					     . $this->m_app->getLanguages()->getConfigurationLocales()[$locale]
+					     . '</a>',
+						$i < $count - 1 ? ' - ' : '',
+						PHP_EOL;
+				}
 
-			*/
-		?>
-	</p>
+				/* Or if you prefer to do it manually
+
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'fr'); ?>">
+					<?= $this->m_app->getLanguages()->getConfigurationLocales()['fr']; ?>
+				</a> -
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_US'); ?>">
+					<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_US']; ?>
+				</a> -
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_GB'); ?>">
+					<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_GB']; ?>
+				</a>
+
+				*/
+			?>
+		</p>
+	</section>
 </main>
