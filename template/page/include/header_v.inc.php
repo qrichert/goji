@@ -8,11 +8,6 @@
 			<a href="#"><?= $tr->_('NAV_ABOUT'); ?></a>
 			<a href="#"><?= $tr->_('NAV_CONTACT'); ?></a>
 			<a href="#"><?= $tr->_('NAV_BLOG'); ?></a>
-			<a href="#"><?= $tr->_('NAV_ABOUT'); ?></a>
-
-			<a href="#"><?= $tr->_('NAV_ABOUT'); ?></a>
-			<a href="#"><?= $tr->_('NAV_CONTACT'); ?></a>
-			<a href="#"><?= $tr->_('NAV_BLOG'); ?></a>
 		</nav>
 
 		<div class="nav__burger-menu">
