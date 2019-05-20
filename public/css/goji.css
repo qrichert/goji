@@ -36,11 +36,26 @@
 	--header-height: 116px;
 	--header-height-alt: 55px;
 
-	/* TODO: Cross isn't perfect */
 	--burger-menu-bar-height: 3px;
-	--burger-menu-width: calc(11 * var(--burger-menu-bar-height));
-	--burger-menu-height: calc(5 * var(--burger-menu-bar-height));
-	--burger-menu-height-unfolded: calc(8 * var(--burger-menu-bar-height));
+	--burger-menu-width: 33px;
+	--burger-menu-height: 15px; /* (h-3bh) should be even, to divide the gaps by 2 */
+	/*
+		Calculating --burger-menu-height-unfolded is just some Pythagoras
+		taking bar height into account. (Rotation origin is x = y = bar height / 2)
+		w  = --burger-menu-width      (width)
+		bh = --burger-menu-bar-height (bar)
+		x  = w - bh                   (width minus the bar)
+		hu = √(x²÷2)+bh               (square root of width minus the bar divided by 2 plus bar)
+		--------------------
+		=> Just replace with the values and type this into google: sqrt(x^2/2)+bh
+		--------------------
+		Ex: sqrt((33-3)^2/2)+3 ≈ 24.21px
+
+		w: 33, bh: 1 => 23.63
+		w: 33, bh: 2 => 23.92
+		w: 33, bh: 4 => 24.51 (looks better with h: 19)
+	*/
+	--burger-menu-height-unfolded: 24.21px;
 
 	--text-size-small: 10px;
 	--text-size-medium: 14px;
@@ -249,7 +264,9 @@ nav > a:hover {
 	height: var(--burger-menu-bar-height);
 	background-color: var(--burger-menu-color);
 	border-radius: calc(var(--burger-menu-bar-height) / 2);
-	transform-origin: calc(var(--burger-menu-bar-height) / 2) calc(var(--burger-menu-bar-height) / 2);
+	/* To inverse, use calc(var(--burger-menu-bar-height) / 2) for both */
+	transform-origin: calc(100% - var(--burger-menu-bar-height) / 4)
+					  calc(var(--burger-menu-bar-height) / 2);
 	transition: transform 200ms ease,
 				opacity 200ms ease,
 				background-color 200ms ease;
@@ -259,9 +276,9 @@ nav > a:hover {
 	background-color: var(--burger-menu-color-alt);
 }
 
-.nav__burger-menu.cross div:nth-child(1) { transform: rotate(45deg); }
+.nav__burger-menu.cross div:nth-child(1) { transform: rotate(-45deg); }
 .nav__burger-menu.cross div:nth-child(2) { opacity: 0; }
-.nav__burger-menu.cross div:nth-child(3) { transform: rotate(-45deg); }
+.nav__burger-menu.cross div:nth-child(3) { transform: rotate(45deg); }
 
 /* <MAIN> */
 
