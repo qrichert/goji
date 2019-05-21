@@ -618,6 +618,21 @@
 			header("Cache-Control: max-age=$maxAge", false);
 		}
 
+		/**
+		 * Set HTTP Caching Policy.
+		 *
+		 * Use an array like:
+		 *
+		 * $policy = array(
+		 *      'etag' => 'token',
+		 *      'restriction' => SimpleCache::HTTP_CACHE_CONTROL_NO_CACHE,
+		 *      'privacy' => SimpleCache::HTTP_CACHE_CONTROL_PUBLIC,
+		 *      'max-age' => SimpleCache::TIME_1DAY
+		 * )
+		 *
+		 * @param array $policy
+		 * @throws \Exception
+		 */
 		public static function setHttpCachingPolicy(array $policy): void {
 
 			$eTag = $policy['etag'] ?? null;
