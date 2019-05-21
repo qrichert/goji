@@ -4,25 +4,6 @@
 
 	use Exception;
 
-	// If SimpleCache is called from a __destruct(), relative path may vary
-	// Here we make sure it stays the same
-	// TODO: bro, set it in config
-	if (!defined('SIMPLE_CACHE_PATH')) {
-
-		$cachePath = '../var/cache/';
-
-		// Folder must exist before 'realpath()'
-		if (!is_dir($cachePath))
-			mkdir($cachePath, 0777, true);
-
-		$cachePath = realpath($cachePath);
-
-		if (mb_substr($cachePath, -1) != '/')
-			$cachePath .= '/';
-
-		define('SIMPLE_CACHE_PATH', $cachePath);
-	}
-
 	/**
 	 * Class SimpleCache
 	 *
@@ -97,9 +78,8 @@
 
 		/* <CONSTANTS> */
 
-		const CACHE_PATH = SIMPLE_CACHE_PATH;
+		const CACHE_PATH = ROOT_PATH . '/var/cache/';
 		const CACHE_FILE_EXTENSION = '.cache.txt';
-		// TODO: Make DEFAULT_CACHE_MAX_AGE settable
 		const DEFAULT_CACHE_MAX_AGE = -1; // Default maximum page age in seconds (-1 = no limit)
 
 		const TIME_1MIN = 60;
