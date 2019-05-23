@@ -1,10 +1,11 @@
 <header>
 	<div class="header__container">
 		<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>" class="header__logo">
-			<img src="img/goji__text--dark.svg" alt="Logo">
+			<img src="img/goji__text--dark.svg" alt="<?= $tr->_('NAV_HOME'); ?>">
 		</a>
 
 		<nav>
+			<a href="#"><?= $tr->_('NAV_HOME'); ?></a>
 			<a href="#"><?= $tr->_('NAV_ABOUT'); ?></a>
 			<a href="#"><?= $tr->_('NAV_CONTACT'); ?></a>
 			<a href="#"><?= $tr->_('NAV_BLOG'); ?></a>

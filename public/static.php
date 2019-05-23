@@ -5,7 +5,7 @@
 	// File type must be specified and supported
 	$TYPE = null;
 
-		if (isset($_GET['type']) && !empty($_GET['type'])) {
+		if (!empty($_GET['type'])) {
 			$_GET['type'] = mb_strtolower($_GET['type']);
 		}
 

@@ -10,6 +10,7 @@
 		<segment id="GO_BACK_HOME">← Go back home</segment>
 
 		<!-- Nav -->
+		<segment id="NAV_HOME">Home</segment>
 		<segment id="NAV_ABOUT">About</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 		<segment id="NAV_BLOG">Blog</segment>

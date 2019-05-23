@@ -1,5 +1,5 @@
 @charset "utf-8";
 
 .pluralization-example {
-	font-family: monospace;
+	font-family: var(--font-code);
 }

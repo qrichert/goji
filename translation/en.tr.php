@@ -12,6 +12,7 @@
 
 // <NAV>
 
+	define('NAV_HOME',						"Home");
 	define('NAV_ABOUT',						"About");
 	define('NAV_CONTACT',					"Contact");
 	define('NAV_BLOG',						"Blog");

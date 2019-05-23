@@ -311,7 +311,7 @@
 			$link = $this->m_app->getRequestHandler()->getRootFolder() . $link;
 
 			// some-other-page-([0-9]+)(?:-([0-9]+))? -> some-other-page-128-226
-			if (isset($parameters) && !empty($parameters)) {
+			if (!empty($parameters)) {
 
 				preg_match_all(RegexPatterns::unescapedParenthesisGroups(), $link, $hit, PREG_PATTERN_ORDER);
 
@@ -359,7 +359,7 @@
 				// We extract controller, locale and parameters
 				if (preg_match('#^' . $pagePattern . '$#', $page, $matches)) {
 
-					if (!isset($route['locale']) || empty($route['locale']) || $route['locale'] == 'all')
+					if (empty($route['locale']) || $route['locale'] == 'all')
 						$this->m_app->getLanguages()->getCurrentLocale();
 					else
 						$this->m_app->getLanguages()->setCurrentLocale($route['locale']);
