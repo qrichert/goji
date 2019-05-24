@@ -1,6 +1,6 @@
-#######################################################
-# Use this .gitignore file for working on Goji itself #
-#######################################################
+##############################################
+# Use this .gitignore file for your projects #
+##############################################
 
 # See https://help.github.com/articles/ignoring-files for more about ignoring files.
 #
@@ -33,8 +33,12 @@ Thumbs.db
 /upload/
 /public/upload/
 
-# Only ignore them in the project .gitignore
-#/config/databases.json
-#/config/databases.json5
-#/config/passwords.json
-#/config/passwords.json5
+# Config files with sensitive data
+/config/databases.json
+/config/databases.json5
+/config/passwords.json
+/config/passwords.json5
+
+# Ignore Goji files
+/lib/Goji/
+/public/js/lib/Goji/
