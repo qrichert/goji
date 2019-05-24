@@ -8,10 +8,10 @@
 		<!-- Analytics -->
 		<?php
 			if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
-				require_once '../template/page/include/tracking_v.inc.php';
+				require_once '../template/page/include/tracking_t.inc.php';
 		?>
 
-		<?php require_once '../template/page/include/head_v.inc.php'; ?>
+		<?php require_once '../template/page/include/head_t.inc.php'; ?>
 
 		<!-- SEO -->
 		<title><?= $template->getPageTitle(); ?></title>
@@ -51,19 +51,19 @@
 		<!-- Social -->
 		<meta property="og:title" content="<?= $template->getPageTitle(); ?>">
 		<meta property="og:description" content="<?= $template->getPageDescription(); ?>">
-		<?php require_once '../template/page/include/opengraph_v.inc.php'; ?>
+		<?php require_once '../template/page/include/opengraph_t.inc.php'; ?>
 
 		<!-- Scripts -->
-		<?php require_once '../template/page/include/head-javascript_v.inc.php'; ?>
+		<?php require_once '../template/page/include/head-javascript_t.inc.php'; ?>
 	</head>
 	<body id="<?= $this->m_app->getRouter()->getCurrentPage(); ?>">
-		<?php require_once '../template/page/include/body_v.inc.php'; ?>
-		<?php require_once '../template/page/include/header_v.inc.php'; ?>
+		<?php require_once '../template/page/include/body_t.inc.php'; ?>
+		<?php require_once '../template/page/include/header_t.inc.php'; ?>
 
 		<?= $template->getPageContent(); ?>
 
-		<?php require_once '../template/page/include/footer_v.inc.php'; ?>
+		<?php require_once '../template/page/include/footer_t.inc.php'; ?>
 
-		<?php require_once '../template/page/include/bottom-javascript_v.inc.php'; ?>
+		<?php require_once '../template/page/include/bottom-javascript_t.inc.php'; ?>
 	</body>
 </html>
