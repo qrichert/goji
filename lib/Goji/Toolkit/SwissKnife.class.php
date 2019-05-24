@@ -40,4 +40,18 @@
 		public static function mysqlBool($boolean) {
 			return intval($boolean) === 1;
 		}
+
+		public static function mb_str_shuffle($str) {
+
+			$strlen = mb_strlen($str);
+			$letters = array();
+
+			while ($strlen-- > 0) {
+				$letters[] = mb_substr($str, $strlen, 1);
+			}
+
+			shuffle($letters);
+
+			return join('', $letters);
+		}
 	}

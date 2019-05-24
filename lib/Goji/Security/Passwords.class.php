@@ -3,6 +3,7 @@
 	namespace Goji\Security;
 
 	use Goji\Core\ConfigurationLoader;
+	use Goji\Toolkit\SwissKnife;
 	use Exception;
 
 	/**
@@ -137,17 +138,17 @@
 
 			// Generate random strings
 
-				$lowers		= str_shuffle('abcdefghijklmnopqrstuvwxyz');
-				$uppers		= str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-				$numbers	= str_shuffle('0123456789');
-				$symbols	= str_shuffle('-_$@()!?#<>:/*;,.&=+%°'); // These are the most accessible on regular keyboards
+				$lowers		= SwissKnife::mb_str_shuffle('abcdefghijklmnopqrstuvwxyz');
+				$uppers		= SwissKnife::mb_str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+				$numbers	= SwissKnife::mb_str_shuffle('0123456789');
+				$symbols	= SwissKnife::mb_str_shuffle('-_$@()!?#<>:/*;,.&=+%°'); // These are the most accessible on regular keyboards
 
 			// Generate random proportions
 
-				$propLowers		= rand(1, 100);
-				$propUppers		= rand(1, 100);
-				$propNumbers	= rand(1, 100);
-				$propSymbols	= rand(1, 100);
+				$propLowers		= mt_rand(1, 100);
+				$propUppers		= mt_rand(1, 100);
+				$propNumbers	= mt_rand(1, 100);
+				$propSymbols	= mt_rand(1, 100);
 
 					$propTotal = $propLowers + $propUppers + $propNumbers + $propSymbols;
 
@@ -163,7 +164,7 @@
 						  . mb_substr($numbers, 0, $propNumbers)
 						  . mb_substr($symbols, 0, $propSymbols);
 
-			$password = str_shuffle($password);
+			$password = SwissKnife::mb_str_shuffle($password);
 
 			while (mb_strlen($password) < $length) { // If $length is greater than the available characters, $password will not be long enough
 				$password .= self::generatePassword($length - mb_strlen($password));
