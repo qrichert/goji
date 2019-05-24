@@ -74,6 +74,7 @@
 	--color-text-default: var(--color-default);
 	--color-text-light: #586069;
 	--color-text-lighter: #7d8085;
+	--color-text-very-light: #959da5;
 
 	--color-link: #0366d6;
 	--color-link-hover: var(--color-link);
@@ -130,10 +131,10 @@ html, body {
 
 html {
 	font-size: var(--text-size-default);
-	/*-webkit-font-kerning: normal;*/
+	-webkit-font-kerning: normal;
 	/*-webkit-font-smoothing: antialiased;*/
 	/*-moz-osx-font-smoothing: grayscale;*/
-	/*font-kerning: normal;*/
+	font-kerning: normal;
 	text-rendering: optimizeLegibility;
 }
 
@@ -155,6 +156,7 @@ body > * {
 }
 
 h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
 	font-family: var(--font-title);
 }
 
@@ -167,7 +169,7 @@ h6 { font-size: 0.75em;	margin: 1.67em 0; }
 
 p {
 	margin: 1.5em 0;
-	line-height: 1.3em;
+	line-height: 1.5em;
 }
 
 a {
@@ -313,22 +315,13 @@ main > :first-child {
 	margin-top: 0;
 }
 
-/* <Main Error> */
+/* <Centered Layout> */
 
-main.error {
+main.centered {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-}
-
-main.error > h1 {
-	font-size: 6em;
-	margin-bottom: 0;
-}
-
-main.error > h1 + p {
-	color: var(--color-text-light);
 }
 
 /* <SECTIONS> */
@@ -355,10 +348,18 @@ section > p:last-child {
 
 /* <Section Text> */
 
+/*
+ * For content (e.g. articles)
+ *
+ * section
+ *     - *
+ */
+
 section.text {
 	max-width: 800px;
 	margin: auto;
 	position: relative;
+	padding-right: 5%;
 }
 
 section.text::before {
@@ -371,6 +372,43 @@ section.text::before {
 	height: 33%;
 	border-left: 4px dashed lightgrey;
 	box-sizing: border-box;
+}
+
+section.text > .pre-heading {
+	margin: 0;
+	font-family: var(--font-code);
+	font-size: var(--text-size-medium);
+	color: var(--color-text-very-light);
+}
+
+section.text > .pre-heading + h1, section.text > .pre-heading + h2, section.text > .pre-heading + h3,
+section.text > .pre-heading + h4, section.text > .pre-heading + h5, section.text > .pre-heading + h6 {
+	margin-top: var(--gutter-default);
+}
+
+/* <Section Error> */
+
+/*
+ * For HTTP errors:
+ *
+ * section
+ *     - h1 -> error
+ *     - p -> error description
+ */
+
+section.error {
+	text-align: center;
+	padding-bottom: calc(2 * var(--gutter-default));
+}
+
+section.error > h1 {
+	font-size: 6em;
+	margin-bottom: 0;
+}
+
+section.error > h1 + p {
+	color: var(--color-text-light);
+	margin: 1em 0;
 }
 
 /* <FOOTER> */
@@ -480,8 +518,8 @@ footer p {
 /* Up to to 920px */
 @media all and (max-width: 920px) {
 
-	h1 { font-size: 2em; margin: 1em  0; }
-	h2 { font-size: 1.3em; }
+	h1 { font-size: 2.5em; margin: 1em  0; }
+	h2 { font-size: 1.5em; }
 
 	.header__container {
 		padding-left: calc(1.5 * var(--gutter-default));
@@ -605,6 +643,9 @@ footer p {
 /* Up to 375px */
 @media all and (max-width: 375px) {
 
+	h1 { font-size: 2em; margin: 1em  0; }
+	h2 { font-size: 1.3em; }
+
 	main {
 		padding: calc(0.7 * var(--gutter-default)) 0;
 	}
@@ -615,6 +656,10 @@ footer p {
 		the burger menu. */
 		max-width: 100%;
 		margin-left: 0;
+	}
+
+	section.text {
+		padding: var(--gutter-medium);
 	}
 }
 
