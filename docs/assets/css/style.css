@@ -1,0 +1,20 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.page-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 20px 5%;
+}
+
+.page-header > h1 {
+	font-size: 2.25rem;
+}
+
+.page-header > .btn {
+	margin: 0 0 0 auto;
+}
