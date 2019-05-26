@@ -41,5 +41,6 @@ Thumbs.db
 
 # Ignore Goji files
 /bin/
+/docs/
 /lib/Goji/
 /public/js/lib/Goji/
