@@ -66,7 +66,7 @@ By default it is organized vertically at 100% width.
 
 ### Widget Elements
 
-**`section`**s are basic widgets that by default take up 100% width.
+**`section`** are basic widgets that by default take up 100% width.
 
 By default a widget has a `--gutter-default` (20px) padding and the first and the last child
 don't have a top and bottom margin respectively.
