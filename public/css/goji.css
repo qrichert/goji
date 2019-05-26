@@ -337,53 +337,12 @@ section {
 	padding: var(--gutter-default);
 }
 
-section > h1:first-child, section > h2:first-child, section > h3:first-child,
-section > h4:first-child, section > h5:first-child, section > h6:first-child {
+section > first-child {
 	margin-top: 0;
 }
 
 section > p:last-child {
 	margin-bottom: 0;
-}
-
-/* <Section Text> */
-
-/*
- * For content (e.g. articles)
- *
- * section
- *     - *
- */
-
-section.text {
-	max-width: 800px;
-	margin: auto;
-	position: relative;
-	padding-right: 5%;
-}
-
-section.text::before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 0px;
-	left: -15px;
-	width: 4px;
-	height: 33%;
-	border-left: 4px dashed lightgrey;
-	box-sizing: border-box;
-}
-
-section.text > .pre-heading {
-	margin: 0;
-	font-family: var(--font-code);
-	font-size: var(--text-size-medium);
-	color: var(--color-text-very-light);
-}
-
-section.text > .pre-heading + h1, section.text > .pre-heading + h2, section.text > .pre-heading + h3,
-section.text > .pre-heading + h4, section.text > .pre-heading + h5, section.text > .pre-heading + h6 {
-	margin-top: var(--gutter-default);
 }
 
 /* <Section Error> */
@@ -409,6 +368,34 @@ section.error > h1 {
 section.error > h1 + p {
 	color: var(--color-text-light);
 	margin: 1em 0;
+}
+
+/* <Section Text> */
+
+/*
+ * For content (e.g. articles)
+ *
+ * section
+ *     - *
+ */
+
+section.text {
+	max-width: 800px;
+	margin: auto;
+	position: relative;
+	padding-right: 5%;
+}
+
+.pre-heading {
+	margin: 0;
+	font-family: var(--font-code);
+	font-size: var(--text-size-medium);
+	color: var(--color-text-very-light);
+}
+
+.pre-heading + h1, .pre-heading + h2, .pre-heading + h3,
+.pre-heading + h4, .pre-heading + h5, .pre-heading + h6 {
+	margin-top: var(--gutter-default);
 }
 
 /* <FOOTER> */
