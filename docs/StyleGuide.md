@@ -13,13 +13,16 @@ Files
 
 Goji comes with three CSS files:
 
+- **`root.css`**
 - **`goji.css`**
 - **`main.css`**
 - **`responsive.css`**
-- **`root.css`**
 
 First, you don't have to use any of them. They are just here for convenience. If there's something
 you don't want, just delete it.
+
+**`root.css`** contains the default variables, which you can change too make site wide changes (see the
+[variables part](#variables)).
 
 **`goji.css`** is a modular base theme. It contains basic styling as well as some pre-made widgets you
 can use (see the [widgets part](#widgets)). It is recommended not to modify this file directly, but
@@ -28,9 +31,6 @@ rather overwrite the elements in `main.css`. But it's up to you.
 **`main.css`** is where you put the project CSS and overwrite `goji.css` rules.
 
 **`responsive.css`** is meant to contain all media queries. Everything that is linked to responsiveness.
-
-**`root.css`** contains the default variables, which you can change too make site wide changes (see the
-[variables part](#variables)).
 
 Variables
 ---------

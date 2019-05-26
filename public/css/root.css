@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+/* <FONTS> */
+
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+/*
+@font-face {
+	font-family: 'FONT_FAMILY';
+	src: url('PATH_TO_FONT_FILE');
+}
+*/
+
+/* <VARIABLES> */
+
+:root {
+
+	/* Fonts */
+
+	--font-title: Helvetica, Arial, sans-serif;
+	--font-default: Lato, sans-serif;
+	--font-code: Menlo, Courier, monospace;
+
+	/* Sizes */
+
+	--golden-ratio: 1.618;
+	--golden-ratio-percent-smallest: 38.2%;
+	--golden-ratio-percent-largest: 61.8%;
+
+	--gutter-default: 20px;
+	--gutter-medium: 15px;
+	--gutter-thin: 7px;
+
+	--border-radius-default: 4px;
+
+	--header-height: 116px;
+	--header-height-alt: 55px;
+
+	--burger-menu-bar-height: 3px;
+	--burger-menu-width: 33px;
+	--burger-menu-height: 15px; /* (h-3bh) should be even, to divide the gaps by 2 */
+	/*
+		Calculating --burger-menu-height-unfolded is just some Pythagoras
+		taking bar height into account. (Rotation origin is x = y = bar height / 2)
+		w  = --burger-menu-width      (width)
+		bh = --burger-menu-bar-height (bar)
+		x  = w - bh                   (width minus the bar)
+		hu = √(x²÷2)+bh               (square root of width minus the bar divided by 2 plus bar)
+		--------------------
+		=> Just replace with the values and type this into google: sqrt(x^2/2)+bh
+		--------------------
+		Ex: sqrt((33-3)^2/2)+3 ≈ 24.21px
+
+		w: 33, bh: 1 => 23.63
+		w: 33, bh: 2 => 23.92
+		w: 33, bh: 4 => 24.51 (looks better with h: 19)
+	*/
+	--burger-menu-height-unfolded: 24.21px;
+
+	--text-size-small: 12px;
+	--text-size-medium: 14px;
+	--text-size-default: 16px;
+	--text-size-big: 19px;
+
+	/* Colors */
+
+	--color-default: #24292e;
+	--color-default-transparent: rgba(36, 41, 46, 0.2);
+
+	--color-body: white;
+	--color-header: transparent;
+	--color-footer: #f8fafb;
+
+	--color-text-default: var(--color-default);
+	--color-text-light: #586069;
+	--color-text-lighter: #7d8085;
+	--color-text-very-light: #959da5;
+
+	--color-link: #0366d6;
+	--color-link-hover: var(--color-link);
+	--color-link-alt: white;
+	--color-link-alt-hover: var(--color-link-alt);
+
+	--color-nav-link: var(--color-default);
+	--color-nav-link-hover: var(--color-link);
+	--color-nav-link-alt: var(--color-link-alt);
+	--color-nav-link-alt-hover: var(--color-link-alt-hover);
+
+	--burger-menu-color: var(--color-nav-link);
+	--burger-menu-color-alt: var(--color-nav-link-alt);
+
+	/* Black & White */
+
+	/* filter: grayscale(100%); */
+}
