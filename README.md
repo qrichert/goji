@@ -54,7 +54,7 @@ Directory Structure
 Documentation
 -------------
 
-It it's the first time you use Goji, please read the [Getting Started guide](#) (when it comes out).
+It it's the first time you use Goji, please read the [Getting Started guide](docs/index.md).
 
 <p align="center">
 	<a href="#" target="_blank">
