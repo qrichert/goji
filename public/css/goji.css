@@ -426,7 +426,7 @@ footer {
 	width: 100%;
 	max-width: 1280px;
 	margin: auto;
-	padding: calc(1.5 * var(--gutter-default)) calc(3 * var(--gutter-default));
+	padding: var(--gutter-default) calc(3 * var(--gutter-default));
 	box-sizing: border-box;
 	font-size: var(--text-size-small);
 	display: flex;
