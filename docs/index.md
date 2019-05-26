@@ -5,4 +5,4 @@ title:  "Goji Documentation"
 
 # Welcome
 
-* [Style Guide](/style-guide)
+* [Style Guide](style-guide)
