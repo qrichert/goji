@@ -1,3 +1,3 @@
 # Welcome
 
-* [Style Guide](style-guide)
+* [Style Guide](StyleGuide.md)
