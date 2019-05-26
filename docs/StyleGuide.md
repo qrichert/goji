@@ -47,7 +47,7 @@ this property will change accordingly.
 Classes
 -------
 
-- **`pre-heading`**: Like a sub title but before the title. Could be used for the date of an article
+- **`.pre-heading`**: Like a sub title but before the title. Could be used for the date of an article
   or the category.
 
 
@@ -62,7 +62,7 @@ By default it is organized vertically at 100% width.
 
 #### Modifiers
 
-- **`centered`**: Content is centered vertically in the page.
+- **`.centered`**: Content is centered vertically in the page.
 
 ### Widget Elements
 
@@ -73,6 +73,6 @@ don't have a top and bottom margin respectively.
 
 #### Modifiers
 
-- **`error`**: Made for HTTP error pages. Content is centered horizontally. Should be combined with
+- **`.error`**: Made for HTTP error pages. Content is centered horizontally. Should be combined with
   the contain widget area `centered` modifier and contain an `h1` (error) and a `p` (description).
-- **`text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.
+- **`.text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.
