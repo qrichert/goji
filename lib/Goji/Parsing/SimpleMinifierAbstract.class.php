@@ -62,7 +62,7 @@
 
 				$dir = dirname($file); // css/main.css -> css
 
-				if ($dir[0] != '/') // Make it absolute unless it is already (css -> /css)
+				if (mb_substr($dir, 0, 1) != '/') // Make it absolute unless it is already (css -> /css)
 					$dir = '/' . $dir;
 
 				$path = $path . $dir;
@@ -73,7 +73,7 @@
 
 				$path = dirname($file); // css/main.css -> css
 
-				if ($path[0] != '/') // Make it absolute unless it is already
+				if (mb_substr($path, 0, 1) != '/') // Make it absolute unless it is already
 					$path = '/' . $path;
 
 				// $path = /css

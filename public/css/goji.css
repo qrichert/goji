@@ -259,11 +259,11 @@ section {
 	padding: var(--gutter-default);
 }
 
-section > first-child {
+section > :first-child {
 	margin-top: 0;
 }
 
-section > p:last-child {
+section > :last-child {
 	margin-bottom: 0;
 }
 
@@ -317,7 +317,7 @@ section.text {
 
 .pre-heading + h1, .pre-heading + h2, .pre-heading + h3,
 .pre-heading + h4, .pre-heading + h5, .pre-heading + h6 {
-	margin-top: var(--gutter-default);
+	margin-top: var(--gutter-medium);
 }
 
 /* <FOOTER> */
@@ -556,7 +556,7 @@ footer p {
 	h2 { font-size: 1.3em; }
 
 	main {
-		padding: calc(0.7 * var(--gutter-default)) 0;
+		padding: var(--gutter-medium) 0;
 	}
 
 	.header__logo > img {

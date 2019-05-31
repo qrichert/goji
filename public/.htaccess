@@ -22,6 +22,11 @@ RewriteCond %{HTTP_HOST} !localhost
 RewriteCond %{HTTP_HOST} ^([^.]+)\.([^.]+)$
 RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
 
+# Redirect www domains like www.domain.com to domain.com
+#RewriteCond %{HTTP_HOST} !localhost
+#RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [QSA,L,R=301]
+
 # REWRITE : STATIC ------------------------------------------------------------
 
 # Match merged files (css/lib.min.css/css/main.css|css/responsive.css)
@@ -37,9 +42,10 @@ RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
 # REWRITE : PAGES -------------------------------------------------------------
 
 # Everything that is not a static file or directory
+# will be redirected to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule .* index.php [QSA,L]
 
 # --- ERRORS ---
 

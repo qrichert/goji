@@ -18,9 +18,32 @@
 		</div>
 
 		<script>
-			document.querySelector('.nav__burger-menu').addEventListener('click', function() {
-				document.querySelector('nav').classList.toggle('shown', this.classList.toggle('cross'));
-			}, false);
+			(function () {
+				// 'var' for browser support as this is not compiled
+				var navBurgerMenu = document.querySelector('.nav__burger-menu');
+				var nav = document.querySelector('nav');
+
+				// Toggle menu visibility in burger menu mode
+				navBurgerMenu.addEventListener('click', function() {
+					// toggle()'s second parameter hasn't great support in older browsers
+					if (this.classList.toggle('cross'))
+						nav.classList.add('shown');
+					else
+						nav.classList.remove('shown');
+				}, false);
+
+				// var navLinks = document.querySelectorAll('nav > a');
+				//
+				// // Hide menu on item click (useful for same-page anchor links)
+				// navLinks.forEach(function(el) {
+				// 	el.addEventListener('click', function() {
+				// 		if (nav.classList.contains('shown')) {
+				// 			nav.classList.remove('shown');
+				// 			navBurgerMenu.classList.remove(('cross'));
+				// 		}
+				// 	}, false);
+				// });
+			})();
 		</script>
 	</div>
 </header>
