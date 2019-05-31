@@ -254,10 +254,8 @@ class Slider {
 				img.set('height', 1);
 				img.set('nat_width', 3);
 				img.set('nat_height', 2);
-				img.set('nat_width', 1);//TODO
-				img.set('nat_height', 3);
 
-				i.addEventListener('load', () => { // TODO: try to create a fake image & load from it https://www.thefutureoftheweb.com/blog/image-onload-isnt-being-called
+				i.addEventListener('load', () => {
 
 					img.set('width', i.clientWidth);
 					img.set('height', i.clientHeight);
