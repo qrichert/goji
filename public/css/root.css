@@ -86,8 +86,8 @@
 	--color-nav-link-alt: var(--color-link-alt);
 	--color-nav-link-alt-hover: var(--color-link-alt-hover);
 
-	--burger-menu-color: var(--color-nav-link);
-	--burger-menu-color-alt: var(--color-nav-link-alt);
+	--color-burger-menu: var(--color-nav-link);
+	--color-burger-menu-alt: var(--color-nav-link-alt);
 
 	/* Black & White */
 
