@@ -19,6 +19,7 @@
 		private $m_siteName;
 		private $m_siteDomainName;
 		private $m_siteFullDomain;
+		private $m_companyEmail;
 
 		private $m_appMode;
 
@@ -60,6 +61,7 @@
 			$this->setSiteName($config['site_name'] ?? '');
 			$this->setSiteDomainName($config['site_domain_name'] ?? '');
 			$this->setSiteFullDomain($config['site_full_domain'] ?? '');
+			$this->setCompanyEmail($config['company_email'] ?? '');
 
 			$this->setAppMode($config['app_mode']);
 
@@ -77,7 +79,7 @@
 		}
 
 		/**
-		 * Set site name attribute.
+		 * Set site URL attribute.
 		 *
 		 * Removes trailing '/'.
 		 *
@@ -149,6 +151,24 @@
 				$siteFullDomain = mb_substr($siteFullDomain, 0, -1);
 
 			$this->m_siteFullDomain = $siteFullDomain;
+		}
+
+		/**
+		 * user@domain.com
+		 *
+		 * @return string
+		 */
+		public function getCompanyEmail(): string {
+			return $this->m_companyEmail;
+		}
+
+		/**
+		 * user@domain.com
+		 *
+		 * @param string $companyEmail
+		 */
+		public function setCompanyEmail(string $companyEmail): void {
+			$this->m_companyEmail = $companyEmail;
 		}
 
 		/**

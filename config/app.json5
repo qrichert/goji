@@ -12,5 +12,7 @@
 	// Trailing slash will be removed
 	site_domain_name: "SITE_URL.com",
 	// Trailing slash will be removed
-	site_full_domain: "www.SITE_URL.com"
+	site_full_domain: "www.SITE_URL.com",
+	// Default mail to contact the company
+	company_email: "user@SITE_URL.com"
 }
