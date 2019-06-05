@@ -82,9 +82,9 @@
  *
  * Function called on image click.
  *
- * Click event and link (<a>) node are passed as arguments.
+ * Parent (slider object), click event and link node (<a>) are passed as arguments.
  *
- * (e, a) => {
+ * (parent, e, a) => { // Parent, Event, <a> link
  *     e.preventDefault();
  *     alert(a.href);
  * }
@@ -115,9 +115,20 @@
  * Public methods:
  * ---------------
  *
+ * - Slider::getNbImages(): int
  * - Slider::getCurrentIndex(): int
- * - Slider::previousImage(): void
- * - Slider::nextImage(): void
+ * - Slider::getElementFor(int): Object Map (Image information, use console.log() on it to understand).
+ * - Slider::getLinkFor(int): DOM Element (<a>)
+ * - Slider::previousImage(): int
+ * - Slider::nextImage(): int
+ * - Slider::getCurrentIndexIsFirstIndex(): bool
+ * - Slider::getCurrentIndexIsLastIndex(): bool
+ *
+ * To get current image element, use Slider.getElementFor(Slider.getCurrentIndex()).
+ * To get current link element, use Slider.getLinkFor(Slider.getCurrentIndex()).
+ * To change image and get the new one Slider.getElementFor(Slider.nextImage()). // nextImage() returns new index.
+ * To change image and get the new link element Slider.getLinkFor(Slider.nextImage()). // nextImage() returns new index.
+ * To get the image node of an Object Map element Slider.getElementFor(index).get('node').
  *
  */
 class Slider {
@@ -130,7 +141,6 @@ class Slider {
 	constructor(parent, callback = null, options = null) {
 
 		this.m_parent = parent;
-			this.m_parent.classList.remove('noscript');
 
 		this.m_sliderReady = false; // true after init() & all images have loaded
 
@@ -143,6 +153,8 @@ class Slider {
 		this.m_imageWrapper = null;
 		this.m_navigationPrevious = null;
 		this.m_navigationNext = null;
+
+		this.m_imageChangeCallback = null;
 
 		this.m_nbImages = 0;
 		this.m_currentIndex = 0;
@@ -161,18 +173,9 @@ class Slider {
 		this.m_jumpToFirstAndLastImage = this.coalesce(options, 'jump_to_first_and_last_image', false);
 
 		this.m_images = [];
+		this.m_links = [];
 			this.populateImages(); // Create an abstract image tree.
 								   // Then call init() when all images are loaded
-	}
-
-	/**
-	 * Returns current index (starting at 0).
-	 *
-	 * @public
-	 * @returns {number}
-	 */
-	getCurrentIndex() {
-		return this.m_currentIndex;
 	}
 
 	/**
@@ -200,6 +203,60 @@ class Slider {
 			return defaultValue;
 
 		return object[property];
+	}
+
+	/**
+	 * Returns the number of images.
+	 *
+	 * @public
+	 * @returns {number}
+	 */
+	getNbImages() {
+		return this.m_nbImages;
+	}
+
+	/**
+	 * Returns current index (starting at 0).
+	 *
+	 * @public
+	 * @returns {number}
+	 */
+	getCurrentIndex() {
+		return this.m_currentIndex;
+	}
+
+	/**
+	 * Returns the <img> or <div class="slider__image"> DOM Element at given index.
+	 *
+	 * @public
+	 * @param index
+	 * @returns {Object} <img> or <div class="slider__image">
+	 */
+	getElementFor(index) {
+
+		if (index >= this.m_nbImages)
+			index = this.m_nbImages - 1;
+		else if (index < 0)
+			index = 0;
+
+		return this.m_images[index];
+	}
+
+	/**
+	 * Returns the <a> DOM Element at given index.
+	 *
+	 * @public
+	 * @param index
+	 * @returns {*} <a>
+	 */
+	getLinkFor(index) {
+
+		if (index >= this.m_nbImages)
+			index = this.m_nbImages - 1;
+		else if (index < 0)
+			index = 0;
+
+		return this.m_links[index];
 	}
 
 	/**
@@ -331,6 +388,9 @@ class Slider {
 	 */
 	init() {
 
+		this.m_parent.classList.remove('noscript');
+		this.m_parent.setAttribute('tabindex', '0'); // For receiving keyboard events
+
 		// Clear parent
 		while (this.m_parent.firstChild) {
 			this.m_parent.removeChild(this.m_parent.firstChild);
@@ -351,31 +411,37 @@ class Slider {
 					let a = document.createElement('a');
 
 						let img = i.get('node');
+						let href = null;
 
 						if ('href' in img.dataset)
-							a.href = img.dataset.href;
+							href = img.dataset.href;
 						else
-							a.href = i.get('src');
+							href = i.get('src');
 
-						a.appendChild(img);
+						i.set('href', href);
+						a.href = href;
+							a.appendChild(img);
 
 						if (this.m_callbackFunction !== null) {
 							a.addEventListener('click', e => {
-								this.m_callbackFunction(e, a);
+								this.m_callbackFunction(this, e, a);
 							}, false);
 						}
 
 					this.m_imageWrapper.appendChild(a);
+					this.m_links.push(a);
 				}
 
 			this.m_navigationPrevious = document.createElement('a');
 				this.m_navigationPrevious.classList.add('slider__navigation');
 				this.m_navigationPrevious.classList.add('previous');
+				this.m_navigationPrevious.style.cursor = 'pointer';
 					docFrag.appendChild(this.m_navigationPrevious);
 
 			this.m_navigationNext = document.createElement('a');
 				this.m_navigationNext.classList.add('slider__navigation');
 				this.m_navigationNext.classList.add('next');
+				this.m_navigationNext.style.cursor = 'pointer';
 					docFrag.appendChild(this.m_navigationNext);
 
 		this.m_parent.appendChild(docFrag);
@@ -492,6 +558,8 @@ class Slider {
 	 */
 	addListeners() {
 
+		this.m_parent.addEventListener('mouseenter', () => { this.focus(); }, false);
+
 		let previousImage = e => {
 			e.preventDefault();
 			this.previousImage();
@@ -507,7 +575,8 @@ class Slider {
 
 		document.addEventListener('keyup', e => {
 
-			if (e.target !== document.body)
+			console.log(e.target);
+			if (e.target !== this.m_parent)
 				return;
 
 			switch (e.key) {
@@ -554,21 +623,48 @@ class Slider {
 	}
 
 	/**
+	 * Set the callback function for image change.
+	 *
+	 * @public
+	 * @param callback
+	 */
+	setImageChangeCallback(callback) {
+		this.m_imageChangeCallback = callback;
+	}
+
+	/**
 	 * Go to previous image.
 	 *
 	 * @public
+	 * @returns {number} Current index after move
 	 */
 	previousImage() {
-		this.moveTo(this.m_currentIndex - 1);
+		return this.moveTo(this.m_currentIndex - 1);
 	}
 
 	/**
 	 * Go to next image.
 	 *
 	 * @public
+	 * @returns {number} Current index after move
 	 */
 	nextImage() {
-		this.moveTo(this.m_currentIndex + 1);
+		return this.moveTo(this.m_currentIndex + 1);
+	}
+
+	/**
+	 * Gives focus to Slider.
+	 *
+	 * @public
+	 */
+	focus() {
+		let x = window.scrollX;
+		let y = window.scrollY;
+
+		this.m_parent.focus();
+
+		// Restore scroll to avoid 'jump', otherwise it jumps to the focused element
+		window.scrollTo(x, y);
 	}
 
 	/**
@@ -655,18 +751,20 @@ class Slider {
 	/**
 	 * Returns true if current image is the first one, else false.
 	 *
+	 * @public
 	 * @returns {boolean}
 	 */
-	currentIndexIsFirstIndex() {
+	getCurrentIndexIsFirstIndex() {
 		return this.m_currentIndex <= 0;
 	}
 
 	/**
 	 * Returns true if current image is the last one, else false.
 	 *
+	 * @public
 	 * @returns {boolean}
 	 */
-	currentIndexIsLastIndex() {
+	getCurrentIndexIsLastIndex() {
 		return this.m_currentIndex >= (this.m_nbImages - 1);
 	}
 
@@ -674,6 +772,7 @@ class Slider {
 	 * Move to a given index (starting at 0)
 	 *
 	 * @param index
+	 * @returns {number} Current index after move
 	 */
 	moveTo(index) {
 
@@ -691,8 +790,8 @@ class Slider {
 
 		// Handling navigation arrows visibility
 		if (this.m_navigationArrowsDisplayed && !this.m_jumpToFirstAndLastImage) {
-			this.showNavigationPrevious(!this.currentIndexIsFirstIndex());
-			this.showNavigationNext(!this.currentIndexIsLastIndex());
+			this.showNavigationPrevious(!this.getCurrentIndexIsFirstIndex());
+			this.showNavigationNext(!this.getCurrentIndexIsLastIndex());
 		}
 
 		let totalOffsetWidth = this.m_imageGap / 2; // offset first image left gap
@@ -705,6 +804,11 @@ class Slider {
 
 		this.center(totalOffsetWidth, currentImageWidth);
 		this.resizeNavigation(currentImageWidth);
+
+		if (this.m_imageChangeCallback !== null)
+			this.m_imageChangeCallback(index);
+
+		return index;
 	}
 
 	/**
