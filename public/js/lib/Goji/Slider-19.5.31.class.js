@@ -575,7 +575,6 @@ class Slider {
 
 		document.addEventListener('keyup', e => {
 
-			console.log(e.target);
 			if (e.target !== this.m_parent)
 				return;
 
