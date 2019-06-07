@@ -563,7 +563,7 @@
 		 * @param string $token
 		 */
 		private static function setHttpETag(string $token): void {
-			header("ETag: $token");
+			header("ETag: \"$token\"");
 		}
 
 		/**

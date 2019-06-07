@@ -79,12 +79,12 @@
 	--color-link: #0366d6;
 	--color-link-hover: var(--color-link);
 	--color-link-alt: white;
-	--color-link-alt-hover: var(--color-link-alt);
+	--color-link-hover-alt: var(--color-link-alt);
 
 	--color-nav-link: var(--color-default);
-	--color-nav-link-hover: var(--color-link);
+	--color-nav-link-hover: var(--color-link-hover);
 	--color-nav-link-alt: var(--color-link-alt);
-	--color-nav-link-alt-hover: var(--color-link-alt-hover);
+	--color-nav-link-hover-alt: var(--color-link-hover-alt);
 
 	--color-burger-menu: var(--color-nav-link);
 	--color-burger-menu-alt: var(--color-nav-link-alt);

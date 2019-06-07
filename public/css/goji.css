@@ -517,7 +517,7 @@ footer p {
 	}
 
 	nav > a:hover {
-		color: var(--color-nav-link-alt-hover);
+		color: var(--color-nav-link-hover-alt);
 		transform: translateY(-5px);
 	}
 
