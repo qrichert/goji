@@ -27,7 +27,8 @@
 	--book-edge-title: "";
 	--book-rotation: 17deg;
 	--book-perspective: 1700px;
-	--book-movement: -10px;
+	--book-position: 12px; /* Small correction for rotation */
+	--book-movement: -12px;
 	--book-transform-duration: 500ms;
 }
 
@@ -40,31 +41,42 @@
 
 .book, .book a {
 	position: relative;
-	display: flex; /* Avoid unwanted inner paddings */
-	justify-content: center;
-	align-items: center;
+}
+
+.book {
+	display: inline-block; /* Must adapt to its content */
+}
+
+.book a {
+	display: block;
 }
 
 /* Book - Left */
 
 .book.left {
 	transition: left var(--book-transform-duration) ease;
-	left: 0;
+	left: var(--book-position);
 }
 
 .book.left:hover {
-	left: var(--book-movement);
+	left: calc(var(--book-position) + var(--book-movement));
 }
 
 /* Book - Right */
 
 .book.right {
 	transition: right var(--book-transform-duration) ease;
-	right: 0;
+	right: var(--book-position);
 }
 
 .book.right:hover {
-	right: var(--book-movement);
+	right: calc(var(--book-position) + var(--book-movement));
+}
+
+/* Book Cover */
+
+.book img {
+	display: block;
 }
 
 /* Book Cover - Left */
