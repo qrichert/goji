@@ -5,7 +5,7 @@ Requests follow this path:
 
 `.htaccess` &rarr; `index.php` &rarr; `App.class.php` &rarr; `YourController.class.php`
 
-There are also requests to static files go like this:
+There are also requests to static files that go like this:
 
 `.htaccess` &rarr; `static.php`.
 
@@ -15,8 +15,9 @@ There are also requests to static files go like this:
 App
 ---
 
-`App` is to Goji what mayonnaise is to a sandwich. It keeps it all together. It is the link
-between all the the different parts.
+`App` is to Goji what mayonnaise is to a sandwich.
+
+It keeps it all together. It is the link between all the the different parts.
 
 Of course, you don't have to use this class, and go through the following process manually—*i.e.*
 call the different objects by hand. `App` is here for convenience and covers most use cases,
@@ -24,8 +25,8 @@ but if you want to do something specific, you can just omit it.
 
 ```php
 $app = new App();
-	$app->createDataBase();
-	$app->exec();
+    $app->createDataBase();
+    $app->exec();
 ```
 
 Basically what this does it load the database from your config file and starts the routing process.
@@ -69,7 +70,7 @@ object as paramater, since `Router` passes the `App` object to the controller co
 
 ```php
 $controller = new \App\Controller\YourController($app);
-	$controller->render();
+    $controller->render();
 ```
 
 The `render()` method is also mandatory, since `Router` calls this method automatically (as shown above).
