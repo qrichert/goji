@@ -23,11 +23,11 @@ App
 
 It keeps it all together. It is the link between all the the different parts.
 
-All the following classes we will see communicate together trough the global `App` object
-`App` is declared once in `index.php` and is then passed along to the different constructor.
+All the following classes we will see communicate together through the global `App` object.
+`App` is declared once in `index.php` and is then passed along to the different constructors.
 
-For example, we will see the `Languages` and the `Router` class. Just to illustrate how `App`
-is used, lets look at how `Router` knows the language it should be using:
+For example, we will talk about the `Languages` and the `Router` class. Just to illustrate
+how `App` is used, let's look at how `Router` knows the language it should be using:
 
 ```php
 // Within the App class
@@ -38,12 +38,12 @@ $this->m_router = new Router($this); // $this points to App
 $this->m_app->getLanguages()->getCurrentLocale();
 ```
 
-`Router` has an attribute `$this->m_app` that points to the global App object (passed to the
+`Router` has an attribute `$this->m_app` that points to the global `App` object (passed to the
 constructor). Now it can use this reference to call `App::getLanguages(): Languages` that
 returns the `Languages` object attached to the `App`, and access `Languages::getCurrentLocale()`.
 
 Here `App` doesn't have any information in and of itself. It simply enables `Router` to communicate
-with the `Languages` object. The same is true for all classes whose constructor asks for an `App`
+with the `Languages` object. The same can be done with all classes whose constructor asks for an `App`
 parameter. This includes all controller classes, so you can access all these objects from within
 your controllers.
 
