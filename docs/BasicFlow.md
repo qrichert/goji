@@ -43,8 +43,8 @@ App automatically uses a `\Goji\Core\RequestHandler` object, accessible via `App
 `RequestHandler` analyzes the HTTP request and extracts (and sanitizes) some useful information like
 the request URI, request page, raw query string, query string as array, script name, root folder, etc. 
 
-`$app->exec()` starts the routing process that ends with the `render()` method of your controller
-being called. How it goes is like this:
+`$app->exec()` starts the routing process. The routing ends ends by calling the `render()` method of
+your controller. It goes like this:
 
 1. Create a `\Goji\Core\Languages` object. Accessible via `App::getLanguages(): Languages`. This class
    handles language preferences. It takes the languages accepted by the browser and those supported by
