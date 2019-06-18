@@ -1,5 +1,12 @@
-Style Guide
-===========
+Basic Flow
+==========
+
+1. [Request Chain](#request-chain)
+2. [App](#app)
+3. [Controllers](#controllers)
+
+Request Chain
+-------------
 
 Requests follow this path:
 
@@ -8,9 +15,6 @@ Requests follow this path:
 There are also requests to static files that go like this:
 
 `.htaccess` &rarr; `static.php`.
-
-1. [App](#app)
-2. [Controllers](#controllers)
 
 App
 ---
