@@ -12,6 +12,14 @@ Requests follow this path:
 
 `.htaccess` &rarr; `index.php` &rarr; `App.class.php` &rarr; `YourController.class.php`
 
+In theory you have nothing to do but create a controller and set a route for it in the config
+file. The following part about the [App](#app) is just there so you can understand the inner
+workings of the framework, you can skip to the [controllers](#controllers) part if you prefer.
+
+Understanding how the different pieces work together (there are just a few) is great because if
+you do you can access them from your code and use them for your own purposes. That's what they
+are made for.
+
 There are also requests to static files that go like this:
 
 `.htaccess` &rarr; `static.php`.
