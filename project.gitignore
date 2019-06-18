@@ -43,4 +43,5 @@ Thumbs.db
 /bin/
 /docs/
 /lib/Goji/
+/public/css/lib/Goji/
 /public/js/lib/Goji/
