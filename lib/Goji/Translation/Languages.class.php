@@ -11,7 +11,7 @@
 	/**
 	 * Class Languages
 	 *
-	 * Determines which language to use is none given.
+	 * Determines which language to use if none given.
 	 * You can use this class just to get the user's preferred languages.
 	 *
 	 * @package Goji\Translation

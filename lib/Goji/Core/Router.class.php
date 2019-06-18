@@ -381,7 +381,7 @@
 
 				// $controller = new \App\Controller\HomeController()
 				$controller = new $controller($this->m_app);
-				$controller->render();
+					$controller->render();
 
 			// If not, it's a 404
 			} else {
@@ -402,8 +402,6 @@
 		 * @throws \Exception
 		 */
 		private function redirectToErrorDocument(?int $errorCode): void {
-
-			$this->m_app->getLanguages()->getCurrentLocale();
 
 			$controller = new HttpErrorController($this->m_app);
 			$controller->setHttpError($errorCode);

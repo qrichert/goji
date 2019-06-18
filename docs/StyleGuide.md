@@ -11,7 +11,7 @@ a `section.text` or `<section class="text">`.*
 Files
 -----
 
-Goji comes with three CSS files:
+Goji comes with four CSS files:
 
 - **`root.css`**
 - **`goji.css`**
@@ -25,12 +25,15 @@ you don't want, just delete it.
 [variables part](#variables)).
 
 **`goji.css`** is a modular base theme. It contains basic styling as well as some pre-made widgets you
-can use (see the [widgets part](#widgets)). It is recommended not to modify this file directly, but
-rather overwrite the elements in `main.css`. But it's up to you.
+can use (see the [widgets part](#widgets)). It is recommended not to modify this file directly (if you've
+decided to use it), but rather overwrite the elements in `main.css`. But it's up to you.
 
 **`main.css`** is where you put the project CSS and overwrite `goji.css` rules.
 
 **`responsive.css`** is meant to contain all media queries. Everything that is linked to responsiveness.
+
+There are also a **`lib`** and a **`vendor`** folder. **`lib`** is for reusable CSS modules that you have
+made and **`vendor`** are for external CSS modules or libraries.
 
 Variables
 ---------
@@ -49,7 +52,6 @@ Classes
 
 - **`.pre-heading`**: Like a sub title but before the title. Could be used for the date of an article
   or the category.
-
 
 Widgets
 -------
@@ -74,5 +76,5 @@ don't have a top and bottom margin respectively.
 #### Modifiers
 
 - **`.error`**: Made for HTTP error pages. Content is centered horizontally. Should be combined with
-  the contain widget area `centered` modifier and contain an `h1` (error) and a `p` (description).
+  widget area's `centered` modifier and contain an `h1` (error) and a `p` (description).
 - **`.text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.

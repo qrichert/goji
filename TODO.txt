@@ -1,7 +1,7 @@
 TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php https://www.electrictoolbox.com/php-caching-headers/
 TODO: Update SimpleXMLHttpRequest JS plugin
 TODO: Refactor `js` folder (SimpleXMLHttpRequest)
-TODO: App is to goji what mayonnaise is to a sandwich. It keeps it al together. It is the linked between the different parts
+
 
 $form = new Form();
 $form->setFields(array(
