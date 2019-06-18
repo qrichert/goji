@@ -23,6 +23,30 @@ App
 
 It keeps it all together. It is the link between all the the different parts.
 
+All the following classes we will see communicate together trough the global `App` object
+`App` is declared once in `index.php` and is then passed along to the different constructor.
+
+For example, we will see the `Languages` and the `Router` class. Just to illustrate how `App`
+is used, lets look at how `Router` knows the language it should be using:
+
+```php
+// Within the App class
+$this->m_languages = new Languages($this);
+$this->m_router = new Router($this); // $this points to App
+
+// Withing the Router class
+$this->m_app->getLanguages()->getCurrentLocale();
+```
+
+`Router` has an attribute `$this->m_app` that points to the global App object (passed to the
+constructor). Now it can use this reference to call `App::getLanguages(): Languages` that
+returns the `Languages` object attached to the `App`, and access `Languages::getCurrentLocale()`.
+
+Here `App` doesn't have any information in and of itself. It simply enables `Router` to communicate
+with the `Languages` object. The same is true for all classes whose constructor asks for an `App`
+parameter. This includes all controller classes, so you can access all these objects from within
+your controllers.
+
 Of course, you don't have to use this class, and go through the following process manually—*i.e.*
 call the different objects by hand. `App` is here for convenience and covers most use cases,
 but if you want to do something specific, you can just omit it.
@@ -46,10 +70,10 @@ the request URI, request page, raw query string, query string as array, script n
 `$app->exec()` starts the routing process. The routing ends with the calling of the `render()` method
 of your controller. It goes like this:
 
-1. Create a `\Goji\Core\Languages` object. Accessible via `App::getLanguages(): Languages`. This class
+1. Create a `\Goji\Core\Languages` object, accessible via `App::getLanguages(): Languages`. This class
    handles language preferences. It takes the languages accepted by the browser and those supported by
-   you app and finds the best match.
-2. Create a `\Goji\Core\Router` object. Accessible via `App::getRouter(): Router`.
+   your app and finds the best match.
+2. Create a `\Goji\Core\Router` object, accessible via `App::getRouter(): Router`.
 3. Call `Router::route()`.
 	- If everything is okay, `Router` will match the request path with the routes you have set in your
 	  config file. Once the right route is found, `Router` calls the `render()` method of the appropriate
@@ -70,7 +94,7 @@ Controllers must:
 
 Usually you want to have a `$this->m_app` attribute, so you can access the main `App` object from your
 controller, but you're not forced to use it. On the other hand, what is required is to accept an `App`
-object as paramater, since `Router` passes the `App` object to the controller constructor, like:
+object as parameter, since `Router` passes the global `App` object to the controller constructor, like:
 
 ```php
 $controller = new \App\Controller\YourController($app);
