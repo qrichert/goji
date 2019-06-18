@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+/*
+	To use it, add this into your HTML:
+
+	<div class="book left">
+		<a href="#">
+			<img src="cover.png" alt="">
+		</a>
+	</div>
+
+	Works with or without the <a>:
+
+	<div class="book left">
+		<img src="cover.png" alt="">
+	</div>
+
+	To rotate it from the right, use the 'right' modifier instead of 'left':
+
+	<div class="book right">
+*/
+
+:root {
+	--book-edge: 12%;
+	--book-edge-margin: 1px;
+	--book-edge-color: #24292e;
+	--book-edge-title: "";
+	--book-rotation: 17deg;
+	--book-perspective: 1700px;
+	--book-movement: -10px;
+	--book-transform-duration: 500ms;
+}
+
+.book img,
+.book::after {
+	transition: transform var(--book-transform-duration) ease;
+}
+
+/* Book */
+
+.book, .book a {
+	position: relative;
+	display: flex; /* Avoid unwanted inner paddings */
+	justify-content: center;
+	align-items: center;
+}
+
+/* Book - Left */
+
+.book.left {
+	transition: left var(--book-transform-duration) ease;
+	left: 0;
+}
+
+.book.left:hover {
+	left: var(--book-movement);
+}
+
+/* Book - Right */
+
+.book.right {
+	transition: right var(--book-transform-duration) ease;
+	right: 0;
+}
+
+.book.right:hover {
+	right: var(--book-movement);
+}
+
+/* Book Cover - Left */
+
+.book.left img {
+	transform-origin: left center;
+	transform: perspective(var(--book-perspective))
+			   rotateY(var(--book-rotation));
+}
+
+.book.left:hover img {
+	transform: perspective(var(--book-perspective))
+			   rotateY(0deg);
+}
+
+/* Book Cover - Right */
+
+.book.right img {
+	transform-origin: right center;
+	transform: perspective(var(--book-perspective))
+			   rotateY(calc(0deg - var(--book-rotation)));
+}
+
+.book.right:hover img {
+	transform: perspective(var(--book-perspective))
+			   rotateY(0deg);
+}
+
+/* Book Edge */
+
+.book::after {
+	content: var(--book-edge-title);
+	position: absolute;
+	top: 0;
+	width: var(--book-edge);
+	height: 100%;
+	background-color: var(--book-edge-color);
+	/* Text */
+	writing-mode: vertical-rl;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Book Edge - Left */
+
+.book.left::after {
+	left: calc((0px - var(--book-edge-margin)) - var(--book-edge));
+	transform-origin: right center;
+	transform: perspective(var(--book-perspective))
+			   rotateY(calc(-90deg + var(--book-rotation)));
+}
+
+.book.left:hover::after {
+	transform: perspective(var(--book-perspective))
+			   rotateY(-90deg)
+}
+
+/* Book Edge - Right */
+
+.book.right::after {
+	right: calc((0px - var(--book-edge-margin)) - var(--book-edge));
+	transform-origin: left center;
+	transform: perspective(var(--book-perspective))
+			   rotateY(calc(90deg - var(--book-rotation)));
+}
+
+.book.right:hover::after {
+	transform: perspective(var(--book-perspective))
+			   rotateY(90deg)
+}
