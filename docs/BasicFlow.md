@@ -3,7 +3,7 @@ Style Guide
 
 Requests follow this path:
 
-`.htaccess` &rarr; `index.php` &rarr; `App.class.php` &rarr; `YourModel.class.php`
+`.htaccess` &rarr; `index.php` &rarr; `App.class.php` &rarr; `YourController.class.php`
 
 There are also requests to static files go like this:
 
