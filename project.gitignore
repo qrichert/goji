@@ -30,8 +30,14 @@ ehthumbs.db
 Thumbs.db
 .idea
 /venv/
-/upload/
+
+# General files
+/_BACKUP_/
+/_FACTORY_/
 /public/upload/
+/upload/
+/var/
+/vendor/
 
 # Config files with sensitive data
 /config/databases.json
