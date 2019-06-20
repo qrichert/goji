@@ -9,7 +9,7 @@ Quick Start
 Create a Project
 ----------------
 
-1. Clone the repo from https://github.com/qrichert/ (or download as `.zip`)
+1. Clone the repo from [https://github.com/qrichert/](https://github.com/qrichert/) (or download as `.zip`)
 2. Rename the folder to your project name (optional)
 3. Replace the `.gitignore` file by `project.gitignore` to remove Goji files from versioning (optional).
 
