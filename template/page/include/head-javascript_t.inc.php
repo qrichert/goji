@@ -41,7 +41,7 @@
 <?php
 
 	$template->linkFiles(array(
-		'js/vendor/Polyfills.js',
-		'js/vendor/WindowSizeDisplay-18.12.8.js',
+		'js/lib/Goji/Polyfills-19.6.20.min.js',
+		'js/lib/Goji/WindowSizeDisplay-18.12.8.min.js',
 		'js/lib/Goji/SimpleRequest-19.6.20.class.min.js'
 	));

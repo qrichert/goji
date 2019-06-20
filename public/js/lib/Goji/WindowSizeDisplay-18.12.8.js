@@ -4,7 +4,7 @@
 
 window.addEventListener('load', function() {
 
-	var windowSizeDisplay = document.createElement('p');
+	let windowSizeDisplay = document.createElement('p');
 		windowSizeDisplay.style.position = 'fixed';
 		windowSizeDisplay.style.right = '10px';
 		windowSizeDisplay.style.bottom = '10px';
