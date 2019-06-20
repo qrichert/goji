@@ -43,5 +43,5 @@
 	$template->linkFiles(array(
 		'js/vendor/Polyfills.js',
 		'js/vendor/WindowSizeDisplay-18.12.8.js',
-		'js/vendor/SimpleXMLHttpRequest-17.12.5.min.js'
+		'js/lib/Goji/SimpleRequest-19.6.20.class.min.js'
 	));
