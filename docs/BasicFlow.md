@@ -71,6 +71,8 @@ The database will be accessible via `App::getDataBase(): PDO`. Really it's a `\G
 object which is returned, but that's just a child of PDO that reads your config file. So really it's
 just a regular `PDO`. If you don't use a database, just remove the second line.
 
+(So to access the database in your controllers, just do `$app->getDatabase()`...)
+
 App automatically uses a `\Goji\Core\RequestHandler` object, accessible via `App::getRequestHandler(): RequestHandler`.
 `RequestHandler` analyzes the HTTP request and extracts (and sanitizes) some useful information like
 the request URI, request page, raw query string, query string as array, script name, root folder, etc. 

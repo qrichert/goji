@@ -20,7 +20,7 @@ Installation
 
 **Requirements:**
 - Apache
-- PHP 7+
+- PHP 7.3+
 - No dependencies, works right out of the box
 
 Directory Structure
