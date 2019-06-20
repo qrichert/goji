@@ -68,7 +68,7 @@ the global scope and accessible everywhere.
 
 To use the previous segment, just do:
 
-```
+```php
 echo $tr->_('FOO_BAR'); // echoes 'foobar'
 ```
 
@@ -92,7 +92,7 @@ as well. If `count` equals `rest`, it means "for all the rest", like an `else` i
         <alternative count="^0$">Sorry, no foobars :(</alternative>
         <alternative count="^1$">There's only one foobar, %{COUNT}...</alternative>
         <alternative count="rest">There are %{COUNT} foobars.</alternative>
-	</segment>
+    </segment>
 </page>
 ```
 

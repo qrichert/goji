@@ -37,7 +37,7 @@ To add a new page, first edit the `/config/routes.json5` file.
 
 To add a basic route, add a page ID, with a `route` and a `controller`.
 
-```json
+```json5
 "new-page-id": {
     route: "/new-page",
     controller: "NewPageController"
