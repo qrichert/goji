@@ -105,6 +105,91 @@ a:hover {
 	color: var(--color-link-hover);
 }
 
+/* <GENERIC CLASSES> */
+
+.hidden {
+	display: none !important;
+}
+
+.spacer {
+	display: block;
+	width: 100%;
+	margin: var(--gutter-medium) 0 0 0;
+	padding: 0;
+	background-color: transparent;
+}
+
+/* Progress Bar */
+
+.progress-bar {
+	display: block;
+	width: 100%;
+	height: 5px;
+	border-radius: 3px;
+	margin: var(--gutter-thin) 0;
+	background-color: var(--color-text-xxxxxlight);
+	position: relative;
+}
+
+.progress-bar > .progress {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: inherit;
+	border-radius: inherit;
+	width: 42%;
+	background-color: var(--color-highlight);
+	transition: width 200ms ease;
+}
+
+/* Loading Dots */
+
+.loading-dots {
+	width: 6px !important;
+	height: 6px !important;
+	background-color: var(--color-text-xxxlight);
+	border-radius: 50%;
+	position: relative;
+	animation-name: loading-dots;
+	animation-duration: 700ms;
+	animation-iteration-count: infinite;
+	animation-delay: 0ms;
+	margin: 10px auto 10px auto;
+	display: none;
+}
+
+.loading-dots.loading {
+	display: block;
+}
+
+.loading-dots::before,
+.loading-dots::after {
+	content: '';
+	width: inherit;
+	height: inherit;
+	background-color: inherit;
+	border-radius: inherit;
+	position: absolute;
+	top: 0;
+}
+
+.loading-dots::before {
+	left: -8px;
+	animation-name: loading-dots;
+	animation-duration: 700ms;
+	animation-iteration-count: infinite;
+	animation-delay: 100ms;
+}
+
+.loading-dots::after {
+	right: -8px;
+	animation-name: loading-dots;
+	animation-duration: 700ms;
+	animation-iteration-count: infinite;
+	animation-delay: 200ms;
+}
+
 /* <HEADER> */
 
 header {
@@ -212,6 +297,62 @@ nav > a:hover {
 .nav__burger-menu.cross div:nth-child(2) { opacity: 0; }
 .nav__burger-menu.cross div:nth-child(3) { transform: rotate(45deg); }
 
+/* <FOOTER> */
+
+footer {
+	width: 100%;
+	/* 'auto' for footer at bottom */
+	margin: auto 0 0 0;
+	display: flex;
+	background-color: var(--color-footer);
+	color: var(--color-text-light);
+}
+
+.footer__container {
+	width: 100%;
+	max-width: 1280px;
+	margin: auto;
+	padding: var(--gutter-default) calc(3 * var(--gutter-default));
+	box-sizing: border-box;
+	font-size: var(--text-size-small);
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.footer__main {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+.footer__main > :not(:last-child) {
+	/* Margin right so lines aligns left when wrapped. */
+	margin-right: var(--gutter-medium);
+}
+
+.footer__explore {
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+.footer__explore > * {
+	/* First element included, so it makes a margin from .footer__main. */
+	margin-left: var(--gutter-medium);
+}
+
+footer p {
+	margin: 0;
+	line-height: 2em;
+}
+
 /* <MAIN> */
 
 /*
@@ -267,6 +408,31 @@ section > :last-child {
 	margin-bottom: 0;
 }
 
+/* <Section Centered> */
+
+section.centered {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* <Section No Padding> */
+
+section.no-padding.hv {
+	padding: 0;
+}
+
+section.no-padding.h {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+section.no-padding.v {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
 /* <Section Error> */
 
 /*
@@ -312,7 +478,7 @@ section.text {
 	margin: 0;
 	font-family: var(--font-code);
 	font-size: var(--text-size-medium);
-	color: var(--color-text-very-light);
+	color: var(--color-text-xxlight);
 }
 
 .pre-heading + h1, .pre-heading + h2, .pre-heading + h3,
@@ -320,60 +486,437 @@ section.text {
 	margin-top: var(--gutter-medium);
 }
 
-/* <FOOTER> */
+/* <FORM> */
 
-footer {
-	width: 100%;
-	/* 'auto' for footer at bottom */
-	margin: auto 0 0 0;
+form {
 	display: flex;
-	background-color: var(--color-footer);
-	color: var(--color-text-light);
-}
-
-.footer__container {
-	width: 100%;
-	max-width: 1280px;
-	margin: auto;
-	padding: var(--gutter-default) calc(3 * var(--gutter-default));
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: var(--gutter-default);
 	box-sizing: border-box;
-	font-size: var(--text-size-small);
+}
+
+label {
+	font-weight: bold;
+	margin: var(--gutter-xthin) 0;
+}
+
+.form__label-relative {
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin: var(--gutter-xthin) 0;
 }
 
-.footer__main {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: flex-start;
-	flex-wrap: wrap;
-}
-
-.footer__main > :not(:last-child) {
-	/* Margin right so lines aligns left when wrapped. */
-	margin-right: var(--gutter-medium);
-}
-
-.footer__explore {
-	margin-left: auto;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-items: flex-start;
-	flex-wrap: wrap;
-}
-
-.footer__explore > * {
-	/* First element included, so it makes a margin from .footer__main. */
-	margin-left: var(--gutter-medium);
-}
-
-footer p {
+.form__label-relative > label {
 	margin: 0;
-	line-height: 2em;
+}
+
+/* <FORM INPUTS> */
+
+/* Placeholder */
+
+::placeholder			{ color: var(--color-disabled); }
+:-ms-input-placeholder	{ color: var(--color-disabled); }
+
+/* Inputs - Regular */
+
+input,
+textarea,
+button,
+.link-button,
+select,
+.select-wrapper,
+.form__label-relative {
+	margin: var(--gutter-thin) 0;
+}
+
+.form__label-relative:not(:first-child),
+label:not(:first-child) {
+	margin-top: var(--gutter-thin);
+}
+
+.form__label-relative > label {
+	margin-top: 0;
+}
+
+* + input,
+* + textarea,
+* + button,
+* + .link-button,
+* + select,
+* + .select-wrapper,
+* + .form__label-relative {
+	margin-top: 0;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=number],
+textarea,
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	height: var(--input-height-default);
+	padding: 4px 8px 4px 8px;
+	box-sizing: border-box;
+	border: 1px solid var(--color-text-xxxlight);
+	border-radius: var(--border-radius-default);
+	font-family: inherit;
+	font-size: 1rem;
+	color: var(--color-text-default);
+	font-weight: normal;
+	background-color: white;
+}
+
+textarea {
+	min-height: 67px;
+	resize: vertical;
+}
+
+/* Selects */
+
+.select-wrapper {
+	display: inline-block;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.select-wrapper::after {
+	content: '';
+	position: absolute;
+	top: calc(50% - (0.8em / 2));
+	right: var(--gutter-thin);
+	width: 0.8em;
+	height: 0.8em;
+	background-image: url('img/arrow-down--dark.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	pointer-events: none;
+}
+
+.select-wrapper > select {
+	margin: 0;
+}
+
+select {
+	width: 100%;
+	cursor: pointer;
+}
+
+/* Inputs - Regular - :FOCUS */
+
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=url]:focus,
+input[type=number]:focus,
+textarea:focus,
+select:focus{
+	border-color: var(--color-highlight);
+	box-shadow: 0 0 0 3px var(--color-highlight-halo);
+}
+
+/* Inputs - Regular - :READ-ONLY || :DISABLED  */
+
+input[type=text]:read-only,
+input[type=text]:disabled,
+input[type=password]:read-only,
+input[type=password]:disabled,
+input[type=email]:read-only,
+input[type=email]:disabled,
+input[type=url]:read-only,
+input[type=url]:disabled,
+input[type=number]:read-only,
+input[type=number]:disabled,
+textarea:read-only,
+textarea:disabled,
+select:disabled {
+	color: var(--color-disabled);
+}
+
+/* Buttons - Regular */
+
+button,
+input[type=submit],
+input[type=reset],
+.link-button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	display: inline-block;
+	height: var(--input-height-default);
+	margin: 0;
+	padding: 4px 8px 4px 8px;
+	box-sizing: border-box;
+	white-space: nowrap;
+	border: 1px solid var(--color-text-xxxlight);
+	border-radius: var(--border-radius-default);
+	font-family: inherit;
+	font-size: 1rem;
+	color: var(--color-text-default);
+	background-color: white;
+	box-shadow: var(--shadow-thin);
+	cursor: pointer;
+	transition: color 200ms ease,
+	box-shadow 200ms ease;
+}
+
+.link-button {
+	line-height: calc(var(--input-height-default) - 8px);
+	vertical-align: middle;
+	text-align: center;
+}
+
+/* Buttons - Regular - :HOVER */
+
+button:hover,
+input[type=submit]:hover,
+input[type=reset]:hover,
+.link-button:hover {
+	color: var(--color-text-dark);
+	box-shadow: var(--shadow-default);
+	text-decoration: none;
+}
+
+/* Buttons - Regular - :ACTIVE */
+
+button:active,
+input[type=submit]:active,
+input[type=reset]:active,
+.link-button:active {
+	box-shadow: var(--shadow-thin);
+}
+
+/* Buttons - Highlight */
+
+button.highlight,
+input[type=submit].highlight,
+input[type=reset].highlight,
+.link-button.highlight {
+	color: white;
+	background-color: var(--color-highlight);
+	border: none;
+}
+
+/* Buttons - Highlight - :HOVER */
+
+button.highlight:hover,
+input[type=submit].highlight:hover,
+input[type=reset].highlight:hover,
+.link-button.highlight:hover {
+	color: white;
+}
+
+/* Buttons - Delete */
+
+button.delete,
+input[type=submit].delete,
+input[type=reset].delete,
+.link-button.delete {
+	color: white;
+	background-color: var(--color-danger);
+	border: none;
+}
+
+/* Buttons - Delete - :HOVER */
+
+button.delete:hover,
+input[type=submit].delete:hover,
+input[type=reset].delete:hover,
+.link-button.delete:hover {
+	color: white;
+}
+
+/* Buttons - Add */
+
+button.add:hover::after,
+input[type=submit].add:hover::after,
+input[type=reset].add:hover::after,
+.link-button.add:hover::after {
+	content: '';
+	display: inline-block;
+	width: 0.8em;
+	height: 0.8em;
+	margin-left: 8px;
+	background-image: url('img/plus--light.svg');
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Buttons - Loader - (Normal State) */
+
+button.loader:hover::after,
+.link-button.loader:hover::after {
+	content: '';
+	display: inline-block;
+	width: 0.8em;
+	height: 0.8em;
+	margin-left: 8px;
+	animation: shake 500ms linear 1s infinite;
+	background-image: url('img/arrow-up--light.svg');
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Buttons - Loading (When Loading Data) */
+
+button.loader.loading::after,
+.link-button.loader.loading::after {
+	transition: width 2s ease;
+	content: '';
+	display: inline-block;
+	width: 0.8em;
+	height: 0.8em;
+	margin-left: 8px;
+	animation: loading 1s ease infinite;
+	background-image: url('img/loading-dots--light.svg');
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Buttons - Loaded - (Data Finished Loading) */
+
+button.loader.loaded::after,
+.link-button.loader.loaded::after {
+	content: '';
+	display: inline-block;
+	width: 0.9em;
+	height: 0.9em;
+	margin-left: 8px;
+	animation: none;
+	background-image: url('img/checkmark--light.svg');
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Buttons - Loading Failed - (Error While Loading Data) */
+
+button.loader.failed::after,
+.link-button.loader.failed::after {
+	content: '';
+	display: inline-block;
+	width: 0.7em;
+	height: 0.7em;
+	margin-left: 8px;
+	animation: none;
+	background-image: url('img/cross--light.svg');
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Buttons - Regular || Highlight || Delete - :DISABLED */
+
+button:disabled,
+button.highlight:disabled,
+button.delete:disabled,
+input[type=submit]:disabled,
+input[type=submit].highlight:disabled,
+input[type=submit].delete:disabled,
+input[type=reset]:disabled,
+input[type=reset].highlight:disabled,
+input[type=reset].delete:disabled,
+.link-button.disabled,
+.link-button.highlight.disabled,
+.link-button.delete.disabled {
+	/*
+		!important because it should overwrite any other
+		class, like 'delete' or 'highlight'
+	*/
+	color: white !important;
+	background-color: var(--color-disabled) !important;
+	border-color: var(--color-disabled) !important;
+	cursor: default !important;
+	transition: none !important;
+	box-shadow: none !important;
+}
+
+/* Buttons - Regular || Highlight || Delete - :DISABLED :HOVER */
+
+button:disabled:hover::after,
+button.highlight:disabled:hover::after,
+button.delete:disabled:hover::after,
+input[type=submit]:disabled:hover::after,
+input[type=submit].highlight:disabled:hover::after,
+input[type=submit].delete:disabled:hover::after,
+input[type=reset]:disabled:hover::after,
+input[type=reset].highlight:disabled:hover::after,
+input[type=reset].delete:disabled:hover::after,
+.link-button.disabled:hover::after,
+.link-button.highlight.disabled:hover::after,
+.link-button.delete.disabled:hover::after {
+	display: none !important;
+}
+
+/* Checkboxes */
+
+input[type=checkbox] {
+	display: none;
+}
+
+input[type=checkbox] + label {
+	--input-checkbox-width: calc(var(--input-height-default) * 1.23);
+	--input-checkbox-height: calc((var(--input-height-default) / 3) * 2);
+	--input-checkbox-button-diameter: calc(var(--input-checkbox-height) * 0.9);
+	--input-checkbox-button-margin: calc((var(--input-checkbox-height) - var(--input-checkbox-button-diameter)) / 2);
+	--input-checkbox-not-checked-button-left: var(--input-checkbox-button-margin);
+	--input-checkbox-checked-button-left: calc(var(--input-checkbox-width) - var(--input-checkbox-button-diameter) - var(--input-checkbox-button-margin));
+
+	font-weight: normal;
+	box-sizing: border-box;
+	margin-top: calc((var(--input-height-default) - var(--input-checkbox-height)) / 2);
+	margin-bottom: calc((var(--input-height-default) - var(--input-checkbox-height)) / 2);
+}
+
+input[type=checkbox] + label > span {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: var(--gutter-thin);
+	width: var(--input-checkbox-width);
+	height: var(--input-checkbox-height);
+	background-color: var(--color-text-xxxxxlight);
+	border-radius: calc(var(--input-checkbox-height) / 2);
+	cursor: pointer;
+	position: relative;
+	box-shadow: var(--shadow-inset-default);
+	transition: background-color 200ms ease;
+}
+
+input[type=checkbox] + label > span:hover {
+	background-color: var(--color-text-xxxxlight);
+}
+
+input[type=checkbox]:checked + label > span {
+	background-color: var(--color-highlight);
+}
+
+input[type=checkbox] + label > span::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: var(--input-checkbox-button-diameter);
+	height: var(--input-checkbox-button-diameter);
+	top: var(--input-checkbox-button-margin);
+	left: var(--input-checkbox-not-checked-button-left);
+	background-color: white;
+	border-radius: 50%;
+	box-shadow: var(--shadow-default);
+	transition: left 200ms ease;
+}
+
+input[type=checkbox]:checked + label > span::after {
+	left: var(--input-checkbox-checked-button-left);
 }
 
 /* <MARKDOWN> */

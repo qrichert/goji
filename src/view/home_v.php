@@ -8,10 +8,10 @@
 		<h2><?= $tr->_('HOME_FOOBAR') ?></h2>
 
 		<p class="pluralization-example"><?=
-				$tr->_('HOME_PLURALIZATION', 0) . '<br>' .
-				$tr->_('HOME_PLURALIZATION', 1) . '<br>' .
-				$tr->_('HOME_PLURALIZATION', 2) . '<br>' .
-				$tr->_('HOME_PLURALIZATION', 42) . '<br>';
+			$tr->_('HOME_PLURALIZATION', 0) . '<br>' .
+			$tr->_('HOME_PLURALIZATION', 1) . '<br>' .
+			$tr->_('HOME_PLURALIZATION', 2) . '<br>' .
+			$tr->_('HOME_PLURALIZATION', 42) . '<br>';
 		?></p>
 
 		<h2><?= $tr->_('HOME_TRY_A_DIFFERENT_LANGUAGE') ?></h2>

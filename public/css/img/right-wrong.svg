@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="Right_Wrong" inkscape:version="0.48.4 r9939" sodipodi:docname="right_wrong.svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 200 80"
+	 style="enable-background:new 0 0 200 80;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#CD3D64;}
+	.st1{fill:#138663;}
+</style>
+<polygon id="Wrong" class="st0" points="177.3,76.7 150,49.4 122.7,76.7 113.3,67.3 140.6,40 113.3,12.7 122.7,3.3 150,30.6 
+	177.3,3.3 186.7,12.7 159.4,40 186.7,67.3 "/>
+<path id="Right" class="st1" d="M45.7,70.2L33.3,70C26.1,50.3,4.8,34.8,4.6,34.6l7.8-10.8c0.8,0.6,16.6,12.1,27.2,29
+	c16.5-27,47-45.4,48.5-46.3L94.9,18C94.5,18.2,57.2,40.7,45.7,70.2z"/>
+</svg>

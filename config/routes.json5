@@ -36,6 +36,10 @@
 		// naming convention and make it implement \Goji\Blueprints\ControllerInterface().
 		controller: "HomeController"
 	},
+	"login": {
+		route: "/login",
+		controller: "LoginController"
+	},
 	// This is the page ID.
 	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )
 	// It is also put as <body id=""> in default template, so make sure it's HTML#id compliant

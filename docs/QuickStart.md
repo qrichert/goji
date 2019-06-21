@@ -26,7 +26,7 @@ Edit Pages
 In the example, files are in two parts: the template and the view.
 
 The template is like a frame that never changes, and the content is what is unique to every page.
-To learn more about templating in goji, refer to the [Templating](Templating.md) section.
+To learn more about templating in Goji, refer to the [Templating](Templating.md) section.
 
 To edit the default home page content, go to `/src/view/home_v.php` (The `_v` stands for View).
 
@@ -52,4 +52,4 @@ See [Basic Flow](BasicFlow.md) for more information on controllers.
 Remove Pages
 ------------
 
-To remove a page, just do the [Add Pages](#add-pages) process in reverse.
+To remove a page, just go through the [Add Pages](#add-pages) process in reverse.

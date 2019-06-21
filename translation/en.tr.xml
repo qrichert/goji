@@ -13,7 +13,7 @@
 		<segment id="NAV_HOME">Home</segment>
 		<segment id="NAV_ABOUT">About</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
-		<segment id="NAV_BLOG">Blog</segment>
+		<segment id="NAV_LOG_IN">Log In</segment>
 
 		<!-- Footer -->
 		<segment id="FOOTER_GOJI_ON_GITHUB">Goji on GitHub</segment>
@@ -58,5 +58,21 @@
 			<alternative count="rest">There are %{COUNT} foobars.</alternative>
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Try a different language:</segment>
+	</page>
+	<page id="login">
+		<segment id="LOGIN_PAGE_TITLE">Log In</segment>
+		<segment id="LOGIN_PAGE_DESCRIPTION"></segment>
+		<segment id="LOGIN_FORM_EMAIL">Email</segment>
+		<segment id="LOGIN_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
+		<segment id="LOGIN_FORGOT_PASSWORD">Forgot password?</segment>
+		<segment id="LOGIN_FORM_PASSWORD">Password</segment>
+		<segment id="LOGIN_FORM_LOG_IN_BUTTON">Log In</segment>
+		<segment id="LOGIN_NO_ACCOUNT">Don’t have an account?</segment>
+		<segment id="LOGIN_SIGN_UP">Sign up</segment>
+		<segment id="LOGIN_FUN_MESSAGE">
+			<alternative count="^1$">Hi, how are you?</alternative>
+			<alternative count="^2$">Do you like goji berries?</alternative>
+			<alternative count="rest">:)</alternative>
+		</segment>
 	</page>
 </translation>

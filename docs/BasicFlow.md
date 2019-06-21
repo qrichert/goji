@@ -42,7 +42,7 @@ how `App` is used, let's look at how `Router` knows the language it should be us
 $this->m_languages = new Languages($this);
 $this->m_router = new Router($this); // $this points to App
 
-// Withing the Router class
+// Within the Router class
 $this->m_app->getLanguages()->getCurrentLocale();
 ```
 
@@ -65,7 +65,7 @@ $app = new App();
     $app->exec();
 ```
 
-Basically what this does it load the database from your config file and starts the routing process.
+Basically what this does is it loads the database from your config file and starts the routing process.
 
 The database will be accessible via `App::getDataBase(): PDO`. Really it's a `\Goji\Core\DataBase`
 object which is returned, but that's just a child of PDO that reads your config file. So really it's

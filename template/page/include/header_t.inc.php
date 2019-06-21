@@ -5,10 +5,10 @@
 		</a>
 
 		<nav>
-			<a href="#"><?= $tr->_('NAV_HOME'); ?></a>
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>"><?= $tr->_('NAV_HOME'); ?></a>
 			<a href="#"><?= $tr->_('NAV_ABOUT'); ?></a>
 			<a href="#"><?= $tr->_('NAV_CONTACT'); ?></a>
-			<a href="#"><?= $tr->_('NAV_BLOG'); ?></a>
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('login'); ?>"><?= $tr->_('NAV_LOG_IN'); ?></a>
 		</nav>
 
 		<div class="nav__burger-menu">

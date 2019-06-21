@@ -1,7 +1,7 @@
 TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php https://www.electrictoolbox.com/php-caching-headers/
 TODO: Update SimpleXMLHttpRequest JS plugin
 TODO: Refactor `js` folder (SimpleXMLHttpRequest)
-
+TODO: !!! '#' redirects to home (because path not found ?? see issue)
 
 $form = new Form();
 $form->setFields(array(

@@ -4,6 +4,9 @@ Style Guide
 1. [Files](#files)
 2. [Variables](#variables)
 3. [Widgets](#widgets)
+4. [Buttons](#buttons)
+5. [Generic](#generic)
+6. [Forms](#forms)
 
 ***Note:** modifiers are just classes you add. For example a `section` with a text modifier is just
 a `section.text` or `<section class="text">`.*
@@ -75,6 +78,45 @@ don't have a top and bottom margin respectively.
 
 #### Modifiers
 
+- **`.centered`**: Content is centered horizontally.
+- **`.no-padding`**: Section that has no padding, must be combined with either or both:
+    - **`.no-padding.h`**: No padding left and right (horizontal)
+    - **`.no-padding.v`**: No padding top and bottom (vertical)
 - **`.error`**: Made for HTTP error pages. Content is centered horizontally. Should be combined with
   widget area's `centered` modifier and contain an `h1` (error) and a `p` (description).
 - **`.text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.
+
+Buttons
+-------
+
+There are three versions of buttons : `<button>`, `<input>` and `<a class="link-button">` which
+transforms a link into a button.
+
+#### Modifiers
+
+Modifiers work for the `<button>`, the `<input>` and the `<a class="link-button">` version.
+
+- **`.highlight`**: Special color button for special actions
+- **`.delete`**: Button for deletion (delete action)
+
+The following modifiers should be used in combination with `.highlight` or `.delete`.
+
+- **`.add`**: Button with a + sign on hover (add action)
+- **`.loader`**: Button with loading capacity, append the following classes to change the state:
+    - **`.loading`**: Loading in progress
+    - **`.loaded`**: Loading was successful
+    - **`.failed`**: Loading has failed
+
+Generic
+-------
+
+- **`.hidden`**: Display none
+- **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
+- **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in % (`<div class="progress-bar"><div class="progress"></div></div>`)
+- **`.loading-dots`**: (on empty `div`) Animated dots to show loading (`<div class="loading-dots loading"></div>`)
+
+Forms
+-----
+
+- **`.select-wrapper > select`**: To style `select` inputs
+- **`input[type=checkbox] + label > span`**: Styled checkbox (`<input type="checkbox" id="cb"><label for="cb"><span></span>Toggle me!</label>`)
