@@ -124,11 +124,16 @@ a:hover {
 .progress-bar {
 	display: block;
 	width: 100%;
-	height: 5px;
-	border-radius: 3px;
-	margin: var(--gutter-thin) 0;
+	height: var(--progress-bar-height);
+	border-radius: calc(var(--progress-bar-height) / 2);
+	margin: 0;
 	background-color: var(--color-text-xxxxxlight);
 	position: relative;
+	visibility: hidden;
+}
+
+.progress-bar.shown {
+	visibility: visible;
 }
 
 .progress-bar > .progress {
@@ -140,7 +145,7 @@ a:hover {
 	border-radius: inherit;
 	width: 42%;
 	background-color: var(--color-highlight);
-	transition: width 200ms ease;
+	transition: width 70ms ease;
 }
 
 /* Loading Dots */
@@ -529,7 +534,8 @@ button,
 .link-button,
 select,
 .select-wrapper,
-.form__label-relative {
+.form__label-relative,
+.progress-bar {
 	margin: var(--gutter-thin) 0;
 }
 
@@ -548,7 +554,8 @@ label:not(:first-child) {
 * + .link-button,
 * + select,
 * + .select-wrapper,
-* + .form__label-relative {
+* + .form__label-relative,
+* + .progress-bar {
 	margin-top: 0;
 }
 

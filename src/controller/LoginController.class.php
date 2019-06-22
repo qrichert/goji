@@ -18,7 +18,16 @@
 			$this->m_app = $app;
 		}
 
+		private function loginRequest(array $login): void {
+
+			echo json_encode($login);
+			exit;
+		}
+
 		public function render() {
+
+			if (!empty($_POST['login']))
+				$this->loginRequest($_POST['login']);
 
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 

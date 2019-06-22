@@ -16,6 +16,11 @@
  */
 class SliderLightBoxInterface {
 
+	/**
+	 * @param sliderElement
+	 * @param sliderOptions
+	 * @param lightBoxOptions
+	 */
 	constructor(sliderElement, sliderOptions = null, lightBoxOptions = null) {
 
 		// <LIGHTBOX>

@@ -26,6 +26,9 @@
  */
 class LightBox {
 
+	/**
+	 * @param options
+	 */
 	constructor(options = null) {
 
 		this.m_lightBox = null;

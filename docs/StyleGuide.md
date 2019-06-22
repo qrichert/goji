@@ -112,7 +112,8 @@ Generic
 
 - **`.hidden`**: Display none
 - **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
-- **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in % (`<div class="progress-bar"><div class="progress"></div></div>`)
+- **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in % (`<div class="progress-bar"><div class="progress"></div></div>`).
+  Add a `.shown` modifier to reveal it (`visibility: hidden;` by default).
 - **`.loading-dots`**: (on empty `div`) Animated dots to show loading (`<div class="loading-dots loading"></div>`)
 
 Forms

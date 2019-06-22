@@ -7,3 +7,4 @@
 * [Templating](Templating.md) (*soon*)
 * [Caching](---) (*soon*)
 * [Style Guide](StyleGuide.md)
+* [JavaScript Modules](JavaScriptModules.md) (*soon*)
