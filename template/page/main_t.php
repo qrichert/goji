@@ -3,7 +3,7 @@
 	<head>
 		<!-- Document -->
 		<meta charset="utf-8">
-		<base href="<?= $this->m_app->getRequestHandler()->getRootFolder(); ?>">
+		<!--<base href="<?= $this->m_app->getRequestHandler()->getRootFolder(); ?>">-->
 
 		<!-- Analytics -->
 		<?php
