@@ -1,9 +1,29 @@
 /**
  * Form class
  *
+ * Takes regular form, prevents submit and sends it via AJAX instead,
+ *
  * How to use it:
  * --------------
  *
+ * let success = (response) => {
+ *     alert(response);
+ * };
+ *
+ * new Form(document.querySelector('form.form__login'), // <form> element
+ *          success, // success callback
+ *          null, // no failure callback
+ *          document.querySelector('form.form__login > button.loader'), // Loading button
+ *          document.querySelector('form.form__login > .progress-bar') // Progress bar
+ * );
+ *
+ * While uploading a class called 'loading' is added to the status bearer
+ * When loading has finished it is replaced by either 'loaded' or 'failed'
+ *
+ * Classes are removed 1.5s after loading ended
+ *
+ * If a progress bar is given it will update according to the upload progress (width in %)
+ * And add a class 'shown' to it while loading
  *
  */
 class Form {

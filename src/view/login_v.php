@@ -31,6 +31,7 @@
 					 document.querySelector('form.form__login > button.loader'),
 					 document.querySelector('form.form__login > .progress-bar')
 			);
+
 		})();
 	</script>
 </main>
