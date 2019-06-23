@@ -14,8 +14,7 @@ Create a Project
 3. Replace the `.gitignore` file by `project.gitignore` to remove Goji files from versioning (optional).
 
 ```sh
-git clone https://github.com/qrichert/goji.git
-mv goji your-project
+git clone https://github.com/qrichert/goji.git your-project
 cd your-project
 rm .gitignore && mv project.gitignore .gitignore
 ```
