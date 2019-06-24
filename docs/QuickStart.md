@@ -10,13 +10,22 @@ Create a Project
 ----------------
 
 1. Clone the repo from [https://github.com/qrichert/](https://github.com/qrichert/) (or download as `.zip`)
-2. Rename the folder to your project name (optional)
+2. Remove versioning
 3. Replace the `.gitignore` file by `project.gitignore` to remove Goji files from versioning (optional).
 
 ```sh
 git clone https://github.com/qrichert/goji.git your-project
 cd your-project
+rm -rf .git
 rm .gitignore && mv project.gitignore .gitignore
+```
+
+You should remove versioning because you won't be working on Goji itself, but your independent project.
+If you want to version your project, just initialize it after, as you always do:
+
+```sh
+git add .
+git commit -am "Initial commit."
 ```
 
 Edit Pages
