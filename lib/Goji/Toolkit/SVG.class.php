@@ -2,8 +2,6 @@
 
 	namespace Goji\Toolkit;
 
-	use Exception;
-
 	/**
 	 * Class SVG
 	 *
