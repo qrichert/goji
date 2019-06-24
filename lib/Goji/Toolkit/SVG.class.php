@@ -3,7 +3,6 @@
 	namespace Goji\Toolkit;
 
 	use Exception;
-	use Goji\Core\Logger;
 
 	/**
 	 * Class SVG
