@@ -70,7 +70,7 @@ $app = new App();
 Basically what this does is it creates an `App` object, loads the database from your config file
 and starts the routing process.
 
-App automatically uses a `\Goji\Core\RequestHandler` object (accessible via `App::getRequestHandler(): RequestHandler`),
+App automatically uses a `\Goji\Core\RequestHandler` object (accessible via `App::getRequestHandler()`),
 a `\Goji\HumanResources\User` object (accessible via `App::getUser()`), an `\Goji\HumanResources\Authentication` object
 (accessible via `App::getAuthentication()`), and a `\Goji\Core\Firewall` object (accessible via `App::getFirewall()`).
 
