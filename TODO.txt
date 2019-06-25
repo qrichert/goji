@@ -17,3 +17,6 @@ $form->setFields(array(
 if ($form->receptionate())
 	if ($form->isValid())
 		$name = $form->get('name');
+
+TODO: Keep page ID history so you can go back (for redirects). Don't add doubles
+home, forbidden, login, login -> (home, forbidden, login) -> redirect to -1 = forbidden

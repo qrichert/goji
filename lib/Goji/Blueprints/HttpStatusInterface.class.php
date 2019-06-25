@@ -2,7 +2,6 @@
 
 	namespace Goji\Blueprints;
 
-
 	/**
 	 * Interface HttpStatusInterface
 	 *

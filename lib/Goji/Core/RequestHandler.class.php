@@ -2,6 +2,7 @@
 
 	namespace Goji\Core;
 
+	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Blueprints\HttpStatusInterface;
 
 	/**
@@ -18,7 +19,7 @@
 	 *
 	 * @package Goji\Core
 	 */
-	class RequestHandler implements HttpStatusInterface {
+	class RequestHandler implements HttpStatusInterface, HttpMethodInterface {
 
 		private $m_requestURI;
 		private $m_requestPageURI;
@@ -29,6 +30,7 @@
 		private $m_requestPage;
 		private $m_requestParameters;
 		private $m_redirectStatus;
+		private $m_requestMethod;
 		private $m_errorDetected;
 
 		/**
@@ -115,6 +117,9 @@
 			$this->m_redirectStatus = $_SERVER['REDIRECT_STATUS'] ?? self::HTTP_SUCCESS_OK;
 				$this->m_redirectStatus = intval($this->m_redirectStatus);
 
+			// GET, POST, PUT, DELETE, etc...
+			$this->m_requestMethod = $_SERVER['REQUEST_METHOD'] ?? self::HTTP_GET;
+
 			$this->m_errorDetected = $this->m_redirectStatus >= 400;
 		}
 
@@ -128,6 +133,8 @@
 			echo 'Root Folder: ' . $this->m_rootFolder . PHP_EOL;
 			echo 'Request Page: ' . $this->m_requestPage . PHP_EOL;
 			echo 'Request Parameters: ' . print_r($this->m_requestParameters, true) . PHP_EOL;
+			echo 'Redirect Status: ' . $this->m_redirectStatus . PHP_EOL;
+			echo 'Request Method: ' . $this->m_requestMethod . PHP_EOL;
 		}
 
 		/**
@@ -271,6 +278,15 @@
 		 */
 		public function getRedirectStatus(): int {
 			return $this->m_redirectStatus;
+		}
+
+		/**
+		 * Returns HttpMethodInterface::METHOD_NAME
+		 *
+		 * @return string
+		 */
+		public function getRequestMethod(): string {
+			return $this->m_requestMethod;
 		}
 
 		/**
