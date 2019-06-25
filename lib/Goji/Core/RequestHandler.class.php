@@ -119,6 +119,7 @@
 
 			// GET, POST, PUT, DELETE, etc...
 			$this->m_requestMethod = $_SERVER['REQUEST_METHOD'] ?? self::HTTP_GET;
+				$this->m_requestMethod = strtoupper((string) $this->m_requestMethod);
 
 			$this->m_errorDetected = $this->m_redirectStatus >= 400;
 		}
