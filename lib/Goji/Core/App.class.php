@@ -2,6 +2,8 @@
 
 	namespace Goji\Core;
 
+	use Goji\HumanResources\Authentication;
+	use Goji\HumanResources\User;
 	use Goji\Translation\Languages;
 	use PDO;
 	use Exception;
@@ -25,6 +27,9 @@
 
 		private $m_languages;
 		private $m_requestHandler;
+		private $m_user;
+		private $m_authentication;
+		private $m_firewall;
 		private $m_router;
 		private $m_dataBase;
 
@@ -67,6 +72,9 @@
 
 			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
+			$this->m_user = new User($this);
+			$this->m_authentication = new Authentication($this);
+			$this->m_firewall = new Firewall($this);
 			$this->m_router = null;
 			$this->m_dataBase = null;
 		}
@@ -227,6 +235,27 @@
 		 */
 		public function getRequestHandler(): RequestHandler {
 			return $this->m_requestHandler;
+		}
+
+		/**
+		 * @return \Goji\HumanResources\User
+		 */
+		public function getUser(): User {
+			return $this->m_user;
+		}
+
+		/**
+		 * @return \Goji\HumanResources\Authentication
+		 */
+		public function getAuthentication(): Authentication {
+			return $this->m_authentication;
+		}
+
+		/**
+		 * @return \Goji\Core\Firewall
+		 */
+		public function getFirewall(): Firewall {
+			return $this->m_firewall;
 		}
 
 		/**

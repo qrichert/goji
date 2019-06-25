@@ -389,7 +389,7 @@
 
 			if ($linkedFilesMode === self::MERGED) {
 
-				$output = implode(urlencode('|'), $files);
+				$output = implode(rawurlencode('|'), $files);
 				$output = str_replace('%{PATH}', $output, $linkStatement) . PHP_EOL;
 
 			} else { // self::NORMAL

@@ -44,9 +44,8 @@
 				case self::HTTP_SERVER_INTERNAL_SERVER_ERROR:	header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);	break;
 			}
 
-			// If it's a 404 for instance, Router can't have a page set
-			if (!$this->m_app->getRouter()->hasCurrentPage())
-				$this->m_app->getRouter()->setCurrentPage('http-error-' . $this->m_httpErrorCode);
+			// Override 'page' (admin -> 403 -> override to 'http-error-403'
+			$this->m_app->getRouter()->setCurrentPage('http-error-' . $this->m_httpErrorCode);
 
 			SimpleMetrics::addPageView('http-error-' . $this->m_httpErrorCode);
 

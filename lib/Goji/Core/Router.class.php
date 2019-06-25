@@ -3,6 +3,7 @@
 	namespace Goji\Core;
 
 	use Goji\Blueprints\HttpStatusInterface;
+	use Goji\HumanResources\Authentication;
 	use Goji\Parsing\RegexPatterns;
 	use App\Controller\HttpErrorController;
 	use Exception;
@@ -41,9 +42,12 @@
 		public function __construct(App $app, $configFile = self::CONFIG_FILE) {
 
 			$this->m_app = $app;
+
 			$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
 				$this->m_routes = $this->formatRoutes($this->m_routes);
+
 			$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
+
 			$this->m_currentPage = null;
 		}
 
@@ -209,7 +213,7 @@
 		/**
 		 * Change the current page ID.
 		 *
-		 * This should be used sparingly. Only if hasCurrentPage() return false.
+		 * This should be used sparingly. Only if hasCurrentPage() returned false.
 		 *
 		 * It is notably used by HttpErrorController to make sure it contains
 		 * the same error as the one displayed (since HttpErrorController has the
@@ -379,6 +383,18 @@
 			// If we found a match, a controller will be set
 			if ($controller !== null) {
 
+				if ($this->m_app->getFirewall()->authenticationRequiredFor($this->m_currentPage)
+					&& !$this->m_app->getUser()->isLoggedIn()) {
+
+					$this->redirectToLoginPage();
+				}
+
+				if ($this->m_app->getFirewall()->authenticatedDisallowedFor($this->m_currentPage)
+					&& $this->m_app->getUser()->isLoggedIn()) {
+
+					$this->redirectToAuthenticatedDisallowed();
+				}
+
 				// $controller = new \App\Controller\HomeController()
 				$controller = new $controller($this->m_app);
 					$controller->render();
@@ -387,6 +403,8 @@
 			} else {
 				$this->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 			}
+
+			exit;
 		}
 
 		/**
@@ -408,5 +426,34 @@
 			$controller->render();
 
 			exit;
+		}
+
+		/**
+		 * When you try to access a page where you must be connected and your are not
+		 *
+		 * @throws \Exception
+		 */
+		private function redirectToLoginPage(): void {
+
+			$loginPage = $this->m_app->getAuthentication()->getLoginPage(); // Page ID
+				$loginPage = $this->getLinkForPage($loginPage);
+
+			Session::set(Authentication::AFTER_LOGIN_REDIRECT_TO,
+			             $this->m_app->getRequestHandler()->getRequestURI()); // In case _last is configured
+
+			header("Location: $loginPage");
+			exit;
+		}
+
+		/**
+		 * When you try to access a page you can't if you're connected (e.g. login)
+		 *
+		 * Redirects to 403 if no page set.
+		 *
+		 * In the rare cases where you don't have a Router set at the time of the redirection,
+		 * it will default to RequestHandler::getRootFolder()
+		 */
+		private function redirectToAuthenticatedDisallowed(): void {
+			$this->m_app->getFirewall()->redirectToAuthenticatedDisallowed();
 		}
 	}

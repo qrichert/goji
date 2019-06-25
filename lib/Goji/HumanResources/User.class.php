@@ -20,21 +20,22 @@
 		/* <ATTRIBUTES> */
 
 		private $m_app;
-
 		private $m_isLoggedIn;
 		private $m_id;
 
 		/* <CONSTANTS> */
 
+		const USER_ID = 'user-id';
+
 		public function __construct(App $app) {
 
 			$this->m_app = $app;
 
-			if (is_numeric(Session::get('user-id'))) {
+			if (is_numeric(Session::get(self::USER_ID))) {
 
 				// TODO: try { new Member() } catch { loggedIn = false; id = null }
 				$this->m_isLoggedIn = true;
-				$this->m_id = intval(Session::get('user-id'));
+				$this->m_id = (int) Session::get(self::USER_ID);
 
 			} else {
 

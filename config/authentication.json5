@@ -1,0 +1,33 @@
+/*
+ * Configuration file for \Goji\Core\Firewall and \Goji\HumanResources\Authentication
+ */
+
+{
+	login: {
+		route: "login", // ID of the route to redirect to if current page is forbidden (see routes.json5)
+		redirect_to: ["_last", "home"], // Redirect to when log in is successful
+										// Last page in history if possible, else "home" (route ID)
+										// If you want a constant page, just do 'redirect_to: "page"'
+	},
+	forbidden: {
+		redirect_to: "home" // Redirect to when accessing forbidden page (page ID)
+							// If none use 'null', in which case it will emit a 403 error
+	},
+	firewall: {
+		// List of route IDs that will redirect to the login page if user not logged in.
+		// If none, leave empty ([])
+		// This will look for the info you've set for 'login'
+		// Note: This uses a regular in_array() to match with the current page (linear search, O(n)).
+		//       Just sort them by most common first to gain in efficiency.
+		require_authentication: [
+			"admin",
+			"some-other-reserved-page"
+		],
+		// List of route IDs that can't be accessed of logged in.
+		// If none, leave empty
+		// This will look for the info you've set for 'forbidden'
+		disallow_authenticated: [
+			"login"
+		]
+	}
+}
