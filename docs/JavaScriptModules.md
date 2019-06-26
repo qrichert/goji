@@ -8,6 +8,7 @@ All these modules come in a standard `.js` and compiled `.min.js` version.
 - **`EmailScrambler`**: Enables you to display email addresses on a web page without leaving the actual
   address. Instead, you write an encoded string and this module will dynamically decode it on the fly.
 - **`Form`**: Ajaxifies a `<form>` with success/error callbacks and loading progress.
+- **`ImageSequenceAnimator`**: Helps you animate an image sequence (you just have to set the progress).
 - **`LightBox`**: Lightbox to display content on dark (or whatever you want) background.
 - **`Polyfills`**: A few handy polyfills for `matches`, `CustomEvent` and `forEach`.
 - **`SimpleRequest`**: Simple module for Ajax HTTP requests. Supports `GET`, `POST`, `PUT` and `DELETE`.
