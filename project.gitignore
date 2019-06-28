@@ -46,6 +46,7 @@ Thumbs.db
 /config/passwords.json5
 
 # Ignore Goji files
+TODO.txt
 /bin/
 /docs/
 /lib/Goji/
