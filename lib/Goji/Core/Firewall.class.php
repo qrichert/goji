@@ -66,7 +66,6 @@
 			if ($redirectTo === null)
 				$redirectTo = $this->m_app->getRequestHandler()->getRootFolder();
 
-			header("Location: $redirectTo");
-			exit;
+			$this->m_app->getRouter()->redirectTo($redirectTo);
 		}
 	}

@@ -90,7 +90,6 @@
 
 			$redirectTo = $this->getRedirectToOnLogInSuccess();
 
-			header("Location: $redirectTo");
-			exit;
+			$this->m_app->getRouter()->redirectTo($redirectTo);
 		}
 	}
