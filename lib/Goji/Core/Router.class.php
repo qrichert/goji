@@ -408,6 +408,15 @@
 		}
 
 		/**
+		 * @param string $location
+		 */
+		public function redirectTo(string $location): void {
+
+			header("Location: $location");
+			exit;
+		}
+
+		/**
 		 * @param int|null $errorCode
 		 * @throws \Exception
 		 */
@@ -441,8 +450,7 @@
 			Session::set(Authentication::AFTER_LOGIN_REDIRECT_TO,
 			             $this->m_app->getRequestHandler()->getRequestURI()); // In case _last is configured
 
-			header("Location: $loginPage");
-			exit;
+			$this->redirectTo($loginPage);
 		}
 
 		/**

@@ -6,8 +6,12 @@
  * How to use it:
  * --------------
  *
- * let success = (response) => {
- *     alert(response);
+ * The server must return a JSON response with a 'status' parameter set to 'SUCCESS'.
+ * If the response isn't valid JSON or has no 'status' property or 'status' !== 'SUCCESS',
+ * the error callback will be called.
+ *
+ * let success = response => {
+ *     console.log(response);
  * };
  *
  * new Form(document.querySelector('form.form__login'), // <form> element
@@ -160,7 +164,10 @@ class Form {
 						                       e => { this.error(e); },
 						                       e => { this.abort(e); },
 						                       (l, t) => { this.progress(l, t); },
-						                       { encode_uri: false });
+						                       {
+						                           encode_uri: false,
+							                       get_json: true
+						                       });
 	}
 
 	/**
@@ -168,6 +175,13 @@ class Form {
 	 * @param response
 	 */
 	load(response) {
+
+		if (response === null
+			|| response.status !== 'SUCCESS') {
+
+			this.error();
+			return;
+		}
 
 		this.setLoadingStatus(this.m_loadingStatus.LOADED);
 		this.clear();
@@ -186,7 +200,7 @@ class Form {
 		this.clear();
 
 		if (this.m_callbackError !== null)
-			this.m_callbackError(e);
+			this.m_callbackError();
 	}
 
 	/**

@@ -47,9 +47,12 @@
 		}
 
 		/**
-		 * After login, redirect to other page (given in config).
+		 * Get the page to redirect to if any
+		 *
+		 * @return string
+		 * @throws \Exception
 		 */
-		private function redirectToLogInSuccess(): void {
+		public function getRedirectToOnLogInSuccess(): string {
 
 			foreach ($this->m_onLoginSuccessRedirectTo as $pageID) {
 
@@ -58,8 +61,7 @@
 					$redirectTo = Session::get(self::AFTER_LOGIN_REDIRECT_TO);
 					Session::unset(self::AFTER_LOGIN_REDIRECT_TO); // Single use only
 
-					header("Location: $redirectTo");
-					exit;
+					return $redirectTo;
 
 				} else if ($pageID != '_last') { // Regular page ID
 
@@ -71,29 +73,24 @@
 
 					$redirectTo = $this->m_app->getRouter()->getLinkForPage($pageID);
 
-					header("Location: $redirectTo");
-					exit;
+					return $redirectTo;
 				}
 			}
 
 			// If nothing found, just redirect to root
 			$redirectTo = $this->m_app->getRequestHandler()->getRootFolder();
 
-			header("Location: $redirectTo");
-			exit;
+			return $redirectTo;
 		}
 
 		/**
-		 * @param $userID
-		 * @param bool $redirect Redirect according to config file or not
+		 * After login, redirect to other page (given in config).
 		 */
-		public function logIn($userID, bool $redirect = true): void {
+		public function redirectToLogInSuccess(): void {
 
-			if ($redirect)
-				$this->redirectToLogInSuccess();
-		}
+			$redirectTo = $this->getRedirectToOnLogInSuccess();
 
-		public function logOut() {
-
+			header("Location: $redirectTo");
+			exit;
 		}
 	}

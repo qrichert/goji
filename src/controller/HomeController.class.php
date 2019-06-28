@@ -23,10 +23,11 @@
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
-				// Will be 'en_US.tr.php' or 'fr.tr.php', etc.
-				// If you have a file called 'en.tr.php' it will match for both
+				// Will be 'en_US.tr.xml' or 'fr.tr.xml', etc.
+				// If you have a file called 'en.tr.xml' it will match for both
 				// en_US & en_GB because the language code is the same (en)
 				// You can send an array of files as well.
+				// If you use PHP constants for example:
 				//$tr->loadTranslationResource('%{LOCALE}.tr.php');
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 

@@ -79,7 +79,7 @@ the request URI, request page, raw query string, query string as array, script n
 
 - `User` represents any visitor, logged in or not.
 
-- `Authentication` deals with user authentication (has methods like `logIn()` and `logOut()`).
+- `Authentication` deals with user authentication.
 
 - `Firewall` can detect if a requested page is forbidden for a user (not logged in for example, or
 page forbidden for logged in users).

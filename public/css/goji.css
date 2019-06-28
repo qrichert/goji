@@ -488,7 +488,7 @@ section.text {
 
 .pre-heading + h1, .pre-heading + h2, .pre-heading + h3,
 .pre-heading + h4, .pre-heading + h5, .pre-heading + h6 {
-	margin-top: var(--gutter-medium);
+	margin-top: var(--gutter-thin);
 }
 
 /* <FORM> */

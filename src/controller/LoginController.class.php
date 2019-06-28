@@ -20,8 +20,25 @@
 
 		private function loginRequest(array $login): void {
 
-			echo json_encode($login);
-			exit;
+			if (!empty($login['email'])
+			    && !empty($login['password'])) {
+
+				$this->m_app->getUser()->logIn(1);
+
+				echo json_encode(array(
+	                'status' => 'SUCCESS',
+	                'email' => $login['email'],
+					'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
+				));
+				exit;
+
+			} else {
+
+				echo json_encode(array(
+					'status' => 'ERROR'
+				));
+				exit;
+			}
 		}
 
 		public function render() {

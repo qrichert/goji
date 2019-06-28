@@ -50,7 +50,6 @@
 			SimpleMetrics::addPageView('http-error-' . $this->m_httpErrorCode);
 
 			$tr = new Translator($this->m_app);
-//				$tr->loadTranslationResource('%{LOCALE}.tr.php');
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$template = new SimpleTemplate();

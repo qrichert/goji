@@ -14,6 +14,7 @@
 		<segment id="NAV_ABOUT">À propos</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 		<segment id="NAV_LOG_IN">Login</segment>
+		<segment id="NAV_LOG_OUT">Déconnexion</segment>
 
 		<!-- Footer -->
 		<segment id="FOOTER_GOJI_ON_GITHUB">Goji sur GitHub</segment>

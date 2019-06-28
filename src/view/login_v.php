@@ -17,17 +17,22 @@
 			<p><?= $tr->_('LOGIN_NO_ACCOUNT'); ?> <a href="#"><?= $tr->_('LOGIN_SIGN_UP'); ?></a></p>
 		</div>
 	</section>
-	<script src="js/lib/Goji/Form-19.6.22.class.js"></script>
+	<script src="js/lib/Goji/Form-19.6.22.class.min.js"></script>
 	<script>
 		(function() {
 
-			let success = (response) => {
-				alert(response);
+			let success = response => {
+				location.href = response.redirect_to;
+			};
+
+			let error = () => {
+				// Do something
+				return;
 			};
 
 			new Form(document.querySelector('form.form__login'),
 					 success,
-					 null,
+					 error,
 					 document.querySelector('form.form__login > button.loader'),
 					 document.querySelector('form.form__login > .progress-bar')
 			);

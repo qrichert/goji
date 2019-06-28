@@ -52,6 +52,20 @@
 		}
 
 		/**
+		 * @param int $id
+		 */
+		public function logIn(int $id): void {
+			Session::set(self::USER_ID, $id);
+		}
+
+		/**
+		 *
+		 */
+		public function logOut(): void {
+			Session::unset(self::USER_ID);
+		}
+
+		/**
 		 * @return int
 		 */
 		public function getID(): int {
