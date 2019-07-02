@@ -4,9 +4,9 @@ Style Guide
 1. [Files](#files)
 2. [Variables](#variables)
 3. [Widgets](#widgets)
-4. [Buttons](#buttons)
-5. [Generic](#generic)
-6. [Forms](#forms)
+4. [Generic](#generic)
+5. [Buttons](#buttons)
+6. [Special Form Elements](#special-form-elements)
 
 ***Note:** modifiers are just classes you add. For example a `section` with a text modifier is just
 a `section.text` or `<section class="text">`.*
@@ -86,8 +86,17 @@ don't have a top and bottom margin respectively.
   widget area's `centered` modifier and contain an `h1` (error) and a `p` (description).
 - **`.text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.
 
+Generic
+-------
+
+- **`.hidden`**: Display none
+- **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
+- **`.loading-dots`**: (on empty `div`) Animated dots to show loading (`<div class="loading-dots loading"></div>`)
+
 Buttons
 -------
+
+*(Part of `lib/Goji/inputs.css`)*
 
 There are three versions of buttons : `<button>`, `<input>` and `<a class="link-button">` which
 transforms a link into a button.
@@ -107,17 +116,12 @@ The following modifiers should be used in combination with `.highlight` or `.del
     - **`.loaded`**: Loading was successful
     - **`.failed`**: Loading has failed
 
-Generic
--------
+Special Form Elements
+---------------------
 
-- **`.hidden`**: Display none
-- **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
-- **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in % (`<div class="progress-bar"><div class="progress"></div></div>`).
-  Add a `.shown` modifier to reveal it (`visibility: hidden;` by default).
-- **`.loading-dots`**: (on empty `div`) Animated dots to show loading (`<div class="loading-dots loading"></div>`)
-
-Forms
------
+*(Part of `lib/Goji/inputs.css`)*
 
 - **`.select-wrapper > select`**: To style `select` inputs
 - **`input[type=checkbox] + label > span`**: Styled checkbox (`<input type="checkbox" id="cb"><label for="cb"><span></span>Toggle me!</label>`)
+- **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in % (`<div class="progress-bar"><div class="progress"></div></div>`).
+  Add a `.shown` modifier to reveal it (`visibility: hidden;` by default).

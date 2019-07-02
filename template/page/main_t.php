@@ -44,7 +44,8 @@
 				'css/root.css',
 				'css/goji.css',
 				'css/main.css',
-				'css/responsive.css'
+				'css/responsive.css',
+				'css/lib/Goji/inputs.css'
 			));
 
 		?>

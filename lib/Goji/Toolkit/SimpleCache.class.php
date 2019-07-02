@@ -518,7 +518,12 @@
 				$cacheId = mb_strtolower($cacheId); // js/main.js
 				$cacheId = str_replace('.', '--', $cacheId); // js/main--js
 				$cacheId = preg_replace('#\W#', '-', $cacheId); // js-main--js
-				$cacheId = pathinfo($file, PATHINFO_EXTENSION) . '-' . $cacheId; // js-js-main--js
+
+				$file = is_array($file) ? end($file) : $file;
+				if (!empty($file) && is_string($file))
+					$cacheId = pathinfo($file, PATHINFO_EXTENSION) . '-' . $cacheId; // js-js-main--js
+				else
+					$cacheId = 'unknown-' . $cacheId; // unknown-js-main--js
 
 			return $cacheId;
 		}

@@ -1,5 +1,6 @@
 <?php
 
+	require_once '../lib/RootPath.php';
 	require_once '../lib/AutoLoad.php';
 
 	// File type must be specified and supported
