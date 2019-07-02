@@ -3,6 +3,7 @@
 	namespace App\Controller;
 
 	use Goji\Core\App;
+	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\ControllerInterface;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
@@ -25,19 +26,14 @@
 
 				$this->m_app->getUser()->logIn(1);
 
-				echo json_encode(array(
-	                'status' => 'SUCCESS',
-	                'email' => $login['email'],
+				HttpResponse::JSON(array(
+					'email' => $login['email'],
 					'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
-				));
-				exit;
+				), true); // email, redirect_to, add status = SUCCESS
 
 			} else {
 
-				echo json_encode(array(
-					'status' => 'ERROR'
-				));
-				exit;
+				HttpResponse::JSON(null, false); // No data, add status = ERROR
 			}
 		}
 
