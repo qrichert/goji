@@ -15,6 +15,19 @@
  * imageSequenceAnimator.setProgress(0.5); // Between 0 and 1
  * imageSequenceAnimator.setCurrentIndex(3); // Starts at 0
  * imageSequenceAnimator.setCurrentGridIndex(1, 4); // column, row (or x, y), both start at 0
+ *
+ * The image sequence aspect ratio is automatically calculated using naturalWidth/Height property.
+ * This works great on raster images but is inconsistent with SVGs. (For example, a 300x300 viewBox
+ * gives 300x300 in Safari, 150x150 in Chrome and Opera and 0x0 in Firefox. If you leave the viewBox
+ * out it doesn't work at all).
+ *
+ * To get around that, you can set the image size manually using the data-* attributes:
+ * - data-width + data-height // Ex: 1500x1000px image -> data-width="1500" data-height="1000"
+ * - data-aspect-ratio // Ex: 1500x1000px image -> 1500/1000 = 1.5 -> data-aspect-ratio="1.5"
+ *
+ * The width/height method has precedence over the aspect ratio method, and the aspect ratio method
+ * has precedence over the regular method (i.e. not giving info about the image). Width and height
+ * must both be set or the won't be taken into account.
  */
 class ImageSequenceAnimator {
 
@@ -65,8 +78,29 @@ class ImageSequenceAnimator {
 
 		this.m_imageAlreadyLoaded = true;
 
-		this.m_imageSequenceNaturalWidth = this.m_imageSequence.naturalWidth;
-		this.m_imageSequenceNaturalHeight = this.m_imageSequence.naturalHeight;
+		this.m_imageSequenceNaturalWidth = null;
+
+			if ('width' in this.m_imageSequence.dataset && 'height' in this.m_imageSequence.dataset)
+				this.m_imageSequenceNaturalWidth = parseInt(this.m_imageSequence.dataset.width, 10);
+			else if ('aspectRatio' in this.m_imageSequence.dataset)
+				this.m_imageSequenceNaturalWidth = parseFloat(this.m_imageSequence.dataset.aspectRatio);
+			else
+				this.m_imageSequenceNaturalWidth = this.m_imageSequence.naturalWidth;
+
+			if (this.m_imageSequenceNaturalWidth === null || isNaN(this.m_imageSequenceNaturalWidth))
+				this.m_imageSequenceNaturalWidth = 1; // 1:1 if nothing set
+
+		this.m_imageSequenceNaturalHeight = null;
+
+			if ('width' in this.m_imageSequence.dataset && 'height' in this.m_imageSequence.dataset)
+				this.m_imageSequenceNaturalHeight = parseInt(this.m_imageSequence.dataset.height, 10);
+			else if ('aspectRatio' in this.m_imageSequence.dataset)
+				this.m_imageSequenceNaturalHeight = 1;
+			else
+				this.m_imageSequenceNaturalHeight = this.m_imageSequence.naturalHeight;
+
+			if (this.m_imageSequenceNaturalHeight === null || isNaN(this.m_imageSequenceNaturalHeight))
+				this.m_imageSequenceNaturalHeight = 1; // 1:1 if nothing set
 
 		// Image sequence is loaded, now we can proceed to initialization.
 		this.init();
@@ -141,6 +175,7 @@ class ImageSequenceAnimator {
 	 * If index < 1, first image shown
 	 * Index is floored
 	 *
+	 * @public
 	 * @param index
 	 */
 	setCurrentIndex(index) {
