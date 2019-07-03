@@ -153,6 +153,7 @@ class ImageSequenceAnimator {
 	 * Set animation progress. 0 = first image, 1 = last image.
 	 *
 	 * @public
+	 * @param progress
 	 */
 	setProgress(progress) {
 
