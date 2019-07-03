@@ -29,7 +29,7 @@
 	--book-perspective: 1700px;
 	--book-position: 12px; /* Small correction for rotation */
 	--book-movement: -12px;
-	--book-transform-duration: 500ms;
+	--book-transform-duration: 700ms;
 }
 
 .book img,
