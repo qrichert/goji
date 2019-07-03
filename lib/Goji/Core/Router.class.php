@@ -5,6 +5,7 @@
 	use Goji\Blueprints\HttpStatusInterface;
 	use Goji\HumanResources\Authentication;
 	use Goji\Parsing\RegexPatterns;
+	use Goji\Translation\Languages;
 	use App\Controller\HttpErrorController;
 	use Exception;
 
@@ -25,6 +26,9 @@
 		/* <CONSTANTS> */
 
 		const CONFIG_FILE = '../config/routes.json5';
+
+		const ACCEPT_ALL = 'all';
+		const ACCEPT_MULTIPLE = 'multiple';
 
 		const E_ROUTES_ARE_MISCONFIGURED = 0;
 		const E_ROUTE_LACKING_CONTROLLER = 1;
@@ -75,6 +79,45 @@
 				if (isset($config['routes']) && is_array($config['routes'])) {
 
 					foreach ($config['routes'] as $locale => &$route) {
+
+						/*
+						 * Maybe in languages config there is 'en_US' and 'en_GB', but in routes config there is only 'en'
+						 * In this case it would lead to the page not being found (current locale = 'en_US', searched locale = 'en')
+						 *
+						 * What we do here is if we find a locale that is not set in this languages config, and is 2 chars
+						 * long (country code), we compare it to the supported locales.
+						 *
+						 * Then for each supported locale starting with the same country code, we add the corresponding route.
+						 *
+						 * Languages config:
+						 * - en_US
+						 * - en_GB
+						 * - fr
+						 *
+						 * Routes config
+						 * - en => /login
+						 * - fr => /connexion
+						 *
+						 * After this process:
+						 *
+						 * Routes:
+						 * - en => /login
+						 * - en_US => /login (new)
+						 * - en_GB => /login (new)
+						 * - fr => /connexion
+						 */
+						if ($locale != self::ACCEPT_ALL
+						    && mb_strlen($locale) == 2
+						    && !in_array($locale, $this->m_app->getLanguages()->getSupportedLocales())) {
+
+							foreach ($this->m_app->getLanguages()->getSupportedLocales() as $supportedLocale) {
+
+								if ($locale != mb_substr($supportedLocale, 0, 2))
+									continue;
+
+								$config['routes'][$supportedLocale] = $route;
+							}
+						}
 
 						// There can be multiple paths for the same page
 						// You could have /home and /home-([0-9+]) with a parameter
@@ -169,6 +212,35 @@
 						// We know it's an array because it has been formatted by Router::formatRoutes()
 						foreach ($route as $alternativePath) {
 
+							/*
+							 * Formatted routes can have multiple locales pointing to the same page
+							 *
+							 * Routes:
+							 * - en => /login
+							 * - en_US => /login
+							 * - en_GB => /login
+							 *
+							 * Here, if we find a route that already has a locale set, we set it to self::ACCEPT_MULTIPLE and add a
+							 * 'force' parameter containing the forced country code.
+							 */
+							if (!empty($mappedRoutes[$alternativePath]['locale'])
+								&& $mappedRoutes[$alternativePath]['locale'] != self::ACCEPT_MULTIPLE) {
+
+								// Extract country code from already set locale
+								$forcedCountryCode = mb_substr($mappedRoutes[$alternativePath]['locale'], 0, 2);
+
+								$mappedRoutes[$alternativePath]['locale'] = self::ACCEPT_MULTIPLE;
+								$mappedRoutes[$alternativePath]['force'] = $forcedCountryCode;
+
+								continue;
+
+							} else if (!empty($mappedRoutes[$alternativePath]['locale'])
+							           && $mappedRoutes[$alternativePath]['locale'] == self::ACCEPT_MULTIPLE) {
+
+								// If we already set the locale to self::ACCEPT_MULTIPLE, we're good
+								continue;
+							}
+
 							$mappedRoutes[$alternativePath] = array(
 								'locale' => $locale,
 								'controller' => $controller,
@@ -182,7 +254,7 @@
 					foreach ($config['route'] as $alternativePath) {
 
 						$mappedRoutes[$alternativePath] = array(
-							'locale' => 'all', // No specific language
+							'locale' => self::ACCEPT_ALL, // No specific language
 							'controller' => $controller,
 							'page' => $page
 						);
@@ -291,9 +363,9 @@
 					$link = $this->m_routes[$page]['routes'][$locale][$index];
 
 				// If we have [page][routes][all]
-				} else if (isset($this->m_routes[$page]['routes']['all'][$index])) {
+				} else if (isset($this->m_routes[$page]['routes'][self::ACCEPT_ALL][$index])) {
 
-					$link = $this->m_routes[$page]['routes']['all'][$index];
+					$link = $this->m_routes[$page]['routes'][self::ACCEPT_ALL][$index];
 
 				// If we have [page][route]
 				} else if (isset($this->m_routes[$page]['route'][$index])) {
@@ -363,10 +435,34 @@
 				// We extract controller, locale and parameters
 				if (preg_match('#^' . $pagePattern . '$#', $page, $matches)) {
 
-					if (empty($route['locale']) || $route['locale'] == 'all')
+					if (empty($route['locale']) || $route['locale'] == self::ACCEPT_ALL) {
+
 						$this->m_app->getLanguages()->getCurrentLocale();
-					else
+
+					} else if ($route['locale'] == self::ACCEPT_MULTIPLE) {
+
+						$this->m_app->getLanguages()->getCurrentLocale();
+
+						// If we have a forced country code
+						if (!empty($route['force'])) {
+
+							// And it doesn't match the current one
+							if (!Languages::countryMatches(
+								$this->m_app->getLanguages()->getCurrentLocale(),
+								$route['force']
+							)) {
+
+								$forcedLocale = $this->m_app->getLanguages()->getBestLocaleMatchForCountryCode($route['force']);
+
+								if ($forcedLocale !== null)
+									$this->m_app->getLanguages()->setCurrentLocale($forcedLocale);
+							}
+						}
+
+					} else {
+
 						$this->m_app->getLanguages()->setCurrentLocale($route['locale']);
+					}
 
 					// $controller = \App\Controller\HomeController
 					$controller = '\App\Controller\\' . $route['controller'];

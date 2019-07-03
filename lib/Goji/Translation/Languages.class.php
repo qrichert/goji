@@ -129,6 +129,37 @@
 		}
 
 		/**
+		 * Returns true if country code matches, else returns false.
+		 *
+		 * Examples:
+		 * - en, en_US ? true
+		 * - en, en ? true
+		 * - en_US, en_GB ? true
+		 * - fr, en ? false
+		 *
+		 * @param $locale1
+		 * @param $locale2
+		 * @return bool
+		 */
+		public static function countryMatches($locale1, $locale2): bool {
+			return mb_substr($locale1, 0, 2) == mb_substr($locale2, 0, 2);
+		}
+
+		public function getBestLocaleMatchForCountryCode(string $countryCode): ?string {
+
+			// Make sure it's a country code and not a full locale
+			$countryCode = mb_substr($countryCode, 0, 2);
+
+			foreach ($this->m_supportedLocales as $locale) {
+
+				if ($countryCode == mb_substr($locale, 0, 2))
+					return $locale;
+			}
+
+			return null;
+		}
+
+		/**
 		 * Returns all locales, without description, and with hyphens instead of underscores.
 		 *
 		 * 'en-US', 'en-GB', 'fr'

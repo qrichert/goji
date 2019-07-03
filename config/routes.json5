@@ -37,7 +37,11 @@
 		controller: "HomeController"
 	},
 	"login": {
-		route: "/login",
+		routes: {
+			// Here '/login' is common to all en_* locales
+			en: "/login",
+			fr: "/connexion"
+		},
 		controller: "LoginController"
 	},
 	"logout": {

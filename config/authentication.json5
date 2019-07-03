@@ -5,7 +5,7 @@
 {
 	login: {
 		route: "login", // ID of the route to redirect to if current page is forbidden (see routes.json5)
-		redirect_to: ["_last", "home"], // Redirect to when log in is successful
+		redirect_to: ["_last", "home"]	// Redirect to when log in is successful
 										// Last page in history if possible, else "home" (route ID)
 										// If you want a constant page, just do 'redirect_to: "page"'
 	},

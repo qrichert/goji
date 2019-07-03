@@ -13,7 +13,7 @@
 		<segment id="NAV_HOME">Accueil</segment>
 		<segment id="NAV_ABOUT">À propos</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
-		<segment id="NAV_LOG_IN">Login</segment>
+		<segment id="NAV_LOG_IN">Connexion</segment>
 		<segment id="NAV_LOG_OUT">Déconnexion</segment>
 
 		<!-- Footer -->
@@ -62,7 +62,7 @@
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Essayez une autre langue :</segment>
 	</page>
 	<page id="login">
-		<segment id="LOGIN_PAGE_TITLE">Login</segment>
+		<segment id="LOGIN_PAGE_TITLE">Connexion</segment>
 		<segment id="LOGIN_PAGE_DESCRIPTION"></segment>
 		<segment id="LOGIN_FORM_EMAIL">Email</segment>
 		<segment id="LOGIN_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>

@@ -32,9 +32,12 @@ ln -s ~/Sites/goji/lib/Goji lib/Goji
 
 Using aliases may not work (like with `File` &rarr; `Make Alias` on macOS). Symlinks and aliases are
 different in that an alias merely points to a file (and knows how to find it wherever you move it).
-Symlinks on the other don't point to files (if you move the source it won't work, the link will be
-broken cause the original file path is hard written into it) but they can act like if they were the
-file they link to.
+Symlinks on the other don't point to files (they contain a path to a file) but they can act like if
+they were the file they link to.
+
+Just be careful about using absolute paths when creating them. If you use `~/Sites/goji/lib/Goji`
+they will work even if you move them (at least on macOS), but the if use `../goji/lib/Goji` they won't
+work if you move them, since the relative path will be broken.
 
 So aliases may not work because Apache or PHP or whatever will try to read them but it can't since
 it isn't the original file, it is merely a small file that points to it. But if you use a symlink

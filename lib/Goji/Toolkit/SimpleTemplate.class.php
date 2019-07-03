@@ -204,7 +204,7 @@
 		 * SimpleTemplate::NOINDEX_NOFOLLOW
 		 * ``
 		 *
-		 * @param \Goji\SimpleTemplate::ROBOTS_BEHAVIOUR $behaviour
+		 * @param \Goji\Toolkit\SimpleTemplate::ROBOTS_BEHAVIOUR $behaviour
 		 */
 		public function setRobotsBehaviour(int $behaviour): void {
 			$this->m_robotsBehaviour = $behaviour;
@@ -405,5 +405,16 @@
 				echo $output;
 
 			return null;
+		}
+
+		public static function anchorify(string $id): string {
+
+			// -#HÉllo, _world-! 123 :)
+			$id = mb_strtolower($id); // -#héllo, _world-! 123 :)
+			$id = SwissKnife::removeAccents($id); // -#hello, _world-! 123 :)
+			$id = preg_replace('#[^A-Z0-9]+#i', '-', $id); // -hello-world-123-
+			$id = trim($id, '-'); // hello-world-123
+
+			return $id;
 		}
 	}
