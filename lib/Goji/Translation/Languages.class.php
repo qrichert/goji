@@ -145,6 +145,12 @@
 			return mb_substr($locale1, 0, 2) == mb_substr($locale2, 0, 2);
 		}
 
+		/**
+		 * Returns first locale in config that matches a given country code.
+		 *
+		 * @param \Goji\Translation\string $countryCode
+		 * @return string|null
+		 */
 		public function getBestLocaleMatchForCountryCode(string $countryCode): ?string {
 
 			// Make sure it's a country code and not a full locale
