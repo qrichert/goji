@@ -90,8 +90,11 @@ don't have a top and bottom margin respectively.
   widget area's `centered` modifier and contain an `h1` (error) and a `p` (description).
 - **`.text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.
 - **`.side-by-side`**: Puts two blocks side by side and centers them. Ideally used with two `div` children.
-  You can add an `.image` modifier to one or
-    - **``**:
+  When the screen gets tighter, the blocks are displayed in column.
+  You can add several modifiers to it:
+    - **`.reverse-on-squeeze`**: Invert the order of the elements in columns mode
+    - **`.image`**: To be applied to the children. Gives the contained image(s) a max width of 250px and
+      centers it horizontally
 
 Generic
 -------
@@ -129,7 +132,8 @@ The following modifiers should be used in combination with `.highlight` or `.del
 
 There are other classes that imitate buttons:
 
-- **`.call-to-action`**: A big button
+- **`.call-to-action`**: A big button. You can wrap it inside a `div.call-to-action__wrapper` so
+  Goji can add variations depending on the situation (like centering it).
     - **`.small`**: Same, but small
     - **`.smaller`**: Same, but even smaller
 

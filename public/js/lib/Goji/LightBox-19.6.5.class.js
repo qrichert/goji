@@ -2,6 +2,7 @@
  * LightBox class
  *
  * How to use it:
+ * --------------
  *
  * Look at SliderLightBoxInterface for a good example. It's short, just a contructor().
  *

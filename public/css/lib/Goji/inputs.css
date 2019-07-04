@@ -469,3 +469,11 @@ input[type=checkbox]:checked + label > span::after {
 	font-size: 15px;
 	line-height: 14px;
 }
+
+/* Up to to 920px */
+@media all and (max-width: 920px) {
+
+	section.side-by-side .call-to-action__wrapper {
+		text-align: center;
+	}
+}

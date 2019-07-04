@@ -592,6 +592,27 @@ label {
 		padding-left: calc(1.5 * var(--gutter-default));
 		padding-right: calc(1.5 * var(--gutter-default));
 	}
+
+	section.side-by-side {
+		flex-direction: column;
+	}
+
+	section.side-by-side > * {
+		width: 100%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	section.side-by-side.reverse-on-squeeze {
+		flex-direction: column-reverse;
+	}
+
+	section.side-by-side > .image img {
+		display: block;
+		width: 100%;
+		max-width: 250px;
+		margin: auto;
+	}
 }
 
 /* Down to 701px */
@@ -712,7 +733,7 @@ label {
 		/* .nav__burger-menu has flex-shrink: 0;
 		so it takes max space without compressing
 		the burger menu. */
-		max-width: 100%;
+		width: 100%;
 		margin-left: 0;
 	}
 

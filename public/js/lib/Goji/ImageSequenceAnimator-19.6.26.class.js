@@ -1,8 +1,8 @@
 /**
  * ImageSequenceAnimator class
- * ---------------------------
  *
- * How to use it
+ * How to use it:
+ * --------------
  *
  * <div>
  *     <img src="image-sequence.png" alt="">
@@ -15,6 +15,9 @@
  * imageSequenceAnimator.setProgress(0.5); // Between 0 and 1
  * imageSequenceAnimator.setCurrentIndex(3); // Starts at 0
  * imageSequenceAnimator.setCurrentGridIndex(1, 4); // column, row (or x, y), both start at 0
+ *
+ * /!\ If you set the progress immediately after like that it will probably not work, because the
+ * image hasn't had time to load (and so the call will be rejected). Allow a small delay /!\
  *
  * The image sequence aspect ratio is automatically calculated using naturalWidth/Height property.
  * This works great on raster images but is inconsistent with SVGs. (For example, a 300x300 viewBox
@@ -184,15 +187,15 @@ class ImageSequenceAnimator {
 		if (!this.m_ready)
 			return;
 
-		if (index > this.m_nbImages)
-			index = this.m_nbImages;
+		if (index > this.m_nbImages - 1)
+			index = this.m_nbImages - 1;
 
 		index = Math.floor(index);
 		this.m_currentImageIndex = index;
 
 		// 0 = 1st row or column
-		let row = Math.ceil(this.m_currentImageIndex / this.m_nbImagesPerRow) - 1; // 17 / 10 = 1.7 = 2 -> row 2 -> 1
-		let column = this.m_currentImageIndex - (row * this.m_nbImagesPerRow) - 1; // 17 - (1 * 10) = 17 - 10 = 7 -> column 7 -> 6
+		let row = Math.trunc(this.m_currentImageIndex / this.m_nbImagesPerRow); // trunc(17 / 10) = trunc(1.7) = 1 -> row 1 (2nd row)
+		let column = this.m_currentImageIndex - (row * this.m_nbImagesPerRow); // 17 - (1 * 10) = 17 - 10 = 7 -> column 7 (8th column)
 
 		this.setCurrentGridIndex(column, row);
 	}
