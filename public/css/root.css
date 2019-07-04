@@ -33,6 +33,7 @@
 	--gutter-xthin: 4px;
 
 	--border-radius-default: 4px;
+	--border-radius-medium: 15px;
 
 	--header-height: 116px;
 	--header-height-alt: 55px;
@@ -76,8 +77,10 @@
 	--color-header: transparent;
 	--color-footer: #f8fafb;
 
-	--color-highlight: #4baff1; /* hsl(204, 86%, 62%); */
-	--color-highlight-halo: hsla(204, 64%, 60%, 0.25);
+	--color-highlight: #026fe3; /* hsl(210, 99%, 89%); */
+	--color-highlight-hover: #026ccf;
+	--color-highlight-halo: hsla(210, 74%, 86%, 0.30);
+
 
 	--color-text-dark: #171c21;
 	--color-text-default: var(--color-default);
@@ -88,7 +91,7 @@
 	--color-text-xxxxlight: #dedede;
 	--color-text-xxxxxlight: #f1f1f1;
 
-	--color-link: #0366d6;
+	--color-link: var(--color-highlight);
 	--color-link-hover: var(--color-link);
 	--color-link-alt: white;
 	--color-link-hover-alt: var(--color-link-alt);
