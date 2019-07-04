@@ -20,7 +20,6 @@
 		<!-- Right -->
 		<div class="footer__explore">
 			<?php
-
 				// Can't change language on error page
 				if (!$this->m_app->getRouter()->getCurrentPageIsErrorPage()) {
 
