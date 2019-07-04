@@ -39,6 +39,7 @@
 	<page id="home">
 		<segment id="HOME_PAGE_TITLE">Home</segment>
 		<segment id="HOME_PAGE_DESCRIPTION"></segment>
+		<segment id="HOME_PRE_HEADING">Welcome, and</segment>
 		<segment id="HOME_FOOBAR">Foobar?</segment>
 		<segment id="HOME_PLURALIZATION">
 			<!--

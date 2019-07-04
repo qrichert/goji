@@ -40,12 +40,13 @@
 		<!-- Style -->
 		<?php
 
+			// Put library files first, so you can overwrite them.
 			$template->linkFiles(array(
 				'css/root.css',
 				'css/goji.css',
+				'css/lib/Goji/inputs.css',
 				'css/main.css',
-				'css/responsive.css',
-				'css/lib/Goji/inputs.css'
+				'css/responsive.css'
 			));
 
 		?>

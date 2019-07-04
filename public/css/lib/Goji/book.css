@@ -24,6 +24,7 @@
 	--book-edge: 12%;
 	--book-edge-margin: 1px;
 	--book-edge-color: #24292e;
+	--book-pages-color: #efeeea;
 	--book-edge-title: "";
 	--book-rotation: 17deg;
 	--book-perspective: 1700px;
@@ -113,7 +114,6 @@
 	top: 0;
 	width: var(--book-edge);
 	height: 100%;
-	background-color: var(--book-edge-color);
 	/* Text */
 	writing-mode: vertical-rl;
 	color: white;
@@ -126,6 +126,7 @@
 /* Book Edge - Left */
 
 .book.left::after {
+	background-color: var(--book-edge-color);
 	left: calc((0px - var(--book-edge-margin)) - var(--book-edge));
 	transform-origin: right center;
 	transform: perspective(var(--book-perspective))
@@ -140,6 +141,7 @@
 /* Book Edge - Right */
 
 .book.right::after {
+	background-color: var(--book-pages-color);
 	right: calc((0px - var(--book-edge-margin)) - var(--book-edge));
 	transform-origin: left center;
 	transform: perspective(var(--book-perspective))

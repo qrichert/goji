@@ -406,3 +406,66 @@ input[type=checkbox] + label > span::after {
 input[type=checkbox]:checked + label > span::after {
 	left: var(--input-checkbox-checked-button-left);
 }
+
+/* Progress Bar */
+
+.progress-bar {
+	display: block;
+	width: 100%;
+	height: var(--progress-bar-height);
+	border-radius: calc(var(--progress-bar-height) / 2);
+	margin: 0;
+	background-color: var(--color-text-xxxxxlight);
+	position: relative;
+	visibility: hidden;
+}
+
+.progress-bar.shown {
+	visibility: visible;
+}
+
+.progress-bar > .progress {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: inherit;
+	border-radius: inherit;
+	width: 42%;
+	background-color: var(--color-highlight);
+	transition: width 70ms ease;
+}
+
+/* Call to actions */
+
+.call-to-action {
+	display: inline-block;
+	color: white;
+	background-color: var(--color-highlight);
+	cursor: pointer;
+	transition: background-color 300ms ease;
+}
+
+.call-to-action:hover {
+	color: white;
+	text-decoration: none;
+	background-color: var(--color-highlight-hover);
+}
+
+.call-to-action {
+	padding: 15px 30px;
+	font-size: 19px;
+	line-height: 21px;
+}
+
+.call-to-action.small {
+	padding: 11px 20px;
+	font-size: 16px;
+	line-height: 25px;
+}
+
+.call-to-action.smaller {
+	padding: 10px 17px;
+	font-size: 15px;
+	line-height: 14px;
+}

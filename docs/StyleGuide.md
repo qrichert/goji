@@ -79,12 +79,19 @@ don't have a top and bottom margin respectively.
 #### Modifiers
 
 - **`.centered`**: Content is centered horizontally.
-- **`.no-padding`**: Section that has no padding, must be combined with either or both:
-    - **`.no-padding.h`**: No padding left and right (horizontal)
-    - **`.no-padding.v`**: No padding top and bottom (vertical)
+- **`.no-padding`**: Section that has no padding, you can be more specific with:
+    - **`.no-padding.h`**: No padding left and right only (horizontal)
+    - **`.no-padding.v`**: No padding top and bottom only (vertical)
+    - **`.no-padding.t`**: No padding top only
+    - **`.no-padding.r`**: No padding right only
+    - **`.no-padding.b`**: No padding bottom only
+    - **`.no-padding.l`**: No padding left only
 - **`.error`**: Made for HTTP error pages. Content is centered horizontally. Should be combined with
   widget area's `centered` modifier and contain an `h1` (error) and a `p` (description).
 - **`.text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.
+- **`.side-by-side`**: Puts two blocks side by side and centers them. Ideally used with two `div` children.
+  You can add an `.image` modifier to one or
+    - **``**:
 
 Generic
 -------
@@ -92,13 +99,15 @@ Generic
 - **`.hidden`**: Display none
 - **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
 - **`.loading-dots`**: (on empty `div`) Animated dots to show loading (`<div class="loading-dots loading"></div>`)
+- **`.scalable`**: Element gets scaled by a 1.023 factor on hover
+- **`.rounded`**: Rounds corners at `--border-radius-medium`
 
 Buttons
 -------
 
 *(Part of `lib/Goji/inputs.css`)*
 
-There are three versions of buttons : `<button>`, `<input>` and `<a class="link-button">` which
+There are three versions of buttons: `<button>`, `<input>` and `<a class="link-button">` which
 transforms a link into a button.
 
 #### Modifiers
@@ -115,6 +124,14 @@ The following modifiers should be used in combination with `.highlight` or `.del
     - **`.loading`**: Loading in progress
     - **`.loaded`**: Loading was successful
     - **`.failed`**: Loading has failed
+
+#### Other Button-Like Elements
+
+There are other classes that imitate buttons:
+
+- **`.call-to-action`**: A big button
+    - **`.small`**: Same, but small
+    - **`.smaller`**: Same, but even smaller
 
 Special Form Elements
 ---------------------
