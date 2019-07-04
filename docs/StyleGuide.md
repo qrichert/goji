@@ -143,6 +143,12 @@ Special Form Elements
 *(Part of `lib/Goji/inputs.css`)*
 
 - **`.select-wrapper > select`**: To style `select` inputs
-- **`input[type=checkbox] + label > span`**: Styled checkbox (`<input type="checkbox" id="cb"><label for="cb"><span></span>Toggle me!</label>`)
-- **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in % (`<div class="progress-bar"><div class="progress"></div></div>`).
+- **`input[type=checkbox] + label > span`**: Styled checkbox:
+  ```html
+  <input type="checkbox" id="cb"><label for="cb"><span></span>Toggle me!</label>
+  ```
+- **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in %
+  ```html
+  <div class="progress-bar"><div class="progress"></div></div>
+  ```
   Add a `.shown` modifier to reveal it (`visibility: hidden;` by default).
