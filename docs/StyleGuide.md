@@ -101,7 +101,10 @@ Generic
 
 - **`.hidden`**: Display none
 - **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
-- **`.loading-dots`**: (on empty `div`) Animated dots to show loading (`<div class="loading-dots loading"></div>`)
+- **`.loading-dots`**: (on empty `div`) Animated dots to show loading:
+  ```html
+  <div class="loading-dots loading"></div>
+  ```
 - **`.scalable`**: Element gets scaled by a 1.023 factor on hover
 - **`.rounded`**: Rounds corners at `--border-radius-medium`
 
@@ -151,4 +154,4 @@ Special Form Elements
   ```html
   <div class="progress-bar"><div class="progress"></div></div>
   ```
-  Add a `.shown` modifier to reveal it (`visibility: hidden;` by default).
+  Add a `.shown` modifier to reveal it (`visibility: hidden;` by default)
