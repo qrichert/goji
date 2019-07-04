@@ -105,6 +105,7 @@ Generic
   ```html
   <div class="loading-dots loading"></div>
   ```
+  Use the `.loading` modifier as show above to trigger the loading animation
 - **`.scalable`**: Element gets scaled by a 1.023 factor on hover
 - **`.rounded`**: Rounds corners at `--border-radius-medium`
 
