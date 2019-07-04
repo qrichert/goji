@@ -22,6 +22,7 @@
 		private $m_routes;
 		private $m_mappedRoutes;
 		private $m_currentPage;
+		private $m_currentPageIsErrorPage;
 
 		/* <CONSTANTS> */
 
@@ -53,6 +54,7 @@
 			$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
 
 			$this->m_currentPage = null;
+			$this->m_currentPageIsErrorPage = false;
 		}
 
 		/**
@@ -297,8 +299,22 @@
 			$this->m_currentPage = $page;
 		}
 
+		/**
+		 * Returns true if current page is set, else false.
+		 *
+		 * @return bool
+		 */
 		public function hasCurrentPage(): bool {
 			return isset($this->m_currentPage);
+		}
+
+		/**
+		 * Returns true if current page is a http-error-* page, false if not.
+		 *
+		 * @return bool
+		 */
+		public function getCurrentPageIsErrorPage(): bool {
+			return $this->m_currentPageIsErrorPage;
 		}
 
 		/**
@@ -525,6 +541,8 @@
 		 * @throws \Exception
 		 */
 		private function redirectToErrorDocument(?int $errorCode): void {
+
+			$this->m_currentPageIsErrorPage = true;
 
 			$controller = new HttpErrorController($this->m_app);
 			$controller->setHttpError($errorCode);
