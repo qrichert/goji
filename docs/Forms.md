@@ -139,8 +139,11 @@ first parameter.
 
 ```php
 $input = new InputCustom('sometype');
+```
 
-// will render as
+Will render as:
+
+```html
 <input type="sometype">
 ```
 
