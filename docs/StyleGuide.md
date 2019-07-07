@@ -8,7 +8,7 @@ Style Guide
 5. [Buttons](#buttons)
 6. [Special Form Elements](#special-form-elements)
 
-***Note:** modifiers are just classes you add. For example a `section` with a text modifier is just
+***Note:** Modifiers are just classes you add. For example a `section` with a text modifier is just
 a `section.text` or `<section class="text">`.*
 
 Files

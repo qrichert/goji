@@ -113,6 +113,37 @@ $sanitizeCallback = function($value) {
 $textInput = new InputText(null, false, $sanitizeCallback);
 ```
 
+### All available inputs
+
+***Note:** Classes that inherit from the one above are indented one level.*
+
+- `InputButton`
+	- `InputButtonElement`
+	- `InputButtonImage`
+	- `InputButtonReset`
+	- `InputButtonSubmit`
+- `InputCustom`
+- `InputFile`
+- `InputHidden`
+- `InputLabel`
+- `InputText`
+	- `InputTextArea`
+	- `InputTextEmail`
+	- `InputTextPassword`
+	- `InputTextSearch`
+	- `InputTextTel`
+	- `InputTextUrl`
+	
+The `InputCustom` is an empty input, where you must specify the input `type` as
+first parameter.
+
+```php
+$input = new InputCustom('sometype');
+
+// will render as
+<input type="sometype">
+```
+
 Complete Example
 ----------------
 
