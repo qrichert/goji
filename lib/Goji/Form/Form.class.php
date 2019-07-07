@@ -18,6 +18,8 @@
 
 	namespace Goji\Form;
 
+	use Goji\Parsing\RegexPatterns;
+
 	/**
 	 * Class Form
 	 *
@@ -42,8 +44,11 @@
 		 *
 		 * @param string|null $action
 		 * @param string $method
+		 * @param string $enctype
 		 */
-		public function __construct(?string $action = null, string $method = self::METHOD_POST) {
+		public function __construct(?string $action = null,
+		                            string $method = self::METHOD_POST,
+		                            string $enctype = self::ENCTYPE_URLENCODED) {
 
 			parent::__construct();
 
@@ -51,7 +56,7 @@
 
 			$this->setAction($action);
 			$this->setMethod($method);
-			$this->setEnctype(self::ENCTYPE_URLENCODED);
+			$this->setEnctype($enctype);
 		}
 
 		/**
@@ -121,6 +126,53 @@
 		}
 
 		/**
+		 * @param array $keys
+		 * @param array $subject
+		 * @return mixed|null
+		 */
+		private function getValueFromArrayKeys(array $keys, array &$subject) {
+
+			$key = array_shift($keys); // Get the first key and remove it
+			$value = &$subject[$key] ?? null;
+
+			if ($value === null)
+				return null;
+
+			if (empty($keys)) { // It was the last key, se we good
+
+				return $value;
+
+			} else {
+
+				return $this->getValueFromArrayKeys($keys, $value);
+			}
+		}
+
+		public function hydrate(): void {
+
+			foreach ($this->m_inputs as $input) {
+
+				$inputName = $input->getAttribute('name'); // foo[bar][baz][]
+
+				if (empty($inputName))
+					continue;
+
+				preg_match_all(RegexPatterns::htmlInputNameArrayKeys(), $inputName, $matches, PREG_PATTERN_ORDER);
+				$matches = $matches[1]; // first capturing group (contains index name without the brackets [])
+
+				if (!is_array($matches))
+					$matches = array($matches);
+
+				if ($input instanceof InputFile)
+					$inputValue = $_FILES[$matches[0]] ?? null;
+				else
+					$inputValue = $this->getValueFromArrayKeys($matches, $_POST);
+
+				$input->setValue($inputValue);
+			}
+		}
+
+		/**
 		 * Append an input to the form
 		 *
 		 * If input is of type InputFile, enctype will automatically be set to multipart/form-data.
@@ -149,19 +201,20 @@
 		 * Names are name="" attributes. So if you didn't set them, the array will
 		 * only contain empty strings.
 		 *
-		 * @param array $details
+		 * @param array $detail
 		 * @return bool
 		 */
-		public function isValid(array &$details = null): bool {
+		public function isValid(&$detail = null): bool {
 
+			$detail = array();
 			$valid = true;
 
 			foreach ($this->m_inputs as $input) {
 
 				if (!$input->isValid()) {
 
-					if ($details !== null)
-						$details[] = $input->getAttribute('name');
+					if ($detail !== null)
+						$detail[] = $input->getAttribute('name');
 
 					$valid = false;
 				}

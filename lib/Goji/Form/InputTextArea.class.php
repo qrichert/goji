@@ -6,26 +6,13 @@
 
 		/* <ATTRIBUTES> */
 
-		public function __construct() {
+		public function __construct(callable $isValidCallback = null,
+		                            bool $forceCallbackOnly = false,
+		                            callable $sanitizeCallback = null) {
 
-			parent::__construct();
+			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
 			$this->m_scheme = '<textarea type="text" %{ATTRIBUTES}>';
-		}
-
-		public function isValid(): bool {
-
-			$valid = true;
-
-			if (!$this->m_forceCallbackOnly) {
-
-				$valid = (
-					$this->isNotEmptyIfRequired()
-					&& $this->isShorterThanMaxLength()
-				);
-			}
-
-			return $valid && $this->isValidCallback();
 		}
 
 		public function render(): void {

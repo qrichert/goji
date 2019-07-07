@@ -6,11 +6,17 @@
 
 		/* <ATTRIBUTES> */
 
-		public function __construct() {
+		public function __construct(callable $isValidCallback = null,
+		                            bool $forceCallbackOnly = false,
+		                            callable $sanitizeCallback = null) {
 
-			parent::__construct();
+			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
 			$this->m_scheme = '<input type="text" %{ATTRIBUTES}>';
+		}
+
+		public function setValue($value, $updateValueAttribute = true): FormElementAbstract {
+			return parent::setValue($value, $updateValueAttribute);
 		}
 
 		public function isValid(): bool {
@@ -19,10 +25,21 @@
 
 			if (!$this->m_forceCallbackOnly) {
 
-				$valid = (
-					$this->isNotEmptyIfRequired()
-					&& $this->isShorterThanMaxLength()
-				);
+				if ($this->isRequiredButEmpty()) { // required && empty
+
+					$valid = false;
+
+				} else {
+
+					if (!$this->isEmpty()) { // not required / not empty
+
+						$valid = (
+							$this->isShorterThanMaxLength()
+							&& $this->isLongerThanMinLength()
+						);
+					}
+					// else {} not required / empty
+				}
 			}
 
 			return $valid && $this->isValidCallback();

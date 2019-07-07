@@ -6,11 +6,17 @@
 
 		/* <ATTRIBUTES> */
 
-		public function __construct() {
+		public function __construct(callable $isValidCallback = null,
+		                            bool $forceCallbackOnly = false,
+		                            callable $sanitizeCallback = null) {
 
-			parent::__construct();
+			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
 			$this->m_scheme = '<input type="hidden" %{ATTRIBUTES}>';
+		}
+
+		public function setValue($value, $updateValueAttribute = true): FormElementAbstract {
+			return parent::setValue($value, $updateValueAttribute);
 		}
 
 		public function isValid(): bool {

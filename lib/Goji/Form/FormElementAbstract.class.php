@@ -9,6 +9,7 @@
 		protected $m_scheme;
 		protected $m_isValidCallback;
 		protected $m_forceCallbackOnly;
+		protected $m_sanitizeCallback;
 		protected $m_value;
 
 		/**
@@ -16,19 +17,23 @@
 		 *
 		 * @param callable|null $isValidCallback Callback to custom check validity of the input
 		 * @param bool $forceCallbackOnly If true, use only the callback to check validity, not default check (default = false)
+		 * @param callable|null $sanitizeCallback
 		 */
-		public function __construct(callable $isValidCallback = null, bool $forceCallbackOnly = false) {
+		public function __construct(callable $isValidCallback = null,
+		                            bool $forceCallbackOnly = false,
+									callable $sanitizeCallback = null) {
 
 			parent::__construct();
 
 			$this->m_scheme = '';
 			$this->m_isValidCallback = $isValidCallback;
 			$this->m_forceCallbackOnly = $forceCallbackOnly;
+			$this->m_sanitizeCallback = $sanitizeCallback;
 			$this->m_value = null;
 		}
 
 		/**
-		 * @return |null
+		 * @return mixed
 		 */
 		public function getValue() {
 			return $this->m_value;
@@ -36,9 +41,21 @@
 
 		/**
 		 * @param $value
+		 * @param bool $updateValueAttribute
+		 * @return \Goji\Form\FormElementAbstract
 		 */
-		public function setValue($value): void {
+		public function setValue($value, $updateValueAttribute = false): FormElementAbstract {
+
+			$sanitizeCallback = $this->m_sanitizeCallback;
+
+			if (is_callable($sanitizeCallback))
+				$value = $sanitizeCallback($value);
+
+			if ($updateValueAttribute)
+				$this->setAttribute('value', $value);
+
 			$this->m_value = $value;
+			return $this;
 		}
 
 /* <VALIDITY> */
@@ -49,14 +66,49 @@
 		abstract public function isValid(): bool;
 
 		/**
+		 * @return bool
+		 */
+		protected function isRequired(): bool {
+			return $this->hasAttribute('required');
+		}
+
+		/**
+		 * @return bool
+		 */
+		protected function isEmpty(): bool {
+			return empty($this->m_value);
+		}
+
+		/**
+		 * @return bool
+		 */
+		protected function isRequiredButEmpty(): bool {
+			// true = problem
+			return $this->isRequired() && $this->isEmpty();
+		}
+
+		/**
+		 * @return bool
+		 */
+		protected function isEmptyButNotRequired(): bool {
+			return $this->isEmpty() && !$this->isRequired();
+		}
+
+		/**
 		 * Is the result of the callback function (if any) true.
 		 *
 		 * @return bool
 		 */
 		protected function isValidCallback(): bool {
 
-			if ($this->m_isValidCallback !== null)
-				return $this->m_isValidCallback();
+			if ($this->isEmptyButNotRequired())
+				return true;
+
+			$callback = $this->m_isValidCallback; // Doesn't work with $this->m_isValidCallback(),
+												  // takes it as a method that doesn't exist
+
+			if (is_callable($callback))
+				return $callback($this->m_value);
 			else
 				return true;
 		}
@@ -66,12 +118,12 @@
 		 */
 		protected function isNotEmptyIfRequired(): bool {
 
-			if (!$this->hasAttribute('required'))
-				return true;
+			if (!$this->isRequired()) // If not required
+				return true; // valid
 
-			// Here, is required
+			// Here, if required
 
-			return !empty($this->getValue());
+			return !$this->isEmpty(); // false if empty, true if not
 		}
 
 		/**
@@ -85,6 +137,19 @@
 			$maxlength = (int) $this->getAttribute('maxlength');
 
 			return is_numeric($this->getValue()) && mb_strlen((string) $this->getValue()) <= $maxlength;
+		}
+
+		/**
+		 * @return bool
+		 */
+		protected function isLongerThanMinLength(): bool {
+
+			if (!$this->hasAttribute('minlength'))
+				return true;
+
+			$minlength = (int) $this->getAttribute('minlength');
+
+			return is_numeric($this->getValue()) && mb_strlen((string) $this->getValue()) >= $minlength;
 		}
 
 /* <RENDERING> */

@@ -158,4 +158,10 @@ EOT;
 #[\s\r\n\t\p{Z}]+#
 EOT;
 		}
+
+		public static function htmlInputNameArrayKeys(): string {
+			return <<<'EOT'
+#\[?([^\[\]]+)\]?#
+EOT;
+		}
 	}

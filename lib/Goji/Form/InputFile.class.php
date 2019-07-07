@@ -6,11 +6,20 @@
 
 		/* <ATTRIBUTES> */
 
-		public function __construct() {
+		public function __construct(callable $isValidCallback = null,
+		                            bool $forceCallbackOnly = false,
+		                            callable $sanitizeCallback = null) {
 
-			parent::__construct();
+			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
 			$this->m_scheme = '<input type="file" %{ATTRIBUTES}>';
+		}
+
+		private function isUploadOk(): bool {
+
+			$uploadError = $this->m_value['error'] ?? null;
+
+			return $uploadError == UPLOAD_ERR_OK;
 		}
 
 		public function isValid(): bool {
@@ -19,11 +28,19 @@
 
 			if (!$this->m_forceCallbackOnly) {
 
-				$valid = (
-					$this->isNotEmptyIfRequired()
-				);
+				if ($this->isRequiredButEmpty()) {
+
+					$valid = false;
+
+				} else { // not required, but may be empty
+
+					if (!$this->isEmpty()) {
+
+						$valid = $this->isUploadOk();
+					}
+				}
 			}
 
-			return $this->isValidCallback();
+			return $valid && $this->isValidCallback();
 		}
 	}

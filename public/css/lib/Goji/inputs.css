@@ -44,6 +44,7 @@ input[type=text],
 input[type=password],
 input[type=email],
 input[type=url],
+input[type=search],
 input[type=number],
 textarea,
 select {
@@ -104,6 +105,7 @@ input[type=text]:focus,
 input[type=password]:focus,
 input[type=email]:focus,
 input[type=url]:focus,
+input[type=search]:focus,
 input[type=number]:focus,
 textarea:focus,
 select:focus{
@@ -121,6 +123,8 @@ input[type=email]:read-only,
 input[type=email]:disabled,
 input[type=url]:read-only,
 input[type=url]:disabled,
+input[type=search]:read-only,
+input[type=search]:disabled,
 input[type=number]:read-only,
 input[type=number]:disabled,
 textarea:read-only,
@@ -132,6 +136,7 @@ select:disabled {
 /* Buttons - Regular */
 
 button,
+input[type=button],
 input[type=submit],
 input[type=reset],
 .link-button {
@@ -165,6 +170,7 @@ input[type=reset],
 /* Buttons - Regular - :HOVER */
 
 button:hover,
+input[type=button]:hover,
 input[type=submit]:hover,
 input[type=reset]:hover,
 .link-button:hover {
@@ -176,6 +182,7 @@ input[type=reset]:hover,
 /* Buttons - Regular - :ACTIVE */
 
 button:active,
+input[type=button]:active,
 input[type=submit]:active,
 input[type=reset]:active,
 .link-button:active {
@@ -185,6 +192,7 @@ input[type=reset]:active,
 /* Buttons - Highlight */
 
 button.highlight,
+input[type=button].highlight,
 input[type=submit].highlight,
 input[type=reset].highlight,
 .link-button.highlight {
@@ -196,6 +204,7 @@ input[type=reset].highlight,
 /* Buttons - Highlight - :HOVER */
 
 button.highlight:hover,
+input[type=button].highlight:hover,
 input[type=submit].highlight:hover,
 input[type=reset].highlight:hover,
 .link-button.highlight:hover {
@@ -205,6 +214,7 @@ input[type=reset].highlight:hover,
 /* Buttons - Delete */
 
 button.delete,
+input[type=button].delete,
 input[type=submit].delete,
 input[type=reset].delete,
 .link-button.delete {
@@ -216,6 +226,7 @@ input[type=reset].delete,
 /* Buttons - Delete - :HOVER */
 
 button.delete:hover,
+input[type=button].delete:hover,
 input[type=submit].delete:hover,
 input[type=reset].delete:hover,
 .link-button.delete:hover {
@@ -225,6 +236,7 @@ input[type=reset].delete:hover,
 /* Buttons - Add */
 
 button.add:hover::after,
+input[type=button].add:hover::after,
 input[type=submit].add:hover::after,
 input[type=reset].add:hover::after,
 .link-button.add:hover::after {
@@ -242,6 +254,7 @@ input[type=reset].add:hover::after,
 /* Buttons - Loader - (Normal State) */
 
 button.loader:hover::after,
+input[type=button].loader:hover::after,
 .link-button.loader:hover::after {
 	content: '';
 	display: inline-block;
@@ -258,6 +271,7 @@ button.loader:hover::after,
 /* Buttons - Loading (When Loading Data) */
 
 button.loader.loading::after,
+input[type=button].loader.loading::after,
 .link-button.loader.loading::after {
 	transition: width 2s ease;
 	content: '';
@@ -275,6 +289,7 @@ button.loader.loading::after,
 /* Buttons - Loaded - (Data Finished Loading) */
 
 button.loader.loaded::after,
+input[type=button].loader.loaded::after,
 .link-button.loader.loaded::after {
 	content: '';
 	display: inline-block;
@@ -291,6 +306,7 @@ button.loader.loaded::after,
 /* Buttons - Loading Failed - (Error While Loading Data) */
 
 button.loader.failed::after,
+input[type=button].loader.failed::after,
 .link-button.loader.failed::after {
 	content: '';
 	display: inline-block;
@@ -309,6 +325,9 @@ button.loader.failed::after,
 button:disabled,
 button.highlight:disabled,
 button.delete:disabled,
+input[type=button]:disabled,
+input[type=button].highlight:disabled,
+input[type=button].delete:disabled,
 input[type=submit]:disabled,
 input[type=submit].highlight:disabled,
 input[type=submit].delete:disabled,
@@ -335,6 +354,9 @@ input[type=reset].delete:disabled,
 button:disabled:hover::after,
 button.highlight:disabled:hover::after,
 button.delete:disabled:hover::after,
+input[type=button]:disabled:hover::after,
+input[type=button].highlight:disabled:hover::after,
+input[type=button].delete:disabled:hover::after,
 input[type=submit]:disabled:hover::after,
 input[type=submit].highlight:disabled:hover::after,
 input[type=submit].delete:disabled:hover::after,

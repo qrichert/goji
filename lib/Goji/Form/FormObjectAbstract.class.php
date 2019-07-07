@@ -31,10 +31,10 @@
 		/**
 		 * Get the value of a specific attribute
 		 *
-		 * @param $key
+		 * @param string $key
 		 * @return string
 		 */
-		public function getAttribute($key): string {
+		public function getAttribute(string $key): string {
 			return $this->m_attributes[$key] ?? '';
 		}
 
@@ -60,7 +60,7 @@
 		 * @param $value (optional)
 		 * @return \Goji\Form\FormObjectAbstract
 		 */
-		public function setAttribute($key, $value = null): FormObjectAbstract {
+		public function setAttribute(string $key, $value = null): FormObjectAbstract {
 
 			if ($value === null)
 				$value = '';

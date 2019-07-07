@@ -6,9 +6,11 @@
 
 		/* <ATTRIBUTES> */
 
-		public function __construct() {
+		public function __construct(callable $isValidCallback = null,
+		                            bool $forceCallbackOnly = false,
+		                            callable $sanitizeCallback = null) {
 
-			parent::__construct();
+			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
 			$this->m_scheme = '<button %{ATTRIBUTES}>';
 		}
