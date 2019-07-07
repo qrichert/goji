@@ -7,6 +7,13 @@
 ::placeholder			{ color: var(--color-disabled); }
 :-ms-input-placeholder	{ color: var(--color-disabled); }
 
+/* Label */
+
+label.required::after {
+	content: '*';
+	color: var(--color-danger);
+}
+
 /* Inputs - Regular */
 
 input,
@@ -68,6 +75,10 @@ textarea {
 	resize: vertical;
 }
 
+textarea.big {
+	min-height: 134px;
+}
+
 /* Selects */
 
 .select-wrapper {
@@ -92,6 +103,7 @@ textarea {
 
 .select-wrapper > select {
 	margin: 0;
+	padding-right: calc(15px + 0.8em);
 }
 
 select {

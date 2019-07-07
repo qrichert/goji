@@ -117,37 +117,74 @@ $textInput = new InputText(null, false, $sanitizeCallback);
 
 ***Note:** Classes that inherit from the one above are indented one level.*
 
+***Note:** Classes that render in paired tags (with an `<opening>` and `</closing>` tag),
+instead of a single tag (`<auto-closing>`) tag use the `textContent` attribute to set
+the inner content.*
+
 - `InputButton`
-	- `InputButtonElement`
-	- `InputButtonImage`
-	- `InputButtonReset`
-	- `InputButtonSubmit`
-- `InputCustom`
+    - `InputButtonElement`, uses `textContent`
+    - `InputButtonImage`
+    - `InputButtonReset`
+    - `InputButtonSubmit`
+- `InputCustom`, uses `textContent`
 - `InputFile`
 - `InputHidden`
-- `InputLabel`
+- `InputLabel`, uses `textContent`
+- `InputSelect`
+- `InputSelectOption`, uses `textContent`
+- `InputSelectOptionGroup`
 - `InputText`
-	- `InputTextArea`
-	- `InputTextEmail`
-	- `InputTextPassword`
-	- `InputTextSearch`
-	- `InputTextTel`
-	- `InputTextUrl`
-	
-The `InputCustom` is an empty input, where you must specify the input `type` as
-first parameter.
+    - `InputTextArea`
+    - `InputTextEmail`
+    - `InputTextPassword`
+    - `InputTextSearch`
+    - `InputTextTel`
+    - `InputTextUrl`
+
+#### InputCustom
+
+The `InputCustom` is an empty input, where you must specify the input opening tag and
+closing tag as first and second parameters. Note that `%{ATTRIBUTES}` will be replaced
+by the generated attributes.
 
 ```php
-$input = new InputCustom('sometype');
+$input = new InputCustom('<custom %{ATTRIBUTES}>', '</custom>');
+    $input->setAttribute('name', 'custom-element')
+          ->setAttribute('textContent', 'My Custom Element');
 ```
 
 Will render as:
 
 ```html
-<input type="sometype">
+<custom name="custom-element">My Custom Element</custom>
 ```
 
 It is your job to set the appropriate validity check callback.
+
+#### InputLabel
+
+`InputLabel` has a special method called `setSideInfo(string $tag, array $attributes = null, string $textContent = ''): InputLabel`.
+
+With this method you can add a side info to that label. A side info will appear right to the
+label and in a smaller font if you use Goji's default styling.
+
+The first parameter is the HTML tag name, the second an associative array of attribute name/value
+and the last the inner content of the tag.
+
+```php
+$form->addInput(new InputLabel())
+    ->setAttribute('textContent', 'Password')
+    ->setSideInfo('a', array('href' => '#'), 'Forgot password?');
+```
+
+Will render as (Goji adds some formatting on top of it to conform to default styling rules):
+
+```php
+<div class="form__label-relative">
+	<label>Password</label>
+	<a href="#" class="form__side-info">Forgot password?</a>
+</div>
+```
 
 Complete Example
 ----------------
@@ -155,22 +192,56 @@ Complete Example
 ```php
 $form = new Form();
     $form->setAttribute('class', 'form__contact');
+
         $form->addInput(new InputLabel())
              ->setAttribute('for', 'contact__name')
-             ->setAttribute('value', 'Enter your name:');
+             ->setAttribute('class', 'required')
+             ->setAttribute('textContent', 'Enter your name:')
+             ->setSideInfo('a', array('class' => 'label'), 'More infos?');
+
         $form->addInput(new InputText())
              ->setAttribute('name', 'contact[name]')
              ->setAttribute('id', 'contact__name')
              ->setAttribute('placeholder', 'John Doe')
              ->setAttribute('required');
+
         $form->addInput(new InputTextArea())
              ->setAttribute('name', 'contact[message]')
              ->setAttribute('id', 'contact__message')
+             ->setAttribute('class', 'big')
              ->setAttribute('placeholder', 'Message')
              ->setAttribute('required');
+
+        $inputSelect = new InputSelect();
+            $inputSelect->setAttribute('name', 'contact[preference]');
+
+            $optGroup = new InputSelectOptionGroup();
+            $optGroup->setAttribute('label', 'Group');
+            $optGroup->addOption(new InputSelectOption())
+                     ->setAttribute('value', 'hello')
+                     ->setAttribute('textContent', 'Hello');
+            $optGroup->addOption(new InputSelectOption())
+                     ->setAttribute('value', 'world')
+                     ->setAttribute('textContent', 'World');
+
+            $inputSelect->addOption($optGroup);
+
+            $inputSelect->addOption(new InputSelectOption())
+                        ->setAttribute('value', 'foo')
+                        ->setAttribute('textContent', 'Foo');
+
+            $inputSelect->addOption(new InputSelectOption())
+                        ->setAttribute('value', 'bar')
+                        ->setAttribute('textContent', 'Bar');
+
+        $form->addInput($inputSelect);
+
+        $form->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
+
         $form->addInput(new InputButtonSubmit());
 
-    $form->hydrate(); // Call hydrate() to auto-fill $_POST values into the form elements
+    if ($this->m_app->getRequestHandler()->getRequestMethod() === HttpMethodInterface::HTTP_POST)
+        $form->hydrate(); // Call hydrate() to auto-fill $_POST values into the form elements
 
 ...
 
@@ -182,9 +253,9 @@ $form->render(); // Prints the raw form
 // In the controller
 if ($this->m_app->getRequestHandler()->getRequestMethod() === HttpMethodInterface::HTTP_POST) {
 
-	if ($form->isValid())
-	    echo "Thanks!";
-	else
-	    echo "Your form contains errors.";
+    if ($form->isValid())
+        echo "Thanks!";
+    else
+        echo "Your form contains errors.";
 }
 ```

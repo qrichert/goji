@@ -2,16 +2,20 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputButtonImage
+	 *
+	 * @package Goji\Form
+	 */
 	class InputButtonImage extends InputButton {
 
-		/* <ATTRIBUTES> */
+		/**
+		 * InputButtonImage constructor.
+		 */
+		public function __construct() {
 
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+			parent::__construct();
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_scheme = '<input type="image" %{ATTRIBUTES}>';
+			$this->m_openingTag = '<input type="image" %{ATTRIBUTES}>';
 		}
 	}

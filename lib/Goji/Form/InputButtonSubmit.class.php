@@ -2,16 +2,20 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputButtonSubmit
+	 *
+	 * @package Goji\Form
+	 */
 	class InputButtonSubmit extends InputButton {
 
-		/* <ATTRIBUTES> */
+		/**
+		 * InputButtonSubmit constructor.
+		 */
+		public function __construct() {
 
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+			parent::__construct();
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_scheme = '<input type="submit" %{ATTRIBUTES}>';
+			$this->m_openingTag = '<input type="submit" %{ATTRIBUTES}>';
 		}
 	}

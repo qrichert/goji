@@ -2,16 +2,26 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputTextUrl
+	 *
+	 * @package Goji\Form
+	 */
 	class InputTextUrl extends InputText {
 
-		/* <ATTRIBUTES> */
-
+		/**
+		 * InputTextUrl constructor.
+		 *
+		 * @param callable|null $isValidCallback
+		 * @param bool $forceCallbackOnly
+		 * @param callable|null $sanitizeCallback
+		 */
 		public function __construct(callable $isValidCallback = null,
 		                            bool $forceCallbackOnly = false,
 		                            callable $sanitizeCallback = null) {
 
 			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			$this->m_scheme = '<input type="url" %{ATTRIBUTES}>';
+			$this->m_openingTag = '<input type="url" %{ATTRIBUTES}>';
 		}
 	}

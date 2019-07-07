@@ -2,23 +2,41 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputText
+	 *
+	 * @package Goji\Form
+	 */
 	class InputText extends FormElementAbstract {
 
-		/* <ATTRIBUTES> */
-
+		/**
+		 * InputText constructor.
+		 *
+		 * @param callable|null $isValidCallback
+		 * @param bool $forceCallbackOnly
+		 * @param callable|null $sanitizeCallback
+		 */
 		public function __construct(callable $isValidCallback = null,
 		                            bool $forceCallbackOnly = false,
 		                            callable $sanitizeCallback = null) {
 
 			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			$this->m_scheme = '<input type="text" %{ATTRIBUTES}>';
+			$this->m_openingTag = '<input type="text" %{ATTRIBUTES}>';
 		}
 
+		/**
+		 * @param $value
+		 * @param bool $updateValueAttribute
+		 * @return \Goji\Form\FormElementAbstract
+		 */
 		public function setValue($value, $updateValueAttribute = true): FormElementAbstract {
 			return parent::setValue($value, $updateValueAttribute);
 		}
 
+		/**
+		 * @return bool
+		 */
 		public function isValid(): bool {
 
 			$valid = true;

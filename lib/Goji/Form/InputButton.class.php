@@ -2,20 +2,20 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputButton
+	 *
+	 * @package Goji\Form
+	 */
 	class InputButton extends FormElementAbstract {
 
-		/* <ATTRIBUTES> */
+		/**
+		 * InputButton constructor.
+		 */
+		public function __construct() {
 
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+			parent::__construct();
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_scheme = '<input type="button" %{ATTRIBUTES}>';
-		}
-
-		public function isValid(): bool {
-			return true;
+			$this->m_openingTag = '<input type="button" %{ATTRIBUTES}>';
 		}
 	}

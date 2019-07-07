@@ -2,11 +2,17 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class FormElementAbstract
+	 *
+	 * @package Goji\Form
+	 */
 	abstract class FormElementAbstract extends FormObjectAbstract {
 
 		/* <ATTRIBUTES> */
 
-		protected $m_scheme;
+		protected $m_openingTag;
+		protected $m_closingTag;
 		protected $m_isValidCallback;
 		protected $m_forceCallbackOnly;
 		protected $m_sanitizeCallback;
@@ -25,7 +31,8 @@
 
 			parent::__construct();
 
-			$this->m_scheme = '';
+			$this->m_openingTag = '';
+			$this->m_closingTag = '';
 			$this->m_isValidCallback = $isValidCallback;
 			$this->m_forceCallbackOnly = $forceCallbackOnly;
 			$this->m_sanitizeCallback = $sanitizeCallback;
@@ -63,7 +70,9 @@
 		/**
 		 * @return bool
 		 */
-		abstract public function isValid(): bool;
+		public function isValid(): bool {
+			return true;
+		}
 
 		/**
 		 * @return bool
@@ -159,7 +168,9 @@
 		 */
 		public function render(): void {
 
-			$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_scheme);
+			$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag);
+			$output .= $this->hasAttribute('textContent') ? htmlspecialchars($this->getAttribute('textContent')) : '';
+			$output .= $this->m_closingTag;
 
 			echo $output;
 		}

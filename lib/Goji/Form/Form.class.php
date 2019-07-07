@@ -147,6 +147,9 @@
 			}
 		}
 
+		/**
+		 * Fill-in all POSTed values
+		 */
 		public function hydrate(): void {
 
 			foreach ($this->m_inputs as $input) {

@@ -2,29 +2,69 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputLabel
+	 *
+	 * @package Goji\Form
+	 */
 	class InputLabel extends FormElementAbstract {
 
 		/* <ATTRIBUTES> */
 
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+		private $m_sideInfo;
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
+		/**
+		 * InputLabel constructor.
+		 */
+		public function __construct() {
 
-			$this->m_scheme = '<label %{ATTRIBUTES}>';
+			parent::__construct();
+
+			$this->m_openingTag = '<label %{ATTRIBUTES}>';
+			$this->m_closingTag = '</label>';
+
+			$this->m_sideInfo = null;
 		}
 
-		public function isValid(): bool {
-			return true;
+		/**
+		 * @param string $tag
+		 * @param array|null $attributes
+		 * @param string $textContent
+		 * @return \Goji\Form\InputLabel
+		 */
+		public function setSideInfo(string $tag, array $attributes = null, string $textContent = ''): InputLabel {
+
+			if ($attributes === null)
+				$attributes = array();
+
+			if (array_key_exists('class', $attributes))
+				$attributes['class'] = $attributes['class'] . ' form__side-info';
+			else
+				$attributes['class'] = 'form__side-info';
+
+			$renderedAttributes = '';
+
+			foreach ($attributes as $key => $value)
+				$renderedAttributes .= $key . '="' . $value . '" ';
+
+			$this->m_sideInfo = "<$tag $renderedAttributes>$textContent</$tag>";
+
+			return $this;
 		}
 
 		public function render(): void {
 
-			$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(true), $this->m_scheme);
-			$output .= $this->hasAttribute('value') ? htmlspecialchars($this->getAttribute('value')) : '';
-			$output .= '</label>';
+			if ($this->m_sideInfo !== null) {
+				echo '<div class="form__label-relative">';
+			}
 
-			echo $output;
+			echo str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag);
+			echo $this->hasAttribute('textContent') ? htmlspecialchars($this->getAttribute('textContent')) : '';
+			echo $this->m_closingTag;
+
+			if ($this->m_sideInfo !== null) {
+				echo $this->m_sideInfo;
+				echo '</div>';
+			}
 		}
 	}

@@ -9,7 +9,7 @@
 	 */
 	abstract class FormObjectAbstract {
 
-		private $m_attributes;
+		protected $m_attributes;
 
 		/**
 		 * FormElementAbstract constructor
@@ -104,6 +104,10 @@
 				if ($skipValueAttribute && $key == 'value')
 					continue;
 
+				// Never render textContent attribute
+				if ($key == 'textContent')
+					continue;
+
 				if (!empty($value))
 					$attr .= ' ' . $key . '="' . addslashes($value) . '"';
 				else
@@ -113,5 +117,8 @@
 			return trim($attr);
 		}
 
+		/**
+		 * Output as HTML
+		 */
 		abstract public function render(): void;
 	}

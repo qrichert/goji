@@ -2,23 +2,39 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputTextEmail
+	 *
+	 * @package Goji\Form
+	 */
 	class InputTextEmail extends InputText {
 
-		/* <ATTRIBUTES> */
-
+		/**
+		 * InputTextEmail constructor.
+		 *
+		 * @param callable|null $isValidCallback
+		 * @param bool $forceCallbackOnly
+		 * @param callable|null $sanitizeCallback
+		 */
 		public function __construct(callable $isValidCallback = null,
 		                            bool $forceCallbackOnly = false,
 		                            callable $sanitizeCallback = null) {
 
 			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			$this->m_scheme = '<input type="email" %{ATTRIBUTES}>';
+			$this->m_openingTag = '<input type="email" %{ATTRIBUTES}>';
 		}
 
+		/**
+		 * @return bool
+		 */
 		private function isValidEmail(): bool {
 			return filter_var($this->m_value, FILTER_VALIDATE_EMAIL) !== false;
 		}
 
+		/**
+		 * @return bool
+		 */
 		public function isValid(): bool {
 
 			// Must be valid as a regular InputText

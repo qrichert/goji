@@ -2,16 +2,20 @@
 
 	namespace Goji\Form;
 
+	/**
+	 * Class InputButtonReset
+	 *
+	 * @package Goji\Form
+	 */
 	class InputButtonReset extends InputButton {
 
-		/* <ATTRIBUTES> */
+		/**
+		 * InputButtonReset constructor.
+		 */
+		public function __construct() {
 
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+			parent::__construct();
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_scheme = '<input type="reset" %{ATTRIBUTES}>';
+			$this->m_openingTag = '<input type="reset" %{ATTRIBUTES}>';
 		}
 	}

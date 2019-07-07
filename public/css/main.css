@@ -6,19 +6,6 @@
 
 /* <LOGIN> */
 
-.form__logo {
-	width: 50px;
-}
-
 .form__login {
 	width: 300px;
-}
-
-.form__login > * {
-	width: 100%;
-	box-sizing: border-box;
-}
-
-.form__side-info {
-	font-size: var(--text-size-small);
 }
