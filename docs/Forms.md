@@ -147,6 +147,8 @@ Will render as:
 <input type="sometype">
 ```
 
+It is your job to set the appropriate validity check callback.
+
 Complete Example
 ----------------
 
