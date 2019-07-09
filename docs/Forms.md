@@ -126,6 +126,8 @@ the inner content.*
     - `InputButtonImage`
     - `InputButtonReset`
     - `InputButtonSubmit`
+- `InputCheckbox`, uses `textContent`
+    - `InputRadioButton`, uses `textContent`
 - `InputCustom`, uses `textContent`
 - `InputFile`
 - `InputHidden`
@@ -181,8 +183,8 @@ Will render as (Goji adds some formatting on top of it to conform to default sty
 
 ```php
 <div class="form__label-relative">
-	<label>Password</label>
-	<a href="#" class="form__side-info">Forgot password?</a>
+    <label>Password</label>
+    <a href="#" class="form__side-info">Forgot password?</a>
 </div>
 ```
 
@@ -235,6 +237,24 @@ $form = new Form();
                         ->setAttribute('textContent', 'Bar');
 
         $form->addInput($inputSelect);
+
+        $form->addInput(new InputCheckBox())
+              ->setAttribute('name', 'contact[remember-me]')
+              ->setAttribute('id', 'contact__remember-me')
+              ->setAttribute('class', 'toggle')
+              ->setAttribute('textContent', 'Remember my details');
+              
+        $form->addInput(new InputRadioButton())
+             ->setAttribute('name', 'contact[receive-confirmation]')
+             ->setAttribute('id', 'contact__receive-confirmation')
+             ->setAttribute('checked')
+             ->setAttribute('value', 'yes')
+             ->setAttribute('textContent', 'Yes');
+        $form->addInput(new InputRadioButton())
+             ->setAttribute('name', 'contact[receive-confirmation]')
+             ->setAttribute('id', 'contact__receive-confirmation')
+             ->setAttribute('value', 'no')
+             ->setAttribute('textContent', 'Nope');
 
         $form->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 

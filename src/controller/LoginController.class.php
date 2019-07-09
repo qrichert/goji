@@ -45,7 +45,7 @@
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
-			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE'),
 			                               $tr->_('LOGIN_PAGE_DESCRIPTION'),

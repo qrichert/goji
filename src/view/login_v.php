@@ -17,6 +17,7 @@
 			<p><?= $tr->_('LOGIN_NO_ACCOUNT'); ?> <a href="#"><?= $tr->_('LOGIN_SIGN_UP'); ?></a></p>
 		</div>
 	</section>
+
 	<script src="js/lib/Goji/Form-19.6.22.class.min.js"></script>
 	<script>
 		(function() {

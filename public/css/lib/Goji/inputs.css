@@ -381,14 +381,89 @@ input[type=reset].delete:disabled:hover::after,
 	display: none !important;
 }
 
-/* Checkboxes */
+/* CheckBox + Radio */
 
-input[type=checkbox] {
+input[type=checkbox],
+input[type=radio] {
+	display: none;
+
+}
+
+input[type=checkbox] + label,
+input[type=radio] + label {
+	font-weight: normal;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+input[type=checkbox] + label > span,
+input[type=radio] + label > span {
+	display: inline-block;
+	width: calc((var(--input-height-default) / 2));
+	height: calc((var(--input-height-default) / 2));
+	background-color: var(--color-text-xxxxxlight);
+	border-radius: var(--border-radius-default);
+	margin-right: var(--gutter-thin);
+	position: relative;
+	top: 1px;
+	/*box-shadow: var(--shadow-inset-default);*/
+	transition: background-color 200ms ease;
+}
+
+input[type=radio] + label > span {
+	border-radius: 50%;
+}
+
+input[type=checkbox] + label > span:hover,
+input[type=radio] + label > span:hover {
+	background-color: var(--color-text-xxxxlight);
+}
+
+input[type=checkbox]:checked + label > span,
+input[type=radio]:checked + label > span {
+	background-color: var(--color-highlight);
+}
+
+input[type=checkbox]:checked + label > span::after {
+	--input-checkbox-checkmark-width: calc(var(--input-height-default) / 3);
+	--input-checkbox-checkmark-height: calc(var(--input-height-default) / 5);
+
+	content: '';
+	display: block;
+	position: absolute;
+	width: var(--input-checkbox-checkmark-width);
+	height: var(--input-checkbox-checkmark-height);
+	top: calc((var(--input-height-default) / 4) - (var(--input-checkbox-checkmark-height) / 1.5));
+	left: calc((var(--input-height-default) / 4) - (var(--input-checkbox-checkmark-width) / 2));
+	box-sizing: border-box;
+	border-left: calc(var(--input-height-default) / 15) solid white;
+	border-bottom: calc(var(--input-height-default) / 15) solid white;
+	transform: rotate(-45deg);
+}
+
+input[type=radio]:checked + label > span::after {
+	--input-radio-checkmark-width: calc(var(--input-height-default) / 5);
+	--input-radio-checkmark-center: calc((var(--input-height-default) / 4) - (var(--input-radio-checkmark-width) / 2));
+
+	content: '';
+	display: block;
+	position: absolute;
+	width: var(--input-radio-checkmark-width);
+	height: var(--input-radio-checkmark-width);
+	top: var(--input-radio-checkmark-center);
+	left: var(--input-radio-checkmark-center);
+	border-radius: calc(var(--input-radio-checkmark-width) / 2);
+	background-color: white;
+}
+
+/* CheckBox - Toggle */
+
+input[type=checkbox].toggle {
 	display: none;
 }
 
-input[type=checkbox] + label {
-	--input-checkbox-width: calc(var(--input-height-default) * 1.23);
+input[type=checkbox].toggle + label {
+	--input-checkbox-width: calc(var(--input-height-default) * 1.2);
 	--input-checkbox-height: calc((var(--input-height-default) / 3) * 2);
 	--input-checkbox-button-diameter: calc(var(--input-checkbox-height) * 0.9);
 	--input-checkbox-button-margin: calc((var(--input-checkbox-height) - var(--input-checkbox-button-diameter)) / 2);
@@ -399,9 +474,10 @@ input[type=checkbox] + label {
 	box-sizing: border-box;
 	margin-top: calc((var(--input-height-default) - var(--input-checkbox-height)) / 2);
 	margin-bottom: calc((var(--input-height-default) - var(--input-checkbox-height)) / 2);
+	cursor: pointer;
 }
 
-input[type=checkbox] + label > span {
+input[type=checkbox].toggle + label > span {
 	display: inline-block;
 	vertical-align: middle;
 	margin-right: var(--gutter-thin);
@@ -409,21 +485,21 @@ input[type=checkbox] + label > span {
 	height: var(--input-checkbox-height);
 	background-color: var(--color-text-xxxxxlight);
 	border-radius: calc(var(--input-checkbox-height) / 2);
-	cursor: pointer;
 	position: relative;
-	box-shadow: var(--shadow-inset-default);
+	top: -1px;
+	/*box-shadow: var(--shadow-inset-default);*/
 	transition: background-color 200ms ease;
 }
 
-input[type=checkbox] + label > span:hover {
+input[type=checkbox].toggle + label > span:hover {
 	background-color: var(--color-text-xxxxlight);
 }
 
-input[type=checkbox]:checked + label > span {
+input[type=checkbox].toggle:checked + label > span {
 	background-color: var(--color-highlight);
 }
 
-input[type=checkbox] + label > span::after {
+input[type=checkbox].toggle + label > span::after {
 	content: '';
 	display: block;
 	position: absolute;
@@ -432,12 +508,13 @@ input[type=checkbox] + label > span::after {
 	top: var(--input-checkbox-button-margin);
 	left: var(--input-checkbox-not-checked-button-left);
 	background-color: white;
+	border: none;
 	border-radius: 50%;
-	box-shadow: var(--shadow-default);
+	/*box-shadow: var(--shadow-default);*/
 	transition: left 200ms ease;
 }
 
-input[type=checkbox]:checked + label > span::after {
+input[type=checkbox].toggle:checked + label > span::after {
 	left: var(--input-checkbox-checked-button-left);
 }
 
@@ -448,7 +525,6 @@ input[type=checkbox]:checked + label > span::after {
 	width: 100%;
 	height: var(--progress-bar-height);
 	border-radius: calc(var(--progress-bar-height) / 2);
-	margin: 0;
 	background-color: var(--color-text-xxxxxlight);
 	position: relative;
 	visibility: hidden;

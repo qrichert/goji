@@ -15,10 +15,10 @@
  * };
  *
  * new Form(document.querySelector('form.form__login'), // <form> element
- *          success, // success callback
- *          null, // no failure callback
- *          document.querySelector('form.form__login > button.loader'), // Loading button
- *          document.querySelector('form.form__login > .progress-bar') // Progress bar
+ *         success, // success callback
+ *         null, // no failure callback
+ *         document.querySelector('form.form__login > button.loader'), // Loading button
+ *         document.querySelector('form.form__login > .progress-bar') // Progress bar
  * );
  *
  * While uploading a class called 'loading' is added to the status bearer
@@ -157,17 +157,18 @@ class Form {
 
 		let uri = this.m_parent.action; // Already encoded by the browser
 		let data = new FormData(this.m_parent);
+			data.append('ajax-http-request', 'true')
 
 		this.m_currentXHR = SimpleRequest.post(uri,
-						                       data,
-						                       r => { this.load(r); },
-						                       e => { this.error(e); },
-						                       e => { this.abort(e); },
-						                       (l, t) => { this.progress(l, t); },
-						                       {
-						                           encode_uri: false,
-							                       get_json: true
-						                       });
+											   data,
+											   r => { this.load(r); },
+											   e => { this.error(); },
+											   e => { this.abort(); },
+											   (l, t) => { this.progress(l, t); },
+											   {
+											       encode_uri: false,
+											       get_json: true
+											   });
 	}
 
 	/**
@@ -179,7 +180,7 @@ class Form {
 		if (response === null
 			|| response.status !== 'SUCCESS') {
 
-			this.error();
+			this.error(response);
 			return;
 		}
 
@@ -192,22 +193,21 @@ class Form {
 
 	/**
 	 * @private
-	 * @param e
+	 * @param response
 	 */
-	error(e = null) {
+	error(response = null) {
 
 		this.setLoadingStatus(this.m_loadingStatus.FAILED);
 		this.clear();
 
 		if (this.m_callbackError !== null)
-			this.m_callbackError();
+			this.m_callbackError(response);
 	}
 
 	/**
 	 * @public
-	 * @param e
 	 */
-	abort(e = null) {
+	abort() {
 
 		if (this.m_currentXHR !== null)
 			this.m_currentXHR.abort();

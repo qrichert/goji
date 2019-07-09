@@ -30,7 +30,7 @@
 		 *
 		 * @param string $configFile
 		 */
-		private static function initialize($configFile = self::CONFIG_FILE): void {
+		private static function initialize(string $configFile = self::CONFIG_FILE): void {
 
 			if (self::$m_isInitialized)
 				return;
@@ -54,7 +54,7 @@
 		}
 
 		/**
-		 * @param null $secure
+		 * @param mixed $secure
 		 * @return bool
 		 */
 		private static function isSecure($secure = null): bool {
@@ -72,7 +72,7 @@
 				}
 			}
 
-			if (isset($secure) && $secure === true)
+			if (isset($secure) && boolval($secure) === true)
 				return true;
 
 			// $secure != true
@@ -134,12 +134,12 @@
 		/**
 		 * Delete a specific cookie.
 		 *
-		 * @param $name
+		 * @param string $name
 		 * @param string $path
 		 * @param string $domain
 		 * @return bool
 		 */
-		public static function unset($name, $path = '/', $domain = ''): bool {
+		public static function unset(string $name, string $path = '/', string $domain = ''): bool {
 
 			self::initialize();
 

@@ -62,6 +62,7 @@
 				$this->setAttribute('value', $value);
 
 			$this->m_value = $value;
+
 			return $this;
 		}
 
@@ -169,7 +170,7 @@
 		public function render(): void {
 
 			$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag);
-			$output .= $this->hasAttribute('textContent') ? htmlspecialchars($this->getAttribute('textContent')) : '';
+			$output .= $this->hasAttribute('textContent') ? $this->getAttribute('textContent') : '';
 			$output .= $this->m_closingTag;
 
 			echo $output;

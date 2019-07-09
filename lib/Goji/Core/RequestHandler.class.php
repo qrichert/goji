@@ -291,6 +291,17 @@
 		}
 
 		/**
+		 * Checks whether there is a 'ajax-http-request' key in the POST data
+		 *
+		 * This doesn't work if you don't send this key with your AJAX requests.
+		 *
+		 * @return bool
+		 */
+		public function isAjaxRequest(): bool {
+			return !empty($_POST['ajax-http-request']);
+		}
+
+		/**
 		 * True if HttpStatusInterface::STATUS_CODE >= 400
 		 *
 		 * @return bool

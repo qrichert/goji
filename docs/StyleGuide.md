@@ -147,10 +147,12 @@ Special Form Elements
 *(Part of `lib/Goji/inputs.css`)*
 
 - **`.select-wrapper > select`**: To style `select` inputs
-- **`input[type=checkbox] + label > span`**: Styled checkbox:
+- **`input[type=checkbox] + label > span`**: Styled checkbox
+    - **`.toggle`**: A toggle style checkbox
   ```html
-  <input type="checkbox" id="cb"><label for="cb"><span></span>Toggle me!</label>
+  <input type="checkbox" id="cb" class="toggle"><label for="cb"><span></span>Toggle me!</label>
   ```
+- **`input[type=radio] + label > span`**: Styled radio button
 - **`.progress-bar > .progress`**: Progress bar, the progress is the with of the child in %
   ```html
   <div class="progress-bar"><div class="progress"></div></div>

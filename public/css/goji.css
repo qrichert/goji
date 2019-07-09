@@ -513,6 +513,14 @@ form > * {
 	box-sizing: border-box;
 }
 
+.form__success {
+	color: var(--color-valid);
+}
+
+.form__error {
+	color: var(--color-danger);
+}
+
 .form__logo {
 	width: 50px;
 }

@@ -99,7 +99,7 @@
 		 * Set a specific $_SESSION variable.
 		 *
 		 * @param string $name
-		 * @param null $value
+		 * @param mixed $value
 		 */
 		public static function set(string $name, $value = null): void {
 

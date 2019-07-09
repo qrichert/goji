@@ -59,7 +59,7 @@
 			}
 
 			echo str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag);
-			echo $this->hasAttribute('textContent') ? htmlspecialchars($this->getAttribute('textContent')) : '';
+			echo $this->hasAttribute('textContent') ? $this->getAttribute('textContent') : '';
 			echo $this->m_closingTag;
 
 			if ($this->m_sideInfo !== null) {

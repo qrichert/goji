@@ -2,14 +2,12 @@
 
 	/*
 	 * TODO:
-	 * <input type="checkbox">
 	 * <input type="color">
 	 * <input type="date">
 	 * <input type="datetime">
 	 * <input type="datetime-local">
 	 * <input type="month">
 	 * <input type="number">
-	 * <input type="radio">
 	 * <input type="range">
 	 * <input type="time">
 	 * <input type="week">
@@ -125,6 +123,20 @@
 		}
 
 		/**
+		 * Will recover a value in a multi-level array, following given keys
+		 *
+		 * keys = 1stLevel, 2ndLevel, 3rdLevel
+		 *
+		 * subject = array(
+		 *     '1stLevel' => array(
+		 *         '2ndLevel' => array(
+		 *             '3rdLevel' => VALUE
+		 *         )
+		 *     )
+		 * )
+		 *
+		 * => VALUE
+		 *
 		 * @param array $keys
 		 * @param array $subject
 		 * @return mixed|null
@@ -148,6 +160,41 @@
 		}
 
 		/**
+		 * Get checkbox value
+		 *
+		 * If it exists (typically has an "on" value, or value of the value="" attribute if set),
+		 * returns true. If it doesn't exist, returns false. If it is an array (because au checkbox[])
+		 * then returns the array and will be to the user to validate with a callback.
+		 *
+		 * @param array $keys
+		 * @param array $subject
+		 * @return bool|mixed|null
+		 */
+		private function getCheckBoxValue(array $keys, array &$subject) {
+
+			$value = $this->getValueFromArrayKeys($keys, $subject);
+
+			if (empty($value))
+				return false;
+
+			if (is_array($value))
+				return $value;
+
+			else
+				return true;
+		}
+
+		private function getRadioButtonValue(InputRadioButton $input, array $keys, array &$subject): bool {
+
+			$value = $this->getValueFromArrayKeys($keys, $subject);
+
+			if ($value == $input->getAttribute('value'))
+				return true;
+			else
+				return false;
+		}
+
+		/**
 		 * Fill-in all POSTed values
 		 */
 		public function hydrate(): void {
@@ -167,6 +214,10 @@
 
 				if ($input instanceof InputFile)
 					$inputValue = $_FILES[$matches[0]] ?? null;
+				elseif ($input instanceof InputRadioButton) // Before InputCheckBox because of inheritance
+					$inputValue = $this->getRadioButtonValue($input, $matches, $_POST);
+				elseif ($input instanceof InputCheckBox)
+					$inputValue = $this->getCheckBoxValue($matches, $_POST);
 				else
 					$inputValue = $this->getValueFromArrayKeys($matches, $_POST);
 
