@@ -8,6 +8,7 @@
 		<!-- Global -->
 		<segment id="HELLO_WORLD">bonjour, monde</segment>
 		<segment id="GO_BACK_HOME">← Retourner vers la page d'accueil</segment>
+		<segment id="SEND">Envoyer</segment>
 
 		<!-- Nav -->
 		<segment id="NAV_HOME">Accueil</segment>
@@ -61,6 +62,19 @@
 			<alternative count="rest">Il y a %{COUNT} foobars.</alternative>
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Essayez une autre langue :</segment>
+	</page>
+	<page id="contact">
+		<segment id="CONTACT_PAGE_TITLE">Contact</segment>
+		<segment id="CONTACT_PAGE_DESCRIPTION"></segment>
+		<segment id="CONTACT_MAIN_TITLE">Contact</segment>
+		<segment id="CONTACT_FORM_NAME">Nom</segment>
+		<segment id="CONTACT_FORM_NAME_PLACEHOLDER">Jean Dupont</segment>
+		<segment id="CONTACT_FORM_EMAIL">Email</segment>
+		<segment id="CONTACT_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="CONTACT_FORM_MESSAGE">Message</segment>
+		<segment id="CONTACT_FORM_MESSAGE_PLACEHOLDER">Votre message</segment>
+		<segment id="CONTACT_SUCCESS">Votre message a été envoyé. Merci!</segment>
+		<segment id="CONTACT_ERROR">Le formulaire contient des erreurs</segment>
 	</page>
 	<page id="login">
 		<segment id="LOGIN_PAGE_TITLE">Connexion</segment>

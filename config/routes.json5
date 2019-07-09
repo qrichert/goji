@@ -36,6 +36,13 @@
 		// naming convention and make it implement \Goji\Blueprints\ControllerInterface().
 		controller: "HomeController"
 	},
+	"contact": {
+		routes: {
+			en: "/contact-me",
+			fr: "/contact"
+		},
+		controller: "ContactController"
+	},
 	"login": {
 		routes: {
 			// Here '/login' is common to all en_* locales

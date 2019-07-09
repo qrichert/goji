@@ -8,6 +8,7 @@
 		<!-- Global -->
 		<segment id="HELLO_WORLD">hello, world</segment>
 		<segment id="GO_BACK_HOME">← Go back home</segment>
+		<segment id="SEND">Send</segment>
 
 		<!-- Nav -->
 		<segment id="NAV_HOME">Home</segment>
@@ -60,6 +61,19 @@
 			<alternative count="rest">There are %{COUNT} foobars.</alternative>
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Try a different language:</segment>
+	</page>
+	<page id="contact">
+		<segment id="CONTACT_PAGE_TITLE">Contact</segment>
+		<segment id="CONTACT_PAGE_DESCRIPTION"></segment>
+		<segment id="CONTACT_MAIN_TITLE">Contact</segment>
+		<segment id="CONTACT_FORM_NAME">Name</segment>
+		<segment id="CONTACT_FORM_NAME_PLACEHOLDER">John Doe</segment>
+		<segment id="CONTACT_FORM_EMAIL">Email</segment>
+		<segment id="CONTACT_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
+		<segment id="CONTACT_FORM_MESSAGE">Message</segment>
+		<segment id="CONTACT_FORM_MESSAGE_PLACEHOLDER">Your message</segment>
+		<segment id="CONTACT_SUCCESS">Your message has been sent. Thanks!</segment>
+		<segment id="CONTACT_ERROR">The form contains errors</segment>
 	</page>
 	<page id="login">
 		<segment id="LOGIN_PAGE_TITLE">Log In</segment>
