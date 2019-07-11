@@ -102,8 +102,8 @@
 			// It can't start with a number (but can contain numbers)
 			// It is necessarily preceded by { or ,
 			$symbols = <<<'EOT'
-#+-/\*:.;,()[]{}§€£~"'<>=!?@¨^
-EOT;
+				#+-/\*:.;,()[]{}§€£~"'<>=!?@¨^
+				EOT;
 				$symbols = str_replace(array('#', ']'), array('\#', '\]'), $symbols);
 
 			$re = '#';

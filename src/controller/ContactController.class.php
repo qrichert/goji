@@ -36,12 +36,12 @@
 					$message = htmlspecialchars(nl2br($message));
 
 				$message = <<<EOT
-<strong>From:</strong> $name &lt;$email&gt;<br>
-<br>
-<strong>Message:</strong><br>
-<br>
-$message
-EOT;
+					<strong>From:</strong> $name &lt;$email&gt;<br>
+					<br>
+					<strong>Message:</strong><br>
+					<br>
+					$message
+					EOT;
 
 				$options = array(
 					'site_url' => $this->m_app->getSiteUrl(),

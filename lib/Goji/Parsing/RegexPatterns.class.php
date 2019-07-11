@@ -26,16 +26,16 @@
 			 */
 /*
 			$re = <<<'EOT'
-#(\'(\\.|[^\'])*\'|\"(\\.|[^\"])*\")#s
-EOT;
+				#(\'(\\.|[^\'])*\'|\"(\\.|[^\"])*\")#s
+				EOT;
 */
 			/*
 			 * This is apparently better.
 			 * Implements Friedl's "unrolling-the-loop" technique: "[^"\\]*(?:\\.[^"\\]*)*"
 			 */
 			return <<<'EOT'
-#(\'[^\'\\]*(?:\\.[^\'\\]*)*\'|\"[^\"\\]*(?:\\.[^\"\\]*)*\")#s
-EOT;
+				#(\'[^\'\\]*(?:\\.[^\'\\]*)*\'|\"[^\"\\]*(?:\\.[^\"\\]*)*\")#s
+				EOT;
 		}
 
 		/**
@@ -50,8 +50,8 @@ EOT;
 		public static function unescapedDoubleQuotes(): string {
 
 			return <<<'EOT'
-#(?<!\\)(?:\\{2})*\K\"#
-EOT;
+				#(?<!\\)(?:\\{2})*\K\"#
+				EOT;
 		}
 
 		/**
@@ -66,8 +66,8 @@ EOT;
 		public static function unescapedSingleQuotes(): string {
 
 			return <<<'EOT'
-#(?<!\\)(?:\\{2})*\K\'#
-EOT;
+				#(?<!\\)(?:\\{2})*\K\'#
+				EOT;
 		}
 
 		/**
@@ -82,8 +82,8 @@ EOT;
 		public static function unescapedParenthesisGroups(): string {
 
 			return <<<'EOT'
-#((?<!\\)(?:\\{2})*\K\((?!\?:).*(?<!\\)(?:\\{2})*\K\))#U
-EOT;
+				#((?<!\\)(?:\\{2})*\K\((?!\?:).*(?<!\\)(?:\\{2})*\K\))#U
+				EOT;
 		}
 
 		/**
@@ -96,8 +96,8 @@ EOT;
 		public static function unescapedMetacharacters(): string {
 
 			return <<<'EOT'
-#(?<!\\)(?:\\{2})*\K(\(\?:|\(\?!|\(\?=|\(\?<!|\(\?<=|[|?*+.()[\]{}])#U
-EOT;
+				#(?<!\\)(?:\\{2})*\K(\(\?:|\(\?!|\(\?=|\(\?<!|\(\?<=|[|?*+.()[\]{}])#U
+				EOT;
 		}
 
 		/**
@@ -143,9 +143,10 @@ EOT;
 		 * @return string
 		 */
 		public static function escapedNewLines(): string {
+
 			return <<<'EOT'
-#\\(\r\n|\n|\r)#
-EOT;
+				#\\(\r\n|\n|\r)#
+				EOT;
 		}
 
 		/**
@@ -154,14 +155,16 @@ EOT;
 		 * @return string
 		 */
 		public static function whiteSpace(): string {
+
 			return <<<'EOT'
-#[\s\r\n\t\p{Z}]+#
-EOT;
+				#[\s\r\n\t\p{Z}]+#
+				EOT;
 		}
 
 		public static function htmlInputNameArrayKeys(): string {
+
 			return <<<'EOT'
-#\[?([^\[\]]+)\]?#
-EOT;
+				#\[?([^\[\]]+)\]?#
+				EOT;
 		}
 	}

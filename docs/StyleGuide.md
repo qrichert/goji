@@ -94,7 +94,7 @@ don't have a top and bottom margin respectively.
   You can add several modifiers to it:
     - **`.reverse-on-squeeze`**: Invert the order of the elements in columns mode
     - **`.image`**: To be applied to the children. Gives the contained image(s) a max width of 250px and
-      centers it horizontally
+      centers it horizontally when in column mode
 
 Generic
 -------
