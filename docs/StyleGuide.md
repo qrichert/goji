@@ -4,9 +4,8 @@ Style Guide
 1. [Files](#files)
 2. [Variables](#variables)
 3. [Widgets](#widgets)
-4. [Generic](#generic)
-5. [Buttons](#buttons)
-6. [Special Form Elements](#special-form-elements)
+4. [Buttons](#buttons)
+5. [Special Form Elements](#special-form-elements)
 
 ***Note:** Modifiers are just classes you add. For example a `section` with a text modifier is just
 a `section.text` or `<section class="text">`.*
@@ -53,8 +52,19 @@ this property will change accordingly.
 Classes
 -------
 
+- **`.hidden`**: Display none
+- **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
+- **`.scalable`**: Element gets scaled by a 1.023 factor on hover
+- **`.rounded`**: Rounds corners at `--border-radius-medium`
 - **`.pre-heading`**: Like a sub title but before the title. Could be used for the date of an article
   or the category.
+- **`.video-wrapper`**: To put around an `<iframe>` video so that you can scale it while maintaining a
+  16:9 aspect ratio
+- **`.loading-dots`**: (on empty `div`) Animated dots to show loading:
+  ```html
+  <div class="loading-dots loading"></div>
+  ```
+  Use the `.loading` modifier as show above to trigger the loading animation
 
 Widgets
 -------
@@ -95,19 +105,7 @@ don't have a top and bottom margin respectively.
     - **`.reverse-on-squeeze`**: Invert the order of the elements in columns mode
     - **`.image`**: To be applied to the children. Gives the contained image(s) a max width of 250px and
       centers it horizontally when in column mode
-
-Generic
--------
-
-- **`.hidden`**: Display none
-- **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
-- **`.loading-dots`**: (on empty `div`) Animated dots to show loading:
-  ```html
-  <div class="loading-dots loading"></div>
-  ```
-  Use the `.loading` modifier as show above to trigger the loading animation
-- **`.scalable`**: Element gets scaled by a 1.023 factor on hover
-- **`.rounded`**: Rounds corners at `--border-radius-medium`
+- **`.video`**: Perfect for welcoming a `.video-wrapper > iframe`
 
 Buttons
 -------

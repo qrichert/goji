@@ -101,6 +101,38 @@ a:hover {
 	border-radius: var(--border-radius-medium);
 }
 
+/* Pre Heading */
+
+.pre-heading {
+	margin: 0;
+	font-family: var(--font-code);
+	font-size: var(--text-size-medium);
+	color: var(--color-text-xxlight);
+}
+
+.pre-heading + h1, .pre-heading + h2, .pre-heading + h3,
+.pre-heading + h4, .pre-heading + h5, .pre-heading + h6 {
+	margin-top: var(--gutter-thin);
+}
+
+/* Iframe Videos */
+
+.video-wrapper {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	max-width: 100%;
+	padding-bottom: 56.25%;
+}
+
+.video-wrapper > iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
 /* Loading Dots */
 
 .loading-dots {
@@ -460,20 +492,7 @@ section.error > h1 + p {
 section.text {
 	max-width: 800px;
 	margin: auto;
-	position: relative;
 	padding-right: 5%;
-}
-
-.pre-heading {
-	margin: 0;
-	font-family: var(--font-code);
-	font-size: var(--text-size-medium);
-	color: var(--color-text-xxlight);
-}
-
-.pre-heading + h1, .pre-heading + h2, .pre-heading + h3,
-.pre-heading + h4, .pre-heading + h5, .pre-heading + h6 {
-	margin-top: var(--gutter-thin);
 }
 
 /* <Section Side-by-Side> */
@@ -521,6 +540,18 @@ section.side-by-side.right-bigger > :first-child {
 
 section.side-by-side.right-bigger > :last-child {
 	width: var(--golden-ratio-percent-largest);
+}
+
+/* <Section Video> */
+
+/*
+ * Add a .video-wrapper > iframe in there
+ */
+
+section.video {
+	width: 75%;
+	max-width: calc(700px + (2 * var(--gutter-default)));
+	margin: auto;
 }
 
 /* <FORM> */
@@ -764,6 +795,10 @@ label {
 		padding-left: calc(var(--gutter-default));
 		padding-right: calc(var(--gutter-default));
 	}
+
+	section.video {
+		width: 90%;
+	}
 }
 
 /* Up to 375px */
@@ -785,6 +820,11 @@ label {
 	}
 
 	section.text {
+		padding: var(--gutter-medium);
+	}
+
+	section.video {
+		width: 100%;
 		padding: var(--gutter-medium);
 	}
 }
