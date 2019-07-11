@@ -353,8 +353,10 @@
 					throw new Exception('Router::getLinkForPage() cannot be called without $page parameter before routing.', self::E_ROUTING_MUST_BE_DONE_FIRST);
 			}
 
+			$isErrorPage = mb_substr($page, 0, 11) == 'http-error-';
+
 			// Make sure page exists
-			if (!isset($this->m_routes[$page]))
+			if (!isset($this->m_routes[$page]) && !$isErrorPage)
 				throw new Exception('Page does not exist: ' . $page, self::E_PAGE_DOES_NOT_EXIST);
 
 			if (!isset($locale))
@@ -375,12 +377,12 @@
 			$link = null;
 
 			$locales = array($locale, $this->m_app->getLanguages()->getFallbackLocale());
-			foreach ($locales as $locale) {
+			foreach ($locales as $loc) {
 
 				// If we have [page][routes][locale]
-				if (isset($this->m_routes[$page]['routes'][$locale][$index])) {
+				if (isset($this->m_routes[$page]['routes'][$loc][$index])) {
 
-					$link = $this->m_routes[$page]['routes'][$locale][$index];
+					$link = $this->m_routes[$page]['routes'][$loc][$index];
 
 				// If we have [page][routes][all]
 				} else if (isset($this->m_routes[$page]['routes'][self::ACCEPT_ALL][$index])) {
@@ -395,6 +397,11 @@
 
 				if ($link !== null)
 					break;
+			}
+
+			// 404 pages can't have routes for example
+			if (!isset($link) && $isErrorPage) {
+				$link = '/' . $this->m_app->getRequestHandler()->getRequestPage();
 			}
 
 			// If link was not found, there must be a misconfiguration somewhere,
