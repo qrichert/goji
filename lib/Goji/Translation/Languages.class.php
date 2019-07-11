@@ -192,7 +192,7 @@
 		 * @param string $locale
 		 * @return string
 		 */
-		public function hyphenateLocale(string $locale): string {
+		public static function hyphenateLocale(string $locale): string {
 			return (string) str_replace('_', '-', $locale);
 		}
 

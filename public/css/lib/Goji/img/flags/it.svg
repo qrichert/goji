@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="italian-flag" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#45BE1D;}
+	.st1{fill:#FA2F2F;}
+	.st2{fill:#FFFFFF;}
+</style>
+<path id="green" class="st0" d="M50,4.3C20.9,14.6,0,42.4,0,75s20.9,60.4,50,70.7
+	C71.5,113,77.4,56.4,50,4.3z"/>
+<path id="red" class="st1" d="M100,4.3C80.6,54,81.6,101,100,145.7c29.1-10.3,50-38.1,50-70.7
+	S129.1,14.6,100,4.3z"/>
+<path id="white" class="st2" d="M75,0c-8.8,0-17.2,1.5-25,4.3v141.4c7.8,2.8,16.2,4.3,25,4.3
+	c8.8,0,17.2-1.5,25-4.3V4.3C92.2,1.5,83.8,0,75,0z"/>
+</svg>

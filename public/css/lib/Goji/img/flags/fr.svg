@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="french-flag" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#032EA9;}
+	.st1{fill:#FA2F2F;}
+	.st2{fill:#FFFFFF;}
+</style>
+<path id="blue" class="st0" d="M50,4.3C20.9,14.6,0,42.3,0,75c0,32.6,20.9,60.4,50,70.7
+	C68,96.7,69.2,49.4,50,4.3z"/>
+<path id="red" class="st1" d="M100,4.3c-17,47.1-17.1,94.3,0,141.4c29.1-10.3,50-38.1,50-70.7
+	C150,42.3,129.1,14.6,100,4.3L100,4.3z"/>
+<path id="white" class="st2" d="M75,0c-8.8,0-17.2,1.5-25,4.3v141.4c7.8,2.8,16.2,4.3,25,4.3
+	s17.2-1.5,25-4.3V4.3C92.2,1.5,83.8,0,75,0L75,0z"/>
+</svg>

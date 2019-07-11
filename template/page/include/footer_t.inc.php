@@ -25,7 +25,7 @@
 					if ($locale == $this->m_app->getLanguages()->getCurrentLocale())
 						continue;
 
-					echo '<a href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale) . '">'
+					echo '<a href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale) . '" data-lang="' . $locale . '">'
 					     . $this->m_app->getLanguages()->getConfigurationLocales()[$locale]
 					     . '</a>',
 					PHP_EOL;
