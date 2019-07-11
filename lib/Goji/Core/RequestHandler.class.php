@@ -32,6 +32,7 @@
 		private $m_redirectStatus;
 		private $m_requestMethod;
 		private $m_errorDetected;
+		private $m_forcedLocaleDetected;
 
 		/**
 		 * RequestHandler constructor.
@@ -122,6 +123,8 @@
 				$this->m_requestMethod = strtoupper((string) $this->m_requestMethod);
 
 			$this->m_errorDetected = $this->m_redirectStatus >= 400;
+
+			$this->m_forcedLocaleDetected = self::getFirstParamOccurrence('forceLocale', $this->m_queryString);
 		}
 
 		public function __debugInfo() {
@@ -311,6 +314,15 @@
 		}
 
 		/**
+		 * Returns forced locale or null if none
+		 *
+		 * @return string|null
+		 */
+		public function getForcedLocaleDetected(): ?string {
+			return $this->m_forcedLocaleDetected;
+		}
+
+		/**
 		 * Parses Query String and returns an array.
 		 *
 		 * This is similar to PHP's parse_str(), but instead of overwriting duplicate
@@ -367,7 +379,7 @@
 				// If parameter already in list (duplicate)
 				if (isset($queryString[$paramValue['param']])) {
 
-					// If the index is already an array (so 3rd+ occurence of param)
+					// If the index is already an array (so 3rd+ occurrence of param)
 					if (is_array($queryString[$paramValue['param']])) {
 
 						// Append to array
@@ -406,31 +418,82 @@
 		 * This function returns the value of the first time the parameter appears,
 		 * thus ignoring any user addition.
 		 *
+		 * $queryString should be an array produced by RequestHandler::queryStringToArray() or a
+		 * raw query string (could be $_SERVER['QUERY_STRING']).
+		 *
 		 * @param string $param The parameter you want the value of
-		 * @param string $queryString The query string in which to look for the value (could be $_SERVER['QUERY_STRING'])
-		 * @return string|null The value of the first occurrence of $param, null if not found
+		 * @param array|string $queryString The query string in which to look for the value
+		 * @return string|null The value of the first occurrence of $param, null if not found or empty
 		 */
-		public static function getFirstParamOccurrence(string $param, string $queryString): ?string {
+		public static function getFirstParamOccurrence(string $param, $queryString): ?string {
 
-			// Ex :
-			// $param = 'param'
-			// $queryString = 'param=foo&param=bar'
+			if (!is_array($queryString))
+				$queryString = self::queryStringToArray($queryString);
 
-			$param = $param . '='; // $param = 'param='
-			$paramLength = mb_strlen($param); // $paramLength = 6 (param + =)
+			$value = null;
 
-			$query = explode('&', $queryString); // [0] => param=foo, [1] => param=bar
+			if (!empty($queryString[$param]))
+				$value = $queryString[$param];
 
-			foreach ($query as $p) {
+			if (is_array($value))
+				$value = $value[0];
 
-				// if (mb_substr('param=foo', 0, 6) == 'param='))
-				if (mb_substr($p, 0, $paramLength) == $param) { // mb_substr('param=foo', 0, 6) == 'param='
+			return $value;
+		}
 
-					// mb_substr('param=foo', 6) -> Remove first 6 chars
-					return urldecode(mb_substr($p, $paramLength)); // |param=|foo -> foo
-				}
+		/**
+		 * Builds a query string from an array, inverse of RequestHandler::queryStringToArray()
+		 *
+		 * @param array $queryStringArray
+		 * @return string
+		 */
+		public static function buildQueryStringFromArray(array $queryStringArray): string {
+
+			$queryString = array();
+
+			foreach ($queryStringArray as $key => $value) {
+
+				$param = array();
+
+				if (!is_array($value))
+					$value = array($value);
+
+				foreach ($value as $item) // $param = [ key=value1, key=value2, ... ]
+					$param[] = $key . '=' . $item;
+
+				$param = implode('&', $param);
+				$queryString[] = $param;
 			}
 
-			return null; // If not found
+			$queryString = implode('&', $queryString);
+
+			return $queryString;
+		}
+
+		/**
+		 * RequestHandler::queryStringToArray() leaves values raw (url encoded), this function decodes the values
+		 *
+		 *
+		 * @param array $queryStringArray
+		 * @return array
+		 */
+		public static function decodeQueryStringArray(array $queryStringArray): array {
+
+			foreach ($queryStringArray as $key => &$value) {
+
+				if (is_array($value)) {
+
+					foreach ($value as &$item) {
+						$item = urldecode($item);
+					}
+					unset($item);
+
+				} else {
+					$value = urldecode($value);
+				}
+			}
+			unset($value);
+
+			return $queryStringArray;
 		}
 	}

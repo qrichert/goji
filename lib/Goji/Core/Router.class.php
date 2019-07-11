@@ -364,6 +364,10 @@
 			if (!isset($this->m_app->getLanguages()->getConfigurationLocales()[$locale]))
 				throw new Exception('Locale does not exist: ' . $locale, self::E_LOCALE_DOES_NOT_EXIST);
 
+			// Do we need to force the locale ?
+			// If a different locale than the current one is requested, we force it
+			$forceLocale = ($locale != $this->m_app->getLanguages()->getCurrentLocale());
+
 			// Make sure index is set
 			if ($index === null)
 				$index = 0;
@@ -429,6 +433,18 @@
 			// home -> http://www.domain.com/home
 			if ($includeSiteURL)
 				$link = $this->m_app->getSiteUrl() . $link; // App::getSiteUrl() has no trailing /
+
+			// /page?forceLocale=en_US
+			if ($forceLocale) {
+
+				// If there isn't already a query string
+				if (!parse_url($link, PHP_URL_QUERY))
+					$link .= '?';
+				else
+					$link .= '&';
+
+				$link .= 'forceLocale=' . $locale;
+			}
 
 			return $link;
 		}
@@ -534,6 +550,30 @@
 		 */
 		public function requestErrorDocument(?int $errorCode): void {
 			$this->redirectToErrorDocument($errorCode);
+		}
+
+		public function requestLocaleSwitch(string $newLocale): void {
+
+			// If locale doesn't exist -> 404
+			if (!in_array($newLocale, $this->m_app->getLanguages()->getSupportedLocales()))
+				$this->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
+
+			// Change lang
+			$this->m_app->getLanguages()->setCurrentLocale($newLocale);
+
+			// Get current query string & remove the forceLocalePart
+			$queryString = $this->m_app->getRequestHandler()->getQueryString();
+			unset($queryString['forceLocale']);
+
+			// Rebuild the query string without forceLocale
+			$queryString = RequestHandler::buildQueryStringFromArray($queryString);
+
+			$redirectTo = $this->m_app->getRequestHandler()->getRequestPageURI();
+
+				if (!empty($queryString))
+					$redirectTo .= '?' . $queryString;
+
+			$this->redirectTo($redirectTo);
 		}
 
 		/**

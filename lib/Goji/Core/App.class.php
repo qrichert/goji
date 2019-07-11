@@ -344,6 +344,8 @@
 
 			if ($this->m_requestHandler->getErrorDetected())
 				$this->m_router->requestErrorDocument($this->m_requestHandler->getRedirectStatus());
+			else if ($this->m_requestHandler->getForcedLocaleDetected() !== null)
+				$this->m_router->requestLocaleSwitch($this->m_requestHandler->getForcedLocaleDetected());
 			else
 				$this->m_router->route();
 		}
