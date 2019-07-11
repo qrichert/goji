@@ -38,16 +38,18 @@
 	},
 	"contact": {
 		routes: {
-			en: "/contact-me",
-			fr: "/contact"
+			all: "/contact"
 		},
 		controller: "ContactController"
 	},
 	"login": {
 		routes: {
-			// Here '/login' is common to all en_* locales
-			en: "/login",
-			fr: "/connexion"
+			all: "/login"
+			// If you wanted, you could have:
+			//   - en: "/login",
+			//   - fr: "/connexion"
+			// Which would mean "use '/login' for all English pages
+			// ('en_*' locales), and '/connexion' for French"
 		},
 		controller: "LoginController"
 	},

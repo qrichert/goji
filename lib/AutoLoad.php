@@ -29,6 +29,33 @@
 	}
 
 	/**
+	 * Auto-load function for models.
+	 *
+	 * Models must be in /src/model/ folder.
+	 *
+	 * \App\Model\HomeModel -> '/src/model/' + HomeModel + '.class.php'
+	 *
+	 * @param string $className The class which needs to be loaded
+	 */
+	function autoLoadModel($className) {
+
+		// There shouldn't be a leading backslash, but you never know
+		$className = ltrim($className, '\\');
+
+		// App\Model\HomeModel -> HomeModel
+		// We want only the class name, not the rest of the namespace
+		// $len = mb_strlen('App\Model\\');
+		// $len = 10;
+		$className = mb_substr($className, 10);
+
+		// HomeController -> ../src/model/HomeModel.class.php
+		$classFile = '../src/model/' . $className . '.class.php';
+
+		if (is_file($classFile))
+			require_once $classFile;
+	}
+
+	/**
 	 * Auto-load function for controllers.
 	 *
 	 * Controllers must be in /src/controller/ folder.
@@ -56,4 +83,5 @@
 	}
 
 	spl_autoload_register('AutoLoad\autoLoadLibrary');
+	spl_autoload_register('AutoLoad\autoLoadModel');
 	spl_autoload_register('AutoLoad\autoLoadController');

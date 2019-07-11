@@ -28,8 +28,12 @@
 
 			let form = document.querySelector('form.form__contact');
 			let formStatus = document.querySelector('p#form__status');
+			let message = form.querySelector('#contact__message');
 
 			let success = response => {
+
+				// Clear message
+				message.value = '';
 
 				formStatus.classList.remove('form__error');
 				formStatus.classList.add('form__success');
