@@ -414,45 +414,27 @@ section.no-padding {
 }
 
 section.no-padding.h {
-	padding-top: inherit;
-	padding-right: 0;
-	padding-bottom: inherit;
-	padding-left: 0;
+	padding: var(--gutter-default) 0;
 }
 
 section.no-padding.v {
-	padding-top: 0;
-	padding-right: inherit;
-	padding-bottom: 0;
-	padding-left: inherit;
+	padding: 0 var(--gutter-default);
 }
 
 section.no-padding.t {
-	padding-top: 0;
-	padding-right: inherit;
-	padding-bottom: inherit;
-	padding-left: inherit;
+	padding: 0 var(--gutter-default) var(--gutter-default) var(--gutter-default);
 }
 
 section.no-padding.r {
-	padding-top: inherit;
-	padding-right: 0;
-	padding-bottom: inherit;
-	padding-left: inherit;
+	padding: var(--gutter-default) 0 var(--gutter-default) var(--gutter-default);
 }
 
 section.no-padding.b {
-	padding-top: inherit;
-	padding-right: inherit;
-	padding-bottom: 0;
-	padding-left: inherit;
+	padding: var(--gutter-default) var(--gutter-default) 0 var(--gutter-default);
 }
 
 section.no-padding.l {
-	padding-top: inherit;
-	padding-right: inherit;
-	padding-bottom: inherit;
-	padding-left: 0;
+	padding: var(--gutter-default) var(--gutter-default) var(--gutter-default) 0;
 }
 
 /* <Section Error> */

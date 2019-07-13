@@ -1,6 +1,6 @@
 <p align="center">
 	<a href="#" target="_blank">
-		<img src="https://drive.quentinrichert.com/files/goji__text--dark.svg"
+		<img src="public/img/goji__text--dark.svg"
 			 alt="Goji"
 			 width="150"
 			 height="150">
@@ -55,7 +55,7 @@ It it's the first time you use Goji, please read the [Getting Started guide](doc
 
 <p align="center">
 	<a href="#" target="_blank">
-		<img src="https://drive.quentinrichert.com/files/goji__berries.svg"
+		<img src="public/img/goji__berries.svg"
 			 width="Goji Berries"
 			 width="75"
 			 height="75">

@@ -115,6 +115,31 @@
 		}
 
 		/**
+		 * Replaces Call To Action template shortcut with HTML
+		 *
+		 * %{CTA}Send Me A Message%{/CTA}
+		 *
+		 * By default, the href of the <a> will be '#', you can set it using
+		 * the second parameter $aHref.
+		 *
+		 * @param string $templateString
+		 * @param string $aHref
+		 * @return string
+		 */
+		public static function templateCTAToHTML(string $templateString, string $aHref = '#'): string {
+
+			return preg_replace_callback('#%\{CTA\}(.*)%\{/CTA\}#isU', function($match) use($aHref) {
+
+				return <<<EOT
+					<div class="call-to-action__wrapper">
+						<a href="$aHref" class="call-to-action">{$match[1]}</a>
+					</div>
+					EOT;
+
+			}, $templateString);
+		}
+
+		/**
 		 * Replaces book template shortcut with HTML:
 		 *
 		 * %{BOOK}
@@ -131,6 +156,7 @@
 		 *                <p>"
 		 *     }
 		 * %{/BOOK}
+		 *
 		 * @param string $templateString
 		 * @return string
 		 */
@@ -142,6 +168,7 @@
 				$json['id'] = !empty($json['id']) ? ('data-id="' . $json['id'] . '"') : '';
 				$json['side'] = isset($json['side']) && in_array($json['side'], ['left', 'right']) ? $json['side'] : 'left';
 				$json['alt'] = isset($json['alt']) ? htmlspecialchars($json['alt']) : '';
+
 				$out = '';
 
 				// Regular book
