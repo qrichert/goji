@@ -101,9 +101,10 @@ a:hover {
 	border-radius: var(--border-radius-medium);
 }
 
-/* Pre Heading */
+/* Pre Heading / Sub Heading */
 
-.pre-heading {
+.pre-heading,
+.sub-heading {
 	margin: 0;
 	font-family: var(--font-code);
 	font-size: var(--text-size-medium);
@@ -114,6 +115,25 @@ a:hover {
 .pre-heading + h4, .pre-heading + h5, .pre-heading + h6 {
 	margin-top: var(--gutter-thin);
 }
+
+/*
+ * Sadly, we don't have parent selectors, so we have to cheat by moving the sub-heading
+ * up, directly under the title, and then adding the regular margin under it.
+ *
+ * We calculate the Xem thing is the title default margin (em size * em margin), then
+ * we substract --gutter-thin to it, because we want that as a margin between the title
+ * and the sub-heading => This gives a negative value = negative margin = moves up
+ *
+ * The we add the value we substracted back to the margin-bottom, to keep the right amount
+ * of space from the rest of the content => This time positive value, but the same absolute
+ * number as before.
+ */
+h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 3.3em);  margin-bottom: calc(3.3em - var(--gutter-thin));  }
+h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.7em);  margin-bottom: calc(1.7em - var(--gutter-thin));  }
+h3 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom: calc(1.25em - var(--gutter-thin)); }
+h4 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.12em); margin-bottom: calc(1.12em - var(--gutter-thin)); }
+h5 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom: calc(1.25em - var(--gutter-thin)); }
+h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom: calc(1.25em - var(--gutter-thin)); }
 
 /* Iframe Videos */
 
@@ -637,7 +657,11 @@ label {
 @media all and (max-width: 920px) {
 
 	h1 { font-size: 2.5em; margin: 1em  0; }
-	h2 { font-size: 1.5em; }
+	h2 { font-size: 1.5em; margin: 1em  0; }
+
+	/* Adapting those */
+	h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 2.5em); margin-bottom: calc(2.5em - var(--gutter-thin)); }
+	h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.5em); margin-bottom: calc(1.5em - var(--gutter-thin)); }
 
 	.header__container {
 		padding-left: calc(1.5 * var(--gutter-default));
@@ -786,8 +810,12 @@ label {
 /* Up to 375px */
 @media all and (max-width: 375px) {
 
-	h1 { font-size: 2em; margin: 1em  0; }
-	h2 { font-size: 1.3em; }
+	h1 { font-size: 2em;   margin: 1em  0; }
+	h2 { font-size: 1.3em; margin: 1em  0; }
+
+	/* Adapting those */
+	h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 2em);   margin-bottom: calc(2em - var(--gutter-thin));   }
+	h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.3em); margin-bottom: calc(1.3em - var(--gutter-thin)); }
 
 	main {
 		padding: var(--gutter-medium) 0;

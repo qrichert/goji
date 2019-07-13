@@ -58,6 +58,7 @@ Classes
 - **`.rounded`**: Rounds corners at `--border-radius-medium`
 - **`.pre-heading`**: Like a sub title but before the title. Could be used for the date of an article
   or the category.
+- **`.sub-heading`**: Same as `.pre-heading`, but like a... sub heading. Under the title.
 - **`.video-wrapper`**: To put around an `<iframe>` video so that you can scale it while maintaining a
   16:9 aspect ratio
 - **`.loading-dots`**: (on empty `div`) Animated dots to show loading:
