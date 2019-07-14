@@ -223,7 +223,11 @@
 							 * - en_GB => /login
 							 *
 							 * Here, if we find a route that already has a locale set, we set it to self::ACCEPT_MULTIPLE and add a
-							 * 'force' parameter containing the forced country code.
+							 * 'accept' parameter containing the accepted country codes.
+							 *
+							 * Locale set for the path, and not already set as multiple (multiple locales for same path,
+							 * but first time we encounter another one) => Set the locale to 'multiple', move the set
+							 * locale to 'accept' along with the new one
 							 */
 							if (!empty($mappedRoutes[$alternativePath]['locale'])
 								&& $mappedRoutes[$alternativePath]['locale'] != self::ACCEPT_MULTIPLE) {
@@ -232,14 +236,16 @@
 								$forcedCountryCode = mb_substr($mappedRoutes[$alternativePath]['locale'], 0, 2);
 
 								$mappedRoutes[$alternativePath]['locale'] = self::ACCEPT_MULTIPLE;
-								$mappedRoutes[$alternativePath]['force'] = $forcedCountryCode;
+								$mappedRoutes[$alternativePath]['accept'] = [$forcedCountryCode, $locale];
 
 								continue;
 
 							} else if (!empty($mappedRoutes[$alternativePath]['locale'])
 							           && $mappedRoutes[$alternativePath]['locale'] == self::ACCEPT_MULTIPLE) {
 
-								// If we already set the locale to self::ACCEPT_MULTIPLE, we're good
+								// If already set to 'multiple', we just add the new locale to the 'accept'
+								$mappedRoutes[$alternativePath]['accept'][] = $locale;
+
 								continue;
 							}
 
@@ -474,30 +480,54 @@
 				// We extract controller, locale and parameters
 				if (preg_match('#^' . $pagePattern . '$#', $page, $matches)) {
 
+					// If no locale specified, or accepts any locale
 					if (empty($route['locale']) || $route['locale'] == self::ACCEPT_ALL) {
 
+						// Just keep the current one (calling the getCurrentLocale() is necessary because it initializes the locale)
 						$this->m_app->getLanguages()->getCurrentLocale();
 
+					// If accepts multiple locales (but not just any!)
 					} else if ($route['locale'] == self::ACCEPT_MULTIPLE) {
 
-						$this->m_app->getLanguages()->getCurrentLocale();
+						// Get the old/default one
+						$currentLocale = $this->m_app->getLanguages()->getCurrentLocale();
 
-						// If we have a forced country code
-						if (!empty($route['force'])) {
+						// If 'multiple' country codes are set
+						if (!empty($route['accept'])) {
 
-							// And it doesn't match the current one
-							if (!Languages::countryMatches(
-								$this->m_app->getLanguages()->getCurrentLocale(),
-								$route['force']
-							)) {
+							$acceptedLocales = $route['accept'];
 
-								$forcedLocale = $this->m_app->getLanguages()->getBestLocaleMatchForCountryCode($route['force']);
+							// Exact match
+							$match = Languages::atLeastOneLocaleMatches($currentLocale, $acceptedLocales, true);
+
+							// If there is an exact match, the current locale is already accepted, we good
+
+							// If no exact match
+							if ($match === false) {
+
+								// Try a country code match
+								$match = Languages::atLeastOneLocaleMatches($currentLocale, $acceptedLocales, false);
+
+								// If we had a country match
+								if (is_array($match)) {
+
+									// Take the country match
+									[$_, $match] = $match;
+
+								// No country match
+								} else {
+									// Nothing found at all -> take the first accepted locale in the list
+									$match = $acceptedLocales[0];
+								}
+
+								$forcedLocale = $this->m_app->getLanguages()->getBestLocaleMatchForCountryCode($match);
 
 								if ($forcedLocale !== null)
 									$this->m_app->getLanguages()->setCurrentLocale($forcedLocale);
 							}
 						}
 
+					// Specific locale given (force locale)
 					} else {
 
 						$this->m_app->getLanguages()->setCurrentLocale($route['locale']);

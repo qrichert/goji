@@ -73,6 +73,10 @@
 
 			// Set with setCurrentLocale() or by loadCurrentLocale() if getCurrentLocale() is
 			// called and $this->m_currentLocale is still null
+			//
+			// We don't init it systematically, because it is a heavy process and if the locale
+			// is forced (most cases), we don't need the old one. This saves us some processing.
+			//
 			// This is because pages "force" their language, but there are some pages
 			// without a specific language, so we must get the best one possible (last one used
 			// and if there's no last one used (first visit) we get the best match according to
@@ -146,9 +150,98 @@
 		}
 
 		/**
+		 * Takes two array of locales and checks if at least there are two where the country matches.
+		 *
+		 * en_US - it_IT
+		 * en_GB - en_NZ
+		 * fr_FR - zh_CN
+		 * de_DE -
+		 *
+		 * Match: en_US && en_NZ
+		 *
+		 * (en_GB - en_NZ doesn't match because we already returned after first match)
+		 *
+		 * @param $locales1
+		 * @param $locales2
+		 * @return bool|array False if none, locales as array if found
+		 */
+		public static function atLeastOneCountryMatches($locales1, $locales2): bool {
+
+			if (!is_array($locales1))
+				$locales1 = [$locales1];
+
+			if (!is_array($locales2))
+				$locales2 = [$locales2];
+
+			foreach ($locales1 as $loc1) {
+
+				foreach ($locales2 as $loc2) {
+
+					if (self::countryMatches($loc1, $loc2))
+						return [$loc1, $loc2];
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * If two locales match
+		 *
+		 * exactMatch: true
+		 *    en_NZ, en_GB -> no
+		 *
+		 * exactMatch: false
+		 *    en_NZ, en_GB -> yes (on 'en')
+		 *
+		 * @param $locale1
+		 * @param $locale2
+		 * @param bool $exactMatch Country only
+		 * @return bool
+		 */
+		public static function localeMatches($locale1, $locale2, $exactMatch = true): bool {
+
+			if ($locale1 == $locale2)
+				return true;
+
+			if ($exactMatch) // We know they don't match exactly at this point
+				return false;
+
+			return self::countryMatches($locale1, $locale2);
+		}
+
+		/**
+		 * Takes two array of locales and checks if at least there are two where they match.
+		 *
+		 * @param $locales1
+		 * @param $locales2
+		 * @param bool $exactMatch Country only
+		 * @return bool|array False if none, both as array of true
+		 */
+		public static function atLeastOneLocaleMatches($locales1, $locales2, $exactMatch = true) {
+
+			if (!is_array($locales1))
+				$locales1 = [$locales1];
+
+			if (!is_array($locales2))
+				$locales2 = [$locales2];
+
+			foreach ($locales1 as $loc1) {
+
+				foreach ($locales2 as $loc2) {
+
+					if (self::localeMatches($loc1, $loc2, $exactMatch))
+						return [$loc1, $loc2];
+				}
+			}
+
+			return false;
+		}
+
+		/**
 		 * Returns first locale in config that matches a given country code.
 		 *
-		 * @param \Goji\Translation\string $countryCode
+		 * @param string $countryCode
 		 * @return string|null
 		 */
 		public function getBestLocaleMatchForCountryCode(string $countryCode): ?string {
