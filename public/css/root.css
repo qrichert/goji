@@ -38,7 +38,7 @@
 	--header-height: 116px;
 	--header-height-alt: 55px;
 
-	--burger-menu-bar-height: 3px;
+	--burger-menu-bar-height: 2px;
 	--burger-menu-width: 33px;
 	--burger-menu-height: 15px; /* (h-3bh) should be even, to divide the gaps by 2 */
 	/*
@@ -55,9 +55,10 @@
 
 		w: 33, bh: 1 => 23.63
 		w: 33, bh: 2 => 23.92
+		w: 33, bh: 3 => 24.21
 		w: 33, bh: 4 => 24.51 (looks better with h: 19)
 	*/
-	--burger-menu-height-unfolded: 24.21px;
+	--burger-menu-height-unfolded: 23.92px;
 
 	--text-size-small: 12px;
 	--text-size-medium: 14px;

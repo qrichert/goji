@@ -817,6 +817,11 @@ label {
 	h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 2em);   margin-bottom: calc(2em - var(--gutter-thin));   }
 	h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.3em); margin-bottom: calc(1.3em - var(--gutter-thin)); }
 
+	.header__container {
+		padding-left: calc(var(--gutter-medium));
+		padding-right: calc(var(--gutter-medium));
+	}
+
 	main {
 		padding: var(--gutter-medium) 0;
 	}
@@ -825,7 +830,7 @@ label {
 		/* .nav__burger-menu has flex-shrink: 0;
 		so it takes max space without compressing
 		the burger menu. */
-		width: 100%;
+		max-width: 90%;
 		margin-left: 0;
 	}
 
