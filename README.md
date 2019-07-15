@@ -40,7 +40,6 @@ Directory Structure
 - **`src`**, *contains user code (yours).*
 	- **`controller`**, *controller files.*
 	- **`model`**, *model files.*
-	- **`static`**, *scripts for serving static files.*
 	- **`view`**, *view files.*
 - **`template`**, *contains template files (*e.g.* page templates).*
 - **`translation`**, *contains all files related to translation.*
