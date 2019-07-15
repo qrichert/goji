@@ -46,6 +46,6 @@
 			$template->saveBuffer();
 
 			// Inside the template file we call $template to put things in place.
-			require_once '../template/page/main_t.php';
+			require_once '../template/page/main.template.php';
 		}
 	}

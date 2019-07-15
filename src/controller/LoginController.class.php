@@ -83,6 +83,6 @@
 
 			$template->saveBuffer();
 
-			require_once '../template/page/main_t.php';
+			require_once '../template/page/main.template.php';
 		}
 	}

@@ -78,7 +78,7 @@
 				// 2. Remove escaped new lines \\n
 				$hit[1][$i] = preg_replace(RegexPatterns::escapedNewLines(), '\\n', $hit[1][$i]);
 				// 3. Remove forbidden characters from strings
-				$hit[1][$i] = preg_replace('#(\r\n|\n|\r|\t)#', '', $hit[1][$i]);
+				$hit[1][$i] = preg_replace('#(\r\n|\n|\r|\t)#', ' ', $hit[1][$i]);
 			}
 
 			// Remove trailing commas ['hello', 'world',] -> ['hello', 'world']

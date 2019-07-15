@@ -41,7 +41,7 @@
 	 * $template->saveBuffer(); // Saves content internally.
 	 *
 	 * // Template file will read the values of SimpleTemplate
-	 * require_once '../template/page/app_t.php'; // Load template file
+	 * require_once '../template/page/main.template.php'; // Load template file
 	 *
 	 * // Inside the template you can read values like this
 	 *
