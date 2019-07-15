@@ -18,6 +18,8 @@
 
 			$this->m_server = $server;
 			$this->m_files = $this->m_server->getFiles();
+
+			// TODO: Caching header for FileRendererAbstract
 		}
 
 		/**
