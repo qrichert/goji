@@ -39,8 +39,8 @@
 			// Multiple files, read them one by one
 			foreach ($this->m_files as $f) {
 
-				if (is_file($this->m_files)) {
-					readfile($this->m_files);
+				if (is_file($f)) {
+					readfile($f);
 					echo PHP_EOL;
 				}
 			}

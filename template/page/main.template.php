@@ -41,14 +41,14 @@
 		<?php
 
 			// Put library files first, so you can overwrite them.
-			$template->linkFiles(array(
+			$template->linkFiles([
 				'css/root.css',
 				'css/goji.css',
 				'css/lib/Goji/inputs.css',
 				'css/lib/Goji/flags.css',
 				'css/main.css',
 				'css/responsive.css'
-			));
+			]);
 
 		?>
 

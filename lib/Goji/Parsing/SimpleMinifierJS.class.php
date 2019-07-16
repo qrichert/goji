@@ -9,7 +9,11 @@
 	 */
 	class SimpleMinifierJS extends SimpleMinifierAbstract {
 
-		public static function minify($code) {
+		/**
+		 * @param string $code
+		 * @return string
+		 */
+		public static function minify(string $code): string {
 
 			// Remove comments first (safely)
 

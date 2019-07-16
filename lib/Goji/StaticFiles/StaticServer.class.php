@@ -4,6 +4,7 @@
 
 	use Goji\Core\ConfigurationLoader;
 	use Exception;
+	use Goji\Core\Logger;
 
 	/**
 	 * Class StaticServer
@@ -15,6 +16,7 @@
 		/* <ATTRIBUTES> */
 
 		private $m_linkedFilesMode;
+		private $m_requestFileURI;
 		private $m_fileType;
 		private $m_files;
 
@@ -29,6 +31,10 @@
 		const FILE_JS = 'js';
 
 		const SUPPORTED_FILE_TYPES = [self::FILE_CSS, self::FILE_JS];
+
+		const E_REQUEST_IS_EMPTY = 0;
+		const E_FILE_NOT_FOUND = 1;
+		const E_FILE_TYPE_NOT_SUPPORTED = 2;
 
 		public function __construct($configFile = self::CONFIG_FILE) {
 
@@ -49,41 +55,46 @@
 				$this->m_linkedFilesMode = self::NORMAL;
 			}
 
-			// File type
-			$this->m_fileType = null;
+			// Request file URI
+			$this->m_requestFileURI = $_SERVER['REQUEST_URI'];
 
-				if (!empty($_GET['type']))
-					$_GET['type'] = mb_strtolower($_GET['type']);
+				if (strpos($this->m_requestFileURI, '%7C') !== false)
+					$this->m_requestFileURI = rawurldecode($this->m_requestFileURI);
 
-				if (in_array($_GET['type'], self::SUPPORTED_FILE_TYPES)) // else $TYPE = null;
-					$this->m_fileType = $_GET['type'];
+				// We only want the page, not the query string
+				// /home?q=query -> /home
+				$pos = mb_strpos($this->m_requestFileURI, '?');
 
-			// File(s)
-			$this->m_files = null;
+				if ($pos !== false)
+					$this->m_requestFileURI = mb_substr($this->m_requestFileURI, 0, $pos);
 
-				if (!empty($_GET['file'])) {
+				if (empty($this->m_requestFileURI))
+					throw new Exception("Request is empty", self::E_REQUEST_IS_EMPTY);
 
-					if (mb_strpos($_GET['file'], '|') !== false) { // If there are several files given
+			// Extract files from request
+			$this->m_files = explode('|', $this->m_requestFileURI); // explode() always returns an array
 
-						// css/main.css|css/responsive.css
-						$_GET['file'] = explode('|', $_GET['file']);
-						$this->m_files = [];
+				$webRoot = WEBROOT . '/';
+				$webRootLength = mb_strlen($webRoot); // + 1 = /
 
-						foreach ($_GET['file'] as $f) {
+				// Remove WEBROOT & Quick validity check
+				// We remove the WEBROOT because we are already in it (/public/static.php)
+				foreach ($this->m_files as &$f) {
 
-							if (file_exists($f))
-								$this->m_files[] = $f;
-						}
+					if (mb_substr($f, 0, $webRootLength) == $webRoot)
+						$f = mb_substr($f, $webRootLength);
 
-						if (count($this->m_files) === 0)
-							$this->m_files = null; // Tried to cheat lol
-
-					} else { // Single file
-
-						if (file_exists($_GET['file']))
-							$this->m_files = $_GET['file'];
-					}
+					if (!is_file($f))
+						throw new Exception("File not found: $f", self::E_FILE_NOT_FOUND);
 				}
+				unset($f);
+
+			// File type
+			$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
+			$this->m_fileType = mb_strtolower($this->m_fileType);
+
+			if (!in_array($this->m_fileType, self::SUPPORTED_FILE_TYPES))
+				throw new Exception("File type not supported: {$this->m_fileType}", self::E_FILE_TYPE_NOT_SUPPORTED);
 		}
 
 		/**

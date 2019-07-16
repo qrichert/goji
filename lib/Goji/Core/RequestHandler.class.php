@@ -51,9 +51,8 @@
 				// /home?q=query -> /home
 				$pos = mb_strpos($this->m_requestPageURI, '?');
 
-				if ($pos !== false) {
+				if ($pos !== false)
 					$this->m_requestPageURI = mb_substr($this->m_requestPageURI, 0, $pos);
-				}
 
 			// q=query
 			$this->m_rawQueryString = $_SERVER['QUERY_STRING'] ?? '';
@@ -67,29 +66,9 @@
 
 			// /
 			// /goji/public/
-			$this->m_rootFolder = $this->m_scriptName;
-
-				// The root folder is the path without 'index.php'
-				// It includes public/ when server isn't configured to use public as docroot
-
-				// /goji/public/index.php -> /goji/public/
-				$pagesPossible = array('index.php', 'static.php');
-
-				foreach ($pagesPossible as $page) {
-
-					$pos = mb_strpos($this->m_rootFolder, $page);
-
-					if ($pos !== false) {
-						$this->m_rootFolder = mb_substr($this->m_rootFolder, 0, $pos);
-						break;
-					}
-				}
-
-				// Make sure there's a trailing slash
-				if (empty($this->m_rootFolder))
-					$this->m_rootFolder = '/';
-				else if (mb_substr($this->m_rootFolder, -1) !== '/')
-					$this->m_rootFolder .= '/';
+			// The root folder is the path without 'index.php'
+			// It includes public/ when server isn't configured to use public as docroot
+			$this->m_rootFolder = WEBROOT . '/';
 
 			// home
 			$this->m_requestPage = '';

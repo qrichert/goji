@@ -64,6 +64,7 @@
 
 		/* <ATTRIBUTES> */
 
+		private $m_webRoot;
 		private $m_pageTitle;
 		private $m_pageDescription;
 		private $m_robotsBehaviour;
@@ -104,6 +105,7 @@
 									bool $showCanonicalPageAndAlternates = true,
 									$configFile = self::CONFIG_FILE) {
 
+			$this->m_webRoot = WEBROOT;
 			$this->m_pageTitle = $pageTitle;
 			$this->m_pageDescription = $pageDescription;
 			$this->m_robotsBehaviour = $robotsBehaviour;
@@ -129,6 +131,13 @@
 		}
 
 		/* <GETTERS/SETTERS> */
+
+		/**
+		 * @return string
+		 */
+		public function getWebRoot(): string {
+			return $this->m_webRoot;
+		}
 
 		/**
 		 * Returns page <title>.
@@ -347,12 +356,13 @@
 
 		/**
 		 * @param string|array $files
+		 * @param bool $renderAbsolutePaths css/main.css -> /WEBROOT/css/main.css
 		 * @param bool $returnAsString
 		 * @param string|null $forceMode
 		 * @return string|null
 		 * @throws \Exception
 		 */
-		public function linkFiles($files, bool $returnAsString = false, string $forceMode = null): ?string {
+		public function linkFiles($files, bool $renderAbsolutePaths = true, bool $returnAsString = false, string $forceMode = null): ?string {
 
 			// Make sure it's either string or array
 			if (!is_array($files) && !is_string($files))
@@ -360,11 +370,20 @@
 
 			// If it's a string, make it an array
 			if (!is_array($files))
-				$files = array($files);
+				$files = [$files];
 
 			// If there's no element in the array, quit
 			if (count($files) === 0)
 				return null;
+
+			if ($renderAbsolutePaths) {
+
+				foreach ($files as &$f) {
+					$slash =  mb_substr($f, 0, 1) == '/' ? '' : '/';
+					$f = WEBROOT . $slash . $f;
+				}
+				unset($f);
+			}
 
 			$linkedFilesMode = $this->m_linkedFilesMode;
 

@@ -2,6 +2,8 @@
 
 	namespace Goji\Parsing;
 
+	use Exception;
+
 	/**
 	 * Class SimpleMinifierCSS
 	 *
@@ -9,7 +11,12 @@
 	 */
 	class SimpleMinifierCSS extends SimpleMinifierAbstract {
 
-		public static function minify($code, $replaceCSSVariablesByValue = true) {
+		/**
+		 * @param string $code
+		 * @param bool $replaceCSSVariablesByValue
+		 * @return string
+		 */
+		public static function minify(string $code, bool $replaceCSSVariablesByValue = true): string {
 
 			$cssUnits = implode('|', array('cm', 'mm', 'in', 'px', 'pt', 'pc', 'ex', 'ch',
 										   'em', 'rem', 'vw', 'vh', 'vmin', 'vmax', '%',
@@ -171,7 +178,13 @@
 			return $code;
 		}
 
-		public static function minifyFile($file, $replaceCSSVariablesByValue = true) { // $file = (string) | (array)
+		/**
+		 * @param array|string $file
+		 * @param bool $replaceCSSVariablesByValue
+		 * @return string|null
+		 * @throws \Exception
+		 */
+		public static function minifyFile($file, bool $replaceCSSVariablesByValue = true): ?string { // $file = (string) | (array)
 
 			$code = '';
 
@@ -225,6 +238,9 @@
 						}
 
 						$code .= $content;
+
+					} else {
+						throw new Exception("File not found: $f", self::E_FILE_NOT_FOUND);
 					}
 				}
 
@@ -232,6 +248,8 @@
 
 				if (is_file($file))
 					$code = file_get_contents($file);
+				else
+					throw new Exception("File not found: $file", self::E_FILE_NOT_FOUND);
 			}
 
 			if (!empty($code))

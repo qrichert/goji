@@ -29,15 +29,8 @@ RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
 
 # REWRITE : STATIC ------------------------------------------------------------
 
-# Match merged files (css/lib.min.css/css/main.css|css/responsive.css)
-# Or single files that are not minified (!.min.css)
-RewriteRule ((?:.+)\|(?:.+)\.css)$	static.php?type=css&file=$1 [QSA,L]
-RewriteCond %{REQUEST_URI}			!\.min\.css$
-RewriteRule ((?:.+)\.css)$			static.php?type=css&file=$1 [QSA,L]
-
-RewriteRule ((?:.+)\|(?:.+)\.js)$	static.php?type=js&file=$1 [QSA,L]
-RewriteCond %{REQUEST_URI}			!\.min\.js$
-RewriteRule ((?:.+)\.js)$			static.php?type=js&file=$1 [QSA,L]
+# CSS, JS
+RewriteRule .+(?:css|js)$   static.php [QSA,L]
 
 # REWRITE : PAGES -------------------------------------------------------------
 

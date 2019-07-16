@@ -2,6 +2,8 @@
 
 	namespace Goji\Parsing;
 
+	use Exception;
+
 	/**
 	 * Class SimpleMinifierAbstract
 	 *
@@ -9,26 +11,34 @@
 	 */
 	abstract class SimpleMinifierAbstract {
 
-		abstract public static function minify($code);
+		/* <CONSTANTS> */
 
-		public static function minifyFile($file) { // $file = (string) | (array)
+		const E_FILE_NOT_FOUND = 0;
+
+		/**
+		 * @param string $code
+		 * @return string
+		 */
+		abstract public static function minify(string $code): string;
+
+		/**
+		 * @param array|string $file
+		 * @return string|null
+		 * @throws \Exception
+		 */
+		public static function minifyFile($file): ?string { // $file = (string) | (array)
 
 			$code = '';
 
-			if (is_array($file)) {
+			if (!is_array($file))
+				$file = [$file];
 
-				foreach ($file as $f) {
+			foreach ($file as $f) {
 
-					if (is_file($f)) {
-
-						$code .= file_get_contents($f);
-					}
-				}
-
-			} else {
-
-				if (is_file($file))
-					$code = file_get_contents($file);
+				if (is_file($f))
+					$code .= file_get_contents($f);
+				else
+					throw new Exception("File not found: $f", self::E_FILE_NOT_FOUND);
 			}
 
 			if (!empty($code))
@@ -37,51 +47,22 @@
 				return null;
 		}
 
-		/*
-			Returns full path of a file starting at the web root (file name not included).
-			Web root must be in a folder called 'public'
-		*/
-		protected static function getWebRootPath($file) {
-
-			/*
-				If you call multiple files like css/main.css|css/responsive.css
-				The browser messes up and tries to load external files like this :
-				/css/main.css|css/responsive.css
-				It invents a folder called 'main.css|css'
-				So we transform relative paths like 'img/' to absolute paths like '/WEBROOT/css/img/'
-			*/
-
-			// Get request path (ex: '/WEBROOT/folder/public/css/main.css|css/responsive.css')
-			$path = '';
-
-			if (mb_strpos($_SERVER['REQUEST_URI'], 'public/') !== false) { // We're in a sub folder (www.domain.com/testsite/public/)
-
-				// We need to extract the whole path until public/
-				$path = $_SERVER['REQUEST_URI']; // /WEBROOT/folder/public/css/main.css|css/responsive.css
-				$path = mb_substr($path, 0, mb_strpos($path, '/public/')) . '/public'; // /WEBROOT/folder/public
-
-				$dir = dirname($file); // css/main.css -> css
-
-				if (mb_substr($dir, 0, 1) != '/') // Make it absolute unless it is already (css -> /css)
-					$dir = '/' . $dir;
-
-				$path = $path . $dir;
-
-				// $path = /subfolder/public/css
-
-			} else { // We're on WEBROOT (www.domain.com/)
-
-				$path = dirname($file); // css/main.css -> css
-
-				if (mb_substr($path, 0, 1) != '/') // Make it absolute unless it is already
-					$path = '/' . $path;
-
-				// $path = /css
-			}
-
-			if (mb_substr($path, -1) != '/')
-				$path = $path . '/';
-
-			return $path;
+		/**
+		 * Returns full path of a file starting at the web root (file name not included).
+		 *
+		 * Web root must be in a folder called 'public'
+		 *
+		 * If you call multiple files like css/main.css|css/responsive.css
+		 * The browser messes up and tries to load external files like this :
+		 * /css/main.css|css/responsive.css
+		 *
+		 * It invents a folder called 'main.css|css'
+		 * So we transform relative paths like 'img/' to absolute paths like '/WEBROOT/css/img/'
+		 *
+		 * @param string $file
+		 * @return string
+		 */
+		protected static function getWebRootPath(string $file): string {
+			return WEBROOT . '/' . dirname($file) . '/';
 		}
 	}
