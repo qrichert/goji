@@ -49,7 +49,7 @@
 
 			parent::__construct();
 
-			$this->m_inputs = array();
+			$this->m_inputs = [];
 
 			$this->setAction($action);
 			$this->setMethod($method);
@@ -259,7 +259,7 @@
 		 */
 		public function isValid(&$detail = null): bool {
 
-			$detail = array();
+			$detail = [];
 			$valid = true;
 
 			foreach ($this->m_inputs as $input) {

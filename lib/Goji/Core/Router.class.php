@@ -127,7 +127,7 @@
 						// It's maybe less efficient but otherwise we would have too much
 						// $mappedRoutes (with if/else and 'routes'/'route) = 4x, here only 2x
 						if (!is_array($route))
-							$route = array($route);
+							$route = [$route];
 
 						foreach ($route as &$alternativePath) {
 
@@ -197,7 +197,7 @@
 		 */
 		private function mapRoutes(array $routes): array {
 
-			$mappedRoutes = array();
+			$mappedRoutes = [];
 
 			foreach ($routes as $page => $config) {
 

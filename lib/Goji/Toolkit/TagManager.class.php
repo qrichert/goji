@@ -19,7 +19,7 @@
 
 			// Converting tags to Array
 			if (!is_array($tagsArray))
-				$tagsArray = array($tagsArray);
+				$tagsArray = [$tagsArray];
 
 			// Converting tags to String
 			$count = count($tagsArray);
@@ -69,7 +69,7 @@
 		/**
 		 * Converts array of tags to string for display.
 		 *
-		 * array('list', 'of', 'tags') -> 'list, of, tags'
+		 * ['list', 'of', 'tags'] -> 'list, of, tags'
 		 *
 		 * @param array $tagsArray
 		 * @return string
@@ -85,8 +85,8 @@
 		 *
 		 * ```php
 		 * $tags = TagManager::addTags('single-tag');
-		 * $tags = TagManager::addTags(array('array', 'of', 'tags'));
-		 * $tags = TagManager::addTags(array('array', 'of', 'tags'), $tags);
+		 * $tags = TagManager::addTags(['array', 'of', 'tags']);
+		 * $tags = TagManager::addTags(['array', 'of', 'tags'], $tags);
 		 * ```
 		 *
 		 * @param array|string $newTags
@@ -96,13 +96,12 @@
 		public static function addTags($newTags, $tagsArray = null): array {
 
 			// Making sure $newTags is an Array
-			if (!is_array($newTags)) {
-				$newTags = array($newTags);
-			}
+			if (!is_array($newTags))
+				$newTags = [$newTags];
 
 			// If no parent Array specified, we create one
 			if ($tagsArray === null)
-				$tagsArray = array();
+				$tagsArray = [];
 
 			$tagsArray = array_merge($tagsArray, $newTags); // Merging the arrays
 			$tagsArray = self::sanitizeTags($tagsArray);
@@ -120,9 +119,8 @@
 		public static function removeTags($tagsToRemove, $tagsArray): array {
 
 			// Making sure $tagsToRemove is an Array
-			if (!is_array($tagsToRemove)) {
-				$tagsToRemove = array($tagsToRemove);
-			}
+			if (!is_array($tagsToRemove))
+				$tagsToRemove = [$tagsToRemove];
 
 			$tagsArray = self::sanitizeTags($tagsArray);
 

@@ -40,8 +40,8 @@
 
 			$this->m_app = $app;
 			$this->m_targetLocale = $app->getLanguages()->getCurrentLocale();
-			$this->m_resourcesLoaded = array();
-			$this->m_segments = array();
+			$this->m_resourcesLoaded = [];
+			$this->m_segments = [];
 		}
 
 		/**
@@ -119,7 +119,7 @@
 				throw new Exception('XML file could not be parsed: ' . $file . "\n" .  $errors . "\n", self::E_COULD_NOT_PARSE_XML_FILE);
 			}
 
-			$segments = array();
+			$segments = [];
 
 			foreach ($xml->page as $page) {
 
@@ -150,7 +150,7 @@
 						 *      'option-id-2' => 'option value 2',
 						 * }
 						 */
-						$segmentValue = array();
+						$segmentValue = [];
 
 						foreach ($segment->option as $option) {
 
@@ -166,7 +166,7 @@
 						 *      'count-regex' => 'value'
 						 * }
 						 */
-						$segmentValue = array();
+						$segmentValue = [];
 
 						foreach ($segment->alternative as $alternative) {
 

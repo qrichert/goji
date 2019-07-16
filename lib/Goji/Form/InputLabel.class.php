@@ -35,7 +35,7 @@
 		public function setSideInfo(string $tag, array $attributes = null, string $textContent = ''): InputLabel {
 
 			if ($attributes === null)
-				$attributes = array();
+				$attributes = [];
 
 			if (array_key_exists('class', $attributes))
 				$attributes['class'] = $attributes['class'] . ' form__side-info';

@@ -24,9 +24,9 @@
 				$scaleFactor = $maxSize / $height;
 			}
 
-			return array(
+			return [
 				'width'  => round($width  * $scaleFactor),
 				'height' => round($height * $scaleFactor)
-			);
+			];
 		}
 	}

@@ -91,7 +91,7 @@
 
 			// page-([0-9]) -> { '0' => [ 'page-1', '1' ] }
 			// Filled in by \Goji\Core\Router by default
-			$this->m_requestParameters = array();
+			$this->m_requestParameters = [];
 
 			// 200, 403, 404, 500, etc.
 			$this->m_redirectStatus = $_SERVER['REDIRECT_STATUS'] ?? self::HTTP_SUCCESS_OK;
@@ -327,7 +327,7 @@
 		public static function queryStringToArray(string $queryString): array {
 
 			if (empty($queryString))
-				return array();
+				return [];
 
 			// foo=value1&bar=value2&foo=value3
 
@@ -350,7 +350,7 @@
 			// Break the reference
 			unset($paramValue);
 
-			$queryString = array();
+			$queryString = [];
 
 			// array(['param' => 'foo', 'value' => 'value1'], etc.);
 			foreach ($tmpQueryString as $paramValue) {
@@ -428,11 +428,11 @@
 		 */
 		public static function buildQueryStringFromArray(array $queryStringArray): string {
 
-			$queryString = array();
+			$queryString = [];
 
 			foreach ($queryStringArray as $key => $value) {
 
-				$param = array();
+				$param = [];
 
 				if (!is_array($value))
 					$value = array($value);

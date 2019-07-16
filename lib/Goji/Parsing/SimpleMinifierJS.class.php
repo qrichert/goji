@@ -76,7 +76,7 @@
 			// Remove redundant white-space
 			$code = preg_replace('#\p{Zs}+#ims', ' ', $code);
 			// Remove new lines
-			$code = str_replace(array("\r\n", "\r", "\n", PHP_EOL), '', $code);
+			$code = str_replace(["\r\n", "\r", "\n", PHP_EOL], '', $code);
 
 			// Restore backupped values within single or double quotes
 			for ($i = 0; $i < $hitCount; $i++) {

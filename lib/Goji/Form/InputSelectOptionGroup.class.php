@@ -23,7 +23,7 @@
 			$this->m_openingTag = '<optgroup %{ATTRIBUTES}>';
 			$this->m_closingTag = '</optgroup>';
 
-			$this->m_options = array();
+			$this->m_options = [];
 		}
 
 		/**

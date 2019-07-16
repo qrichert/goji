@@ -24,7 +24,7 @@
 
 		private function treatForm(Translator $tr, Form &$form): bool {
 
-			$detail = array();
+			$detail = [];
 			$isValid = $form->isValid($detail);
 
 			if ($isValid) {

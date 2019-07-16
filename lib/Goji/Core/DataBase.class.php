@@ -72,7 +72,7 @@
 			foreach ($config as $dataBaseID => $databaseConfig) {
 
 				$prefix = '';
-				$dsn = array();
+				$dsn = [];
 				$username = '';
 				$password = '';
 

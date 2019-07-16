@@ -15,7 +15,7 @@
 		 * FormElementAbstract constructor
 		 */
 		public function __construct() {
-			$this->m_attributes = array();
+			$this->m_attributes = [];
 		}
 
 		/**

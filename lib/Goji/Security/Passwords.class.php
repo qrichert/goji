@@ -41,7 +41,7 @@
 
 			} catch (Exception $e) {
 
-				self::$m_configuration = array();
+				self::$m_configuration = [];
 			}
 
 			self::$m_isInitialized = true;

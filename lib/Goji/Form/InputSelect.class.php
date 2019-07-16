@@ -29,7 +29,7 @@
 			$this->m_openingTag = '<div class="select-wrapper"><select %{ATTRIBUTES}>';
 			$this->m_closingTag = '</select></div>';
 
-			$this->m_options = array();
+			$this->m_options = [];
 		}
 
 		/**

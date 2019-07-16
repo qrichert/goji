@@ -54,7 +54,7 @@
 				// If loading was successful, we format it so we can use it more easily
 				list($this->m_configurationLocales, $this->m_fallbackLocale) = $this->formatConfigurationLocales($config);
 
-				$this->m_supportedLocales = array();
+				$this->m_supportedLocales = [];
 
 				foreach ($this->m_configurationLocales as $locale => $description) {
 					$this->m_supportedLocales[] = $locale;
@@ -380,14 +380,14 @@
 			$httpAcceptLanguage = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 
 			if (empty($httpAcceptLanguage)) {
-				$this->m_userPreferredLocales = array();
+				$this->m_userPreferredLocales = [];
 				return;
 			}
 
 			// Split on what is not a letter, hyphen - or underscore _ (i.e. what is not part of a locale)
 			$httpAcceptLanguage = preg_split('#[^a-z-_]#i', $httpAcceptLanguage);
 
-			$locales = array();
+			$locales = [];
 
 			// Extract languages in order of preference
 			foreach ($httpAcceptLanguage as $locale) {
@@ -426,7 +426,7 @@
 		private function formatConfigurationLocales(array $locales): array {
 
 			// Not the most memory efficient (references will be copied) but the safest
-			$newLocales = array();
+			$newLocales = [];
 
 			$fallbackLocale = null;
 

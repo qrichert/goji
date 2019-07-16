@@ -111,7 +111,7 @@
 			$this->m_robotsBehaviour = $robotsBehaviour;
 			$this->m_showCanonicalPageAndAlternates = $showCanonicalPageAndAlternates;
 			$this->m_pageContent = '';
-			$this->m_specials = array();
+			$this->m_specials = [];
 
 			try {
 

@@ -26,9 +26,9 @@
 
 			$config = ConfigurationLoader::loadFileToArray($configFile);
 
-			$this->m_routesRequiringAuthentication = (array) $config['firewall']['require_authentication'] ?? array();
+			$this->m_routesRequiringAuthentication = (array) $config['firewall']['require_authentication'] ?? [];
 
-			$this->m_routesDisallowingAuthenticated = (array) $config['firewall']['disallow_authenticated'] ?? array();
+			$this->m_routesDisallowingAuthenticated = (array) $config['firewall']['disallow_authenticated'] ?? [];
 
 			$this->m_onForbiddenRedirectTo = $config['forbidden']['redirect_to'] ?? null;
 		}

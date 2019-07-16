@@ -333,9 +333,9 @@
 
 			// If single file we handle it as array, so we can use the same code for all
 			if (!is_array($file))
-				$file = array($file);
+				$file = [$file];
 
-			$filesLastEditTimes = array();
+			$filesLastEditTimes = [];
 
 			foreach ($file as $f) {
 
@@ -375,9 +375,9 @@
 
 			// If single file we handle it as array, so we can use the same code for all
 			if (!is_array($file))
-				$file = array($file);
+				$file = [$file];
 
-			$filesLastEditTimes = array();
+			$filesLastEditTimes = [];
 
 			foreach ($file as $f) {
 

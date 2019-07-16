@@ -13,7 +13,7 @@
 		public static function JSON(?array $data = null, ?bool $success = null): void {
 
 			if ($data === null)
-				$data = array();
+				$data = [];
 
 			if ($success === true)
 				$data['status'] = 'SUCCESS';

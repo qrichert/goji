@@ -89,7 +89,7 @@
 		public static function mb_str_shuffle(string $str): string {
 
 			$strlen = mb_strlen($str);
-			$letters = array();
+			$letters = [];
 
 			while ($strlen-- > 0) {
 				$letters[] = mb_substr($str, $strlen, 1);

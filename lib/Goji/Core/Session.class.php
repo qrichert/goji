@@ -89,7 +89,7 @@
 
 			if (self::active() || self::start()) {
 
-				$_SESSION = array();
+				$_SESSION = [];
 			}
 
 			return false;
