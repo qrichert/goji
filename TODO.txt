@@ -1,16 +1,1 @@
 TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php https://www.electrictoolbox.com/php-caching-headers/
-
-$form = new Form();
-$form->setFields(array(
-	'name' => array(
-		'field_type' => 'text',
-		'accept' => 'string|int|float',
-		'pattern' => '#[a-z0-9+]#i',
-		'empty' => 'false',
-	)
-));
-
-------------------
-if ($form->receptionate())
-	if ($form->isValid())
-		$name = $form->get('name');
