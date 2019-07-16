@@ -34,7 +34,7 @@
 				$this->addInput(new InputLabel())
 					 ->setAttribute('for', 'login__password')
 					 ->setAttribute('textContent', $tr->_('LOGIN_FORM_PASSWORD'))
-					 ->setSideInfo('a', array('href' => '#'), $tr->_('LOGIN_FORGOT_PASSWORD'));
+					 ->setSideInfo('a', ['href' => '#'], $tr->_('LOGIN_FORGOT_PASSWORD'));
 				$this->addInput(new InputTextPassword())
 					 ->setAttribute('name', 'login[password]')
 					 ->setAttribute('id', 'login__password')

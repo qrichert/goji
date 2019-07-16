@@ -50,7 +50,7 @@
 			// Remove redundant white-space
 			$json5 = preg_replace('#\p{Zs}+#ims', ' ', $json5);
 			// Remove new lines
-			$json5 = str_replace(array("\r\n", "\r", "\n", PHP_EOL), '', $json5);
+			$json5 = str_replace(["\r\n", "\r", "\n", PHP_EOL], '', $json5);
 
 			// Now we make strings (quotes values) comply by:
 			// 1. Replacing single quotes with double quotes
@@ -104,7 +104,7 @@
 			$symbols = <<<'EOT'
 				#+-/\*:.;,()[]{}§€£~"'<>=!?@¨^
 				EOT;
-				$symbols = str_replace(array('#', ']'), array('\#', '\]'), $symbols);
+				$symbols = str_replace(['#', ']'], ['\#', '\]'], $symbols);
 
 			$re = '#';
 				$re .= '(\{|,|\[)(?:[\s\r\n\t\p{Zs}]|\r\n)*'; // Any { or , or [ - followed by white-space?

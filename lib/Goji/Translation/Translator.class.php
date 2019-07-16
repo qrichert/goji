@@ -220,15 +220,15 @@
 		public function loadTranslationResource($file, bool $loadSegmentsAsConstants = false): void {
 
 			if (!is_array($file))
-				$file = array($file);
+				$file = [$file];
 
 			foreach ($file as $f) {
 
 				// Try exact locale, and if not, use just the language code
-				$locales = array(
+				$locales = [
 					$this->m_targetLocale, // en_US
 					mb_substr($this->m_targetLocale, 0, 2) // en
-				);
+				];
 
 				$translationResourceFound = false;
 

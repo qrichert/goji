@@ -23,10 +23,10 @@
 	 * 		$template->setPageTitle('Title'); // Set page title
 	 * 		$template->setPageDescription('Description'); // Set page description
 	 * 		$template->setRobotsBehaviour(SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW); // Disallow robot indexing
-	 * 		$template->setSpecials(array(
+	 * 		$template->setSpecials([
 	 * 			'tracking_event' => 'View page',
 	 * 			'og_image' => 'img/og.jpg'
-	 * 		));
+	 * 		]);
 	 *
 	 * // Instead of buffering the view file, you could also just
 	 * // do $template->setPageContent($string), but it's usually easier
@@ -282,10 +282,10 @@
 		 * Given array should be associative with string keys, like:
 		 *
 		 * ```php
-		 * $template->setSpecials(array(
+		 * $template->setSpecials([
 		 * 		'tracking_event' => 'View page',
 		 * 		'og_image' => 'img/og.jpg'
-		 * ));
+		 * ]);
 		 * ```
 		 *
 		 * @param array $arr

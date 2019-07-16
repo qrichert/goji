@@ -18,9 +18,9 @@
 		 */
 		public static function minify(string $code, bool $replaceCSSVariablesByValue = true): string {
 
-			$cssUnits = implode('|', array('cm', 'mm', 'in', 'px', 'pt', 'pc', 'ex', 'ch',
+			$cssUnits = implode('|', ['cm', 'mm', 'in', 'px', 'pt', 'pc', 'ex', 'ch',
 										   'em', 'rem', 'vw', 'vh', 'vmin', 'vmax', '%',
-										   'deg', 'ms', 's'));
+										   'deg', 'ms', 's']);
 
 			// Remove comments first (safely)
 
@@ -70,7 +70,7 @@
 			// Remove redundant white-space
 			$code = preg_replace('#\p{Zs}+#ims', ' ', $code);
 			// Remove new lines
-			$code = str_replace(array("\r\n", "\r", "\n", PHP_EOL), '', $code);
+			$code = str_replace(["\r\n", "\r", "\n", PHP_EOL], '', $code);
 
 			/*
 				Limitations of this algorithm:

@@ -14,10 +14,10 @@
 			if (empty($code))
 				return false;
 
-			$data = array(
+			$data = [
 				'secret'   => Passwords::getProperty('google_captcha_private_key'),
 				'response' => $code
-			);
+			];
 
 			if ($ip) {
 				$data['remoteip'] = $ip;
@@ -25,13 +25,13 @@
 
 			$url = "https://www.google.com/recaptcha/api/siteverify";
 
-			$options = array(
-				'http'=> array(
+			$options = [
+				'http'=> [
 							'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
 							'method'  => 'POST',
 							'content' => http_build_query($data)
-						)
-			);
+				]
+			];
 
 			$context = stream_context_create($options);
 

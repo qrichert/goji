@@ -43,21 +43,21 @@
 					$message
 					EOT;
 
-				$options = array(
+				$options = [
 					'site_url' => $this->m_app->getSiteUrl(),
 					'site_name' => $this->m_app->getSiteName(),
 					'site_domain_name' => $this->m_app->getSiteDomainName(),
 					'company_email' => $this->m_app->getCompanyEmail()
-				);
+				];
 
 				Mail::sendMail($this->m_app->getCompanyEmail(), 'New message from contact form', $message, $options);
 
 				// If AJAX, return JSON
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
-					HttpResponse::JSON(array(
+					HttpResponse::JSON([
 						'message' => $tr->_('CONTACT_SUCCESS')
-					), true);
+					], true);
 				}
 
 				// Clean the form
@@ -69,10 +69,10 @@
 			// If AJAX, return JSON
 			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
-				HttpResponse::JSON(array(
+				HttpResponse::JSON([
 					'message' => $tr->_('CONTACT_ERROR'),
 					'detail' => $detail
-				), false);
+				], false);
 			}
 
 			return false;

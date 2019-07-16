@@ -93,7 +93,7 @@
 		}
 
 		public static function isValid($image, // $_FILES['image']
-										$allowedFileTypes = array('bmp', 'gif', 'jpg', 'png'),
+										$allowedFileTypes = ['bmp', 'gif', 'jpg', 'png'],
 										$maxWeight = 7340032) { // 7 MB
 
 			// If upload error

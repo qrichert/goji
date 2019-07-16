@@ -369,7 +369,7 @@
 		 * Fetch all user preferred locales as a list of locales.
 		 *
 		 * Extracted from $_SERVER['HTTP_ACCEPT_LANGUAGE']
-		 * Returned as array('en_US', 'en_GB', 'fr')
+		 * Returned as ['en_US', 'en_GB', 'fr']
 		 *
 		 * Called from __construct()
 		 */
@@ -464,7 +464,7 @@
 				}
 			}
 
-			return array($newLocales, $fallbackLocale);
+			return [$newLocales, $fallbackLocale];
 		}
 
 		/**

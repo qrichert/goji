@@ -57,7 +57,7 @@
 			// q=query
 			$this->m_rawQueryString = $_SERVER['QUERY_STRING'] ?? '';
 
-			// array('q' => 'query')
+			// ['q' => 'query']
 			$this->m_queryString = self::queryStringToArray($this->m_rawQueryString);
 
 			// /index.php
@@ -160,10 +160,10 @@
 		 * Query String.
 		 *
 		 * Query String as array:
-		 * array(
+		 * [
 		 *      'foo' => ['value1', value3'],
 		 *      'bar' => 'value2'
-		 * )
+		 * ]
 		 *
 		 * @return array
 		 */
@@ -310,16 +310,16 @@
 		 * foo=value1&bar=value2&foo=value3
 		 *
 		 * parse_str():
-		 * array(
+		 * [
 		 *      'foo' => 'value3',
 		 *      'bar' => 'value2'
-		 * )
+		 * ]
 		 *
 		 * queryStringToArray():
-		 * array(
+		 * [
 		 *      'foo' => ['value1', value3'],
 		 *      'bar' => 'value2'
-		 * )
+		 * ]
 		 *
 		 * @param string $queryString
 		 * @return array
@@ -331,7 +331,7 @@
 
 			// foo=value1&bar=value2&foo=value3
 
-			// array('foo=value1', 'bar=value2', 'foo=value3');
+			// ['foo=value1', 'bar=value2', 'foo=value3']
 			$tmpQueryString = explode('&', $queryString);
 
 			foreach ($tmpQueryString as &$paramValue) {
@@ -342,17 +342,17 @@
 				list($param, $value) = explode('=', $paramValue, 2);
 
 				// We passed $paramValue by reference, so we can modify it
-				$paramValue = array(
+				$paramValue = [
 					'param' => $param,
 					'value' => $value
-				);
+				];
 			}
 			// Break the reference
 			unset($paramValue);
 
 			$queryString = [];
 
-			// array(['param' => 'foo', 'value' => 'value1'], etc.);
+			// [['param' => 'foo', 'value' => 'value1'], etc.];
 			foreach ($tmpQueryString as $paramValue) {
 
 				// If parameter already in list (duplicate)
@@ -367,7 +367,7 @@
 					} else {
 
 						// Replace value by array containing it
-						$queryString[$paramValue['param']] = array($queryString[$paramValue['param']]);
+						$queryString[$paramValue['param']] = [$queryString[$paramValue['param']]];
 						$queryString[$paramValue['param']][] = $paramValue['value'];
 					}
 
@@ -435,7 +435,7 @@
 				$param = [];
 
 				if (!is_array($value))
-					$value = array($value);
+					$value = [$value];
 
 				foreach ($value as $item) // $param = [ key=value1, key=value2, ... ]
 					$param[] = $key . '=' . $item;

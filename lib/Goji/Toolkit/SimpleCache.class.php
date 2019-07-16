@@ -628,12 +628,12 @@
 		 *
 		 * Use an array like:
 		 *
-		 * $policy = array(
+		 * $policy = [
 		 *      'etag' => 'token',
 		 *      'restriction' => SimpleCache::HTTP_CACHE_CONTROL_NO_CACHE,
 		 *      'privacy' => SimpleCache::HTTP_CACHE_CONTROL_PUBLIC,
 		 *      'max-age' => SimpleCache::TIME_1DAY
-		 * )
+		 * ]
 		 *
 		 * @param array $policy
 		 * @throws \Exception

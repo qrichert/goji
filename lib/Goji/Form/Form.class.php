@@ -127,13 +127,13 @@
 		 *
 		 * keys = 1stLevel, 2ndLevel, 3rdLevel
 		 *
-		 * subject = array(
-		 *     '1stLevel' => array(
-		 *         '2ndLevel' => array(
+		 * subject = [
+		 *     '1stLevel' => [
+		 *         '2ndLevel' => [
 		 *             '3rdLevel' => VALUE
-		 *         )
-		 *     )
-		 * )
+		 *         ]
+		 *     ]
+		 * ]
 		 *
 		 * => VALUE
 		 *
@@ -210,7 +210,7 @@
 				$matches = $matches[1]; // first capturing group (contains index name without the brackets [])
 
 				if (!is_array($matches))
-					$matches = array($matches);
+					$matches = [$matches];
 
 				if ($input instanceof InputFile)
 					$inputValue = $_FILES[$matches[0]] ?? null;

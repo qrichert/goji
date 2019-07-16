@@ -142,7 +142,7 @@
 				           && (is_string($config['route']) || is_array($config['route']))) {
 
 					if (!is_array($config['route']))
-						$config['route'] = array($config['route']);
+						$config['route'] = [$config['route']];
 
 					foreach ($config['route'] as &$alternativePath) {
 
@@ -249,11 +249,11 @@
 								continue;
 							}
 
-							$mappedRoutes[$alternativePath] = array(
+							$mappedRoutes[$alternativePath] = [
 								'locale' => $locale,
 								'controller' => $controller,
 								'page' => $page
-							);
+							];
 						}
 					}
 
@@ -261,11 +261,11 @@
 
 					foreach ($config['route'] as $alternativePath) {
 
-						$mappedRoutes[$alternativePath] = array(
+						$mappedRoutes[$alternativePath] = [
 							'locale' => self::ACCEPT_ALL, // No specific language
 							'controller' => $controller,
 							'page' => $page
-						);
+						];
 					}
 
 				} else {
@@ -382,7 +382,7 @@
 
 			$link = null;
 
-			$locales = array($locale, $this->m_app->getLanguages()->getFallbackLocale());
+			$locales = [$locale, $this->m_app->getLanguages()->getFallbackLocale()];
 			foreach ($locales as $loc) {
 
 				// If we have [page][routes][locale]

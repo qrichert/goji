@@ -33,10 +33,10 @@
 
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
-					HttpResponse::JSON(array(
+					HttpResponse::JSON([
 						'email' => $form->getInputByName('login[email]')->getValue(),
 						'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
-					), true); // email, redirect_to, add status = SUCCESS
+					], true); // email, redirect_to, add status = SUCCESS
 				}
 
 				// Clean the form
@@ -48,9 +48,9 @@
 			// If AJAX, return JSON
 			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
-				HttpResponse::JSON(array(
+				HttpResponse::JSON([
 					'detail' => $detail
-				), false);
+				], false);
 			}
 
 			return false;
