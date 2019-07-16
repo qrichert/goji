@@ -472,16 +472,9 @@
 		 */
 		public static function cacheArray(array $arr, string $id): bool {
 
-			if (is_array($arr)) {
+			$arr = json_encode($arr);
 
-				$arr = json_encode($arr);
-
-				return self::cacheFragment($arr, $id);
-
-			} else {
-
-				return false;
-			}
+			return self::cacheFragment($arr, $id);
 		}
 
 /* --- Load --- */

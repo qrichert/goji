@@ -291,9 +291,7 @@
 		 * @param array $arr
 		 */
 		public function setSpecials(array $arr): void {
-
-			if (is_array($arr))
-				$this->m_specials = $arr;
+			$this->m_specials = $arr;
 		}
 
 		/**

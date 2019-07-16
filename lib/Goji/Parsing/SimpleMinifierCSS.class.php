@@ -187,69 +187,60 @@
 		public static function minifyFile($file, bool $replaceCSSVariablesByValue = true): ?string { // $file = (string) | (array)
 
 			$code = '';
+			$file = (array) $file;
 
-			if (is_array($file)) {
+			foreach ($file as $f) {
 
-				foreach ($file as $f) {
+				if (is_file($f)) {
 
-					if (is_file($f)) {
+					$path = self::getWebRootPath($f);
 
-						$path = self::getWebRootPath($f);
+					if (mb_substr($path, -3) == '/./') // public/./ (if file is at root)
+						$path = mb_substr($path, 0, mb_strlen($path) - 2); // Remove ./
 
-						if (mb_substr($path, -3) == '/./') // public/./ (if file is at root)
-							$path = mb_substr($path, 0, mb_strlen($path) - 2); // Remove ./
+					$content = file_get_contents($f);
 
-						$content = file_get_contents($f);
+					// Now we make every url('') that is NOT absolute, absolute
+					// Can start with @import url(URL) || @import (URL) || url(URL)
+					// URL may be sourrounded by quotes " or ' but not necessarily
+					// URL can not start with a protocol '[a-z]{1,5}://', 'data:', '/'
 
-						// Now we make every url('') that is NOT absolute, absolute
-						// Can start with @import url(URL) || @import (URL) || url(URL)
-						// URL may be sourrounded by quotes " or ' but not necessarily
-						// URL can not start with a protocol '[a-z]{1,5}://', 'data:', '/'
+					// Match @import url() || @import || url() -- If parentheses quotes are optional
+					preg_match_all('#(@import\s+url|@import|url)\s*(?:\(?\s*(\'[^\']*?\'|"[^"]*?")\s*\)?|\(\s*(.+?)\s*\))#ims', $content, $hit, PREG_PATTERN_ORDER);
 
-						// Match @import url() || @import || url() -- If parentheses quotes are optional
-						preg_match_all('#(@import\s+url|@import|url)\s*(?:\(?\s*(\'[^\']*?\'|"[^"]*?")\s*\)?|\(\s*(.+?)\s*\))#ims', $content, $hit, PREG_PATTERN_ORDER);
+					$count = count($hit[0]);
+					for ($i = 0; $i < $count; $i++) {
+						// $hit[0] = full match
+						// $hit[1] = first capturing group (@import url|@import|@url)
+						// $hit[2] = second capturing group URL w/ quotes (parentheses optional)
+						// $hit[3] = third capturing group URL w/o quotes (if only parentheses, no quotes)
 
-						$count = count($hit[0]);
-						for ($i = 0; $i < $count; $i++) {
-							// $hit[0] = full match
-							// $hit[1] = first capturing group (@import url|@import|@url)
-							// $hit[2] = second capturing group URL w/ quotes (parentheses optional)
-							// $hit[3] = third capturing group URL w/o quotes (if only parentheses, no quotes)
+						$fullMatch = $hit[0][$i]; // @import url('css/main.css')
 
-							$fullMatch = $hit[0][$i]; // @import url('css/main.css')
+						$originalUrl = !empty($hit[2][$i]) ? $hit[2][$i] : $hit[3][$i]; // 'css/main.css'
 
-							$originalUrl = !empty($hit[2][$i]) ? $hit[2][$i] : $hit[3][$i]; // 'css/main.css'
+						$url = $originalUrl;
+							$url = str_replace("'", '', $url); // css/main.css
+							$url = str_replace('"', '', $url);
 
-							$url = $originalUrl;
-								$url = str_replace("'", '', $url); // css/main.css
-								$url = str_replace('"', '', $url);
+						// Ignore if if starts with protocol, date: or a slash (absolute path)
+						if (preg_match('#^([a-z]{1,5}:\/\/|data:|/)#i', $url))
+							continue;
 
-							// Ignore if if starts with protocol, date: or a slash (absolute path)
-							if (preg_match('#^([a-z]{1,5}:\/\/|data:|/)#i', $url))
-								continue;
+						$url = $path . $url; // /ROOT/css/main.css
 
-							$url = $path . $url; // /ROOT/css/main.css
+						$url = "'" . $url . "'"; // '/ROOT/css/main.css'
 
-							$url = "'" . $url . "'"; // '/ROOT/css/main.css'
+						$fullMatch = str_replace($originalUrl, $url, $fullMatch);
 
-							$fullMatch = str_replace($originalUrl, $url, $fullMatch);
-
-							$content = str_replace($hit[0][$i], $fullMatch, $content);
-						}
-
-						$code .= $content;
-
-					} else {
-						throw new Exception("File not found: $f", self::E_FILE_NOT_FOUND);
+						$content = str_replace($hit[0][$i], $fullMatch, $content);
 					}
+
+					$code .= $content;
+
+				} else {
+					throw new Exception("File not found: $f", self::E_FILE_NOT_FOUND);
 				}
-
-			} else {
-
-				if (is_file($file))
-					$code = file_get_contents($file);
-				else
-					throw new Exception("File not found: $file", self::E_FILE_NOT_FOUND);
 			}
 
 			if (!empty($code))

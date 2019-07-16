@@ -30,7 +30,7 @@ RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
 # REWRITE : STATIC ------------------------------------------------------------
 
 # CSS, JS
-RewriteRule .+(?:css|js)$   static.php [QSA,L]
+RewriteRule .+(?:css|js)$ static.php [QSA,L]
 
 # REWRITE : PAGES -------------------------------------------------------------
 
