@@ -167,11 +167,8 @@
 		 */
 		public static function atLeastOneCountryMatches($locales1, $locales2): bool {
 
-			if (!is_array($locales1))
-				$locales1 = [$locales1];
-
-			if (!is_array($locales2))
-				$locales2 = [$locales2];
+			$locales1 = (array) $locales1;
+			$locales2 = (array) $locales2;
 
 			foreach ($locales1 as $loc1) {
 
@@ -220,11 +217,8 @@
 		 */
 		public static function atLeastOneLocaleMatches($locales1, $locales2, $exactMatch = true) {
 
-			if (!is_array($locales1))
-				$locales1 = [$locales1];
-
-			if (!is_array($locales2))
-				$locales2 = [$locales2];
+			$locales1 = (array) $locales1;
+			$locales2 = (array) $locales2;
 
 			foreach ($locales1 as $loc1) {
 

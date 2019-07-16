@@ -18,15 +18,13 @@
 		public static function sanitizeTags($tagsArray): array {
 
 			// Converting tags to Array
-			if (!is_array($tagsArray))
-				$tagsArray = [$tagsArray];
+			$tagsArray = (array) $tagsArray;
 
 			// Converting tags to String
-			$count = count($tagsArray);
-			for ($i = 0; $i < $count; $i++) {
-				if (!is_string($tagsArray[$i]))
-					$tagsArray[$i] = strval($tagsArray[$i]);
+			foreach ($tagsArray as &$tag) {
+				$tag = (string) $tag;
 			}
+			unset($tag);
 
 			$tagsArray = array_unique($tagsArray); // Removing doubles
 			sort($tagsArray); // Sorting to alphabetical order
@@ -96,8 +94,7 @@
 		public static function addTags($newTags, $tagsArray = null): array {
 
 			// Making sure $newTags is an Array
-			if (!is_array($newTags))
-				$newTags = [$newTags];
+			$newTags = (array) $newTags;
 
 			// If no parent Array specified, we create one
 			if ($tagsArray === null)
@@ -119,8 +116,7 @@
 		public static function removeTags($tagsToRemove, $tagsArray): array {
 
 			// Making sure $tagsToRemove is an Array
-			if (!is_array($tagsToRemove))
-				$tagsToRemove = [$tagsToRemove];
+			$tagsToRemove = (array) $tagsToRemove;
 
 			$tagsArray = self::sanitizeTags($tagsArray);
 

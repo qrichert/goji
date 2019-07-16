@@ -367,8 +367,7 @@
 				return null;
 
 			// If it's a string, make it an array
-			if (!is_array($files))
-				$files = [$files];
+			$files = (array) $files;
 
 			// If there's no element in the array, quit
 			if (count($files) === 0)

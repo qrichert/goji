@@ -433,9 +433,7 @@
 			foreach ($queryStringArray as $key => $value) {
 
 				$param = [];
-
-				if (!is_array($value))
-					$value = [$value];
+				$value = (array) $value;
 
 				foreach ($value as $item) // $param = [ key=value1, key=value2, ... ]
 					$param[] = $key . '=' . $item;

@@ -219,8 +219,7 @@
 		 */
 		public function loadTranslationResource($file, bool $loadSegmentsAsConstants = false): void {
 
-			if (!is_array($file))
-				$file = [$file];
+			$file = (array) $file;
 
 			foreach ($file as $f) {
 

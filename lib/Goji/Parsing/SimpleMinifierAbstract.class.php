@@ -30,8 +30,7 @@
 
 			$code = '';
 
-			if (!is_array($file))
-				$file = [$file];
+			$file = (array) $file;
 
 			foreach ($file as $f) {
 

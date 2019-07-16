@@ -33,10 +33,8 @@
 
 			$this->m_loginPage = $config['login']['route'] ?? null;
 
-			$this->m_onLoginSuccessRedirectTo = $config['login']['redirect_to'] ?? null;
-
-				if (!is_array($this->m_onLoginSuccessRedirectTo))
-					$this->m_onLoginSuccessRedirectTo = [$this->m_onLoginSuccessRedirectTo];
+			$this->m_onLoginSuccessRedirectTo = $config['login']['redirect_to'] ?? '_last';
+				$this->m_onLoginSuccessRedirectTo = (array) $this->m_onLoginSuccessRedirectTo;
 		}
 
 		/**

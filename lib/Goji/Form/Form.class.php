@@ -209,8 +209,7 @@
 				preg_match_all(RegexPatterns::htmlInputNameArrayKeys(), $inputName, $matches, PREG_PATTERN_ORDER);
 				$matches = $matches[1]; // first capturing group (contains index name without the brackets [])
 
-				if (!is_array($matches))
-					$matches = [$matches];
+				$matches = (array) $matches;
 
 				if ($input instanceof InputFile)
 					$inputValue = $_FILES[$matches[0]] ?? null;

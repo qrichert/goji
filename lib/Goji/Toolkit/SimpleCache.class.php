@@ -332,8 +332,7 @@
 		public static function cacheFilePreprocessed(string $content, $file, string $id): bool {
 
 			// If single file we handle it as array, so we can use the same code for all
-			if (!is_array($file))
-				$file = [$file];
+			$file = (array) $file;
 
 			$filesLastEditTimes = [];
 
@@ -374,8 +373,7 @@
 		public static function isValidFilePreprocessed(string $id, $file): bool {
 
 			// If single file we handle it as array, so we can use the same code for all
-			if (!is_array($file))
-				$file = [$file];
+			$file = (array) $file;
 
 			$filesLastEditTimes = [];
 

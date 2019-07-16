@@ -25,9 +25,9 @@
 		 * @return array
 		 * @throws \Exception
 		 */
-		public static function loadFileToArray($file) {
+		public static function loadFileToArray(string $file): array {
 
-			if (!is_string($file) || !is_file($file))
+			if (!is_file($file))
 				throw new Exception("Configuration file doesn't exist. (" . strval($file) . ")", self::E_FILE_DOES_NOT_EXIST);
 
 			$extension = pathinfo($file, PATHINFO_EXTENSION);
@@ -39,7 +39,6 @@
 					throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);
 					break;
 			}
-
 		}
 
 		/**
@@ -49,7 +48,7 @@
 		 * @return array
 		 * @throws \Exception
 		 */
-		private static function loadJSONFileToArray($file): array {
+		private static function loadJSONFileToArray(string $file): array {
 
 			$config = file_get_contents($file);
 			$config = json_decode($config, true);
@@ -70,7 +69,7 @@
 		 * @return array
 		 * @throws \Exception
 		 */
-		private static function loadJSON5FileToArray($file) {
+		private static function loadJSON5FileToArray(string $file): array {
 
 			// Generating cache ID
 			$cacheId = SimpleCache::cacheIDFromFileFullPath($file);

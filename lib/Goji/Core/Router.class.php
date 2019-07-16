@@ -126,8 +126,7 @@
 						// Here we standardize them all
 						// It's maybe less efficient but otherwise we would have too much
 						// $mappedRoutes (with if/else and 'routes'/'route) = 4x, here only 2x
-						if (!is_array($route))
-							$route = [$route];
+						$route = (array) $route;
 
 						foreach ($route as &$alternativePath) {
 
@@ -141,8 +140,7 @@
 				} else if (isset($config['route'])
 				           && (is_string($config['route']) || is_array($config['route']))) {
 
-					if (!is_array($config['route']))
-						$config['route'] = [$config['route']];
+					$config['route'] = (array) $config['route'];
 
 					foreach ($config['route'] as &$alternativePath) {
 
