@@ -239,7 +239,7 @@
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			return (
-				file_exists($cacheFile) // File with corresponding ID must exist
+				is_file($cacheFile) // File with corresponding ID must exist
 				&& ( // And also:
 					$maxAge == -1 // Max age must be infinite
 					|| (time() - filemtime($cacheFile)) <= $maxAge // OR, file must be recent enough
@@ -262,7 +262,7 @@
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			return (
-				!file_exists($cacheFile) // File does not exist
+				!is_file($cacheFile) // File does not exist
 				|| (time() - filemtime($cacheFile)) > $minAge // OR, file old enough
 			);
 		}
@@ -280,7 +280,7 @@
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
-			if (file_exists($cacheFile)) {
+			if (is_file($cacheFile)) {
 
 				if ($outputContent) {
 					readfile($cacheFile); // (int|false)
@@ -389,7 +389,7 @@
 
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
-			if (!file_exists($cacheFile)) // Cached file must exist
+			if (!is_file($cacheFile)) // Cached file must exist
 				return false;
 
 			// Getting original files' last edit timestamp (= first line)
@@ -441,7 +441,7 @@
 
 			$content = null;
 
-			if (file_exists($cacheFile)) {
+			if (is_file($cacheFile)) {
 
 				$f = fopen($cacheFile, 'r');
 				fgets($f); // Ignore first line / timestamp
