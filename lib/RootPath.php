@@ -25,19 +25,18 @@
 
 		$rootPath = dirname($_SERVER['SCRIPT_NAME']);
 
-		// Prepend / if none
-		if (mb_substr($rootPath, 0, 1) != '/')
-			$rootPath = '/' . $rootPath;
-
-		// Remove trailing / if any
-		if (mb_strlen($rootPath) > 1 && mb_substr($rootPath, -1) == '/')
+		// Remove trailing / if any (if $rootPath == '/' then $rootPath = '' = empty = none)
+		if (mb_substr($rootPath, -1) == '/')
 			$rootPath = mb_substr($rootPath, 0, -1);
 
-
 		/**
-		 * Webroot path starting with / and without trailing /.
+		 * WebRoot path starting with / and without trailing /.
 		 *
 		 * /!\ This is the web root /!\
+		 *
+		 * If WebRoot is the same folder as index.php/static.php, then WebRoot = '' (empty)
+		 * because we always do WEBROOT . '/sub/folder'. So if there is one, it becomes
+		 * '/public/sub/folder', and if there is none, it remains '/sub/folder'.
 		 */
 		define('WEBROOT', $rootPath);
 	}
