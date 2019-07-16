@@ -391,6 +391,7 @@
 
 			// Now we guess the file type
 			$fileType = pathinfo($files[0], PATHINFO_EXTENSION);
+				$fileType = mb_strtolower($fileType);
 
 			$linkStatement = '';
 

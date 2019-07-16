@@ -26,10 +26,10 @@
 		const NORMAL = 'normal';
 		const MERGED = 'merged';
 
-		const FILE_CSS = 'css';
-		const FILE_JS = 'js';
+		const CSS = 'css';
+		const JAVASCRIPT = 'js';
 
-		const SUPPORTED_FILE_TYPES = [self::FILE_CSS, self::FILE_JS];
+		const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT];
 
 		const E_REQUEST_IS_EMPTY = 0;
 		const E_FILE_NOT_FOUND = 1;
@@ -90,7 +90,7 @@
 
 			// File type
 			$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
-			$this->m_fileType = mb_strtolower($this->m_fileType);
+				$this->m_fileType = mb_strtolower($this->m_fileType);
 
 			if (!in_array($this->m_fileType, self::SUPPORTED_FILE_TYPES))
 				throw new Exception("File type not supported: {$this->m_fileType}", self::E_FILE_TYPE_NOT_SUPPORTED);
@@ -115,11 +115,11 @@
 
 			switch ($this->m_fileType) {
 
-				case self::FILE_CSS:
+				case self::CSS:
 					$renderer = new FileRendererCSS($this);
 					break;
 
-				case self::FILE_JS:
+				case self::JAVASCRIPT:
 					$renderer = new FileRendererJS($this);
 					break;
 			}
