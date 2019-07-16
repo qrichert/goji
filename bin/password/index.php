@@ -41,7 +41,7 @@
 				</div>
 				<script>
 					(function() {
-						var pwd = document.querySelector('#pwd-<?= $i; ?>');
+						let pwd = document.querySelector('#pwd-<?= $i; ?>');
 						document.querySelector('#cpy-<?= $i; ?>').addEventListener('click', function(e) {
 							e.preventDefault();
 							pwd.select();

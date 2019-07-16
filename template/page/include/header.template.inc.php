@@ -29,9 +29,8 @@
 
 		<script>
 			(function () {
-				// 'var' for browser support as this is not compiled
-				var navBurgerMenu = document.querySelector('.nav__burger-menu');
-				var nav = document.querySelector('nav');
+				let navBurgerMenu = document.querySelector('.nav__burger-menu');
+				let nav = document.querySelector('nav');
 
 				// Toggle menu visibility in burger menu mode
 				navBurgerMenu.addEventListener('click', function() {
@@ -42,7 +41,7 @@
 						nav.classList.remove('shown');
 				}, false);
 
-				// var navLinks = document.querySelectorAll('nav > a');
+				// let navLinks = document.querySelectorAll('nav > a');
 				//
 				// // Hide menu on item click (useful for same-page anchor links)
 				// navLinks.forEach(function(el) {

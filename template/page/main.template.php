@@ -8,7 +8,7 @@
 		<!-- Analytics -->
 		<?php
 			if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
-				require_once '../template/page/include/tracking.template.inc.php';
+				require_once '../template/page/include/analytics.template.inc.php';
 		?>
 
 		<?php require_once '../template/page/include/head.template.inc.php'; ?>
@@ -53,15 +53,12 @@
 		?>
 
 		<!-- Social -->
-		<meta property="og:title" content="<?= $template->getPageTitle(); ?>">
-		<meta property="og:description" content="<?= $template->getPageDescription(); ?>">
 		<?php require_once '../template/page/include/opengraph.template.inc.php'; ?>
 
 		<!-- Scripts -->
 		<?php require_once '../template/page/include/head-javascript.template.inc.php'; ?>
 	</head>
 	<body id="<?= $this->m_app->getRouter()->getCurrentPage(); ?>">
-		<?php require_once '../template/page/include/body.template.inc.php'; ?>
 		<?php require_once '../template/page/include/header.template.inc.php'; ?>
 
 		<?= $template->getPageContent(); ?>

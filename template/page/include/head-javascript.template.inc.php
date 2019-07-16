@@ -3,8 +3,8 @@
 	/* CONSTANTS */
 
 	const PAGE = '<?= $this->m_app->getRouter()->getCurrentPage(); ?>';
-//	var SCREEN_WIDTH  = window.innerWidth;
-//	var SCREEN_HEIGHT = window.innerHeight;
+//	let SCREEN_WIDTH  = window.innerWidth;
+//	let SCREEN_HEIGHT = window.innerHeight;
 	const TOUCH_EVENT = 'click'; //'ontouchstart' in window ? 'touchend' : 'click';
 //	const TOUCH_DEVICE  = 'ontouchstart' in window ? true : false;
 //
@@ -17,9 +17,9 @@
 //		Returns scroll ratio. (0 = top || 1 = bottom)
 //	*/
 //	function getWindowScroll() {
-//		var s = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-//		var d = document.body.clientHeight;
-//		var c = window.innerHeight;
+//		let s = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+//		let d = document.body.clientHeight;
+//		let c = window.innerHeight;
 //
 //		return s / (d - c);
 //	}
