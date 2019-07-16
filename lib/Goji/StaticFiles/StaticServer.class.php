@@ -4,7 +4,6 @@
 
 	use Goji\Core\ConfigurationLoader;
 	use Exception;
-	use Goji\Core\Logger;
 
 	/**
 	 * Class StaticServer
