@@ -52,7 +52,7 @@
 
 				Mail::sendMail($this->m_app->getCompanyEmail(), 'New message from contact form', $message, $options);
 
-				// If AJAX, return JSON
+				// If AJAX, return JSON (SUCCESS)
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 					HttpResponse::JSON([
@@ -66,7 +66,7 @@
 				return true;
 			}
 
-			// If AJAX, return JSON
+			// If AJAX, return JSON (ERROR)
 			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 				HttpResponse::JSON([

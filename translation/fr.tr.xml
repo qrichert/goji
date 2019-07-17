@@ -9,6 +9,7 @@
 		<segment id="HELLO_WORLD">bonjour, monde</segment>
 		<segment id="GO_BACK_HOME">← Retourner vers la page d'accueil</segment>
 		<segment id="SEND">Envoyer</segment>
+		<segment id="PUBLISH">Publier</segment>
 
 		<!-- Nav -->
 		<segment id="NAV_HOME">Accueil</segment>
@@ -49,7 +50,7 @@
 				- ^ means start of sequence and $ means end of sequence.
 				- 0|1 means either 0 or 1
 				- You can have more elaborate cases, like for Russian:
-					Numbers that ends in 1 except 11:
+					Numbers that end in 1, except 11:
 					^[^\D1]*1$|^1{3,}$
 					^[^\D1]*1$|\d*[^\D1]\d*1$|^1{3,}$
 				- Don't forget parenthesis for ORs. ^0|1$ matches anything that starts with 0 OR ends with 1 !!!
@@ -91,5 +92,19 @@
 			<alternative count="^2$">Vous aimez les baies de goji?</alternative>
 			<alternative count="rest">:)</alternative>
 		</segment>
+	</page>
+	<page id="admin-blog-post">
+		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
+		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_POST_MAIN_TITLE">
+			<alternative count="^create$">Nouvel article</alternative>
+			<alternative count="^update$">Modifier un article</alternative>
+		</segment>
+		<segment id="BLOG_POST_SUCCESS">Votre article a bien été publié</segment>
+		<segment id="BLOG_POST_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="BLOG_POST_TITLE">Titre</segment>
+		<segment id="BLOG_POST_TITLE_PLACEHOLDER">Mon Histoire</segment>
+		<segment id="BLOG_POST_POST">Contenu</segment>
+		<segment id="BLOG_POST_POST_PLACEHOLDER">Il était une fois...</segment>
 	</page>
 </translation>

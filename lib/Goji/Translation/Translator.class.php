@@ -273,7 +273,7 @@
 		 * @param int $count
 		 * @return array|string
 		 */
-		public function translate(string $segmentID, int $count = -1) {
+		public function translate(string $segmentID, $count = -1) {
 
 			if (isset($this->m_segments[$segmentID])) {
 

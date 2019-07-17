@@ -31,6 +31,7 @@
 
 				$this->m_app->getUser()->logIn(1);
 
+				// If AJAX, return JSON (SUCCESS)
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 					HttpResponse::JSON([
@@ -45,7 +46,7 @@
 				return true;
 			}
 
-			// If AJAX, return JSON
+			// If AJAX, return JSON (ERROR)
 			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 				HttpResponse::JSON([
