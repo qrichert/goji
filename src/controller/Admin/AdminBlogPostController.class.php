@@ -25,11 +25,11 @@
 			$this->m_action = $_GET['action'] ?? BlogPostManager::ACTION_CREATE;
 				$this->m_action = mb_strtolower($this->m_action);
 
-			$this->m_blogPostID = $_GET['id'] ?? null;
-		}
+				if ($this->m_action != BlogPostManager::ACTION_CREATE
+					&& $this->m_action != BlogPostManager::ACTION_UPDATE)
+						$this->m_action = BlogPostManager::ACTION_CREATE; // Default
 
-		public function errorActionUnknown(): void {
-			$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
+			$this->m_blogPostID = $_GET['id'] ?? null;
 		}
 
 		public function errorBlogPostDoesNotExist(): void {
@@ -43,16 +43,20 @@
 
 			if ($isValid) {
 
+				// TODO: Save or Update ($manager->save() { if create: self->create() else if update: self->update()) }
+
 				// If AJAX, return JSON (SUCCESS)
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 					HttpResponse::JSON([
-						'message' => $tr->_('BLOG_POST_SUCCESS')
+						'message' => $tr->_('BLOG_POST_SUCCESS'),
+						'clear' => $this->m_action == BlogPostManager::ACTION_CREATE // Clean the form if we are in create mode
 					], true);
 				}
 
-				// Clean the form
-				$manager->clearForm();
+				// Clean the form if we are in create mode
+				if ($this->m_action == BlogPostManager::ACTION_CREATE)
+					$manager->clearForm();
 
 				return true;
 			}
@@ -75,14 +79,22 @@
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$blogPostManager = new BlogPostManager($this, $this->m_action, $this->m_blogPostID, $tr);
-
+			$blogPostManager = new BlogPostManager($this, $tr);
+				$blogPostManager->createForm();
+$blogPostManager->getForm()->prepareForUpdate('id-hello56789');
 			$formSentSuccess = null;
 
+			// If data sent
 			if ($this->m_app->getRequestHandler()->getRequestMethod() == HttpMethodInterface::HTTP_POST) {
 
-				$blogPostManager->getForm()->hydrate();
+				$blogPostManager->hydrateFormWithPostData();
 				$formSentSuccess = $this->treatForm($tr, $blogPostManager);
+
+			} else {
+
+				// If we update, we fetch the current values
+				if ($this->m_action == BlogPostManager::ACTION_UPDATE)
+					$blogPostManager->hydrateFormWithExistingBlogPost($this->m_blogPostID);
 			}
 
 			// Template

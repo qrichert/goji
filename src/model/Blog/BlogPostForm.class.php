@@ -5,11 +5,17 @@
 	use Goji\Form\Form;
 	use Goji\Form\InputButtonElement;
 	use Goji\Form\InputCustom;
+	use Goji\Form\InputHidden;
 	use Goji\Form\InputLabel;
 	use Goji\Form\InputText;
 	use Goji\Form\InputTextArea;
 	use Goji\Translation\Translator;
 
+	/**
+	 * Class BlogPostForm
+	 *
+	 * @package App\Model\Blog
+	 */
 	class BlogPostForm extends Form {
 
 		function __construct(Translator $tr) {
@@ -41,5 +47,19 @@
 				$this->addInput(new InputButtonElement())
 				     ->setAttribute('class', 'highlight loader')
 				     ->setAttribute('textContent', $tr->_('PUBLISH'));
+		}
+
+		public function prepareForUpdate($blogPostID): void {
+
+			if (empty($blogPostID))
+				return;
+
+			if (!is_string($blogPostID) && !is_numeric($blogPostID))
+				return;
+
+			$this->addInput(new InputHidden())
+				 ->setAttribute('name', 'blog-post[update-id]')
+				 ->setAttribute('value', $blogPostID)
+				 ->setAttribute('required');
 		}
 	}

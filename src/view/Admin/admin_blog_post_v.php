@@ -33,9 +33,11 @@
 
 			let success = response => {
 
-				// Clear message
-				title.value = '';
-				post.value = '';
+				// Clear message requested (create mode)
+				if (response.clear) {
+					title.value = '';
+					post.value = '';
+				}
 
 				formStatus.classList.remove('form__error');
 				formStatus.classList.add('form__success');
