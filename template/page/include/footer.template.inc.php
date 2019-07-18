@@ -13,6 +13,19 @@
 				</p>
 				<!--<p>Try uncommenting me</p>-->
 			</div>
+			<p>
+				<?php
+					if ($this->m_app->getUser()->isLoggedIn()) {
+					?>
+						<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>"><?= $tr->_('FOOTER_LOG_OUT'); ?></a>
+					<?php
+					} else {
+					?>
+						<a href="<?= $this->m_app->getRouter()->getLinkForPage('login'); ?>"><?= $tr->_('FOOTER_LOG_IN'); ?></a>
+					<?php
+					}
+				?>
+			</p>
 			<!--<p><a href="#">Terms</a></p>-->
 			<!--<p><a href="#">Privacy</a></p>-->
 			<p>Made with ❤️ and PHP</p>

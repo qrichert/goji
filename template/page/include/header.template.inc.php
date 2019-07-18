@@ -8,17 +8,6 @@
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>"><?= $tr->_('NAV_HOME'); ?></a>
 			<a href="#"><?= $tr->_('NAV_ABOUT'); ?></a>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('contact'); ?>"><?= $tr->_('NAV_CONTACT'); ?></a>
-			<?php
-				if ($this->m_app->getUser()->isLoggedIn()) {
-				?>
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>"><?= $tr->_('NAV_LOG_OUT'); ?></a>
-				<?php
-				} else {
-				?>
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('login'); ?>"><?= $tr->_('NAV_LOG_IN'); ?></a>
-				<?php
-				}
-			?>
 		</nav>
 
 		<div class="nav__burger-menu">
