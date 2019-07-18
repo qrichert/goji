@@ -3,4 +3,4 @@
 # Except this file
 !.gitignore
 !blog/
-!blog/*
+!blog/*.post.txt
