@@ -8,7 +8,14 @@
 				$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' . $this->m_blogPostID;
 			?>
 				<div class="blog__toolbar">
-					<a href="<?= $link; ?>" class="link-button"><?= $tr->_('BLOG_POST_GO_TO_BLOG_POST'); ?></a>
+					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post'); ?>"
+					   class="link-button highlight add">
+						<?= $tr->_('BLOG_POST_NEW_BLOG_POST'); ?>
+					</a>
+					<a href="<?= $link; ?>"
+					   class="link-button">
+						<?= $tr->_('BLOG_POST_GO_TO_BLOG_POST'); ?>
+					</a>
 				</div>
 			<?php
 			}
@@ -38,6 +45,37 @@
 		<script src="../js/lib/Goji/TextAreaAutoResize-19.6.6.class.min.js"></script>
 		<script>
 			(function () {
+
+				<?php
+					if ($this->m_action == \Goji\Blog\BlogPostManager::ACTION_CREATE) {
+					?>
+						let permalink = document.querySelector('#blog-post__permalink');
+						let title = document.querySelector('#blog-post__title');
+						let permalinkEdited = false;
+
+						function formatPermalink(permalink) {
+
+							permalink = permalink.toLowerCase();
+							permalink = permalink.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+							permalink = permalink.replace(/[^A-Z0-9]+/gi, '-');
+							permalink = permalink.replace(/(^-+|-+$)/g, '');
+
+							return permalink;
+						}
+
+						permalink.addEventListener('keyup', () => permalinkEdited = true, false);
+
+						title.addEventListener('keyup', () => {
+
+							if (permalinkEdited)
+								return;
+
+							permalink.value = formatPermalink(title.value);
+						}, false);
+					<?php
+					}
+				?>
+
 				new TextAreaAutoResize(document.querySelector('#blog-post__post'));
 			})();
 		</script>

@@ -24,6 +24,13 @@
 			$this->setAttribute('class', 'form__blog-post');
 
 				$this->addInput(new InputLabel())
+				     ->setAttribute('for', 'blog-post__permalink')
+				     ->setAttribute('textContent', $tr->_('BLOG_POST_PERMALINK'));
+				$this->addInput(new InputText())
+					 ->setAttribute('name', 'blog-post[permalink]')
+					 ->setAttribute('id', 'blog-post__permalink')
+					 ->setAttribute('placeholder', $tr->_('BLOG_POST_PERMALINK_PLACEHOLDER'));
+				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'blog-post__title')
 					 ->setAttribute('class', 'required')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_TITLE'));

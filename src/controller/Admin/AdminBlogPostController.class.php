@@ -132,7 +132,9 @@
 				// If we update, we fetch the current values
 				if ($this->m_action == BlogPostManager::ACTION_UPDATE) {
 
+					$blogPostManager->getForm()->getInputByName('blog-post[permalink]')->setAttribute('readonly');
 					$blogPostManager->hydrateFormWithExistingBlogPost($this->m_blogPostID);
+					$blogPostManager->setVerifyPermalink(false);
 
 				} elseif ($this->m_action == BlogPostManager::ACTION_DELETE) {
 

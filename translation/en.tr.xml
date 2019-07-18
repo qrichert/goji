@@ -118,11 +118,14 @@
 			<alternative count="^create$">New Blog Post</alternative>
 			<alternative count="^update$">Edit Blog Post</alternative>
 		</segment>
+		<segment id="BLOG_POST_NEW_BLOG_POST">New blog post</segment>
 		<segment id="BLOG_POST_GO_TO_BLOG_POST">Go to blog post</segment>
 		<segment id="BLOG_POST_SUCCESS">Your blog post has been published</segment>
 		<segment id="BLOG_POST_UPDATE_SUCCESS">Your blog post has been updated</segment>
 		<segment id="BLOG_POST_ERROR">The form contains errors</segment>
 		<segment id="BLOG_POST_WRITING_FAILED">Internal Error: The article could not be saved</segment>
+		<segment id="BLOG_POST_PERMALINK">Permalink</segment>
+		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">my-story</segment>
 		<segment id="BLOG_POST_TITLE">Title</segment>
 		<segment id="BLOG_POST_TITLE_PLACEHOLDER">My Story</segment>
 		<segment id="BLOG_POST_POST">Content</segment>

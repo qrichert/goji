@@ -13,6 +13,7 @@
 		private $m_parent;
 		private $m_translator;
 		private $m_form;
+		private $m_verifyPermalink;
 
 		/* <CONSTANTS> */
 
@@ -45,6 +46,22 @@
 			$this->m_translator = $tr;
 
 			$this->m_form = null;
+
+			$this->m_verifyPermalink = true;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function getVerifyPermalink(): bool {
+			return $this->m_verifyPermalink;
+		}
+
+		/**
+		 * @param bool $verify
+		 */
+		public function setVerifyPermalink(bool $verify): void {
+			$this->m_verifyPermalink = $verify;
 		}
 
 		/**
@@ -104,6 +121,7 @@
 
 			$this->createForm(); // Creates one if none, doesn't overwrite current one
 
+				$this->m_form->getInputByName('blog-post[permalink]')->setValue($data['permalink']);
 				$this->m_form->getInputByName('blog-post[title]')->setValue($data['title']);
 				$this->m_form->getInputByName('blog-post[post]')->setValue($data['post']);
 		}
@@ -181,6 +199,40 @@
 		}
 
 		/**
+		 * @param string $permalink
+		 * @return string|null
+		 */
+		private function getIDForPermalink(string $permalink): ?string {
+
+			$id = null;
+
+			$posts = glob(self::BLOG_POSTS_PATH . '*' . self::BLOG_POSTS_EXTENSION);
+
+			foreach ($posts as $file) {
+
+				$file = fopen($file, 'r');
+
+				if (!$file)
+					continue;
+
+				$pl = rtrim(fgets($file)); // Read first link && rtrim() to remove \n
+					$pl = mb_substr($pl, 11); // Remove 'Permalink: '
+
+				if ($permalink == $pl) { // Found a match
+					$id = rtrim(fgets($file)); // Read second line (ID)
+						$id = mb_substr($id, 4); // 'ID: '
+				}
+
+				fclose($file);
+
+				if (!empty($id))
+					return $id;
+			}
+
+			return null;
+		}
+
+		/**
 		 * @param string $file
 		 * @param int $cutContentAtNbChars -1 = infinite, whole text
 		 * @return array
@@ -199,6 +251,10 @@
 
 				if ($line == '---')
 					break; // Go to body
+
+				if (mb_substr($line, 0, 11) == 'Permalink: ') {
+					$data['permalink'] = mb_substr($line, 11);
+				}
 
 				if (mb_substr($line, 0, 4) == 'ID: ') {
 					$data['id'] = mb_substr($line, 4);
@@ -246,6 +302,29 @@
 		}
 
 		/**
+		 * If permalink already exists, add *-2, if *-2 exists, add *-3, etc.
+		 *
+		 * @param string $permalink
+		 * @return string
+		 */
+		protected function makePermalinkUnique(string $permalink): string {
+
+			$id = $this->getIDForPermalink($permalink);
+			$base = $permalink;
+			$i = 2;
+
+			while ($id !== null) { // while (permalink found)
+				$permalink = $base . '-' . $i;
+				$id = $this->getIDForPermalink($permalink);
+				$i++;
+			}
+
+			// Unique permalink after loop !
+
+			return $permalink;
+		}
+
+		/**
 		 * Saves current form to disk, under given post ID
 		 *
 		 * @param string $id
@@ -267,9 +346,22 @@
 			$date = date('H,i,s,n,j,Y'); // -> [$hour, $min, $sec, $month, $day, $year] = explode(',', $date);
 			$post = $this->m_form->getInputByName('blog-post[post]')->getValue();
 
+			// Permalink last
+			$permalink = $this->m_form->getInputByName('blog-post[permalink]')->getValue();
+
+			if ($this->m_verifyPermalink) { // On update, just keep the readonly value
+
+				if (empty($permalink))
+					$permalink = $title;
+
+				$permalink = SwissKnife::stringToID($permalink);
+				$permalink = $this->makePermalinkUnique($permalink);
+			}
+
 			$content = '';
 
-				$content .= "ID: $id" . PHP_EOL;
+				$content .= "Permalink: $permalink" . PHP_EOL; // Must be first
+				$content .= "ID: $id" . PHP_EOL; // Must be second
 				$content .= "Locale: {$this->m_translator->getTargetLocale()}" . PHP_EOL;
 				$content .= "Title: $title" . PHP_EOL;
 				$content .= "Date: $date" . PHP_EOL;
