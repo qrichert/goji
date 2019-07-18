@@ -78,6 +78,10 @@
 		 */
 		private function loadXML(string $file, bool $loadSegmentsAsConstants = false): void {
 
+			/*
+			 * TODO: Is this necessary? It makes one cached version per page, test w/o
+			 * see _FACTORY_/why cache one per perge ???
+			 */
 			$currentPage = $this->m_app->getRouter()->getCurrentPage();
 
 			// If cached, load from cache
