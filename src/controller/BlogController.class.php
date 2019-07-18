@@ -9,9 +9,6 @@
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	/*
-	 * TODO: get specific locale or country code
-	 */
 	class BlogController implements BlogPostControllerInterface {
 
 		/* <ATTRIBUTES> */
@@ -34,7 +31,7 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$blogPostManager = new BlogPostManager($this, $tr);
-			$blogPosts = $blogPostManager->getBlogPosts(0, -1);
+			$blogPosts = $blogPostManager->getBlogPosts(0, -1, $this->m_app->getLanguages()->getCurrentCountryCode());
 
 			$template = new SimpleTemplate($tr->_('BLOG_PAGE_TITLE'),
 			                                $tr->_('BLOG_PAGE_DESCRIPTION'));

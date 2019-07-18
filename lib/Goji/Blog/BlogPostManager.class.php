@@ -6,6 +6,19 @@
 	use Goji\Translation\Translator;
 	use Exception;
 
+	/**
+	 * Class BlogPostManager
+	 *
+	 * /!\ This class is NOT fit for production /!\
+	 *
+	 * It just saves the blog posts in files. It is very very inefficient.
+	 * This is just the "base", so I can provide an example.
+	 *
+	 * To use this in production, you should INHERIT from this class and OVERLOAD
+	 * ALL read/write function, to make it work with a database or something.
+	 *
+	 * @package Goji\Blog
+	 */
 	class BlogPostManager {
 
 		/* <ATTRIBUTES> */
@@ -162,9 +175,10 @@
 		/**
 		 * @param int $offset
 		 * @param int $count -1 = all, infinite
+		 * @param string $locale
 		 * @return array
 		 */
-		public function getBlogPosts(int $offset = 0, int $count = 15): array {
+		public function getBlogPosts(int $offset = 0, int $count = -1, string $locale = null): array {
 
 			if ($offset < 0)
 				$offset = 0;
@@ -175,6 +189,14 @@
 			foreach ($this->getBlogPostsPostByPostReverse($offset) as $post) {
 
 				$post = $this->readBlogPostFromFile($post, 150);
+
+				if (!empty($locale) && !empty($post['locale'])) { // We care about the locale
+
+					// if blog post locale doesn't start with requested locale, skip the blog post
+					// en_US, request en -> YES | en, request en_US -> NO | fr, request en -> NO
+					if (mb_substr($post['locale'], 0, mb_strlen($locale)) !== $locale)
+						continue;
+				}
 
 				$posts[] = $post;
 

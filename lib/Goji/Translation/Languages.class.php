@@ -26,6 +26,7 @@
 		private $m_fallbackLocale; // Loaded from config file + $this->formatConfigurationLocales($config);
 		private $m_userPreferredLocales; // $this->fetchUserPreferredLocales(); Defined in HTTP header, formatted
 		private $m_currentLocale; // $this->fetchCurrentLocale(); Best match between config & user
+		private $m_currentCountryCode; // just the two first letters en_US -> en
 
 		/* <CONSTANTS> */
 
@@ -82,6 +83,7 @@
 			// and if there's no last one used (first visit) we get the best match according to
 			// the user's browser preferences.)
 			$this->m_currentLocale = null;
+			$this->m_currentCountryCode = null;
 		}
 
 		function __debugInfo() {
@@ -331,6 +333,14 @@
 		 */
 		public function getCurrentHyphenLocale(): string {
 			return $this->hyphenateLocale($this->getCurrentLocale());
+		}
+
+		public function getCurrentCountryCode(): string {
+
+			if (empty($this->m_currentCountryCode))
+				$this->m_currentCountryCode = mb_substr($this->getCurrentLocale(), 0, 2);
+
+			return $this->m_currentCountryCode;
 		}
 
 		/**
