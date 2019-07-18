@@ -2,23 +2,23 @@
 
 	namespace App\Controller;
 
-	use Goji\Blog\BlogPostControllerInterface;
+	use Goji\Blog\BlogPostControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Core\App;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class BlogPostController implements BlogPostControllerInterface {
+	class BlogPostController extends BlogPostControllerAbstract {
 
 		/* <ATTRIBUTES> */
 
-		private $m_app;
 		private $m_id;
 
 		public function __construct(App $app) {
 
-			$this->m_app = $app;
+			parent::__construct($app);
+
 			$this->m_id = $this->m_app->getRequestHandler()->getRequestParameters()[1] ?? null; // 0 = full match
 
 			if (empty($this->m_id))

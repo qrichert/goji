@@ -2,26 +2,13 @@
 
 	namespace App\Controller;
 
-	use Goji\Blog\BlogPostControllerInterface;
+	use Goji\Blog\BlogPostControllerAbstract;
 	use Goji\Blog\BlogPostManager;
-	use Goji\Core\App;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class BlogController implements BlogPostControllerInterface {
-
-		/* <ATTRIBUTES> */
-
-		private $m_app;
-
-		public function __construct(App $app) {
-			$this->m_app = $app;
-		}
-
-		public function errorBlogPostDoesNotExist(): void {
-			$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
-		}
+	class BlogController extends BlogPostControllerAbstract {
 
 		public function render() {
 

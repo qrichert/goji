@@ -16,6 +16,7 @@
 	 *
 	 * To use this in production, you should INHERIT from this class and OVERLOAD
 	 * ALL read/write function, to make it work with a database or something.
+	 * (Basically all non-private functions in the // <READ/WRITE> part
 	 *
 	 * @package Goji\Blog
 	 */
@@ -23,6 +24,7 @@
 
 		/* <ATTRIBUTES> */
 
+		private $m_app;
 		private $m_parent;
 		private $m_translator;
 		private $m_form;
@@ -50,11 +52,12 @@
 		/**
 		 * BlogPostManager constructor.
 		 *
-		 * @param \Goji\Blog\BlogPostControllerInterface $parent
+		 * @param \Goji\Blog\BlogPostControllerAbstract $parent
 		 * @param \Goji\Translation\Translator $tr
 		 */
-		public function __construct(BlogPostControllerInterface $parent, Translator $tr) {
+		public function __construct(BlogPostControllerAbstract $parent, Translator $tr) {
 
+			$this->m_app = $parent->getApp();
 			$this->m_parent = $parent;
 			$this->m_translator = $tr;
 

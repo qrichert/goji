@@ -2,7 +2,7 @@
 
 	namespace App\Controller\Admin;
 
-	use Goji\Blog\BlogPostControllerInterface;
+	use Goji\Blog\BlogPostControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\App;
@@ -10,17 +10,16 @@
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class AdminBlogPostController implements BlogPostControllerInterface {
+	class AdminBlogPostController extends BlogPostControllerAbstract {
 
 		/* <ATTRIBUTES> */
 
-		private $m_app;
 		private $m_action;
 		private $m_blogPostID;
 
 		public function __construct(App $app) {
 
-			$this->m_app = $app;
+			parent::__construct($app);
 
 			$this->m_action = $_GET['action'] ?? BlogPostManager::ACTION_CREATE;
 				$this->m_action = mb_strtolower($this->m_action);
@@ -31,10 +30,6 @@
 						$this->m_action = BlogPostManager::ACTION_CREATE; // Default
 
 			$this->m_blogPostID = $_GET['id'] ?? null;
-		}
-
-		public function errorBlogPostDoesNotExist(): void {
-			$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 		}
 
 		private function treatForm(Translator $tr, BlogPostManager $manager): bool {

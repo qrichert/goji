@@ -109,6 +109,8 @@
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR} at %{HOUR}:%{MIN}</segment>
 		<segment id="BLOG_POST_DELETE_CONFIRMATION">Delete the blog post, are you sure?\nThis action can't be undone.</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_INPUT">Enter "yes" to confirm</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_STRING">yes</segment>
 		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Back to blog posts</segment>
 	</page>
 	<page id="admin-blog-post">
