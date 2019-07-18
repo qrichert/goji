@@ -1,11 +1,10 @@
 <?php
 
-	namespace App\Model\Blog;
+	namespace Goji\Blog;
 
 	use Goji\Form\Form;
 	use Goji\Form\InputButtonElement;
 	use Goji\Form\InputCustom;
-	use Goji\Form\InputHidden;
 	use Goji\Form\InputLabel;
 	use Goji\Form\InputText;
 	use Goji\Form\InputTextArea;

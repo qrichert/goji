@@ -1,10 +1,7 @@
 <?php
 
-	namespace App\Model\Blog;
+	namespace Goji\Blog;
 
-	use App\Controller\Admin\AdminBlogPostController;
-	use Goji\Core\Logger;
-	use Goji\Parsing\Parser;
 	use Goji\Toolkit\SwissKnife;
 	use Goji\Translation\Translator;
 	use Exception;
@@ -39,10 +36,10 @@
 		/**
 		 * BlogPostManager constructor.
 		 *
-		 * @param \App\Controller\Admin\AdminBlogPostController $parent
+		 * @param \Goji\Blog\BlogPostControllerInterface $parent
 		 * @param \Goji\Translation\Translator $tr
 		 */
-		public function __construct(AdminBlogPostController $parent, Translator $tr) {// TODO: inherit from BlogPostController() with blog post not exist method
+		public function __construct(BlogPostControllerInterface $parent, Translator $tr) {// TODO: inherit from BlogPostController() with blog post not exist method
 
 			$this->m_parent = $parent;
 			$this->m_translator = $tr;
@@ -58,7 +55,7 @@
 		}
 
 		/**
-		 * @return \App\Model\Blog\BlogPostForm|null
+		 * @return \Goji\Blog\BlogPostForm|null
 		 */
 		public function getForm(): ?BlogPostForm {
 			return $this->m_form;
@@ -97,6 +94,9 @@
 			$this->m_form->hydrate();
 		}
 
+		/**
+		 * @param $id
+		 */
 		public function hydrateFormWithExistingBlogPost($id): void {
 
 			// If bad ID, read() will fail
@@ -122,6 +122,10 @@
 			return is_file(self::BLOG_POSTS_PATH . $id . self::BLOG_POSTS_EXTENSION);
 		}
 
+		/**
+		 * @param string $id
+		 * @return array
+		 */
 		protected function getBlogPost(string $id): array {
 
 			if (!$this->blogPostExists($id))
@@ -201,7 +205,7 @@
 				$content .= "Title: $title" . PHP_EOL;
 				$content .= "Date: $date" . PHP_EOL;
 				$content .= "---" . PHP_EOL;
-				$content .= $post . PHP_EOL;
+				$content .= $post;
 
 			if (!is_dir(self::BLOG_POSTS_PATH))
 				mkdir(self::BLOG_POSTS_PATH, 0777, true);

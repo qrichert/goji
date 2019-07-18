@@ -2,15 +2,15 @@
 
 	namespace App\Controller\Admin;
 
-	use App\Model\Blog\BlogPostManager;
-	use Goji\Blueprints\ControllerInterface;
+	use Goji\Blog\BlogPostControllerInterface;
+	use Goji\Blog\BlogPostManager;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class AdminBlogPostController implements ControllerInterface {
+	class AdminBlogPostController implements BlogPostControllerInterface {
 
 		/* <ATTRIBUTES> */
 
