@@ -3,11 +3,6 @@
 		<h1><?= $tr->_('BLOG_MAIN_TITLE'); ?></h1>
 
 		<?php
-			if (empty($blogPosts))
-				echo "<p>{$tr->_('BLOG_NO_BLOG_POSTS')}</p>";
-		?>
-
-		<?php
 			if ($this->m_app->getUser()->isLoggedIn()) {
 			?>
 				<div class="blog__toolbar">
@@ -18,6 +13,11 @@
 				</div>
 			<?php
 			}
+		?>
+
+		<?php
+			if (empty($blogPosts))
+				echo "<p>{$tr->_('BLOG_NO_BLOG_POSTS')}</p>";
 		?>
 
 		<?php
