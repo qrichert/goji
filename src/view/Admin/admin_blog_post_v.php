@@ -34,9 +34,12 @@
 			let success = response => {
 
 				// Clear message requested (create mode)
-				if (response.clear) {
+				if (typeof response.redirect !== 'undefined' && response.redirect !== false) {
+
 					title.value = '';
 					post.value = '';
+
+					location.href = response.redirect;
 				}
 
 				formStatus.classList.remove('form__error');

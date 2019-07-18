@@ -102,6 +102,7 @@
 		</segment>
 		<segment id="BLOG_POST_SUCCESS">Your blog post has been published</segment>
 		<segment id="BLOG_POST_ERROR">The form contains errors</segment>
+		<segment id="BLOG_POST_WRITING_FAILED">Internal Error: The article could not be saved</segment>
 		<segment id="BLOG_POST_TITLE">Title</segment>
 		<segment id="BLOG_POST_TITLE_PLACEHOLDER">My Story</segment>
 		<segment id="BLOG_POST_POST">Content</segment>

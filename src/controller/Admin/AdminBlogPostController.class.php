@@ -43,22 +43,54 @@
 
 			if ($isValid) {
 
-				// TODO: Save or Update ($manager->save() { if create: self->create() else if update: self->update()) }
+				$actionSuccess = false;
 
-				// If AJAX, return JSON (SUCCESS)
+				if ($this->m_action == BlogPostManager::ACTION_UPDATE)
+					$actionSuccess = $manager->update($this->m_blogPostID); // bool
+				else
+					$actionSuccess = $manager->create(); // string|false
+
+				if ($actionSuccess !== false) {
+
+					// If CREATE and SUCCESS, $actionSuccess contains new ID
+					if ($this->m_action == BlogPostManager::ACTION_CREATE)
+						$this->m_blogPostID = $actionSuccess;
+
+					$redirectTo = false;
+
+					if ($this->m_action == BlogPostManager::ACTION_CREATE)
+						$redirectTo = "blog-post?action=" . BlogPostManager::ACTION_UPDATE . "&id={$this->m_blogPostID}";
+
+					// If AJAX, return JSON (SUCCESS)
+					if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
+
+						HttpResponse::JSON([
+							'message' => $tr->_('BLOG_POST_SUCCESS'),
+							'id' => $this->m_blogPostID,
+							'redirect' => $redirectTo
+						], true);
+					}
+
+					// Redirect to edit page
+					if ($this->m_action == BlogPostManager::ACTION_CREATE) {
+
+						// Just in case
+						$manager->clearForm();
+						$this->m_app->getRouter()->redirectTo($redirectTo);
+					}
+
+					return true;
+				}
+
+				// If AJAX, return JSON (ERROR)
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 					HttpResponse::JSON([
-						'message' => $tr->_('BLOG_POST_SUCCESS'),
-						'clear' => $this->m_action == BlogPostManager::ACTION_CREATE // Clean the form if we are in create mode
-					], true);
+						'message' => $tr->_('BLOG_POST_WRITING_FAILED')
+					], false);
 				}
 
-				// Clean the form if we are in create mode
-				if ($this->m_action == BlogPostManager::ACTION_CREATE)
-					$manager->clearForm();
-
-				return true;
+				return false;
 			}
 
 			// If AJAX, return JSON (ERROR)
@@ -81,7 +113,7 @@
 
 			$blogPostManager = new BlogPostManager($this, $tr);
 				$blogPostManager->createForm();
-$blogPostManager->getForm()->prepareForUpdate('id-hello56789');
+
 			$formSentSuccess = null;
 
 			// If data sent
@@ -93,8 +125,9 @@ $blogPostManager->getForm()->prepareForUpdate('id-hello56789');
 			} else {
 
 				// If we update, we fetch the current values
-				if ($this->m_action == BlogPostManager::ACTION_UPDATE)
+				if ($this->m_action == BlogPostManager::ACTION_UPDATE) {
 					$blogPostManager->hydrateFormWithExistingBlogPost($this->m_blogPostID);
+				}
 			}
 
 			// Template

@@ -48,18 +48,4 @@
 				     ->setAttribute('class', 'highlight loader')
 				     ->setAttribute('textContent', $tr->_('PUBLISH'));
 		}
-
-		public function prepareForUpdate($blogPostID): void {
-
-			if (empty($blogPostID))
-				return;
-
-			if (!is_string($blogPostID) && !is_numeric($blogPostID))
-				return;
-
-			$this->addInput(new InputHidden())
-				 ->setAttribute('name', 'blog-post[update-id]')
-				 ->setAttribute('value', $blogPostID)
-				 ->setAttribute('required');
-		}
 	}

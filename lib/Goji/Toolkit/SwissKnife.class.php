@@ -115,6 +115,16 @@
 		}
 
 		/**
+		 * Removes new lines in a string.
+		 *
+		 * @param string $str
+		 * @param string $replaceWith Replace the new lines with the given string (e.g. a space)
+		 */
+		public static function removeNewLines(string &$str, string $replaceWith = ''): void {
+			$str = str_replace(["\r\n", "\r", "\n", PHP_EOL], $replaceWith, $str);
+		}
+
+		/**
 		 * Replaces Call To Action template shortcut with HTML
 		 *
 		 * %{CTA}Send Me A Message%{/CTA}

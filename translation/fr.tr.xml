@@ -102,6 +102,7 @@
 		</segment>
 		<segment id="BLOG_POST_SUCCESS">Votre article a bien été publié</segment>
 		<segment id="BLOG_POST_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="BLOG_POST_WRITING_FAILED">Erreur Interne: Impossible d'enregistrer l'article</segment>
 		<segment id="BLOG_POST_TITLE">Titre</segment>
 		<segment id="BLOG_POST_TITLE_PLACEHOLDER">Mon Histoire</segment>
 		<segment id="BLOG_POST_POST">Contenu</segment>
