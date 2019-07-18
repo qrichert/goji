@@ -61,6 +61,8 @@
 					post.value = '';
 
 					location.href = response.redirect;
+
+					return;
 				}
 
 				formStatus.classList.remove('form__error');
