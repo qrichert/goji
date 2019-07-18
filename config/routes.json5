@@ -62,6 +62,12 @@
 		route: "/blog",
 		controller: "BlogController"
 	},
+	"blog-post": {
+		// /blog/ for getLinkForPage(), if we fall on empty in BlogPostController, we redirect to blog
+		// Note that the /blog/ route is different from the /blog route without trailing slash
+		route: ["/blog/", "/blog/(.+)"],
+		controller: "BlogPostController"
+	},
 	"admin-blog-post": {
 		route: "/admin/blog-post",
 		controller: "Admin\\AdminBlogPostController"

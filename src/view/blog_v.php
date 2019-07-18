@@ -11,10 +11,14 @@
 			$nbPosts = count($blogPosts);
 			$i = 0;
 
+			$linkBase = $this->m_app->getRouter()->getLinkForPage('blog');
+
 			foreach ($blogPosts as $post) {
 				$i++;
+
+				$link = $linkBase . '/' . $post['id'];
 			?>
-				<h2><a href="#"><?= $post['title']; ?></a></h2>
+				<h2><a href="<?= $link ?>"><?= $post['title']; ?></a></h2>
 				<p class="sub-heading">
 					<?php
 						$date = $tr->_('BLOG_POST_DATE');
@@ -27,7 +31,7 @@
 				</p>
 				<p>
 					<?= htmlspecialchars($post['post']); ?>
-					<a href="#"><?= $tr->_('BLOG_READ_MORE'); ?></a>
+					<a href="<?= $link ?>"><?= $tr->_('BLOG_READ_MORE'); ?></a>
 				</p>
 
 				<?= $i < $nbPosts ? '<hr>' : ''; ?>

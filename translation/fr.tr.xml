@@ -102,6 +102,11 @@
 		<segment id="BLOG_NO_BLOG_POSTS">Il n'y a pas encore d'article, revenez plus tard...</segment>
 		<segment id="BLOG_READ_MORE">Lire la suite...</segment>
 	</page>
+	<page id="blog-post">
+		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR} à %{HOUR}:%{MIN}</segment>
+		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Retourner à la liste des articles</segment>
+	</page>
 	<page id="admin-blog-post">
 		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>

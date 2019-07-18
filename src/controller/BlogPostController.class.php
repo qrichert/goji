@@ -9,17 +9,22 @@
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	/*
-	 * TODO: use permalink, style title (in writing), get specific locale or country code
-	 */
-	class BlogController implements BlogPostControllerInterface {
+	class BlogPostController implements BlogPostControllerInterface {
 
 		/* <ATTRIBUTES> */
 
 		private $m_app;
+		private $m_id;
 
 		public function __construct(App $app) {
+
 			$this->m_app = $app;
+			$this->m_id = $this->m_app->getRequestHandler()->getRequestParameters()[1] ?? null; // 0 = full match
+
+			if (empty($this->m_id))
+				$this->m_app->getRouter()->redirectTo($this->m_app->getRouter()->getLinkForPage('blog'));
+
+			// Bad ID handled in BlogPostManager::read(); -> 404
 		}
 
 		public function errorBlogPostDoesNotExist(): void {
@@ -34,15 +39,15 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$blogPostManager = new BlogPostManager($this, $tr);
-			$blogPosts = $blogPostManager->getBlogPosts(0, -1);
+			$blogPost = $blogPostManager->read($this->m_id);
 
-			$template = new SimpleTemplate($tr->_('BLOG_PAGE_TITLE'),
-			                                $tr->_('BLOG_PAGE_DESCRIPTION'));
+			$template = new SimpleTemplate($blogPost['title'],
+			                                $tr->_('BLOG_POST_PAGE_DESCRIPTION'));
 
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once '../src/view/blog_v.php';
+			require_once '../src/view/blog-post_v.php';
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

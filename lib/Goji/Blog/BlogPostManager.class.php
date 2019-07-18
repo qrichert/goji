@@ -200,6 +200,14 @@
 				if ($line == '---')
 					break; // Go to body
 
+				if (mb_substr($line, 0, 4) == 'ID: ') {
+					$data['id'] = mb_substr($line, 4);
+				}
+
+				if (mb_substr($line, 0, 8) == 'Locale: ') {
+					$data['locale'] = mb_substr($line, 8);
+				}
+
 				if (mb_substr($line, 0, 7) == 'Title: ') {
 					$data['title'] = mb_substr($line, 7);
 				}
@@ -261,6 +269,8 @@
 
 			$content = '';
 
+				$content .= "ID: $id" . PHP_EOL;
+				$content .= "Locale: {$this->m_translator->getTargetLocale()}" . PHP_EOL;
 				$content .= "Title: $title" . PHP_EOL;
 				$content .= "Date: $date" . PHP_EOL;
 				$content .= "---" . PHP_EOL;
@@ -286,12 +296,13 @@
 		 */
 		private function createIDFromDate(string $date): string {
 
+			$date .= '.' . time();
+
 			$i = 1;
 
 			while (true) {
 
-				$nb = str_pad((string) $i, 4, '0', STR_PAD_LEFT); // 1 -> 0001
-				$id = $date . '.' . $nb;
+				$id = $date . '.' . $i;
 
 				if (!$this->blogPostExists($id))
 					return $id;
