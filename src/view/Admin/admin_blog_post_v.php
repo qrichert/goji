@@ -3,6 +3,18 @@
 		<h1><?= $tr->_('BLOG_POST_MAIN_TITLE', $this->m_action); ?></h1>
 
 		<?php
+			if ($this->m_action == \Goji\Blog\BlogPostManager::ACTION_UPDATE) {
+
+				$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' . $this->m_blogPostID;
+			?>
+				<div class="blog__toolbar">
+					<a href="<?= $link; ?>" class="link-button"><?= $tr->_('BLOG_POST_GO_TO_BLOG_POST'); ?></a>
+				</div>
+			<?php
+			}
+		?>
+
+		<?php
 			if ($formSentSuccess === true) {
 
 				$message = $this->m_action == \Goji\Blog\BlogPostManager::ACTION_UPDATE ?

@@ -8,6 +8,19 @@
 		?>
 
 		<?php
+			if ($this->m_app->getUser()->isLoggedIn()) {
+			?>
+				<div class="blog__toolbar">
+					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post'); ?>"
+						class="link-button highlight add">
+						<?= $tr->_('BLOG_NEW_BLOG_POST'); ?>
+					</a>
+				</div>
+			<?php
+			}
+		?>
+
+		<?php
 			$nbPosts = count($blogPosts);
 			$i = 0;
 

@@ -26,7 +26,8 @@
 				$this->m_action = mb_strtolower($this->m_action);
 
 				if ($this->m_action != BlogPostManager::ACTION_CREATE
-					&& $this->m_action != BlogPostManager::ACTION_UPDATE)
+					&& $this->m_action != BlogPostManager::ACTION_UPDATE
+					&& $this->m_action != BlogPostManager::ACTION_DELETE)
 						$this->m_action = BlogPostManager::ACTION_CREATE; // Default
 
 			$this->m_blogPostID = $_GET['id'] ?? null;
@@ -130,7 +131,14 @@
 
 				// If we update, we fetch the current values
 				if ($this->m_action == BlogPostManager::ACTION_UPDATE) {
+
 					$blogPostManager->hydrateFormWithExistingBlogPost($this->m_blogPostID);
+
+				} elseif ($this->m_action == BlogPostManager::ACTION_DELETE) {
+
+					$blogPostManager->delete($this->m_blogPostID);
+
+					$this->m_app->getRouter()->redirectTo($this->m_app->getRouter()->getLinkForPage('blog'));
 				}
 			}
 

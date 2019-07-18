@@ -10,6 +10,8 @@
 		<segment id="GO_BACK_HOME">← Retourner vers la page d'accueil</segment>
 		<segment id="SEND">Envoyer</segment>
 		<segment id="PUBLISH">Publier</segment>
+		<segment id="EDIT">Modifier</segment>
+		<segment id="DELETE">Supprimer</segment>
 
 		<!-- Nav -->
 		<segment id="NAV_HOME">Accueil</segment>
@@ -98,6 +100,7 @@
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_MAIN_TITLE">Blog</segment>
+		<segment id="BLOG_NEW_BLOG_POST">Nouvel article</segment>
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR}</segment>
 		<segment id="BLOG_NO_BLOG_POSTS">Il n'y a pas encore d'article, revenez plus tard...</segment>
 		<segment id="BLOG_READ_MORE">Lire la suite...</segment>
@@ -105,6 +108,9 @@
 	<page id="blog-post">
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR} à %{HOUR}:%{MIN}</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION">Supprimer l'article, êtes vous sûr ?\nCette action est irréversible.</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_INPUT">Entrez « oui » pour confirmer</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_STRING">oui</segment>
 		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Retourner à la liste des articles</segment>
 	</page>
 	<page id="admin-blog-post">
@@ -114,6 +120,7 @@
 			<alternative count="^create$">Nouvel article</alternative>
 			<alternative count="^update$">Modifier un article</alternative>
 		</segment>
+		<segment id="BLOG_POST_GO_TO_BLOG_POST">Aller à l'article</segment>
 		<segment id="BLOG_POST_SUCCESS">Votre article a bien été publié</segment>
 		<segment id="BLOG_POST_UPDATE_SUCCESS">Votre article a bien été mis à jour</segment>
 		<segment id="BLOG_POST_ERROR">Le formulaire contient des erreurs</segment>

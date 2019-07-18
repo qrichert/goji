@@ -10,6 +10,8 @@
 		<segment id="GO_BACK_HOME">← Go back home</segment>
 		<segment id="SEND">Send</segment>
 		<segment id="PUBLISH">Publish</segment>
+		<segment id="EDIT">Edit</segment>
+		<segment id="DELETE">Delete</segment>
 
 		<!-- Nav -->
 		<segment id="NAV_HOME">Home</segment>
@@ -98,6 +100,7 @@
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_MAIN_TITLE">Blog</segment>
+		<segment id="BLOG_NEW_BLOG_POST">New blog post</segment>
 		<segment id="BLOG_POST_DATE">%{MONTH}/%{DAY}/%{YEAR}</segment>
 		<segment id="BLOG_NO_BLOG_POSTS">There are no blog posts yet, come back later...</segment>
 		<segment id="BLOG_READ_MORE">Read more...</segment>
@@ -105,6 +108,7 @@
 	<page id="blog-post">
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR} at %{HOUR}:%{MIN}</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION">Delete the blog post, are you sure?\nThis action can't be undone.</segment>
 		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Back to blog posts</segment>
 	</page>
 	<page id="admin-blog-post">
@@ -114,6 +118,7 @@
 			<alternative count="^create$">New Blog Post</alternative>
 			<alternative count="^update$">Edit Blog Post</alternative>
 		</segment>
+		<segment id="BLOG_POST_GO_TO_BLOG_POST">Go to blog post</segment>
 		<segment id="BLOG_POST_SUCCESS">Your blog post has been published</segment>
 		<segment id="BLOG_POST_UPDATE_SUCCESS">Your blog post has been updated</segment>
 		<segment id="BLOG_POST_ERROR">The form contains errors</segment>
