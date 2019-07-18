@@ -48,6 +48,9 @@
 		// $len = 10;
 		$className = mb_substr($className, 10);
 
+		// Admin\BlogPost -> Admin/BlogPost
+		$className = str_replace('\\', '/', $className);
+
 		// HomeController -> ../src/model/HomeModel.class.php
 		$classFile = '../src/model/' . $className . '.class.php';
 
@@ -74,6 +77,9 @@
 		// $len = mb_strlen('App\Controller\\');
 		// $len = 15;
 		$className = mb_substr($className, 15);
+
+		// Admin\AdminBlogPostController -> Admin/AdminBlogPostController
+		$className = str_replace('\\', '/', $className);
 
 		// HomeController -> ../src/controller/HomeController.class.php
 		$classFile = '../src/controller/' . $className . '.class.php';

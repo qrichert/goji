@@ -115,6 +115,35 @@
 		}
 
 		/**
+		 * Removes new lines in a string.
+		 *
+		 * @param string $str
+		 * @param string $replaceWith Replace the new lines with the given string (e.g. a space)
+		 */
+		public static function removeNewLines(string &$str, string $replaceWith = ''): void {
+			$str = str_replace(["\r\n", "\r", "\n", PHP_EOL], $replaceWith, $str);
+		}
+
+		/**
+		 * Transforms any string to a list of words, without special chars, separated by dashes
+		 *
+		 * -#HÉllo, _world-! 123 :) -> hello-world-123
+		 *
+		 * @param string $str
+		 * @return string
+		 */
+		public static function stringToID(string $str): string {
+
+			// -#HÉllo, _world-! 123 :)
+			$str = mb_strtolower($str); // -#héllo, _world-! 123 :)
+			$str = SwissKnife::removeAccents($str); // -#hello, _world-! 123 :)
+			$str = preg_replace('#[^A-Z0-9]+#i', '-', $str); // -hello-world-123-
+			$str = trim($str, '-'); // hello-world-123
+
+			return $str;
+		}
+
+		/**
 		 * Replaces Call To Action template shortcut with HTML
 		 *
 		 * %{CTA}Send Me A Message%{/CTA}

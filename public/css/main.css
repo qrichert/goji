@@ -9,3 +9,35 @@
 .form__login {
 	width: 300px;
 }
+
+/* <BLOG> */
+
+.form__blog-post #blog-post__permalink,
+.form__blog-post #blog-post__title {
+	border: none;
+	box-shadow: none;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.form__blog-post #blog-post__permalink {
+	color: var(--color-link);
+	text-decoration: underline;
+}
+
+.form__blog-post #blog-post__title {
+	font-weight: bold;
+	font-size: 1.7em;
+	height: auto;
+}
+
+.blog__toolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-bottom: calc(2 * var(--gutter-default));
+}
+
+.blog__toolbar > *:not(:first-child) {
+	margin-left: var(--gutter-thin);
+}

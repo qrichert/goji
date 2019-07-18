@@ -57,6 +57,21 @@
 		route: "/logout",
 		controller: "LogoutController"
 	},
+	// <BLOG>
+	"blog": {
+		route: "/blog",
+		controller: "BlogController"
+	},
+	"blog-post": {
+		// /blog/ for getLinkForPage(), if we fall on empty in BlogPostController, we redirect to blog
+		// Note that the /blog/ route is different from the /blog route without trailing slash
+		route: ["/blog/", "/blog/(.+)"],
+		controller: "BlogPostController"
+	},
+	"admin-blog-post": {
+		route: "/admin/blog-post",
+		controller: "Admin\\AdminBlogPostController"
+	},
 	// This is the page ID.
 	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )
 	// It is also put as <body id=""> in default template, so make sure it's HTML#id compliant

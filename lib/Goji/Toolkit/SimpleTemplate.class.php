@@ -425,13 +425,6 @@
 		}
 
 		public static function anchorify(string $id): string {
-
-			// -#HÉllo, _world-! 123 :)
-			$id = mb_strtolower($id); // -#héllo, _world-! 123 :)
-			$id = SwissKnife::removeAccents($id); // -#hello, _world-! 123 :)
-			$id = preg_replace('#[^A-Z0-9]+#i', '-', $id); // -hello-world-123-
-			$id = trim($id, '-'); // hello-world-123
-
-			return $id;
+			return SwissKnife::stringToID($id);
 		}
 	}
