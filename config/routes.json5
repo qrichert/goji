@@ -58,6 +58,10 @@
 		controller: "LogoutController"
 	},
 	// <BLOG>
+	"blog": {
+		route: "/blog",
+		controller: "BlogController"
+	},
 	"admin-blog-post": {
 		route: "/admin/blog-post",
 		controller: "Admin\\AdminBlogPostController"

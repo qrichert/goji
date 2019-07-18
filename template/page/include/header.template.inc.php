@@ -7,6 +7,7 @@
 		<nav>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>"><?= $tr->_('NAV_HOME'); ?></a>
 			<a href="#"><?= $tr->_('NAV_ABOUT'); ?></a>
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('NAV_BLOG'); ?></a>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('contact'); ?>"><?= $tr->_('NAV_CONTACT'); ?></a>
 		</nav>
 

@@ -123,6 +123,52 @@
 		}
 
 		/**
+		 * Array will be way bigger than what we need
+		 *
+		 * array_reverse() copies the array, here at least we don't copy it
+		 *
+		 * @param int $offset
+		 * @return \Generator
+		 */
+		private function getBlogPostsPostByPostReverse(int $offset) {
+
+			$posts = glob(self::BLOG_POSTS_PATH . '*' . self::BLOG_POSTS_EXTENSION);
+
+			$count = count($posts) - 1; // - 1 because array starts at 0
+			$count -= $offset;
+
+			for ($i = $count; $i >= 0; $i--)
+				yield $posts[$i];
+		}
+
+		/**
+		 * @param int $offset
+		 * @param int $count -1 = all, infinite
+		 * @return array
+		 */
+		public function getBlogPosts(int $offset = 0, int $count = 15): array {
+
+			if ($offset < 0)
+				$offset = 0;
+
+			$posts = [];
+			$i = 0;
+
+			foreach ($this->getBlogPostsPostByPostReverse($offset) as $post) {
+
+				$post = $this->readBlogPostFromFile($post, 150);
+
+				$posts[] = $post;
+
+				$i++;
+				if ($i == $count)
+					break;
+			}
+
+			return $posts;
+		}
+
+		/**
 		 * @param string $id
 		 * @return array
 		 */
@@ -131,7 +177,17 @@
 			if (!$this->blogPostExists($id))
 				$this->m_parent->errorBlogPostDoesNotExist();
 
-			$file = fopen(self::BLOG_POSTS_PATH . $id . self::BLOG_POSTS_EXTENSION, 'r');
+			return $this->readBlogPostFromFile(self::BLOG_POSTS_PATH . $id . self::BLOG_POSTS_EXTENSION);
+		}
+
+		/**
+		 * @param string $file
+		 * @param int $cutContentAtNbChars -1 = infinite, whole text
+		 * @return array
+		 */
+		private function readBlogPostFromFile(string $file, int $cutContentAtNbChars = -1): array {
+
+			$file = fopen($file, 'r');
 
 			if (!$file)
 				$this->m_parent->errorBlogPostDoesNotExist();
@@ -166,6 +222,9 @@
 
 			// Read body
 			$data['post'] = stream_get_contents($file); // Read from caret to the end
+
+			if ($cutContentAtNbChars > 0 && mb_strlen($data['post']) > $cutContentAtNbChars)
+				$data['post'] = SwissKnife::ceil_str($data['post'], $cutContentAtNbChars) . '...';
 
 			return $data;
 		}

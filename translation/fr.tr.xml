@@ -14,6 +14,7 @@
 		<!-- Nav -->
 		<segment id="NAV_HOME">Accueil</segment>
 		<segment id="NAV_ABOUT">À propos</segment>
+		<segment id="NAV_BLOG">Blog</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 
 		<!-- Footer -->
@@ -92,6 +93,14 @@
 			<alternative count="^2$">Vous aimez les baies de goji?</alternative>
 			<alternative count="rest">:)</alternative>
 		</segment>
+	</page>
+	<page id="blog">
+		<segment id="BLOG_PAGE_TITLE">Blog</segment>
+		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_MAIN_TITLE">Blog</segment>
+		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR}</segment>
+		<segment id="BLOG_NO_BLOG_POSTS">Il n'y a pas encore d'article, revenez plus tard...</segment>
+		<segment id="BLOG_READ_MORE">Lire la suite...</segment>
 	</page>
 	<page id="admin-blog-post">
 		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
