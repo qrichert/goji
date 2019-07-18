@@ -10,7 +10,7 @@
 	use Goji\Toolkit\SimpleTemplate;
 
 	/*
-	 * TODO: use permalink, style title (in writing), get specific locale or country code
+	 * TODO: get specific locale or country code
 	 */
 	class BlogController implements BlogPostControllerInterface {
 

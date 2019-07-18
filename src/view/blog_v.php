@@ -29,7 +29,7 @@
 			foreach ($blogPosts as $post) {
 				$i++;
 
-				$link = $linkBase . '/' . $post['id'];
+				$link = $linkBase . '/' . $post['permalink'];
 			?>
 				<h2><a href="<?= $link ?>"><?= $post['title']; ?></a></h2>
 				<p class="sub-heading">

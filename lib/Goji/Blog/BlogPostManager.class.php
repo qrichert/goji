@@ -437,8 +437,14 @@
 
 			$id = (string) $id;
 
-			if (!$this->blogPostExists($id))
-				$this->m_parent->errorBlogPostDoesNotExist();
+			if (!$this->blogPostExists($id)) {
+
+				// Maybe it's a permalink, so get the ID from it
+				$id = $this->getIDForPermalink($id);
+
+				if (empty($id) || !$this->blogPostExists($id))
+					$this->m_parent->errorBlogPostDoesNotExist();
+			}
 
 			// 404 if it doesn't work
 			return $this->getBlogPost($id);
