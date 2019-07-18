@@ -5,7 +5,8 @@
 		<?php
 			if ($this->m_action == \Goji\Blog\BlogPostManager::ACTION_UPDATE) {
 
-				$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' . $this->m_blogPostID;
+				$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' .
+				        $blogPostManager->getForm()->getInputByName('blog-post[permalink]')->getValue();
 			?>
 				<div class="blog__toolbar">
 					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post'); ?>"

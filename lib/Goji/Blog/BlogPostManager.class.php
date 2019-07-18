@@ -54,8 +54,9 @@
 		 *
 		 * @param \Goji\Blog\BlogPostControllerAbstract $parent
 		 * @param \Goji\Translation\Translator $tr
+		 * @param string|null $defaultAction The main reason BlogPostManager has been called
 		 */
-		public function __construct(BlogPostControllerAbstract $parent, Translator $tr) {
+		public function __construct(BlogPostControllerAbstract $parent, Translator $tr, string $defaultAction = null) {
 
 			$this->m_app = $parent->getApp();
 			$this->m_parent = $parent;
@@ -63,7 +64,7 @@
 
 			$this->m_form = null;
 
-			$this->m_verifyPermalink = true;
+			$this->m_verifyPermalink = $defaultAction === self::ACTION_CREATE;
 		}
 
 		/**

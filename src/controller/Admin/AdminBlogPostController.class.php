@@ -111,7 +111,7 @@
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$blogPostManager = new BlogPostManager($this, $tr);
+			$blogPostManager = new BlogPostManager($this, $tr, $this->m_action);
 				$blogPostManager->createForm();
 
 			$formSentSuccess = null;
@@ -129,7 +129,6 @@
 
 					$blogPostManager->getForm()->getInputByName('blog-post[permalink]')->setAttribute('readonly');
 					$blogPostManager->hydrateFormWithExistingBlogPost($this->m_blogPostID);
-					$blogPostManager->setVerifyPermalink(false);
 
 				} elseif ($this->m_action == BlogPostManager::ACTION_DELETE) {
 
