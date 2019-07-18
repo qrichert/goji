@@ -28,7 +28,7 @@
 
 		public function render(): void {
 
-			$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(true), $this->m_openingTag);
+			$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(true, false), $this->m_openingTag);
 			$output .= $this->hasAttribute('value') ? htmlspecialchars($this->getAttribute('value')) : '';
 			$output .= $this->m_closingTag;
 

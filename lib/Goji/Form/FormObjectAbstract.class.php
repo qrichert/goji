@@ -93,9 +93,10 @@
 		 * action="#" method="post" etc.
 		 *
 		 * @param bool $skipValueAttribute
+		 * @param bool $addSlashes
 		 * @return string
 		 */
-		public function renderAttributes($skipValueAttribute = false): string {
+		public function renderAttributes(bool $skipValueAttribute = false, bool $addSlashes = true): string {
 
 			$attr = '';
 
@@ -108,8 +109,10 @@
 				if ($key == 'textContent')
 					continue;
 
-				if (!empty($value))
+				if (!empty($value) && $addSlashes)
 					$attr .= ' ' . $key . '="' . addslashes($value) . '"';
+				else if (!empty($value))
+					$attr .= ' ' . $key . '="' . $value . '"';
 				else
 					$attr .= ' ' . $key;
 			}
