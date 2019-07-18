@@ -14,11 +14,11 @@
 		<segment id="NAV_HOME">Home</segment>
 		<segment id="NAV_ABOUT">About</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
-		<segment id="NAV_LOG_IN">Log In</segment>
-		<segment id="NAV_LOG_OUT">Log Out</segment>
 
 		<!-- Footer -->
 		<segment id="FOOTER_GOJI_ON_GITHUB">Goji on GitHub</segment>
+		<segment id="FOOTER_LOG_IN">Log In</segment>
+		<segment id="FOOTER_LOG_OUT">Log Out</segment>
 	</page>
 	<!--
 		You can use the wildcard symbol * to match any character(s).
