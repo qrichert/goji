@@ -64,8 +64,12 @@
 					// If AJAX, return JSON (SUCCESS)
 					if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
+						$message = $this->m_action == BlogPostManager::ACTION_UPDATE ?
+							$tr->_('BLOG_POST_UPDATE_SUCCESS') :
+							$tr->_('BLOG_POST_SUCCESS');
+
 						HttpResponse::JSON([
-							'message' => $tr->_('BLOG_POST_SUCCESS'),
+							'message' => $message,
 							'id' => $this->m_blogPostID,
 							'redirect' => $redirectTo
 						], true);

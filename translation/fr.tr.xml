@@ -101,6 +101,7 @@
 			<alternative count="^update$">Modifier un article</alternative>
 		</segment>
 		<segment id="BLOG_POST_SUCCESS">Votre article a bien été publié</segment>
+		<segment id="BLOG_POST_UPDATE_SUCCESS">Votre article a bien été mis à jour</segment>
 		<segment id="BLOG_POST_ERROR">Le formulaire contient des erreurs</segment>
 		<segment id="BLOG_POST_WRITING_FAILED">Erreur Interne: Impossible d'enregistrer l'article</segment>
 		<segment id="BLOG_POST_TITLE">Titre</segment>
