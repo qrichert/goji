@@ -39,7 +39,7 @@
 		 * @param \Goji\Blog\BlogPostControllerInterface $parent
 		 * @param \Goji\Translation\Translator $tr
 		 */
-		public function __construct(BlogPostControllerInterface $parent, Translator $tr) {// TODO: inherit from BlogPostController() with blog post not exist method
+		public function __construct(BlogPostControllerInterface $parent, Translator $tr) {
 
 			$this->m_parent = $parent;
 			$this->m_translator = $tr;
