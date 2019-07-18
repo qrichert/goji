@@ -21,7 +21,7 @@
 		//       Just sort them by most common first to gain in efficiency.
 		require_authentication: [
 			"admin",
-//			"admin-blog-post",
+			"admin-blog-post",
 			"some-other-reserved-page"
 		],
 		// List of route IDs that can't be accessed of logged in.
