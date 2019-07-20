@@ -50,27 +50,27 @@
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('BLOG_POST_BACK_TO_BLOG_POSTS'); ?></a>
 		</p>
 	</section>
-
-	<script>
-		(function () {
-
-			let deleteButton = document.querySelector('#button__delete-blog-post');
-
-			deleteButton.addEventListener('click', e => {
-
-				<?php
-					$confirmation = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), '"');
-					$input = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), '"');
-					$string = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'");
-				?>
-
-				let response = prompt("<?= $confirmation; ?>", "<?= $input; ?>");
-
-				if (response !== '<?= $string; ?>')
-					e.preventDefault();
-
-			}, false);
-
-		})();
-	</script>
 </main>
+
+<script>
+	(function () {
+
+		let deleteButton = document.querySelector('#button__delete-blog-post');
+
+		deleteButton.addEventListener('click', e => {
+
+			<?php
+				$confirmation = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), '"');
+				$input = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), '"');
+				$string = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'");
+			?>
+
+			let response = prompt("<?= $confirmation; ?>", "<?= $input; ?>");
+
+			if (response !== '<?= $string; ?>')
+				e.preventDefault();
+
+		}, false);
+
+	})();
+</script>

@@ -11,28 +11,32 @@
 			<p><?= $tr->_('LOGIN_NO_ACCOUNT'); ?> <a href="#"><?= $tr->_('LOGIN_SIGN_UP'); ?></a></p>
 		</div>
 	</section>
-
-	<script src="js/lib/Goji/Form-19.6.22.class.min.js"></script>
-	<script>
-		(function() {
-
-			let form = document.querySelector('form.form__login');
-
-			let success = response => {
-				location.href = response.redirect_to;
-			};
-
-			let error = () => {
-				// Do something
-			};
-
-			new Form(document.querySelector('form.form__login'),
-					 success,
-					 error,
-					 form.querySelector('button.loader'),
-					 form.querySelector('.progress-bar')
-			);
-
-		})();
-	</script>
 </main>
+
+<?php
+	$template->linkFiles([
+		'js/lib/Goji/Form-19.6.22.class.min.js'
+	]);
+?>
+<script>
+	(function() {
+
+		let form = document.querySelector('form.form__login');
+
+		let success = response => {
+			location.href = response.redirect_to;
+		};
+
+		let error = () => {
+			// Do something
+		};
+
+		new Form(document.querySelector('form.form__login'),
+				 success,
+				 error,
+				 form.querySelector('button.loader'),
+				 form.querySelector('.progress-bar')
+		);
+
+	})();
+</script>
