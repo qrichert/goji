@@ -29,6 +29,8 @@
 
 			if ($isValid) {
 
+				// Verify validity here
+
 				$this->m_app->getUser()->logIn(1);
 
 				// If AJAX, return JSON (SUCCESS)

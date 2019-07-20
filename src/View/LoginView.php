@@ -27,8 +27,11 @@
 			location.href = response.redirect_to;
 		};
 
-		let error = () => {
-			// Do something
+		let error = response => {
+
+			if (typeof response.message !== 'undefined') {
+				// Do something
+			}
 		};
 
 		new Form(document.querySelector('form.form__login'),
