@@ -36,7 +36,7 @@ In the example, files are in two parts: the template and the view.
 The template is like a frame that never changes, and the content is what is unique to every page.
 To learn more about templating in Goji, refer to the [Templating](Templating.md) section.
 
-To edit the default home page content, go to `/src/View/home_v.php` (The `_v` stands for View).
+To edit the default home page content, go to `/src/View/HomeView.php`.
 
 Add Pages
 ---------

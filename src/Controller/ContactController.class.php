@@ -105,7 +105,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once '../src/View/contact_v.php';
+			require_once '../src/View/ContactView.php';
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

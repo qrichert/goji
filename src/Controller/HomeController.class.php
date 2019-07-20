@@ -40,7 +40,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once '../src/View/home_v.php';
+			require_once '../src/View/HomeView.php';
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

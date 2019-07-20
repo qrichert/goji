@@ -80,7 +80,7 @@
 
 			$template->startBuffer();
 
-			require_once '../src/View/login_v.php';
+			require_once '../src/View/LoginView.php';
 
 			$template->saveBuffer();
 
