@@ -16,33 +16,33 @@
 			<div></div>
 			<div></div>
 		</div>
-
-		<script>
-			(function () {
-				let navBurgerMenu = document.querySelector('.nav__burger-menu');
-				let nav = document.querySelector('nav');
-
-				// Toggle menu visibility in burger menu mode
-				navBurgerMenu.addEventListener('click', function() {
-					// toggle()'s second parameter hasn't great support in older browsers
-					if (this.classList.toggle('cross'))
-						nav.classList.add('shown');
-					else
-						nav.classList.remove('shown');
-				}, false);
-
-				// let navLinks = document.querySelectorAll('nav > a');
-				//
-				// // Hide menu on item click (useful for same-page anchor links)
-				// navLinks.forEach(function(el) {
-				// 	el.addEventListener('click', function() {
-				// 		if (nav.classList.contains('shown')) {
-				// 			nav.classList.remove('shown');
-				// 			navBurgerMenu.classList.remove(('cross'));
-				// 		}
-				// 	}, false);
-				// });
-			})();
-		</script>
 	</div>
 </header>
+
+<script>
+	(function () {
+		let navBurgerMenu = document.querySelector('.nav__burger-menu');
+		let nav = document.querySelector('nav');
+
+		// Toggle menu visibility in burger menu mode
+		navBurgerMenu.addEventListener('click', function() {
+			// toggle()'s second parameter hasn't great support in older browsers
+			if (this.classList.toggle('cross'))
+				nav.classList.add('shown');
+			else
+				nav.classList.remove('shown');
+		}, false);
+
+		// let navLinks = document.querySelectorAll('nav > a');
+		//
+		// // Hide menu on item click (useful for same-page anchor links)
+		// navLinks.forEach(function(el) {
+		// 	el.addEventListener('click', function() {
+		// 		if (nav.classList.contains('shown')) {
+		// 			nav.classList.remove('shown');
+		// 			navBurgerMenu.classList.remove(('cross'));
+		// 		}
+		// 	}, false);
+		// });
+	})();
+</script>
