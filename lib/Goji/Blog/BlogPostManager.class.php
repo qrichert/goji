@@ -177,12 +177,16 @@
 		}
 
 		/**
+		 * Returns a list of blog post entries
+		 *
 		 * @param int $offset
 		 * @param int $count -1 = all, infinite
 		 * @param string $locale
+		 * @param int $cutContentAtNbChars
+		 * @param bool $stripHTMLTags
 		 * @return array
 		 */
-		public function getBlogPosts(int $offset = 0, int $count = -1, string $locale = null): array {
+		public function getBlogPosts(int $offset = 0, int $count = -1, string $locale = null, int $cutContentAtNbChars = -1, bool $stripHTMLTags = false): array {
 
 			if ($offset < 0)
 				$offset = 0;
@@ -192,7 +196,7 @@
 
 			foreach ($this->getBlogPostsPostByPostReverse($offset) as $post) {
 
-				$post = $this->readBlogPostFromFile($post, 150);
+				$post = $this->readBlogPostFromFile($post, $cutContentAtNbChars, $stripHTMLTags);
 
 				if (!empty($locale) && !empty($post['locale'])) { // We care about the locale
 
@@ -261,9 +265,10 @@
 		/**
 		 * @param string $file
 		 * @param int $cutContentAtNbChars -1 = infinite, whole text
+		 * @param bool $stripHTMLTags
 		 * @return array
 		 */
-		private function readBlogPostFromFile(string $file, int $cutContentAtNbChars = -1): array {
+		private function readBlogPostFromFile(string $file, int $cutContentAtNbChars = -1, bool $stripHTMLTags = false): array {
 
 			$file = fopen($file, 'r');
 
@@ -312,6 +317,9 @@
 
 			// Read body
 			$data['post'] = stream_get_contents($file); // Read from caret to the end
+
+			if ($stripHTMLTags)
+				$data['post'] = strip_tags($data['post']);
 
 			if ($cutContentAtNbChars > 0 && mb_strlen($data['post']) > $cutContentAtNbChars)
 				$data['post'] = SwissKnife::ceil_str($data['post'], $cutContentAtNbChars) . '...';

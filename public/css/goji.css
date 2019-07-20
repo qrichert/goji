@@ -87,6 +87,22 @@ hr {
 	margin: 1.5em 0 1.7em 0;
 }
 
+code {
+	font-size: 85%;
+	font-family: var(--font-code);
+	background-color: rgba(27, 31, 35, 0.05);
+	padding: 0.2em 0.4em;
+	margin: 0;
+	border-radius: 3px;
+}
+
+pre > code {
+	display: block;
+	padding: 0.6em;
+	overflow-x: scroll;
+}
+
+
 /* <GENERIC CLASSES> */
 
 .hidden {
@@ -507,6 +523,10 @@ section.text {
 	max-width: 800px;
 	margin: auto;
 	padding-right: 5%;
+}
+
+section.text img {
+	max-width: 100%;
 }
 
 /* <Section Side-by-Side> */

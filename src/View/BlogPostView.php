@@ -42,6 +42,7 @@
 			}
 		?>
 
+		<!-- Remove <p> for Mardown -->
 		<p>
 			<?= nl2br(htmlspecialchars($blogPost['post'])); ?>
 		</p>
