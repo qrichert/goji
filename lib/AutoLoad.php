@@ -31,9 +31,9 @@
 	/**
 	 * Auto-load function for models.
 	 *
-	 * Models must be in /src/model/ folder.
+	 * Models must be in /src/Model/ folder.
 	 *
-	 * \App\Model\HomeModel -> '/src/model/' + HomeModel + '.class.php'
+	 * \App\Model\HomeModel -> '/src/Model/' + HomeModel + '.class.php'
 	 *
 	 * @param string $className The class which needs to be loaded
 	 */
@@ -51,8 +51,8 @@
 		// Admin\BlogPost -> Admin/BlogPost
 		$className = str_replace('\\', '/', $className);
 
-		// HomeController -> ../src/model/HomeModel.class.php
-		$classFile = '../src/model/' . $className . '.class.php';
+		// HomeController -> ../src/Model/HomeModel.class.php
+		$classFile = '../src/Model/' . $className . '.class.php';
 
 		if (is_file($classFile))
 			require_once $classFile;
@@ -61,9 +61,9 @@
 	/**
 	 * Auto-load function for controllers.
 	 *
-	 * Controllers must be in /src/controller/ folder.
+	 * Controllers must be in /src/Controller/ folder.
 	 *
-	 * \App\Controller\HomeController -> '/src/controler/' + HomeController + '.class.php'
+	 * \App\Controller\HomeController -> '/src/Controller/' + HomeController + '.class.php'
 	 *
 	 * @param string $className The class which needs to be loaded
 	 */
@@ -81,8 +81,8 @@
 		// Admin\AdminBlogPostController -> Admin/AdminBlogPostController
 		$className = str_replace('\\', '/', $className);
 
-		// HomeController -> ../src/controller/HomeController.class.php
-		$classFile = '../src/controller/' . $className . '.class.php';
+		// HomeController -> ../src/Controller/HomeController.class.php
+		$classFile = '../src/Controller/' . $className . '.class.php';
 
 		if (is_file($classFile))
 			require_once $classFile;

@@ -36,7 +36,7 @@ In the example, files are in two parts: the template and the view.
 The template is like a frame that never changes, and the content is what is unique to every page.
 To learn more about templating in Goji, refer to the [Templating](Templating.md) section.
 
-To edit the default home page content, go to `/src/view/home_v.php` (The `_v` stands for View).
+To edit the default home page content, go to `/src/View/home_v.php` (The `_v` stands for View).
 
 Add Pages
 ---------
@@ -52,8 +52,8 @@ To add a basic route, add a page ID, with a `route` and a `controller`.
 }
 ```
 
-Next step is to create a controller class in `/src/controller/` called `NewPageController` in a
-file named `NewPageController.class.php` (so `/src/controller/NewPageController.class.php`).
+Next step is to create a controller class in `/src/Controller/` called `NewPageController` in a
+file named `NewPageController.class.php` (so `/src/Controller/NewPageController.class.php`).
 
 See [Basic Flow](BasicFlow.md) for more information on controllers.
 

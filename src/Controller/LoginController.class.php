@@ -2,18 +2,17 @@
 
 	namespace App\Controller;
 
-	use App\Model\ContactForm;
+	use App\Model\LoginForm;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\App;
-	use Goji\Blueprints\ControllerInterface;
 	use Goji\Core\HttpResponse;
+	use Goji\Blueprints\ControllerInterface;
 	use Goji\Form\Form;
-	use Goji\Toolkit\Mail;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class ContactController implements ControllerInterface {
+	class LoginController implements ControllerInterface {
 
 		/* <ATTRIBUTES> */
 
@@ -30,38 +29,19 @@
 
 			if ($isValid) {
 
-				$name = $form->getInputByName('contact[name]')->getValue();
-				$email = $form->getInputByName('contact[email]')->getValue();
-				$message = $form->getInputByName('contact[message]')->getValue();
-					$message = htmlspecialchars(nl2br($message));
-
-				$message = <<<EOT
-					<strong>From:</strong> $name &lt;$email&gt;<br>
-					<br>
-					<strong>Message:</strong><br>
-					<br>
-					$message
-					EOT;
-
-				$options = [
-					'site_url' => $this->m_app->getSiteUrl(),
-					'site_name' => $this->m_app->getSiteName(),
-					'site_domain_name' => $this->m_app->getSiteDomainName(),
-					'company_email' => $this->m_app->getCompanyEmail()
-				];
-
-				Mail::sendMail($this->m_app->getCompanyEmail(), 'New message from contact form', $message, $options);
+				$this->m_app->getUser()->logIn(1);
 
 				// If AJAX, return JSON (SUCCESS)
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 					HttpResponse::JSON([
-						'message' => $tr->_('CONTACT_SUCCESS')
-					], true);
+						'email' => $form->getInputByName('login[email]')->getValue(),
+						'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
+					], true); // email, redirect_to, add status = SUCCESS
 				}
 
 				// Clean the form
-				$form = new ContactForm($tr);
+				$form = new LoginForm($tr);
 
 				return true;
 			}
@@ -70,7 +50,6 @@
 			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
 
 				HttpResponse::JSON([
-					'message' => $tr->_('CONTACT_ERROR'),
 					'detail' => $detail
 				], false);
 			}
@@ -82,12 +61,10 @@
 
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
-			// Translation
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			// Form
-			$form = new ContactForm($tr);
+			$form = new LoginForm($tr);
 
 			$formSentSuccess = null;
 
@@ -97,20 +74,16 @@
 				$formSentSuccess = $this->treatForm($tr, $form);
 			}
 
-			// Template
-			$template = new SimpleTemplate($tr->_('CONTACT_PAGE_TITLE'),
-										   $tr->_('CONTACT_PAGE_DESCRIPTION'),
+			$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE'),
+			                               $tr->_('LOGIN_PAGE_DESCRIPTION'),
 										   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 
 			$template->startBuffer();
 
-			// Getting the view (into buffer)
-			require_once '../src/view/contact_v.php';
+			require_once '../src/View/login_v.php';
 
-			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();
 
-			// Inside the template file we call $template to put things in place.
 			require_once '../template/page/main.template.php';
 		}
 	}

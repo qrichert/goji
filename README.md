@@ -38,9 +38,9 @@ Directory Structure
 	- **`js`**, *JavaScript files.*
 	- **`upload`**, *public uploads are stored here.*
 - **`src`**, *contains user code (yours).*
-	- **`controller`**, *controller files.*
-	- **`model`**, *model files.*
-	- **`view`**, *view files.*
+	- **`Controller`**, *controller files.*
+	- **`Model`**, *model files.*
+	- **`View`**, *view files.*
 - **`template`**, *contains template files (*e.g.* page templates).*
 - **`translation`**, *contains all files related to translation.*
 - **`upload`**, *private uploads are stored here.*

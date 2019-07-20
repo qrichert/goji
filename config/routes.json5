@@ -30,7 +30,7 @@
 		},
 		// 'controller' is the controller to which the page is tied to.
 		// In this example, the "home" controller is \App\Controller\HomeController()
-		// in /src/controller/HomeController.class.php
+		// in /src/Controller/HomeController.class.php
 		// The class is imported and called automatically, this is why you only
 		// need to enter the class name. But it's also why you have to respect the
 		// naming convention and make it implement \Goji\Blueprints\ControllerInterface().

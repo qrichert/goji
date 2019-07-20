@@ -6,7 +6,7 @@
 			&& isset($_COOKIE[COOKIES_PREFIX . 'id']) && $_COOKIE[COOKIES_PREFIX . 'id'] != ''
 		    && isset($_COOKIE[COOKIES_PREFIX . 'rm-hash']) && $_COOKIE[COOKIES_PREFIX . 'rm-hash'] != '') {
 
-				require_once '../src/model/MemberManager.class.php';
+				require_once '../src/Model/MemberManager.class.php';
 
 				try {
 					MemberManager::autoLogIn($_COOKIE[COOKIES_PREFIX . 'id'], $_COOKIE[COOKIES_PREFIX . 'rm-hash']);

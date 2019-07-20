@@ -103,7 +103,7 @@ of your controller. It goes like this:
 	  controller.
 	- If there's an error somewhere (like a 404), `Router::requestErrorDocument()` will be called which
 	  will ultimately render the `\App\Controller\HttpErrorController` (that you can modify because it's
-	  not part of the lib, it's in the `/src/controller/` folder).
+	  not part of the lib, it's in the `/src/Controller/` folder).
 
 `App::exec()` should always be the last instruction. This is because `App::exec()` calls  `Router::route()`,
 and `Router::route()` calls `exit;` just after rendering the controller. `Controller::render()` is meant to
