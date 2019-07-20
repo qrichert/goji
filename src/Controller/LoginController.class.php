@@ -80,10 +80,10 @@
 
 			$template->startBuffer();
 
-			require_once '../src/View/LoginView.php';
+			require_once $template->getView('LoginView');
 
 			$template->saveBuffer();
 
-			require_once '../template/page/main.template.php';
+			require_once $template->getTemplate('page/main');
 		}
 	}

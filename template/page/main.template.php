@@ -8,10 +8,10 @@
 		<!-- Analytics -->
 		<?php
 			if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
-				require_once '../template/page/include/analytics.template.inc.php';
+				require_once $template->getTemplate('page/include/analytics');
 		?>
 
-		<?php require_once '../template/page/include/head.template.inc.php'; ?>
+		<?php require_once $template->getTemplate('page/include/head'); ?>
 
 		<!-- SEO -->
 		<title><?= $template->getPageTitle(); ?></title>
@@ -53,18 +53,18 @@
 		?>
 
 		<!-- Social -->
-		<?php require_once '../template/page/include/opengraph.template.inc.php'; ?>
+		<?php require_once $template->getTemplate('page/include/opengraph'); ?>
 
 		<!-- Scripts -->
-		<?php require_once '../template/page/include/head-javascript.template.inc.php'; ?>
+		<?php require_once $template->getTemplate('page/include/head-javascript'); ?>
 	</head>
 	<body id="<?= $this->m_app->getRouter()->getCurrentPage(); ?>">
-		<?php require_once '../template/page/include/header.template.inc.php'; ?>
+		<?php require_once $template->getTemplate('page/include/header'); ?>
 
 		<?= $template->getPageContent(); ?>
 
-		<?php require_once '../template/page/include/footer.template.inc.php'; ?>
+		<?php require_once $template->getTemplate('page/include/footer'); ?>
 
-		<?php require_once '../template/page/include/bottom-javascript.template.inc.php'; ?>
+		<?php require_once $template->getTemplate('page/include/bottom-javascript'); ?>
 	</body>
 </html>

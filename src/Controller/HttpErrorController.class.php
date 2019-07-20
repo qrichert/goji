@@ -61,12 +61,12 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once '../src/View/ErrorView.php';
+			require_once $template->getView('ErrorView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();
 
 			// Inside the template file we call $template to put things in place.
-			require_once '../template/page/main.template.php';
+			require_once $template->getTemplate('page/main');
 		}
 	}

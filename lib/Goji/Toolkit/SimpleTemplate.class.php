@@ -41,7 +41,7 @@
 	 * $template->saveBuffer(); // Saves content internally.
 	 *
 	 * // Template file will read the values of SimpleTemplate
-	 * require_once '../template/page/main.template.php'; // Load template file
+	 * require_once $template->getTemplate('page/main'); // Load template file (../template/page/main.template.php)
 	 *
 	 * // Inside the template you can read values like this
 	 *
@@ -81,6 +81,9 @@
 		const ROBOTS_NOINDEX = 1;
 		const ROBOTS_NOFOLLOW = 2;
 		const ROBOTS_NOINDEX_NOFOLLOW = 3;
+
+		const VIEW_PATH = '../src/View/%{VIEW}.%{FILETYPE}';
+		const TEMPLATE_PATH = '../template/%{TEMPLATE}.template.%{FILETYPE}';
 
 		const NORMAL = 'normal';
 		const MERGED = 'merged';
@@ -347,9 +350,46 @@
 		 * ```
 		 */
 		public function saveBuffer(): void {
-
 			// Get content && update page content
 			$this->setPageContent($this->readBuffer());
+		}
+
+		/**
+		 * Returns file path for given View
+		 *
+		 * @param string $view
+		 * @param string $fileType
+		 * @return string
+		 */
+		public function getView(string $view, string $fileType = 'php'): string {
+
+			$view = str_replace('%{VIEW}', $view, self::VIEW_PATH);
+			$view = str_replace('%{FILETYPE}', $fileType, $view);
+
+			return $view;
+		}
+
+		/**
+		 * Returns file path for given template
+		 *
+		 * @param string $template
+		 * @param string $fileType
+		 * @return string
+		 */
+		public function getTemplate(string $template, string $fileType = 'php'): string {
+
+			$template = str_replace('%{TEMPLATE}', $template, self::TEMPLATE_PATH);
+
+			// .template.php
+			$templateRegular = str_replace('%{FILETYPE}', $fileType, $template);
+
+			if (is_file($templateRegular))
+				return $templateRegular;
+
+			// .template.inc.php
+			$template = str_replace('%{FILETYPE}', 'inc.' . $fileType, $template);
+
+			return $template;
 		}
 
 		/**
