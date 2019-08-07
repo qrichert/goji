@@ -415,8 +415,9 @@
 
 			if ($renderAbsolutePaths) {
 
+				// Prepend webroot + slash if none
 				foreach ($files as &$f) {
-					$slash =  mb_substr($f, 0, 1) == '/' ? '' : '/';
+					$slash = mb_substr($f, 0, 1) == '/' ? '' : '/';
 					$f = WEBROOT . $slash . $f;
 				}
 				unset($f);
