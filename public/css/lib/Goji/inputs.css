@@ -1,21 +1,5 @@
 @charset "utf-8";
 
-/* Preload */
-
-body::after{
-	position: absolute;
-	width: 0;
-	height: 0;
-	overflow: hidden;
-	z-index: -1;
-	content: /*url('img/arrow-down--dark.svg')*/
-			 url('img/plus--light.svg')
-			 url('img/arrow-up--light.svg')
-			 url('img/loading-dots--light.svg')
-			 url('img/checkmark--light.svg')
-			 url('img/cross--light.svg');
-}
-
 /* <FORM INPUTS> */
 
 /* Placeholder */
@@ -263,6 +247,19 @@ input[type=reset].delete:hover,
 
 /* Buttons - Add */
 
+button.add::before,
+input[type=button].add::before,
+input[type=submit].add::before,
+input[type=reset].add::before,
+.link-button.add::before { /* Preload hover image */
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url('img/plus--light.svg');
+}
+
 button.add:hover::after,
 input[type=button].add:hover::after,
 input[type=submit].add:hover::after,
@@ -280,6 +277,20 @@ input[type=reset].add:hover::after,
 }
 
 /* Buttons - Loader - (Normal State) */
+
+button.loader::before,
+input[type=button].loader::before,
+.link-button.loader::before { /* Preload hover images */
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url('img/arrow-up--light.svg')
+			 url('img/loading-dots--light.svg')
+			 url('img/checkmark--light.svg')
+			 url('img/cross--light.svg');
+}
 
 button.loader:hover::after,
 input[type=button].loader:hover::after,
