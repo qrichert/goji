@@ -22,7 +22,7 @@
 
 			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			$this->m_openingTag = '<textarea type="text" %{ATTRIBUTES}>';
+			$this->m_openingTag = '<textarea %{ATTRIBUTES}>';
 			$this->m_closingTag = '</textarea>';
 		}
 
