@@ -1,5 +1,21 @@
 @charset "utf-8";
 
+/* Preload */
+
+body::after{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: /*url('img/arrow-down--dark.svg')*/
+			 url('img/plus--light.svg')
+			 url('img/arrow-up--light.svg')
+			 url('img/loading-dots--light.svg')
+			 url('img/checkmark--light.svg')
+			 url('img/cross--light.svg');
+}
+
 /* <FORM INPUTS> */
 
 /* Placeholder */
