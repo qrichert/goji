@@ -49,7 +49,7 @@ class EmailScrambler {
 	/**
 	 * Restore a scrambled email string.
 	 *
-	 * @param email
+	 * @param scrambledEmail
 	 */
 	static restore(scrambledEmail) {
 
