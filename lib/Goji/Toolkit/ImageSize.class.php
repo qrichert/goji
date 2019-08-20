@@ -13,16 +13,10 @@
 
 			$scaleFactor = 1;
 
-			if ($width >= $height
-				&& $width > $maxSize) {
-
+			if ($width >= $height && $width > $maxSize) // Wider than high && Too wide
 				$scaleFactor = $maxSize / $width;
-
-			} else if ($height > $width
-				&& $height > $maxSize) {
-
+			else if ($height > $maxSize) // Higher than wide && Too high
 				$scaleFactor = $maxSize / $height;
-			}
 
 			return [
 				'width'  => round($width  * $scaleFactor),

@@ -74,7 +74,7 @@
 		}
 
 		/**
-		 * Shuffles a multi byte string (link UTF-8)
+		 * Shuffles a multi byte string (like UTF-8)
 		 *
 		 * In PHP strings are byte arrays, and str_shuffle() shuffles single bytes,
 		 * leading to multi byte characters (basically all that is non English-default,
