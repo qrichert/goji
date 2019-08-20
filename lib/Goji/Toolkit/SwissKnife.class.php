@@ -136,7 +136,7 @@
 
 			// -#HÉllo, _world-! 123 :)
 			$str = mb_strtolower($str); // -#héllo, _world-! 123 :)
-			$str = SwissKnife::removeAccents($str); // -#hello, _world-! 123 :)
+			$str = self::removeAccents($str); // -#hello, _world-! 123 :)
 			$str = preg_replace('#[^A-Z0-9]+#i', '-', $str); // -hello-world-123-
 			$str = trim($str, '-'); // hello-world-123
 
@@ -156,7 +156,7 @@
 		 * @return string
 		 */
 		public static function templateCTAToHTML(string $templateString, string $aHref = '#'): string {
-
+			// TODO: put it in templateModules class ???
 			return preg_replace_callback('#%\{CTA\}(.*)%\{/CTA\}#isU', function($match) use($aHref) {
 
 				return <<<EOT
@@ -190,7 +190,7 @@
 		 * @return string
 		 */
 		public static function templateBooksToHTML(string $templateString): string {
-
+			// TODO: put it in templateModules class ???
 			return preg_replace_callback('#%\{BOOK\}(.*)%\{/BOOK\}#isU', function($match) {
 
 				$json = JSON5::decode($match[1], true);

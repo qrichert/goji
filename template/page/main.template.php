@@ -16,6 +16,7 @@
 		<!-- SEO -->
 		<title><?= $template->getPageTitle(); ?></title>
 		<meta name="description" content="<?= $template->getPageDescription(); ?>">
+		<!--<link type="text/plain" rel="author" href="<?= $template->getWebRoot(); ?>/humans.txt">-->
 		<?= $template->getRobotsBehaviour(); ?>
 		<?php
 

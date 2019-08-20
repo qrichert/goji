@@ -1,0 +1,5 @@
+# humanstxt.org
+
+# TEAM
+
+    <name> -- <role> -- <contact>
