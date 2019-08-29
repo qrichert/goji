@@ -1,6 +1,6 @@
 # API Controllers
 
-You can either create API-specific controllers and bind them with, for instance,
+You can either create API-specific Controllers and bind them with, for instance,
 routes like `/api/users/42` directly in the same app. Or, you could completely
 detach them into two separate apps.
 
