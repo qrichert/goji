@@ -14,10 +14,10 @@ whereas website Controllers and Views would need to manage states (or sessions)
 and output HTML.
 
 Second solution is better for large scale services with multiple apps (web and
-native mobile phones apps for instance). In smaller apps, "API" would more likely
+native mobile phone apps for instance). In smaller apps, "API" would more likely
 be used for Ajax requests. At small scale it is easier to manage them when they
 are in the same app environment.
 
-To make Models sharing easier, you could simply replace the default Model folder
+To make Model sharing easier, you could simply replace the default Model folder
 with a symlink to the shared Model folder. So, no matter what project you are
 working on, everything would stay up-to-date. No juggling between projects.
