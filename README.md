@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-	A simple Web framework for PHP.
+	A simple full stack framework for the web.
 </p>
 
 Installation
