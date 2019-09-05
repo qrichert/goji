@@ -17,6 +17,37 @@ class GWidget extends GObject {
 		this.m_element.classList.add('ggui__gwidget');
 	}
 
+	getElement() {
+		return this.m_element;
+	}
+
+	/**
+	 * Append a single child element
+	 *
+	 * @param {GWidget} child
+	 */
+	appendChild(child) {
+		child.setParent(this);
+		this.m_element.appendChild(child.getElement());
+	}
+
+	/**
+	 * Append multiple children elements
+	 *
+	 * @param {Array<GWidget>} children
+	 */
+	appendChildren(children) {
+
+		let docFrag = document.createDocumentFragment();
+
+		for (let child of children) {
+			child.setParent(this);
+			docFrag.appendChild(child.getElement());
+		}
+
+		this.m_element.appendChild(docFrag);
+	}
+
 	get dataset() {
 		return this.m_element.dataset;
 	}
