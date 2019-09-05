@@ -277,6 +277,8 @@
 		 *
 		 * This doesn't work if you don't send this key with your AJAX requests.
 		 *
+		 * Used automatically with Goji's JavaScript Form plugin module.
+		 *
 		 * @return bool
 		 */
 		public function isAjaxRequest(): bool {

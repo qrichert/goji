@@ -53,25 +53,31 @@
 	</section>
 </main>
 
-<script>
-	(function () {
+<?php
+	if ($this->m_app->getUser()->isLoggedIn()) {
+	?>
+		<script>
+			(function () {
 
-		let deleteButton = document.querySelector('#button__delete-blog-post');
+				let deleteButton = document.querySelector('#button__delete-blog-post');
 
-		deleteButton.addEventListener('click', e => {
+				deleteButton.addEventListener('click', e => {
 
-			<?php
-				$confirmation = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), '"');
-				$input = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), '"');
-				$string = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'");
-			?>
+					<?php
+						$confirmation = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), '"');
+						$input = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), '"');
+						$string = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'");
+					?>
 
-			let response = prompt("<?= $confirmation; ?>", "<?= $input; ?>");
+					let response = prompt("<?= $confirmation; ?>", "<?= $input; ?>");
 
-			if (response !== '<?= $string; ?>')
-				e.preventDefault();
+					if (response !== '<?= $string; ?>')
+						e.preventDefault();
 
-		}, false);
+				}, false);
 
-	})();
-</script>
+			})();
+		</script>
+	<?php
+	}
+?>

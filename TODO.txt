@@ -1,1 +1,10 @@
 TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php https://www.electrictoolbox.com/php-caching-headers/
+
+
+let button = new GButton;
+    button.connect('signal', callableSlot);
+
+class GObject {
+    connect(string signal, callable slot) {
+    }
+}

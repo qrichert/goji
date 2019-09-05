@@ -28,8 +28,9 @@
 
 		const CSS = 'css';
 		const JAVASCRIPT = 'js';
+		const GGUI = 'ggui';
 
-		const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT];
+		const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT, self::GGUI];
 
 		const E_REQUEST_IS_EMPTY = 0;
 		const E_FILE_NOT_FOUND = 1;
@@ -74,7 +75,7 @@
 			$this->m_files = explode('|', $this->m_requestFileURI); // explode() always returns an array
 
 				$webRoot = WEBROOT . '/';
-				$webRootLength = mb_strlen($webRoot); // + 1 = /
+				$webRootLength = mb_strlen($webRoot);
 
 				// Remove WEBROOT & Quick validity check
 				// We remove the WEBROOT because we are already in it (/public/static.php)
@@ -91,6 +92,10 @@
 			// File type
 			$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
 				$this->m_fileType = mb_strtolower($this->m_fileType);
+
+			// Ggui ?
+			if ($this->m_files[0] == FileRendererGgui::GGUI_IMPORT_FILE)
+				$this->m_fileType = self::GGUI;
 
 			if (!in_array($this->m_fileType, self::SUPPORTED_FILE_TYPES))
 				throw new Exception("File type not supported: {$this->m_fileType}", self::E_FILE_TYPE_NOT_SUPPORTED);
@@ -122,6 +127,10 @@
 				case self::JAVASCRIPT:
 					$renderer = new FileRendererJS($this);
 					break;
+
+				case self::GGUI:
+					$renderer = new FileRendererGgui($this);
+					break;
 			}
 
 			if ($renderer === null)
@@ -136,7 +145,7 @@
 		/**
 		 * Sends 404 and exit;s
 		 */
-		private function fileNotFound(): void {
+		public function fileNotFound(): void {
 			header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
 			exit;
 		}
