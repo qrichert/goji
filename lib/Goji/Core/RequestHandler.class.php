@@ -42,6 +42,11 @@
 			// /home?q=query
 			// /goji/public/home?q=query
 			$this->m_requestURI = $_SERVER['REQUEST_URI'];
+				// If the URL was '/hello%20world/home', it would mess up the count by two chars
+				// because root folder would be 'hello world/', so if we wanted to extract he page,
+				// we would get 'c/home' because in root there is a space ' ' and in request URI
+				// there is '%20' which is 2 chars longer.
+				$this->m_requestURI = rawurldecode($this->m_requestURI); // TODO: same as in StaticServer, may cause problems
 
 			// /home
 			// /goji/public/home
