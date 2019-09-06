@@ -10,6 +10,11 @@
 	width: 300px;
 }
 
+.form__login .form__success,
+.form__login .form__error {
+	text-align: center;
+}
+
 /* <BLOG> */
 
 .form__blog-post #blog-post__permalink,

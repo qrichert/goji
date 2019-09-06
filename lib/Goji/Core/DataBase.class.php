@@ -19,6 +19,7 @@
 		/* <CONSTANTS> */
 
 		const CONFIG_FILE = '../config/databases.json5';
+		const DATABASES_SAVE_PATH = '../var/db/';
 
 		/**
 		 * DataBase constructor.
@@ -71,8 +72,10 @@
 			// For each given database, extract config & try to connect
 			foreach ($config as $dataBaseID => $databaseConfig) {
 
+				$savedInLocalFile = false;
 				$prefix = '';
 				$dsn = [];
+				$file = ''; // SQLite for example
 				$username = '';
 				$password = '';
 
@@ -87,6 +90,20 @@
 
 					if ($parameter == 'prefix') {
 						$prefix = strval($value);
+						continue;
+					}
+
+					// Look for a filename
+
+					if ($parameter == 'file') {
+
+						if (!is_dir(self::DATABASES_SAVE_PATH))
+							mkdir(self::DATABASES_SAVE_PATH, 0777, true);
+
+						$file = self::DATABASES_SAVE_PATH . strval($value);
+
+						$savedInLocalFile = true;
+
 						continue;
 					}
 
@@ -123,8 +140,15 @@
 				// Connect to database
 				try {
 
+					$options = [
+						PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+					];
+
 					// Call PDO::__construct
-					parent::__construct($dsn, $username, $password);
+					if ($savedInLocalFile)
+						parent::__construct($prefix . ':' . $file, null, null, $options);
+					else
+						parent::__construct($dsn, $username, $password, $options);
 
 				} catch (Exception $e) {
 

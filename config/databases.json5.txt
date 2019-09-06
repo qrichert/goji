@@ -39,5 +39,9 @@ duplicate and rename it "databases.json5".
 		charset: "utf8mb4",
 		username: "root",
 		password: "root",
+	},
+	sqlite: {
+		prefix: "sqlite",
+		file: "hello.sqlite" // Will be saved in /var/db/hello.sqlite
 	}
 }

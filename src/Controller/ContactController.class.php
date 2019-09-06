@@ -58,10 +58,11 @@
 					HttpResponse::JSON([
 						'message' => $tr->_('CONTACT_SUCCESS')
 					], true);
-				}
 
-				// Clean the form
-				$form = new ContactForm($tr);
+				} else {
+					// Clean the form
+					$form = new ContactForm($tr);
+				}
 
 				return true;
 			}

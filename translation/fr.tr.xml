@@ -95,6 +95,7 @@
 			<alternative count="^2$">Vous aimez les baies de goji?</alternative>
 			<alternative count="rest">:)</alternative>
 		</segment>
+		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Nom d'utilisateur ou mot de passe incorrect !</segment>
 	</page>
 	<page id="blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>

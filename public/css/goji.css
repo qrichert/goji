@@ -604,6 +604,16 @@ form > * {
 	box-sizing: border-box;
 }
 
+.form__success,
+.form__error {
+	margin: var(--gutter-thin) 0;
+}
+
+.form__success:empty ,
+.form__error:empty {
+	display: none;
+}
+
 .form__success {
 	color: var(--color-valid);
 }

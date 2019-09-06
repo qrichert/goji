@@ -22,15 +22,17 @@
 	(function() {
 
 		let form = document.querySelector('form.form__login');
+		let formError = document.querySelector('p.form__error');
 
 		let success = response => {
+			formError.textContent = '';
 			location.href = response.redirect_to;
 		};
 
 		let error = response => {
 
 			if (typeof response.message !== 'undefined') {
-				// Do something
+				formError.innerHTML = response.message;
 			}
 		};
 

@@ -44,5 +44,6 @@
 				$this->addInput(new InputButtonElement())
 					 ->setAttribute('class', 'highlight loader')
 					 ->setAttribute('textContent', $tr->_('LOGIN_FORM_LOG_IN_BUTTON'));
+				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 		}
 	}
