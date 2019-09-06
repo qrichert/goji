@@ -2,6 +2,8 @@
 
 	namespace Goji\Core;
 
+	use Exception;
+
 	/**
 	 * Class Logger
 	 *
@@ -70,5 +72,30 @@
 				var_dump($el);
 				echo '</pre>';
 			}
+		}
+
+		/**
+		 * Log backtrace
+		 *
+		 * Adapted from comment at https://www.php.net/manual/en/function.debug-backtrace.php#112238
+		 *
+		 * @param int $output
+		 */
+		public static function backtrace($output = self::BROWSER): void {
+
+			$e = new Exception();
+			$trace = explode("\n", $e->getTraceAsString());
+
+			// Reverse array to make steps line up chronologically
+			$trace = array_reverse($trace);
+			array_shift($trace); // Remove {main}
+			array_pop($trace); // Remove call to this method
+			$length = count($trace);
+			$result = [];
+
+			for ($i = 0; $i < $length; $i++)
+				$result[] = ($i + 1)  . '.' . mb_substr($trace[$i], mb_strpos($trace[$i], ' ')); // Replace '#someNum' with '$i.', set the right ordering
+
+			Logger::log("\t" . implode("\n\t", $result), $output);
 		}
 	}
