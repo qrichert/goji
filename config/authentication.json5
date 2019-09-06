@@ -10,7 +10,7 @@
 										// If you want a constant page, just do 'redirect_to: "page"'
 	},
 	forbidden: {
-		redirect_to: "home" // Redirect to when accessing forbidden page (page ID)
+		redirect_to: "home" // Redirect to when accessing forbidden page (page ID) (disallow_authenticated)
 							// If none use 'null', in which case it will emit a 403 error
 	},
 	firewall: {

@@ -12,8 +12,8 @@ window.addEventListener('load', function() {
 		windowSizeDisplay.classList.add('window-size-display');
 			document.querySelector('body').appendChild(windowSizeDisplay);
 
-	function updateWindowSizeDisplay(w, h) {
-		windowSizeDisplay.innerHTML = 'w: ' + window.innerWidth + 'px<br>h: ' + window.innerHeight +  'px';
+	function updateWindowSizeDisplay() {
+		windowSizeDisplay.innerHTML = `w: ${window.innerWidth}px<br>h: ${window.innerHeight}px`;
 	}
 
 	window.addEventListener('resize', updateWindowSizeDisplay, false);
