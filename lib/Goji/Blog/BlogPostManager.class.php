@@ -260,6 +260,9 @@
 				$permalink = SwissKnife::stringToID($permalink);
 				$permalink = $this->makePermalinkUnique($permalink);
 
+				// Update form with new permalink
+				$this->m_form->getInputByName('blog-post[permalink]')->setValue($permalink);
+
 			// Locale
 			$locale = $this->m_translator->getTargetLocale();
 
@@ -364,6 +367,9 @@
 
 				$permalink = SwissKnife::stringToID($permalink);
 				$permalink = $this->makePermalinkUnique($permalink);
+
+				// Update form with new permalink
+				$this->m_form->getInputByName('blog-post[permalink]')->setValue($permalink);
 			}
 
 			// Update

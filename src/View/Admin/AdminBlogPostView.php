@@ -10,11 +10,11 @@
 			?>
 				<div class="blog__toolbar">
 					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post'); ?>"
-					   class="link-button highlight add">
+					   class="link-button highlight add" id="blog__toolbar--new-blog-post">
 						<?= $tr->_('BLOG_POST_NEW_BLOG_POST'); ?>
 					</a>
 					<a href="<?= $link; ?>"
-					   class="link-button">
+					   class="link-button" id="blog__toolbar--go-to-blog-post">
 						<?= $tr->_('BLOG_POST_GO_TO_BLOG_POST'); ?>
 					</a>
 				</div>
@@ -92,6 +92,9 @@
 
 		let form = document.querySelector('form.form__blog-post');
 		let formStatus = document.querySelector('p#form__status');
+		let permalink = document.querySelector('#blog-post__permalink');
+		let linkBase = '<?= $this->m_app->getRouter()->getLinkForPage('blog') . '/'; ?>';
+		let goToBlogPost = document.querySelector('#blog__toolbar--go-to-blog-post');
 		let title = form.querySelector('#blog-post__title');
 		let post = form.querySelector('#blog-post__post');
 
@@ -111,6 +114,12 @@
 			formStatus.classList.remove('form__error');
 			formStatus.classList.add('form__success');
 			formStatus.innerHTML = response.message;
+
+			// Update permalink with sanitized one
+			if (typeof response.permalink !== 'undefined') {
+				goToBlogPost.href = linkBase + response.permalink;
+				permalink.value = response.permalink;
+			}
 		};
 
 		let error = response => {
