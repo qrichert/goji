@@ -110,7 +110,7 @@
 					continue;
 
 				if (!empty($value) && $addSlashes)
-					$attr .= ' ' . $key . '="' . addslashes($value) . '"';
+					$attr .= ' ' . $key . '="' . addcslashes($value, '"') . '"';
 				else if (!empty($value))
 					$attr .= ' ' . $key . '="' . $value . '"';
 				else
