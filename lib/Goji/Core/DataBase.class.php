@@ -175,4 +175,17 @@
 		public function getDataBaseID() {
 			return $this->m_dataBaseID;
 		}
+
+		/**
+		 * Shows errors in console
+		 *
+		 * @param bool $logErrors
+		 */
+		public function logErrors(bool $logErrors): void {
+
+			if ($logErrors)
+				$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+			else
+				$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+		}
 	}

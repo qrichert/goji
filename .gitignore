@@ -30,11 +30,3 @@ ehthumbs.db
 Thumbs.db
 .idea
 /venv/
-/upload/
-/public/upload/
-
-# Only ignore them in the project .gitignore
-#/config/databases.json
-#/config/databases.json5
-#/config/passwords.json
-#/config/passwords.json5

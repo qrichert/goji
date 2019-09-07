@@ -4,13 +4,13 @@
 		<p class="sub-heading">
 			<?php
 				$date = $tr->_('BLOG_POST_DATE');
-					$date = str_replace('%{YEAR}', str_pad($blogPost['date']['year'], 2, '0', STR_PAD_LEFT), $date);
-					$date = str_replace('%{MONTH}', str_pad($blogPost['date']['month'], 2, '0', STR_PAD_LEFT), $date);
-					$date = str_replace('%{DAY}', str_pad($blogPost['date']['day'], 2, '0', STR_PAD_LEFT), $date);
+					$date = str_replace('%{YEAR}', $blogPost['creation_date']['year'], $date);
+					$date = str_replace('%{MONTH}', $blogPost['creation_date']['month'], $date);
+					$date = str_replace('%{DAY}', $blogPost['creation_date']['day'], $date);
 
-					$date = str_replace('%{HOUR}', str_pad($blogPost['date']['hour'], 2, '0', STR_PAD_LEFT), $date);
-					$date = str_replace('%{MIN}', str_pad($blogPost['date']['min'], 2, '0', STR_PAD_LEFT), $date);
-					$date = str_replace('%{SEC}', str_pad($blogPost['date']['sec'], 2, '0', STR_PAD_LEFT), $date);
+					$date = str_replace('%{HOUR}', $blogPost['creation_date']['hour'], $date);
+					$date = str_replace('%{MIN}', $blogPost['creation_date']['min'], $date);
+					$date = str_replace('%{SEC}', $blogPost['creation_date']['sec'], $date);
 
 				echo $date;
 			?>

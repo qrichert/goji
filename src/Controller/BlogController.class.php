@@ -18,7 +18,7 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$blogPostManager = new BlogPostManager($this, $tr);
-			$blogPosts = $blogPostManager->getBlogPosts(0, -1, $this->m_app->getLanguages()->getCurrentCountryCode());
+			$blogPosts = $blogPostManager->getBlogPosts(0, -1, $this->m_app->getLanguages()->getCurrentCountryCode(), 250, true);
 
 			$template = new SimpleTemplate($tr->_('BLOG_PAGE_TITLE'),
 			                                $tr->_('BLOG_PAGE_DESCRIPTION'));

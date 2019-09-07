@@ -101,6 +101,30 @@
 		}
 
 		/**
+		 * Breaks a written date into its components.
+		 *
+		 * @param string $date Written date (ex: from database)
+		 * @param string $format Format of written date
+		 * @return array
+		 */
+		public static function dateToComponents(string $date, string $format = 'Y-m-d H:i:s'): array {
+
+			$dateTime = \DateTime::createFromFormat($format, $date);
+
+				$date = [
+					'full' => $date,
+					'year' => $dateTime->format('Y'),
+					'month' => $dateTime->format('m'),
+					'day' => $dateTime->format('d'),
+					'hour' => $dateTime->format('H'),
+					'min' => $dateTime->format('i'),
+					'sec' => $dateTime->format('s'),
+				];
+
+			return $date;
+		}
+
+		/**
 		 * Removes accents on accented characters (é => e)
 		 *
 		 * @param string $str

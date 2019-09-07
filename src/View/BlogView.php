@@ -35,9 +35,9 @@
 				<p class="sub-heading">
 					<?php
 						$date = $tr->_('BLOG_POST_DATE');
-							$date = str_replace('%{YEAR}', str_pad($post['date']['year'], 2, '0', STR_PAD_LEFT), $date);
-							$date = str_replace('%{MONTH}', str_pad($post['date']['month'], 2, '0', STR_PAD_LEFT), $date);
-							$date = str_replace('%{DAY}', str_pad($post['date']['day'], 2, '0', STR_PAD_LEFT), $date);
+							$date = str_replace('%{YEAR}', $post['creation_date']['year'], $date);
+							$date = str_replace('%{MONTH}', $post['creation_date']['month'], $date);
+							$date = str_replace('%{DAY}', $post['creation_date']['day'], $date);
 
 						echo $date;
 					?>

@@ -39,7 +39,7 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$blogPostManager = new BlogPostManager($this, $tr);
-			$blogPost = $blogPostManager->read($this->m_id);
+			$blogPost = $blogPostManager->read($this->m_id, true);
 
 			$template = new SimpleTemplate($blogPost['title'],
 			                                $tr->_('BLOG_POST_PAGE_DESCRIPTION'));

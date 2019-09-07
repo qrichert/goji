@@ -290,7 +290,11 @@
 		 * @throws \Exception
 		 */
 		public function createDataBase(): void {
+
 			$this->m_dataBase = new DataBase();
+
+			if ($this->m_appMode == self::DEBUG)
+				$this->m_dataBase->logErrors(true);
 		}
 
 		/**
