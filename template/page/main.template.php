@@ -5,21 +5,12 @@
 		<meta charset="utf-8">
 		<!--<base href="<?= $this->m_app->getRequestHandler()->getRootFolder(); ?>">-->
 
-		<!-- Analytics -->
-		<?php
-			if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
-				require_once $template->getTemplate('page/include/analytics');
-		?>
-
-		<?php require_once $template->getTemplate('page/include/head'); ?>
-
 		<!-- SEO -->
 		<title><?= $template->getPageTitle(); ?></title>
 		<meta name="description" content="<?= $template->getPageDescription(); ?>">
 		<!--<link type="text/plain" rel="author" href="<?= $template->getWebRoot(); ?>/humans.txt">-->
 		<?= $template->getRobotsBehaviour(); ?>
 		<?php
-
 			if ($template->getShowCanonicalPageAndAlternates()) {
 
 				echo '<link rel="canonical" href="' . $this->m_app->getRouter()->getLinkForPage(null, null, true) . '">';
@@ -38,9 +29,10 @@
 			}
 		?>
 
+		<?php require_once $template->getTemplate('page/include/head'); ?>
+
 		<!-- Style -->
 		<?php
-
 			// Put library files first, so you can overwrite them.
 			$template->linkFiles([
 				'css/root.css',
@@ -50,11 +42,16 @@
 				'css/main.css',
 				'css/responsive.css'
 			]);
-
 		?>
 
 		<!-- Social -->
 		<?php require_once $template->getTemplate('page/include/opengraph'); ?>
+
+		<!-- Analytics -->
+		<?php
+			if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
+				require_once $template->getTemplate('page/include/analytics');
+		?>
 
 		<!-- Scripts -->
 		<?php require_once $template->getTemplate('page/include/head-javascript'); ?>
