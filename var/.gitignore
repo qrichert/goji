@@ -3,6 +3,6 @@
 # Except these files
 !.gitignore
 !db/
-!db/*
+!db/*.sqlite
 !upload/
 !upload/*

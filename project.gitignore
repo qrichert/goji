@@ -35,6 +35,7 @@ Thumbs.db
 /_BACKUP_/
 /_FACTORY_/
 /public/upload/
+/var/
 /vendor/
 
 # Config files with sensitive data

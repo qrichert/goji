@@ -1,8 +1,8 @@
 ----
 -- phpLiteAdmin database dump (https://www.phpliteadmin.org/)
 -- phpLiteAdmin version: 1.9.9-dev
--- Exported: 5:18pm on September 7, 2019 (CEST)
--- database file: ./hello.sqlite
+-- Exported: 12:18pm on September 12, 2019 (CEST)
+-- database file: ./db/goji.sqlite
 ----
 BEGIN TRANSACTION;
 

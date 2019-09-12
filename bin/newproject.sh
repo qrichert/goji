@@ -42,8 +42,9 @@ do
 			rm -rf "$BASE_DIR/$projectName/$file"
 		fi
 
-		ln -si "$BASE_DIR/goji/$file" "$BASE_DIR/$projectName/$file"
+		ln -sf "$BASE_DIR/goji/$file" "$BASE_DIR/$projectName/$file"
 	else
 		echo "Did not replace '$file' with a symlink."
 	fi
 done
+
