@@ -268,11 +268,13 @@
 
 			// Save
 			$query = $this->m_db->prepare('INSERT INTO g_blog
-											       ( locale,  permalink, creation_date, last_edit_date, title,  post)
-											VALUES (:locale, :permalink, DATETIME(),    DATETIME(),    :title, :post)');
+											       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post)
+											VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post)');
 			$query->execute([
 				'locale' => $locale,
 				'permalink' => $permalink,
+				'creation_date' => date('Y-m-d H:i:s'),
+				'last_edit_date' => date('Y-m-d H:i:s'),
 				'title' => $title,
 				'post' => $post
 			]);
@@ -379,7 +381,7 @@
 			if ($updatePermalink) {
 
 				$q = 'UPDATE g_blog
-					  SET permalink=:permalink, title=:title, post=:post, last_edit_date=DATETIME()
+					  SET permalink=:permalink, title=:title, post=:post, last_edit_date=:last_edit_date
 					  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 				$query = $this->m_db->prepare($q);
@@ -387,19 +389,21 @@
 					'permalink' => $permalink,
 					'title' => $title,
 					'post' => $post,
+					'last_edit_date' => date('Y-m-d H:i:s'),
 					'id' => $id
 				]);
 
 			} else {
 
 				$q = 'UPDATE g_blog
-					  SET title=:title, post=:post, last_edit_date=DATETIME()
+					  SET title=:title, post=:post, last_edit_date=:last_edit_date
 					  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 				$query = $this->m_db->prepare($q);
 				$query->execute([
 					'title' => $title,
 					'post' => $post,
+					'last_edit_date' => date('Y-m-d H:i:s'),
 					'id' => $id
 				]);
 			}
