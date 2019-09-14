@@ -12,14 +12,6 @@
 	 */
 	abstract class BlogPostControllerAbstract extends ControllerAbstract {
 
-		/* <ATTRIBUTES> */
-
-		protected $m_app;
-
-		public function __construct(App $app) {
-			$this->m_app = $app;
-		}
-
 		public function getApp(): App {
 			return $this->m_app;
 		}

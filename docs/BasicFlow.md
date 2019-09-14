@@ -116,17 +116,21 @@ Controllers must:
 
 1. Be in the `\App\Controller` namespace
 2. Extend the `Goji\Blueprints\ControllerAbstract` abstract class, so:
-	- Have a `public function __construct(App $app);` method
+	- Have a `public function __construct(App $app);` method if you overload it
 	- Have a `public function render();` method
 
-Usually you want to have a `$this->m_app` attribute, so you can access the main `App` object from your
-controller, but you're not forced to use it. On the other hand, what is required is to accept an `App`
-object as parameter, since `Router` passes the global `App` object to the controller constructor, like:
+By default, `Goji\Blueprints\ControllerAbstract` gives you a `$this->m_app` attribute, so you can access
+the main `App` object from your controller, but you're not forced to use it. On the other hand, if you
+choose to overload the `__construct()` method, then it is required is to accept an `App` object as parameter,
+since `Router` passes the global `App` object to the controller constructor, like:
 
 ```php
 $controller = new \App\Controller\YourController($app);
     $controller->render();
 ```
+
+So, just call `parent::__construct($app);` inside the overloaded constructor and the initialization will be
+taken care of for you.
 
 The `render()` method is also mandatory, since `Router` calls this method automatically (as shown above).
 `render()` is where you should call your model and your view.

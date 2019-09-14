@@ -10,14 +10,6 @@
 
 	class HttpErrorController extends HttpErrorControllerAbstract {
 
-		/* <ATTRIBUTES> */
-
-		private $m_app;
-
-		public function __construct(App $app) {
-			$this->m_app = $app;
-		}
-
 		public function render() {
 
 			/*********************/

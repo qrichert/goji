@@ -2,18 +2,9 @@
 
 	namespace App\Controller;
 
-	use Goji\Core\App;
 	use Goji\Blueprints\ControllerAbstract;
 
 	class LogoutController extends ControllerAbstract {
-
-		/* <ATTRIBUTES> */
-
-		private $m_app;
-
-		public function __construct(App $app) {
-			$this->m_app = $app;
-		}
 
 		public function render() {
 

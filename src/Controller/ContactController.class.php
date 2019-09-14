@@ -4,7 +4,6 @@
 
 	use App\Model\ContactForm;
 	use Goji\Blueprints\HttpMethodInterface;
-	use Goji\Core\App;
 	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Core\HttpResponse;
 	use Goji\Form\Form;
@@ -14,14 +13,6 @@
 	use Goji\Toolkit\SimpleTemplate;
 
 	class ContactController extends ControllerAbstract {
-
-		/* <ATTRIBUTES> */
-
-		private $m_app;
-
-		public function __construct(App $app) {
-			$this->m_app = $app;
-		}
 
 		private function treatForm(Translator $tr, Form &$form): bool {
 
