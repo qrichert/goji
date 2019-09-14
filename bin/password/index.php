@@ -52,7 +52,7 @@
 			}
 		?>
 		<div>
-			<p>Browser password</p>
+			<p>Browser password<span id="nb-chars-pwd-text"></span></p>
 			<input type="password" id="pwd-text" placeholder="Let your browser generate a password">
 			<a href="#" id="cpy-pwd-text">Copy</a> -
 			<a href="#" id="cnvrt-pwd-text">Text</a>
@@ -60,6 +60,20 @@
 		<script>
 			(function() {
 				let pwd = document.querySelector('#pwd-text');
+				let nbChars = document.querySelector('#nb-chars-pwd-text');
+
+				let updateCharCount = () => {
+
+					let length = pwd.value.length;
+
+					if (length === 0)
+						nbChars.textContent = '';
+					else
+						nbChars.textContent = ` (${length} chars)`;
+				};
+
+				pwd.addEventListener('change', updateCharCount, false);
+				pwd.addEventListener('keyup', updateCharCount, false);
 
 				document.querySelector('#cnvrt-pwd-text').addEventListener('click', e => {
 
