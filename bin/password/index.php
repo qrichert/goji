@@ -32,7 +32,6 @@
 					<p><?= $nbChars; ?> chars</p>
 					<?php
 						$pwd = Passwords::generatePassword($nbChars);
-						error_log($nbChars . ': ' . mb_strlen($pwd));
 						$pwd = htmlspecialchars($pwd);
 					?>
 					<input type="text" id="pwd-<?= $i; ?>" value="<?= $pwd; ?>">
