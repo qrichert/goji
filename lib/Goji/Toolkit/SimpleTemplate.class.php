@@ -186,7 +186,7 @@
 		 * ```html
 		 * <meta name="robots" content="noindex">
 		 * <meta name="robots" content="nofollow">
-		 * <meta name="robots" content="noindex,nofollow">
+		 * <meta name="robots" content="noindex, nofollow">
 		 * <!-- Fourth value is an empty string. -->
 		 * ```
 		 *
@@ -198,7 +198,7 @@
 
 				case self::ROBOTS_NOINDEX:			return '<meta name="robots" content="noindex">';			break;
 				case self::ROBOTS_NOFOLLOW:			return '<meta name="robots" content="nofollow">';			break;
-				case self::ROBOTS_NOINDEX_NOFOLLOW:	return '<meta name="robots" content="noindex,nofollow">';	break;
+				case self::ROBOTS_NOINDEX_NOFOLLOW:	return '<meta name="robots" content="noindex, nofollow">';	break;
 			}
 
 			return ''; // Default, nothing
