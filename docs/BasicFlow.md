@@ -129,8 +129,8 @@ $controller = new \App\Controller\YourController($app);
     $controller->render();
 ```
 
-So, just call `parent::__construct($app);` inside the overloaded constructor and the initialization will be
-taken care of for you.
+If you overload the constructor, always call `parent::__construct($app);` inside the constructor so the
+initialization will be taken care of for you.
 
 The `render()` method is also mandatory, since `Router` calls this method automatically (as shown above).
 `render()` is where you should call your model and your view.

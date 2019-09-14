@@ -13,4 +13,6 @@
 
 		public function __construct(App $app);
 		public function render();
+		public function getApp();
+		public function getCacheId(string $append = null): string;
 	}
