@@ -3,12 +3,12 @@
 	namespace App\Controller;
 
 	use Goji\Core\App;
-	use Goji\Blueprints\ControllerInterface;
+	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class HomeController implements ControllerInterface {
+	class HomeController extends ControllerAbstract {
 
 		/* <ATTRIBUTES> */
 

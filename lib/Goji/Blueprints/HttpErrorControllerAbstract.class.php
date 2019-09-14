@@ -2,7 +2,12 @@
 
 	namespace Goji\Blueprints;
 
-	abstract class HttpErrorControllerAbstract implements ControllerInterface {
+	/**
+	 * Class HttpErrorControllerAbstract
+	 *
+	 * @package Goji\Blueprints
+	 */
+	abstract class HttpErrorControllerAbstract extends ControllerAbstract {
 
 		/* <ATTRIBUTES> */
 

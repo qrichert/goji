@@ -115,7 +115,7 @@ Controllers
 Controllers must:
 
 1. Be in the `\App\Controller` namespace
-2. Implement the `Goji\Blueprints\ControllerInterface` interface, so:
+2. Extend the `Goji\Blueprints\ControllerAbstract` abstract class, so:
 	- Have a `public function __construct(App $app);` method
 	- Have a `public function render();` method
 

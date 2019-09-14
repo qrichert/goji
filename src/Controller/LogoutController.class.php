@@ -3,9 +3,9 @@
 	namespace App\Controller;
 
 	use Goji\Core\App;
-	use Goji\Blueprints\ControllerInterface;
+	use Goji\Blueprints\ControllerAbstract;
 
-	class LogoutController implements ControllerInterface {
+	class LogoutController extends ControllerAbstract {
 
 		/* <ATTRIBUTES> */
 

@@ -2,6 +2,11 @@
 
 	namespace Goji\Core;
 
+	/**
+	 * Class HttpResponse
+	 *
+	 * @package Goji\Core
+	 */
 	class HttpResponse {
 
 		/**

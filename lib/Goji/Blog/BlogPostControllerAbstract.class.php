@@ -2,10 +2,15 @@
 
 	namespace Goji\Blog;
 
-	use Goji\Blueprints\ControllerInterface;
+	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Core\App;
 
-	abstract class BlogPostControllerAbstract implements ControllerInterface {
+	/**
+	 * Class BlogPostControllerAbstract
+	 *
+	 * @package Goji\Blog
+	 */
+	abstract class BlogPostControllerAbstract extends ControllerAbstract {
 
 		/* <ATTRIBUTES> */
 

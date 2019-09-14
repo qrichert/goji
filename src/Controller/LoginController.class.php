@@ -6,13 +6,13 @@
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
-	use Goji\Blueprints\ControllerInterface;
+	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Form\Form;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class LoginController implements ControllerInterface {
+	class LoginController extends ControllerAbstract {
 
 		/* <ATTRIBUTES> */
 

@@ -5,7 +5,7 @@
 	use App\Model\ContactForm;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\App;
-	use Goji\Blueprints\ControllerInterface;
+	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Core\HttpResponse;
 	use Goji\Form\Form;
 	use Goji\Toolkit\Mail;
@@ -13,7 +13,7 @@
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class ContactController implements ControllerInterface {
+	class ContactController extends ControllerAbstract {
 
 		/* <ATTRIBUTES> */
 
