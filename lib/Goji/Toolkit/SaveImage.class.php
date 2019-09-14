@@ -100,7 +100,7 @@
 			if ($image['error'] != UPLOAD_ERR_OK)
 				return false;
 
-			$imageSize = intval($image['size']);
+			$imageSize = (int) $image['size'];
 
 			$imageExtension = pathinfo($image['name'], PATHINFO_EXTENSION);
 

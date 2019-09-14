@@ -28,7 +28,7 @@
 		public static function loadFileToArray(string $file): array {
 
 			if (!is_file($file))
-				throw new Exception("Configuration file doesn't exist. (" . strval($file) . ")", self::E_FILE_DOES_NOT_EXIST);
+				throw new Exception("Configuration file doesn't exist. (" . (string) $file . ")", self::E_FILE_DOES_NOT_EXIST);
 
 			$extension = pathinfo($file, PATHINFO_EXTENSION);
 

@@ -89,7 +89,7 @@
 					// Look for prefix
 
 					if ($parameter == 'prefix') {
-						$prefix = strval($value);
+						$prefix = (string) $value;
 						continue;
 					}
 
@@ -100,7 +100,7 @@
 						if (!is_dir(self::DATABASES_SAVE_PATH))
 							mkdir(self::DATABASES_SAVE_PATH, 0777, true);
 
-						$file = self::DATABASES_SAVE_PATH . strval($value);
+						$file = self::DATABASES_SAVE_PATH . (string) $value;
 
 						$savedInLocalFile = true;
 
@@ -110,12 +110,12 @@
 					// Look for username and password, not part of DSN
 
 					if ($parameter == 'username') {
-						$username = strval($value);
+						$username = (string) $value;
 						continue;
 					}
 
 					if ($parameter == 'password') {
-						$password = strval($value);
+						$password = (string) $value;
 						continue;
 					}
 
@@ -123,7 +123,7 @@
 
 					// 3306 -> "3306"
 					if (is_numeric($value))
-						$value = strval($value);
+						$value = (string) $value;
 
 					// "host" => "localhost" -> "host=localhost"
 					if (is_string($value))

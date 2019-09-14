@@ -69,8 +69,8 @@
 		 * @param $boolean
 		 * @return bool
 		 */
-		public static function mysqlBool($boolean): bool {
-			return intval($boolean) === 1;
+		public static function sqlBool($boolean): bool {
+			return 1 === (int) $boolean;
 		}
 
 		/**

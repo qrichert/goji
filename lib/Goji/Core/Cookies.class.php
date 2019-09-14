@@ -72,7 +72,7 @@
 				}
 			}
 
-			if (isset($secure) && boolval($secure) === true)
+			if (isset($secure) && true === (bool) $secure)
 				return true;
 
 			// $secure != true

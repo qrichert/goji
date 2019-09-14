@@ -662,7 +662,7 @@
 
 				if (is_numeric($maxAge))
 					// To positive int
-					self::setHttpCacheMaxAge(abs(intval($maxAge)));
+					self::setHttpCacheMaxAge(abs((int) $maxAge));
 				else
 					throw new Exception('Http Cache Max Age invalid. Must be a numeric value in seconds.');
 

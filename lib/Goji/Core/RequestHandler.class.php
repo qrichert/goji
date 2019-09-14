@@ -100,7 +100,7 @@
 
 			// 200, 403, 404, 500, etc.
 			$this->m_redirectStatus = $_SERVER['REDIRECT_STATUS'] ?? self::HTTP_SUCCESS_OK;
-				$this->m_redirectStatus = intval($this->m_redirectStatus);
+				$this->m_redirectStatus = (int) $this->m_redirectStatus;
 
 			// GET, POST, PUT, DELETE, etc...
 			$this->m_requestMethod = $_SERVER['REQUEST_METHOD'] ?? self::HTTP_GET;
