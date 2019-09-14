@@ -70,7 +70,8 @@
 	<page id="appointment">
 		<segment id="APPOINTMENT_PAGE_TITLE">Appointment</segment>
 		<segment id="APPOINTMENT_PAGE_DESCRIPTION"></segment>
-		<segment id="APPOINTMENT_MAIN_TITLE">Make an appointment</segment>
+		<segment id="APPOINTMENT_MAIN_TITLE">Appointment</segment>
+		<segment id="APPOINTMENT_HELP_TEXT">Select the time slot that suits you best:</segment>
 	</page>
 	<page id="contact">
 		<segment id="CONTACT_PAGE_TITLE">Contact</segment>
