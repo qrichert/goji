@@ -3,7 +3,6 @@
 	require_once '../../lib/Goji/Toolkit/SwissKnife.class.php';
 	require_once '../../lib/Goji/Security/Passwords.class.php';
 
-	use Goji\Toolkit\SwissKnife;
 	use Goji\Security\Passwords;
 
 ?><!DOCTYPE html>
