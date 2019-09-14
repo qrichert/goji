@@ -2,13 +2,12 @@
 
 	namespace App\Controller;
 
-	use Goji\Blog\BlogControllerAbstract;
-	use Goji\Blog\BlogPostManager;
+	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class BlogController extends BlogControllerAbstract {
+	class AppointmentController extends ControllerAbstract {
 
 		public function render() {
 
@@ -17,16 +16,14 @@
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$blogPostManager = new BlogPostManager($this, $tr);
-			$blogPosts = $blogPostManager->getBlogPosts(0, -1, $this->m_app->getLanguages()->getCurrentCountryCode(), 250, true);
-
-			$template = new SimpleTemplate($tr->_('BLOG_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
-			                                $tr->_('BLOG_PAGE_DESCRIPTION'));
+			$template = new SimpleTemplate($tr->_('APPOINTMENT_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
+										   $tr->_('APPOINTMENT_PAGE_DESCRIPTION'),
+										   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('BlogView');
+			require_once $template->getView('AppointmentView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

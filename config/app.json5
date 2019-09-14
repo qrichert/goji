@@ -8,7 +8,7 @@
 	app_mode: "debug", // debug|release (case insensitive, default = release)
 	// Trailing slash will be removed
 	site_url: "https://www.SITE_URL.com",
-	site_name: "SITE_NAME",
+	site_name: "Goji",
 	// Trailing slash will be removed
 	site_domain_name: "SITE_URL.com",
 	// Trailing slash will be removed

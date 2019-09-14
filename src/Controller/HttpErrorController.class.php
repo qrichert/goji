@@ -45,7 +45,7 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$template = new SimpleTemplate();
-				$template->setPageTitle(str_replace('%{ERROR_CODE}', $this->m_httpErrorCode, $tr->_('ERROR_PAGE_TITLE')));
+				$template->setPageTitle(str_replace('%{ERROR_CODE}', $this->m_httpErrorCode, $tr->_('ERROR_PAGE_TITLE')) . ' - ' . $this->m_app->getSiteName());
 				$template->setPageDescription($tr->_('ERROR_PAGE_DESCRIPTION'));
 				$template->setRobotsBehaviour(SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 				$template->setShowCanonicalPageAndAlternates(false);

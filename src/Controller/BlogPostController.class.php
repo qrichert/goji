@@ -41,7 +41,7 @@
 			$blogPostManager = new BlogPostManager($this, $tr);
 			$blogPost = $blogPostManager->read($this->m_id, true);
 
-			$template = new SimpleTemplate($blogPost['title'],
+			$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
 			                                $tr->_('BLOG_POST_PAGE_DESCRIPTION'));
 
 			$template->startBuffer();

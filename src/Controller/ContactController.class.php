@@ -90,7 +90,7 @@
 			}
 
 			// Template
-			$template = new SimpleTemplate($tr->_('CONTACT_PAGE_TITLE'),
+			$template = new SimpleTemplate($tr->_('CONTACT_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 										   $tr->_('CONTACT_PAGE_DESCRIPTION'),
 										   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 

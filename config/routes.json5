@@ -36,6 +36,13 @@
 		// naming convention and make it implement \Goji\Blueprints\ControllerAbstract().
 		controller: "HomeController"
 	},
+	"appointment": {
+		routes: {
+			en: "/appointment",
+			fr: "rendez-vous"
+		},
+		controller: "AppointmentController"
+	},
 	"contact": {
 		routes: {
 			all: "/contact"

@@ -25,7 +25,7 @@
 			// Of course you don't need tu use SimpleTemplate.
 			// You could also just include an entire html/php file (use readfile( *.html ))
 
-			$template = new SimpleTemplate($tr->_('HOME_PAGE_TITLE'),
+			$template = new SimpleTemplate($this->m_app->getSiteName(),
 			                                $tr->_('HOME_PAGE_DESCRIPTION'));
 
 			$template->startBuffer();

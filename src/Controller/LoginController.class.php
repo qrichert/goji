@@ -69,8 +69,8 @@
 				$formSentSuccess = $this->treatForm($tr, $form);
 			}
 
-			$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE'),
-			                               $tr->_('LOGIN_PAGE_DESCRIPTION'),
+			$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
+										   $tr->_('LOGIN_PAGE_DESCRIPTION'),
 										   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 
 			$template->startBuffer();

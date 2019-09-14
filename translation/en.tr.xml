@@ -15,8 +15,8 @@
 
 		<!-- Nav -->
 		<segment id="NAV_HOME">Home</segment>
-		<segment id="NAV_ABOUT">About</segment>
 		<segment id="NAV_BLOG">Blog</segment>
+		<segment id="NAV_APPOINTMENT">Appointment</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 
 		<!-- Footer -->
@@ -66,6 +66,11 @@
 			<alternative count="rest">There are %{COUNT} foobars.</alternative>
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Try a different language:</segment>
+	</page>
+	<page id="appointment">
+		<segment id="APPOINTMENT_PAGE_TITLE">Appointment</segment>
+		<segment id="APPOINTMENT_PAGE_DESCRIPTION"></segment>
+		<segment id="APPOINTMENT_MAIN_TITLE">Make an appointment</segment>
 	</page>
 	<page id="contact">
 		<segment id="CONTACT_PAGE_TITLE">Contact</segment>
