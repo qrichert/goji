@@ -16,7 +16,7 @@
 		<!-- Nav -->
 		<segment id="NAV_HOME">Accueil</segment>
 		<segment id="NAV_BLOG">Blog</segment>
-		<segment id="NAV_APPOINTMENT">Rendez-vous</segment>
+		<segment id="NAV_SCHEDULE">Rendez-vous</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 
 		<!-- Footer -->
@@ -67,11 +67,11 @@
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Essayez une autre langue :</segment>
 	</page>
-	<page id="appointment">
-		<segment id="APPOINTMENT_PAGE_TITLE">Rendez-vous</segment>
-		<segment id="APPOINTMENT_PAGE_DESCRIPTION"></segment>
-		<segment id="APPOINTMENT_MAIN_TITLE">Rendez-vous</segment>
-		<segment id="APPOINTMENT_HELP_TEXT">Choisissez le créneau horaire qui vous convient le mieux :</segment>
+	<page id="schedule">
+		<segment id="SCHEDULE_PAGE_TITLE">Rendez-vous</segment>
+		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
+		<segment id="SCHEDULE_MAIN_TITLE">Rendez-vous</segment>
+		<segment id="SCHEDULE_HELP_TEXT">Choisissez le créneau horaire qui vous convient le mieux :</segment>
 	</page>
 	<page id="contact">
 		<segment id="CONTACT_PAGE_TITLE">Contact</segment>

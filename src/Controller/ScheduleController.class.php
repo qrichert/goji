@@ -7,7 +7,7 @@
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class AppointmentController extends ControllerAbstract {
+	class ScheduleController extends ControllerAbstract {
 
 		public function render() {
 
@@ -16,14 +16,14 @@
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$template = new SimpleTemplate($tr->_('APPOINTMENT_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
-										   $tr->_('APPOINTMENT_PAGE_DESCRIPTION'),
+			$template = new SimpleTemplate($tr->_('SCHEDULE_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
+										   $tr->_('SCHEDULE_PAGE_DESCRIPTION'),
 										   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('AppointmentView');
+			require_once $template->getView('ScheduleView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

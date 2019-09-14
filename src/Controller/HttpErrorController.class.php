@@ -21,7 +21,7 @@
 			    && isset($_GET['debug-error'])
 			    && !empty($_GET['debug-error'])) {
 
-				$this->m_httpErrorCode = intval($_GET['debug-error']);
+				$this->m_httpErrorCode = (int) $_GET['debug-error'];
 			}
 
 			/*********************/
@@ -36,10 +36,7 @@
 				case self::HTTP_SERVER_INTERNAL_SERVER_ERROR:	header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);	break;
 			}
 
-			// Override 'page' (admin -> 403 -> override to 'http-error-403'
-			$this->m_app->getRouter()->setCurrentPage('http-error-' . $this->m_httpErrorCode);
-
-			SimpleMetrics::addPageView('http-error-' . $this->m_httpErrorCode);
+			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');

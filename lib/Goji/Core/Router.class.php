@@ -619,9 +619,15 @@
 
 			$this->m_currentPageIsErrorPage = true;
 
+			if (!HttpErrorController::isValidError($errorCode))
+				$errorCode = HttpErrorController::HTTP_ERROR_DEFAULT;
+
+			// Override 'page' (admin -> 403 -> override to 'http-error-403'
+			$this->m_currentPage = 'http-error-' . (string) $errorCode;
+
 			$controller = new HttpErrorController($this->m_app);
-			$controller->setHttpError($errorCode);
-			$controller->render();
+				$controller->setHttpError($errorCode);
+				$controller->render();
 
 			exit;
 		}

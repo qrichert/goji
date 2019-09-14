@@ -1,11 +1,11 @@
 <?php
 
-	namespace Goji\Appointments;
+	namespace Goji\Schedules;
 
 	/**
 	 * Class Scheduler
 	 *
-	 * @package Goji\Appointments
+	 * @package Goji\Schedules
 	 */
 	class Scheduler {
 

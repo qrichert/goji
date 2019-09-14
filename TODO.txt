@@ -1,3 +1,6 @@
 TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php https://www.electrictoolbox.com/php-caching-headers/
 
 TODO: Caching method views, Locale + page id (like simple metrics) or path , stg unique
+
+https://github.com/alextselegidis/easyappointments
+https://calendly.com/fr/pages/pricing
