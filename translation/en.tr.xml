@@ -70,7 +70,7 @@
 	<page id="schedule">
 		<segment id="SCHEDULE_PAGE_TITLE">Schedule</segment>
 		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
-		<segment id="SCHEDULE_MAIN_TITLE">Schedule</segment>
+		<segment id="SCHEDULE_MAIN_TITLE">Schedule an appointment</segment>
 		<segment id="SCHEDULE_HELP_TEXT">Select the time slot that suits you best:</segment>
 	</page>
 	<page id="contact">

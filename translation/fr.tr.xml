@@ -70,7 +70,7 @@
 	<page id="schedule">
 		<segment id="SCHEDULE_PAGE_TITLE">Rendez-vous</segment>
 		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
-		<segment id="SCHEDULE_MAIN_TITLE">Rendez-vous</segment>
+		<segment id="SCHEDULE_MAIN_TITLE">Prendre rendez-vous</segment>
 		<segment id="SCHEDULE_HELP_TEXT">Choisissez le créneau horaire qui vous convient le mieux :</segment>
 	</page>
 	<page id="contact">
