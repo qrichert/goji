@@ -35,6 +35,10 @@
 				$this->m_cacheId .= $this->m_app->getLanguages()->getCurrentCountryCode();
 		}
 
+		public function getApp(): App {
+			return $this->m_app;
+		}
+
 		public function getCacheId(): string {
 			echo $this->m_cacheId;exit;
 			return $this->m_cacheId;

@@ -52,12 +52,12 @@
 		/**
 		 * BlogPostManager constructor.
 		 *
-		 * @param \Goji\Blog\BlogPostControllerAbstract $parent
+		 * @param \Goji\Blog\BlogControllerAbstract $parent
 		 * @param \Goji\Translation\Translator $tr
 		 * @param string|null $defaultAction The main reason BlogPostManager has been called
 		 * @throws \Exception
 		 */
-		public function __construct(BlogPostControllerAbstract $parent, Translator $tr, string $defaultAction = null) {
+		public function __construct(BlogControllerAbstract $parent, Translator $tr, string $defaultAction = null) {
 
 			$this->m_app = $parent->getApp();
 			$this->m_db = $this->m_app->getDataBase();

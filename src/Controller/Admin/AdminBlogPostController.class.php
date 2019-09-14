@@ -2,7 +2,7 @@
 
 	namespace App\Controller\Admin;
 
-	use Goji\Blog\BlogPostControllerAbstract;
+	use Goji\Blog\BlogControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\App;
@@ -10,7 +10,7 @@
 	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleTemplate;
 
-	class AdminBlogPostController extends BlogPostControllerAbstract {
+	class AdminBlogPostController extends BlogControllerAbstract {
 
 		/* <ATTRIBUTES> */
 
