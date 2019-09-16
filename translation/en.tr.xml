@@ -16,7 +16,6 @@
 		<!-- Nav -->
 		<segment id="NAV_HOME">Home</segment>
 		<segment id="NAV_BLOG">Blog</segment>
-		<segment id="NAV_SCHEDULE">Schedule</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 
 		<!-- Footer -->
@@ -66,12 +65,6 @@
 			<alternative count="rest">There are %{COUNT} foobars.</alternative>
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Try a different language:</segment>
-	</page>
-	<page id="schedule">
-		<segment id="SCHEDULE_PAGE_TITLE">Schedule</segment>
-		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
-		<segment id="SCHEDULE_MAIN_TITLE">Schedule an appointment</segment>
-		<segment id="SCHEDULE_HELP_TEXT">Select the time slot that suits you best:</segment>
 	</page>
 	<page id="contact">
 		<segment id="CONTACT_PAGE_TITLE">Contact</segment>

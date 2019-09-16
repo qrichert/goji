@@ -16,7 +16,6 @@
 		<!-- Nav -->
 		<segment id="NAV_HOME">Accueil</segment>
 		<segment id="NAV_BLOG">Blog</segment>
-		<segment id="NAV_SCHEDULE">Rendez-vous</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 
 		<!-- Footer -->
@@ -66,12 +65,6 @@
 			<alternative count="rest">Il y a %{COUNT} foobars.</alternative>
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Essayez une autre langue :</segment>
-	</page>
-	<page id="schedule">
-		<segment id="SCHEDULE_PAGE_TITLE">Rendez-vous</segment>
-		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
-		<segment id="SCHEDULE_MAIN_TITLE">Prendre rendez-vous</segment>
-		<segment id="SCHEDULE_HELP_TEXT">Choisissez le créneau horaire qui vous convient le mieux :</segment>
 	</page>
 	<page id="contact">
 		<segment id="CONTACT_PAGE_TITLE">Contact</segment>
