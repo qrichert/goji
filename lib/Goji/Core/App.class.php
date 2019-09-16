@@ -31,7 +31,7 @@
 		private $m_authentication;
 		private $m_firewall;
 		private $m_router;
-		private $m_dataBase;
+		private $m_dataBases;
 
 		/* <CONSTANTS> */
 
@@ -75,7 +75,7 @@
 			$this->m_authentication = new Authentication($this);
 			$this->m_firewall = new Firewall($this);
 			$this->m_router = null;
-			$this->m_dataBase = null;
+			$this->m_dataBases = [];
 		}
 
 		/**
@@ -286,26 +286,41 @@
 		/**
 		 * Creates a new database instance. If one existed before, it will be replaced.
 		 *
+		 * @param string|null $dataBaseId
+		 * @return \PDO
 		 * @throws \Exception
 		 */
-		public function createDataBase(): PDO {
+		public function createDataBase(string $dataBaseId = null): PDO {
 
-			$this->m_dataBase = new DataBase();
+			$db = new DataBase($dataBaseId);
+
+			// Save db under ID
+			$this->m_dataBases[$db->getDataBaseID()] = $db;
 
 			if ($this->m_appMode == self::DEBUG)
-				$this->m_dataBase->logErrors(true);
+				$db->logErrors(true);
 
-			return $this->m_dataBase;
+			return $db;
 		}
 
 		/**
+		 * @param string|null $dataBaseId
 		 * @return \Goji\Core\DataBase|\PDO
 		 * @throws \Exception
 		 */
-		public function getDataBase(): PDO {
+		public function getDataBase(string $dataBaseId = null): PDO {
 
-			if (isset($this->m_dataBase))
-				return $this->m_dataBase;
+			if (!empty($dataBaseId)) { // Wants specific one
+
+				if (isset($this->m_dataBases[$dataBaseId]))
+					return $this->m_dataBases[$dataBaseId];
+				else
+					return $this->createDataBase($dataBaseId);
+			}
+
+			// Wants first one that works
+			if ($this->hasDataBase())
+				return $this->m_dataBases[array_key_first($this->m_dataBases)];
 			else
 				return $this->createDataBase();
 		}
@@ -313,25 +328,29 @@
 		/**
 		 * Alias to App::getDataBase(), only shorter.
 		 *
+		 * @param string|null $dataBaseId
 		 * @return \Goji\Core\DataBase|\PDO
 		 * @throws \Exception
 		 */
-		public function db(): PDO {
-			return $this->getDataBase();
+		public function db(string $dataBaseId = null): PDO {
+			return $this->getDataBase($dataBaseId);
 		}
 
 		/**
+		 * Add an externally defined PDO to the database list.
+		 *
 		 * @param \PDO|\Goji\Core\DataBase $database
+		 * @param string $dataBaseId
 		 */
-		public function setDataBase(PDO $database): void {
-			$this->m_dataBase = $database;
+		public function addDataBase(PDO $database, string $dataBaseId): void {
+			$this->m_dataBases[$dataBaseId] = $database;
 		}
 
 		/**
 		 * @return bool
 		 */
 		public function hasDataBase(): bool {
-			return isset($this->m_dataBase);
+			return count($this->m_dataBases) > 0;
 		}
 
 		/**

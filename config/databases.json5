@@ -32,7 +32,7 @@ duplicate and rename it "databases.json5".
 		username: "username",
 		password: "password"
 	},
-	localhost: {
+	development: {
 		prefix: "mysql",
 		host: "localhost",
 		dbname: "goji",
@@ -40,7 +40,7 @@ duplicate and rename it "databases.json5".
 		username: "root",
 		password: "root",
 	},
-	sqlite: {
+	local: {
 		prefix: "sqlite",
 		file: "goji.sqlite" // Will be saved in /var/db/goji.sqlite
 	}

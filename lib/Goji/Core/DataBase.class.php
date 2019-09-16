@@ -50,7 +50,7 @@
 		 *          "username": "username",
 		 *          "password": "userpassword"
 		 *      },
-		 *      "localhost": {
+		 *      "development": {
 		 *          "prefix": "mysql",
 		 *          "host": "hostname",
 		 *          "dbname": "databasename",
@@ -60,7 +60,7 @@
 		 * }
 		 * ```
 		 *
-		 * The database identification name is entirely up to you (here we have 'production' and 'localhost').
+		 * The database identification name is entirely up to you (here we have 'production' and 'development').
 		 * You'll be able to access the selected one via DataBase::getDataBaseID();
 		 *
 		 * Usable parameters are prefix, host, port, dbname, unix_socket, charset, username, password, file.

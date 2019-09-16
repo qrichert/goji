@@ -3,6 +3,7 @@ Basic Flow
 
 1. [Request Chain](#request-chain)
 2. [App](#app)
+3. [Database](#database)
 3. [Controllers](#controllers)
 
 Request Chain
@@ -70,8 +71,9 @@ Basically what this does is it creates an `App` object, loads the database from 
 and starts the routing process.
 
 App automatically uses a `\Goji\Core\RequestHandler` object (accessible via `App::getRequestHandler()`),
-a `\Goji\HumanResources\User` object (accessible via `App::getUser()`), an `\Goji\HumanResources\Authentication` object
-(accessible via `App::getAuthentication()`), and a `\Goji\Core\Firewall` object (accessible via `App::getFirewall()`).
+a `\Goji\HumanResources\User` object (accessible via `App::getUser()`), an `\Goji\HumanResources\Authentication`
+object (accessible via `App::getAuthentication()`), and a `\Goji\Core\Firewall` object (accessible via
+`App::getFirewall()`).
 
 - `RequestHandler` analyzes the HTTP request and extracts (and sanitizes) some useful information like
 the request URI, request page, raw query string, query string as array, script name, root folder, etc.
@@ -82,19 +84,6 @@ the request URI, request page, raw query string, query string as array, script n
 
 - `Firewall` can detect if a requested page is forbidden for a user (not logged in for example, or
 page forbidden for logged in users).
-
-The database will be accessible via `App::getDataBase(): PDO`. Really it's a `\Goji\Core\DataBase`
-object which is returned, but that's just a child of PDO that reads your config file. So really it's
-just a regular `PDO`.
-
-To access the database in your controllers, just do `$app->getDatabase(?id)`...
-
-If you provide an ID (matching your config file), the corresponding database parameters will be used.
-If no ID is given, the first database appearing in the config and that works is selected.
-
-Usually you would have the production first and the local second. So if you're on your production server,
-the production DB will be loaded. And if you're on the local server, the production won't load and will
-fail, and the local one will be selected automatically.
 
 `$app->exec()` starts the routing process. The routing ends with the calling of the `render()` method
 of your controller. It goes like this:
@@ -114,6 +103,27 @@ of your controller. It goes like this:
 `App::exec()` should always be the last instruction. This is because `App::exec()` calls  `Router::route()`,
 and `Router::route()` calls `exit;` just after rendering the controller. `Controller::render()` is meant to
 render the view, so it should be the last thing you do anyway.
+
+Database
+--------
+
+The database will be accessible via `App::getDataBase(?id): PDO` or its alias `App::db(?id): PDO`.
+Really it's a `\Goji\Core\DataBase` object which is returned, but that's just a child of PDO that
+reads your config file. So really it's just a regular `PDO`.
+
+To access the database in your controllers, just do `$app->getDatabase(?id)` or `$app->db(?id)`...
+
+If you provide an ID (matching your config file), the corresponding database parameters from your
+config file will be used. If no ID is given, the first database appearing in the config and that
+works will be selected.
+
+In a regular case scenario where you work with just one database (with local development version and
+online production version), you would have the production first in the list and the local second, and
+not specify an ID when calling it.
+
+So that if you're on your production server, the production database will be loaded automatically (first
+one in the list to work). And if you're on your local development machine, the production database won't
+load, and the local one will be selected automatically instead.
 
 Controllers
 -----------

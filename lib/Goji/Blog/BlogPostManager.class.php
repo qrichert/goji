@@ -167,7 +167,7 @@
 
 			$reply = $query->fetchAll();
 
-			$query ->closeCursor();
+			$query->closeCursor();
 
 			if ($cutContentAtNbChars > 0 || $stripHTMLTags) {
 
