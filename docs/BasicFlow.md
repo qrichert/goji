@@ -63,11 +63,10 @@ but if you want to do something specific, you can just omit it.
 
 ```php
 $app = new App();
-    $app->createDataBase();
     $app->exec();
 ```
 
-Basically what this does is it creates an `App` object, loads the database from your config file
+Basically what this does is it creates an `App` object, loads the database from your config file (if any)
 and starts the routing process.
 
 App automatically uses a `\Goji\Core\RequestHandler` object (accessible via `App::getRequestHandler()`),
@@ -86,9 +85,16 @@ page forbidden for logged in users).
 
 The database will be accessible via `App::getDataBase(): PDO`. Really it's a `\Goji\Core\DataBase`
 object which is returned, but that's just a child of PDO that reads your config file. So really it's
-just a regular `PDO`. If you don't use a database, just remove the second line.
+just a regular `PDO`.
 
-(To access the database in your controllers, just do `$app->getDatabase()`...)
+To access the database in your controllers, just do `$app->getDatabase(?id)`...
+
+If you provide an ID (matching your config file), the corresponding database parameters will be used.
+If no ID is given, the first database appearing in the config and that works is selected.
+
+Usually you would have the production first and the local second. So if you're on your production server,
+the production DB will be loaded. And if you're on the local server, the production won't load and will
+fail, and the local one will be selected automatically.
 
 `$app->exec()` starts the routing process. The routing ends with the calling of the `render()` method
 of your controller. It goes like this:
