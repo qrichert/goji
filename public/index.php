@@ -12,5 +12,4 @@
 	require_once '../lib/AutoLoad.php';
 
 	$app = new App();
-		$app->createDataBase();
 		$app->exec();

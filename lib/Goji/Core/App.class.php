@@ -45,7 +45,6 @@
 
 		const E_NO_LANGUAGES = 0;
 		const E_NO_ROUTER = 1;
-		const E_NO_DATABASE = 2;
 
 		/**
 		 * App constructor.
@@ -289,12 +288,14 @@
 		 *
 		 * @throws \Exception
 		 */
-		public function createDataBase(): void {
+		public function createDataBase(): PDO {
 
 			$this->m_dataBase = new DataBase();
 
 			if ($this->m_appMode == self::DEBUG)
 				$this->m_dataBase->logErrors(true);
+
+			return $this->m_dataBase;
 		}
 
 		/**
@@ -306,7 +307,7 @@
 			if (isset($this->m_dataBase))
 				return $this->m_dataBase;
 			else
-				throw new Exception('No database has been set.', self::E_NO_DATABASE);
+				return $this->createDataBase();
 		}
 
 		/**
