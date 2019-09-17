@@ -7,10 +7,10 @@
 	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Core\HttpResponse;
 	use Goji\Form\Form;
+	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\Mail;
-	use Goji\Translation\Translator;
 	use Goji\Toolkit\SimpleMetrics;
-	use Goji\Toolkit\SimpleTemplate;
+	use Goji\Translation\Translator;
 
 	class ContactController extends ControllerAbstract {
 

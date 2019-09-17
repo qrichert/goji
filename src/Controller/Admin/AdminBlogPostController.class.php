@@ -7,8 +7,8 @@
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
+	use Goji\Rendering\SimpleTemplate;
 	use Goji\Translation\Translator;
-	use Goji\Toolkit\SimpleTemplate;
 
 	class AdminBlogPostController extends BlogControllerAbstract {
 

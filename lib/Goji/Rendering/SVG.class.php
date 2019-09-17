@@ -1,11 +1,11 @@
 <?php
 
-	namespace Goji\Toolkit;
+	namespace Goji\Rendering;
 
 	/**
 	 * Class SVG
 	 *
-	 * @package Goji\Toolkit
+	 * @package Goji\Rendering
 	 */
 	class SVG {
 

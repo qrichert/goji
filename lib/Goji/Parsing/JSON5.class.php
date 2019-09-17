@@ -128,7 +128,7 @@
 		 *
 		 * @param string $json5
 		 * @param bool $assoc (optional) default = false Return array instead of stdClass object
-		 * @return array|\stdClass
+		 * @return array|\stdClass|null
 		 */
 		public static function decode(string $json5, bool $assoc = false) {
 			return json_decode(self::toJSON($json5), $assoc);

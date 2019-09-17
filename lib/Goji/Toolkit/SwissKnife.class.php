@@ -2,7 +2,7 @@
 
 	namespace Goji\Toolkit;
 
-	use Goji\Parsing\JSON5;
+	use DateTime;
 	use Transliterator;
 
 	/**
@@ -109,7 +109,7 @@
 		 */
 		public static function dateToComponents(string $date, string $format = 'Y-m-d H:i:s'): array {
 
-			$dateTime = \DateTime::createFromFormat($format, $date);
+			$dateTime = DateTime::createFromFormat($format, $date);
 
 				$date = [
 					'full' => $date,
@@ -165,110 +165,5 @@
 			$str = trim($str, '-'); // hello-world-123
 
 			return $str;
-		}
-
-		/**
-		 * Replaces Call To Action template shortcut with HTML
-		 *
-		 * %{CTA}Send Me A Message%{/CTA}
-		 *
-		 * By default, the href of the <a> will be '#', you can set it using
-		 * the second parameter $aHref.
-		 *
-		 * @param string $templateString
-		 * @param string $aHref
-		 * @return string
-		 */
-		public static function templateCTAToHTML(string $templateString, string $aHref = '#'): string {
-			// TODO: put it in templateModules class ???
-			return preg_replace_callback('#%\{CTA\}(.*)%\{/CTA\}#isU', function($match) use($aHref) {
-
-				return <<<EOT
-					<div class="call-to-action__wrapper">
-						<a href="$aHref" class="call-to-action">{$match[1]}</a>
-					</div>
-					EOT;
-
-			}, $templateString);
-		}
-
-		/**
-		 * Replaces book template shortcut with HTML:
-		 *
-		 * %{BOOK}
-		 *     {
-		 *         id: "blue-ocean-strategy",
-		 *         image: "img/books/blue-ocean-strategy.jpg",
-		 *         side: "left",
-		 *         alt: "Blue Ocean Strategy - W. Chan Kim, Renée Mauborgne",
-		 *         text: "<p>
-		 *                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-		 *                    Alias delectus dolorem dolorum eaque eligendi, eos esse
-		 *                    facilis illo incidunt ipsa, iusto laborum officiis perspiciatis
-		 *                    reiciendis rerum similique ut, veniam voluptates!
-		 *                <p>"
-		 *     }
-		 * %{/BOOK}
-		 *
-		 * @param string $templateString
-		 * @return string
-		 */
-		public static function templateBooksToHTML(string $templateString): string {
-			// TODO: put it in templateModules class ???
-			return preg_replace_callback('#%\{BOOK\}(.*)%\{/BOOK\}#isU', function($match) {
-
-				$json = JSON5::decode($match[1], true);
-				$json['id'] = !empty($json['id']) ? ('data-id="' . $json['id'] . '"') : '';
-				$json['side'] = isset($json['side']) && in_array($json['side'], ['left', 'right']) ? $json['side'] : 'left';
-				$json['alt'] = isset($json['alt']) ? htmlspecialchars($json['alt']) : '';
-
-				$out = '';
-
-				// Regular book
-				if (!isset($json['text'])) {
-
-					$out .= <<<EOT
-						<div class="book {$json['side']}" {$json['id']}>
-							<img src="{$json['image']}" alt="{$json['alt']}">
-						</div>
-						EOT;
-
-					return $out;
-				}
-
-				// Book and text
-				if ($json['side'] == 'left') {
-
-					$out .= <<<EOT
-						<section class="side-by-side right-bigger">
-							<div class="image">
-								<div class="book left" {$json['id']}>
-									<img src="{$json['image']}" alt="{$json['alt']}">
-								</div>
-							</div>
-							<div>
-								{$json['text']}
-							</div>
-						</section>
-						EOT;
-				} else {
-
-					$out .= <<<EOT
-						<section class="side-by-side reverse-on-squeeze left-bigger">
-							<div>
-								{$json['text']}
-							</div>
-							<div class="image">
-								<div class="book right" {$json['id']}>
-									<img src="{$json['image']}" alt="{$json['alt']}">
-								</div>
-							</div>
-						</section>
-						EOT;
-				}
-
-				return $out;
-
-			}, $templateString);
 		}
 	}

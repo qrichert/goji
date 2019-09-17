@@ -4,9 +4,9 @@
 
 	use Goji\Blueprints\HttpErrorControllerAbstract;
 	use Goji\Core\App;
-	use Goji\Translation\Translator;
+	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
-	use Goji\Toolkit\SimpleTemplate;
+	use Goji\Translation\Translator;
 
 	class HttpErrorController extends HttpErrorControllerAbstract {
 

@@ -7,9 +7,9 @@
 	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Form\Form;
-	use Goji\Translation\Translator;
+	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
-	use Goji\Toolkit\SimpleTemplate;
+	use Goji\Translation\Translator;
 
 	class LoginController extends ControllerAbstract {
 

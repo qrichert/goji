@@ -1,13 +1,13 @@
 <?php
 
-	namespace Goji\Toolkit;
+	namespace Goji\Rendering;
 
 	use Goji\Parsing\RegexPatterns;
 
 	/**
 	 * Class BasicFormatting
 	 *
-	 * @package Goji\Toolkit
+	 * @package Goji\Rendering
 	 */
 	class BasicFormatting {
 

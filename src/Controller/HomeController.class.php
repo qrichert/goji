@@ -3,9 +3,9 @@
 	namespace App\Controller;
 
 	use Goji\Blueprints\ControllerAbstract;
-	use Goji\Translation\Translator;
+	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
-	use Goji\Toolkit\SimpleTemplate;
+	use Goji\Translation\Translator;
 
 	class HomeController extends ControllerAbstract {
 

@@ -1,6 +1,6 @@
 <?php
 
-	namespace Goji\Toolkit;
+	namespace Goji\Rendering;
 
 	use Goji\Core\ConfigurationLoader;
 	use Exception;
@@ -15,7 +15,7 @@
 	 * ```php
 	 * // Controller
 	 *
-	 * use Goji\Toolkit\SimpleTemplate;
+	 * use Goji\Rendering\SimpleTemplate;
 	 *
 	 * // Template is an object containing all the data the template
 	 * // file may need to be generated, like page title and content.
@@ -58,7 +58,7 @@
 	 * If you want to add elements not supported by default, you can use Specials.
 	 * See SimpleTemplate::setSpecials(), SimpleTemplate::addSpecial() and SimpleTemplate::getSpecial()
 	 *
-	 * @package Goji\Toolkit
+	 * @package Goji\Rendering
 	 */
 	class SimpleTemplate {
 
