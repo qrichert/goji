@@ -1,9 +1,12 @@
 # --- BLOCK ACCESS TO PRIVATE FOLDER ---
 
-Order Deny,Allow
-Deny from all
+# Default Policy: Deny
+Order Allow,Deny
+# But Allow for...
 Allow from localhost
 Allow from 127.0.0.1
 Allow from 10.0.0.0/8
 Allow from 172.16.0.0/12
 Allow from 192.168.0.0/16
+# Though Deny for... among the allowed
+#Deny from 192.168.0.12  # e.g. Someone you don't like
