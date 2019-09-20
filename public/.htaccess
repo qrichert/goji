@@ -57,6 +57,12 @@ ErrorDocument 403 /index.php
 ErrorDocument 404 /index.php
 ErrorDocument 500 /index.php
 
+# --- CACHING ---
+
+<FilesMatch "\.(css|js|jpe?g|png|gif|svg)$">
+    Header set Cache-Control max-age=604800
+</FilesMatch>
+
 # --- NOINDEX, NOFOLLOW ---
 
 # For just one file

@@ -2,5 +2,4 @@ TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php 
 
 TODO: Caching method views, Locale + page id (like simple metrics) or path , stg unique
 
-https://github.com/alextselegidis/easyappointments
-https://calendly.com/fr/pages/pricing
+TODO: Update HttpResponse, add header sending (400, 401, 403, 404, etc) with possibility to quit instead of doing it in HttpErrorController (see HttpResponse img in _FACTORY_).

@@ -557,9 +557,10 @@
 		 * No data is transferred (apart from the header) if ETag is valid.
 		 *
 		 * @param string $token
+		 * @param bool $replace
 		 */
-		private static function setHttpETag(string $token): void {
-			header("ETag: \"$token\"");
+		private static function setHttpETag(string $token, bool $replace = true): void {
+			header("ETag: \"$token\"", $replace);
 		}
 
 		/**
@@ -574,9 +575,10 @@
 		 * inside the browser cache.
 		 *
 		 * @param string $directive (HTTP_CACHE_CONTROL_NO_STORE | HTTP_CACHE_CONTROL_NO_CACHE)
+		 * @param bool $replace
 		 */
-		private static function setHttpCacheControlRestriction(string $directive): void {
-			header("Cache-Control: $directive", false);
+		private static function setHttpCacheControlRestriction(string $directive, bool $replace = false): void {
+			header("Cache-Control: $directive", $replace);
 		}
 
 		/**
@@ -590,9 +592,10 @@
 		 * cache system (like a CDN). This is meant for privacy also.
 		 *
 		 * @param string $directive (HTTP_CACHE_CONTROL_PUBLIC | HTTP_CACHE_CONTROL_PRIVATE)
+		 * @param bool $replace
 		 */
-		private static function setHttpCacheControlPrivacy(string $directive): void {
-			header("Cache-Control: $directive", false);
+		private static function setHttpCacheControlPrivacy(string $directive, bool $replace = false): void {
+			header("Cache-Control: $directive", $replace);
 		}
 
 		/**
@@ -609,9 +612,10 @@
 		 * /!\ If you don't use any cache directive, it's up to the browser to decide what to do /!\
 		 *
 		 * @param int $maxAge In seconds
+		 * @param bool $replace
 		 */
-		private static function setHttpCacheMaxAge(int $maxAge): void {
-			header("Cache-Control: max-age=$maxAge", false);
+		private static function setHttpCacheControlMaxAge(int $maxAge, bool $replace = false): void {
+			header("Cache-Control: max-age=$maxAge", $replace);
 		}
 
 		/**
@@ -634,11 +638,15 @@
 			$eTag = $policy['etag'] ?? null;
 			$restriction = $policy['restriction'] ?? null;
 			$privacy = $policy['privacy'] ?? null;
-			$maxAge = $policy['max-age'];
+			$maxAge = $policy['max-age'] ?? null;
 
 			if (isset($eTag)) {
 				self::setHttpETag($eTag);
 			}
+
+			// Clear previously set caching headers
+			header_remove('ETag');
+			header_remove('Cache-Control');
 
 			if (isset($restriction)) {
 
@@ -662,7 +670,7 @@
 
 				if (is_numeric($maxAge))
 					// To positive int
-					self::setHttpCacheMaxAge(abs((int) $maxAge));
+					self::setHttpCacheControlMaxAge(abs((int) $maxAge));
 				else
 					throw new Exception('Http Cache Max Age invalid. Must be a numeric value in seconds.');
 
