@@ -4,13 +4,13 @@
  * How to use it:
  * --------------
  *
- * <div>
+ * <div id="image-sequence">
  *     <img src="image-sequence.png" alt="">
  * </div>
  *
- * let imageSequenceAnimator = new ImageSequenceAnimator(document.querySelector('div')
- *                                                       45, // 45 images
- *                                                       9); // 9 images per row (or 9 columns)
+ * let imageSequenceAnimator = new ImageSequenceAnimator(document.querySelector('#image-sequence')
+ *                                                       38, // 38 images
+ *                                                       10); // 9 images per row (or 9 columns)
  *
  * imageSequenceAnimator.setProgress(0.5); // Between 0 and 1
  * imageSequenceAnimator.setCurrentIndex(3); // Starts at 0
@@ -31,6 +31,37 @@
  * The width/height method has precedence over the aspect ratio method, and the aspect ratio method
  * has precedence over the regular method (i.e. not giving info about the image). Width and height
  * must both be set or the won't be taken into account.
+ *
+ * /!\ No JavaScript /!\
+ *
+ * You should set a default state in pure CSS for when there is no JavaScript.
+ *
+ * Also, Google Search Console often freaks out because "content is larger than screen" when there is
+ * no default styling (because without styling, the large sprite sheet overflows the screen).
+ *
+ * For example:
+ *
+ * #image-sequence {
+ *     width: 140px; // This is part of "normal" styling, all the rest is no-JS-default-styling
+ *     height: 93px; // Calculate this value yourself, or get the computed one using your browser's inspector
+ *     overflow: hidden; // Because sprite sheet is bigger than the frame
+ * }
+ *
+ * #image-sequence > img {
+ *     // Let's say the sprite we want to show is on column 7 (8th row), row 3 (4th col)
+ *     width: 1000%; // In our example we have 10 columns, so 10 × 100%
+ *     transform: translate(-70%, -75%); // 10 columns, x -> (100% / 10) -10% = 1 image, so -70% = move 7 images to the right
+ *                                       // 4 rows,     y -> (100% / 4)  -25% = 1 image, so -75% = move 3 images to the bottom
+ * }
+ *
+ * Don't use relative or absolute positioning, ImageSequenceAnimator uses only transform: translate()
+ * and so it could not overwrite the default values.
+ *
+ * Only use properties that get overwritten by ImageSequenceAnimator when you do default styling!
+ *
+ * These include :
+ * - height, overflow for the parent
+ * - width, transform: translate() for the sprite sheet
  */
 class ImageSequenceAnimator {
 
@@ -126,7 +157,6 @@ class ImageSequenceAnimator {
 	 * @private
 	 */
 	addListeners() {
-
 		window.addEventListener('resize', () => { this.recalculateSizes(); }, false);
 	}
 
@@ -149,7 +179,6 @@ class ImageSequenceAnimator {
 		// Height
 		this.m_parentHeight = this.m_imageSequenceHeight / this.m_nbRows;
 		this.m_parent.style.height =  this.m_parentHeight + 'px';
-
 	}
 
 	/**
