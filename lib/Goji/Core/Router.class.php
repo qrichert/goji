@@ -575,6 +575,8 @@
 		 */
 		public function redirectTo(string $location): void {
 
+			$location = trim($location);
+
 			header("Location: $location");
 			exit;
 		}
