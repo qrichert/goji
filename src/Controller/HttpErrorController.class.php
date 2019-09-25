@@ -4,6 +4,7 @@
 
 	use Goji\Blueprints\HttpErrorControllerAbstract;
 	use Goji\Core\App;
+	use Goji\Core\HttpResponse;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
@@ -29,12 +30,8 @@
 			if (!isset($this->m_httpErrorCode))
 				$this->m_httpErrorCode = self::HTTP_ERROR_DEFAULT;
 
-			switch ($this->m_httpErrorCode) {
-				// header('(HTTP/1.0|HTTP/1.1) ERROR DESCRIPTION', true (replace = default), RESPONSE CODE);
-				case self::HTTP_ERROR_FORBIDDEN:	header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden', true, 403);				break;
-				case self::HTTP_ERROR_NOT_FOUND:	header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);				break;
-				case self::HTTP_SERVER_INTERNAL_SERVER_ERROR:	header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);	break;
-			}
+			// Set correct header
+			HttpResponse::setStatusHeader($this->m_httpErrorCode);
 
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 

@@ -29,10 +29,11 @@
 	-->
 	<page id="http-error-*">
 		<segment id="ERROR_PAGE_TITLE">Erreur %{ERROR_CODE}</segment> <!-- + Error code -->
-		<segment id="ERROR_PAGE_DESCRIPTION">Nous avons rencontré une erreur lors du chargement de la page.</segment>
+		<segment id="ERROR_PAGE_DESCRIPTION">Nous avons rencontré un problème lors du chargement de la page.</segment>
 		<segment id="ERROR_DESCRIPTION">
 			<option id="403">Accès interdit</option>
 			<option id="404">Page introuvable</option>
+			<option id="418">Je suis un théière</option>
 			<option id="500">Erreur interne</option>
 		</segment>
 	</page>

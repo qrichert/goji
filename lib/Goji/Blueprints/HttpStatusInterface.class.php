@@ -15,6 +15,7 @@
 		const HTTP_INFORMATION_EARLY_HINTS = 103;
 
 		const HTTP_SUCCESS_OK = 200;
+		const HTTP_SUCCESS_CREATED = 201;
 		const HTTP_SUCCESS_ACCEPTED = 202;
 		const HTTP_SUCCESS_NON_AUTHORITATIVE_INFORMATION = 203;
 		const HTTP_SUCCESS_NO_CONTENT = 204;
@@ -44,7 +45,7 @@
 		const HTTP_ERROR_METHOD_NOT_ALLOWED = 405;
 		const HTTP_ERROR_NOT_ACCEPTABLE = 406;
 		const HTTP_ERROR_PROXY_AUTHENTICATION_REQUIRED = 407;
-		const HTTP_ERROR_REQUEST_TIME_OUT = 408;
+		const HTTP_ERROR_REQUEST_TIMEOUT = 408;
 		const HTTP_ERROR_CONFLICT = 409;
 		const HTTP_ERROR_GONE = 410;
 		const HTTP_ERROR_LENGTH_REQUIRED = 411;
@@ -78,9 +79,9 @@
 
 		const HTTP_SERVER_INTERNAL_SERVER_ERROR = 500;
 		const HTTP_SERVER_NOT_IMPLEMENTED = 501;
-		const HTTP_SERVER_BAD_GATEWAY_OU_PROXY_ERROR = 502;
+		const HTTP_SERVER_BAD_GATEWAY = 502;
 		const HTTP_SERVER_SERVICE_UNAVAILABLE = 503;
-		const HTTP_SERVER_GATEWAY_TIME_OUT = 504;
+		const HTTP_SERVER_GATEWAY_TIMEOUT = 504;
 		const HTTP_SERVER_HTTP_VERSION_NOT_SUPPORTED = 505;
 		const HTTP_SERVER_VARIANT_ALSO_NEGOTIATES = 506;
 		const HTTP_SERVER_INSUFFICIENT_STORAGE = 507;
@@ -97,4 +98,97 @@
 		const HTTP_SERVER_SSL_HANDSHAKE_FAILED = 525;
 		const HTTP_SERVER_INVALID_SSL_CERTIFICATE = 526;
 		const HTTP_SERVER_RAILGUN_ERROR = 527;
+
+		const HTTP_REASON_PHRASE = [
+
+			100 => 'Continue',
+			101 => 'Switching Protocols',
+			102 => 'Processing',
+			103 => 'Early Hints',
+
+			200 => 'OK',
+			201 => 'Created',
+			202 => 'Accepted',
+			203 => 'Non-Authoritative Information',
+			204 => 'No Content',
+			205 => 'Reset Content',
+			206 => 'Partial Content',
+			207 => 'Multi-Status',
+			208 => 'Already Reported',
+			210 => 'Content Different',
+			226 => 'IM Used',
+
+			300 => 'Multiple Choices',
+			301 => 'Moved Permanently',
+			302 => 'Found',
+			303 => 'See Other',
+			304 => 'Not Modified',
+			305 => 'Use Proxy',
+			306 => 'Switch Proxy',
+			307 => 'Temporary Redirect',
+			308 => 'Permanent Redirect',
+			310 => 'Too Many Redirects',
+
+			400 => 'Bad Request',
+			401 => 'Unauthorized',
+			402 => 'Payment Required',
+			403 => 'Forbidden',
+			404 => 'Not Found',
+			405 => 'Method Not Allowed',
+			406 => 'Not Acceptable',
+			407 => 'Proxy Authentication Required',
+			408 => 'Request Timeout',
+			409 => 'Conflict',
+			410 => 'Gone',
+			411 => 'Length Required',
+			412 => 'Precondition Failed',
+			413 => 'Request Entity Too Large',
+			414 => 'Request-URI Too Long',
+			415 => 'Unsupported Media Type',
+			416 => 'Requested Range Unsatisfiable',
+			417 => 'Expectation Failed',
+			418 => 'I\'m a teapot',
+			421 => 'Bad Mapping',
+			422 => 'Unprocessable Entity',
+			423 => 'Locked',
+			424 => 'Method Failure',
+			425 => 'Unordered Collection',
+			426 => 'Upgrade Required',
+			428 => 'Precondition Required',
+			429 => 'Too Many Requests',
+			431 => 'Request Header Fields Too Large',
+			449 => 'Retry With',
+			450 => 'Blocked by Windows Parental Controls',
+			451 => 'Unavailable For Legal Reasons',
+			456 => 'Unrecoverable Error',
+
+			444 => 'No Response',
+			495 => 'SSL Certificate Error',
+			496 => 'SSL Certificate Required',
+			497 => 'HTTP Request Sent to HTTPS Port',
+			498 => 'Token Invalid',
+			499 => 'Client Closed Request',
+
+			500 => 'Internal Server Error',
+			501 => 'Not Implemented',
+			502 => 'Bad Gateway',
+			503 => 'Service Unavailable',
+			504 => 'Gateway Timeout',
+			505 => 'HTTP Version Not Supported',
+			506 => 'Variant Also Negotiates',
+			507 => 'Insufficient Storage',
+			508 => 'Loop Detected',
+			509 => 'Bandwidth Limit Exceeded',
+			510 => 'Not Extended',
+			511 => 'Network Authentication Required',
+
+			520 => 'Unknown Error',
+			521 => 'Web Server Is Down',
+			522 => 'Connection Timed Out',
+			523 => 'Origin Is Unreachable',
+			524 => 'A Timeout Occurred',
+			525 => 'SSL Handshake Failed',
+			526 => 'Invalid SSL Certificate',
+			527 => 'Railgun Error',
+		];
 	}

@@ -2,6 +2,8 @@
 
 	namespace Goji\Blueprints;
 
+	use Goji\Core\HttpResponse;
+
 	/**
 	 * Class HttpErrorControllerAbstract
 	 *
@@ -15,13 +17,8 @@
 
 		/* <CONSTANTS> */
 
-		const HTTP_ERROR_DEFAULT = self::HTTP_SERVER_INTERNAL_SERVER_ERROR; // If it's an error we don't handle, make it internal
-
-		const SUPPORTED_HTTP_ERRORS = [
-			self::HTTP_ERROR_FORBIDDEN => true,
-			self::HTTP_ERROR_NOT_FOUND => true,
-			self::HTTP_SERVER_INTERNAL_SERVER_ERROR => true
-		];
+		// If it's an error we don't handle, make it internal
+		const HTTP_ERROR_DEFAULT = self::HTTP_SERVER_INTERNAL_SERVER_ERROR;
 
 		/**
 		 * @param int|null $errorCode
@@ -32,7 +29,12 @@
 			if (!isset($errorCode))
 				return false;
 
-			return isset(self::SUPPORTED_HTTP_ERRORS[$errorCode]);
+			if (!HttpResponse::isValidStatusCode($errorCode))
+				return false;
+
+			// You could add more conditions here, like be >= 400
+
+			return true;
 		}
 
 		/**
@@ -43,6 +45,6 @@
 			if (!self::isValidError($errorCode))
 				$errorCode = self::HTTP_ERROR_DEFAULT;
 
-			$this->m_httpErrorCode = (int) $errorCode;
+			$this->m_httpErrorCode = $errorCode;
 		}
 	}
