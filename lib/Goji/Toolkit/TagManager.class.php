@@ -13,12 +13,16 @@
 		 * Sorts tags, makes sure they are strings and removes duplicates.
 		 *
 		 * @param array|string $tagsArray
+		 * @param bool $sort
 		 * @return array
 		 */
-		public static function sanitizeTags($tagsArray): array {
+		public static function sanitizeTags($tagsArray, $sort = true): array {
 
 			// Converting tags to Array
 			$tagsArray = (array) $tagsArray;
+
+			// Removing doubles
+			$tagsArray = array_unique($tagsArray, SORT_STRING);
 
 			// Converting tags to String
 			foreach ($tagsArray as &$tag) {
@@ -26,8 +30,8 @@
 			}
 			unset($tag);
 
-			$tagsArray = array_unique($tagsArray); // Removing doubles
-			sort($tagsArray); // Sorting to alphabetical order
+			if ($sort)
+				sort($tagsArray); // Sorting to alphabetical order
 
 			return $tagsArray;
 		}
@@ -35,16 +39,16 @@
 		/**
 		 * Converts array to JSON string.
 		 *
-		 * @param array $array
+		 * @param array $tagsArray
 		 * @param bool $sanitize default = true
 		 * @return string|false
 		 */
-		public static function encode($array, $sanitize = true) {
+		public static function encode(array $tagsArray, $sanitize = true) {
 
 			if ($sanitize)
-				$array = self::sanitizeTags($array);
+				$tagsArray = self::sanitizeTags($tagsArray);
 
-			return json_encode($array);
+			return json_encode($tagsArray);
 		}
 
 		/**
@@ -56,24 +60,37 @@
 		 */
 		public static function decode($json, $sanitize = false): array {
 
-			$array = json_decode($json, true);
+			$tagsArray = json_decode($json, true);
 
-			if ($sanitize)
-				$array = self::sanitizeTags($array);
+			if ($sanitize && is_array($tagsArray))
+				$tagsArray = self::sanitizeTags($tagsArray);
 
-			return $array;
+			return $tagsArray;
 		}
 
 		/**
 		 * Converts array of tags to string for display.
 		 *
-		 * ['list', 'of', 'tags'] -> 'list, of, tags'
+		 * Example with ['list', 'of', 'tags']:
+		 * - toString() -> 'list, of, tags'
+		 * - toString($surrounding = '<em>%{TAG}</em>') -> '<em>list</em>, <em>of</em>, <em...>tags</em>'
 		 *
 		 * @param array $tagsArray
+		 * @param string $surrounding (optional) '%{TAG}' will re replaced by the value of the tag
+		 * @param string $glue (optional) what separates the tags
 		 * @return string
 		 */
-		public static function toString($tagsArray): string {
-			return implode(', ', $tagsArray);
+		public static function toString($tagsArray, $surrounding = '', $glue = ', '): string {
+
+			if (!empty($surrounding)) {
+
+				foreach ($tagsArray as &$tag) {
+					$tag = str_replace('%{TAG}', $tag, $surrounding);
+				}
+				unset($tag);
+			}
+
+			return implode($glue, $tagsArray);
 		}
 
 		/**
@@ -121,9 +138,12 @@
 			$tagsArray = self::sanitizeTags($tagsArray);
 
 			foreach ($tagsToRemove as $tag) {
-				if (in_array($tag, $tagsArray)) {
-					array_splice($tagsArray, array_search($tag, $tagsArray), 1);
-				}
+
+				// Returns index or false if not found
+				$index = array_search($tag, $tagsArray);
+
+				if ($index !== false)
+					array_splice($tagsArray, $index, 1);
 			}
 
 			return $tagsArray;
