@@ -339,7 +339,7 @@
 		 * @param string|null $locale (optional) The locale you want the link for (default = current locale)
 		 * @param bool $includeSiteURL (optional) default = false
 		 * @param int|null $index (optional) if you have multiple paths/link for one page, which one you want (default = 0 = first one)
-		 * @param array|null $parameters
+		 * @param array|null $parameters (optional) Parameters to replace regex (e.g. '(.+)?') with
 		 * @return string
 		 * @throws \Exception
 		 */
@@ -420,6 +420,8 @@
 			// some-other-page-([0-9]+)(?:-([0-9]+))? -> some-other-page-128-226
 			if (!empty($parameters)) {
 
+				// /goji/public/blog/(.+)? + blog-post-permalink
+
 				preg_match_all(RegexPatterns::unescapedParenthesisGroups(), $link, $hit, PREG_PATTERN_ORDER);
 
 				$hitCount = count($hit[1]);
@@ -429,16 +431,23 @@
 					// str_replace doesn't have this option, so we convert it to regex
 					$re = '#' . preg_quote($hit[1][$i], '#') . '#';
 					$link = preg_replace($re, '##########' . $i . '##########', $link, 1);
+
 				}
+
+				// /goji/public/blog/##########0##########?
 
 				// Now we can clean the path
 				$link = preg_replace(RegexPatterns::unescapedMetacharacters(), '', $link);
+
+				// /goji/public/blog/##########0##########
 
 				for ($i = 0; $i < $hitCount; $i++) {
 
 					// Replace ##### by corresponding parameter value (###1### -> param1, ###2### -> param2, etc.)
 					$link = str_replace('##########' . $i . '##########', $parameters[$i], $link);
 				}
+
+				// /goji/public/blog/blog-post-permalink
 			}
 
 			// home -> http://www.domain.com/home

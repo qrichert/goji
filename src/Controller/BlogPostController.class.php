@@ -13,22 +13,18 @@
 
 		/* <ATTRIBUTES> */
 
-		private $m_id;
+		private $m_permalink;
 
 		public function __construct(App $app) {
 
 			parent::__construct($app);
 
-			$this->m_id = $this->m_app->getRequestHandler()->getRequestParameters()[1] ?? null; // 0 = full match
+			$this->m_permalink = $this->m_app->getRequestHandler()->getRequestParameters()[1] ?? null; // 0 = full match
 
-			if (empty($this->m_id))
+			if (empty($this->m_permalink))
 				$this->m_app->getRouter()->redirectTo($this->m_app->getRouter()->getLinkForPage('blog'));
 
 			// Bad ID handled in BlogPostManager::read(); -> 404
-		}
-
-		public function errorBlogPostDoesNotExist(): void {
-			$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 		}
 
 		public function render() {
@@ -39,7 +35,7 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$blogPostManager = new BlogPostManager($this, $tr);
-			$blogPost = $blogPostManager->read($this->m_id, true);
+			$blogPost = $blogPostManager->read($this->m_permalink, true);
 
 			$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
 			                                $tr->_('BLOG_POST_PAGE_DESCRIPTION'));

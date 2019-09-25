@@ -11,21 +11,37 @@
 		<!--<link type="text/plain" rel="author" href="<?= $template->getWebRoot(); ?>/humans.txt">-->
 		<?= $template->getRobotsBehaviour(); ?>
 		<?php
-			if ($template->getShowCanonicalPageAndAlternates()) {
+			// Remove the 'if {}' block if you don't use the blog
+			if ($this->m_app->getRouter()->getCurrentPage() == 'blog-post') {
 
-				echo '<link rel="canonical" href="' . $this->m_app->getRouter()->getLinkForPage(null, null, true) . '">';
+				if ($template->getShowCanonicalPageAndAlternates()) {
 
-				foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
-
-					echo '<link rel="alternate" hreflang="'
-					     . $this->m_app->getLanguages()->hyphenateLocale($locale)
-					     . '" href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale, true)
-					     . '">' . PHP_EOL;
+					// Add blog permalink ($this->m_permalink)
+					echo '<link rel="canonical" href="' . $this->m_app->getRouter()->getLinkForPage(null, null, true, 0, [$this->m_permalink]) . '">';
 				}
 
-				echo '<link rel="alternate" hreflang="x-default" href="'
-				     . $this->m_app->getRouter()->getLinkForPage(null, $this->m_app->getLanguages()->getFallbackLocale(), true)
-				     . '">';
+			} else {
+
+				// Keep from here...
+
+				if ($template->getShowCanonicalPageAndAlternates()) {
+
+					echo '<link rel="canonical" href="' . $this->m_app->getRouter()->getLinkForPage(null, null, true) . '">';
+
+					foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
+
+						echo '<link rel="alternate" hreflang="'
+						     . $this->m_app->getLanguages()->hyphenateLocale($locale)
+						     . '" href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale, true)
+						     . '">' . PHP_EOL;
+					}
+
+					echo '<link rel="alternate" hreflang="x-default" href="'
+					     . $this->m_app->getRouter()->getLinkForPage(null, $this->m_app->getLanguages()->getFallbackLocale(), true)
+					     . '">';
+				}
+
+				// To here
 			}
 		?>
 
