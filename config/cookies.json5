@@ -11,6 +11,6 @@
 	// If null or missing (default), cookies will be set to secure if HTTPS is enabled, false if not
 	secure: null,
 	// Prefix will be prepended automatically to the cookie's names.
-	// Ex: Cookie::set('key') will actually be saved as "prefix-key".
-	cookies_prefix: ""
+	// Ex: Cookie::set('key') will actually be saved as "goji-key".
+	cookies_prefix: "goji-"
 }
