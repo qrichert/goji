@@ -37,7 +37,7 @@
 		public static function setStatusHeader(int $statusCode, bool $exit = false) {
 
 			if (!self::isValidStatusCode($statusCode))
-				throw new Exception("Unknown HTTP status code $statusCode", self::E_HTTP_STATUS_UNKNOWN);
+				throw new Exception("Unknown HTTP status code: '$statusCode'", self::E_HTTP_STATUS_UNKNOWN);
 
 			$reasonPhrase = self::HTTP_REASON_PHRASE[$statusCode];
 

@@ -92,6 +92,4 @@ Options -Indexes
 
 # --- REMOVE UNWANTED HEADERS ---
 
-# To remove X-Powered-By: PHP/7.X, better set
-# 'expose_php = off' in the php.ini file
-Header unset X-Powered-By
+# Header unset <HTTP HEADER>
