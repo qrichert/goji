@@ -4,10 +4,19 @@ BASE_DIR=~/Sites  # Goji's parent dir
 
 if [ -n "$1" ]; then
 	BASE_DIR=$1
+
+	if [[ "$BASE_DIR" != "/"* && "$BASE_DIR" != "~/"* ]]; then
+		echo "Give an absolute path, starting with '/' or '~/'"
+		exit 1
+	fi
 fi
 
 if [ ! -e "$BASE_DIR" ]; then
-	echo -e "'$BASE_DIR' doesn't exist.\nYou can set the directory with a parameter like 'bash newproject.sh ~/Sites'."
+	echo "'$BASE_DIR' doesn't exist."
+	echo "You can set the directory with a parameter like 'bash newproject.sh ~/Sites'."
+	echo "/!\\ Bash doesn't expand '~' if given in quotes like './newproject.sh \"~/Sites/some folder\"\'."
+	echo "    Do './newproject.sh ~/Sites/\"some folder\" instead."
+
 	exit 1
 fi
 
