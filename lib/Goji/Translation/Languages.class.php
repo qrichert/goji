@@ -96,10 +96,10 @@
 									print_r($this->m_userPreferredLocales, true) :
 									'NULL';
 
-			echo 'Configuration Locales: ' . $configurationLocales . PHP_EOL;
-			echo 'Fallback Locale: ' . ($this->m_fallbackLocale ?? 'NULL') . PHP_EOL;
-			echo 'User Preferred Locales: ' . $userPreferredLocales . PHP_EOL;
-			echo 'Current Locale: ' . ($this->m_currentLocale ?? 'NULL') . PHP_EOL;
+			echo 'Configuration Locales: ' . $configurationLocales, PHP_EOL;
+			echo 'Fallback Locale: ' . ($this->m_fallbackLocale ?? 'NULL'), PHP_EOL;
+			echo 'User Preferred Locales: ' . $userPreferredLocales, PHP_EOL;
+			echo 'Current Locale: ' . ($this->m_currentLocale ?? 'NULL'), PHP_EOL;
 		}
 
 		/**

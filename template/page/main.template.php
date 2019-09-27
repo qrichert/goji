@@ -26,14 +26,14 @@
 
 				if ($template->getShowCanonicalPageAndAlternates()) {
 
-					echo '<link rel="canonical" href="' . $this->m_app->getRouter()->getLinkForPage(null, null, true) . '">';
+					echo '<link rel="canonical" href="' . $this->m_app->getRouter()->getLinkForPage(null, null, true) . '">', PHP_EOL;
 
 					foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
 
 						echo '<link rel="alternate" hreflang="'
 						     . $this->m_app->getLanguages()->hyphenateLocale($locale)
 						     . '" href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale, true)
-						     . '">' . PHP_EOL;
+						     . '">', PHP_EOL;
 					}
 
 					echo '<link rel="alternate" hreflang="x-default" href="'

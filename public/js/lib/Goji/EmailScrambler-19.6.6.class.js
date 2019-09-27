@@ -2,10 +2,10 @@
  * EmailScrambler class
  *
  * Static class, to scramble an email, use:
- * EmailScrambler.scramble('me@mydomain.com'); // Returns R&1R.s,R:)O?q,R
+ * EmailScrambler.scramble('me@mydomain.com'); // Returns R&1R.s,R:)O?q,R (string)
  *
  * Then to restore the email, use:
- * EmailScrambler.restore('R&1R.s,R:)O?q,R'); // Returns me@mydomain.com
+ * EmailScrambler.restore('R&1R.s,R:)O?q,R'); // Returns me@mydomain.com (string)
  *
  * So, use EmailScrambler.scramble() once when you're building the site,
  * then only use EmailScrambler.restore() in production.
@@ -50,6 +50,7 @@ class EmailScrambler {
 	 * Restore a scrambled email string.
 	 *
 	 * @param scrambledEmail
+	 * @return {String}
 	 */
 	static restore(scrambledEmail) {
 
@@ -69,6 +70,7 @@ class EmailScrambler {
 	 * Scrambles the email & outputs the code.
 	 *
 	 * @param email
+	 * @return {String}
 	 */
 	static scramble(email) {
 

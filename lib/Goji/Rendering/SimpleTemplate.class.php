@@ -196,9 +196,9 @@
 
 			switch ($this->m_robotsBehaviour) {
 
-				case self::ROBOTS_NOINDEX:			return '<meta name="robots" content="noindex">';			break;
-				case self::ROBOTS_NOFOLLOW:			return '<meta name="robots" content="nofollow">';			break;
-				case self::ROBOTS_NOINDEX_NOFOLLOW:	return '<meta name="robots" content="noindex, nofollow">';	break;
+				case self::ROBOTS_NOINDEX:          return '<meta name="robots" content="noindex">' . PHP_EOL;              break;
+				case self::ROBOTS_NOFOLLOW:         return '<meta name="robots" content="nofollow">' . PHP_EOL;             break;
+				case self::ROBOTS_NOINDEX_NOFOLLOW: return '<meta name="robots" content="noindex, nofollow">' . PHP_EOL;    break;
 			}
 
 			return ''; // Default, nothing

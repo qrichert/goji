@@ -590,18 +590,24 @@ input[type=checkbox].toggle:checked + label > span::after {
 }
 
 .call-to-action {
+	margin-top: var(--gutter-thin);
+	margin-bottom: var(--gutter-thin);
 	padding: 15px 30px;
 	font-size: 19px;
 	line-height: 21px;
 }
 
 .call-to-action.small {
+	margin-top: var(--gutter-xthin);
+	margin-bottom: var(--gutter-xthin);
 	padding: 11px 20px;
 	font-size: 16px;
 	line-height: 25px;
 }
 
 .call-to-action.smaller {
+	margin-top: 0px;
+	margin-bottom: 0px;
 	padding: 10px 17px;
 	font-size: 15px;
 	line-height: 14px;

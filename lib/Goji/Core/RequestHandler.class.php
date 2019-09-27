@@ -113,16 +113,16 @@
 
 		public function __debugInfo() {
 
-			echo 'Request URI: ' . $this->m_requestURI . PHP_EOL;
-			echo 'Request Page URI: ' . $this->m_requestPageURI . PHP_EOL;
-			echo 'Raw Query String: ' . $this->m_rawQueryString . PHP_EOL;
-			echo 'Query String: ' . print_r($this->m_queryString, true) . PHP_EOL;
-			echo 'Script Name: ' . $this->m_scriptName . PHP_EOL;
-			echo 'Root Folder: ' . $this->m_rootFolder . PHP_EOL;
-			echo 'Request Page: ' . $this->m_requestPage . PHP_EOL;
-			echo 'Request Parameters: ' . print_r($this->m_requestParameters, true) . PHP_EOL;
-			echo 'Redirect Status: ' . $this->m_redirectStatus . PHP_EOL;
-			echo 'Request Method: ' . $this->m_requestMethod . PHP_EOL;
+			echo 'Request URI: ' . $this->m_requestURI, PHP_EOL;
+			echo 'Request Page URI: ' . $this->m_requestPageURI, PHP_EOL;
+			echo 'Raw Query String: ' . $this->m_rawQueryString, PHP_EOL;
+			echo 'Query String: ' . print_r($this->m_queryString, true), PHP_EOL;
+			echo 'Script Name: ' . $this->m_scriptName, PHP_EOL;
+			echo 'Root Folder: ' . $this->m_rootFolder, PHP_EOL;
+			echo 'Request Page: ' . $this->m_requestPage, PHP_EOL;
+			echo 'Request Parameters: ' . print_r($this->m_requestParameters, true), PHP_EOL;
+			echo 'Redirect Status: ' . $this->m_redirectStatus, PHP_EOL;
+			echo 'Request Method: ' . $this->m_requestMethod, PHP_EOL;
 		}
 
 		/**
