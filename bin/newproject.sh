@@ -48,3 +48,6 @@ do
 	fi
 done
 
+echo "Done."
+echo "New project created in '$BASE_DIR/$projectName'"
+
