@@ -31,8 +31,11 @@ git clone https://github.com/qrichert/goji.git "$BASE_DIR/$projectName"
 
 rm -rf "$BASE_DIR/$projectName/.git"
 rm "$BASE_DIR/$projectName/.gitignore"
+rm "$BASE_DIR/$projectName/LICENSE"
 mv "$BASE_DIR/$projectName/project.gitignore" "$BASE_DIR/$projectName/.gitignore"
-rm "$BASE_DIR/$projectName/update.sh"
+> "$BASE_DIR/$projectName/README.md"
+> "$BASE_DIR/$projectName/TODO.txt"
+echo -e "#!/usr/bin/env bash\n\ngit pull && git push" > "$BASE_DIR/$projectName/update.sh"
 
 files=('bin'
 	'docs'
