@@ -401,7 +401,7 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 main {
 	width: 100%;
 	margin: auto;
-	padding: calc(1 * var(--gutter-default)) 0; /* Completed by sections' padding. */
+	padding: var(--gutter-default) 0 calc(2 * var(--gutter-default)) 0; /* Completed by sections' padding. */
 
 	/* Footer at bottom */
 	flex-grow: 1;

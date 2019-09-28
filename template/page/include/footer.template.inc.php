@@ -11,7 +11,11 @@
 						<?= $tr->_('FOOTER_GOJI_ON_GITHUB'); ?>
 					</a>
 				</p>
-				<!--<p>Try uncommenting me</p>-->
+				<p>
+					<a href="<?= $this->m_app->getRouter()->getLinkForPage('privacy-and-terms'); ?>">
+						<?= $tr->_('FOOTER_PRIVACY_AND_TERMS'); ?>
+					</a>
+				</p>
 			</div>
 			<p>
 				<?php

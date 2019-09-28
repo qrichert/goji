@@ -57,6 +57,13 @@
 		route: "/logout",
 		controller: "LogoutController"
 	},
+	"privacy-and-terms": {
+		routes: {
+			en: "/privacy-and-terms",
+			fr: "/mentions-legales"
+		},
+		controller: "PrivacyAndTermsController"
+	},
 	// <BLOG>
 	"blog": {
 		route: "/blog",

@@ -20,6 +20,7 @@
 
 		<!-- Footer -->
 		<segment id="FOOTER_GOJI_ON_GITHUB">Goji sur GitHub</segment>
+		<segment id="FOOTER_PRIVACY_AND_TERMS">Mentions Légales</segment>
 		<segment id="FOOTER_LOG_IN">Connexion</segment>
 		<segment id="FOOTER_LOG_OUT">Déconnexion</segment>
 	</page>
@@ -96,6 +97,11 @@
 			<alternative count="rest">:)</alternative>
 		</segment>
 		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Nom d'utilisateur ou mot de passe incorrect !</segment>
+	</page>
+	<page id="privacy-and-terms">
+		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Mentions Légales</segment>
+		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>
+		<segment id="PRIVACY_AND_TERMS_MAIN_TITLE">Mentions Légales</segment>
 	</page>
 	<page id="blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
