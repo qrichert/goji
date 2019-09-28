@@ -42,10 +42,11 @@
 			}
 		?>
 
-		<!-- Remove <p> for Mardown -->
-		<p>
-			<?= nl2br(htmlspecialchars($blogPost['post'])); ?>
-		</p>
+		<?php
+			// Markdown or other formatting need to be rendered here
+			//$md->text($blogPost['post']);
+			echo '<p>', nl2br(htmlspecialchars($blogPost['post'])), '</p>';
+		?>
 
 		<p>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('BLOG_POST_BACK_TO_BLOG_POSTS'); ?></a>

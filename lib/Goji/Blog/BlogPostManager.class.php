@@ -142,6 +142,7 @@
 		 * @return array
 		 */
 		public function getBlogPosts(int $offset = 0, int $count = -1, string $locale = null, int $cutContentAtNbChars = -1, bool $stripHTMLTags = false): array {
+			// TODO: Add callback to render output before stripping tags
 
 			if ($offset < 0)
 				$offset = 0;
