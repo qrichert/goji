@@ -1,10 +1,10 @@
-<header>
+<header class="header__main">
 	<div class="header__container">
 		<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>" class="header__logo">
 			<img src="<?= $template->getWebRoot(); ?>/img/goji__text--dark.svg" alt="<?= $tr->_('NAV_HOME'); ?>">
 		</a>
 
-		<nav>
+		<nav class="nav__main">
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>"><?= $tr->_('NAV_HOME'); ?></a>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('NAV_BLOG'); ?></a>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('contact'); ?>"><?= $tr->_('NAV_CONTACT'); ?></a>
@@ -20,8 +20,11 @@
 
 <script>
 	(function () {
+
+		/* <BURGER MENU> */
+
 		let navBurgerMenu = document.querySelector('.nav__burger-menu');
-		let nav = document.querySelector('nav');
+		let nav = document.querySelector('.nav__main');
 
 		// Toggle menu visibility in burger menu mode
 		navBurgerMenu.addEventListener('click', function() {
@@ -32,7 +35,7 @@
 				nav.classList.remove('shown');
 		}, false);
 
-		// let navLinks = document.querySelectorAll('nav > a');
+		// let navLinks = document.querySelectorAll('.nav__main > a');
 		//
 		// // Hide menu on item click (useful for same-page anchor links)
 		// navLinks.forEach(function(el) {

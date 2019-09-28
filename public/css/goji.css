@@ -230,7 +230,7 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 
 /* <HEADER> */
 
-header {
+.header__main {
 	width: 100%;
 	height: var(--header-height);
 	display: flex;
@@ -274,14 +274,14 @@ header {
 
 /* <NAV> */
 
-nav {
+.nav__main {
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
 	flex-shrink: 0;
 }
 
-nav > a {
+.nav__main > a {
 	font-family: var(--font-title);
 	text-decoration: none;
 	opacity: 0.92;
@@ -289,7 +289,7 @@ nav > a {
 				transform 250ms ease;
 }
 
-nav > a:hover {
+.nav__main > a:hover {
 	opacity: 1;
 	text-decoration: none;
 }
@@ -337,7 +337,7 @@ nav > a:hover {
 
 /* <FOOTER> */
 
-footer {
+.footer__main {
 	width: 100%;
 	/* 'auto' for footer at bottom */
 	margin: auto 0 0 0;
@@ -359,7 +359,7 @@ footer {
 	align-items: center;
 }
 
-.footer__main {
+.footer__main-content {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
@@ -367,7 +367,7 @@ footer {
 	flex-wrap: wrap;
 }
 
-.footer__main > :not(:last-child) {
+.footer__main-content > :not(:last-child) {
 	/* Margin right so lines aligns left when wrapped. */
 	margin-right: var(--gutter-medium);
 }
@@ -382,11 +382,11 @@ footer {
 }
 
 .footer__explore > * {
-	/* First element included, so it makes a margin from .footer__main. */
+	/* First element included, so it makes a margin from .footer__main-content. */
 	margin-left: var(--gutter-medium);
 }
 
-footer p {
+.footer__main p {
 	margin: 0;
 	line-height: 2em;
 }
@@ -682,7 +682,7 @@ label {
 /* Down to 1081px */
 @media all and (min-width: 1081px) {
 
-	nav > a {
+	.nav__main > a {
 		margin-left: calc(2.3 * var(--gutter-default));
 	}
 }
@@ -690,7 +690,7 @@ label {
 /* Up to 1080px */
 @media all and (max-width: 1080px) {
 
-	nav > a {
+	.nav__main > a {
 		margin-left: calc(1.7 * var(--gutter-default));
 	}
 }
@@ -710,7 +710,7 @@ label {
 		padding-right: calc(1.5 * var(--gutter-default));
 	}
 
-	nav > a {
+	.nav__main > a {
 		margin-left: calc(1 * var(--gutter-default));
 	}
 
@@ -744,21 +744,21 @@ label {
 /* Down to 701px */
 @media all and (min-width: 701px) {
 
-	nav {
+	.nav__main {
 		flex-direction: row;
 		justify-content: flex-end;
 	}
 
-	nav > a {
+	.nav__main > a {
 		color: var(--color-nav-link);
 		transition: margin-left 200ms ease;
 	}
 
-	nav > a:first-child {
+	.nav__main > a:first-child {
 		margin-left: 0;
 	}
 
-	nav > a:hover {
+	.nav__main > a:hover {
 		color: var(--color-nav-link-hover);
 	}
 
@@ -771,7 +771,7 @@ label {
 /* Up to 700px */
 @media all and (max-width: 700px) {
 
-	header {
+	.header__main {
 		height: var(--header-height-alt);
 	}
 
@@ -784,7 +784,7 @@ label {
 		height: calc(var(--header-height-alt) * 0.75);
 	}
 
-	nav {
+	.nav__main {
 		position: fixed;
 		top: 120vh;
 		left: 0;
@@ -799,12 +799,12 @@ label {
 					background-color 500ms ease;
 	}
 
-	nav.shown {
+	.nav__main.shown {
 		top: 0vh;
 		background-color: var(--color-default);
 	}
 
-	nav > a {
+	.nav__main > a {
 		color: var(--color-nav-link-alt);
 		margin-left: 0;
 		margin-bottom: 25px;
@@ -812,13 +812,14 @@ label {
 		font-size: var(--text-size-big);
 	}
 
-	nav > a:hover {
+	.nav__main > a:hover {
 		color: var(--color-nav-link-hover-alt);
 		transform: translateY(-5px);
 	}
 
 	/* Underlined links on hover.*/
-	/*nav > a::after {
+	/*
+	.nav__main > a::after {
 		content: '';
 		display: block;
 		width: 0px;
@@ -826,14 +827,15 @@ label {
 		height: 2px;
 		background-color: var(--color-nav-link-alt);
 		border-radius: 1px;
-		transition: width 250ms ease-out,
-		transform 250ms ease-out;
+		transition: width 200ms ease-out,
+		transform 200ms ease-out;
 	}
 
-	nav > a:hover::after {
+	.nav__main > a:hover::after {
 		width: 100%;
-		transform: translateY(5px);
-	}*/
+		transform: translateY(7px);
+	}
+	*/
 
 	.nav__burger-menu {
 		display: flex;
@@ -891,11 +893,11 @@ label {
 /* User can't use :hover properly */
 @media all and (any-hover: none) {
 
-	nav > a:hover {
+	.nav__main > a:hover {
 		opacity: 1;
 	}
 
-	nav > a::after {
+	.nav__main > a::after {
 		content: unset;
 		display: unset;
 		width: unset;
@@ -907,7 +909,7 @@ label {
 		transition: unset;
 	}
 
-	nav > a:hover::after {
+	.nav__main > a:hover::after {
 		width: unset;
 		transform: unset;
 	}

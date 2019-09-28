@@ -1,7 +1,7 @@
-<footer>
+<footer class="footer__main">
 	<div class="footer__container">
 		<!-- Left -->
-		<div class="footer__main">
+		<div class="footer__main-content">
 			<!-- Children aligned in row -->
 			<!--<p>© <?= date('Y'); ?> Goji, Inc.</p>-->
 			<div>
