@@ -5,13 +5,14 @@
 	use Exception;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Blueprints\HttpStatusInterface;
+	use Goji\Blueprints\RobotsInterface;
 
 	/**
 	 * Class HttpResponse
 	 *
 	 * @package Goji\Core
 	 */
-	class HttpResponse implements HttpStatusInterface, HttpMethodInterface {
+	class HttpResponse implements HttpStatusInterface, HttpMethodInterface, RobotsInterface {
 
 		/* <CONSTANTS> */
 
@@ -46,6 +47,20 @@
 
 			if ($exit)
 				exit;
+		}
+
+		/**
+		 * @param int $behaviour
+		 */
+		public static function setRobotsHeader(int $behaviour): void {
+
+			switch ($behaviour) {
+
+				case self::ROBOTS_NOINDEX:          header('X-Robots-Tag: "noindex"', true);            break;
+				case self::ROBOTS_NOFOLLOW:         header('X-Robots-Tag: "nofollow"', true);           break;
+				case self::ROBOTS_NOINDEX_NOFOLLOW: header('X-Robots-Tag: "noindex, nofollow"', true);  break;
+				default:                            header_remove('X-Robots-Tag');                      break;
+			}
 		}
 
 		/**

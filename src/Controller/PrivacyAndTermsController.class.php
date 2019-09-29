@@ -18,7 +18,8 @@
 				$tr->loadTranslationResource('privacy-and-terms.%{LOCALE}.tr.xml');
 
 			$template = new SimpleTemplate($tr->_('PRIVACY_AND_TERMS_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
-			                                $tr->_('PRIVACY_AND_TERMS_PAGE_DESCRIPTION'));
+			                                $tr->_('PRIVACY_AND_TERMS_PAGE_DESCRIPTION'),
+											SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 
 			$template->startBuffer();
 

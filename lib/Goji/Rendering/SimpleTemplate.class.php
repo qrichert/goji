@@ -2,6 +2,7 @@
 
 	namespace Goji\Rendering;
 
+	use Goji\Blueprints\RobotsInterface;
 	use Goji\Core\ConfigurationLoader;
 	use Exception;
 
@@ -60,7 +61,7 @@
 	 *
 	 * @package Goji\Rendering
 	 */
-	class SimpleTemplate {
+	class SimpleTemplate implements RobotsInterface {
 
 		/* <ATTRIBUTES> */
 
@@ -76,11 +77,6 @@
 		/* <CONSTANTS> */
 
 		const CONFIG_FILE = '../config/templating.json5';
-
-		const ROBOTS_ALLOW_INDEX_AND_FOLLOW = 0;
-		const ROBOTS_NOINDEX = 1;
-		const ROBOTS_NOFOLLOW = 2;
-		const ROBOTS_NOINDEX_NOFOLLOW = 3;
 
 		const VIEW_PATH = '../src/View/%{VIEW}.%{FILETYPE}';
 		const TEMPLATE_PATH = '../template/%{TEMPLATE}.template.%{FILETYPE}';
