@@ -100,6 +100,8 @@ don't have a top and bottom margin respectively.
 - **`.error`**: Made for HTTP error pages. Content is centered horizontally. Should be combined with
   widget area's `centered` modifier and contain an `h1` (error) and a `p` (description).
 - **`.text`**: Ideal for reading, like articles. Content is 800px wide max. and centered horizontally.
+    - **`.with-outline`**: If view is larger than 1405px `section.text.with-outline > .outline` is fixed
+      at the left of the text. Otherwise it remains normal.
 - **`.side-by-side`**: Puts two blocks side by side and centers them. Ideally used with two `div` children.
   When the screen gets tighter, the blocks are displayed in column.
   You can add several modifiers to it:

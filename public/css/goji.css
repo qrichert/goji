@@ -65,9 +65,9 @@ h4 > a, h5 > a, h6 > a {
 	text-decoration: none;
 }
 
-p, ul {
+p, ul, ol {
 	margin: 1.5em 0;
-	line-height: 1.5em;
+	line-height: 1.5;
 }
 
 a {
@@ -527,6 +527,22 @@ section.text {
 
 section.text img {
 	max-width: 100%;
+}
+
+/* <Section Text With Outline> */
+
+@media screen and (min-width: 1405px) {
+
+	section.text.with-outline > .outline {
+		display: block;
+		width: calc(((100vw - 800px) / 2) - (2 * var(--gutter-default)));
+		position: fixed;
+		top: var(--header-height);
+		left: var(--gutter-default);
+		box-sizing: border-box;
+		padding: var(--gutter-default) var(--gutter-default) var(--gutter-default) 40px;
+		margin: var(--gutter-default) 0 var(--gutter-default) var(--gutter-default);
+	}
 }
 
 /* <Section Side-by-Side> */
