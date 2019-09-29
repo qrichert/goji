@@ -46,3 +46,23 @@
 .blog__toolbar > *:not(:first-child) {
 	margin-left: var(--gutter-thin);
 }
+
+/* <PRIVACY & TERMS> */
+
+body#privacy-and-terms {
+	counter-reset: h2;
+}
+
+body#privacy-and-terms h2::before {
+	content: counter(h2) ". ";
+	counter-increment: h2;
+}
+
+body#privacy-and-terms h2 {
+	counter-reset: h3;
+}
+
+body#privacy-and-terms h3::before {
+	content: counter(h3) ". ";
+	counter-increment: h3;
+}
