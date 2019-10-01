@@ -540,8 +540,8 @@ section.text img {
 		top: var(--header-height);
 		left: var(--gutter-default);
 		box-sizing: border-box;
-		padding: var(--gutter-default) var(--gutter-default) var(--gutter-default) 40px;
-		margin: var(--gutter-default) 0 var(--gutter-default) var(--gutter-default);
+		padding: var(--gutter-default) 0 var(--gutter-default) 40px;
+		margin: var(--gutter-default);
 	}
 }
 

@@ -57,20 +57,27 @@
 
 /* <PRIVACY & TERMS> */
 
-body#privacy-and-terms {
-	counter-reset: h2;
-}
+body#privacy-and-terms    { counter-reset: h1; /********************/ }
+body#privacy-and-terms h1 { counter-reset: h2; counter-increment: h1; }
+body#privacy-and-terms h2 { counter-reset: h3; counter-increment: h2; }
+body#privacy-and-terms h3 { counter-reset: h4; counter-increment: h3; }
+body#privacy-and-terms h4 { counter-reset: h5; counter-increment: h4; }
+body#privacy-and-terms h5 { counter-reset: h6; counter-increment: h5; }
+body#privacy-and-terms h6 { /****************/ counter-increment: h6; }
 
-body#privacy-and-terms h2::before {
-	content: counter(h2) ". ";
-	counter-increment: h2;
-}
+/*body#privacy-and-terms h1::before { content: counter(h1, upper-roman) ". "; }*/
+/*body#privacy-and-terms h2::before { content: counter(h2, upper-alpha) ". "; }*/
+body#privacy-and-terms h3::before { content: counter(h3, decimal) ". "; }
+body#privacy-and-terms h4::before { content: counter(h4, lower-alpha) ". "; }
+body#privacy-and-terms h5::before { content: counter(h5, lower-roman) ". "; }
+body#privacy-and-terms h6::before { content: "(" counter(h6, lower-alpha) ") "; }
 
-body#privacy-and-terms h2 {
-	counter-reset: h3;
-}
+body#privacy-and-terms ol li                               { list-style-type: none; /*upper-roman;*/ }
+body#privacy-and-terms ol li ol li                         { list-style-type: decimal; /*upper-alpha;*/ }
+body#privacy-and-terms ol li ol li ol li                   { list-style-type: lower-alpha; /*decimal;*/ }
+body#privacy-and-terms ol li ol li ol li ol li             { list-style-type: lower-roman; /*lower-alpha;*/ }
+body#privacy-and-terms ol li ol li ol li ol li ol li       { list-style-type: lower-alpha; /*lower-roman;*/ }
 
-body#privacy-and-terms h3::before {
-	content: counter(h3) ". ";
-	counter-increment: h3;
+body#privacy-and-terms .outline {
+	padding-left: 0;
 }
