@@ -12,7 +12,7 @@
 					</a>
 				</p>
 				<p>
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('privacy-and-terms'); ?>">
+					<a href="<?= $this->m_app->getRouter()->getLinkForPage('privacy-and-terms'); ?>" rel="nofollow">
 						<?= $tr->_('FOOTER_PRIVACY_AND_TERMS'); ?>
 					</a>
 				</p>
@@ -21,11 +21,11 @@
 				<?php
 					if ($this->m_app->getUser()->isLoggedIn()) {
 					?>
-						<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>"><?= $tr->_('FOOTER_LOG_OUT'); ?></a>
+						<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>" rel="nofollow"><?= $tr->_('FOOTER_LOG_OUT'); ?></a>
 					<?php
 					} else {
 					?>
-						<a href="<?= $this->m_app->getRouter()->getLinkForPage('login'); ?>"><?= $tr->_('FOOTER_LOG_IN'); ?></a>
+						<a href="<?= $this->m_app->getRouter()->getLinkForPage('login'); ?>" rel="nofollow"><?= $tr->_('FOOTER_LOG_IN'); ?></a>
 					<?php
 					}
 				?>
