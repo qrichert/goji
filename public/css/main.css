@@ -6,6 +6,14 @@
 
 /* <LOGIN> */
 
+/* For thin horizontal logos */
+/*
+.form__logo {
+	width: 200px;
+	margin-bottom: var(--gutter-thin);
+}
+*/
+
 .form__login {
 	width: 300px;
 }

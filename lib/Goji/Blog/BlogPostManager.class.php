@@ -211,6 +211,7 @@
 				$query = $this->m_db->prepare('SELECT COUNT(*) AS nb
 														 FROM g_blog
 														 WHERE permalink=:permalink');
+
 				$query->execute([
 					'permalink' => $modifiedPermalink
 				]);

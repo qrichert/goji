@@ -5,6 +5,7 @@ Quick Start
 2. [Edit Pages](#edit-pages)
 3. [Add Pages](#add-pages)
 3. [Remove Pages](#remove-pages)
+4. [Log In](#log-in)
 
 Create a Project
 ----------------
@@ -61,3 +62,13 @@ Remove Pages
 ------------
 
 To remove a page, just go through the [Add Pages](#add-pages) process in reverse.
+
+Log In
+------
+
+To log in with the demo account use these credentials on the `/login` page:
+
+- Username: `root@users.goji`
+- Password: `goji`
+
+These can be edited in the default database `/var/db/goji.sqlite`.

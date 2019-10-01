@@ -8,6 +8,7 @@
 	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Form\Form;
 	use Goji\Rendering\SimpleTemplate;
+	use Goji\Security\Passwords;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
@@ -20,9 +21,46 @@
 
 			if ($isValid) { // Form is valid, in the sense that required info is there, email is an email, etc.
 
-				// Verify validity here
+				// Verify validity here (credentials validity)
 
-				$this->m_app->getUser()->logIn(1);
+				// User input
+				$formUsername = $form->getInputByName('login[email]')->getValue();
+				$formPassword = $form->getInputByName('login[password]')->getValue();
+
+				// Database
+				$query = $this->m_app->db()->prepare('SELECT id, password
+																FROM g_user
+																WHERE username=:username');
+				$query->execute([
+					'username' => $formUsername
+				]);
+
+				$reply = $query->fetch();
+
+				$query->closeCursor();
+
+				// Stored values
+				$userId = $reply['id'] ?? null;
+				$userPassword = $reply['password'] ?? null;
+
+				// If error return false or negative JSON response if Ajax
+				if ($reply === false || empty($userId) || empty($userPassword)
+				    || !Passwords::verifyPassword($formPassword, $userPassword)) {
+
+					// If AJAX, return JSON
+					if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
+
+						HttpResponse::JSON([
+							'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
+						], false);
+					}
+
+					return false;
+				}
+
+				// If we got here, credentials are valid -> SUCCESS -> log the user in
+
+				$this->m_app->getUser()->logIn((int) $userId);
 
 				// If AJAX, return JSON (SUCCESS)
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
@@ -31,14 +69,17 @@
 						'email' => $form->getInputByName('login[email]')->getValue(),
 						'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
 					], true); // email, redirect_to, add status = SUCCESS
-
-				} else {
-					// Clean the form
-					$form = new LoginForm($tr);
 				}
+
+				// If not Ajax...
+
+				// Clean the form
+				$form = new LoginForm($tr);
 
 				return true;
 			}
+
+			// If we're here, form is not valid (like no login or password given)
 
 			// If AJAX, return JSON (ERROR)
 			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
@@ -48,6 +89,8 @@
 					'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
 				], false);
 			}
+
+			// We don't clean the form in this case, so the user can correct without retyping everything
 
 			return false;
 		}

@@ -22,6 +22,8 @@
 
 		const CONFIG_FILE = '../config/passwords.json5';
 
+		const E_PROPERTY_NOT_SET = 1;
+
 		/**
 		 * Read configuration and initialize attributes.
 		 *
@@ -50,23 +52,31 @@
 		/**
 		 * Get a property from config file.
 		 *
-		 * Always returns a string.
-		 * The string will be empty if the property isn't set.
+		 * Throws an error if property not set for security reasons.
+		 *
+		 * (If we returned like an empty string, it could cause problems
+		 * in certain cases).
 		 *
 		 * @param string $key
 		 * @return string
+		 * @throws \Exception
 		 */
 		public static function getProperty(string $key): string {
 
 			self::initialize();
 
-			return (string) self::$m_configuration[$key] ?? '';
+			if (isset(self::$m_configuration[$key]))
+				return self::$m_configuration[$key];
+
+			// else
+			throw new Exception("Property not set in passwords config file: $key", self::E_PROPERTY_NOT_SET);
 		}
 
 		/**
 		 * Returns pepper set in config file.
 		 *
 		 * @return string
+		 * @throws \Exception
 		 */
 		public static function getPepperBefore(): string {
 			return self::getProperty('pepper_before');
@@ -76,6 +86,7 @@
 		 * Returns pepper set in config file.
 		 *
 		 * @return string
+		 * @throws \Exception
 		 */
 		public static function getPepperAfter(): string {
 			return self::getProperty('pepper_after');
@@ -86,6 +97,7 @@
 		 *
 		 * @param $password
 		 * @return string
+		 * @throws \Exception
 		 */
 		public static function pepperPassword(string $password): string {
 
@@ -101,6 +113,7 @@
 		 * @param string $password
 		 * @param bool $pepper (optional) default = false
 		 * @return string
+		 * @throws \Exception
 		 */
 		public static function hashPassword(string $password, bool $pepper = false): string {
 
@@ -119,6 +132,7 @@
 		 * @param string $hash
 		 * @param bool $peppered (optional) default = false
 		 * @return bool
+		 * @throws \Exception
 		 */
 		public static function verifyPassword(string $password, string $hash, bool $peppered = false): bool {
 
