@@ -112,7 +112,7 @@
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$blogPostManager = new BlogPostManager($this, $tr, $this->m_action);
+			$blogPostManager = new BlogPostManager($this, $tr);
 				$blogPostManager->createForm();
 
 			$formSentSuccess = null;
