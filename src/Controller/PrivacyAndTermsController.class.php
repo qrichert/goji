@@ -15,7 +15,6 @@
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
-				$tr->loadTranslationResource('privacy-and-terms.%{LOCALE}.tr.xml');
 
 			$template = new SimpleTemplate($tr->_('PRIVACY_AND_TERMS_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 			                                $tr->_('PRIVACY_AND_TERMS_PAGE_DESCRIPTION'),

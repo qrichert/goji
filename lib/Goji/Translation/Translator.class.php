@@ -269,6 +269,44 @@
 		}
 
 		/**
+		 * Print (or returns content) translation file as is (with the benefit of %{LOCALE} variable
+		 *
+		 * @param string $file
+		 * @param bool $output If true, print directly. If false, returns content as string
+		 * @return string|null
+		 * @throws \Exception
+		 */
+		public function printRawTranslationResource(string $file, $output = true): ?string {
+
+			// Try exact locale, and if not, use just the language code
+			$locales = [
+				$this->m_targetLocale, // en_US
+				mb_substr($this->m_targetLocale, 0, 2) // en
+			];
+
+			foreach ($locales as $locale) {
+
+				$translationResource = self::BASE_PATH . str_replace('%{LOCALE}', $locale, $file);
+
+				if (is_file($translationResource)) {
+
+					// Output directly (default)
+					if ($output) {
+						readfile($translationResource);
+						return null;
+					}
+
+					// Return as string
+					return file_get_contents($translationResource);
+				}
+			}
+
+			throw new Exception('Translation source file not found: '
+			                    . self::BASE_PATH . str_replace('%{LOCALE}', $this->m_targetLocale, $file),
+			                    self::E_RESOURCE_NOT_FOUND);
+		}
+
+		/**
 		 * @param string $segmentID
 		 * @param int $count
 		 * @return array|string
