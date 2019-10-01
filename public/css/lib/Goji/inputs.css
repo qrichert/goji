@@ -22,18 +22,8 @@ button,
 .link-button,
 select,
 .select-wrapper,
-.form__label-relative,
 .progress-bar {
 	margin: var(--gutter-thin) 0;
-}
-
-.form__label-relative:not(:first-child),
-label:not(:first-child) {
-	margin-top: var(--gutter-thin);
-}
-
-.form__label-relative > label {
-	margin-top: 0;
 }
 
 * + input,
@@ -42,7 +32,6 @@ label:not(:first-child) {
 * + .link-button,
 * + select,
 * + .select-wrapper,
-* + .form__label-relative,
 * + .progress-bar {
 	margin-top: 0;
 }

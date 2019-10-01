@@ -620,6 +620,10 @@ form > * {
 	box-sizing: border-box;
 }
 
+form > :first-child {
+	margin-top: 0px;
+}
+
 .form__success,
 .form__error {
 	margin: var(--gutter-thin) 0;
@@ -656,7 +660,7 @@ label {
 }
 
 .form__label-relative > label {
-	margin: 0;
+	margin: 0; /* .form__label-relative replaces label as frame */
 }
 
 .form__side-info {
