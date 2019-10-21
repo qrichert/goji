@@ -22,7 +22,8 @@
 				return $email;
 			};
 
-			$this->setAttribute('class', 'form__centered');
+			$this->setAttribute('class', 'form__centered')
+			     ->setAttribute('id', 'login__form');
 
 				$this->addInput(new InputLabel())
 					 ->setAttribute('for', 'login__email')

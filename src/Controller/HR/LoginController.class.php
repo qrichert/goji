@@ -150,6 +150,7 @@
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+				$tr->loadTranslationResource('%{LOCALE}.tr.xml', false, 'xhr-reset-password');
 
 			$form = new LoginForm($tr);
 

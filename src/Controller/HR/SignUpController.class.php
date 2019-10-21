@@ -39,6 +39,7 @@
 																	FROM g_user_tmp
 																	WHERE username=:username)
 																AS nb');
+
 				$query->execute([
 					'username' => $formUsername
 				]);
@@ -63,6 +64,7 @@
 
 				// Generate Password
 				$newPassword = Passwords::generatePassword(7);
+				$hashedPassword = Passwords::hashPassword($newPassword);
 
 				/*********************/
 
@@ -81,7 +83,7 @@
 
 				$query->execute([
 					'username' => $formUsername,
-					'password' => Passwords::hashPassword($newPassword),
+					'password' => $hashedPassword,
 					'date_registered' => date('Y-m-d H:i:s')
 				]);
 

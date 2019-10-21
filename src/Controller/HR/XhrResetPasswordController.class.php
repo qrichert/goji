@@ -2,20 +2,20 @@
 
 	namespace App\Controller\HR;
 
-	use App\Model\HR\LoginForm;
 	use App\Model\HR\ResetPasswordForm;
-	use Goji\Blueprints\HttpMethodInterface;
+	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\XhrControllerAbstract;
+	use Goji\Core\Logger;
 	use Goji\Form\Form;
-	use Goji\Rendering\SimpleTemplate;
 	use Goji\Security\Passwords;
+	use Goji\Toolkit\Mail;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class XhrResetPasswordController extends XhrControllerAbstract {
 
-		private function treatForm(Translator $tr, Form &$form): bool { // TODO: this class and page
+		private function treatForm(Translator $tr, Form &$form): void {
 
 			$detail = [];
 			$isValid = $form->isValid($detail);
@@ -25,75 +25,100 @@
 				// Verify validity here (credentials validity)
 
 				// User input
-				$formUsername = $form->getInputByName('login[email]')->getValue();
-				$formPassword = $form->getInputByName('login[password]')->getValue();
+				$formUsername = $form->getInputByName('reset-password[email]')->getValue();
 
 				// Database
-				$query = $this->m_app->db()->prepare('SELECT id, password
-																FROM g_user
-																WHERE username=:username');
+				$query = $this->m_app->db()->prepare('SELECT
+																	(SELECT COUNT(*)
+																	FROM g_user
+																	WHERE username=:username)
+																+
+																	(SELECT COUNT(*)
+																	FROM g_user_tmp
+																	WHERE username=:username)
+																AS nb');
+
 				$query->execute([
 					'username' => $formUsername
 				]);
 
 				$reply = $query->fetch();
+					$reply = (int) $reply['nb'];
 
 				$query->closeCursor();
 
-				// Stored values
-				$userId = $reply['id'] ?? null;
-				$userPassword = $reply['password'] ?? null;
+				if ($reply <= 0) { // User doesn't exist
 
-				// If error return false or negative JSON response if Ajax
-				if ($reply === false || empty($userId) || empty($userPassword)
-				    || !Passwords::verifyPassword($formPassword, $userPassword)) {
-
-					// If AJAX, return JSON
-					if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
-
-						HttpResponse::JSON([
-							'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
-						], false);
-					}
-
-					return false;
-				}
-
-				// If we got here, credentials are valid -> SUCCESS -> log the user in
-
-				$this->m_app->getUser()->logIn((int) $userId);
-
-				// If AJAX, return JSON (SUCCESS)
-				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
+					// If error return negative JSON response
 
 					HttpResponse::JSON([
-						'email' => $form->getInputByName('login[email]')->getValue(),
-						'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
-					], true); // email, redirect_to, add status = SUCCESS
+						'message' => $tr->_('RESET_PASSWORD_ERROR')
+					], false);
 				}
 
-				// If not Ajax...
+				// If we got here, credentials are valid -> SUCCESS -> reset password
 
-				// Clean the form
-				$form = new LoginForm($tr);
+				// Generate Password
+				$newPassword = Passwords::generatePassword(7);
+				$hashedPassword = Passwords::hashPassword($newPassword);
 
-				return true;
+				/*********************/
+
+				if ($this->m_app->getAppMode() === App::DEBUG) {
+					// Log generated password to console
+					Logger::log('Email: ' . $formUsername, Logger::CONSOLE);
+					Logger::log('Password: ' . $newPassword, Logger::CONSOLE);
+				}
+
+				/*********************/
+
+				// Save to DB
+				// Users
+				$query = $this->m_app->db()->prepare('UPDATE g_user
+														SET password=:password
+														WHERE username=:username');
+
+				$query->execute([
+					'username' => $formUsername,
+					'password' => $hashedPassword
+				]);
+
+				// And tmp Users
+				$query = $this->m_app->db()->prepare('UPDATE g_user_tmp
+														SET password=:password
+														WHERE username=:username');
+
+				$query->execute([
+					'username' => $formUsername,
+					'password' => $hashedPassword
+				]);
+
+				$query->closeCursor();
+
+				// Send Mail
+				$message = $tr->_('RESET_PASSWORD_EMAIL_MESSAGE');
+					$message = str_replace('%{PASSWORD}', htmlspecialchars($newPassword), $message);
+
+				$options = [
+					'site_url' => $this->m_app->getSiteUrl(),
+					'site_name' => $this->m_app->getSiteName(),
+					'site_domain_name' => $this->m_app->getSiteDomainName(),
+					'company_email' => $this->m_app->getCompanyEmail()
+				];
+
+				Mail::sendMail($this->m_app->getCompanyEmail(), $tr->_('RESET_PASSWORD_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
+
+				HttpResponse::JSON([
+					'message' => $tr->_('RESET_PASSWORD_SUCCESS')
+				], true);
 			}
 
 			// If we're here, form is not valid (like no login or password given)
 
-			// If AJAX, return JSON (ERROR)
-			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
-
-				HttpResponse::JSON([
-					'detail' => $detail,
-					'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
-				], false);
-			}
-
-			// We don't clean the form in this case, so the user can correct without retyping everything
-
-			return false;
+			HttpResponse::JSON([
+				'detail' => $detail,
+				'message' => $tr->_('RESET_PASSWORD_ERROR')
+			], false);
 		}
 
 		public function render() {
@@ -104,8 +129,8 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$form = new ResetPasswordForm($tr);
+				$form->hydrate();
 
-			$formSentSuccess = null;
-			$form->hydrate();
+			$this->treatForm($tr, $form);
 		}
 	}

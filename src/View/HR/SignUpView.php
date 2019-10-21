@@ -26,9 +26,9 @@
 <script>
 	(function() {
 
-		let form = document.querySelector('form.form__centered');
-		let formSuccess = document.querySelector('p.form__success');
-		let formError = document.querySelector('p.form__error');
+		let form = document.querySelector('#sign-up__form');
+		let formSuccess = form.querySelector('p.form__success');
+		let formError = form.querySelector('p.form__error');
 
 		let success = response => {
 

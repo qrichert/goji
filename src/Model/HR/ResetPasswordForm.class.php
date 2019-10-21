@@ -16,12 +16,15 @@
 
 			parent::__construct();
 
+			$this->setAction('xhr-reset-password');
+
 			$sanitizeEmail = function($email) {
 				SwissKnife::sanitizeEmail($email);
 				return $email;
 			};
 
-			$this->setAttribute('class', 'form__centered');
+			$this->setAttribute('class', 'form__centered')
+				 ->setAttribute('id', 'reset-password__form');
 
 				$this->addInput(new InputCustom('<p class="form__help-text">' . $tr->_('RESET_PASSWORD_HELP_TEXT') . '</p>'));
 				$this->addInput(new InputLabel())
@@ -36,6 +39,7 @@
 				$this->addInput(new InputButtonElement())
 					 ->setAttribute('class', 'highlight loader')
 					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_RESET_BUTTON'));
+				$this->addInput(new InputCustom('<p class="form__success"></p>'));
 				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 		}
 	}

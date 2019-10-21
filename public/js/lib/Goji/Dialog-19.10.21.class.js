@@ -62,19 +62,7 @@ class Dialog {
 		}, false);
 
 		// Cancel events
-		this.m_dialog.addEventListener('click', e => this.preventDefaultBehaviour(e), false);
-	}
-
-	/**
-	 * @private
-	 * @param e
-	 */
-	preventDefaultBehaviour(e = null) {
-
-		if (e !== null) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
+		this.m_dialog.addEventListener('click', e => e.stopPropagation(), false);
 	}
 
 	/**
@@ -83,7 +71,10 @@ class Dialog {
 	 */
 	openDialog(e = null) {
 
-		this.preventDefaultBehaviour(e);
+		if (e !== null) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 
 		this.m_parent.classList.add('shown');
 		this.m_dialogOpen = true;
@@ -95,7 +86,10 @@ class Dialog {
 	 */
 	closeDialog(e = null) {
 
-		this.preventDefaultBehaviour(e);
+		if (e !== null) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 
 		this.m_parent.classList.remove('shown');
 		this.m_dialogOpen = false;

@@ -73,12 +73,11 @@
 
 		/**
 		 * @param string $file
+		 * @param string $currentPage
 		 * @param bool $loadSegmentsAsConstants (optional) default = false. Load segments as define( ID , VALUE)
 		 * @throws \Exception
 		 */
-		private function loadXML(string $file, bool $loadSegmentsAsConstants = false): void {
-
-			$currentPage = $this->m_app->getRouter()->getCurrentPage();
+		private function loadXML(string $file, string $currentPage, bool $loadSegmentsAsConstants = false): void {
 
 			// If cached, load from cache
 			$cacheId = SimpleCache::cacheIDFromFileFullPath($file) . '-' .
@@ -215,9 +214,17 @@
 		 *
 		 * @param string|array $file
 		 * @param bool $loadSegmentsAsConstants (optional) default = false. Load segments as define( ID , VALUE)
+		 * @param string|null $bypassCurrentPageWith Specify Id of page to load instead of using current page
 		 * @throws \Exception
 		 */
-		public function loadTranslationResource($file, bool $loadSegmentsAsConstants = false): void {
+		public function loadTranslationResource($file, bool $loadSegmentsAsConstants = false, string $bypassCurrentPageWith = null): void {
+
+			$currentPage = null;
+
+				if ($bypassCurrentPageWith !== null)
+					$currentPage = $bypassCurrentPageWith;
+				else
+					$currentPage = $this->m_app->getRouter()->getCurrentPage();
 
 			$file = (array) $file;
 
@@ -235,7 +242,7 @@
 
 					$translationResource = self::BASE_PATH . str_replace('%{LOCALE}', $locale, $f);
 
-					if (isset($this->m_resourcesLoaded[$translationResource]))
+					if (isset($this->m_resourcesLoaded[$translationResource . '-' . $currentPage]))
 						throw new Exception('Resource already loaded: ' . $translationResource, self::E_RESOURCE_ALREADY_LOADED);
 
 					if (is_file($translationResource)) {
@@ -244,8 +251,8 @@
 						$extension = mb_strtolower($extension);
 
 						switch ($extension) {
-							case 'php': $this->loadPHPConstants($translationResource);                  break;
-							case 'xml': $this->loadXML($translationResource, $loadSegmentsAsConstants); break;
+							case 'php': $this->loadPHPConstants($translationResource);                                break;
+							case 'xml': $this->loadXML($translationResource, $currentPage, $loadSegmentsAsConstants); break;
 							default:
 								throw new Exception('Resource type not supported: ' . $extension, self::E_RESOURCE_TYPE_NOT_SUPPORTED);
 								break;
@@ -253,7 +260,7 @@
 
 						$translationResourceFound = true;
 						// Hash tables are faster than array search.
-						$this->m_resourcesLoaded[$translationResource] = 1;
+						$this->m_resourcesLoaded[$translationResource . '-' . $currentPage] = 1;
 
 						break;
 					}
@@ -269,7 +276,9 @@
 		}
 
 		/**
-		 * Print (or returns content) translation file as is (with the benefit of %{LOCALE} variable
+		 * Print (or returns content) translation file as is (with the benefit of %{LOCALE} variable.
+		 *
+		 * Used to print resources containing raw text or data.
 		 *
 		 * @param string $file
 		 * @param bool $output If true, print directly. If false, returns content as string

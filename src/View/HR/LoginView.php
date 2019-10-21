@@ -25,21 +25,15 @@
 <?php
 	$template->linkFiles([
 		'js/lib/Goji/Form-19.6.22.class.min.js',
-		'js/lib/Goji/Dialog-19.10.21.class.js'
+		'js/lib/Goji/Dialog-19.10.21.class.min.js'
 	]);
 ?>
 <script>
-	(function () {
-
-		let dialog = document.querySelector('.dialog');
-		let triggerOpen = document.querySelector('#login__forgot-password');
-
-		new Dialog(dialog, triggerOpen);
-	})();
-
 	(function() {
 
-		let form = document.querySelector('form.form__centered');
+		// Log In
+
+		let form = document.querySelector('#login__form');
 		let formError = document.querySelector('p.form__error');
 
 		let success = response => {
@@ -54,7 +48,51 @@
 			}
 		};
 
-		new Form(document.querySelector('form.form__centered'),
+		new Form(form,
+				 success,
+				 error,
+				 form.querySelector('button.loader'),
+				 form.querySelector('.progress-bar')
+		);
+
+	})();
+
+	(function () {
+
+		// Reset Password
+
+		// Dialog
+		let dialog = document.querySelector('.dialog');
+		let triggerOpen = document.querySelector('#login__forgot-password');
+
+		new Dialog(dialog, triggerOpen);
+
+		// Form
+
+		let form = document.querySelector('#reset-password__form');
+		let formSuccess = form.querySelector('p.form__success');
+		let formError = form.querySelector('p.form__error');
+
+		let success = response => {
+
+			form.reset();
+			formError.textContent = '';
+
+			if (typeof response.message !== 'undefined') {
+				formSuccess.innerHTML = response.message;
+			}
+		};
+
+		let error = response => {
+
+			formSuccess.textContent = '';
+
+			if (typeof response.message !== 'undefined') {
+				formError.innerHTML = response.message;
+			}
+		};
+
+		new Form(form,
 				 success,
 				 error,
 				 form.querySelector('button.loader'),

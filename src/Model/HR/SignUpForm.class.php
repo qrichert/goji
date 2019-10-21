@@ -21,7 +21,8 @@
 				return $email;
 			};
 
-			$this->setAttribute('class', 'form__centered');
+			$this->setAttribute('class', 'form__centered')
+				 ->setAttribute('id', 'sign-up__form');
 
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'sign-up__email')
