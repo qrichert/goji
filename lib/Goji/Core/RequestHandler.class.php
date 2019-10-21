@@ -33,6 +33,7 @@
 		private $m_requestMethod;
 		private $m_errorDetected;
 		private $m_forcedLocaleDetected;
+		private $m_isAjaxRequest;
 
 		/**
 		 * RequestHandler constructor.
@@ -109,6 +110,8 @@
 			$this->m_errorDetected = $this->m_redirectStatus >= 400;
 
 			$this->m_forcedLocaleDetected = self::getFirstParamOccurrence('forceLocale', $this->m_queryString);
+
+			$this->m_isAjaxRequest = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
 		}
 
 		public function __debugInfo() {
@@ -287,7 +290,7 @@
 		 * @return bool
 		 */
 		public function isAjaxRequest(): bool {
-			return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+			return $this->m_isAjaxRequest;
 		}
 
 		/**
