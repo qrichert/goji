@@ -97,6 +97,11 @@
 			<alternative count="rest">:)</alternative>
 		</segment>
 		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Nom d'utilisateur ou mot de passe incorrect !</segment>
+
+		<segment id="RESET_PASSWORD_HELP_TEXT">Entrez votre adresse email et nous vous enverrons un nouveau mot de passe</segment>
+		<segment id="RESET_PASSWORD_FORM_EMAIL">Email</segment>
+		<segment id="RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="RESET_PASSWORD_FORM_RESET_BUTTON">Réinitialiser</segment>
 	</page>
 	<page id="sign-up">
 		<segment id="SIGN_UP_PAGE_TITLE">Inscription</segment>

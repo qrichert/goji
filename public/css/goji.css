@@ -65,6 +65,11 @@ h4 > a, h5 > a, h6 > a {
 	text-decoration: none;
 }
 
+h1 + p, h2 + p, h3 + p,
+h4 + p, h5 + p, h6 + p {
+	margin-top: 0;
+}
+
 p, ul, ol {
 	margin: 1.5em 0;
 	line-height: 1.5;
@@ -101,7 +106,6 @@ pre > code {
 	padding: 0.6em;
 	overflow-x: scroll;
 }
-
 
 /* <GENERIC CLASSES> */
 
@@ -226,6 +230,46 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	animation-duration: 700ms;
 	animation-iteration-count: infinite;
 	animation-delay: 200ms;
+}
+
+/* Dialogs */
+
+.dialog__parent,
+.dialog {
+	opacity: 0;
+	transition: opacity 200ms ease,
+				transform 200ms ease;
+}
+
+.dialog__parent.shown,
+.dialog__parent.shown .dialog {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.dialog__parent {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	background-color: var(--color-default-seethrough);
+	z-index: 9999;
+	visibility: hidden;
+}
+
+.dialog__parent.shown {
+	visibility: visible;
+}
+
+.dialog {
+	margin: auto;
+	max-width: 95vw;
+	background-color: white;
+	border-radius: var(--border-radius-default);
+	opacity: 0.7;
+	transform: scale(0.7);
 }
 
 /* <HEADER> */
@@ -615,13 +659,31 @@ form {
 	box-sizing: border-box;
 }
 
+form.form__centered {
+	width: 300px;
+}
+
+form.form__centered .form__success,
+form.form__centered .form__error {
+	text-align: center;
+}
+
 form > * {
 	width: 100%;
 	box-sizing: border-box;
 }
 
 form > :first-child {
-	margin-top: 0px;
+	margin-top: 0;
+}
+
+form > h1, form > h2, form > h3,
+form > h4, form > h5, form > h6 {
+	margin-bottom: var(--gutter-medium);
+}
+
+.form__help-text {
+	margin: var(--gutter-thin) 0;
 }
 
 .form__success,
@@ -812,7 +874,7 @@ label {
 		width: 100%;
 		height: 100%;
 		z-index: 3000;
-		background-color: var(--color-default-transparent); /* For transition. */
+		background-color: var(--color-default-transparent); /* For/during transition. */
 		flex-direction: column;
 		justify-content: center;
 		transition: top 500ms ease,
@@ -905,6 +967,10 @@ label {
 	section.video {
 		width: 100%;
 		padding: var(--gutter-medium);
+	}
+
+	form.form__centered {
+		width: 100%;
 	}
 }
 

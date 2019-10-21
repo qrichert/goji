@@ -18,12 +18,25 @@
 	</section>
 </main>
 
+<div class="dialog">
+	<?php $resetPasswordForm->render(); ?>
+</div>
+
 <?php
 	$template->linkFiles([
-		'js/lib/Goji/Form-19.6.22.class.min.js'
+		'js/lib/Goji/Form-19.6.22.class.min.js',
+		'js/lib/Goji/Dialog-19.10.21.class.js'
 	]);
 ?>
 <script>
+	(function () {
+
+		let dialog = document.querySelector('.dialog');
+		let triggerOpen = document.querySelector('#login__forgot-password');
+
+		new Dialog(dialog, triggerOpen);
+	})();
+
 	(function() {
 
 		let form = document.querySelector('form.form__centered');

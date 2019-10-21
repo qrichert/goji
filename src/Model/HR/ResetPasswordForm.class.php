@@ -10,7 +10,7 @@
 	use Goji\Toolkit\SwissKnife;
 	use Goji\Translation\Translator;
 
-	class SignUpForm extends Form {
+	class ResetPasswordForm extends Form {
 
 		function __construct(Translator $tr) {
 
@@ -23,19 +23,19 @@
 
 			$this->setAttribute('class', 'form__centered');
 
+				$this->addInput(new InputCustom('<p class="form__help-text">' . $tr->_('RESET_PASSWORD_HELP_TEXT') . '</p>'));
 				$this->addInput(new InputLabel())
-				     ->setAttribute('for', 'sign-up__email')
-				     ->setAttribute('textContent', $tr->_('SIGN_UP_FORM_EMAIL'));
+					 ->setAttribute('for', 'reset-password__email')
+					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
-				     ->setAttribute('name', 'sign-up[email]')
-				     ->setAttribute('id', 'sign-up__email')
-				     ->setAttribute('placeholder', $tr->_('SIGN_UP_FORM_EMAIL_PLACEHOLDER'))
-				     ->setAttribute('required');
+					 ->setAttribute('name', 'reset-password[email]')
+					 ->setAttribute('id', 'reset-password__email')
+					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER'))
+					 ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 				$this->addInput(new InputButtonElement())
-				     ->setAttribute('class', 'highlight loader')
-				     ->setAttribute('textContent', $tr->_('SIGN_UP_FORM_SIGN_UP_BUTTON'));
-				$this->addInput(new InputCustom('<p class="form__success"></p>'));
+					 ->setAttribute('class', 'highlight loader')
+					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_RESET_BUTTON'));
 				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 		}
 	}

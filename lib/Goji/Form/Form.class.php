@@ -43,7 +43,7 @@
 		 * @param string $method
 		 * @param string $enctype
 		 */
-		public function __construct(?string $action = null,
+		public function __construct(string $action = null,
 		                            string $method = self::METHOD_POST,
 		                            string $enctype = self::ENCTYPE_URLENCODED) {
 

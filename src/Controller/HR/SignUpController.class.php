@@ -27,7 +27,7 @@
 				// Verify validity here (credentials validity)
 
 				// User input
-				$formUsername = $form->getInputByName('login[email]')->getValue();
+				$formUsername = $form->getInputByName('sign-up[email]')->getValue();
 
 				// Database
 				$query = $this->m_app->db()->prepare('SELECT
@@ -116,7 +116,7 @@
 				return true;
 			}
 
-			// If we're here, form is not valid (like no login or password given)
+			// If we're here, form is not valid (like no login given)
 
 			// If AJAX, return JSON (ERROR)
 			if ($this->m_app->getRequestHandler()->isAjaxRequest()) {

@@ -3,6 +3,7 @@
 	namespace App\Controller\HR;
 
 	use App\Model\HR\LoginForm;
+	use App\Model\HR\ResetPasswordForm;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\ControllerAbstract;
@@ -159,6 +160,8 @@
 				$form->hydrate();
 				$formSentSuccess = $this->treatForm($tr, $form);
 			}
+
+			$resetPasswordForm = new ResetPasswordForm($tr);
 
 			$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 										   $tr->_('LOGIN_PAGE_DESCRIPTION'),

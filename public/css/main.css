@@ -14,15 +14,6 @@
 }
 */
 
-.form__centered {
-	width: 300px;
-}
-
-.form__centered .form__success,
-.form__centered .form__error {
-	text-align: center;
-}
-
 /* <BLOG> */
 
 .form__blog-post #blog-post__permalink,
