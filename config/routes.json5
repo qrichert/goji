@@ -64,12 +64,9 @@
 		},
 		controller: "HR\\SignUpController"
 	},
-	"reset-password": {
-		routes: {
-			en: "/reset-password",
-			fr: "/mot-de-passe-oublie"
-		},
-		controller: "ResetPasswordController"
+	"xhr-reset-password": {
+		route: "/xhr-reset-password",
+		controller: "HR\\XhrResetPasswordController"
 	},
 	"privacy-and-terms": {
 		routes: {

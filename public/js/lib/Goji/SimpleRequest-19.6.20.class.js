@@ -193,6 +193,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('GET', uri);
+				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';
@@ -227,6 +228,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('POST', uri);
+				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';
@@ -261,6 +263,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('PUT', uri);
+				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';
@@ -294,6 +297,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('DELETE', uri);
+				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';

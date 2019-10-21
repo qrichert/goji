@@ -157,7 +157,6 @@ class Form {
 
 		let uri = this.m_parent.action; // Already encoded by the browser
 		let data = new FormData(this.m_parent);
-			data.append('ajax-http-request', 'true')
 
 		this.m_currentXHR = SimpleRequest.post(uri,
 											   data,

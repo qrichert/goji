@@ -5,14 +5,14 @@
 	use App\Model\HR\LoginForm;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\HttpResponse;
-	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Form\Form;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Security\Passwords;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class ResetPasswordController extends ControllerAbstract {
+	class XhrResetPasswordController extends XhrControllerAbstract {
 
 		private function treatForm(Translator $tr, Form &$form): bool { // TODO: this class and page
 
@@ -95,7 +95,7 @@
 			return false;
 		}
 
-		public function render() {
+		public function render() {echo 'hi'; return;
 
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
@@ -118,7 +118,7 @@
 
 			$template->startBuffer();
 
-			require_once $template->getView('LoginView');
+			require_once $template->getView('HR/LoginView');
 
 			$template->saveBuffer();
 

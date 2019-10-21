@@ -278,16 +278,16 @@
 		}
 
 		/**
-		 * Checks whether there is a 'ajax-http-request' key in the POST data
+		 * Checks whether there is a 'X-Requested-With' header
 		 *
-		 * This doesn't work if you don't send this key with your AJAX requests.
+		 * This doesn't work if you don't send this header with your AJAX requests.
 		 *
-		 * Used automatically with Goji's JavaScript Form plugin module.
+		 * This is sent automatically by Goji's SimpleRequest module (which Form module is based on).
 		 *
 		 * @return bool
 		 */
 		public function isAjaxRequest(): bool {
-			return !empty($_POST['ajax-http-request']);
+			return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
 		}
 
 		/**
