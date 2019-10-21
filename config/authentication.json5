@@ -19,6 +19,7 @@
 		// This will look for the info you've set for 'login'
 		// Note: This uses a regular in_array() to match with the current page (linear search, O(n)).
 		//       Just sort them by most common first to gain in efficiency.
+		// Don't add 'logout' because it would redirect to login page instead of 'home' as it does by default.
 		require_authentication: [
 			"admin",
 			"admin-blog-post",
@@ -28,7 +29,9 @@
 		// If none, leave empty
 		// This will look for the info you've set for 'forbidden'
 		disallow_authenticated: [
-			"login"
+			"login",
+			"sign-up",
+			"reset-password"
 		]
 	}
 }

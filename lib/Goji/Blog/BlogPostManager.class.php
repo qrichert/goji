@@ -271,6 +271,7 @@
 			$query = $this->m_db->prepare('INSERT INTO g_blog
 											       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post)
 											VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post)');
+
 			$query->execute([
 				'locale' => $locale,
 				'permalink' => $permalink,

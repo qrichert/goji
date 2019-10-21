@@ -2,6 +2,8 @@
 
 	namespace Goji\Toolkit;
 
+	use Goji\Core\Logger;
+
 	/**
 	 * Class Mail
 	 *
@@ -14,9 +16,10 @@
 		 * @param string $subject
 		 * @param string $message
 		 * @param null $options
+		 * @param bool $debug
 		 * @return bool
 		 */
-		public static function sendMail(string $to, string $subject, string $message, $options = null): bool {
+		public static function sendMail(string $to, string $subject, string $message, $options = null, $debug = false): bool {
 
 			// Don't forget this is HTML
 			// Don't put HTML chars in it without escaping them
@@ -43,6 +46,18 @@
 			$headers.= 'From: "' . $companyName . '" <' . $companyEmail . '>' . "\n";
 			$headers.= 'Reply-To: "' . $replyToName . '" <' . $replyToEmail . '>' . "\n";
 			$headers.= 'Content-Transfer-Encoding: 8bit' . "\n\n";
+
+			/*********************/
+
+			if ($debug) {
+				Logger::log('--- Email Sent ---', Logger::CONSOLE);
+				Logger::log('Headers: ' . $headers, Logger::CONSOLE);
+				Logger::log('To: ' . $to, Logger::CONSOLE);
+				Logger::log('Subject: ' . $subject, Logger::CONSOLE);
+				Logger::log('Message: ' . $emailContent, Logger::CONSOLE);
+			}
+
+			/*********************/
 
 			return mail($to, $subject, $emailContent, $headers);
 		}

@@ -4,7 +4,7 @@
 	font-family: var(--font-code);
 }
 
-/* <LOGIN> */
+/* <FORMS> */
 
 /* For thin horizontal logos */
 /*
@@ -14,12 +14,12 @@
 }
 */
 
-.form__login {
+.form__centered {
 	width: 300px;
 }
 
-.form__login .form__success,
-.form__login .form__error {
+.form__centered .form__success,
+.form__centered .form__error {
 	text-align: center;
 }
 

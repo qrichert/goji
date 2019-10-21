@@ -98,6 +98,36 @@
 		</segment>
 		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Nom d'utilisateur ou mot de passe incorrect !</segment>
 	</page>
+	<page id="sign-up">
+		<segment id="SIGN_UP_PAGE_TITLE">Inscription</segment>
+		<segment id="SIGN_UP_PAGE_DESCRIPTION"></segment>
+		<segment id="SIGN_UP_FORM_EMAIL">Email</segment>
+		<segment id="SIGN_UP_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="SIGN_UP_FORM_SIGN_UP_BUTTON">Inscription</segment>
+		<segment id="SIGN_UP_ALREADY_ACCOUNT">Déjà un compte ?</segment>
+		<segment id="SIGN_UP_LOG_IN">Connectez-vous</segment>
+		<segment id="SIGN_UP_SUCCESS">
+			Succès ! Nous venons de vous envoyer un email contenant un mot de passe temporaire.<![CDATA[<br>]]>
+			Connectez-vous pour valider votre inscription
+		</segment>
+		<segment id="SIGN_UP_INVALID_USERNAME">Nom d'utilisateur invalide ou déjà enregistré</segment>
+		<segment id="SIGN_UP_EMAIL_OBJECT">Bienvenue !</segment>
+		<segment id="SIGN_UP_EMAIL_MESSAGE"><![CDATA[
+			<p>
+				Bienvenue chez Goji!
+			</p>
+			<p>
+				Votre mot de passe est : <strong>%{PASSWORD}</strong><br>
+			</p>
+			<p>
+				Utilisez-le pour vous connecter à votre compte dans les prochaines 48h.
+				Passé ce délai, votre compte temporaire sera supprimé automatiquement.
+			</p>
+			<p>
+				Amusez-vous!
+			</p>
+		]]></segment>
+	</page>
 	<page id="privacy-and-terms">
 		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Mentions Légales</segment>
 		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>

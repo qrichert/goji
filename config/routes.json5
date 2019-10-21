@@ -57,12 +57,12 @@
 		route: "/logout",
 		controller: "HR\\LogoutController"
 	},
-	"subscribe": {
+	"sign-up": {
 		routes: {
-			en: "/subscribe",
+			en: "/sign-up",
 			fr: "/inscription"
 		},
-		controller: "SubscribeController"
+		controller: "HR\\SignUpController"
 	},
 	"reset-password": {
 		routes: {

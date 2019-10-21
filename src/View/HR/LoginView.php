@@ -8,7 +8,12 @@
 		<?php $form->render(); ?>
 
 		<div>
-			<p><?= $tr->_('LOGIN_NO_ACCOUNT'); ?> <a href="#"><?= $tr->_('LOGIN_SIGN_UP'); ?></a></p>
+			<p>
+				<?= $tr->_('LOGIN_NO_ACCOUNT'); ?>
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('sign-up'); ?>">
+					<?= $tr->_('LOGIN_SIGN_UP'); ?>
+				</a>
+			</p>
 		</div>
 	</section>
 </main>
@@ -21,7 +26,7 @@
 <script>
 	(function() {
 
-		let form = document.querySelector('form.form__login');
+		let form = document.querySelector('form.form__centered');
 		let formError = document.querySelector('p.form__error');
 
 		let success = response => {
@@ -36,7 +41,7 @@
 			}
 		};
 
-		new Form(document.querySelector('form.form__login'),
+		new Form(document.querySelector('form.form__centered'),
 				 success,
 				 error,
 				 form.querySelector('button.loader'),

@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Model;
+	namespace App\Model\HR;
 
 	use Goji\Form\Form;
 	use Goji\Form\InputButtonElement;
@@ -8,6 +8,7 @@
 	use Goji\Form\InputLabel;
 	use Goji\Form\InputTextEmail;
 	use Goji\Form\InputTextPassword;
+	use Goji\Toolkit\SwissKnife;
 	use Goji\Translation\Translator;
 
 	class LoginForm extends Form {
@@ -17,11 +18,11 @@
 			parent::__construct();
 
 			$sanitizeEmail = function($email) {
-				$email = mb_strtolower($email);
-				return filter_var($email, FILTER_SANITIZE_EMAIL);
+				SwissKnife::sanitizeEmail($email);
+				return $email;
 			};
 
-			$this->setAttribute('class', 'form__login');
+			$this->setAttribute('class', 'form__centered');
 
 				$this->addInput(new InputLabel())
 					 ->setAttribute('for', 'login__email')

@@ -6,7 +6,6 @@
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\ControllerAbstract;
-	use Goji\Core\Logger;
 	use Goji\Form\Form;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Security\Passwords;
@@ -14,51 +13,6 @@
 	use Goji\Translation\Translator;
 
 	class LoginController extends ControllerAbstract {
-
-		private function handleTmpUser($username, $password): void {
-
-			$query = $this->m_app->db()->prepare('SELECT *
-															FROM g_user_tmp
-															WHERE username=:username');
-
-			$query->execute([
-				'username' => $username
-			]);
-
-			$reply = $query->fetch();
-
-			$query->closeCursor();
-
-			// Not tmp user, quit
-			if ($reply === false)
-				return;
-
-			// It is a tmp user, check password
-			if (empty($password) || !Passwords::verifyPassword($password, $reply['password'])) // Invalid password
-				return; // Just quit, log in will fail anyway
-
-			// User is valid, move him to the real list
-			$query = $this->m_app->db()->prepare('INSERT INTO g_user
-															   ( username,  password,  date_registered)
-														VALUES (:username, :password, :date_registered)');
-
-			$query->execute([
-				'username' => $reply['username'],
-				'password' => $reply['password'],
-				'date_registered' => $reply['date_registered']
-			]);
-
-			// And delete tmp entry
-			$query = $this->m_app->db()->prepare('DELETE FROM g_user_tmp
-															WHERE id=:id OR username=:username');
-
-			$query->execute([
-				'id' => $reply['id'],
-				'username' => $reply['username']
-			]);
-
-			$query->closeCursor();
-		}
 
 		private function treatForm(Translator $tr, Form &$form): bool {
 
@@ -72,9 +26,6 @@
 				// User input
 				$formUsername = $form->getInputByName('login[email]')->getValue();
 				$formPassword = $form->getInputByName('login[password]')->getValue();
-
-				// If temp user & valid -> transfer him to the real user list
-				$this->handleTmpUser($formUsername, $formPassword);
 
 				// Database
 				$query = $this->m_app->db()->prepare('SELECT id, password
@@ -167,7 +118,7 @@
 
 			$template->startBuffer();
 
-			require_once $template->getView('HR/LoginView');
+			require_once $template->getView('LoginView');
 
 			$template->saveBuffer();
 

@@ -5,6 +5,7 @@
 	use App\Model\ContactForm;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Form\Form;
 	use Goji\Rendering\SimpleTemplate;
@@ -24,14 +25,17 @@
 				$name = $form->getInputByName('contact[name]')->getValue();
 				$email = $form->getInputByName('contact[email]')->getValue();
 				$message = $form->getInputByName('contact[message]')->getValue();
-					$message = htmlspecialchars(nl2br($message));
+					$message = nl2br(htmlspecialchars($message));
 
 				$message = <<<EOT
-					<strong>From:</strong> $name &lt;$email&gt;<br>
-					<br>
-					<strong>Message:</strong><br>
-					<br>
-					$message
+					<p>
+						<strong>From:</strong> $name &lt;$email&gt;<br>
+					</p>
+					<p>
+						<strong>Message:</strong><br>
+						<br>
+						$message
+					</p>
 					EOT;
 
 				$options = [
@@ -41,7 +45,7 @@
 					'company_email' => $this->m_app->getCompanyEmail()
 				];
 
-				Mail::sendMail($this->m_app->getCompanyEmail(), 'New message from contact form', $message, $options);
+				Mail::sendMail($this->m_app->getCompanyEmail(), 'New message from contact form', $message, $options, $this->m_app->getAppMode() === App::DEBUG);
 
 				// If AJAX, return JSON (SUCCESS)
 				if ($this->m_app->getRequestHandler()->isAjaxRequest()) {
