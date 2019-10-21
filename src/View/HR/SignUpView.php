@@ -49,7 +49,7 @@
 			}
 		};
 
-		new Form(document.querySelector('form.form__centered'),
+		new Form(form,
 				 success,
 				 error,
 				 form.querySelector('button.loader'),
