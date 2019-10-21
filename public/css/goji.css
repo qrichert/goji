@@ -316,6 +316,11 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	max-width: 257px;
 }
 
+img.header__logo {
+	height: calc(var(--header-height) * 0.5);
+	max-width: 257px;
+}
+
 /* <NAV> */
 
 .nav__main {
@@ -866,6 +871,10 @@ label {
 		height: calc(var(--header-height-alt) * 0.75);
 	}
 
+	img.header__logo {
+		height: calc(var(--header-height-alt) * 0.75);
+	}
+
 	.nav__main {
 		position: fixed;
 		top: 120vh;
@@ -958,6 +967,10 @@ label {
 		the burger menu. */
 		max-width: 90%;
 		margin-left: 0;
+	}
+
+	img.header__logo {
+		max-width: 90%;
 	}
 
 	section.text {
