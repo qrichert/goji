@@ -6,7 +6,6 @@
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\ControllerAbstract;
-	use Goji\Core\Logger;
 	use Goji\Form\Form;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Security\Passwords;

@@ -12,9 +12,9 @@
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class LoginController extends ControllerAbstract {
+	class ResetPasswordController extends ControllerAbstract {
 
-		private function treatForm(Translator $tr, Form &$form): bool {
+		private function treatForm(Translator $tr, Form &$form): bool { // TODO: this class and page
 
 			$detail = [];
 			$isValid = $form->isValid($detail);
