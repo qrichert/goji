@@ -51,11 +51,25 @@
 			// Which would mean "use '/login' for all English pages
 			// ('en_*' locales), and '/connexion' for French"
 		},
-		controller: "LoginController"
+		controller: "HR\\LoginController"
 	},
 	"logout": {
 		route: "/logout",
-		controller: "LogoutController"
+		controller: "HR\\LogoutController"
+	},
+	"subscribe": {
+		routes: {
+			en: "/subscribe",
+			fr: "/inscription"
+		},
+		controller: "SubscribeController"
+	},
+	"reset-password": {
+		routes: {
+			en: "/reset-password",
+			fr: "/mot-de-passe-oublie"
+		},
+		controller: "ResetPasswordController"
 	},
 	"privacy-and-terms": {
 		routes: {

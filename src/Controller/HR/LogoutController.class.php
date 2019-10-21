@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Controller;
+	namespace App\Controller\HR;
 
 	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Core\HttpResponse;

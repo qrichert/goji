@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Controller;
+	namespace App\Controller\HR;
 
 	use App\Model\LoginForm;
 	use Goji\Blueprints\HttpMethodInterface;
