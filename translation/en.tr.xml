@@ -81,6 +81,36 @@
 		<segment id="CONTACT_SUCCESS">Your message has been sent. Thanks!</segment>
 		<segment id="CONTACT_ERROR">The form contains errors</segment>
 	</page>
+	<page id="(xhr-)?sign-up">
+		<segment id="SIGN_UP_PAGE_TITLE">Sign Up</segment>
+		<segment id="SIGN_UP_PAGE_DESCRIPTION"></segment>
+		<segment id="SIGN_UP_FORM_EMAIL">Email</segment>
+		<segment id="SIGN_UP_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
+		<segment id="SIGN_UP_FORM_SIGN_UP_BUTTON">Sign Up</segment>
+		<segment id="SIGN_UP_ALREADY_ACCOUNT">Already have an account?</segment>
+		<segment id="SIGN_UP_LOG_IN">Log In</segment>
+		<segment id="SIGN_UP_SUCCESS">
+			Success! We just sent you an email with a temporary password.<![CDATA[<br>]]>
+			Log in to validate your account
+		</segment>
+		<segment id="SIGN_UP_INVALID_USERNAME">Invalid username or already registered</segment>
+		<segment id="SIGN_UP_EMAIL_OBJECT">Welcome!</segment>
+		<segment id="SIGN_UP_EMAIL_MESSAGE"><![CDATA[
+			<p>
+				Welcome to Goji!
+			</p>
+			<p>
+				Your password is: <strong>%{PASSWORD}</strong><br>
+			</p>
+			<p>
+				Use it to log into your account within the next 48h. Passed that delay,
+				your temporary account will be deleted automatically.
+			</p>
+			<p>
+				Have fun!
+			</p>
+		]]></segment>
+	</page>
 	<page id="(xhr-)?login">
 		<segment id="LOGIN_PAGE_TITLE">Log In</segment>
 		<segment id="LOGIN_PAGE_DESCRIPTION"></segment>
@@ -112,36 +142,6 @@
 			</p>
 			<p>
 				Your new password is : <strong>%{PASSWORD}</strong><br>
-			</p>
-			<p>
-				Have fun!
-			</p>
-		]]></segment>
-	</page>
-	<page id="sign-up">
-		<segment id="SIGN_UP_PAGE_TITLE">Sign Up</segment>
-		<segment id="SIGN_UP_PAGE_DESCRIPTION"></segment>
-		<segment id="SIGN_UP_FORM_EMAIL">Email</segment>
-		<segment id="SIGN_UP_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
-		<segment id="SIGN_UP_FORM_SIGN_UP_BUTTON">Sign Up</segment>
-		<segment id="SIGN_UP_ALREADY_ACCOUNT">Already have an account?</segment>
-		<segment id="SIGN_UP_LOG_IN">Log In</segment>
-		<segment id="SIGN_UP_SUCCESS">
-			Success! We just sent you an email with a temporary password.<![CDATA[<br>]]>
-			Log in to validate your account
-		</segment>
-		<segment id="SIGN_UP_INVALID_USERNAME">Invalid username or already registered</segment>
-		<segment id="SIGN_UP_EMAIL_OBJECT">Welcome!</segment>
-		<segment id="SIGN_UP_EMAIL_MESSAGE"><![CDATA[
-			<p>
-				Welcome to Goji!
-			</p>
-			<p>
-				Your password is: <strong>%{PASSWORD}</strong><br>
-			</p>
-			<p>
-				Use it to log into your account within the next 48h. Passed that delay,
-				your temporary account will be deleted automatically.
 			</p>
 			<p>
 				Have fun!

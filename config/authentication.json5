@@ -30,8 +30,10 @@
 		// If none, leave empty
 		// This will look for the info you've set for 'forbidden'
 		disallow_authenticated: [
-			"login",
 			"sign-up",
+			"xhr-sign-up",
+			"login",
+			"xhr-login",
 			"xhr-reset-password"
 		]
 	}

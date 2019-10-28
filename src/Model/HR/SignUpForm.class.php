@@ -16,6 +16,8 @@
 
 			parent::__construct();
 
+			$this->setAction('xhr-sign-up');
+
 			$sanitizeEmail = function($email) {
 				SwissKnife::sanitizeEmail($email);
 				return $email;
