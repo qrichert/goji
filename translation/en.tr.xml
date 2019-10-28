@@ -68,7 +68,7 @@
 		</segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Try a different language:</segment>
 	</page>
-	<page id="contact">
+	<page id="(xhr-)?contact">
 		<segment id="CONTACT_PAGE_TITLE">Contact</segment>
 		<segment id="CONTACT_PAGE_DESCRIPTION"></segment>
 		<segment id="CONTACT_MAIN_TITLE">Contact</segment>

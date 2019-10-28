@@ -17,6 +17,8 @@
 
 			parent::__construct();
 
+			$this->setAction('xhr-contact');
+
 			$sanitizeEmail = function($email) {
 				$email = mb_strtolower($email);
 				return filter_var($email, FILTER_SANITIZE_EMAIL);

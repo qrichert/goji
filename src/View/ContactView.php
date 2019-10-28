@@ -2,18 +2,9 @@
 	<section class="text">
 		<h1><?= $tr->_('CONTACT_MAIN_TITLE'); ?></h1>
 
-		<?php
-			if ($formSentSuccess === true) {
-				echo '<p id="form__status" class="form__success">' . $tr->_('CONTACT_SUCCESS') . '</p>';
-			} else if ($formSentSuccess === false) {
-				echo '<p id="form__status" class="form__error">' . $tr->_('CONTACT_ERROR') . '</p>';
-			} else {
-				echo '<p id="form__status"></p>';
-			}
-		?>
+		<p id="form__status"></p>
 
 		<?php $form->render(); ?>
-
 	</section>
 </main>
 

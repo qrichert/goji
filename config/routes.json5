@@ -42,6 +42,10 @@
 		},
 		controller: "ContactController"
 	},
+	"xhr-contact": {
+		route: "/xhr-contact",
+		controller: "XhrContactController"
+	},
 	"login": {
 		routes: {
 			all: "/login"
