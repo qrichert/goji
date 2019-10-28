@@ -170,7 +170,7 @@
 		<segment id="BLOG_POST_DELETE_CONFIRMATION_STRING">yes</segment>
 		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Back to blog posts</segment>
 	</page>
-	<page id="admin-blog-post">
+	<page id="(xhr-)?admin-blog-post">
 		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_POST_MAIN_TITLE">

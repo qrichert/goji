@@ -94,6 +94,10 @@
 		route: "/admin/blog-post",
 		controller: "Admin\\AdminBlogPostController"
 	},
+	"xhr-admin-blog-post": {
+		route: "/admin/xhr-blog-post",
+		controller: "Admin\\XhrAdminBlogPostController"
+	},
 	// This is the page ID.
 	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )
 	// It is also put as <body id=""> in default template, so make sure it's HTML#id compliant

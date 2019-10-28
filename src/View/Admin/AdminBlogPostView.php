@@ -22,24 +22,7 @@
 			}
 		?>
 
-		<?php
-			if ($formSentSuccess === true) {
-
-				$message = $this->m_action == \Goji\Blog\BlogPostManager::ACTION_UPDATE ?
-					$tr->_('BLOG_POST_UPDATE_SUCCESS') :
-					$tr->_('BLOG_POST_SUCCESS');
-
-				echo '<p id="form__status" class="form__success">' . $message . '</p>';
-
-			} else if ($formSentSuccess === false) {
-
-				echo '<p id="form__status" class="form__error">' . $tr->_('BLOG_POST_ERROR') . '</p>';
-
-			} else {
-
-				echo '<p id="form__status"></p>';
-			}
-		?>
+		<p id="form__status"></p>
 
 		<?php $blogPostManager->getForm()->render(); ?>
 
