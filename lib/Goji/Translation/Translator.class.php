@@ -126,9 +126,10 @@
 				if (isset($page['id'])) {
 
 					$pageID = (string) $page['id'];
-						$pageID = str_replace('*', '°°°WILDCARD°°°', $pageID); // Protect wildcard * http-error-°°°WILDCARD°°°
-						$pageID = preg_quote($pageID, '#');
-						$pageID = str_replace('°°°WILDCARD°°°', '(?:.*)', $pageID);
+						//$pageID = str_replace('*', '°°°WILDCARD°°°', $pageID); // Protect wildcard * http-error-°°°WILDCARD°°°
+						//$pageID = preg_quote($pageID, '#');
+						//$pageID = str_replace('°°°WILDCARD°°°', '(?:.*)', $pageID);
+						$pageID = str_replace('#', '\#', $pageID); // Page ID is a regex, just escape #
 
 					// If ID doesn't match, we don't include it
 					if (!preg_match('#^' . $pageID . '$#i', $currentPage))

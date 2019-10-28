@@ -25,10 +25,10 @@
 		<segment id="FOOTER_LOG_OUT">Log Out</segment>
 	</page>
 	<!--
-		You can use the wildcard symbol * to match any character(s).
+		Page IDs are regular expressions here (start ^ and end $ are automatically added around them).
 		Here it will match anything that begins with http-error-
 	-->
-	<page id="http-error-*">
+	<page id="http-error-.*">
 		<segment id="ERROR_PAGE_TITLE">Error %{ERROR_CODE}</segment> <!-- + Error code -->
 		<segment id="ERROR_PAGE_DESCRIPTION">We encountered a problem while loading the page.</segment>
 		<segment id="ERROR_DESCRIPTION">
@@ -81,7 +81,7 @@
 		<segment id="CONTACT_SUCCESS">Your message has been sent. Thanks!</segment>
 		<segment id="CONTACT_ERROR">The form contains errors</segment>
 	</page>
-	<page id="login">
+	<page id="(xhr-)?login">
 		<segment id="LOGIN_PAGE_TITLE">Log In</segment>
 		<segment id="LOGIN_PAGE_DESCRIPTION"></segment>
 		<segment id="LOGIN_FORM_EMAIL">Email</segment>

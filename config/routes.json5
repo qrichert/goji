@@ -53,6 +53,10 @@
 		},
 		controller: "HR\\LoginController"
 	},
+	"xhr-login": {
+		route: "/xhr-login",
+		controller: "HR\\XhrLoginController"
+	},
 	"logout": {
 		route: "/logout",
 		controller: "HR\\LogoutController"
