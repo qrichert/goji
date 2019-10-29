@@ -3,6 +3,7 @@
 	namespace Goji\HumanResources;
 
 	use Goji\Core\App;
+	use Goji\Core\Logger;
 	use Goji\Security\Passwords;
 
 	/**
@@ -17,10 +18,74 @@
 		protected $m_app;
 		protected $m_id;
 
+		/* <CONSTANTS> */
+
+		const E_MEMBER_ALREADY_EXISTS = 0;
+
 		public function __construct(App $app) {
 
 			$this->m_app = $app;
 			$this->m_id = $this->m_app->getUser()->getId();
+		}
+
+		public static function createMember(App $app, $username, array &$detail): bool {
+
+			// Database
+			$query = $app->db()->prepare('SELECT
+												(SELECT COUNT(*)
+												FROM g_user
+												WHERE username=:username)
+											+
+												(SELECT COUNT(*)
+												FROM g_user_tmp
+												WHERE username=:username)
+											AS nb');
+
+			$query->execute([
+				'username' => $username
+			]);
+
+			$reply = $query->fetch();
+				$reply = (int) $reply['nb'];
+
+			$query->closeCursor();
+
+			if ($reply !== 0) { // User already exists
+				$detail['error'] = self::E_MEMBER_ALREADY_EXISTS;
+				return false;
+			}
+
+			// Generate Password
+			$newPassword = Passwords::generatePassword(7);
+			$hashedPassword = Passwords::hashPassword($newPassword);
+
+			/*********************/
+
+			if ($app->getAppMode() === App::DEBUG) {
+				// Log generated password to console
+				Logger::log('Email: ' . $username, Logger::CONSOLE);
+				Logger::log('Password: ' . $newPassword, Logger::CONSOLE);
+			}
+
+			/*********************/
+
+			// Save to DB
+			$query = $app->db()->prepare('INSERT INTO g_user_tmp
+												   ( username,  password,  date_registered)
+											VALUES (:username, :password, :date_registered)');
+
+			$query->execute([
+				'username' => $username,
+				'password' => $hashedPassword,
+				'date_registered' => date('Y-m-d H:i:s')
+			]);
+
+			$query->closeCursor();
+
+			$detail['username'] = $username;
+			$detail['password'] = $newPassword;
+
+			return true;
 		}
 
 		/**
@@ -66,8 +131,8 @@
 			$fields = empty($fields) ? '*' : implode(', ', $fields);
 
 			$query = $app->db()->prepare("SELECT $fields
-													FROM g_user
-													WHERE username=:username");
+											FROM g_user
+											WHERE username=:username");
 
 			$query->execute([
 				'username' => $username
@@ -94,8 +159,8 @@
 			// 1. We look if user is in the temporary list
 
 			$query = $app->db()->prepare('SELECT *
-													FROM g_user_tmp
-													WHERE username=:username');
+											FROM g_user_tmp
+											WHERE username=:username');
 
 			$query->execute([
 				'username' => $username
@@ -119,8 +184,8 @@
 
 			// User is valid, move him to the real list
 			$query = $app->db()->prepare('INSERT INTO g_user
-														   ( username,  password,  date_registered)
-													VALUES (:username, :password, :date_registered)');
+												   ( username,  password,  date_registered)
+											VALUES (:username, :password, :date_registered)');
 
 			$query->execute([
 				'username' => $reply['username'],
@@ -130,7 +195,7 @@
 
 			// And delete tmp entry
 			$query = $app->db()->prepare('DELETE FROM g_user_tmp
-													WHERE id=:id OR username=:username');
+											WHERE id=:id OR username=:username');
 
 			$query->execute([
 				'id' => $reply['id'],

@@ -6,9 +6,8 @@
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
-	use Goji\Core\Logger;
 	use Goji\Form\Form;
-	use Goji\Security\Passwords;
+	use Goji\HumanResources\MemberManager;
 	use Goji\Toolkit\Mail;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
@@ -27,63 +26,21 @@
 				// User input
 				$formUsername = $form->getInputByName('sign-up[email]')->getValue();
 
-				// Database
-				$query = $this->m_app->db()->prepare('SELECT
-																	(SELECT COUNT(*)
-																	FROM g_user
-																	WHERE username=:username)
-																+
-																	(SELECT COUNT(*)
-																	FROM g_user_tmp
-																	WHERE username=:username)
-																AS nb');
+				$detail = [];
 
-				$query->execute([
-					'username' => $formUsername
-				]);
+				if (!MemberManager::createMember($this->m_app, $formUsername, $detail)) {
 
-				$reply = $query->fetch();
-					$reply = (int) $reply['nb'];
+					//if ($detail['error'] == MemberManager::E_MEMBER_ALREADY_EXISTS) {
 
-				$query->closeCursor();
-
-				if ($reply !== 0) { // User already exists
-
-					HttpResponse::JSON([
-						'message' => $tr->_('SIGN_UP_INVALID_USERNAME')
-					], false);
+						HttpResponse::JSON([
+							'message' => $tr->_('SIGN_UP_INVALID_USERNAME')
+						], false);
+					//}
 				}
-
-				// Generate Password
-				$newPassword = Passwords::generatePassword(7);
-				$hashedPassword = Passwords::hashPassword($newPassword);
-
-				/*********************/
-
-				if ($this->m_app->getAppMode() === App::DEBUG) {
-					// Log generated password to console
-					Logger::log('Email: ' . $formUsername, Logger::CONSOLE);
-					Logger::log('Password: ' . $newPassword, Logger::CONSOLE);
-				}
-
-				/*********************/
-
-				// Save to DB
-				$query = $this->m_app->db()->prepare('INSERT INTO g_user_tmp
-															   ( username,  password,  date_registered)
-														VALUES (:username, :password, :date_registered)');
-
-				$query->execute([
-					'username' => $formUsername,
-					'password' => $hashedPassword,
-					'date_registered' => date('Y-m-d H:i:s')
-				]);
-
-				$query->closeCursor();
 
 				// Send Mail
 				$message = $tr->_('SIGN_UP_EMAIL_MESSAGE');
-					$message = str_replace('%{PASSWORD}', htmlspecialchars($newPassword), $message);
+					$message = str_replace('%{PASSWORD}', htmlspecialchars($detail['password']), $message);
 
 				$options = [
 					'site_url' => $this->m_app->getSiteUrl(),
@@ -92,7 +49,7 @@
 					'company_email' => $this->m_app->getCompanyEmail()
 				];
 
-				Mail::sendMail($this->m_app->getCompanyEmail(), $tr->_('SIGN_UP_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
+				Mail::sendMail($detail['username'], $tr->_('SIGN_UP_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
 
 				HttpResponse::JSON([
 					'message' => $tr->_('SIGN_UP_SUCCESS')
