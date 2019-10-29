@@ -20,7 +20,8 @@
 
 		/* <CONSTANTS> */
 
-		const E_MEMBER_ALREADY_EXISTS = 0;
+		const E_MEMBER_DOES_NOT_EXIST = 0;
+		const E_MEMBER_ALREADY_EXISTS = 1;
 
 		public function __construct(App $app) {
 
@@ -28,7 +29,14 @@
 			$this->m_id = $this->m_app->getUser()->getId();
 		}
 
-		public static function createMember(App $app, $username, array &$detail): bool {
+		/**
+		 * @param \Goji\Core\App $app
+		 * @param string $username
+		 * @param array $detail
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public static function createMember(App $app, string $username, array &$detail): bool {
 
 			// Database
 			$query = $app->db()->prepare('SELECT
@@ -82,7 +90,6 @@
 
 			$query->closeCursor();
 
-			$detail['username'] = $username;
 			$detail['password'] = $newPassword;
 
 			return true;
@@ -149,12 +156,12 @@
 		 * Move temporary user to permanent user list
 		 *
 		 * @param \Goji\Core\App $app
-		 * @param $username
-		 * @param $password
+		 * @param string $username
+		 * @param string $password
 		 * @return bool
 		 * @throws \Exception
 		 */
-		public static function moveTemporaryUserToPermanentList(App $app, $username, $password): bool {
+		public static function moveTemporaryUserToPermanentList(App $app, string $username, string $password): bool {
 
 			// 1. We look if user is in the temporary list
 
@@ -203,6 +210,78 @@
 			]);
 
 			$query->closeCursor();
+
+			return true;
+		}
+
+		public static function resetPassword(App $app, string $username, array &$detail): bool {
+
+			// Database
+			$query = $app->db()->prepare('SELECT
+												(SELECT COUNT(*)
+												FROM g_user
+												WHERE username=:username)
+											+
+												(SELECT COUNT(*)
+												FROM g_user_tmp
+												WHERE username=:username)
+											AS nb');
+
+			$query->execute([
+				'username' => $username
+			]);
+
+			$reply = $query->fetch();
+				$reply = (int) $reply['nb'];
+
+			$query->closeCursor();
+
+			if ($reply <= 0) { // User doesn't exist
+
+				$detail['error'] = self::E_MEMBER_DOES_NOT_EXIST;
+				return false;
+			}
+
+			// If we got here, credentials are valid -> SUCCESS -> reset password
+
+			// Generate Password
+			$newPassword = Passwords::generatePassword(7);
+			$hashedPassword = Passwords::hashPassword($newPassword);
+
+			/*********************/
+
+			if ($app->getAppMode() === App::DEBUG) {
+				// Log generated password to console
+				Logger::log('Email: ' . $username, Logger::CONSOLE);
+				Logger::log('Password: ' . $newPassword, Logger::CONSOLE);
+			}
+
+			/*********************/
+
+			// Save to DB
+			// Users
+			$query = $app->db()->prepare('UPDATE g_user
+											SET password=:password
+											WHERE username=:username');
+
+			$query->execute([
+				'username' => $username,
+				'password' => $hashedPassword
+			]);
+
+			// And tmp Users
+			$query = $app->db()->prepare('UPDATE g_user_tmp
+											SET password=:password
+											WHERE username=:username');
+
+			$query->execute([
+				'username' => $username,
+				'password' => $hashedPassword
+			]);
+
+			$query->closeCursor();
+
+			$detail['password'] = $newPassword;
 
 			return true;
 		}

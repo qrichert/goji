@@ -55,7 +55,7 @@
 				'company_email' => $this->m_app->getCompanyEmail()
 			];
 
-			Mail::sendMail($detail['username'], $tr->_('SIGN_UP_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
+			Mail::sendMail($formUsername, $tr->_('SIGN_UP_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
 
 			HttpResponse::JSON([
 				'message' => $tr->_('SIGN_UP_SUCCESS')

@@ -8,6 +8,7 @@
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\Logger;
 	use Goji\Form\Form;
+	use Goji\HumanResources\MemberManager;
 	use Goji\Security\Passwords;
 	use Goji\Toolkit\Mail;
 	use Goji\Toolkit\SimpleMetrics;
@@ -32,77 +33,21 @@
 			// User input
 			$formUsername = $form->getInputByName('reset-password[email]')->getValue();
 
-			// Database
-			$query = $this->m_app->db()->prepare('SELECT
-														(SELECT COUNT(*)
-														FROM g_user
-														WHERE username=:username)
-													+
-														(SELECT COUNT(*)
-														FROM g_user_tmp
-														WHERE username=:username)
-													AS nb');
+			$detail = [];
 
-			$query->execute([
-				'username' => $formUsername
-			]);
+			if (!MemberManager::resetPassword($this->m_app, $formUsername, $detail)) {
 
-			$reply = $query->fetch();
-				$reply = (int) $reply['nb'];
+				//if ($detail['error'] == MemberManager::E_MEMBER_DOES_NOT_EXIST) {
 
-			$query->closeCursor();
-
-			if ($reply <= 0) { // User doesn't exist
-
-				// If error return negative JSON response
-
-				HttpResponse::JSON([
-					'message' => $tr->_('RESET_PASSWORD_ERROR')
-				], false);
+					HttpResponse::JSON([
+						'message' => $tr->_('RESET_PASSWORD_ERROR')
+					], false);
+				//}
 			}
-
-			// If we got here, credentials are valid -> SUCCESS -> reset password
-
-			// Generate Password
-			$newPassword = Passwords::generatePassword(7);
-			$hashedPassword = Passwords::hashPassword($newPassword);
-
-			/*********************/
-
-			if ($this->m_app->getAppMode() === App::DEBUG) {
-				// Log generated password to console
-				Logger::log('Email: ' . $formUsername, Logger::CONSOLE);
-				Logger::log('Password: ' . $newPassword, Logger::CONSOLE);
-			}
-
-			/*********************/
-
-			// Save to DB
-			// Users
-			$query = $this->m_app->db()->prepare('UPDATE g_user
-													SET password=:password
-													WHERE username=:username');
-
-			$query->execute([
-				'username' => $formUsername,
-				'password' => $hashedPassword
-			]);
-
-			// And tmp Users
-			$query = $this->m_app->db()->prepare('UPDATE g_user_tmp
-													SET password=:password
-													WHERE username=:username');
-
-			$query->execute([
-				'username' => $formUsername,
-				'password' => $hashedPassword
-			]);
-
-			$query->closeCursor();
 
 			// Send Mail
 			$message = $tr->_('RESET_PASSWORD_EMAIL_MESSAGE');
-				$message = str_replace('%{PASSWORD}', htmlspecialchars($newPassword), $message);
+				$message = str_replace('%{PASSWORD}', htmlspecialchars($detail['password']), $message);
 
 			$options = [
 				'site_url' => $this->m_app->getSiteUrl(),
@@ -111,7 +56,7 @@
 				'company_email' => $this->m_app->getCompanyEmail()
 			];
 
-			Mail::sendMail($this->m_app->getCompanyEmail(), $tr->_('RESET_PASSWORD_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
+			Mail::sendMail($formUsername, $tr->_('RESET_PASSWORD_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
 
 			HttpResponse::JSON([
 				'message' => $tr->_('RESET_PASSWORD_SUCCESS')
