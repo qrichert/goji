@@ -15,50 +15,47 @@
 		private function treatForm(Translator $tr, Form &$form): void {
 
 			$detail = [];
-			$isValid = $form->isValid($detail);
 
-			if ($isValid) { // Form is valid, in the sense that required info is there, email is an email, etc.
-
-				// Verify validity here (credentials validity)
-
-				// User input
-				$formUsername = $form->getInputByName('login[email]')->getValue();
-				$formPassword = $form->getInputByName('login[password]')->getValue();
-
-				$userId = null; // Set by reference
-
-				// If error return negative JSON response, unless it's a tmp user & we can log him in
-				if (!MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $userId)) {
-
-					// If we couldn't log in, maybe the user is temporary
-
-					// So we try to move him to the permanent user list, and log him in again
-					if (!MemberManager::moveTemporaryUserToPermanentList($this->m_app, $formUsername, $formPassword)
-						|| !MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $userId)) {
-
-						// If it didn't work, we display an error
-						HttpResponse::JSON([
-							'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
-						], false);
-					}
-				}
-
-				// If we got here, credentials are valid -> SUCCESS -> log the user in
-
-				$this->m_app->getUser()->logIn((int) $userId);
+			if (!$form->isValid($detail)) {
 
 				HttpResponse::JSON([
-					'email' => $form->getInputByName('login[email]')->getValue(),
-					'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
-				], true); // email, redirect_to, add status = SUCCESS
+					'detail' => $detail,
+					'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
+				], false);
 			}
 
-			// If we're here, form is not valid (like no login or password given)
+			// Verify validity here (credentials validity)
+
+			// User input
+			$formUsername = $form->getInputByName('login[email]')->getValue();
+			$formPassword = $form->getInputByName('login[password]')->getValue();
+
+			$userId = null; // Set by reference
+
+			// If error return negative JSON response, unless it's a tmp user & we can log him in
+			if (!MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $userId)) {
+
+				// If we couldn't log in, maybe the user is temporary
+
+				// So we try to move him to the permanent user list, and log him in again
+				if (!MemberManager::moveTemporaryUserToPermanentList($this->m_app, $formUsername, $formPassword)
+					|| !MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $userId)) {
+
+					// If it didn't work, we display an error
+					HttpResponse::JSON([
+						'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
+					], false);
+				}
+			}
+
+			// If we got here, credentials are valid -> SUCCESS -> log the user in
+
+			$this->m_app->getUser()->logIn((int) $userId);
 
 			HttpResponse::JSON([
-				'detail' => $detail,
-				'message' => $tr->_('LOGIN_WRONG_USERNAME_OR_PASSWORD')
-			], false);
+				'email' => $form->getInputByName('login[email]')->getValue(),
+				'redirect_to' => $this->m_app->getAuthentication()->getRedirectToOnLogInSuccess()
+			], true); // email, redirect_to, add status = SUCCESS
 		}
 
 		public function render() {

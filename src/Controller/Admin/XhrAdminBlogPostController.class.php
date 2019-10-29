@@ -25,48 +25,47 @@
 		private function treatForm(Translator $tr, BlogPostManager $manager): void {
 
 			$detail = [];
-			$isValid = $manager->getForm()->isValid($detail);
 
-			if ($isValid) {
-
-				$actionSuccess = false;
-
-				if ($this->m_action == BlogPostManager::ACTION_UPDATE)
-					$actionSuccess = $manager->update($this->m_blogPostID); // bool
-				else
-					$actionSuccess = $manager->create(); // string|false
-
-				if ($actionSuccess !== false) {
-
-					// If CREATE and SUCCESS, $actionSuccess contains new ID
-					if ($this->m_action == BlogPostManager::ACTION_CREATE)
-						$this->m_blogPostID = $actionSuccess;
-
-					$redirectTo = false;
-
-					if ($this->m_action == BlogPostManager::ACTION_CREATE)
-						$redirectTo = "blog-post?action=" . BlogPostManager::ACTION_UPDATE . "&id={$this->m_blogPostID}";
-
-					$message = $this->m_action == BlogPostManager::ACTION_UPDATE ?
-						$tr->_('BLOG_POST_UPDATE_SUCCESS') :
-						$tr->_('BLOG_POST_SUCCESS');
-
-					HttpResponse::JSON([
-						'message' => $message,
-						'id' => $this->m_blogPostID,
-						'permalink' => $manager->getForm()->getInputByName('blog-post[permalink]')->getValue(),
-						'redirect' => $redirectTo
-					], true);
-				}
+			if (!$manager->getForm()->isValid($detail)) {
 
 				HttpResponse::JSON([
-					'message' => $tr->_('BLOG_POST_WRITING_FAILED')
+					'message' => $tr->_('BLOG_POST_ERROR'),
+					'detail' => $detail
 				], false);
 			}
 
+			$actionSuccess = false;
+
+			if ($this->m_action == BlogPostManager::ACTION_UPDATE)
+				$actionSuccess = $manager->update($this->m_blogPostID); // bool
+			else
+				$actionSuccess = $manager->create(); // string|false
+
+			if ($actionSuccess !== false) {
+
+				// If CREATE and SUCCESS, $actionSuccess contains new ID
+				if ($this->m_action == BlogPostManager::ACTION_CREATE)
+					$this->m_blogPostID = $actionSuccess;
+
+				$redirectTo = false;
+
+				if ($this->m_action == BlogPostManager::ACTION_CREATE)
+					$redirectTo = "blog-post?action=" . BlogPostManager::ACTION_UPDATE . "&id={$this->m_blogPostID}";
+
+				$message = $this->m_action == BlogPostManager::ACTION_UPDATE ?
+					$tr->_('BLOG_POST_UPDATE_SUCCESS') :
+					$tr->_('BLOG_POST_SUCCESS');
+
+				HttpResponse::JSON([
+					'message' => $message,
+					'id' => $this->m_blogPostID,
+					'permalink' => $manager->getForm()->getInputByName('blog-post[permalink]')->getValue(),
+					'redirect' => $redirectTo
+				], true);
+			}
+
 			HttpResponse::JSON([
-				'message' => $tr->_('BLOG_POST_ERROR'),
-				'detail' => $detail
+				'message' => $tr->_('BLOG_POST_WRITING_FAILED')
 			], false);
 		}
 

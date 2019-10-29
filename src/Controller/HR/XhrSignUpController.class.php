@@ -17,51 +17,49 @@
 		private function treatForm(Translator $tr, Form &$form): void {
 
 			$detail = [];
-			$isValid = $form->isValid($detail);
 
-			if ($isValid) { // Form is valid, in the sense that required info is there, email is an email, etc.
-
-				// Verify validity here (credentials validity)
-
-				// User input
-				$formUsername = $form->getInputByName('sign-up[email]')->getValue();
-
-				$detail = [];
-
-				if (!MemberManager::createMember($this->m_app, $formUsername, $detail)) {
-
-					//if ($detail['error'] == MemberManager::E_MEMBER_ALREADY_EXISTS) {
-
-						HttpResponse::JSON([
-							'message' => $tr->_('SIGN_UP_INVALID_USERNAME')
-						], false);
-					//}
-				}
-
-				// Send Mail
-				$message = $tr->_('SIGN_UP_EMAIL_MESSAGE');
-					$message = str_replace('%{PASSWORD}', htmlspecialchars($detail['password']), $message);
-
-				$options = [
-					'site_url' => $this->m_app->getSiteUrl(),
-					'site_name' => $this->m_app->getSiteName(),
-					'site_domain_name' => $this->m_app->getSiteDomainName(),
-					'company_email' => $this->m_app->getCompanyEmail()
-				];
-
-				Mail::sendMail($detail['username'], $tr->_('SIGN_UP_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
+			// If form is not valid, in the sense that required info isn't there, email isn't an email, etc.
+			if (!$form->isValid($detail)) {
 
 				HttpResponse::JSON([
-					'message' => $tr->_('SIGN_UP_SUCCESS')
-				], true);
+					'detail' => $detail,
+					'message' => $tr->_('SIGN_UP_INVALID_USERNAME')
+				], false);
 			}
 
-			// If we're here, form is not valid (like no login given)
+			// Verify validity here (credentials validity)
+
+			// User input
+			$formUsername = $form->getInputByName('sign-up[email]')->getValue();
+
+			$detail = [];
+
+			if (!MemberManager::createMember($this->m_app, $formUsername, $detail)) {
+
+				//if ($detail['error'] == MemberManager::E_MEMBER_ALREADY_EXISTS) {
+
+					HttpResponse::JSON([
+						'message' => $tr->_('SIGN_UP_INVALID_USERNAME')
+					], false);
+				//}
+			}
+
+			// Send Mail
+			$message = $tr->_('SIGN_UP_EMAIL_MESSAGE');
+				$message = str_replace('%{PASSWORD}', htmlspecialchars($detail['password']), $message);
+
+			$options = [
+				'site_url' => $this->m_app->getSiteUrl(),
+				'site_name' => $this->m_app->getSiteName(),
+				'site_domain_name' => $this->m_app->getSiteDomainName(),
+				'company_email' => $this->m_app->getCompanyEmail()
+			];
+
+			Mail::sendMail($detail['username'], $tr->_('SIGN_UP_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
 
 			HttpResponse::JSON([
-				'detail' => $detail,
-				'message' => $tr->_('SIGN_UP_INVALID_USERNAME')
-			], false);
+				'message' => $tr->_('SIGN_UP_SUCCESS')
+			], true);
 		}
 
 		public function render() {
