@@ -19,8 +19,8 @@
 		/* <ATTRIBUTES> */
 
 		protected $m_app;
-		protected $m_isLoggedIn;
 		protected $m_id;
+		protected $m_isLoggedIn;
 
 		/* <CONSTANTS> */
 
@@ -32,14 +32,34 @@
 
 			if (is_numeric(Session::get(self::USER_ID))) {
 
-				$this->m_isLoggedIn = true;
 				$this->m_id = (int) Session::get(self::USER_ID);
+				$this->m_isLoggedIn = true;
 
 			} else {
 
-				$this->m_isLoggedIn = false;
 				$this->m_id = null;
+				$this->m_isLoggedIn = false;
 			}
+
+			// Must be called from outside! Because it calls App's setMemberManager()
+			// which calls $this isLoggedIn() but $this is null because we didn't return
+			// from the constructor yet.
+			//$this->updateMemberManager();
+		}
+
+		/**
+		 * Creates MemberManager if logged in, or else sets it to null
+		 */
+		public function updateMemberManager(): void {
+
+			if (!$this->m_isLoggedIn) {
+				$this->m_app->setMemberManager(null);
+				return;
+			}
+
+			// else, logged in
+			$memberManager = HrFactory::getMemberManager($this->m_app);
+			$this->m_app->setMemberManager($memberManager);
 		}
 
 		/**
@@ -54,6 +74,9 @@
 		 */
 		public function logIn(int $id): void {
 			Session::set(self::USER_ID, $id);
+			$this->m_id = $id;
+			$this->m_isLoggedIn = true;
+			$this->updateMemberManager();
 		}
 
 		/**
@@ -61,12 +84,15 @@
 		 */
 		public function logOut(): void {
 			Session::unset(self::USER_ID);
+			$this->m_id = null;
+			$this->m_isLoggedIn = false;
+			$this->updateMemberManager();
 		}
 
 		/**
-		 * @return int
+		 * @return int|null
 		 */
-		public function getId(): int {
+		public function getId(): ?int {
 			return $this->m_id;
 		}
 	}

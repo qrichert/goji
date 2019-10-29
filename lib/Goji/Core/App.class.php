@@ -4,6 +4,7 @@
 
 	use Goji\HumanResources\Authentication;
 	use Goji\HumanResources\HrFactory;
+	use Goji\HumanResources\MemberManager;
 	use Goji\HumanResources\User;
 	use Goji\Translation\Languages;
 	use PDO;
@@ -28,8 +29,8 @@
 
 		private $m_languages;
 		private $m_requestHandler;
-		private $m_user;
 		private $m_memberManager;
+		private $m_user;
 		private $m_authentication;
 		private $m_firewall;
 		private $m_router;
@@ -47,6 +48,7 @@
 
 		const E_NO_LANGUAGES = 0;
 		const E_NO_ROUTER = 1;
+		const E_USER_LOGGED_IN = 2;
 
 		/**
 		 * App constructor.
@@ -73,10 +75,9 @@
 
 			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
-			$this->m_user = HrFactory::getUser($this);
 			$this->m_memberManager = null;
-				if ($this->m_user->isLoggedIn())
-					$this->m_memberManager = HrFactory::getMemberManager($this);
+			$this->m_user = HrFactory::getUser($this);
+				$this->m_user->updateMemberManager();
 			$this->m_authentication = new Authentication($this);
 			$this->m_firewall = new Firewall($this);
 			$this->m_router = null;
@@ -242,10 +243,36 @@
 		}
 
 		/**
+		 * @return \Goji\HumanResources\MemberManager
+		 */
+		public function getMemberManager(): MemberManager {
+			return $this->m_memberManager;
+		}
+
+		/**
+		 * @param \Goji\HumanResources\MemberManager|null $memberManager
+		 * @throws \Exception
+		 */
+		public function setMemberManager(?MemberManager $memberManager): void {
+
+			if (empty($memberManager) && $this->m_user->isLoggedIn())
+				throw new Exception('Cannot set MemberManager to null while User is still logged in.', self::E_USER_LOGGED_IN);
+
+			$this->m_memberManager = $memberManager;
+		}
+
+		/**
 		 * @return \Goji\HumanResources\User
 		 */
 		public function getUser(): User {
 			return $this->m_user;
+		}
+
+		/**
+		 * @param \Goji\HumanResources\User $user
+		 */
+		public function setUser(User $user) {
+			$this->m_user = $user;
 		}
 
 		/**
