@@ -1,5 +1,6 @@
 <?php
 
+	// TODO: kept for later inspiration, maybe, don't use it
 	if (!isset($_SESSION['connected']) || $_SESSION['connected'] === false) {
 
 		if (isset($_COOKIE[COOKIES_PREFIX . 'remember-me']) && $_COOKIE[COOKIES_PREFIX . 'remember-me'] === 'true'

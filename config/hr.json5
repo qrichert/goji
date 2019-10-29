@@ -1,0 +1,13 @@
+/*
+ * Configuration file for Human Resources (user/member related stuff)
+ */
+
+{
+	// Represents a single person visiting the site, logged in or not.
+	// If not set, uses the default \Goji\HumanResources\User
+	//user: "\\Goji\\HumanResources\\User",
+
+	// Member = User that is also logged in (complementary to User, doesn't replace it).
+	// If not set, uses the default \Goji\HumanResources\MemberManager
+	//member_manager: "\\Goji\\HumanResources\\MemberManager"
+}

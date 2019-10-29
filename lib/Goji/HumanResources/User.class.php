@@ -9,7 +9,6 @@
 	 * Class User
 	 *
 	 * Represents a single person visiting the site, logged in or not.
-	 * TODO: Member & MemberManager
 	 * A logged in user is also called a member and has a Goji\HumanResources\Member
 	 * profile and a Goji\HumanResources\MemberManager manager.
 	 *
@@ -19,9 +18,9 @@
 
 		/* <ATTRIBUTES> */
 
-		private $m_app;
-		private $m_isLoggedIn;
-		private $m_id;
+		protected $m_app;
+		protected $m_isLoggedIn;
+		protected $m_id;
 
 		/* <CONSTANTS> */
 
@@ -33,7 +32,6 @@
 
 			if (is_numeric(Session::get(self::USER_ID))) {
 
-				// TODO: try { new Member() } catch { loggedIn = false; id = null }
 				$this->m_isLoggedIn = true;
 				$this->m_id = (int) Session::get(self::USER_ID);
 
@@ -68,7 +66,7 @@
 		/**
 		 * @return int
 		 */
-		public function getID(): int {
+		public function getId(): int {
 			return $this->m_id;
 		}
 	}

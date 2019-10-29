@@ -3,6 +3,7 @@
 	namespace Goji\Core;
 
 	use Goji\HumanResources\Authentication;
+	use Goji\HumanResources\HrFactory;
 	use Goji\HumanResources\User;
 	use Goji\Translation\Languages;
 	use PDO;
@@ -28,6 +29,7 @@
 		private $m_languages;
 		private $m_requestHandler;
 		private $m_user;
+		private $m_memberManager;
 		private $m_authentication;
 		private $m_firewall;
 		private $m_router;
@@ -71,7 +73,10 @@
 
 			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
-			$this->m_user = new User($this);
+			$this->m_user = HrFactory::getUser($this);
+			$this->m_memberManager = null;
+				if ($this->m_user->isLoggedIn())
+					$this->m_memberManager = HrFactory::getMemberManager($this);
 			$this->m_authentication = new Authentication($this);
 			$this->m_firewall = new Firewall($this);
 			$this->m_router = null;
