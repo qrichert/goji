@@ -13,8 +13,9 @@ a `section.text` or `<section class="text">`.*
 Files
 -----
 
-Goji comes with four CSS files:
+Goji comes with five CSS files:
 
+- **`reset.css`**
 - **`root.css`**
 - **`goji.css`**
 - **`main.css`**
@@ -22,6 +23,9 @@ Goji comes with four CSS files:
 
 First, you don't have to use any of them. They are just here for convenience. If there's something
 you don't want, just delete it.
+
+**`reset.css`** gives default styling to elements to make design consistant across browsers.
+See [Eric Meyer's website](https://meyerweb.com/eric/tools/css/reset/).
 
 **`root.css`** contains the default variables, which you can change too make site wide changes (see the
 [variables part](#variables)).

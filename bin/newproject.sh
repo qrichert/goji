@@ -49,6 +49,7 @@ then
 		'docs'
 		'lib/Goji'
 		'public/css/goji.css'
+		'public/css/reset.css'
 		'public/css/lib/Goji'
 		'public/js/lib/Goji')
 

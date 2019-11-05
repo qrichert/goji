@@ -10,4 +10,11 @@
 	// Member = User that is also logged in (complementary to User, doesn't replace it).
 	// If not set, uses the default \Goji\HumanResources\MemberManager
 	//member_manager: "\\Goji\\HumanResources\\MemberManager"
+
+	// TODO
+	//user_rank: "SELECT g_user_info.rank AS rank FROM g_user INNER JOIN g_user_info ON g_user.id = g_user_info.id WHERE g_user_id=:id"
+	//ranks: {
+	//  user: 1,
+	//	admin: 7
+	//}
 }
