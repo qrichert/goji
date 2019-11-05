@@ -46,7 +46,7 @@
 		<segment id="HOME_PAGE_TITLE">Accueil</segment>
 		<segment id="HOME_PAGE_DESCRIPTION"></segment>
 		<segment id="HOME_PRE_HEADING">Bonjour, et</segment>
-		<segment id="HOME_FOOBAR">Foobar ?</segment>
+		<segment id="HOME_BERRIES">Baies ?</segment>
 		<segment id="HOME_PLURALIZATION">
 			<!--
 				For pluralization, put each form in it's own alternative and specify the count attribute.
@@ -62,10 +62,14 @@
 				- This one would match 0 OR 1:
 					<alternative count="^(0|1)$">Il y a %{COUNT} foobar.</alternative>
 			-->
-			<alternative count="^0$">Désolé, pas de foobar :(</alternative>
-			<alternative count="^1$">Il n'y a qu'un seul foobar, %{COUNT}...</alternative>
-			<alternative count="rest">Il y a %{COUNT} foobars.</alternative>
+			<alternative count="^0$">Désolé, pas de baie :(</alternative>
+			<alternative count="^1$">Il n'y a qu'une seule baie, %{COUNT}...</alternative>
+			<alternative count="rest">Il y a %{COUNT} baies.</alternative>
 		</segment>
+		<segment id="HOME_TIRED_OF_NOT_HAVING_BERRIES"><![CDATA[
+			<h2>Marre de ne pas avoir de baies ?</h2>
+			%{CTA small}Cliquez ici pour en avoir !%{/CTA}
+		]]></segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Essayez une autre langue :</segment>
 	</page>
 	<page id="(xhr-)?contact">
@@ -96,19 +100,13 @@
 		<segment id="SIGN_UP_INVALID_USERNAME">Nom d'utilisateur invalide ou déjà enregistré</segment>
 		<segment id="SIGN_UP_EMAIL_OBJECT">Bienvenue !</segment>
 		<segment id="SIGN_UP_EMAIL_MESSAGE"><![CDATA[
-			<p>
-				Bienvenue chez Goji!
-			</p>
-			<p>
-				Votre mot de passe est : <strong>%{PASSWORD}</strong><br>
-			</p>
+			<p>Bienvenue chez Goji!</p>
+			<p>Votre mot de passe est : <strong>%{PASSWORD}</strong><br></p>
 			<p>
 				Utilisez-le pour vous connecter à votre compte dans les prochaines 48h.
 				Passé ce délai, votre compte temporaire sera supprimé automatiquement.
 			</p>
-			<p>
-				Amusez-vous !
-			</p>
+			<p>Amusez-vous !</p>
 		]]></segment>
 	</page>
 	<page id="(xhr-)?login">
@@ -137,21 +135,28 @@
 		<segment id="RESET_PASSWORD_SUCCESS">Un nouveau mot de passe a été envoyé à votre adresse email</segment>
 		<segment id="RESET_PASSWORD_EMAIL_OBJECT">Nouveau mot de passe</segment>
 		<segment id="RESET_PASSWORD_EMAIL_MESSAGE"><![CDATA[
-			<p>
-				Bonjour,
-			</p>
-			<p>
-				Votre nouveau mot de passe est : <strong>%{PASSWORD}</strong><br>
-			</p>
-			<p>
-				Amusez-vous !
-			</p>
+			<p>Bonjour,</p>
+			<p>Votre nouveau mot de passe est : <strong>%{PASSWORD}</strong></p>
+			<p>Amusez-vous !</p>
 		]]></segment>
 	</page>
 	<page id="privacy-and-terms">
 		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Mentions Légales</segment>
 		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>
 		<segment id="PRIVACY_AND_TERMS_MAIN_TITLE">Mentions Légales</segment>
+	</page>
+	<page id="landing-page">
+		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
+		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
+		<segment id="LANDING_PAGE_PRE_HEADING">Bonjour,</segment>
+		<segment id="LANDING_PAGE_MAIN_TITLE">"Qui d’Autre Veut Plus de Baies de Goji—Sans Trop d’Effort ?"</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_LEGEND">Plus de baies de goji que vous ne pouvez en rêver...</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_COPY"><![CDATA[
+			<h2>Vous Êtes-Vous Déjà Demandé Pourquoi Certaines Personnes Semblent Avoir Autant de Baies ?</h2>
+			<p>Ce n'est pas un hasard...</p>
+			<p>Cliquez sur le bouton ci-dessous pour découvrir comment ils font !</p>
+			%{CTA}Take My Money!%{/CTA}
+		]]></segment>
 	</page>
 	<page id="blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>

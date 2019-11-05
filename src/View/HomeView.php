@@ -5,7 +5,7 @@
 
 		<img src="img/goji__berries.svg" alt="Goji" width="150px">
 
-		<h2><?= $tr->_('HOME_FOOBAR') ?></h2>
+		<h2><?= $tr->_('HOME_BERRIES') ?></h2>
 
 		<p class="pluralization-example"><?=
 			$tr->_('HOME_PLURALIZATION', 0) . '<br>',
@@ -13,6 +13,16 @@
 			$tr->_('HOME_PLURALIZATION', 2) . '<br>',
 			$tr->_('HOME_PLURALIZATION', 42) . '<br>';
 		?></p>
+
+		<?php
+			$homeIntro = $tr->_('HOME_TIRED_OF_NOT_HAVING_BERRIES');
+			$homeIntro = \Goji\Rendering\TemplateExtensions::ctaToHTML(
+				$homeIntro,
+				$this->m_app->getRouter()->getLinkForPage('landing-page')
+			);
+
+			echo $homeIntro;
+		?>
 
 		<h2><?= $tr->_('HOME_TRY_A_DIFFERENT_LANGUAGE') ?></h2>
 

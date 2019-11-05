@@ -87,6 +87,11 @@
 		},
 		controller: "PrivacyAndTermsController"
 	},
+	// <FUNNEL>
+	"landing-page": {
+		route: "/landing-page",
+		controller: "LandingPageController"
+	},
 	// <BLOG>
 	"blog": {
 		route: "/blog",

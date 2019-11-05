@@ -46,7 +46,7 @@
 		<segment id="HOME_PAGE_TITLE">Home</segment>
 		<segment id="HOME_PAGE_DESCRIPTION"></segment>
 		<segment id="HOME_PRE_HEADING">Welcome, and</segment>
-		<segment id="HOME_FOOBAR">Foobar?</segment>
+		<segment id="HOME_BERRIES">Berries?</segment>
 		<segment id="HOME_PLURALIZATION">
 			<!--
 				For pluralization, put each form in it's own alternative and specify the count attribute.
@@ -62,10 +62,14 @@
 				- This one would match 0 OR 1:
 					<alternative count="^(0|1)$">Il y a %{COUNT} foobar.</alternative>
 			-->
-			<alternative count="^0$">Sorry, no foobars :(</alternative>
-			<alternative count="^1$">There's only one foobar, %{COUNT}...</alternative>
-			<alternative count="rest">There are %{COUNT} foobars.</alternative>
+			<alternative count="^0$">Sorry, no berries :(</alternative>
+			<alternative count="^1$">There's only one berry, %{COUNT}...</alternative>
+			<alternative count="rest">There are %{COUNT} berries.</alternative>
 		</segment>
+		<segment id="HOME_TIRED_OF_NOT_HAVING_BERRIES"><![CDATA[
+			<h2>Tired of not having berries?</h2>
+			%{CTA small}Click Here to Get Some!%{/CTA}
+		]]></segment>
 		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Try a different language:</segment>
 	</page>
 	<page id="(xhr-)?contact">
@@ -96,19 +100,13 @@
 		<segment id="SIGN_UP_INVALID_USERNAME">Invalid username or already registered</segment>
 		<segment id="SIGN_UP_EMAIL_OBJECT">Welcome!</segment>
 		<segment id="SIGN_UP_EMAIL_MESSAGE"><![CDATA[
-			<p>
-				Welcome to Goji!
-			</p>
-			<p>
-				Your password is: <strong>%{PASSWORD}</strong><br>
-			</p>
+			<p>Welcome to Goji!</p>
+			<p>Your password is: <strong>%{PASSWORD}</strong></p>
 			<p>
 				Use it to log into your account within the next 48h. Passed that delay,
 				your temporary account will be deleted automatically.
 			</p>
-			<p>
-				Have fun!
-			</p>
+			<p>Have fun!</p>
 		]]></segment>
 	</page>
 	<page id="(xhr-)?login">
@@ -137,21 +135,28 @@
 		<segment id="RESET_PASSWORD_SUCCESS">A new password has been sent to your email address</segment>
 		<segment id="RESET_PASSWORD_EMAIL_OBJECT">New password</segment>
 		<segment id="RESET_PASSWORD_EMAIL_MESSAGE"><![CDATA[
-			<p>
-				Hello,
-			</p>
-			<p>
-				Your new password is : <strong>%{PASSWORD}</strong><br>
-			</p>
-			<p>
-				Have fun!
-			</p>
+			<p>Hello,</p>
+			<p>Your new password is : <strong>%{PASSWORD}</strong></p>
+			<p>Have fun!</p>
 		]]></segment>
 	</page>
 	<page id="privacy-and-terms">
 		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Privacy &amp; Terms</segment>
 		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>
 		<segment id="PRIVACY_AND_TERMS_MAIN_TITLE">Privacy &amp; Terms</segment>
+	</page>
+	<page id="landing-page">
+		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
+		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
+		<segment id="LANDING_PAGE_PRE_HEADING">Hello,</segment>
+		<segment id="LANDING_PAGE_MAIN_TITLE">"Who Else Wants More Goji Berries—With No Hard Work?"</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_LEGEND">More goji berries than you can dream of...</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_COPY"><![CDATA[
+			<h2>Have You Ever Wondered Why Some People Seem to Get So Many Berries?</h2>
+			<p>It's not by accident...</p>
+			<p>Click the button below to discover how they do it!</p>
+			%{CTA}Take My Money!%{/CTA}
+		]]></segment>
 	</page>
 	<page id="blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>

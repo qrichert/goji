@@ -50,7 +50,7 @@
 		<!-- Style -->
 		<?php
 			// Put library files first, so you can overwrite them.
-			$template->linkFiles([
+			$cssFiles = [
 				'css/reset.css',
 				'css/root.css',
 				'css/goji.css',
@@ -59,7 +59,14 @@
 				'css/lib/Goji/inputs.css',
 				'css/main.css',
 				'css/responsive.css'
-			]);
+			];
+
+			// Use correct root css file
+			if ($template->getSpecial('is-funnel-page'))
+				// Replace 'css/root.css' with 'css/root.funnel.css'
+				$cssFiles = array_replace($cssFiles, [1 => 'css/root.funnel.css']);
+
+			$template->linkFiles($cssFiles);
 		?>
 
 		<!-- Social -->
@@ -75,7 +82,12 @@
 		<?php require_once $template->getTemplate('page/include/head-javascript'); ?>
 	</head>
 	<body id="<?= $this->m_app->getRouter()->getCurrentPage(); ?>">
-		<?php require_once $template->getTemplate('page/include/header'); ?>
+		<?php
+			if ($template->getSpecial('is-funnel-page'))
+				require_once $template->getTemplate('page/include/header.funnel');
+			else
+				require_once $template->getTemplate('page/include/header');
+		?>
 
 		<?= $template->getPageContent(); ?>
 
