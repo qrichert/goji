@@ -33,7 +33,7 @@
 				if (is_file($this->m_files))
 					readfile($this->m_files);
 
-				exit;
+				return;
 			}
 
 			// Multiple files, read them one by one
