@@ -32,10 +32,13 @@ html {
 
 body {
 	font-family: var(--font-default);
-	padding: 0;
-	margin: 0;
 	background-color: var(--color-body);
 	color: var(--color-text-default);
+
+	/* Not necessary with reset.css */
+	padding: 0;
+	margin: 0;
+	line-height: 1.2;
 
 	/* Footer at bottom */
 	display: flex;

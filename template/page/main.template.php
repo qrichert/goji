@@ -51,6 +51,7 @@
 		<?php
 			// Put library files first, so you can overwrite them.
 			$template->linkFiles([
+				'css/reset.css',
 				'css/root.css',
 				'css/goji.css',
 				//'css/lib/Goji/books.css',
