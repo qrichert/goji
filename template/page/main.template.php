@@ -61,10 +61,18 @@
 				'css/responsive.css'
 			];
 
-			// Use correct root css file
-			if ($template->getSpecial('is-funnel-page'))
-				// Replace 'css/root.css' with 'css/root.funnel.css'
-				$cssFiles = array_replace($cssFiles, [1 => 'css/root.funnel.css']);
+			// Add alternate 'root.css'
+			if ($template->getSpecial('is-funnel-page')) {
+
+				if ($template->getLinkedFilesMode() == \Goji\Rendering\SimpleTemplate::MERGED)
+					// In merged mode, first value to be set will be used everywhere (fixed value)
+					// So we need to set the special ones before anything else
+					array_unshift($cssFiles, 'css/root.funnel.css');
+				else
+					// In normal mode, new values replace the old (regular CSS)
+					// Se we can set them wherever we want, provided it's after 'root.css'
+					array_push($cssFiles, 'css/root.funnel.css');
+			}
 
 			$template->linkFiles($cssFiles);
 		?>

@@ -310,6 +310,13 @@
 			$this->m_specials[$key] = $value;
 		}
 
+		/**
+		 * @return string
+		 */
+		public function getLinkedFilesMode(): string {
+			return $this->m_linkedFilesMode;
+		}
+
 		/* <TEMPLATE FUNCTIONS> */
 
 		/**

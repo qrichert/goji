@@ -23,11 +23,11 @@ html, body {
 
 html {
 	font-size: var(--text-size-default);
-	-webkit-font-kerning: normal;
+	/*-webkit-font-kerning: normal;*/
 	/*-webkit-font-smoothing: antialiased;*/
 	/*-moz-osx-font-smoothing: grayscale;*/
-	font-kerning: normal;
-	text-rendering: optimizeLegibility;
+	/*font-kerning: normal;*/
+	/*text-rendering: optimizeLegibility;*/
 }
 
 body {
