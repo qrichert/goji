@@ -73,9 +73,20 @@ h4 + p, h5 + p, h6 + p {
 	margin-top: 0;
 }
 
-p, ul, ol {
+p, ul, ol, figcaption {
 	margin: 1.5em 0;
 	line-height: 1.5;
+}
+
+figcaption, p.caption {
+	margin: 1em 0;
+	font-size: var(--text-size-small);
+	font-style: italic;
+	line-height: initial;
+}
+
+pre {
+	font-family: monospace;
 }
 
 a {
@@ -826,8 +837,9 @@ label {
 	section.side-by-side > .image * {
 		display: block;
 		width: 100%;
-		max-width: 250px;
-		margin: auto;
+		max-width: 400px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
 

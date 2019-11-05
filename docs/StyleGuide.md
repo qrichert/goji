@@ -110,8 +110,9 @@ don't have a top and bottom margin respectively.
   When the screen gets tighter, the blocks are displayed in column.
   You can add several modifiers to it:
     - **`.reverse-on-squeeze`**: Invert the order of the elements in columns mode
-    - **`.image`**: To be applied to the children. Gives the contained image(s) a max width of 250px and
-      centers it horizontally when in column mode
+    - **`.image`**: To be applied to the children. Gives the contained image(s) a max width of 400px and
+      centers it horizontally when in column mode. You may consider using `figure` and `figcaption` instead
+      of a regular `div` parent when displaying an image.
 - **`.video`**: Perfect for welcoming a `.video-wrapper > iframe`
 
 Buttons
