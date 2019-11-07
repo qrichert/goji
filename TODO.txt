@@ -11,5 +11,3 @@ TODO: User ranks
 TODO: Didn't receive email on subscription
 
 TODO: Don't automatically reset password (in case someone else does it to annoy people), just send a link they can ignore
-
-TODO: CSS imports must be at the top of files... maybe that's what causes font problem on merge

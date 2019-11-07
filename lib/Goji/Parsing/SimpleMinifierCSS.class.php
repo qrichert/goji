@@ -160,6 +160,31 @@
 				$code = str_replace('##########' . $i . '##########', $hit[1][$i], $code);
 			}
 
+			// Import: MUST be at the beginning (right after @charset)
+
+			// Match @import url() || @import -- If parentheses quotes are optional
+			preg_match_all('#(@import\s+url|@import)\s*(?:\(?\s*(\'[^\']*?\'|"[^"]*?")\s*\)?|\(\s*(.+?)\s*\));?#ims', $code, $hit, PREG_PATTERN_ORDER);
+
+			$imports = [];
+			$count = count($hit[0]);
+			for ($i = 0; $i < $count; $i++) {
+
+				$fullMatch = $hit[0][$i]; // @import url('css/main.css')
+
+				// Add ';' if none
+				if (mb_substr($fullMatch, -1) != ';')
+					$fullMatch .= ';';
+
+				// Add the import to the list of imports
+				$imports[] = $fullMatch;
+
+				// Remove it from the code
+				$code = str_replace($fullMatch, '', $code);
+			}
+
+			// Add all the @imports back and put them at the top
+			$code = implode('', $imports) . $code;
+
 			// Charset: MUST be at the beginning (first char) + follow exact format: @charset "<charset>";
 			if (preg_match('#@charset\s+[\'"](?:.+)[\'"]\s*;#imU', $code)) {
 
