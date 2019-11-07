@@ -51,3 +51,9 @@ table {
 pre {
 	font-family: monospace;
 }
+strong {
+	font-weight: bold;
+}
+em {
+	font-style: italic;
+}

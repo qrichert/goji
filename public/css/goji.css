@@ -2,11 +2,6 @@
 
 /* <EXTRAS> */
 
-::-moz-selection {
-	background-color: var(--color-highlight);
-	color: white;
-}
-
 ::selection {
 	background-color: var(--color-highlight);
 	color: white;
