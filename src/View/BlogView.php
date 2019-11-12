@@ -3,7 +3,8 @@
 		<h1><?= $tr->_('BLOG_MAIN_TITLE'); ?></h1>
 
 		<?php
-			if ($this->m_app->getUser()->isLoggedIn()) {
+			if ($this->m_app->getUser()->isLoggedIn()
+			    && $this->m_app->getMemberManager()->memberIs('editor')) {
 			?>
 				<div class="blog__toolbar">
 					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post'); ?>"

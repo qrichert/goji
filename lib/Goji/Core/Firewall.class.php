@@ -2,6 +2,8 @@
 
 	namespace Goji\Core;
 
+	use Goji\HumanResources\MemberManager;
+
 	/**
 	 * Class Firewall
 	 *
@@ -26,7 +28,16 @@
 
 			$config = ConfigurationLoader::loadFileToArray($configFile);
 
-			$this->m_routesRequiringAuthentication = (array) $config['firewall']['require_authentication'] ?? [];
+			$routesRequiringAuthentication = (array) $config['firewall']['require_authentication'] ?? [];
+
+				$this->m_routesRequiringAuthentication = [];
+
+				foreach ($routesRequiringAuthentication as $role => $routes) {
+
+					foreach ($routes as $route) {
+						$this->m_routesRequiringAuthentication[$route] = $role;
+					}
+				}
 
 			$this->m_routesDisallowingAuthenticated = (array) $config['firewall']['disallow_authenticated'] ?? [];
 
@@ -38,11 +49,19 @@
 		 * @return bool
 		 */
 		public function authenticationRequiredFor(string $page): bool {
-			return in_array($page, $this->m_routesRequiringAuthentication);
+			return !empty($this->m_routesRequiringAuthentication[$page]);
+		}
+
+		public function roleRequiredFor(string $page): string {
+
+			if (!empty($this->m_routesRequiringAuthentication[$page]))
+				return $this->m_routesRequiringAuthentication[$page];
+			else
+				return MemberManager::ANY_MEMBER_ROLE;
 		}
 
 		/**
-		 * @param string $page
+		 * @param string $page Route ID of the page to be matched
 		 * @return bool
 		 */
 		public function authenticatedDisallowedFor(string $page): bool {

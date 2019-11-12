@@ -16,7 +16,7 @@
 	// So that if a member is an editor and you do $this->m_app->getMemberManager()->memberIs('admin') it
 	// would return 'false' (5 <= 7), but memberIs('member') would return 'true' (5 >= 1) and memberIs('editor')
 	// would return 'true' as well (5 >= 5)
-	// Always use (string) id and (int) value
+	// Always use (string) id and (int) value (/!\ 'any' is a reserved keyword)
 	//roles: {
 	//	member: 1, // "1" is used as default role when someone signs up (see: MemberManager::moveTemporaryMemberToPermanentList())
 	//	editor: 5,

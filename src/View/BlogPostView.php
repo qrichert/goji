@@ -17,7 +17,8 @@
 		</p>
 
 		<?php
-			if ($this->m_app->getUser()->isLoggedIn()) {
+			if ($this->m_app->getUser()->isLoggedIn()
+			    && $this->m_app->getMemberManager()->memberIs('editor')) {
 
 				$editLink = $this->m_app->getRouter()->getLinkForPage('admin-blog-post');
 					$editLink .= '?action=' . \Goji\Blog\BlogPostManager::ACTION_UPDATE;
@@ -55,7 +56,8 @@
 </main>
 
 <?php
-	if ($this->m_app->getUser()->isLoggedIn()) {
+	if ($this->m_app->getUser()->isLoggedIn()
+	    && $this->m_app->getMemberManager()->memberIs('editor')) {
 	?>
 		<script>
 			(function () {

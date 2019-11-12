@@ -27,6 +27,7 @@
 		const CONFIG_FILE = '../config/hr.json5';
 
 		const DEFAULT_MEMBER_ROLE = 1;
+		const ANY_MEMBER_ROLE = 'any';
 
 		const E_MEMBER_DOES_NOT_EXIST = 0;
 		const E_MEMBER_ALREADY_EXISTS = 1;
@@ -163,6 +164,9 @@
 		 * @return bool
 		 */
 		public function memberIs($roleRequired, bool $exact = false): bool {
+
+			if ($roleRequired == self::ANY_MEMBER_ROLE)
+				return true;
 
 			// By ID (identifier)
 			if (!is_numeric($roleRequired)) {

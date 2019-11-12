@@ -555,12 +555,19 @@
 			// If we found a match, a controller will be set
 			if ($controller !== null) {
 
-				if ($this->m_app->getFirewall()->authenticationRequiredFor($this->m_currentPage)
-					&& !$this->m_app->getUser()->isLoggedIn()) {
+				// Requires authentication
+				if ($this->m_app->getFirewall()->authenticationRequiredFor($this->m_currentPage)) {
 
-					$this->redirectToLoginPage();
+					// But user not logged in... -> redirect to login page
+					if (!$this->m_app->getUser()->isLoggedIn())
+						$this->redirectToLoginPage();
+
+					// Logged in. But role not sufficient... -> 404
+					if (!$this->m_app->getMemberManager()->memberIs($this->m_app->getFirewall()->roleRequiredFor($this->m_currentPage)))
+						$this->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 				}
 
+				// Can't visit if authenticated but user is logged in
 				if ($this->m_app->getFirewall()->authenticatedDisallowedFor($this->m_currentPage)
 					&& $this->m_app->getUser()->isLoggedIn()) {
 
