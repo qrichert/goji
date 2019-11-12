@@ -8,7 +8,7 @@
 		<!-- SEO -->
 		<title><?= $template->getPageTitle(); ?></title>
 		<meta name="description" content="<?= $template->getPageDescription(); ?>">
-		<!--<link type="text/plain" rel="author" href="<?= $template->getWebRoot(); ?>/humans.txt">-->
+		<!--<link type="text/plain" rel="author" href="<?= $template->rsc('humans.txt'); ?>">-->
 		<?= $template->getRobotsBehaviour(); ?>
 		<?php
 			// Remove the 'if {}' block if you don't use the blog

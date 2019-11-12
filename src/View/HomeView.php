@@ -3,7 +3,7 @@
 		<p class="pre-heading"><?= $tr->_('HOME_PRE_HEADING') ?></p>
 		<h1><?= $tr->_('HELLO_WORLD'); ?></h1>
 
-		<img src="img/goji__berries.svg" alt="Goji" width="150px">
+		<img src="<?= $template->rsc('img/goji__berries.svg'); ?>" alt="Goji" width="150px">
 
 		<h2><?= $tr->_('HOME_BERRIES') ?></h2>
 

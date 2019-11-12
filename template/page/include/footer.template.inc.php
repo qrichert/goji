@@ -49,7 +49,7 @@
 				}
 			?>
 			<a href="https://github.com/qrichert/goji" target="_blank">
-				<img src="<?= $template->getWebRoot(); ?>/img/goji__berries--grayscale.svg" alt="<?= $tr->_('FOOTER_GOJI_ON_GITHUB'); ?>" width="35">
+				<img src="<?= $template->rsc('img/goji__berries--grayscale.svg'); ?>" alt="<?= $tr->_('FOOTER_GOJI_ON_GITHUB'); ?>" width="35">
 			</a>
 		</div>
 	</div>

@@ -5,7 +5,7 @@
 <![endif]-->
 
 <!-- Favicons -->
-<!--<link rel="shortcut icon" href="<?= $template->getWebRoot(); ?>/img/favicon/favicon--medium--256x256.png"> <!- Favicon -->
-<!--<link rel="apple-touch-icon" sizes="512x512" href="<?= $template->getWebRoot(); ?>/img/favicon/favicon--large--512x512.png"> <!- Safari favorite -->
+<!--<link rel="shortcut icon" href="<?= $template->rsc('img/favicon/favicon--medium--256x256.png'); ?>"> <!- Favicon -->
+<!--<link rel="apple-touch-icon" sizes="512x512" href="<?= $template->rsc('img/favicon/favicon--large--512x512.png'); ?>"> <!- Safari favorite -->
 <!-- SVG, single layer, 16x16, no color -->
-<!--<link rel="mask-icon" href="<?= $template->getWebRoot(); ?>/img/favicon/bookmark-icon.svg" color="#ff005c"> <!- Safari bookmark -->
+<!--<link rel="mask-icon" href="<?= $template->rsc('img/favicon/bookmark-icon.svg'); ?>" color="#ff005c"> <!- Safari bookmark -->

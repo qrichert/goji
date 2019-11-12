@@ -6,7 +6,7 @@
 
 	<section class="side-by-side reverse-on-squeeze">
 		<figure class="image">
-			<img src="img/goji-berries__petr-kratochvil--public-domain-license.jpg" alt="<?= $tr->_('LANDING_PAGE_GOJI_BERRIES_LEGEND'); ?>" class="scalable rounded">
+			<img src="<?= $template->rsc('img/goji-berries__petr-kratochvil--public-domain-license.jpg'); ?>" alt="<?= $tr->_('LANDING_PAGE_GOJI_BERRIES_LEGEND'); ?>" class="scalable rounded">
 			<figcaption>
 				<?= $tr->_('LANDING_PAGE_GOJI_BERRIES_LEGEND'); ?>
 			</figcaption>

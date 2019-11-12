@@ -3,7 +3,7 @@
 
 	<section class="centered no-padding h">
 
-		<img src="img/goji__berries.svg" alt="" class="form__logo" aria-hidden="true">
+		<img src="<?= $template->rsc('img/goji__berries.svg'); ?>" alt="" class="form__logo" aria-hidden="true">
 
 		<?php $form->render(); ?>
 

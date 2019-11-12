@@ -5,6 +5,7 @@
 	use Goji\Blueprints\RobotsInterface;
 	use Goji\Core\ConfigurationLoader;
 	use Exception;
+	use Goji\Toolkit\SwissKnife;
 
 	/**
 	 * Class SimpleTemplate
@@ -396,6 +397,8 @@
 		}
 
 		/**
+		 * Link JS and CSS files (as single items or merged depending on configuration)
+		 *
 		 * @param string|array $files
 		 * @param bool $renderAbsolutePaths css/main.css -> /WEBROOT/css/main.css
 		 * @param bool $returnAsString
@@ -468,6 +471,43 @@
 			return null;
 		}
 
+		/**
+		 * Adds Webroot to get resource absolute path (starting with '/')
+		 *
+		 * @param string $resource
+		 * @param bool $output
+		 * @return string
+		 */
+		public static function getResourceWebRootPath(string $resource, bool $output = false): ?string {
+
+			if (mb_substr($resource, 0, 1) !== '/')
+				$resource = '/' . $resource;
+
+			$resource = WEBROOT . $resource;
+
+			if ($output) {
+				echo $resource;
+				return null;
+			}
+
+			return $resource;
+		}
+
+		/**
+		 * Alias for SimpleTemplate::getResourceWebRootPath()
+		 *
+		 * @param array $args
+		 * @return array|string
+		 */
+		public static function rsc(...$args) {
+			return self::getResourceWebRootPath(...$args);
+		}
+
+		/**
+		 * Cleans string to make it a [a-z0-9-] id
+		 * @param string $id
+		 * @return string
+		 */
 		public static function anchorify(string $id): string {
 			return SwissKnife::stringToID($id);
 		}

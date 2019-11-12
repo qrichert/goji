@@ -52,7 +52,7 @@
 		 * Web root must be in a folder called 'public'
 		 *
 		 * If you call multiple files like css/main.css|css/responsive.css
-		 * The browser messes up and tries to load external files like this :
+		 * The browser messes up and tries to load external files like this:
 		 * /css/main.css|css/responsive.css
 		 *
 		 * It invents a folder called 'main.css|css'

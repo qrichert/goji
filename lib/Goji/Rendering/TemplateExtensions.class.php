@@ -71,6 +71,7 @@
 				$json['id'] = !empty($json['id']) ? ('data-id="' . $json['id'] . '"') : '';
 				$json['side'] = isset($json['side']) && in_array($json['side'], ['left', 'right']) ? $json['side'] : 'left';
 				$json['alt'] = isset($json['alt']) ? htmlspecialchars($json['alt']) : '';
+				$json['image'] = SimpleTemplate::rsc($json['image']);
 
 				$out = '';
 

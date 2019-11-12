@@ -1,7 +1,7 @@
 <header class="header__main">
 	<div class="header__container">
 		<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>" class="header__logo">
-			<img src="<?= $template->getWebRoot(); ?>/img/goji__text--dark.svg" alt="<?= $tr->_('NAV_HOME'); ?>">
+			<img src="<?= $template->rsc('img/goji__text--dark.svg'); ?>" alt="<?= $tr->_('NAV_HOME'); ?>">
 		</a>
 
 		<nav class="nav__main">
