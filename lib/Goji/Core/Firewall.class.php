@@ -56,7 +56,7 @@
 
 			if (!empty($this->m_routesRequiringAuthentication[$page]))
 				return $this->m_routesRequiringAuthentication[$page];
-			else
+			else // No role required, just return 'any'
 				return MemberManager::ANY_MEMBER_ROLE;
 		}
 
