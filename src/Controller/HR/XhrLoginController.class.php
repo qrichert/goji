@@ -30,16 +30,16 @@
 			$formUsername = $form->getInputByName('login[email]')->getValue();
 			$formPassword = $form->getInputByName('login[password]')->getValue();
 
-			$userId = null; // Set by reference
+			$memberId = null; // Set by reference
 
 			// If error return negative JSON response, unless it's a tmp user & we can log him in
-			if (!MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $userId)) {
+			if (!MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $memberId)) {
 
 				// If we couldn't log in, maybe the user is temporary
 
 				// So we try to move him to the permanent user list, and log him in again
-				if (!MemberManager::moveTemporaryUserToPermanentList($this->m_app, $formUsername, $formPassword)
-					|| !MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $userId)) {
+				if (!MemberManager::moveTemporaryMemberToPermanentList($this->m_app, $formUsername, $formPassword)
+					|| !MemberManager::isValidMember($this->m_app, $formUsername, $formPassword, $memberId)) {
 
 					// If it didn't work, we display an error
 					HttpResponse::JSON([
@@ -50,7 +50,7 @@
 
 			// If we got here, credentials are valid -> SUCCESS -> log the user in
 
-			$this->m_app->getUser()->logIn((int) $userId);
+			$this->m_app->getUser()->logIn((int) $memberId);
 
 			HttpResponse::JSON([
 				'email' => $form->getInputByName('login[email]')->getValue(),

@@ -32,7 +32,7 @@
 		 *
 		 * @param string $configFile
 		 */
-		private static function initialize($configFile = self::CONFIG_FILE): void {
+		private static function initialize(string $configFile = self::CONFIG_FILE): void {
 
 			if (self::$m_isInitialized)
 				return;

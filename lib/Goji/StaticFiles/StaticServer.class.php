@@ -36,7 +36,7 @@
 		const E_FILE_NOT_FOUND = 1;
 		const E_FILE_TYPE_NOT_SUPPORTED = 2;
 
-		public function __construct($configFile = self::CONFIG_FILE) {
+		public function __construct(string $configFile = self::CONFIG_FILE) {
 
 			// Config
 			try {

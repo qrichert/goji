@@ -9,5 +9,5 @@
 	$db = new DataBase();
 
 		// Delete tmp users older than 2 days (48h)
-		$db->exec("DELETE FROM g_user_tmp
+		$db->exec("DELETE FROM g_member_tmp
 								WHERE date_registered <= DATE('NOW', '-2 DAY')");

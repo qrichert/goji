@@ -44,7 +44,7 @@
 		 * @param string $configFile (optional) default = Router::CONFIG_FILE
 		 * @throws \Exception
 		 */
-		public function __construct(App $app, $configFile = self::CONFIG_FILE) {
+		public function __construct(App $app, string $configFile = self::CONFIG_FILE) {
 
 			$this->m_app = $app;
 

@@ -70,7 +70,7 @@
 		 * @param string $configFile (optional) default = DataBase::CONFIG_FILE
 		 * @throws \Exception
 		 */
-		public function __construct(string $dataBaseId = null, $configFile = self::CONFIG_FILE) {
+		public function __construct(string $dataBaseId = null, string $configFile = self::CONFIG_FILE) {
 
 			$this->m_config = ConfigurationLoader::loadFileToArray($configFile);
 			$this->m_dataBaseId = null; // Will be set on loading success

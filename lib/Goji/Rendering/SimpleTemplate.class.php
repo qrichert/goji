@@ -102,7 +102,7 @@
 		                            string $pageDescription = '',
 		                            int $robotsBehaviour = self::ROBOTS_ALLOW_INDEX_AND_FOLLOW,
 									bool $showCanonicalPageAndAlternates = true,
-									$configFile = self::CONFIG_FILE) {
+									string $configFile = self::CONFIG_FILE) {
 
 			$this->m_webRoot = WEBROOT;
 			$this->m_pageTitle = $pageTitle;
