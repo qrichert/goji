@@ -71,14 +71,16 @@ Basically what this does is it creates an `App` object, loads the database from 
 and starts the routing process.
 
 App automatically uses a `\Goji\Core\RequestHandler` object (accessible via `App::getRequestHandler()`),
-a `\Goji\HumanResources\User` object (accessible via `App::getUser()`), an `\Goji\HumanResources\Authentication`
-object (accessible via `App::getAuthentication()`), and a `\Goji\Core\Firewall` object (accessible via
-`App::getFirewall()`).
+a `\Goji\HumanResources\User` object (accessible via `App::getUser()`), a n`\Goji\HumanResources\MemberManager`
+object (accessible via `App::getMemberManager()`), a `\Goji\HumanResources\Authentication` object (accessible
+via `App::getAuthentication()`), and a `\Goji\Core\Firewall` object (accessible via `App::getFirewall()`).
 
 - `RequestHandler` analyzes the HTTP request and extracts (and sanitizes) some useful information like
 the request URI, request page, raw query string, query string as array, script name, root folder, etc.
 
 - `User` represents any visitor, logged in or not.
+
+- `MemberManager` helps you manage members (logged in users)
 
 - `Authentication` deals with user authentication.
 
@@ -88,11 +90,11 @@ page forbidden for logged in users).
 `$app->exec()` starts the routing process. The routing ends with the calling of the `render()` method
 of your controller. It goes like this:
 
-1. Create a `\Goji\Core\Languages` object, accessible via `App::getLanguages(): Languages`. This class
-   handles language preferences. It takes the languages accepted by the browser and those supported by
-   your app and finds the best match.
-2. Create a `\Goji\Core\Router` object, accessible via `App::getRouter(): Router`.
-3. Call `Router::route()`.
+1. Creates a `\Goji\Core\Languages` object, accessible via `App::getLanguages()`. This class handles
+   language preferences. It takes the languages accepted by the browser and those supported by your
+   app and finds the best match.
+2. Creates a `\Goji\Core\Router` object, accessible via `App::getRouter()`.
+3. Calls `Router::route()`.
 	- If everything is okay, `Router` will match the request path with the routes you have set in your
 	  config file. Once the right route is found, `Router` calls the `render()` method of the appropriate
 	  controller.
