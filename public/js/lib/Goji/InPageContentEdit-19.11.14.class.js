@@ -15,18 +15,21 @@ class InPageContentEdit {
 
 		this.m_parent = parent; // Container
 
-			this.m_rawContent = parent.dataset.rawContent;
-			this.m_action = parent.dataset.action; // Page to send data
+			this.m_action = parent.dataset.action; // Page to send data to
+			this.m_page = parent.dataset.page; // Page that hosts the content
+			this.m_placeholder = parent.dataset.placeholder; // What to show if no content
+			this.m_contentId = parent.dataset.contentId; // If of content element
+			this.m_rawContent = parent.dataset.rawContent; // Content without formatting, as in database
 
 		this.m_editableArea = parent.querySelector('.in-page-content-edit__editable-area');
 
 			this.m_editableAreaDisplay = window.getComputedStyle(this.m_editableArea, null).getPropertyValue('display');
 
 		this.m_editor = parent.querySelector('.in-page-content-edit__editor');
+			this.m_editor.value = this.m_rawContent;
 			this.m_editor.style.display = 'none';
 			this.m_editor.style.resize = 'none';
 			this.m_editor.style.overflow = 'hidden'; // Prevent scrollbars
-			this.m_editor.value = this.m_rawContent;
 			this.m_editor.style.width = '100%';
 			this.m_editor.style.minHeight = this.getEditableAreaProperty('line-height');
 			this.m_editor.style.fontSize = this.getEditableAreaProperty('font-size');
@@ -44,6 +47,8 @@ class InPageContentEdit {
 		this.m_currentState = this.m_states.DEFAULT;
 
 		this.addListeners();
+
+		this.checkIfEmpty();
 	}
 
 	/**
@@ -101,6 +106,19 @@ class InPageContentEdit {
 		setTimeout(() => { this.resizeEditor(); }, 7);
 	}
 
+	/**
+	 * What to do if no content.
+	 */
+	checkIfEmpty() {
+
+		// Use editor, because raw content isn't always updated (like with pause)
+		if (!this.m_editor.value.match(/^\s*$/))
+			return;
+
+		// Set placeholder text
+		this.m_editableArea.textContent = this.m_placeholder;
+	}
+
 	activateEditMode() {
 
 		this.m_currentState = this.m_states.EDITING;
@@ -110,7 +128,9 @@ class InPageContentEdit {
 		this.m_editor.focus();
 		this.m_editor.setSelectionRange(this.m_editor.value.length, this.m_editor.value.length); // Put cursor at end
 
-		setTimeout(() => {this.deactivateEditMode();}, 3000);
+		this.resizeEditorDelayed();
+
+		setTimeout(() => { this.deactivateEditMode(); }, 3000);
 	}
 
 	deactivateEditMode() {
@@ -119,5 +139,42 @@ class InPageContentEdit {
 
 		this.m_editableArea.style.display = null;
 		this.m_editor.style.display = 'none';
+
+		this.pauseEdition();
+	}
+
+	/**
+	 * Show modifications, but don't save them (neither online, nor locally)
+	 */
+	pauseEdition() {
+		// Get formatted text from online
+		let formattedText = this.m_editor.value;
+
+		this.m_editableArea.innerHTML = formattedText;
+
+		this.checkIfEmpty();
+	}
+
+	/**
+	 * Save and update everything
+	 */
+	saveEdition() {
+		this.m_rawContent = this.m_editor.value;
+
+		// Save online
+		// Get formatted text back
+		let formattedText = this.m_rawContent;
+
+		this.m_editableArea.innerHTML = formattedText;
+
+		this.checkIfEmpty();
+	}
+
+	/**
+	 * Cancel everything, go back to previous state
+	 */
+	cancelEdition() {
+		this.m_editor.value = this.m_rawContent;
+		this.checkIfEmpty();
 	}
 }

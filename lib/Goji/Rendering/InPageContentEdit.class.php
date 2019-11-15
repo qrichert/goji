@@ -60,6 +60,7 @@
 			$this->addClass($this->m_baseClass);
 			$this->setAttribute('data-action', 'xhr-in-page-content-edit');
 			$this->setAttribute('data-page', $this->m_app->getRouter()->getCurrentPage());
+			$this->setAttribute('data-placeholder', '¯\_(ツ)_/¯');
 		}
 
 		/**
@@ -118,9 +119,9 @@
 
 			$dontRender = [
 				'class',
-				'data-raw-content',
 				'data-action',
-				'data-page'
+				'data-page',
+				'data-placeholder',
 			];
 
 			// Remove base (edit) class
