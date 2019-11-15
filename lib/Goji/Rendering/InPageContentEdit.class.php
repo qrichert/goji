@@ -16,6 +16,7 @@
 
 		protected $m_app;
 
+		protected $m_defaultLocale;
 		protected $m_includeCSS;
 		protected $m_styleSheet;
 		protected $m_javaScriptLibrary;
@@ -27,12 +28,16 @@
 		 * InPageContentEdit constructor.
 		 *
 		 * @param \Goji\Core\App $app
+		 * @param string|null $defaultLocale
+		 * @throws \Exception
 		 */
-		function __construct(App $app) {
+		function __construct(App $app, string $defaultLocale = null) {
 
 			parent::__construct();
 
 			$this->m_app = $app;
+
+			$this->m_defaultLocale = $defaultLocale ?? $this->m_app->getLanguages()->getCurrentLocale();
 
 			$this->m_includeCSS = true;
 			$this->m_styleSheet = 'css/lib/Goji/inpagecontentedit.css';
@@ -75,9 +80,9 @@
 			$this->m_styleSheet = $styleSheet;
 		}
 
-		public function renderArea(string $areaId, string $tagName = 'p') {
+		public function renderContent(string $areaId, string $tagName = 'p') {
 
-			$area = new InPageEditableContent($this->m_app, $areaId);
+			$area = new InPageEditableContent($this->m_app, $areaId, $this->m_defaultLocale);
 
 			$area = <<<EOT
 			<div {$this->renderAttributes()}>

@@ -24,6 +24,25 @@
 			echo $homeIntro;
 		?>
 
+		<h2>TODO: EDITABLE AREA</h2>
+
+		<div class="in-page-content-edit"
+		     data-raw-content="hello, world!"
+		     data-action="xhr-in-page-content-edit"
+		     data-page=""
+		     data-key=""
+		>
+			<p class="in-page-content-edit__editable-area">
+				hello, world!
+			</p>
+			<textarea class="in-page-content-edit__editor"></textarea>
+		</div>
+		<?php
+			// Use contry code isead of locale
+			$area = new \Goji\Rendering\InPageContentEdit($this->m_app, $this->m_app->getLanguages()->getCurrentCountryCode());
+				$area->renderContent('in-page-content-edit-demo');
+		?>
+
 		<h2><?= $tr->_('HOME_TRY_A_DIFFERENT_LANGUAGE') ?></h2>
 
 		<!-- URLs translated -->
