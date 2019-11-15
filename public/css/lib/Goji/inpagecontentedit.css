@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+.in-page-content-edit__editable-area {
+	cursor: default;
+}
+
+.in-page-content-edit__editable-area:hover {
+	background-color: var(--color-highlight-halo);
+}
+
+.in-page-content-edit__editor {
+	background-color: var(--color-valid);
+}
+
+.in-page-content-edit__editor.modified {
+	background-color: var(--color-danger);
+}
