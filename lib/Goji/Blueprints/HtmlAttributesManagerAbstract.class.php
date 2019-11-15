@@ -258,9 +258,12 @@
 		 *
 		 * @param bool $skipValueAttribute
 		 * @param bool $addSlashes
+		 * @param string|array $dontRender
 		 * @return string
 		 */
-		public function renderAttributes(bool $skipValueAttribute = false, bool $addSlashes = true): string {
+		public function renderAttributes(bool $skipValueAttribute = false, bool $addSlashes = true, $dontRender = []): string {
+
+			$dontRender = (array) $dontRender;
 
 			$attr = '';
 
@@ -271,6 +274,9 @@
 			foreach ($this->m_attributes as $key => $value) {
 
 				if ($skipValueAttribute && $key == 'value')
+					continue;
+
+				if (in_array($key, $dontRender))
 					continue;
 
 				// Never render textContent attribute

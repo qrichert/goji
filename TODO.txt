@@ -14,31 +14,3 @@ TODO: Admin, make it possible to configure a list of models to be editable in ad
 
 
 TODO: setAttribute('class', ''); -> addClass('');
-
-<?php
-	if ($this->m_app->getUser()->isLoggedIn()
-	    && $this->m_app->getMemberManager()->memberIs('editor')) {
-
-		$template->linkFiles([
-			'js/lib/Goji/InPageContentEdit-19.11.14.class.js'
-		]);
-	?>
-		<script>
-			(function () {
-
-				document.querySelectorAll('.in-page-content-edit').forEach(el => new InPageContentEdit(el));
-
-			})();
-		</script>
-	<?php
-	}
-?>
-
-BEGIN TRANSACTION;
-
-----
--- Table structure for g_in_page_editable_content
-----
-CREATE TABLE 'g_editable_content' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'content_id' TEXT, 'page_id' TEXT, 'locale' TEXT, 'content' TEXT, 'last_edit_date' DATETIME, 'last_edit_by' INTEGER);
-COMMIT;
-

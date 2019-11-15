@@ -16,9 +16,14 @@
 
 		protected $m_app;
 
+		protected $m_requiredRoleForEditing;
 		protected $m_defaultLocale;
+
 		protected $m_includeCSS;
 		protected $m_styleSheet;
+
+		protected $m_nbContentAreasRendered;
+
 		protected $m_javaScriptLibrary;
 		protected $m_baseClass;
 		protected $m_editableAreaClass;
@@ -26,6 +31,8 @@
 
 		/**
 		 * InPageContentEdit constructor.
+		 *
+		 * This class handles the View aspect of it. For content, see InPageEditableContent.
 		 *
 		 * @param \Goji\Core\App $app
 		 * @param string|null $defaultLocale
@@ -37,19 +44,22 @@
 
 			$this->m_app = $app;
 
+			$this->m_requiredRoleForEditing = 'editor';
 			$this->m_defaultLocale = $defaultLocale ?? $this->m_app->getLanguages()->getCurrentLocale();
 
 			$this->m_includeCSS = true;
 			$this->m_styleSheet = 'css/lib/Goji/inpagecontentedit.css';
+
+			$this->m_nbContentAreasRendered = 0;
+
 			$this->m_javaScriptLibrary = 'js/lib/Goji/InPageContentEdit-19.11.14.class.js';
 			$this->m_baseClass = 'in-page-content-edit';
 			$this->m_editableAreaClass = $this->m_baseClass . '__editable-area';
 			$this->m_editorClass = $this->m_baseClass . '__editor';
 
 			$this->addClass($this->m_baseClass);
-			$this->setAttribute('data-raw-content', '');
 			$this->setAttribute('data-action', 'xhr-in-page-content-edit');
-			$this->setAttribute('data-page', '');
+			$this->setAttribute('data-page', $this->m_app->getRouter()->getCurrentPage());
 		}
 
 		/**
@@ -80,13 +90,97 @@
 			$this->m_styleSheet = $styleSheet;
 		}
 
-		public function renderContent(string $areaId, string $tagName = 'p') {
+		protected function userCanEdit(): bool {
+			return ($this->m_app->getUser()->isLoggedIn()
+			        && $this->m_app->getMemberManager()->memberIs($this->m_requiredRoleForEditing));
+		}
 
-			$area = new InPageEditableContent($this->m_app, $areaId, $this->m_defaultLocale);
+		protected function renderJavaScript(): void {
+
+			if (!$this->userCanEdit())
+				return;
+
+			echo <<<EOT
+			<script src="{$this->m_javaScriptLibrary}"></script>
+			<script>
+				(function() {
+					window.addEventListener('load', () => {
+						document.querySelectorAll('.in-page-content-edit').forEach(el => new InPageContentEdit(el));
+					}, false);
+				})();
+			</script>
+			EOT;
+		}
+
+		private function renderAttributesNoEdit(): string {
+
+			$attr = '';
+
+			$dontRender = [
+				'class',
+				'data-raw-content',
+				'data-action',
+				'data-page'
+			];
+
+			// Remove base (edit) class
+			$classes = $this->getClasses();
+				$index = array_search($this->m_baseClass, $classes);
+				if ($index !== false)
+					array_splice($classes, $index, 1);
+
+			// Render classes
+			if (!empty($classes))
+				$attr .= 'class="' . implode(' ', $classes) . '"';
+
+			// Render other attributes
+			foreach ($this->m_attributes as $key => $value) {
+
+				if (in_array($key, $dontRender))
+					continue;
+
+				if (!empty($value))
+					$attr .= ' ' . $key . '="' . addcslashes($value, '"') . '"';
+				else
+					$attr .= ' ' . $key;
+			}
+
+			return trim($attr);
+		}
+
+		public function renderContent(string $contentId, string $tagName = 'p') {
+
+			if ($this->m_nbContentAreasRendered == 0)
+				$this->renderJavaScript();
+
+			$this->m_nbContentAreasRendered++;
+
+			$editableContent = new InPageEditableContent($this->m_app,
+			                                     $contentId,
+			                                     $this->m_app->getRouter()->getCurrentPage(),
+			                                     $this->m_defaultLocale);
+
+
+			$formattedContent = $editableContent->getFormattedContent();
+
+			if (!$this->userCanEdit()) {
+
+				$area = <<<EOT
+				<div {$this->renderAttributesNoEdit()}>
+					<{$tagName}>{$formattedContent}</{$tagName}>
+				</div>
+				EOT;
+
+				echo $area;
+
+				return;
+			}
+
+			$rawContent = addcslashes($editableContent->getRawContent(), '"');
 
 			$area = <<<EOT
-			<div {$this->renderAttributes()}>
-				<{$tagName} class="{$this->m_editableAreaClass}"></{$tagName}>
+			<div {$this->renderAttributes()} data-content-id="{$contentId}" data-raw-content="{$rawContent}">
+				<{$tagName} class="{$this->m_editableAreaClass}">{$formattedContent}</{$tagName}>
 				<textarea class="{$this->m_editorClass}"></textarea>
 			</div>
 			EOT;

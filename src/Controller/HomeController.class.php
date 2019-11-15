@@ -3,6 +3,7 @@
 	namespace App\Controller;
 
 	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Rendering\InPageContentEdit;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
@@ -24,6 +25,8 @@
 
 			// Of course you don't need tu use SimpleTemplate.
 			// You could also just include an entire html/php file (use readfile( *.html ))
+
+			$inPageContentEdit = new InPageContentEdit($this->m_app, $this->m_app->getLanguages()->getCurrentCountryCode());
 
 			$template = new SimpleTemplate($this->m_app->getSiteName(),
 			                                $tr->_('HOME_PAGE_DESCRIPTION'));
