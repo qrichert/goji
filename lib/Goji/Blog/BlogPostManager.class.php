@@ -269,8 +269,8 @@
 
 			// Save
 			$query = $this->m_db->prepare('INSERT INTO g_blog
-											       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post)
-											VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post)');
+											       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post,  created_by)
+											VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post, :created_by)');
 
 			$query->execute([
 				'locale' => $locale,
@@ -278,7 +278,8 @@
 				'creation_date' => date('Y-m-d H:i:s'),
 				'last_edit_date' => date('Y-m-d H:i:s'),
 				'title' => $title,
-				'post' => $post
+				'post' => $post,
+				'created_by' => $this->m_app->getUser()->getId()
 			]);
 
 			$query->closeCursor();
