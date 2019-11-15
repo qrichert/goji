@@ -87,11 +87,24 @@
 			$this->writeLock(['id', 'content_id', 'page_id', 'locale']);
 		}
 
+		public function updateContent(string $content): void {
+
+			$this->setContent($content);
+			$this->setLastEditDate(date('Y-m-d H:i:s'));
+			$this->setLastEditBy($this->m_app->getUser()->getId());
+
+			$this->save();
+		}
+
+		public static function formatContent($content): string {
+			return nl2br($content);
+		}
+
 		public function getRawContent(): string {
 			return $this->getContent();
 		}
 
 		public function getFormattedContent(): string {
-			return $this->getRawContent();
+			return $this->formatContent($this->getRawContent());
 		}
 	}

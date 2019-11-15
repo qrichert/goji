@@ -92,6 +92,11 @@
 		route: "/landing-page",
 		controller: "LandingPageController"
 	},
+	// <CONTENT>
+	"xhr-in-page-content-edit": {
+		route: "/xhr-in-page-content-edit",
+		controller: "Admin\\XhrInPageContentEdit"
+	},
 	// <BLOG>
 	"blog": {
 		route: "/blog",

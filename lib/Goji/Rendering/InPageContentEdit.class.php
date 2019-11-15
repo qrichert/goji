@@ -59,7 +59,7 @@
 
 			$this->addClass($this->m_baseClass);
 			$this->setAttribute('data-action', 'xhr-in-page-content-edit');
-			$this->setAttribute('data-page', $this->m_app->getRouter()->getCurrentPage());
+			$this->setAttribute('data-page-id', $this->m_app->getRouter()->getCurrentPage());
 			$this->setAttribute('data-placeholder', '¯\_(ツ)_/¯');
 		}
 
@@ -120,7 +120,7 @@
 			$dontRender = [
 				'class',
 				'data-action',
-				'data-page',
+				'data-page-id',
 				'data-placeholder',
 			];
 
@@ -149,6 +149,17 @@
 			return trim($attr);
 		}
 
+		/**
+		 * For inheritance, so no need to override whole methods.
+		 *
+		 * @param mixed ...$args
+		 * @return \Goji\Rendering\InPageEditableContent
+		 * @throws \Exception
+		 */
+		protected function getInPageEditableContent(...$args): InPageEditableContent {
+			return new InPageEditableContent(...$args);
+		}
+
 		public function renderContent(string $contentId, string $tagName = 'p') {
 
 			if ($this->m_nbContentAreasRendered == 0)
@@ -156,7 +167,7 @@
 
 			$this->m_nbContentAreasRendered++;
 
-			$editableContent = new InPageEditableContent($this->m_app,
+			$editableContent = $this->getInPageEditableContent($this->m_app,
 			                                     $contentId,
 			                                     $this->m_app->getRouter()->getCurrentPage(),
 			                                     $this->m_defaultLocale);

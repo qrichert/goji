@@ -6,10 +6,8 @@
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\XhrControllerAbstract;
-	use Goji\Core\Logger;
 	use Goji\Form\Form;
 	use Goji\HumanResources\MemberManager;
-	use Goji\Security\Passwords;
 	use Goji\Toolkit\Mail;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;

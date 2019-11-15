@@ -21,6 +21,7 @@
 		require_authentication: {
 			"editor": [
 				"admin",
+				"xhr-in-page-content-edit",
 				"admin-blog-post",
 				"xhr-admin-blog-post"
 			],

@@ -16,7 +16,7 @@ class InPageContentEdit {
 		this.m_parent = parent; // Container
 
 			this.m_action = parent.dataset.action; // Page to send data to
-			this.m_page = parent.dataset.page; // Page that hosts the content
+			this.m_pageId = parent.dataset.pageId; // Page that hosts the content
 			this.m_placeholder = parent.dataset.placeholder; // What to show if no content
 			this.m_contentId = parent.dataset.contentId; // If of content element
 			this.m_rawContent = parent.dataset.rawContent; // Content without formatting, as in database
@@ -140,34 +140,61 @@ class InPageContentEdit {
 		this.m_editableArea.style.display = null;
 		this.m_editor.style.display = 'none';
 
-		this.pauseEdition();
+		this.saveEdition();
+	}
+
+	xhrSuccess(response) {
+
+		try {
+			response = JSON.parse(response);
+
+			if (response.status === 'ERROR')
+				throw 0;
+
+			this.m_editableArea.innerHTML = response.content;
+
+		} catch (e) {
+			this.xhrError();
+		}
+
+		this.checkIfEmpty();
+	}
+
+	xhrError() {
+		// TODO: do stg
+		this.checkIfEmpty();
 	}
 
 	/**
 	 * Show modifications, but don't save them (neither online, nor locally)
+	 *
+	 * Push temporary text oline to get formatted version & display it
 	 */
 	pauseEdition() {
-		// Get formatted text from online
-		let formattedText = this.m_editor.value;
 
-		this.m_editableArea.innerHTML = formattedText;
+		let data = new FormData();
+			data.append('content-id', this.m_contentId);
+			data.append('page-id', this.m_pageId);
+			data.append('action', 'get-formatted-content');
+			data.append('content', this.m_editor.value);
 
-		this.checkIfEmpty();
+		SimpleRequest.post(this.m_action, data, (response) => { this.xhrSuccess(response); }, () => { this.xhrError(); });
 	}
 
 	/**
 	 * Save and update everything
 	 */
 	saveEdition() {
-		this.m_rawContent = this.m_editor.value;
 
-		// Save online
-		// Get formatted text back
-		let formattedText = this.m_rawContent;
+		this.m_rawContent = this.m_editor.value; // TODO: this is different
 
-		this.m_editableArea.innerHTML = formattedText;
+		let data = new FormData();
+			data.append('content-id', this.m_contentId);
+			data.append('page-id', this.m_pageId);
+			data.append('action', 'save-content'); // TODO: this is different
+			data.append('content', this.m_rawContent);
 
-		this.checkIfEmpty();
+		SimpleRequest.post(this.m_action, data, (response) => { this.xhrSuccess(response); }, () => { this.xhrError(); });
 	}
 
 	/**
