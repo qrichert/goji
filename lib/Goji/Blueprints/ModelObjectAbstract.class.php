@@ -25,10 +25,10 @@
 	 *
 	 * class Member extends ModelObjectAbstract {
 	 *
-	 *     public function __construct(App $app, $referenceValue) {
+	 *     public function __construct(App $app, $id) {
 	 *
-	 *         // $referenceValue here would be a member's id -> WHERE g_member.id = $referenceValue
-	 *         parent::__construct($app, $referenceValue, 'g_member', 'id');
+	 *         //                                   = WHERE id=3
+	 *         parent::__construct($app, 'g_member', 'id=' . (string) $id);
 	 *
 	 *         $this->m_autoSave = true; // If you want that
 	 *
@@ -36,7 +36,7 @@
 	 *     }
 	 * }
 	 *
-	 * new Member($this->m_app, 1); // Selects member with id 1
+	 * new Member($this->m_app, 3); // Selects member with id 3
 	 *
 	 * @package Goji\Blueprints
 	 */
@@ -47,9 +47,8 @@
 		protected $m_app;
 		protected $m_db;
 		protected $m_autoSave;
-		protected $m_referenceValue;
 		protected $m_tableName;
-		protected $m_referenceColumn;
+		protected $m_whereCondition;
 		protected $m_data; // FormattedColumnName (for getColumn/setColumn) [ original column name, value ]
 
 		/* <CONSTANTS> */
@@ -60,32 +59,27 @@
 		/**
 		 * ModelAbstract constructor.
 		 *
-		 * SELECT * FROM $table WHERE $referenceColumn=$referenceValue
+		 * SELECT * FROM $table WHERE referenceColumn=referenceValue
 		 *
 		 * @param \Goji\Core\App $app
-		 * @param int|string $referenceValue Value to fetch
 		 * @param string $tableName Name of the database table
-		 * @param string $referenceColumn Column of reference
+		 * @param string $whereCondition WHERE condition (without WHERE keyword) /!\ Be careful with SQL injections here !!!, this will be used as is
 		 * @throws \Exception
 		 */
-		public function __construct(App $app, $referenceValue, string $tableName, string $referenceColumn) {
+		public function __construct(App $app, string $tableName, string $whereCondition) {
 
 			$this->m_app = $app;
 			$this->m_db = $app->db();
 			$this->m_autoSave = false; // If true, save after every change (call to set*())
-			$this->m_referenceValue = $referenceValue;
 			$this->m_tableName = $tableName;
-			$this->m_referenceColumn = $referenceColumn;
+			$this->m_whereCondition = $whereCondition;
 
-			$query = $this->m_db->prepare("SELECT * FROM {$this->m_tableName} WHERE {$this->m_referenceColumn}=:reference_value");
-			$query->execute([
-				'reference_value' => $this->m_referenceValue
-			]);
+			$query = $this->m_db->query("SELECT * FROM {$this->m_tableName} WHERE {$this->m_whereCondition}");
 			$reply = $query->fetch();
 			$query->closeCursor();
 
 			if ($reply === false)
-				throw new Exception("Object not found in table {$this->m_tableName} WHERE $referenceColumn=$referenceValue", self::E_OBJECT_NOT_FOUND_IN_DATABASE);
+				throw new Exception("Object not found in table {$this->m_tableName} WHERE {$this->m_whereCondition}", self::E_OBJECT_NOT_FOUND_IN_DATABASE);
 
 			$this->m_data = [];
 
@@ -192,11 +186,10 @@
 
 			$query = $this->m_db->prepare("UPDATE {$this->m_tableName}
 											SET {$this->m_data[$name]['column']}=:new_value
-											WHERE {$this->m_referenceColumn}=:reference_value");
+											WHERE {$this->m_whereCondition}");
 
 			$query->execute([
-				'new_value' => $this->m_data[$name]['value'],
-				'reference_value' => $this->m_referenceValue
+				'new_value' => $this->m_data[$name]['value']
 			]);
 
 			$query->closeCursor();
@@ -229,13 +222,12 @@
 				$inputParameters[$column['column'] . '_new_value'] = $column['value'];
 			}
 
-			$inputParameters['reference_value'] = $this->m_referenceValue;
 			$dataToSave = implode(', ', $dataToSave);
 
 
 			$query = $this->m_db->prepare("UPDATE {$this->m_tableName}
 											SET $dataToSave
-											WHERE {$this->m_referenceColumn}=:reference_value");
+											WHERE {$this->m_whereCondition}");
 
 			$query->execute($inputParameters);
 
