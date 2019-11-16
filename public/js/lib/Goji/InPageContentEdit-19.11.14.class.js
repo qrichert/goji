@@ -75,6 +75,7 @@ class InPageContentEdit {
 		}
 
 		this.m_editor.addEventListener('change', () => { this.resizeEditor(); }, false);
+		this.m_editor.addEventListener('keydown', () => { this.setModified(true); }, false);
 
 		for (let e of ['cut', 'paste', 'drop', 'keydown', 'resizerequest']) { // resizerequest = CustomEvent
 			this.m_editor.addEventListener(e, () => { this.resizeEditorDelayed(); }, false);
@@ -112,6 +113,14 @@ class InPageContentEdit {
 		setTimeout(() => { this.resizeEditor(); }, 7);
 	}
 
+	setModified(modified) {
+
+		if (modified)
+			this.m_parent.classList.add('modified');
+		else
+			this.m_parent.classList.remove('modified');
+	}
+
 	/**
 	 * What to do if no content.
 	 */
@@ -142,7 +151,17 @@ class InPageContentEdit {
 		this.m_buttons.style.display = 'none';
 	}
 
-	xhrSuccess(response) {
+	/**
+	 * @param {Boolean} lock
+	 */
+	lockEditor(lock) {
+		this.m_editor.disabled = lock;
+		this.m_buttonSave.disabled = lock;
+		this.m_buttonPreview.disabled = lock;
+		this.m_buttonCancel.disabled = lock;
+	}
+
+	xhrSuccess(response, callbackSuccess = null, callbackError = null) {
 
 		try {
 			response = JSON.parse(response);
@@ -152,29 +171,43 @@ class InPageContentEdit {
 
 			this.m_editableArea.innerHTML = response.content;
 
+			if (callbackSuccess !== null)
+				callbackSuccess();
+
 			this.deactivateEditMode();
+			this.lockEditor(false);
 
 		} catch (e) {
-			this.xhrError();
+			this.xhrError(callbackError);
 		}
 
 		this.checkIfEmpty();
 	}
 
-	xhrError() {
-		// TODO: do stg
-		this.checkIfEmpty();
+	xhrError(callbackError = null) {
+
+		if (callbackError !== null)
+			callbackError();
+
+		this.lockEditor(false);
 	}
 
-	xhrPost(action) {
+	xhrPost(action, callbackSuccess = null, callbackError = null) {
 
 		let data = new FormData();
-		data.append('content-id', this.m_contentId);
-		data.append('page-id', this.m_pageId);
-		data.append('action', action);
-		data.append('content', this.m_editor.value);
+			data.append('content-id', this.m_contentId);
+			data.append('page-id', this.m_pageId);
+			data.append('action', action);
+			data.append('content', this.m_editor.value);
 
-		SimpleRequest.post(this.m_action, data, (response) => { this.xhrSuccess(response); }, () => { this.xhrError(); });
+		SimpleRequest.post(this.m_action, data,
+			(response) => {
+				this.xhrSuccess(response, callbackSuccess, callbackError);
+			},
+			() => {
+				this.xhrError(callbackError);
+			}
+		);
 	}
 
 	/**
@@ -183,16 +216,63 @@ class InPageContentEdit {
 	 * Push temporary text online to get formatted version & display it
 	 */
 	previewEdition() {
-		this.xhrPost('get-formatted-content');
-		this.m_buttons.style.display = 'none';
+
+		let onSuccess = () => {
+
+			this.m_buttonPreview.classList.remove('loading');
+			this.m_buttonPreview.classList.add('loaded');
+
+			setTimeout(() => {
+				this.m_buttonPreview.classList.remove('loaded');
+			}, 1500);
+		};
+
+		let onError = () => {
+
+			this.m_buttonPreview.classList.remove('loading');
+			this.m_buttonPreview.classList.add('failed');
+
+			setTimeout(() => {
+				this.m_buttonPreview.classList.remove('failed');
+			}, 1500);
+		};
+
+		this.lockEditor(true);
+		this.m_buttonPreview.classList.add('loading');
+		this.xhrPost('get-formatted-content', onSuccess, onError);
 	}
 
 	/**
 	 * Save and update everything
 	 */
 	saveEdition() {
-		this.m_rawContent = this.m_editor.value; // TODO: check that is works
-		this.xhrPost('save-content');
+
+		let onSuccess = () => {
+
+			this.setModified(false);
+
+			this.m_buttonSave.classList.remove('loading');
+			this.m_buttonSave.classList.add('loaded');
+
+			setTimeout(() => {
+				this.m_buttonSave.classList.remove('loaded');
+			}, 1500);
+		};
+
+		let onError = () => {
+
+			this.m_buttonSave.classList.remove('loading');
+			this.m_buttonSave.classList.add('failed');
+
+			setTimeout(() => {
+				this.m_buttonSave.classList.remove('failed');
+			}, 1500);
+		};
+
+		this.m_rawContent = this.m_editor.value;
+		this.lockEditor(true);
+		this.m_buttonSave.classList.add('loading');
+		this.xhrPost('save-content', onSuccess, onError);
 	}
 
 	/**
@@ -200,6 +280,7 @@ class InPageContentEdit {
 	 */
 	cancelEdition() {
 		this.m_editor.value = this.m_rawContent;
+		this.setModified(false);
 		this.checkIfEmpty();
 
 		this.deactivateEditMode();

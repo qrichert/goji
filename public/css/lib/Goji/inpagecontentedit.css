@@ -4,16 +4,12 @@
 	cursor: text;
 }
 
-.in-page-content-edit__editable-area:hover {
+.in-page-content-edit__editable-area:hover,
+.in-page-content-edit__editor {
 	background-color: var(--color-highlight-halo);
 }
 
-.in-page-content-edit__editor {
-	background-color: var(--color-valid);
+.in-page-content-edit.modified .in-page-content-edit__editable-area:hover,
+.in-page-content-edit.modified .in-page-content-edit__editor {
+	background-color: var(--color-warning-light);
 }
-
-.in-page-content-edit__editor.modified {
-	background-color: var(--color-danger);
-}
-
-.in-page-content-edit__editor

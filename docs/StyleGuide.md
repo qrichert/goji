@@ -131,6 +131,7 @@ Modifiers work for the `<button>`, the `<input>` and the `<a class="link-button"
 - **`.delete`**: Button for deletion (delete action)
 
 The following modifiers should be used in combination with `.highlight` or `.delete`.
+If not, you can add a **`.dark`** modifier for a dark icon version.
 
 - **`.add`**: Button with a + sign on hover (add action)
 - **`.loader`**: Button with loading capacity, append the following classes to change the state:

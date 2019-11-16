@@ -15,6 +15,7 @@
 		<segment id="SAVE">Enregistrer</segment>
 		<segment id="PREVIEW">Aperçu</segment>
 		<segment id="CANCEL">Annuler</segment>
+		<segment id="CANCEL_CONFIRM">Êtes-vous sûr?\nToutes les modifications seront perdues.</segment>
 		<segment id="SHRUG">¯\_(ツ)_/¯</segment>
 
 		<!-- Nav -->
@@ -174,7 +175,7 @@
 	<page id="blog-post">
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR} à %{HOUR}:%{MIN}</segment>
-		<segment id="BLOG_POST_DELETE_CONFIRMATION">Supprimer l'article, êtes vous sûr ?\nCette action est irréversible.</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION">Supprimer l'article, êtes-vous sûr ?\nCette action est irréversible.</segment>
 		<segment id="BLOG_POST_DELETE_CONFIRMATION_INPUT">Entrez « oui » pour confirmer</segment>
 		<segment id="BLOG_POST_DELETE_CONFIRMATION_STRING">oui</segment>
 		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Retourner à la liste des articles</segment>
