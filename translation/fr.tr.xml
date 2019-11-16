@@ -13,6 +13,7 @@
 		<segment id="EDIT">Modifier</segment>
 		<segment id="DELETE">Supprimer</segment>
 		<segment id="SAVE">Enregistrer</segment>
+		<segment id="SAVE_CONFIRM">Êtes-vous sûr?\nLes nouveaux changements vont écraser les anciens de manière permanente.</segment>
 		<segment id="PREVIEW">Aperçu</segment>
 		<segment id="CANCEL">Annuler</segment>
 		<segment id="CANCEL_CONFIRM">Êtes-vous sûr?\nToutes les modifications seront perdues.</segment>

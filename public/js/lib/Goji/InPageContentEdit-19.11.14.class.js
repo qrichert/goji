@@ -47,6 +47,8 @@ class InPageContentEdit {
 		this.m_buttonPreview = this.m_buttons.querySelector('[data-action="preview"]');
 		this.m_buttonCancel = this.m_buttons.querySelector('[data-action="cancel"]');
 
+		this.m_modified = false;
+
 		this.addListeners();
 
 		this.checkIfEmpty();
@@ -86,9 +88,9 @@ class InPageContentEdit {
 
 		// Buttons
 
-		this.m_buttonSave.addEventListener('click', () => { this.saveEdition(); }, false);
+		this.m_buttonSave.addEventListener('click', (e) => { this.saveEdition(e); }, false);
 		this.m_buttonPreview.addEventListener('click', () => { this.previewEdition(); }, false);
-		this.m_buttonCancel.addEventListener('click', () => { this.cancelEdition(); }, false);
+		this.m_buttonCancel.addEventListener('click', (e) => { this.cancelEdition(e); }, false);
 	}
 
 	/**
@@ -115,6 +117,8 @@ class InPageContentEdit {
 	}
 
 	setModified(modified) {
+
+		this.m_modified = modified;
 
 		if (modified)
 			this.m_parent.classList.add('modified');
@@ -246,7 +250,12 @@ class InPageContentEdit {
 	/**
 	 * Save and update everything
 	 */
-	saveEdition() {
+	saveEdition(e) {
+
+		if (this.m_modified && !confirm(this.m_text.save_confirm.replace("\\n", "\n"))) {
+			e.preventDefault();
+			return;
+		}
 
 		let onSuccess = () => {
 
@@ -279,7 +288,13 @@ class InPageContentEdit {
 	/**
 	 * Cancel everything, go back to previous state
 	 */
-	cancelEdition() {
+	cancelEdition(e) {
+
+		if (this.m_modified && !confirm(this.m_text.cancel_confirm.replace("\\n", "\n"))) {
+			e.preventDefault();
+			return;
+		}
+
 		this.m_editor.value = this.m_rawContent;
 		this.setModified(false);
 		this.checkIfEmpty();

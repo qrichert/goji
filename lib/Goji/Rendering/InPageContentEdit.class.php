@@ -63,8 +63,9 @@
 			$this->setAttribute('data-action', 'xhr-in-page-content-edit');
 			$this->setAttribute('data-page-id', $this->m_app->getRouter()->getCurrentPage());
 			$this->setAttribute('data-text', htmlspecialchars(json_encode([
-				'confirm-cancel' => $this->m_app->getTranslator()->_('CANCEL_CONFIRM'),
-				'placeholder' => $this->m_app->getTranslator()->_('SHRUG')
+				'save_confirm' => $this->m_app->getTranslator()->translate('SAVE_CONFIRM'),
+				'cancel_confirm' => $this->m_app->getTranslator()->translate('CANCEL_CONFIRM'),
+				'placeholder' => $this->m_app->getTranslator()->translate('SHRUG')
 			])));
 		}
 
