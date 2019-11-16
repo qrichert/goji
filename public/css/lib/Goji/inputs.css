@@ -265,6 +265,24 @@ input[type=reset].add:hover::after,
 	background-repeat: no-repeat;
 }
 
+/* Buttons - Add Dark */
+
+button.add.dark::before,
+input[type=button].add.dark::before,
+input[type=submit].add.dark::before,
+input[type=reset].add.dark::before,
+.link-button.add.dark::before { /* Preload hover image */
+	content: url('img/plus--dark.svg');
+}
+
+button.add.dark:hover::after,
+input[type=button].add.dark:hover::after,
+input[type=submit].add.dark:hover::after,
+input[type=reset].add.dark:hover::after,
+.link-button.add.dark:hover::after {
+	background-image: url('img/plus--dark.svg');
+}
+
 /* Buttons - Loader - (Normal State) */
 
 button.loader::before,
@@ -346,6 +364,47 @@ input[type=button].loader.failed::after,
 	background-size: contain;
 	background-position: center center;
 	background-repeat: no-repeat;
+}
+
+/* Buttons - Loader Dark - (Normal State) */
+
+button.loader.dark::before,
+input[type=button].loader.dark::before,
+.link-button.loader.dark::before { /* Preload hover images */
+	content: url('img/arrow-up--dark.svg')
+			 url('img/loading-dots--dark.svg')
+			 url('img/checkmark--dark.svg')
+			 url('img/cross--dark.svg');
+}
+
+button.loader.dark:hover::after,
+input[type=button].loader.dark:hover::after,
+.link-button.loader.dark:hover::after {
+	background-image: url('img/arrow-up--dark.svg');
+}
+
+/* Buttons - Loading Dark (When Loading Data) */
+
+button.loader.dark.loading::after,
+input[type=button].loader.dark.loading::after,
+.link-button.loader.dark.loading::after {
+	background-image: url('img/loading-dots--dark.svg');
+}
+
+/* Buttons - Loaded Dark - (Data Finished Loading) */
+
+button.loader.dark.loaded::after,
+input[type=button].loader.dark.loaded::after,
+.link-button.loader.dark.loaded::after {
+	background-image: url('img/checkmark--dark.svg');
+}
+
+/* Buttons - Loading Failed Dark - (Error While Loading Data) */
+
+button.loader.dark.failed::after,
+input[type=button].loader.dark.failed::after,
+.link-button.loader.dark.failed::after {
+	background-image: url('img/cross--dark.svg');
 }
 
 /* Buttons - Regular || Highlight || Delete - :DISABLED */

@@ -12,6 +12,10 @@
 		<segment id="PUBLISH">Publish</segment>
 		<segment id="EDIT">Edit</segment>
 		<segment id="DELETE">Delete</segment>
+		<segment id="SAVE">Save</segment>
+		<segment id="PREVIEW">Preview</segment>
+		<segment id="CANCEL">Cancel</segment>
+		<segment id="SHRUG">¯\_(ツ)_/¯</segment>
 
 		<!-- Nav -->
 		<segment id="NAV_HOME">Home</segment>

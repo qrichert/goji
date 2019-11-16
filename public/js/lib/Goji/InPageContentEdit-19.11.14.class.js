@@ -8,16 +8,11 @@ class InPageContentEdit {
 	 */
 	constructor(parent) {
 
-		this.m_states = {
-			DEFAULT: 1,
-			EDITING: 2
-		};
-
 		this.m_parent = parent; // Container
 
 			this.m_action = parent.dataset.action; // Page to send data to
 			this.m_pageId = parent.dataset.pageId; // Page that hosts the content
-			this.m_placeholder = parent.dataset.placeholder; // What to show if no content
+			this.m_text = JSON.parse(parent.dataset.text);
 			this.m_contentId = parent.dataset.contentId; // If of content element
 			this.m_rawContent = parent.dataset.rawContent; // Content without formatting, as in database
 
@@ -44,7 +39,12 @@ class InPageContentEdit {
 			this.m_editor.style.boxShadow = this.getEditableAreaProperty('box-shadow');
 			this.m_editor.style.borderRadius = this.getEditableAreaProperty('border-radius');
 
-		this.m_currentState = this.m_states.DEFAULT;
+		this.m_buttons = parent.querySelector('.in-page-content-edit__buttons');
+			this.m_buttons.style.display = 'none';
+
+		this.m_buttonSave = this.m_buttons.querySelector('[data-action="save"]');
+		this.m_buttonPreview = this.m_buttons.querySelector('[data-action="preview"]');
+		this.m_buttonCancel = this.m_buttons.querySelector('[data-action="cancel"]');
 
 		this.addListeners();
 
@@ -80,7 +80,13 @@ class InPageContentEdit {
 			this.m_editor.addEventListener(e, () => { this.resizeEditorDelayed(); }, false);
 		}
 
-		this.resizeEditorDelayed();
+		//this.resizeEditorDelayed();
+
+		// Buttons
+
+		this.m_buttonSave.addEventListener('click', () => { this.saveEdition(); }, false);
+		this.m_buttonPreview.addEventListener('click', () => { this.previewEdition(); }, false);
+		this.m_buttonCancel.addEventListener('click', () => { this.cancelEdition(); }, false);
 	}
 
 	/**
@@ -116,31 +122,24 @@ class InPageContentEdit {
 			return;
 
 		// Set placeholder text
-		this.m_editableArea.textContent = this.m_placeholder;
+		this.m_editableArea.textContent = this.m_text.placeholder;
 	}
 
 	activateEditMode() {
-
-		this.m_currentState = this.m_states.EDITING;
 
 		this.m_editableArea.style.display = 'none';
 		this.m_editor.style.display = this.m_editableAreaDisplay;
 		this.m_editor.focus();
 		this.m_editor.setSelectionRange(this.m_editor.value.length, this.m_editor.value.length); // Put cursor at end
+		this.m_buttons.style.display = 'block';
 
 		this.resizeEditorDelayed();
-
-		setTimeout(() => { this.deactivateEditMode(); }, 3000);
 	}
 
 	deactivateEditMode() {
-
-		this.m_currentState = this.m_states.DEFAULT;
-
 		this.m_editableArea.style.display = null;
 		this.m_editor.style.display = 'none';
-
-		this.saveEdition();
+		this.m_buttons.style.display = 'none';
 	}
 
 	xhrSuccess(response) {
@@ -152,6 +151,8 @@ class InPageContentEdit {
 				throw 0;
 
 			this.m_editableArea.innerHTML = response.content;
+
+			this.deactivateEditMode();
 
 		} catch (e) {
 			this.xhrError();
@@ -165,36 +166,33 @@ class InPageContentEdit {
 		this.checkIfEmpty();
 	}
 
+	xhrPost(action) {
+
+		let data = new FormData();
+		data.append('content-id', this.m_contentId);
+		data.append('page-id', this.m_pageId);
+		data.append('action', action);
+		data.append('content', this.m_editor.value);
+
+		SimpleRequest.post(this.m_action, data, (response) => { this.xhrSuccess(response); }, () => { this.xhrError(); });
+	}
+
 	/**
 	 * Show modifications, but don't save them (neither online, nor locally)
 	 *
-	 * Push temporary text oline to get formatted version & display it
+	 * Push temporary text online to get formatted version & display it
 	 */
-	pauseEdition() {
-
-		let data = new FormData();
-			data.append('content-id', this.m_contentId);
-			data.append('page-id', this.m_pageId);
-			data.append('action', 'get-formatted-content');
-			data.append('content', this.m_editor.value);
-
-		SimpleRequest.post(this.m_action, data, (response) => { this.xhrSuccess(response); }, () => { this.xhrError(); });
+	previewEdition() {
+		this.xhrPost('get-formatted-content');
+		this.m_buttons.style.display = 'none';
 	}
 
 	/**
 	 * Save and update everything
 	 */
 	saveEdition() {
-
-		this.m_rawContent = this.m_editor.value; // TODO: this is different
-
-		let data = new FormData();
-			data.append('content-id', this.m_contentId);
-			data.append('page-id', this.m_pageId);
-			data.append('action', 'save-content'); // TODO: this is different
-			data.append('content', this.m_rawContent);
-
-		SimpleRequest.post(this.m_action, data, (response) => { this.xhrSuccess(response); }, () => { this.xhrError(); });
+		this.m_rawContent = this.m_editor.value; // TODO: check that is works
+		this.xhrPost('save-content');
 	}
 
 	/**
@@ -203,5 +201,7 @@ class InPageContentEdit {
 	cancelEdition() {
 		this.m_editor.value = this.m_rawContent;
 		this.checkIfEmpty();
+
+		this.deactivateEditMode();
 	}
 }

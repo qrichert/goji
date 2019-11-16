@@ -28,6 +28,7 @@
 		protected $m_baseClass;
 		protected $m_editableAreaClass;
 		protected $m_editorClass;
+		protected $m_buttonsClass;
 
 		/**
 		 * InPageContentEdit constructor.
@@ -56,11 +57,17 @@
 			$this->m_baseClass = 'in-page-content-edit';
 			$this->m_editableAreaClass = $this->m_baseClass . '__editable-area';
 			$this->m_editorClass = $this->m_baseClass . '__editor';
+			$this->m_buttonsClass = $this->m_baseClass . '__buttons';
 
 			$this->addClass($this->m_baseClass);
 			$this->setAttribute('data-action', 'xhr-in-page-content-edit');
 			$this->setAttribute('data-page-id', $this->m_app->getRouter()->getCurrentPage());
-			$this->setAttribute('data-placeholder', '¯\_(ツ)_/¯');
+			$this->setAttribute('data-text', htmlspecialchars(json_encode([
+				'save' => $this->m_app->getTranslator()->_('SAVE'),
+				'preview' => $this->m_app->getTranslator()->_('PREVIEW'),
+				'cancel' => $this->m_app->getTranslator()->_('CANCEL'),
+				'placeholder' => $this->m_app->getTranslator()->_('SHRUG')
+			])));
 		}
 
 		/**
@@ -194,6 +201,11 @@
 			<div {$this->renderAttributes()} data-content-id="{$contentId}" data-raw-content="{$rawContent}">
 				<{$tagName} class="{$this->m_editableAreaClass}">{$formattedContent}</{$tagName}>
 				<textarea class="{$this->m_editorClass}"></textarea>
+				<div class="{$this->m_buttonsClass}">
+					<button data-action="save" class="loader highlight">{$this->m_app->getTranslator()->translate('SAVE')}</button>
+					<button data-action="preview" class="loader dark">{$this->m_app->getTranslator()->translate('PREVIEW')}</button>
+					<button data-action="cancel" class="delete">{$this->m_app->getTranslator()->translate('CANCEL')}</button>
+				</div>
 			</div>
 			EOT;
 

@@ -42,6 +42,8 @@
 			$this->m_targetLocale = $app->getLanguages()->getCurrentLocale();
 			$this->m_resourcesLoaded = [];
 			$this->m_segments = [];
+
+			$this->m_app->setTranslator($this);
 		}
 
 		/**

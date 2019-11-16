@@ -7,6 +7,7 @@
 	use Goji\HumanResources\MemberManager;
 	use Goji\HumanResources\User;
 	use Goji\Translation\Languages;
+	use Goji\Translation\Translator;
 	use PDO;
 	use Exception;
 
@@ -35,6 +36,7 @@
 		private $m_authentication;
 		private $m_firewall;
 		private $m_router;
+		private $m_translator;
 
 		/* <CONSTANTS> */
 
@@ -49,6 +51,7 @@
 		const E_NO_LANGUAGES = 0;
 		const E_NO_ROUTER = 1;
 		const E_USER_LOGGED_IN = 2;
+		const E_NO_TRANSLATOR = 3;
 
 		/**
 		 * App constructor.
@@ -82,6 +85,7 @@
 			$this->m_authentication = new Authentication($this);
 			$this->m_firewall = new Firewall($this);
 			$this->m_router = null;
+			$this->m_translator = null;
 		}
 
 		/**
@@ -383,6 +387,32 @@
 		 */
 		public function hasRouter(): bool {
 			return isset($this->m_router);
+		}
+
+		/**
+		 * @return \Goji\Translation\Translator
+		 * @throws \Exception
+		 */
+		public function getTranslator(): Translator {
+
+			if (isset($this->m_translator))
+				return $this->m_translator;
+			else
+				throw new Exception('No translator has been set.', self::E_NO_TRANSLATOR);
+		}
+
+		/**
+		 * @param \Goji\Translation\Translator $translator
+		 */
+		public function setTranslator(Translator $translator): void {
+			$this->m_translator = $translator;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function hasTranslator(): bool {
+			return isset($this->m_translator);
 		}
 
 		/**

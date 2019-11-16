@@ -16,6 +16,10 @@ $tr = new Translator($this->m_app); // You must pass a reference to App
     $tr->loadTranslationResource('%{LOCALE}.tr.xml');
 ```
 
+**Important:** The `Translator` object will automatically by available through `App::getTranslator()`.
+No need to set it specifically using `App::setTranslator()`. You can always check that one is set using
+`App::hasTranslator()`.
+
 Let's assume the current locale is `en_AU`.
 
 So the previous code will first look for `en_AU.tr.xml`. So if you have a `/translation/en_AU.tr.xml`
