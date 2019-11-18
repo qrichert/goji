@@ -42,6 +42,6 @@ duplicate and rename it "databases.json5".
 	},
 	local: {
 		prefix: "sqlite",
-		file: "goji.sqlite" // Will be saved in /var/db/goji.sqlite
+		file: "goji.sqlite3" // Will be saved in /var/db/goji.sqlite3
 	}
 }

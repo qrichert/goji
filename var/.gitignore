@@ -4,5 +4,6 @@
 !.gitignore
 !db/
 !db/*.sqlite
+!db/*.sqlite3
 !upload/
 !upload/*

@@ -71,4 +71,4 @@ To log in with the demo account use these credentials on the `/login` page:
 - Username: `root@users.goji`
 - Password: `goji`
 
-These can be edited in the default database `/var/db/goji.sqlite`.
+These can be edited in the default database `/var/db/goji.sqlite3`.
