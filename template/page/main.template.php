@@ -58,6 +58,7 @@
 				'css/lib/Goji/flags.css',
 				'css/lib/Goji/inputs.css',
 				'css/lib/Goji/inpagecontentedit.css',
+				'css/lib/Goji/markdown.css',
 				'css/main.css',
 				'css/responsive.css'
 			];

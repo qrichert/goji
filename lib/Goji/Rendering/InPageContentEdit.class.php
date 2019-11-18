@@ -235,7 +235,7 @@
 				return;
 			}
 
-			$rawContent = addcslashes($editableContent->getRawContent(), '"');
+			$rawContent = htmlspecialchars($editableContent->getRawContent());
 
 			$area = <<<EOT
 			<div {$this->renderAttributes()} data-content-id="{$contentId}" data-raw-content="{$rawContent}">

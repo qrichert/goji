@@ -33,7 +33,7 @@ body {
 	line-height: 1.2; /* Default in most browsers */
 }
 ol, ul {
-	/*list-style: none;*/
+	list-style: none;
 }
 blockquote, q {
 	quotes: none;
@@ -59,4 +59,14 @@ em {
 }
 ol, ul {
 	padding-left: 40px;
+	list-style-position: outside;
+}
+ol {
+	list-style-type: decimal;
+}
+ul {
+	list-style-type: disc;
+}
+li {
+	display: list-item;
 }

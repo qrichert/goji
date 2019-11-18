@@ -24,6 +24,10 @@
 	margin: 0;
 }
 
+.contact__help-message > * > :first-child {
+	margin-top: 0;
+}
+
 /* <BLOG> */
 
 .form__blog-post #blog-post__permalink,
