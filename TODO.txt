@@ -11,6 +11,3 @@ TODO: Didn't receive email on subscription
 TODO: Don't automatically reset password (in case someone else does it to annoy people), just send a link they can ignore
 
 TODO: Admin, make it possible to configure a list of models to be editable in admin panel (Django-like). Reference the model, && database table name
-
-
-TODO: setAttribute('class', ''); -> addClass('');

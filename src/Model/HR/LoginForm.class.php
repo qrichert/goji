@@ -24,15 +24,15 @@
 				return $email;
 			};
 
-			$this->setAttribute('class', 'form__centered')
-			     ->setAttribute('id', 'login__form');
+			$this->addClass('form__centered')
+			     ->setId('login__form');
 
 				$this->addInput(new InputLabel())
 					 ->setAttribute('for', 'login__email')
 					 ->setAttribute('textContent', $tr->_('LOGIN_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
 					 ->setAttribute('name', 'login[email]')
-					 ->setAttribute('id', 'login__email')
+					 ->setId('login__email')
 					 ->setAttribute('placeholder', $tr->_('LOGIN_FORM_EMAIL_PLACEHOLDER'))
 					 ->setAttribute('required');
 				$this->addInput(new InputLabel())
@@ -41,12 +41,12 @@
 					 ->setSideInfo('a', ['href' => '#', 'id' => 'login__forgot-password'], $tr->_('LOGIN_FORGOT_PASSWORD'));
 				$this->addInput(new InputTextPassword())
 					 ->setAttribute('name', 'login[password]')
-					 ->setAttribute('id', 'login__password')
+					 ->setId('login__password')
 					 ->setAttribute('placeholder', $tr->_('LOGIN_FUN_MESSAGE', mt_rand(1, 3)))
 					 ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 				$this->addInput(new InputButtonElement())
-					 ->setAttribute('class', 'highlight loader')
+					 ->addClass('highlight loader')
 					 ->setAttribute('textContent', $tr->_('LOGIN_FORM_LOG_IN_BUTTON'));
 				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 		}

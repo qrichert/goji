@@ -23,20 +23,20 @@
 				return $email;
 			};
 
-			$this->setAttribute('class', 'form__centered')
-				 ->setAttribute('id', 'sign-up__form');
+			$this->addClass('form__centered')
+				 ->setId('sign-up__form');
 
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'sign-up__email')
 				     ->setAttribute('textContent', $tr->_('SIGN_UP_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
 				     ->setAttribute('name', 'sign-up[email]')
-				     ->setAttribute('id', 'sign-up__email')
+				     ->setId('sign-up__email')
 				     ->setAttribute('placeholder', $tr->_('SIGN_UP_FORM_EMAIL_PLACEHOLDER'))
 				     ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 				$this->addInput(new InputButtonElement())
-				     ->setAttribute('class', 'highlight loader')
+				     ->addClass('highlight loader')
 				     ->setAttribute('textContent', $tr->_('SIGN_UP_FORM_SIGN_UP_BUTTON'));
 				$this->addInput(new InputCustom('<p class="form__success"></p>'));
 				$this->addInput(new InputCustom('<p class="form__error"></p>'));

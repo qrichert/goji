@@ -51,12 +51,13 @@
 		 * 'hello world foo bar' -> ['hello', 'world', 'foo', 'bar']
 		 *
 		 * @param string|array $classes
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
 		 */
-		public function addClasses($classes): void {
+		public function addClasses($classes): HtmlAttributesManagerAbstract {
 
 			// If empty, no need to process further
 			if (empty($classes))
-				return;
+				return $this;
 
 			// Make sure it's an array
 			if (!is_array($classes))
@@ -70,15 +71,18 @@
 				if (!$this->hasClass($class))
 					$this->m_classes[] = $class;
 			}
+
+			return $this;
 		}
 
 		/**
 		 * Alias for addClasses()
 		 *
 		 * @param array $args
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
 		 */
-		public function addClass(...$args): void {
-			$this->addClasses(...$args);
+		public function addClass(...$args): HtmlAttributesManagerAbstract {
+			return $this->addClasses(...$args);
 		}
 
 		/**
@@ -89,16 +93,19 @@
 		 * 'hello world foo bar' -> ['hello', 'world', 'foo', 'bar']
 		 *
 		 * @param string|array $classes
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
 		 */
-		public function setClasses($classes): void {
+		public function setClasses($classes): HtmlAttributesManagerAbstract {
 
 			// Empty existing classes
 			$this->clearClasses();
 
 			if (empty($classes))
-				return;
+				return $this;
 
 			$this->addClasses($classes);
+
+			return $this;
 		}
 
 		/**
@@ -109,12 +116,13 @@
 		 * 'hello world foo bar' -> ['hello', 'world', 'foo', 'bar']
 		 *
 		 * @param $classes
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
 		 */
-		public function removeClasses($classes): void {
+		public function removeClasses($classes): HtmlAttributesManagerAbstract {
 
 			// If empty, no need to process further
 			if (empty($classes))
-				return;
+				return $this;
 
 			// Make sure it's an array
 			if (!is_array($classes))
@@ -132,22 +140,27 @@
 					$index = array_search($class, $this->m_classes);
 				}
 			}
+
+			return $this;
 		}
 
 		/**
 		 * Alias for removeClasses()
 		 *
 		 * @param array $args
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
 		 */
-		public function removeClass(...$args): void {
-			$this->removeClasses(...$args);
+		public function removeClass(...$args): HtmlAttributesManagerAbstract {
+			return $this->removeClasses(...$args);
 		}
 
 		/**
 		 * Remove all classes
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
 		 */
-		public function clearClasses(): void {
+		public function clearClasses(): HtmlAttributesManagerAbstract {
 			$this->m_classes = [];
+			return $this;
 		}
 
 		/**
@@ -163,16 +176,33 @@
 
 /* <ID> */
 
+		/**
+		 * @return bool
+		 */
 		public function hasId(): bool {
 			return $this->hasAttribute('id');
 		}
 
+		/**
+		 * @return string
+		 */
 		public function getId(): string {
 			return $this->getAttribute('id');
 		}
 
+		/**
+		 * @param string $id
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
+		 */
 		public function setId(string $id): HtmlAttributesManagerAbstract {
 			return $this->setAttribute('id', $id);
+		}
+
+		/**
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
+		 */
+		public function removeId(): HtmlAttributesManagerAbstract {
+			return $this->removeAttribute('id');
 		}
 
 /* <ATTRIBUTES> */
@@ -243,10 +273,46 @@
 		 * Add multiple attributes in one go.
 		 *
 		 * @param array $attributes
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
 		 */
-		public function setAttributes(array $attributes): void {
+		public function setAttributes(array $attributes): HtmlAttributesManagerAbstract {
+
 			foreach ($attributes as $key => $value)
 				$this->setAttribute($key, $value);
+
+			return $this;
+		}
+
+		/**
+		 * Remove a single attribute by key.
+		 *
+		 * @param string $key
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
+		 */
+		public function removeAttribute(string $key): HtmlAttributesManagerAbstract {
+
+			if (isset($this->m_attributes[$key]))
+				unset($this->m_attributes[$key]);
+
+			return $this;
+		}
+
+		/**
+		 * Remove multiple attributes by key at once.
+		 *
+		 * @param array $keys
+		 * @return \Goji\Blueprints\HtmlAttributesManagerAbstract
+		 */
+		public function removeAttributes(array $keys): HtmlAttributesManagerAbstract {
+
+			if (empty($keys))
+				return $this;
+
+			foreach ($keys as $key) {
+				$this->removeAttribute($key);
+			}
+
+			return $this;
 		}
 
 /* <RENDERING> */

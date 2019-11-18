@@ -21,37 +21,37 @@
 
 			parent::__construct();
 
-			$this->setAttribute('class', 'form__blog-post');
+			$this->addClass('form__blog-post');
 
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'blog-post__permalink')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_PERMALINK'));
 				$this->addInput(new InputText())
 					 ->setAttribute('name', 'blog-post[permalink]')
-					 ->setAttribute('id', 'blog-post__permalink')
+					 ->setId('blog-post__permalink')
 					 ->setAttribute('placeholder', $tr->_('BLOG_POST_PERMALINK_PLACEHOLDER'));
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'blog-post__title')
-					 ->setAttribute('class', 'required')
+					 ->addClass('required')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_TITLE'));
 				$this->addInput(new InputText())
 				     ->setAttribute('name', 'blog-post[title]')
-				     ->setAttribute('id', 'blog-post__title')
+				     ->setId('blog-post__title')
 				     ->setAttribute('placeholder', $tr->_('BLOG_POST_TITLE_PLACEHOLDER'))
 					 ->setAttribute('required');
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'blog-post__post')
-				     ->setAttribute('class', 'required')
+				     ->addClass('required')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_POST'));
 				$this->addInput(new InputTextArea())
 				     ->setAttribute('name', 'blog-post[post]')
-				     ->setAttribute('id', 'blog-post__post')
-				     ->setAttribute('class', 'big')
+				     ->setId('blog-post__post')
+				     ->addClass('big')
 				     ->setAttribute('placeholder', $tr->_('BLOG_POST_POST_PLACEHOLDER'))
 				     ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 				$this->addInput(new InputButtonElement())
-				     ->setAttribute('class', 'highlight loader')
+				     ->addClass('highlight loader')
 				     ->setAttribute('textContent', $tr->_('PUBLISH'));
 		}
 	}

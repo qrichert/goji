@@ -11,12 +11,27 @@ reuse it very easily.
 All the elements we will see inherit from `FormObjectAbstract`, this means they all have
 some public methods in common:
 
+- `hasClass(string $class): bool`
+- `getClasses(): array`
+- `addClasses(string|array $classes): FormObjectAbstract`
+- `addClass(string|array $classes): FormObjectAbstract`
+- `setClasses(string|array $classes): FormObjectAbstract`
+- `removeClasses(string|array $classes): FormObjectAbstract`
+- `removeClass(string|array $classes): FormObjectAbstract`
+- `clearClasses(): FormObjectAbstract`
+- `renderClassList(): string`
+- `hasId(): bool`
+- `getId(): string`
+- `setId(string $id): FormObjectAbstract`
+- `removeId(): FormObjectAbstract`
 - `hasAttribute(string $key): bool`
 - `getAttribute(string $key): string`
 - `getAttributes(): array`
 - `setAttribute(string $key, $value = null): FormObjectAbstract`
-- `setAttributes(array $attributes): void`
-- `renderAttributes($skipValueAttribute = false): string`, render the attributes only
+- `setAttributes(array $attributes): FormObjectAbstract`
+- `removeAttribute(string $key): FormObjectAbstract`
+- `removeAttributes(array $keys): FormObjectAbstract`
+- `renderAttributes(bool $skipValueAttribute = false, bool $addSlashes = true, $dontRender = []): string`, render the attributes only
 - `render(): void`, render the whole element
 
 Form
@@ -48,7 +63,7 @@ With this you don't have to instantiate the input into a variable to "prepare" i
 
 ```php
 $form = new Form();
-    $form->setAttribute('class', 'form__contact');
+    $form->addClass('form__contact');
         $form->addInput(new InputText()) // Returns the InputText
              ->setAttribute('name', 'contact[name]'); // Building onto the same InputText
 ```
@@ -193,24 +208,24 @@ Complete Example
 
 ```php
 $form = new Form();
-    $form->setAttribute('class', 'form__contact');
+    $form->addClass('form__contact');
 
         $form->addInput(new InputLabel())
              ->setAttribute('for', 'contact__name')
-             ->setAttribute('class', 'required')
+             ->addClass('required')
              ->setAttribute('textContent', 'Enter your name:')
              ->setSideInfo('a', array('class' => 'label'), 'More infos?');
 
         $form->addInput(new InputText())
              ->setAttribute('name', 'contact[name]')
-             ->setAttribute('id', 'contact__name')
+             ->setId('contact__name')
              ->setAttribute('placeholder', 'John Doe')
              ->setAttribute('required');
 
         $form->addInput(new InputTextArea())
              ->setAttribute('name', 'contact[message]')
-             ->setAttribute('id', 'contact__message')
-             ->setAttribute('class', 'big')
+             ->setId('contact__message')
+             ->addClass('big')
              ->setAttribute('placeholder', 'Message')
              ->setAttribute('required');
 
@@ -240,19 +255,19 @@ $form = new Form();
 
         $form->addInput(new InputCheckBox())
               ->setAttribute('name', 'contact[remember-me]')
-              ->setAttribute('id', 'contact__remember-me')
-              ->setAttribute('class', 'toggle')
+              ->setId('contact__remember-me')
+              ->addClass('toggle')
               ->setAttribute('textContent', 'Remember my details');
               
         $form->addInput(new InputRadioButton())
              ->setAttribute('name', 'contact[receive-confirmation]')
-             ->setAttribute('id', 'contact__receive-confirmation')
+             ->setId('contact__receive-confirmation')
              ->setAttribute('checked')
              ->setAttribute('value', 'yes')
              ->setAttribute('textContent', 'Yes');
         $form->addInput(new InputRadioButton())
              ->setAttribute('name', 'contact[receive-confirmation]')
-             ->setAttribute('id', 'contact__receive-confirmation')
+             ->setId('contact__receive-confirmation')
              ->setAttribute('value', 'no')
              ->setAttribute('textContent', 'Nope');
 
