@@ -2,43 +2,7 @@
 
 	namespace Goji\Rendering;
 
-	use Goji\Parsing\RegexPatterns;
-
 	class BasicMarkdown {
-
-		/* <CONSTANTS> */
-
-		const BACK_UP = 'back-up';
-		const RESTORE = 'restore';
-
-		const E_NOTHING_TO_RESTORE = 0;
-
-		/**
-		 * @param string $text
-		 * @param string $way
-		 * @param $hitCount
-		 * @param $hit
-		 */
-		protected static function escapeQuotedStrings(string &$text, string $way, &$hitCount, &$hit): void {
-
-			if ($way == self::BACK_UP) { // Backup
-
-				// Backup values within single or double quotes
-				preg_match_all(RegexPatterns::quotedStrings(), $text, $hit, PREG_PATTERN_ORDER);
-
-				$hitCount = count($hit[1]);
-				for ($i = 0; $i < $hitCount; $i++) {
-					$text = str_replace($hit[1][$i], '££££££££££' . $i . '££££££££££', $text);
-				}
-
-			} else { // Restore
-
-				// Restore back-upped values within single or double quotes
-				for ($i = 0; $i < $hitCount; $i++) {
-					$text = str_replace('££££££££££' . $i . '££££££££££', $hit[1][$i], $text);
-				}
-			}
-		}
 
 		/**
 		 * Transforms texts with Markdown syntax into HTML.
@@ -47,8 +11,6 @@
 		 * @return string Transformed text (HTML)
 		 */
 		public static function inlineToHTML(string $text): string {
-
-			self::escapeQuotedStrings($text, self::BACK_UP, $hitCount, $hit);
 
 			// ITALIC / BOLD / UNDERLINE / LINE-THROUGH / INLINE CODE
 			$text = preg_replace('#\*\*(.+?)\*\*#is', '@@@@@@@@@@strong€€€€€€€€€€$1@@@@@@@@@@/strong€€€€€€€€€€', $text);
@@ -60,8 +22,6 @@
 			// IMAGES / LINKS
 			$text = preg_replace('#!\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@img src="$2" alt="$1"€€€€€€€€€€', $text);
 			$text = preg_replace('#\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@a href="$2"€€€€€€€€€€$1@@@@@@@@@@/a€€€€€€€€€€', $text);
-
-			self::escapeQuotedStrings($text, self::RESTORE, $hitCount, $hit);
 
 			$text = str_replace('@@@@@@@@@@', '<', $text);
 			$text = str_replace('€€€€€€€€€€', '>', $text);
@@ -77,13 +37,11 @@
 		 */
 		public static function headingsToHTML(string $text, bool $fakeHeadings = false, bool $underlinedHeadings = false): string {
 
-			self::escapeQuotedStrings($text, self::BACK_UP, $hitCount, $hit);
-
 			// TITLES
 
 			// Hashtags
 			for ($i = 6; $i >= 1; $i--) { // From h6 to h1
-				$text = preg_replace('/^\s*#{' . $i . '}\s+(.+)$/m', '@@@@@@@@@@h' . $i . '€€€€€€€€€€$1@@@@@@@@@@/h' . $i . '€€€€€€€€€€', $text);
+				$text = preg_replace('/^\s*#{' . $i . '}\s(.+)$/m', '@@@@@@@@@@h' . $i . '€€€€€€€€€€$1@@@@@@@@@@/h' . $i . '€€€€€€€€€€', $text);
 			}
 
 			// Underlined
@@ -105,8 +63,6 @@
 				                     '@@@@@@@@@@span class="markdown-heading h$1"€€€€€€€€€€$2@@@@@@@@@@/span€€€€€€€€€€', $text);
 			}
 
-			self::escapeQuotedStrings($text, self::RESTORE, $hitCount, $hit);
-
 			$text = str_replace('@@@@@@@@@@', '<', $text);
 			$text = str_replace('€€€€€€€€€€', '>', $text);
 
@@ -121,8 +77,6 @@
 		 * @return string
 		 */
 		public static function listsToHTML(string $text, bool $fakeLists = false): string {
-
-			self::escapeQuotedStrings($text, self::BACK_UP, $hitCount, $hit);
 
 			$lines = preg_split('#\R#', $text);
 			$linesCount = count($lines);
@@ -202,8 +156,6 @@
 				$text = preg_replace('#@@@@@@@@@@li€€€€€€€€€€(.+?)@@@@@@@@@@/li€€€€€€€€€€#i',
 				                     '@@@@@@@@@@span class="markdown-list li"€€€€€€€€€€$1@@@@@@@@@@/span€€€€€€€€€€', $text);
 			}
-
-			self::escapeQuotedStrings($text, self::RESTORE, $hitCount, $hit);
 
 			$text = str_replace('@@@@@@@@@@', '<', $text);
 			$text = str_replace('€€€€€€€€€€', '>', $text);
