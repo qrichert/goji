@@ -26,6 +26,8 @@
 
 			$this->addClass('form__contact');
 
+				$this->addInput(new InputCustom('<p class="form__success"></p>'));
+				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 				$this->addInput(new InputLabel())
 					 ->setAttribute('for', 'contact__name')
 					 ->setAttribute('textContent', $tr->_('CONTACT_FORM_NAME'));

@@ -23,6 +23,8 @@
 
 			$this->addClass('form__blog-post');
 
+				$this->addInput(new InputCustom('<p class="form__success"></p>'));
+				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'blog-post__permalink')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_PERMALINK'));

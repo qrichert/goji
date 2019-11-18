@@ -1,10 +1,16 @@
 <main>
 	<section class="text">
 		<h1><?= $tr->_('CONTACT_MAIN_TITLE'); ?></h1>
+	</section>
+	<section class="side-by-side right-bigger reverse-on-squeeze">
+		<div class="image">
+			<img src="<?= $template->rsc('img/map.svg'); ?>" alt="" class="scalable rounded">
+		</div>
+		<div>
+			<?php $inPageContentEdit->renderContent('HELP_MESSAGE', 'p', ['contact__help-message']); ?>
 
-		<p id="form__status"></p>
-
-		<?php $form->render(); ?>
+			<?php $form->render(); ?>
+		</div>
 	</section>
 </main>
 
@@ -22,25 +28,28 @@
 	(function() {
 
 		let form = document.querySelector('form.form__contact');
-		let formStatus = document.querySelector('p#form__status');
-		let message = form.querySelector('#contact__message');
+		let formSuccess = form.querySelector('p.form__success');
+		let formError = form.querySelector('p.form__error');
+		let message = form.querySelector('#contact__message'); // textarea
 
 		let success = response => {
 
-			// Clear message
+			// Clear message (textarea)
 			message.value = '';
 
-			formStatus.classList.remove('form__error');
-			formStatus.classList.add('form__success');
-			formStatus.innerHTML = response.message;
+			formError.textContent = '';
+
+			if (typeof response.message !== 'undefined') {
+				formSuccess.innerHTML = response.message;
+			}
 		};
 
 		let error = response => {
 
-			if (response !== null) {
-				formStatus.classList.remove('form__success');
-				formStatus.classList.add('form__error');
-				formStatus.innerHTML = response.message;
+			formSuccess.textContent = '';
+
+			if (typeof response.message !== 'undefined') {
+				formError.innerHTML = response.message;
 			}
 		};
 

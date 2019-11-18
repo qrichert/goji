@@ -24,9 +24,9 @@
 			echo $homeIntro;
 		?>
 
-		<?php $inPageContentEdit->renderContent('in-page-content-edit-demo-title', 'h2'); ?>
+		<?php $inPageContentEdit->renderContent('IN_PAGE_CONTENT_EDIT_DEMO_TITLE', 'h2'); ?>
 
-		<?php $inPageContentEdit->renderContent('in-page-content-edit-demo-text'); ?>
+		<?php $inPageContentEdit->renderContent('IN_PAGE_CONTENT_EDIT_DEMO_TEXT'); ?>
 
 		<h2><?= $tr->_('HOME_TRY_A_DIFFERENT_LANGUAGE') ?></h2>
 

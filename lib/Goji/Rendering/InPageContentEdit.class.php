@@ -4,6 +4,7 @@
 
 	use Goji\Core\App;
 	use Goji\Blueprints\HtmlAttributesManagerAbstract;
+	use Goji\Core\Logger;
 
 	/**
 	 * Class InPageContentEdit
@@ -166,18 +167,31 @@
 			return new InPageEditableContent(...$args);
 		}
 
-		public function renderContent(string $contentId, string $tagName = 'p') {
+		public function renderContent(string $contentId, string $tagName = 'p', $specialClasses = []) {
 
+			// Make sure it's an array
+			if (!is_array($specialClasses))
+				$specialClasses = explode(' ', (string) $specialClasses);
+
+			// We don't want to toggle those who are already there, only the 'special/unique ones'
+			foreach ($specialClasses as $key => $specialClass) {
+				if ($this->hasClass($specialClass))
+					unset($specialClasses[$key]);
+				else // Add it in the same stint, se we gain a loop
+					$this->addClass($specialClass);
+			}
+
+			// Render JS if first block
 			if ($this->m_nbContentAreasRendered == 0)
 				$this->renderJavaScript();
 
 			$this->m_nbContentAreasRendered++;
 
+			// Create editable content model
 			$editableContent = $this->getInPageEditableContent($this->m_app,
 			                                     $contentId,
 			                                     $this->m_app->getRouter()->getCurrentPage(),
 			                                     $this->m_defaultLocale);
-
 
 			$formattedContent = $editableContent->getFormattedContent();
 
@@ -207,6 +221,9 @@
 				</div>
 			</div>
 			EOT;
+
+			// Now we can remove the classes which are unique to the current in-page editor
+			$this->removeClasses($specialClasses);
 
 			echo $area;
 		}

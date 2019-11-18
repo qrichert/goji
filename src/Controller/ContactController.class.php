@@ -7,6 +7,7 @@
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Form\Form;
+	use Goji\Rendering\InPageContentEdit;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\Mail;
 	use Goji\Toolkit\SimpleMetrics;
@@ -24,6 +25,9 @@
 
 			// Form
 			$form = new ContactForm($tr);
+
+			// In-Page Content Edit
+			$inPageContentEdit = new InPageContentEdit($this->m_app, $this->m_app->getLanguages()->getCurrentCountryCode());
 
 			// Template
 			$template = new SimpleTemplate($tr->_('CONTACT_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),

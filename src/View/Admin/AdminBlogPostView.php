@@ -22,8 +22,6 @@
 			}
 		?>
 
-		<p id="form__status"></p>
-
 		<?php $blogPostManager->getForm()->render(); ?>
 
 	</section>
@@ -74,7 +72,8 @@
 	(function() {
 
 		let form = document.querySelector('form.form__blog-post');
-		let formStatus = document.querySelector('p#form__status');
+		let formSuccess = form.querySelector('p.form__success');
+		let formError = form.querySelector('p.form__error');
 		let permalink = document.querySelector('#blog-post__permalink');
 		let linkBase = '<?= $this->m_app->getRouter()->getLinkForPage('blog') . '/'; ?>';
 		let goToBlogPost = document.querySelector('#blog__toolbar--go-to-blog-post');
@@ -94,9 +93,11 @@
 				return;
 			}
 
-			formStatus.classList.remove('form__error');
-			formStatus.classList.add('form__success');
-			formStatus.innerHTML = response.message;
+			formError.textContent = '';
+
+			if (typeof response.message !== 'undefined') {
+				formSuccess.innerHTML = response.message;
+			}
 
 			// Update permalink with sanitized one
 			if (typeof response.permalink !== 'undefined') {
@@ -107,10 +108,10 @@
 
 		let error = response => {
 
-			if (response !== null) {
-				formStatus.classList.remove('form__success');
-				formStatus.classList.add('form__error');
-				formStatus.innerHTML = response.message;
+			formSuccess.textContent = '';
+
+			if (typeof response.message !== 'undefined') {
+				formError.innerHTML = response.message;
 			}
 		};
 
