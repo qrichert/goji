@@ -4,7 +4,6 @@
 
 	use Goji\Core\App;
 	use Goji\Blueprints\HtmlAttributesManagerAbstract;
-	use Goji\Core\Logger;
 
 	/**
 	 * Class InPageContentEdit
@@ -16,6 +15,8 @@
 		/* <ATTRIBUTES> */
 
 		protected $m_app;
+
+		protected $m_inPageEditableContent;
 
 		protected $m_requiredRoleForEditing;
 		protected $m_defaultLocale;
@@ -45,6 +46,8 @@
 			parent::__construct();
 
 			$this->m_app = $app;
+
+			$this->m_inPageEditableContent = null;
 
 			$this->m_requiredRoleForEditing = 'editor';
 			$this->m_defaultLocale = $defaultLocale ?? $this->m_app->getLanguages()->getCurrentLocale();
@@ -158,15 +161,39 @@
 
 		/**
 		 * For inheritance, so no need to override whole methods.
+		 * If you don't want to inherit this class just for that, use setInPageEditableContent().
 		 *
 		 * @param mixed ...$args
 		 * @return \Goji\Rendering\InPageEditableContent
 		 * @throws \Exception
 		 */
 		protected function getInPageEditableContent(...$args): InPageEditableContent {
+
+			if ($this->m_inPageEditableContent !== null)
+				return new $this->m_inPageEditableContent(...$args);
+
 			return new InPageEditableContent(...$args);
 		}
 
+		/**
+		 * Set a custom InPageEditableContent (if you don't want to inherit InPageContentEdit)
+		 *
+		 * You can use YouCustomInPageEditableContent::class to send as parameter for this function.
+		 * This way is better because the class namespace won't be hard-written in your code.
+		 *
+		 * @param string $inPageEditableContent ::class
+		 */
+		public function setInPageEditableContent(string $inPageEditableContent): void {
+			// If wrong class, it will fail at the first getInPageEditableContent()
+			$this->m_inPageEditableContent = $inPageEditableContent;
+		}
+
+		/**
+		 * @param string $contentId
+		 * @param string $tagName
+		 * @param array $specialClasses
+		 * @throws \Exception
+		 */
 		public function renderContent(string $contentId, string $tagName = 'p', $specialClasses = []) {
 
 			// Make sure it's an array

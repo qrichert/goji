@@ -4,12 +4,8 @@
 
 	use App\Model\ContactForm;
 	use Goji\Blueprints\ControllerAbstract;
-	use Goji\Core\App;
-	use Goji\Core\HttpResponse;
-	use Goji\Form\Form;
 	use Goji\Rendering\InPageContentEdit;
 	use Goji\Rendering\SimpleTemplate;
-	use Goji\Toolkit\Mail;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 

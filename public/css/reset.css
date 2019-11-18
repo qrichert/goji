@@ -33,7 +33,7 @@ body {
 	line-height: 1.2; /* Default in most browsers */
 }
 ol, ul {
-	list-style: none;
+	/*list-style: none;*/
 }
 blockquote, q {
 	quotes: none;
@@ -56,4 +56,7 @@ strong {
 }
 em {
 	font-style: italic;
+}
+ol, ul {
+	padding-left: 40px;
 }

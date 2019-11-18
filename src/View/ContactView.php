@@ -7,7 +7,7 @@
 			<img src="<?= $template->rsc('img/map.svg'); ?>" alt="" class="scalable rounded">
 		</div>
 		<div>
-			<?php $inPageContentEdit->renderContent('HELP_MESSAGE', 'p', ['contact__help-message']); ?>
+			<?php $inPageContentEdit->renderContent('HELP_MESSAGE', 'h2', ['contact__help-message']); ?>
 
 			<?php $form->render(); ?>
 		</div>

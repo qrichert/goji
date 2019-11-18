@@ -97,7 +97,7 @@
 		}
 
 		public static function formatContent($content): string {
-			return nl2br($content);
+			return BasicFormatting::formatTextInlineAndEscape($content);
 		}
 
 		public function getRawContent(): string {
