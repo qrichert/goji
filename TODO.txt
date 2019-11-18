@@ -4,8 +4,6 @@ TODO: Use caching for blog posts and blog list
 
 TODO: Use caching on pages (using page ID from abstract parent class)
 
-TODO: skali-like in-page editable areas (w/ markdown)
-
 TODO: Didn't receive email on subscription
 
 TODO: Don't automatically reset password (in case someone else does it to annoy people), just send a link they can ignore

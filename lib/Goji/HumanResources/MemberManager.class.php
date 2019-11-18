@@ -26,6 +26,12 @@
 
 		const CONFIG_FILE = '../config/hr.json5';
 
+		const DEFAULT_MEMBER_ROLES_LIST = [
+			'member' => 1,
+			'editor' => 5,
+			'admin' => 7,
+			'root' => 9 // For developers only, not for clients
+		];
 		const DEFAULT_MEMBER_ROLE = 1;
 		const ANY_MEMBER_ROLE = 'any';
 
@@ -42,11 +48,7 @@
 
 				$config = ConfigurationLoader::loadFileToArray($configFile);
 
-				$this->m_roles = $config['roles'] ?? [
-														'member' => 1,
-														'editor' => 5,
-														'admin' => 7
-													];
+				$this->m_roles = $config['roles'] ?? self::DEFAULT_MEMBER_ROLES_LIST;
 
 				$this->m_memberRole = self::DEFAULT_MEMBER_ROLE;
 
@@ -67,11 +69,7 @@
 
 			} catch (Exception $e) {
 
-				$this->m_roles = [
-					'member' => 1,
-					'editor' => 5,
-					'admin' => 7
-				];
+				$this->m_roles = self::DEFAULT_MEMBER_ROLES_LIST;
 				$this->m_memberRole = self::DEFAULT_MEMBER_ROLE;
 			}
 

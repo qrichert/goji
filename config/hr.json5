@@ -20,7 +20,8 @@
 	//roles: {
 	//	member: 1, // "1" is used as default role when someone signs up (see: MemberManager::moveTemporaryMemberToPermanentList())
 	//	editor: 5,
-	//	admin: 7
+	//	admin: 7,
+	//	root: 9 // For developers only, not for clients
 	//},
 
 	// Query to get member role from database ('%{ID}' will be replaced by the current member's id)
