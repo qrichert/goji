@@ -6,7 +6,7 @@
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Translation\Translator;
 
-	class LandingController extends CachedControllerAbstract {
+	class LandingPageController extends CachedControllerAbstract {
 
 		public function render(): void {
 
