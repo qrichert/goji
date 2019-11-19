@@ -31,7 +31,7 @@
 				if (!empty($formActions))
 					$formAction .= '?' . implode('&', $formActions);
 
-			$blogPostManager = new BlogPostManager($this, $tr);
+			$blogPostManager = new BlogPostManager($this);
 				$blogPostManager->createForm();
 				$blogPostManager->getForm()->setAction($formAction);
 

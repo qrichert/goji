@@ -53,15 +53,14 @@
 		 * BlogPostManager constructor.
 		 *
 		 * @param \Goji\Blog\BlogControllerAbstract $parent
-		 * @param \Goji\Translation\Translator $tr
 		 * @throws \Exception
 		 */
-		public function __construct(BlogControllerAbstract $parent, Translator $tr) {
+		public function __construct(BlogControllerAbstract $parent) {
 
 			$this->m_app = $parent->getApp();
 			$this->m_db = $this->m_app->getDataBase();
 			$this->m_parent = $parent;
-			$this->m_translator = $tr;
+			$this->m_translator = $this->m_app->getTranslator();
 
 			$this->m_form = null;
 		}

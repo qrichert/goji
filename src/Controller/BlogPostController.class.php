@@ -34,7 +34,7 @@
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$blogPostManager = new BlogPostManager($this, $tr);
+			$blogPostManager = new BlogPostManager($this);
 			$blogPost = $blogPostManager->read($this->m_permalink, true);
 
 			$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
