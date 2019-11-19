@@ -821,8 +821,7 @@ label {
 		width: 100% !important; /* Must overwrite .left|right-bigger > :first|last-child */
 		padding-left: 0;
 		padding-right: 0;
-		/* 1170-*2*20 = 1130/1.618 (golden ratio) = ±698-2*2*20 (margins) = 618px */
-		max-width: 600px; /* That's about max-size it can have in normal mode if set to 'bigger' */
+		max-width: 800px; /* Like section.text */
 	}
 
 	section.side-by-side.reverse-on-squeeze {
