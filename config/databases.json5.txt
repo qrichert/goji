@@ -23,23 +23,23 @@ duplicate and rename it "databases.json5".
  */
 
 {
-	production: {
-		prefix: "mysql",
-		host: "127.0.0.1",
-		dbname: "productiondb",
-		port: 3306,
-		charset: null,
-		username: "username",
-		password: "password"
-	},
-	development: {
-		prefix: "mysql",
-		host: "localhost",
-		dbname: "goji",
-		charset: "utf8mb4",
-		username: "root",
-		password: "root",
-	},
+//	production: {
+//		prefix: "mysql",
+//		host: "127.0.0.1",
+//		dbname: "productiondb",
+//		port: 3306,
+//		charset: null,
+//		username: "username",
+//		password: "password"
+//	},
+//	development: {
+//		prefix: "mysql",
+//		host: "localhost",
+//		dbname: "goji",
+//		charset: "utf8mb4",
+//		username: "root",
+//		password: "root",
+//	},
 	local: {
 		prefix: "sqlite",
 		file: "goji.sqlite3" // Will be saved in /var/db/goji.sqlite3
