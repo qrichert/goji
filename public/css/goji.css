@@ -414,7 +414,7 @@ img.header__logo {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .footer__main-content {
@@ -435,7 +435,7 @@ img.header__logo {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
-	align-items: center;
+	align-items: flex-start;
 	flex-wrap: wrap;
 }
 
@@ -446,7 +446,16 @@ img.header__logo {
 
 .footer__main p {
 	margin: 0;
+}
+
+.footer__main p,
+.footer__main a {
 	line-height: 2em;
+}
+
+.footer__main a img {
+	/* Because it has no space from line-height*/
+	padding: var(--gutter-xthin) 0;
 }
 
 /* <MAIN> */
