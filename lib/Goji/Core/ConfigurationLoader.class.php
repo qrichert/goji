@@ -22,10 +22,11 @@
 		 * Return configuration file as array.
 		 *
 		 * @param string $file
+		 * @param bool $useCache
 		 * @return array
 		 * @throws \Exception
 		 */
-		public static function loadFileToArray(string $file): array {
+		public static function loadFileToArray(string $file, bool $useCache = true): array {
 
 			if (!is_file($file))
 				throw new Exception("Configuration file doesn't exist. (" . (string) $file . ")", self::E_FILE_DOES_NOT_EXIST);
@@ -33,8 +34,8 @@
 			$extension = pathinfo($file, PATHINFO_EXTENSION);
 
 			switch ($extension) {
-				case 'json':    return self::loadJSONFileToArray($file);    break;
-				case 'json5':   return self::loadJSON5FileToArray($file);   break;
+				case 'json':    return self::loadJSONFileToArray($file, $useCache);    break;
+				case 'json5':   return self::loadJSON5FileToArray($file, $useCache);   break;
 				default:
 					throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);
 					break;
@@ -45,10 +46,11 @@
 		 * Load configuration from JSON file.
 		 *
 		 * @param string $file
+		 * @param bool $useCache
 		 * @return array
 		 * @throws \Exception
 		 */
-		private static function loadJSONFileToArray(string $file): array {
+		private static function loadJSONFileToArray(string $file, bool $useCache = true): array {
 
 			$config = file_get_contents($file);
 			$config = json_decode($config, true);
@@ -66,26 +68,37 @@
 		 * Cache expires when config file is modified.
 		 *
 		 * @param string $file
+		 * @param bool $useCache
 		 * @return array
 		 * @throws \Exception
 		 */
-		private static function loadJSON5FileToArray(string $file): array {
+		private static function loadJSON5FileToArray(string $file, bool $useCache = true): array {
 
-			// Generating cache ID
-			$cacheId = SimpleCache::cacheIDFromFileFullPath($file);
 			$config = '';
 
-			// We cache it as JSON, so we don't have to re-convert it each time.
-			if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) { // Get cached version (JSON)
+			if ($useCache) {
 
-				$config = SimpleCache::loadFilePreprocessed($cacheId);
+				// Generating cache ID
+				$cacheId = SimpleCache::cacheIDFromFileFullPath($file);
 
-			} else { // Convert JSON5 to JSON and cache it
+
+				// We cache it as JSON, so we don't have to re-convert it each time.
+				if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) { // Get cached version (JSON)
+
+					$config = SimpleCache::loadFilePreprocessed($cacheId);
+
+				} else { // Convert JSON5 to JSON and cache it
+
+					$config = file_get_contents($file);
+					$config = JSON5::toJSON($config);
+
+					SimpleCache::cacheFilePreprocessed($config, $file, $cacheId);
+				}
+
+			} else {
 
 				$config = file_get_contents($file);
 				$config = JSON5::toJSON($config);
-
-				SimpleCache::cacheFilePreprocessed($config, $file, $cacheId);
 			}
 
 			// JSON to Array

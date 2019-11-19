@@ -1,0 +1,9 @@
+/*
+ * Configuration file for \Goji\Core\SimpleCache (or any other custom caching engine)
+ *
+ * Missing info will be ignored.
+ */
+
+{
+	use_cache: true // /!\ 'false' should be for DEBUG ONLY
+}

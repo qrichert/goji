@@ -16,11 +16,25 @@
 		/* <ATTRIBUTES> */
 
 		protected $m_app;
+		protected $m_cacheMaxAge;
 		protected $m_cacheId;
+
+		/* <CONSTANTS> */
+
+		const DEFAULT_PAGE_CACHE_DURATION = SimpleCache::TIME_30MIN;
 
 		public function __construct(App $app) {
 
 			$this->m_app = $app;
+
+			$this->m_cacheMaxAge = SimpleCache::TIME_30MIN;
+
+			// Don't use cache for editors, as they need to see changes immediately
+			if ($this->m_app->getUser()->isLoggedIn()
+				&& $this->m_app->getMemberManager()->memberIs('editor')) {
+
+					$this->m_cacheMaxAge = 0; // No cache
+			}
 
 			/*
 			 * Using query string or variable parameters with infinite possibilities
@@ -45,6 +59,18 @@
 			return $this->m_app;
 		}
 
+		protected function setCacheMaxAge(int $duration): void {
+
+			if ($duration < 0)
+				$duration = 0;
+
+			$this->m_cacheMaxAge = $duration;
+		}
+
+		public function useCache(): bool {
+			return $this->m_cacheMaxAge > 0;
+		}
+
 		public function getCacheId(string $append = null): string {
 
 			$append = $append ?? '';
@@ -53,5 +79,27 @@
 					$append = '--' . SimpleCache::cacheIDFromString($append);
 
 			return $this->m_cacheId . $append;
+		}
+
+		public function startCacheBuffer(): void {
+			SimpleCache::startBuffer();
+		}
+
+		public function saveCacheBuffer(bool $output = true): void {
+
+			if ($output)
+				echo SimpleCache::cacheBuffer($this->m_cacheId, true);
+			else
+				SimpleCache::cacheBuffer($this->m_cacheId);
+		}
+
+		public function renderCachedVersion(): bool {
+
+			if (!SimpleCache::isValid($this->m_cacheId, $this->m_cacheMaxAge))
+				return false;
+
+			SimpleCache::loadFragment($this->m_cacheId, true);
+
+			return true;
 		}
 	}

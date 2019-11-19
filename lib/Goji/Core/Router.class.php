@@ -576,7 +576,20 @@
 
 				// $controller = new \App\Controller\HomeController()
 				$controller = new $controller($this->m_app);
-					$controller->render();
+
+					if ($controller->useCache()) {
+
+						if (!$controller->renderCachedVersion()) { // Cache invalid
+
+							$controller->startCacheBuffer();
+							$controller->render();
+							$controller->saveCacheBuffer(true);
+						}
+
+					} else {
+
+						$controller->render();
+					}
 
 			// If not, it's a 404
 			} else {

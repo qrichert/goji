@@ -3,6 +3,7 @@
 	namespace Goji\Toolkit;
 
 	use Exception;
+	use Goji\Core\ConfigurationLoader;
 
 	/**
 	 * Class SimpleCache
@@ -76,7 +77,14 @@
 	 */
 	class SimpleCache {
 
+		/* <ATTRIBUTES> */
+
+		private static $m_isInitialized;
+		private static $m_useCache;
+
 		/* <CONSTANTS> */
+
+		const CONFIG_FILE = '../config/caching.json5';
 
 		const CACHE_PATH = ROOT_PATH . '/var/cache/';
 		const CACHE_FILE_EXTENSION = '.cache.txt';
@@ -100,6 +108,34 @@
 		const E_WRONG_HTTP_CACHE_RESTRICTION_SETTING = 0;
 		const E_WRONG_HTTP_CACHE_PRIVACY_SETTING = 1;
 		const E_HTTP_CACHE_MAX_AGE_INVALID = 3;
+
+		/**
+		 * Read configuration and initialize attributes.
+		 *
+		 * This function is designed to load configuration only on the first use of
+		 * a class method.
+		 *
+		 * @param string $configFile
+		 */
+		private static function initialize(string $configFile = self::CONFIG_FILE): void {
+
+			if (self::$m_isInitialized)
+				return;
+
+			try {
+
+				// Can't use cache for this one, because it would call isValid*() and isValid*() calls this function
+				$config = ConfigurationLoader::loadFileToArray($configFile, false);
+
+				self::$m_useCache = isset($config['use_cache']) && $config['use_cache'] === true;
+
+			} catch (Exception $e) {
+
+				self::$m_useCache = true;
+			}
+
+			self::$m_isInitialized = true;
+		}
 
 /* <GENERIC BUFFERING FUNCTIONS> */
 
@@ -236,6 +272,11 @@
 		 */
 		public static function isValid(string $id, int $maxAge = self::DEFAULT_CACHE_MAX_AGE): bool {
 
+			self::initialize();
+
+			if (!self::$m_useCache)
+				return false;
+
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			return (
@@ -244,26 +285,6 @@
 					$maxAge == -1 // Max age must be infinite
 					|| (time() - filemtime($cacheFile)) <= $maxAge // OR, file must be recent enough
 				)
-			);
-		}
-
-		/**
-		 * See if file is not too recent to be written.
-		 *
-		 * This functions uses time() and filemtime().
-		 * Precision of both may vary according to file system. So adapt $minAge param.
-		 *
-		 * @param string $id Fragment ID
-		 * @param int $minAge (optional) Minimum age the cache file must have to be overwritten. 0 by default.
-		 * @return bool true if file old enough, false if too recent
-		 */
-		public static function canCache(string $id, int $minAge = 0): bool { // 0 = Can't write the file twice at the same time
-
-			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
-
-			return (
-				!is_file($cacheFile) // File does not exist
-				|| (time() - filemtime($cacheFile)) > $minAge // OR, file old enough
 			);
 		}
 
@@ -371,6 +392,11 @@
 		 * @return bool true if cache is valid, false if not (one or more original file has been edited)
 		 */
 		public static function isValidFilePreprocessed(string $id, $file): bool {
+
+			self::initialize();
+
+			if (!self::$m_useCache)
+				return false;
 
 			// If single file we handle it as array, so we can use the same code for all
 			$file = (array) $file;

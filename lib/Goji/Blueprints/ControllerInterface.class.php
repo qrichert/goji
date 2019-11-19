@@ -13,6 +13,10 @@
 
 		public function __construct(App $app);
 		public function render();
-		public function getApp();
+		public function getApp(): App;
+		public function useCache(): bool;
 		public function getCacheId(string $append = null): string;
+		public function startCacheBuffer(): void;
+		public function saveCacheBuffer(bool $output = true): void;
+		public function renderCachedVersion(): bool;
 	}
