@@ -47,7 +47,7 @@
 				// because root folder would be 'hello world/', so if we wanted to extract he page,
 				// we would get 'c/home' because in root there is a space ' ' and in request URI
 				// there is '%20' which is 2 chars longer.
-				$this->m_requestURI = rawurldecode($this->m_requestURI); // TODO: same as in StaticServer, may cause problems
+				$this->m_requestURI = rawurldecode($this->m_requestURI);
 
 			// /home
 			// /goji/public/home

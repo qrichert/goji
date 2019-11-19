@@ -673,7 +673,6 @@
 					self::setHttpCacheControlMaxAge(abs((int) $maxAge));
 				else
 					throw new Exception('Http Cache Max Age invalid. Must be a numeric value in seconds.');
-
 			}
 		}
 

@@ -58,10 +58,7 @@
 			// Request file URI
 			$this->m_requestFileURI = $_SERVER['REQUEST_URI'];
 
-				// TODO: This may cause more problems then it solves? See long term, or revert to commented lines
 				$this->m_requestFileURI = rawurldecode($this->m_requestFileURI);
-//				if (strpos($this->m_requestFileURI, '%7C') !== false)
-//					$this->m_requestFileURI = rawurldecode($this->m_requestFileURI);
 
 				// We only want the page, not the query string
 				// /home?q=query -> /home

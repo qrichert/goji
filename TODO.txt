@@ -1,5 +1,3 @@
-TODO: Cache control headers https://www.php.net/manual/en/function.readfile.php https://www.electrictoolbox.com/php-caching-headers/
-
 TODO: Use caching for blog posts and blog list
 
 TODO: Use caching on pages (using page ID from abstract parent class)
@@ -11,7 +9,6 @@ TODO: Don't automatically reset password (in case someone else does it to annoy 
 TODO: Admin, make it possible to configure a list of models to be editable in admin panel (Django-like). Reference the model, && database table name
 
 Cache config: use cache
-Autoload model and controller to one unified autoload source
 Admin page (just list of actions)
 Inpage edit triggers cache refresh of that page
 Same for blog
