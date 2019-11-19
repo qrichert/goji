@@ -7,7 +7,7 @@
 
 	class LogoutController extends ControllerAbstract {
 
-		public function render() {
+		public function render(): void {
 
 			$this->m_app->getUser()->logOut();
 

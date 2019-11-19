@@ -11,7 +11,7 @@
 
 	class HttpErrorController extends HttpErrorControllerAbstract {
 
-		public function render() {
+		public function render(): void {
 
 			/*********************/
 

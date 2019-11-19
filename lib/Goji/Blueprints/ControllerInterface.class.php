@@ -12,7 +12,7 @@
 	interface ControllerInterface extends HttpStatusInterface {
 
 		public function __construct(App $app);
-		public function render();
+		public function render(): void;
 		public function getApp(): App;
 		public function useCache(): bool;
 		public function getCacheId(string $append = null): string;

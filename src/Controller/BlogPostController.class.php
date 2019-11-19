@@ -32,7 +32,7 @@
 			// Bad ID handled in BlogPostManager::read(); -> 404
 		}
 
-		public function render() {
+		public function render(): void {
 
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 

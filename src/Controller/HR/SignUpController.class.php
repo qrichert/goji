@@ -10,7 +10,7 @@
 
 	class SignUpController extends ControllerAbstract {
 
-		public function render() {
+		public function render(): void {
 
 			// TODO: Impletement "didn't receive my email with the password"
 

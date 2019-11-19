@@ -135,7 +135,7 @@ Controllers must:
 1. Be in the `\App\Controller` namespace
 2. Extend the `Goji\Blueprints\ControllerAbstract` abstract class, so:
 	- Have a `public function __construct(App $app);` method if you overload it
-	- Have a `public function render();` method
+	- Have a `public function render(): void;` method
 
 By default, `Goji\Blueprints\ControllerAbstract` gives you a `$this->m_app` attribute, so you can access
 the main `App` object from your controller, but you're not forced to use it. On the other hand, if you

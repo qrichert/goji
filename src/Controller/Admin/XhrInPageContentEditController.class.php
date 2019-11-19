@@ -8,7 +8,7 @@
 
 	class XhrInPageContentEditController extends XhrControllerAbstract {
 
-		public function render() {
+		public function render(): void {
 
 			$action = $_POST['action'] ?? null;
 			$contentId = $_POST['content-id'] ?? null;

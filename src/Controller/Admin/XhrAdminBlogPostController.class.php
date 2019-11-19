@@ -71,7 +71,7 @@
 			], false);
 		}
 
-		public function render() {
+		public function render(): void {
 
 			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
