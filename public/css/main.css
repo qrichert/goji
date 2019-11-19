@@ -28,6 +28,16 @@
 	margin-top: 0;
 }
 
+/* Up to to 920px */
+@media all and (max-width: 920px) {
+
+	/* Mimic section.side-by-side form */
+	.contact__help-message {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
 /* <BLOG> */
 
 .form__blog-post #blog-post__permalink,

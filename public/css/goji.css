@@ -813,12 +813,16 @@ label {
 
 	section.side-by-side {
 		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
 	}
 
 	section.side-by-side > * {
 		width: 100% !important; /* Must overwrite .left|right-bigger > :first|last-child */
 		padding-left: 0;
 		padding-right: 0;
+		/* 1170-*2*20 = 1130/1.618 (golden ratio) = ±698-2*2*20 (margins) = 618px */
+		max-width: 600px; /* That's about max-size it can have in normal mode if set to 'bigger' */
 	}
 
 	section.side-by-side.reverse-on-squeeze {
@@ -831,6 +835,12 @@ label {
 		max-width: 400px;
 		margin-left: auto;
 		margin-right: auto;
+	}
+
+	/* We don't want side-by-side padding + form padding on small viewports */
+	section.side-by-side form {
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 
