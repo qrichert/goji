@@ -2,14 +2,14 @@
 
 	namespace App\Controller\Admin;
 
+	use Goji\Blog\BlogAdminControllerAbstract;
 	use Goji\Blog\BlogPostManager;
-	use Goji\Blog\BlogControllerAbstract;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class XhrAdminBlogPostController extends BlogControllerAbstract {
+	class XhrAdminBlogPostController extends BlogAdminControllerAbstract {
 
 		public function __construct(App $app) {
 

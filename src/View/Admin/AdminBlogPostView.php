@@ -8,8 +8,9 @@
 				$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' .
 				        $blogPostManager->getForm()->getInputByName('blog-post[permalink]')->getValue();
 			?>
-				<div class="blog__toolbar">
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post'); ?>"
+				<div class="blog__toolbar toolbar toolbar__main">
+					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
+					             '?action=' . \Goji\Blog\BlogPostManager::ACTION_CREATE; ?>"
 					   class="link-button highlight add" id="blog__toolbar--new-blog-post">
 						<?= $tr->_('BLOG_POST_NEW_BLOG_POST'); ?>
 					</a>

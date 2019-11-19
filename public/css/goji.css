@@ -281,6 +281,23 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	transform: scale(0.7);
 }
 
+/* Other elements */
+
+.toolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+}
+
+.toolbar__main {
+	margin-bottom: calc(2 * var(--gutter-default));
+}
+
+.toolbar > *:not(:first-child) {
+	margin-left: var(--gutter-thin);
+}
+
 /* <HEADER> */
 
 .header__main {

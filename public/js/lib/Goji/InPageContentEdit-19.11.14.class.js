@@ -35,13 +35,17 @@ class InPageContentEdit {
 			this.m_editor.style.textDecoration = this.getEditableAreaProperty('text-decoration');
 			this.m_editor.style.padding = this.getEditableAreaProperty('padding');
 			this.m_editor.style.margin = this.getEditableAreaProperty('margin');
-			this.m_editor.style.marginBottom = '7px';
+			this.m_editor.style.marginBottom = '0';
 			this.m_editor.style.border = this.getEditableAreaProperty('border');
 			this.m_editor.style.boxShadow = this.getEditableAreaProperty('box-shadow');
 			this.m_editor.style.borderRadius = this.getEditableAreaProperty('border-radius');
 
 		this.m_buttons = parent.querySelector('.in-page-content-edit__buttons');
 			this.m_buttons.style.display = 'none';
+
+		this.m_buttons.querySelectorAll('.toolbar > *').forEach(el => {
+			el.style.marginTop = 'var(--gutter-thin)';
+		});
 
 		this.m_buttonSave = this.m_buttons.querySelector('[data-action="save"]');
 		this.m_buttonPreview = this.m_buttons.querySelector('[data-action="preview"]');

@@ -2,13 +2,13 @@
 
 	namespace App\Controller\Admin;
 
-	use Goji\Blog\BlogControllerAbstract;
+	use Goji\Blog\BlogAdminControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class AdminBlogPostController extends BlogControllerAbstract {
+	class AdminBlogPostController extends BlogAdminControllerAbstract {
 
 		public function render() {
 

@@ -49,17 +49,6 @@
 	height: auto;
 }
 
-.blog__toolbar {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	margin-bottom: calc(2 * var(--gutter-default));
-}
-
-.blog__toolbar > *:not(:first-child) {
-	margin-left: var(--gutter-thin);
-}
-
 /* <PRIVACY & TERMS> */
 
 body#privacy-and-terms    { counter-reset: h1; /********************/ }

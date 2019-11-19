@@ -242,9 +242,11 @@
 				<{$tagName} class="{$this->m_editableAreaClass}">{$formattedContent}</{$tagName}>
 				<textarea class="{$this->m_editorClass}"></textarea>
 				<div class="{$this->m_buttonsClass}">
-					<button data-action="save" class="loader highlight">{$this->m_app->getTranslator()->translate('SAVE')}</button>
-					<button data-action="preview" class="loader dark">{$this->m_app->getTranslator()->translate('PREVIEW')}</button>
-					<button data-action="cancel" class="delete">{$this->m_app->getTranslator()->translate('CANCEL')}</button>
+					<div class="toolbar">
+						<button data-action="save" class="loader highlight">{$this->m_app->getTranslator()->translate('SAVE')}</button>
+						<button data-action="preview" class="loader dark">{$this->m_app->getTranslator()->translate('PREVIEW')}</button>
+						<button data-action="cancel" class="delete">{$this->m_app->getTranslator()->translate('CANCEL')}</button>
+					</div>
 				</div>
 			</div>
 			EOT;

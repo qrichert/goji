@@ -9,15 +9,6 @@
 	/**
 	 * Class BlogPostManager
 	 *
-	 * /!\ This class is NOT fit for production /!\
-	 *
-	 * It just saves the blog posts in files. It is very very inefficient.
-	 * This is just the "base", so I can provide an example.
-	 *
-	 * To use this in production, you should INHERIT from this class and OVERLOAD
-	 * ALL read/write function, to make it work with a database or something.
-	 * (Basically all non-private functions in the // <READ/WRITE> part
-	 *
 	 * @package Goji\Blog
 	 */
 	class BlogPostManager {

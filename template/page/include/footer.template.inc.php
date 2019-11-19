@@ -42,7 +42,12 @@
 					if ($locale == $this->m_app->getLanguages()->getCurrentLocale())
 						continue;
 
-					echo '<a href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale) . '" data-lang="' . $locale . '">'
+					$page = null; // Current page
+
+						if ($this->m_app->getRouter()->getCurrentPage() == 'blog-post')
+							$page = 'blog';
+
+					echo '<a href="' . $this->m_app->getRouter()->getLinkForPage($page, $locale) . '" data-lang="' . $locale . '">'
 					     . $this->m_app->getLanguages()->getConfigurationLocales()[$locale]
 					     . '</a>',
 					PHP_EOL;

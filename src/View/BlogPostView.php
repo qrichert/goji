@@ -28,7 +28,7 @@
 					$deleteLink .= '?action=' . \Goji\Blog\BlogPostManager::ACTION_DELETE;
 					$deleteLink .= '&id=' . $blogPost['id'];
 			?>
-				<div class="blog__toolbar">
+				<div class="blog__toolbar toolbar toolbar__main">
 					<a href="<?= $editLink; ?>"
 						class="link-button highlight">
 						<?= $tr->_('EDIT'); ?>

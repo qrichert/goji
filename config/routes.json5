@@ -95,7 +95,7 @@
 	// <CONTENT>
 	"xhr-in-page-content-edit": {
 		route: "/xhr-in-page-content-edit",
-		controller: "Admin\\XhrInPageContentEdit"
+		controller: "Admin\\XhrInPageContentEditController"
 	},
 	// <BLOG>
 	"blog": {

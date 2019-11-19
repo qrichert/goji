@@ -6,6 +6,7 @@
 	use Goji\Blog\BlogPostManager;
 	use Goji\Core\App;
 	use Goji\Rendering\SimpleTemplate;
+	use Goji\Toolkit\SimpleCache;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
@@ -23,6 +24,10 @@
 
 			if (empty($this->m_permalink))
 				$this->m_app->getRouter()->redirectTo($this->m_app->getRouter()->getLinkForPage('blog'));
+
+			$this->m_cacheId = $this->m_cacheId . '-' . SimpleCache::cacheIDFromString(
+				$this->m_permalink ?? ''
+			);
 
 			// Bad ID handled in BlogPostManager::read(); -> 404
 		}

@@ -36,6 +36,7 @@
 				$this->m_app->getRequestHandler()->getRedirectStatus() . '-' .
 				$this->m_app->getLanguages()->getCurrentLocale() . '-' .
 				($this->m_app->getUser()->isLoggedIn() ? 'logged-in' : 'not-logged-in') . '-' .
+				($this->m_app->getUser()->isLoggedIn() ? $this->m_app->getUser()->getId() . '-' : '') .
 				($this->m_app->getUser()->isLoggedIn() ? $this->m_app->getMemberManager()->getMemberRole() : MemberManager::ANY_MEMBER_ROLE)
 			);
 		}

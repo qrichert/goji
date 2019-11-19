@@ -6,8 +6,9 @@
 			if ($this->m_app->getUser()->isLoggedIn()
 			    && $this->m_app->getMemberManager()->memberIs('editor')) {
 			?>
-				<div class="blog__toolbar">
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post'); ?>"
+				<div class="blog__toolbar toolbar toolbar__main">
+					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
+				             '?action=' . \Goji\Blog\BlogPostManager::ACTION_CREATE; ?>"
 						class="link-button highlight add">
 						<?= $tr->_('BLOG_NEW_BLOG_POST'); ?>
 					</a>
