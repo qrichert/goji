@@ -22,7 +22,9 @@
 				$this->m_app->getRouter()->redirectTo($this->m_app->getRouter()->getLinkForPage('home'));
 		}
 
-		private function treatForm(Translator $tr, BlogPostManager $manager): void {
+		private function treatForm(BlogPostManager $manager): void {
+
+			$tr = $this->m_app->getTranslator();
 
 			$detail = [];
 
@@ -80,6 +82,6 @@
 				$blogPostManager->createForm();
 				$blogPostManager->hydrateFormWithPostData();
 
-			$this->treatForm($tr, $blogPostManager);
+			$this->treatForm($blogPostManager);
 		}
 	}

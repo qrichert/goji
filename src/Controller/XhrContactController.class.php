@@ -13,7 +13,9 @@
 
 	class XhrContactController extends XhrControllerAbstract {
 
-		private function treatForm(Translator $tr, Form &$form): void {
+		private function treatForm(Form $form): void {
+
+			$tr = $this->m_app->getTranslator();
 
 			$detail = [];
 
@@ -65,6 +67,6 @@
 			$form = new ContactForm($tr);
 				$form->hydrate();
 
-			$this->treatForm($tr, $form);
+			$this->treatForm($form);
 		}
 	}

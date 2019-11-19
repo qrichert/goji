@@ -17,3 +17,5 @@ Inpage edit triggers cache refresh of that page
 Same for blog
 Admin cache refresh xhr
 Test firewall on admin xhr
+basic markdown blog
+give default styling to images for blog markdown
