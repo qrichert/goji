@@ -291,12 +291,12 @@
 		/**
 		 * Alias to App::getDataBase(), only shorter.
 		 *
-		 * @param string|null $dataBaseId
+		 * @param array $args
 		 * @return \Goji\Core\DataBase|\PDO
 		 * @throws \Exception
 		 */
-		public function db(string $dataBaseId = null): PDO {
-			return $this->getDataBase($dataBaseId);
+		public function db(...$args): PDO {
+			return $this->getDataBase(...$args);
 		}
 
 		/**
