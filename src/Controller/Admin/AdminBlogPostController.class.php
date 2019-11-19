@@ -5,14 +5,11 @@
 	use Goji\Blog\BlogAdminControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Rendering\SimpleTemplate;
-	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class AdminBlogPostController extends BlogAdminControllerAbstract {
 
 		public function render(): void {
-
-			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			// Translation
 			$tr = new Translator($this->m_app);

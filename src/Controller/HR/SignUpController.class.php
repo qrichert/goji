@@ -5,7 +5,6 @@
 	use App\Model\HR\SignUpForm;
 	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
-	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class SignUpController extends CachedControllerAbstract {
@@ -13,8 +12,6 @@
 		public function render(): void {
 
 			// TODO: Impletement "didn't receive my email with the password"
-
-			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');

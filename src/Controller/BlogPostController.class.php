@@ -7,7 +7,6 @@
 	use Goji\Core\App;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleCache;
-	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class BlogPostController extends BlogControllerAbstract {
@@ -35,8 +34,6 @@
 		}
 
 		public function render(): void {
-
-			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');

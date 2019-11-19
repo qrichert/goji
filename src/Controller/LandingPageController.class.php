@@ -4,14 +4,11 @@
 
 	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
-	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class LandingController extends CachedControllerAbstract {
 
 		public function render(): void {
-
-			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
 				// Will be 'en_US.tr.xml' or 'fr.tr.xml', etc.

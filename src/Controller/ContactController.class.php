@@ -6,14 +6,11 @@
 	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\InPageContentEdit;
 	use Goji\Rendering\SimpleTemplate;
-	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class ContactController extends CachedControllerAbstract {
 
 		public function render(): void {
-
-			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			// Translation
 			$tr = new Translator($this->m_app);

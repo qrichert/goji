@@ -6,7 +6,6 @@
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Rendering\SimpleTemplate;
-	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class HttpErrorController extends HttpErrorControllerAbstract {
@@ -32,8 +31,6 @@
 
 			// Set correct header
 			HttpResponse::setStatusHeader($this->m_httpErrorCode);
-
-			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');

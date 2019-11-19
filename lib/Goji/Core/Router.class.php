@@ -5,6 +5,7 @@
 	use Goji\Blueprints\HttpStatusInterface;
 	use Goji\HumanResources\Authentication;
 	use Goji\Parsing\RegexPatterns;
+	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Languages;
 	use App\Controller\HttpErrorController;
 	use Exception;
@@ -573,6 +574,9 @@
 
 					$this->redirectToAuthenticatedDisallowed();
 				}
+
+				// Add page view
+				SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 				// $controller = new \App\Controller\HomeController()
 				$controller = new $controller($this->m_app);

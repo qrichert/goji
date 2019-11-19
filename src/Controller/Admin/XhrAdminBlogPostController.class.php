@@ -6,7 +6,6 @@
 	use Goji\Blog\BlogPostManager;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
-	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class XhrAdminBlogPostController extends BlogAdminControllerAbstract {
@@ -72,8 +71,6 @@
 		}
 
 		public function render(): void {
-
-			SimpleMetrics::addPageView($this->m_app->getRouter()->getCurrentPage());
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
