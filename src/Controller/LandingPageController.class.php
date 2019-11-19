@@ -2,12 +2,12 @@
 
 	namespace App\Controller;
 
-	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class LandingPageController extends ControllerAbstract {
+	class LandingController extends CachedControllerAbstract {
 
 		public function render(): void {
 

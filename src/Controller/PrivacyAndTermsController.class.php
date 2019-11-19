@@ -2,12 +2,12 @@
 
 	namespace App\Controller;
 
-	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class PrivacyAndTermsController extends ControllerAbstract {
+	class PrivacyAndTermsController extends CachedControllerAbstract {
 
 		public function render(): void {
 

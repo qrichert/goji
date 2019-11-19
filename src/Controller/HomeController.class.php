@@ -2,13 +2,13 @@
 
 	namespace App\Controller;
 
-	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\InPageContentEdit;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class HomeController extends ControllerAbstract {
+	class HomeController extends CachedControllerAbstract {
 
 		public function render(): void {
 

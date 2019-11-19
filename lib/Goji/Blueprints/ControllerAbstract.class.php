@@ -27,14 +27,7 @@
 
 			$this->m_app = $app;
 
-			$this->m_cacheMaxAge = SimpleCache::TIME_30MIN;
-
-			// Don't use cache for editors, as they need to see changes immediately
-			if ($this->m_app->getUser()->isLoggedIn()
-				&& $this->m_app->getMemberManager()->memberIs('editor')) {
-
-					$this->m_cacheMaxAge = 0; // No cache
-			}
+			$this->m_cacheMaxAge = 0;
 
 			/*
 			 * Using query string or variable parameters with infinite possibilities
@@ -45,6 +38,7 @@
 			 * unique, by calling getCacheId(string) with the variable data as parameter.
 			 */
 			$this->m_cacheId = SimpleCache::cacheIDFromString(
+				'page---' .
 				$this->m_app->getRouter()->getCurrentPage() . '-' .
 				$this->m_app->getRequestHandler()->getRequestMethod() . '-' .
 				$this->m_app->getRequestHandler()->getRedirectStatus() . '-' .
@@ -65,6 +59,20 @@
 				$duration = 0;
 
 			$this->m_cacheMaxAge = $duration;
+		}
+
+		protected function activateCache(int $duration = self::DEFAULT_PAGE_CACHE_DURATION): void {
+			$this->setCacheMaxAge($duration);
+		}
+
+		protected function activateCacheIfRolePermits(string $role = 'editor', int $duration = self::DEFAULT_PAGE_CACHE_DURATION): void {
+
+			// Don't use cache for editors, as they need to see changes immediately
+			if ($this->m_app->getUser()->isLoggedIn()
+				&& $this->m_app->getMemberManager()->memberIs($role))
+					return;
+
+			$this->setCacheMaxAge($duration);
 		}
 
 		public function useCache(): bool {

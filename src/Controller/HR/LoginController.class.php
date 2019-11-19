@@ -4,12 +4,12 @@
 
 	use App\Model\HR\LoginForm;
 	use App\Model\HR\ResetPasswordForm;
-	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class LoginController extends ControllerAbstract {
+	class LoginController extends CachedControllerAbstract {
 
 		public function render(): void {
 

@@ -3,12 +3,12 @@
 	namespace App\Controller\HR;
 
 	use App\Model\HR\SignUpForm;
-	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class SignUpController extends ControllerAbstract {
+	class SignUpController extends CachedControllerAbstract {
 
 		public function render(): void {
 

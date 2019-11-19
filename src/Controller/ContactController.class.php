@@ -3,13 +3,13 @@
 	namespace App\Controller;
 
 	use App\Model\ContactForm;
-	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\InPageContentEdit;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
-	class ContactController extends ControllerAbstract {
+	class ContactController extends CachedControllerAbstract {
 
 		public function render(): void {
 

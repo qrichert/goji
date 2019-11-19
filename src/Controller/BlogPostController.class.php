@@ -30,6 +30,8 @@
 			);
 
 			// Bad ID handled in BlogPostManager::read(); -> 404
+
+			$this->activateCacheIfRolePermits();
 		}
 
 		public function render(): void {

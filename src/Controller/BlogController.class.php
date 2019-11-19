@@ -4,11 +4,19 @@
 
 	use Goji\Blog\BlogControllerAbstract;
 	use Goji\Blog\BlogPostManager;
+	use Goji\Core\App;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Translator;
 
 	class BlogController extends BlogControllerAbstract {
+
+		public function __construct(App $app) {
+
+			parent::__construct($app);
+
+			$this->activateCacheIfRolePermits();
+		}
 
 		public function render(): void {
 
