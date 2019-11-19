@@ -12,7 +12,7 @@
 	 * Goji\Toolkit\SimpleCache namespace. So, auto-loading it will look for
 	 * SimpleCache.class.php inside a Goji/Toolkit folder, inside /lib.
 	 *
-	 * \Goji\Toolkit\SimpleCache -> '/lib/' + Goji + '/' + 'Toolkit' + '/' + SimpleCache + '.class.php'
+	 * \Goji\Toolkit\SimpleCache -> '/lib/' + 'Goji/Toolkit/SimpleCache' + '.class.php'
 	 *
 	 * @param string $className The class which needs to be loaded (no initial backslash '\')
 	 */
@@ -29,65 +29,34 @@
 	}
 
 	/**
-	 * Auto-load function for models.
+	 * Auto-load function for source files.
 	 *
-	 * Models must be in /src/Model/ folder.
+	 * Source files must be in /src folder.
 	 *
-	 * \App\Model\HomeModel -> '/src/Model/' + HomeModel + '.class.php'
+	 * \App\Model\HomeModel -> '/src/' + 'Model/HomeModel' + '.class.php'
 	 *
-	 * @param string $className The class which needs to be loaded
+	 * @param string $className The class which needs to be loaded (no initial backslash '\')
 	 */
-	function autoLoadModel($className) {
+	function autoLoadSource($className) {
 
 		// There shouldn't be a leading backslash, but you never know
 		$className = ltrim($className, '\\');
 
-		// App\Model\HomeModel -> HomeModel
-		// We want only the class name, not the rest of the namespace
-		// $len = mb_strlen('App\Model\\');
-		// $len = 10;
-		$className = mb_substr($className, 10);
+		// App\Controller\HomeController -> Controller\HomeController
+		// We want only to remove the 'App\' part
+		// $len = mb_strlen('App\\');
+		// $len = 4;
+		$className = mb_substr($className, 4);
 
-		// Admin\BlogPost -> Admin/BlogPost
+		// Model\Admin\BlogPost -> Model/Admin/BlogPost
 		$className = str_replace('\\', '/', $className);
 
-		// HomeController -> ../src/Model/HomeModel.class.php
-		$classFile = '../src/Model/' . $className . '.class.php';
-
-		if (is_file($classFile))
-			require_once $classFile;
-	}
-
-	/**
-	 * Auto-load function for controllers.
-	 *
-	 * Controllers must be in /src/Controller/ folder.
-	 *
-	 * \App\Controller\HomeController -> '/src/Controller/' + HomeController + '.class.php'
-	 *
-	 * @param string $className The class which needs to be loaded
-	 */
-	function autoLoadController($className) {
-
-		// There shouldn't be a leading backslash, but you never know
-		$className = ltrim($className, '\\');
-
-		// App\Controller\HomeController -> HomeController
-		// We want only the class name, not the rest of the namespace
-		// $len = mb_strlen('App\Controller\\');
-		// $len = 15;
-		$className = mb_substr($className, 15);
-
-		// Admin\AdminBlogPostController -> Admin/AdminBlogPostController
-		$className = str_replace('\\', '/', $className);
-
-		// HomeController -> ../src/Controller/HomeController.class.php
-		$classFile = '../src/Controller/' . $className . '.class.php';
+		// Model/HomeController -> ../src/Model/HomeModel.class.php
+		$classFile = '../src/' . $className . '.class.php';
 
 		if (is_file($classFile))
 			require_once $classFile;
 	}
 
 	spl_autoload_register('AutoLoad\autoLoadLibrary');
-	spl_autoload_register('AutoLoad\autoLoadModel');
-	spl_autoload_register('AutoLoad\autoLoadController');
+	spl_autoload_register('AutoLoad\autoLoadSource');
