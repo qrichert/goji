@@ -69,7 +69,12 @@ Classes
   ```html
   <div class="loading-dots loading"></div>
   ```
-  Use the `.loading` modifier as show above to trigger the loading animation
+  Use the `.loading` modifier as shown above to trigger the loading animation
+- **`.dialog`**: A dialog window. Ideally should be used with the `Dialog` JavaScript class. If not,
+  `.dialog` must be contained inside a `.dialog__parent` and can be toggled with the `.show` modifier.
+  (`Dialog` does all that automatically).
+- **`.toolbar`**: Made to put buttons or actions inside, which will be displayed in rows. Add a `.main-toolbar`
+  modifier to add a margin to it (top-of-the page, main toolbar style).
 
 Widgets
 -------

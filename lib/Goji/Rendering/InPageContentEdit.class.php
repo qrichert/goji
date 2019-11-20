@@ -57,7 +57,7 @@
 
 			$this->m_nbContentAreasRendered = 0;
 
-			$this->m_javaScriptLibrary = 'js/lib/Goji/InPageContentEdit-19.11.14.class.js';
+			$this->m_javaScriptLibrary = 'js/lib/Goji/InPageContentEdit-19.11.14.class.min.js';
 			$this->m_baseClass = 'in-page-content-edit';
 			$this->m_editableAreaClass = $this->m_baseClass . '__editable-area';
 			$this->m_editorClass = $this->m_baseClass . '__editor';

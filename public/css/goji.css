@@ -290,7 +290,7 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	flex-wrap: wrap;
 }
 
-.toolbar__main {
+.toolbar.main-toolbar { /* Top-of-the page, main toolbar */
 	margin-bottom: calc(2 * var(--gutter-default));
 }
 
