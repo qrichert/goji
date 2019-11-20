@@ -22,7 +22,7 @@
 
 <?php
 	$template->linkFiles([
-		'js/lib/Goji/ActionItem-19.11.20.class.js' // TODO: .min.js
+		'js/lib/Goji/ActionItem-19.11.20.class.min.js'
 	]);
 ?>
 <?php

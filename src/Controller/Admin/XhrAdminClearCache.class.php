@@ -4,12 +4,14 @@
 
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\HttpResponse;
+	use Goji\Toolkit\SimpleCache;
 
 	class XhrAdminClearCache extends XhrControllerAbstract {
 
 		public function render(): void {
-			sleep(5);
-			HttpResponse::JSON([], false);
+
+			SimpleCache::purgeCache();
+
 			HttpResponse::JSON([], true);
 		}
 	}

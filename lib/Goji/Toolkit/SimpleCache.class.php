@@ -87,7 +87,7 @@
 		const CONFIG_FILE = '../config/caching.json5';
 
 		const CACHE_PATH = ROOT_PATH . '/var/cache/';
-		const CACHE_FILE_EXTENSION = '.cache.txt';
+		const CACHE_FILE_EXTENSION = '.cache';
 		const DEFAULT_CACHE_MAX_AGE = -1; // Default maximum page age in seconds (-1 = no limit)
 
 		const TIME_1MIN = 60;
