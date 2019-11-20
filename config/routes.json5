@@ -92,11 +92,6 @@
 		route: "/landing-page",
 		controller: "LandingPageController"
 	},
-	// <CONTENT>
-	"xhr-in-page-content-edit": {
-		route: "/xhr-in-page-content-edit",
-		controller: "Admin\\XhrInPageContentEditController"
-	},
 	// <BLOG>
 	"blog": {
 		route: "/blog",
@@ -116,6 +111,20 @@
 		route: "/admin/xhr-blog-post",
 		controller: "Admin\\XhrAdminBlogPostController"
 	},
+	// <ADMIN>
+	"admin": {
+		route: "/admin",
+		controller: "Admin\\AdminController"
+	},
+	"xhr-in-page-content-edit": {
+		route: "/xhr-in-page-content-edit",
+		controller: "Admin\\XhrInPageContentEditController"
+	},
+	"xhr-admin-clear-cache": {
+		route: "/admin/xhr-clear-cache",
+		controller: "Admin\\XhrAdminClearCache"
+	},
+	// <DEMO>
 	// This is the page ID.
 	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )
 	// It is also put as <body id=""> in default template, so make sure it's HTML#id compliant

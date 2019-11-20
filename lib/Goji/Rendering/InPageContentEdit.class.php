@@ -64,7 +64,7 @@
 			$this->m_buttonsClass = $this->m_baseClass . '__buttons';
 
 			$this->addClass($this->m_baseClass);
-			$this->setAttribute('data-action', 'xhr-in-page-content-edit');
+			$this->setAttribute('data-action', $this->m_app->getRouter()->getLinkForPage('xhr-in-page-content-edit'));
 			$this->setAttribute('data-page-id', $this->m_app->getRouter()->getCurrentPage());
 			$this->setAttribute('data-text', htmlspecialchars(json_encode([
 				'save_confirm' => $this->m_app->getTranslator()->translate('SAVE_CONFIRM'),

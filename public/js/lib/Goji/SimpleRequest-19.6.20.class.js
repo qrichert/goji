@@ -47,7 +47,7 @@
  * Options are passed as an object. Those ignored will be set as default (as in example).
  *
  * options = {
- *     encode_uri: true, // Encore
+ *     encode_uri: true, // Encode URI before sending (can be useful to avoid double encoding)
  *     get_binary: false, // Download response as binary data (Blob)
  *     get_json: false // Download response as JSON object
  * };

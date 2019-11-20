@@ -158,8 +158,8 @@ input[type=reset],
 	background-color: white;
 	box-shadow: var(--shadow-thin);
 	cursor: pointer;
-	transition: color 200ms ease,
-				box-shadow 200ms ease;
+	transition: color var(--transition-default),
+				box-shadow var(--transition-default);
 }
 
 .link-button {
@@ -326,6 +326,7 @@ input[type=button].loader.loading::after,
 	height: 0.8em;
 	margin-left: 8px;
 	animation: loading 1s ease infinite;
+	transform-origin: center center;
 	background-image: url('img/loading-dots--light.svg');
 	background-size: contain;
 	background-position: center center;
@@ -482,7 +483,7 @@ input[type=radio] + label > span {
 	position: relative;
 	top: 1px;
 	/*box-shadow: var(--shadow-inset-default);*/
-	transition: background-color 200ms ease;
+	transition: background-color var(--transition-duration-default) ease;
 }
 
 input[type=radio] + label > span {
@@ -563,7 +564,7 @@ input[type=checkbox].toggle + label > span {
 	position: relative;
 	top: -1px;
 	/*box-shadow: var(--shadow-inset-default);*/
-	transition: background-color 200ms ease;
+	transition: background-color var(--transition-duration-default) ease;
 }
 
 input[type=checkbox].toggle + label > span:hover {
@@ -586,7 +587,7 @@ input[type=checkbox].toggle + label > span::after {
 	border: none;
 	border-radius: 50%;
 	/*box-shadow: var(--shadow-default);*/
-	transition: left 200ms ease;
+	transition: left var(--transition-duration-default) ease;
 }
 
 input[type=checkbox].toggle:checked + label > span::after {
@@ -628,7 +629,7 @@ input[type=checkbox].toggle:checked + label > span::after {
 	color: white;
 	background-color: var(--color-highlight);
 	cursor: pointer;
-	transition: background-color 300ms ease;
+	transition: background-color var(--transition-duration-slow) ease;
 }
 
 .call-to-action:hover {

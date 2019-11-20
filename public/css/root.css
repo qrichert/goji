@@ -98,8 +98,10 @@
 	--color-link-alt: white;
 	--color-link-hover-alt: var(--color-link-alt);
 
+	--color-valid-light: #d4eadb;
 	--color-valid: #138663;
 	--color-warning-light: lightgoldenrodyellow;
+	--color-danger-light: #fcdce8;
 	--color-danger: #cd3d64;
 	--color-danger-dark: #6d1c32;
 
@@ -124,6 +126,18 @@
 					0 3px 6px 0 rgba(0, 0, 0, 0.07);
 	--shadow-inset-default: 0 2px 5px 0 rgba(49, 49, 93, 0.1) inset,
 							0 1px 2px 0 rgba(0, 0, 0, 0.08) inset;
+
+	/* Speed */
+
+	--transition-duration-default: 200ms;
+	--transition-duration-medium: 250ms;
+	--transition-duration-slow: 300ms;
+
+	/* Transitions */
+
+	--transition-default: var(--transition-duration-default) ease;
+	--transition-medium: var(--transition-duration-medium) ease;
+	--transition-slow: var(--transition-duration-slow) ease;
 
 	/* Black & White */
 

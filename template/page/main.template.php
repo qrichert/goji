@@ -64,16 +64,17 @@
 			];
 
 			// Add alternate 'root.css'
-			if ($template->getSpecial('is-funnel-page')) {
+			if ($template->getSpecial('is-focus-page')
+				|| $template->getSpecial('is-funnel-page')) {
 
 				if ($template->getLinkedFilesMode() == \Goji\Rendering\SimpleTemplate::MERGED)
 					// In merged mode, first value to be set will be used everywhere (fixed value)
 					// So we need to set the special ones before anything else
-					array_unshift($cssFiles, 'css/root.funnel.css');
+					array_unshift($cssFiles, 'css/root.focus.css');
 				else
 					// In normal mode, new values replace the old (regular CSS)
 					// Se we can set them wherever we want, provided it's after 'root.css'
-					array_push($cssFiles, 'css/root.funnel.css');
+					array_push($cssFiles, 'css/root.focus.css');
 			}
 
 			$template->linkFiles($cssFiles);
@@ -93,8 +94,8 @@
 	</head>
 	<body id="<?= $this->m_app->getRouter()->getCurrentPage(); ?>">
 		<?php
-			if ($template->getSpecial('is-funnel-page'))
-				require_once $template->getTemplate('page/include/header.funnel');
+			if ($template->getSpecial('is-focus-page') || $template->getSpecial('is-funnel-page'))
+				require_once $template->getTemplate('page/include/header.focus');
 			else
 				require_once $template->getTemplate('page/include/header');
 		?>

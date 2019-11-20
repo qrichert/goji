@@ -201,4 +201,9 @@
 		<segment id="BLOG_POST_POST">Content</segment>
 		<segment id="BLOG_POST_POST_PLACEHOLDER">Once upon a time...</segment>
 	</page>
+	<page id="admin">
+		<segment id="ADMIN_PAGE_TITLE">Administration</segment>
+		<segment id="ADMIN_PAGE_DESCRIPTION"></segment>
+		<segment id="ADMIN_MAIN_TITLE">Administration</segment>
+	</page>
 </translation>

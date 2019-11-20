@@ -19,6 +19,9 @@
 		// Always use a dictionary/associative array. If none, leave empty ({})
 		// Uses the roles set in 'hr' config file
 		require_authentication: {
+			"root": [
+				"xhr-admin-clear-cache"
+			],
 			"editor": [
 				"admin",
 				"xhr-in-page-content-edit",

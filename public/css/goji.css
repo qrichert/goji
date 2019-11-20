@@ -131,7 +131,7 @@ pre > code {
 }
 
 .scalable {
-	transition: transform 200ms ease;
+	transition: transform var(--transition-default);
 }
 
 .scalable:hover {
@@ -238,7 +238,7 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	animation-name: loading-dots;
 	animation-duration: 700ms;
 	animation-iteration-count: infinite;
-	animation-delay: 200ms;
+	animation-delay: var(--transition-duration-default);
 }
 
 /* Dialogs */
@@ -246,8 +246,8 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 .dialog__parent,
 .dialog {
 	opacity: 0;
-	transition: opacity 200ms ease,
-				transform 200ms ease;
+	transition: opacity var(--transition-default),
+				transform var(--transition-default);
 }
 
 .dialog__parent.shown,
@@ -344,6 +344,106 @@ tr:not(:last-child) td,
 	margin-left: var(--gutter-thin);
 }
 
+.action-item {
+	width: 135px;
+	background-color: var(--color-text-xxxxxlight);
+	border-radius: var(--border-radius-default);
+	padding: var(--gutter-medium);
+	box-sizing: border-box;
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	position: relative;
+	overflow: hidden;
+}
+
+.action-item:hover {
+	background-color: var(--color-highlight-halo);
+	/*box-shadow: var(--shadow-thin);*/
+	text-decoration: none;
+}
+
+.action-item::after {
+	content: '';
+	display: none;
+	position: absolute;
+	right: var(--gutter-xthin);
+	bottom: var(--gutter-xthin);
+	width: 15px;
+	height: 15px;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	transform-origin: center center;
+}
+
+.action-item.loading::after {
+	display: block;
+	background-size: contain;
+	background-image: url('lib/Goji/img/loading-dots--medium.svg');
+	animation: loading 1s ease infinite;
+}
+
+.action-item.success::after {
+	display: block;
+	width: 19px;
+	background-image: url('lib/Goji/img/right-wrong.svg');
+	background-position: top left;
+}
+
+.action-item.error::after {
+	display: block;
+	width: 19px;
+	background-image: url('lib/Goji/img/right-wrong.svg');
+	background-position: top right;
+}
+
+.action-item.loading,
+.action-item.loading:hover {
+	background-color: var(--color-highlight-halo);
+}
+
+.action-item.success,
+.action-item.success:hover {
+	background-color: var(--color-valid-light);
+}
+
+.action-item.error,
+.action-item.error:hover {
+	background-color: var(--color-danger-light);
+}
+
+.action-item__progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 100%;
+	background-image: linear-gradient(to right, #00000000, rgba(0, 0, 0, 0.04));
+	opacity: 0;
+	transition: opacity var(--transition-default);
+}
+
+.action-item__progress.loading {
+	visibility: visible;
+	opacity: 1;
+}
+
+.action-item .action-item__icon {
+	width: 77px;
+	height: 57px;
+	object-fit: contain;
+	object-position: center;
+	margin-bottom: var(--gutter-medium);
+}
+
+.action-item .action-item__caption {
+	font-size: var(--text-size-medium);
+	text-align: center;
+}
+
 /* <HEADER> */
 
 .header__main {
@@ -406,8 +506,8 @@ img.header__logo {
 	font-family: var(--font-title);
 	text-decoration: none;
 	opacity: 0.92;
-	transition: opacity 250ms ease,
-				transform 250ms ease;
+	transition: opacity var(--transition-medium),
+				transform var(--transition-medium);
 }
 
 .nav__main > a:hover {
@@ -427,7 +527,7 @@ img.header__logo {
 	height: calc(var(--burger-menu-height) * 0.9);
 	margin-left: var(--gutter-default);
 	z-index: 3001;
-	transition: height 200ms ease;
+	transition: height var(--transition-default);
 }
 
 .nav__burger-menu:hover,
@@ -443,9 +543,9 @@ img.header__logo {
 	/* To inverse, use calc(var(--burger-menu-bar-height) / 2) for both */
 	transform-origin: calc(100% - var(--burger-menu-bar-height) / 4)
 					  calc(var(--burger-menu-bar-height) / 2);
-	transition: transform 200ms ease,
-				opacity 200ms ease,
-				background-color 200ms ease;
+	transition: transform var(--transition-default),
+				opacity var(--transition-default),
+				background-color var(--transition-default);
 }
 
 .nav__burger-menu.cross div {
@@ -899,7 +999,7 @@ label {
 
 	.nav__main > a {
 		color: var(--color-nav-link);
-		transition: margin-left 200ms ease;
+		transition: margin-left var(--transition-default);
 	}
 
 	.nav__main > a:first-child {
@@ -979,8 +1079,8 @@ label {
 		height: 2px;
 		background-color: var(--color-nav-link-alt);
 		border-radius: 1px;
-		transition: width 200ms ease-out,
-		transform 200ms ease-out;
+		transition: width var(--transition-duration-default) ease-out,
+		transform var(--transition-duration-default) ease-out;
 	}
 
 	.nav__main > a:hover::after {

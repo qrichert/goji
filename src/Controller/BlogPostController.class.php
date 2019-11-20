@@ -42,7 +42,7 @@
 			$blogPost = $blogPostManager->read($this->m_permalink, true);
 
 			$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
-			                                $tr->_('BLOG_POST_PAGE_DESCRIPTION'));
+			                               $tr->_('BLOG_POST_PAGE_DESCRIPTION'));
 
 			$template->startBuffer();
 

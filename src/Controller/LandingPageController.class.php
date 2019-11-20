@@ -23,7 +23,7 @@
 			// You could also just include an entire html/php file (use readfile( *.html ))
 
 			$template = new SimpleTemplate($tr->_('LANDING_PAGE_PAGE_TITLE'),
-			                                $tr->_('LANDING_PAGE_PAGE_DESCRIPTION'));
+			                               $tr->_('LANDING_PAGE_PAGE_DESCRIPTION'));
 				$template->addSpecial('is-funnel-page', true);
 
 			$template->startBuffer();

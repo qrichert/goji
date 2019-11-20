@@ -26,7 +26,7 @@
 			$inPageContentEdit = new InPageContentEdit($this->m_app, $this->m_app->getLanguages()->getCurrentCountryCode());
 
 			$template = new SimpleTemplate($this->m_app->getSiteName(),
-			                                $tr->_('HOME_PAGE_DESCRIPTION'));
+			                               $tr->_('HOME_PAGE_DESCRIPTION'));
 
 			$template->startBuffer();
 
