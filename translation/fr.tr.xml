@@ -205,5 +205,9 @@
 		<segment id="ADMIN_PAGE_TITLE">Administration</segment>
 		<segment id="ADMIN_PAGE_DESCRIPTION"></segment>
 		<segment id="ADMIN_MAIN_TITLE">Administration</segment>
+		<segment id="ADMIN_SECTION_EDITING">Édition</segment>
+		<segment id="ADMIN_SECTION_ROOT">Root</segment>
+		<segment id="ADMIN_ACTION_NEW_BLOG_POST">Nouvel article</segment>
+		<segment id="ADMIN_ACTION_CLEAR_CACHE">Vider le cache</segment>
 	</page>
 </translation>

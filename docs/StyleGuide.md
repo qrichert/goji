@@ -79,6 +79,14 @@ Classes
     - **`.table__tr`**: Table row `tr`
     - **`.table__th`**: Table header `th`
     - **`.table__td`**: Table dara `td`
+- **`.action-item`**: Action item like in admin panel. Best used with `ActionItem` JavaScript class.
+  The structure should be:
+  ```css
+  .action-item >
+        div.action-item__progress:empty
+      + img.action-item__icon
+      + span.action-item__caption
+  ```
 
 Widgets
 -------

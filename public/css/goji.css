@@ -361,7 +361,6 @@ tr:not(:last-child) td,
 
 .action-item:hover {
 	background-color: var(--color-highlight-halo);
-	/*box-shadow: var(--shadow-thin);*/
 	text-decoration: none;
 }
 
@@ -380,24 +379,24 @@ tr:not(:last-child) td,
 }
 
 .action-item.loading::after {
-	display: block;
-	background-size: contain;
 	background-image: url('lib/Goji/img/loading-dots--medium.svg');
+	background-size: contain;
 	animation: loading 1s ease infinite;
+	display: block;
 }
 
 .action-item.success::after {
-	display: block;
 	width: 19px;
 	background-image: url('lib/Goji/img/right-wrong.svg');
 	background-position: top left;
+	display: block;
 }
 
 .action-item.error::after {
-	display: block;
 	width: 19px;
 	background-image: url('lib/Goji/img/right-wrong.svg');
 	background-position: top right;
+	display: block;
 }
 
 .action-item.loading,
