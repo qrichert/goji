@@ -116,9 +116,9 @@
 		route: "/admin",
 		controller: "Admin\\AdminController"
 	},
-	"xhr-in-page-content-edit": {
-		route: "/xhr-in-page-content-edit",
-		controller: "Admin\\XhrInPageContentEditController"
+	"xhr-admin-in-page-content-edit": {
+		route: "/admin/xhr-in-page-content-edit",
+		controller: "Admin\\XhrAdminInPageContentEditController"
 	},
 	"xhr-admin-clear-cache": {
 		route: "/admin/xhr-clear-cache",

@@ -24,7 +24,7 @@
 			],
 			"editor": [
 				"admin",
-				"xhr-in-page-content-edit",
+				"xhr-admin-in-page-content-edit",
 				"admin-blog-post",
 				"xhr-admin-blog-post"
 			],

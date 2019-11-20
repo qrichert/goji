@@ -6,7 +6,7 @@
 	use Goji\Core\HttpResponse;
 	use Goji\Rendering\InPageEditableContent;
 
-	class XhrInPageContentEditController extends XhrControllerAbstract {
+	class XhrAdminInPageContentEditController extends XhrControllerAbstract {
 
 		public function render(): void {
 
