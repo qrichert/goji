@@ -344,10 +344,19 @@ tr:not(:last-child) td,
 	margin-left: var(--gutter-thin);
 }
 
+.action-item__wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
 .action-item {
-	width: 135px;
+	width: 130px;
 	background-color: var(--color-text-xxxxxlight);
 	border-radius: var(--border-radius-default);
+	margin: 0 var(--gutter-thin) var(--gutter-thin) 0;
 	padding: var(--gutter-medium);
 	box-sizing: border-box;
 	display: inline-flex;

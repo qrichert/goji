@@ -82,10 +82,12 @@ Classes
 - **`.action-item`**: Action item like in admin panel. Best used with `ActionItem` JavaScript class.
   The structure should be:
   ```css
-  .action-item >
-        div.action-item__progress:empty
-      + img.action-item__icon
-      + span.action-item__caption
+  .action-item__wrapper >
+      .action-item >
+            div.action-item__progress:empty
+          + img.action-item__icon
+          + span.action-item__caption
+      /* etc... */
   ```
 
 Widgets
