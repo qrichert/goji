@@ -281,6 +281,52 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	transform: scale(0.7);
 }
 
+/* Table */
+
+table,
+.table {
+	margin: var(--gutter-default) 0;
+	border-radius: var(--border-radius-default);
+	box-shadow: var(--shadow-default);
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+tr,
+.table__tr {
+	display: flex;
+	flex-direction: row;
+}
+
+td, th,
+.table__td, .table__th {
+	margin: 0;
+	padding: var(--gutter-xthin) var(--gutter-thin);
+	width: 100%;
+}
+
+th,
+.table__th {
+	font-size: 1em;
+	line-height: inherit;
+	font-weight: bold;
+	color: white;
+	font-family: inherit;
+	text-align: left;
+	background-color: var(--color-highlight);
+	text-decoration: none;
+}
+
+td:not(:last-child),
+.table__td:not(:last-child) {
+	border-right: 1px solid var(--color-text-xxxxxlight);
+}
+
+tr:not(:last-child) td,
+.table__tr:not(:last-child) .table__td {
+	border-bottom: 1px solid var(--color-text-xxxxxlight);
+}
+
 /* Other elements */
 
 .toolbar {

@@ -75,6 +75,10 @@ Classes
   (`Dialog` does all that automatically).
 - **`.toolbar`**: Made to put buttons or actions inside, which will be displayed in rows. Add a `.main-toolbar`
   modifier to add a margin to it (top-of-the page, main toolbar style).
+- **`.table`**: Mimics `table` element.
+    - **`.table__tr`**: Table row `tr`
+    - **`.table__th`**: Table header `th`
+    - **`.table__td`**: Table dara `td`
 
 Widgets
 -------
