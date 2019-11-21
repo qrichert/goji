@@ -16,6 +16,7 @@
 
 		private $m_config;
 		private $m_databaseId;
+		private $m_databaseFile;
 
 		/* <CONSTANTS> */
 
@@ -74,6 +75,7 @@
 
 			$this->m_config = ConfigurationLoader::loadFileToArray($configFile);
 			$this->m_databaseId = null; // Will be set on loading success
+			$this->m_databaseFile = null; // We be set if database is in a file (like SQLite)
 
 			if (!empty($databaseId))
 				$this->connectToDatabaseFromId($databaseId);
@@ -161,10 +163,18 @@
 			];
 
 			// Call PDO::__construct
-			if ($savedInLocalFile)
+			if ($savedInLocalFile) {
+
 				parent::__construct($prefix . ':' . $file, null, null, $options);
-			else
+
+				// If we're here, it worked
+				// So save file path
+				$this->m_databaseFile = $file;
+
+			} else {
+
 				parent::__construct($dsn, $username, $password, $options);
+			}
 
 			// Connection worked, update id
 			$this->m_databaseId = $databaseId;
@@ -212,8 +222,15 @@
 			return $this->m_databaseId;
 		}
 
+		/**
+		 * Returns database file.
+		 *
+		 * Only returns !=null if SQLite or something, not with DB server
+		 *
+		 * @return string|null
+		 */
 		public function getDatabaseFile(): ?string {
-			return null;
+			return $this->m_databaseFile;
 		}
 
 		/**
