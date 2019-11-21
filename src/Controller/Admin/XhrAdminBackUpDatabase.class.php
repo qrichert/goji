@@ -10,6 +10,6 @@
 
 		public function render(): void {
 
-			HttpResponse::JSON([], BackUp::dataBase($this->m_app->db()));
+			HttpResponse::JSON([], BackUp::database($this->m_app->db()));
 		}
 	}

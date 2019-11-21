@@ -6,16 +6,16 @@
 	use Exception;
 
 	/**
-	 * Class DataBase
+	 * Class Database
 	 *
 	 * @package Goji\Core
 	 */
-	class DataBase extends PDO {
+	class Database extends PDO {
 
 		/* <ATTRIBUTES> */
 
 		private $m_config;
-		private $m_dataBaseId;
+		private $m_databaseId;
 
 		/* <CONSTANTS> */
 
@@ -25,7 +25,7 @@
 		const E_DATABASE_NOT_CONFIGURED = 1;
 
 		/**
-		 * DataBase constructor.
+		 * Database constructor.
 		 *
 		 * Loads config file (/config/databases.json5) and creates new PDO from it.
 		 *
@@ -61,38 +61,38 @@
 		 * ```
 		 *
 		 * The database identification name is entirely up to you (here we have 'production' and 'development').
-		 * You'll be able to access the selected one via DataBase::getDataBaseID();
+		 * You'll be able to access the selected one via Database::getDatabaseID();
 		 *
 		 * Usable parameters are prefix, host, port, dbname, unix_socket, charset, username, password, file.
 		 * If a parameter is missing or null it will be ignored.
 		 *
-		 * @param string|null $dataBaseId
-		 * @param string $configFile (optional) default = DataBase::CONFIG_FILE
+		 * @param string|null $databaseId
+		 * @param string $configFile (optional) default = Database::CONFIG_FILE
 		 * @throws \Exception
 		 */
-		public function __construct(string $dataBaseId = null, string $configFile = self::CONFIG_FILE) {
+		public function __construct(string $databaseId = null, string $configFile = self::CONFIG_FILE) {
 
 			$this->m_config = ConfigurationLoader::loadFileToArray($configFile);
-			$this->m_dataBaseId = null; // Will be set on loading success
+			$this->m_databaseId = null; // Will be set on loading success
 
-			if (!empty($dataBaseId))
-				$this->connectToDataBaseFromId($dataBaseId);
+			if (!empty($databaseId))
+				$this->connectToDatabaseFromId($databaseId);
 			else
-				$this->connectToFirstWorkingDataBase();
+				$this->connectToFirstWorkingDatabase();
 		}
 
 		/**
 		 * Connect to the given database
 		 *
-		 * @param string $dataBaseId
+		 * @param string $databaseId
 		 * @throws \Exception
 		 */
-		private function connectToDataBaseFromId(string $dataBaseId): void {
+		private function connectToDatabaseFromId(string $databaseId): void {
 
-			$dataBaseConfig = $this->m_config[$dataBaseId] ?? null;
+			$databaseConfig = $this->m_config[$databaseId] ?? null;
 
-			if ($dataBaseConfig === null)
-				throw new Exception("Database not configured: '$dataBaseId'.", self::E_DATABASE_NOT_CONFIGURED);
+			if ($databaseConfig === null)
+				throw new Exception("Database not configured: '$databaseId'.", self::E_DATABASE_NOT_CONFIGURED);
 
 			// Extracting infos
 			$savedInLocalFile = false;
@@ -105,7 +105,7 @@
 			$exception = null;
 
 			// Extract configuration
-			foreach ($dataBaseConfig as $parameter => $value) {
+			foreach ($databaseConfig as $parameter => $value) {
 
 				// null
 				if (!isset($value))
@@ -167,7 +167,7 @@
 				parent::__construct($dsn, $username, $password, $options);
 
 			// Connection worked, update id
-			$this->m_dataBaseId = $dataBaseId;
+			$this->m_databaseId = $databaseId;
 		}
 
 		/**
@@ -175,17 +175,17 @@
 		 *
 		 * @throws \Exception
 		 */
-		private function connectToFirstWorkingDataBase(): void {
+		private function connectToFirstWorkingDatabase(): void {
 
 			$connectionSuccessful = false;
 			$lastException = null;
 
 			// For each given database, try to connect
-			foreach ($this->m_config as $dataBaseId => $_) {
+			foreach ($this->m_config as $databaseId => $_) {
 
 				try {
 
-					$this->connectToDataBaseFromId($dataBaseId);
+					$this->connectToDatabaseFromId($databaseId);
 
 				} catch (Exception $e) {
 
@@ -208,11 +208,11 @@
 		 *
 		 * @return string
 		 */
-		public function getDataBaseID() {
-			return $this->m_dataBaseId;
+		public function getDatabaseID() {
+			return $this->m_databaseId;
 		}
 
-		public function getDataBaseFile(): ?string {
+		public function getDatabaseFile(): ?string {
 			return null;
 		}
 

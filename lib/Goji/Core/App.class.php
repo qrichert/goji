@@ -30,7 +30,7 @@
 
 		private $m_languages;
 		private $m_requestHandler;
-		private $m_dataBases;
+		private $m_databases;
 		private $m_memberManager;
 		private $m_user;
 		private $m_authentication;
@@ -78,7 +78,7 @@
 
 			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
-			$this->m_dataBases = [];
+			$this->m_databases = [];
 			$this->m_memberManager = null;
 			$this->m_user = HrFactory::getUser($this);
 				$this->m_user->updateMemberManager();
@@ -249,16 +249,16 @@
 		/**
 		 * Creates a new database instance. If one existed before, it will be replaced.
 		 *
-		 * @param string|null $dataBaseId
+		 * @param string|null $databaseId
 		 * @return \PDO
 		 * @throws \Exception
 		 */
-		public function createDataBase(string $dataBaseId = null): PDO {
+		public function createDatabase(string $databaseId = null): PDO {
 
-			$db = new DataBase($dataBaseId);
+			$db = new Database($databaseId);
 
 			// Save db under ID
-			$this->m_dataBases[$db->getDataBaseID()] = $db;
+			$this->m_databases[$db->getDatabaseID()] = $db;
 
 			if ($this->m_appMode == self::DEBUG)
 				$db->logErrors(true);
@@ -267,53 +267,53 @@
 		}
 
 		/**
-		 * @param string|null $dataBaseId
-		 * @return \Goji\Core\DataBase|\PDO
+		 * @param string|null $databaseId
+		 * @return \Goji\Core\Database|\PDO
 		 * @throws \Exception
 		 */
-		public function getDataBase(string $dataBaseId = null): PDO {
+		public function getDatabase(string $databaseId = null): PDO {
 
-			if (!empty($dataBaseId)) { // Wants specific one
+			if (!empty($databaseId)) { // Wants specific one
 
-				if (isset($this->m_dataBases[$dataBaseId]))
-					return $this->m_dataBases[$dataBaseId];
+				if (isset($this->m_databases[$databaseId]))
+					return $this->m_databases[$databaseId];
 				else
-					return $this->createDataBase($dataBaseId);
+					return $this->createDatabase($databaseId);
 			}
 
 			// Wants first one that works
-			if ($this->hasDataBase())
-				return $this->m_dataBases[array_key_first($this->m_dataBases)];
+			if ($this->hasDatabase())
+				return $this->m_databases[array_key_first($this->m_databases)];
 			else
-				return $this->createDataBase();
+				return $this->createDatabase();
 		}
 
 		/**
-		 * Alias to App::getDataBase(), only shorter.
+		 * Alias to App::getDatabase(), only shorter.
 		 *
 		 * @param array $args
-		 * @return \Goji\Core\DataBase|\PDO
+		 * @return \Goji\Core\Database|\PDO
 		 * @throws \Exception
 		 */
 		public function db(...$args): PDO {
-			return $this->getDataBase(...$args);
+			return $this->getDatabase(...$args);
 		}
 
 		/**
 		 * Add an externally defined PDO to the database list.
 		 *
-		 * @param \PDO|\Goji\Core\DataBase $database
-		 * @param string $dataBaseId
+		 * @param \PDO|\Goji\Core\Database $database
+		 * @param string $databaseId
 		 */
-		public function addDataBase(PDO $database, string $dataBaseId): void {
-			$this->m_dataBases[$dataBaseId] = $database;
+		public function addDatabase(PDO $database, string $databaseId): void {
+			$this->m_databases[$databaseId] = $database;
 		}
 
 		/**
 		 * @return bool
 		 */
-		public function hasDataBase(): bool {
-			return !empty($this->m_dataBases);
+		public function hasDatabase(): bool {
+			return !empty($this->m_databases);
 		}
 
 		/**

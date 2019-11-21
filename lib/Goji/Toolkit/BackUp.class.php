@@ -2,7 +2,7 @@
 
 	namespace Goji\Toolkit;
 
-	use Goji\Core\DataBase;
+	use Goji\Core\Database;
 
 	/**
 	 * Class BackUp
@@ -15,7 +15,7 @@
 
 		const BACKUP_PATH = ROOT_PATH . '/var/backup/';
 
-		public static function dataBase(DataBase $db): bool {
+		public static function database(Database $db): bool {
 
 			return true;
 		}

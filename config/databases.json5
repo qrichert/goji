@@ -7,13 +7,13 @@ duplicate and rename it "databases.json5".
 */
 
 /*
- * Configuration file for \Goji\Core\DataBase
+ * Configuration file for \Goji\Core\Database
  *
  * The first database appearing in the config and that works is selected.
  * You could have a production, test and local one for example.
  *
  * The database identification name is entirely up to you (here we have 'production' and 'localhost').
- * You'll be able to access the selected one via \Goji\Core\DataBase::getDataBaseID();
+ * You'll be able to access the selected one via \Goji\Core\Database::getDatabaseID();
  *
  * Usable parameters are:
  * - 'prefix', 'host', 'port', 'dbname', 'unix_socket',

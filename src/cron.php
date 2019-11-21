@@ -4,9 +4,9 @@
 	require_once '../lib/RootPath.php';
 	require_once '../lib/AutoLoad.php';
 
-	use Goji\Core\DataBase;
+	use Goji\Core\Database;
 
-	$db = new DataBase();
+	$db = new Database();
 
 		// Delete tmp users older than 2 days (48h)
 		$db->exec("DELETE FROM g_member_tmp

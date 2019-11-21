@@ -49,7 +49,7 @@
 		public function __construct(BlogControllerAbstract $parent) {
 
 			$this->m_app = $parent->getApp();
-			$this->m_db = $this->m_app->getDataBase();
+			$this->m_db = $this->m_app->getDatabase();
 			$this->m_parent = $parent;
 			$this->m_translator = $this->m_app->getTranslator();
 

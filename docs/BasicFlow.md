@@ -109,8 +109,8 @@ render the view, so it should be the last thing you do anyway.
 Database
 --------
 
-The database will be accessible via `App::getDataBase(?id): PDO` or its alias `App::db(?id): PDO`.
-Really it's a `\Goji\Core\DataBase` object which is returned, but that's just a child of PDO that
+The database will be accessible via `App::getDatabase(?id): PDO` or its alias `App::db(?id): PDO`.
+Really it's a `\Goji\Core\Database` object which is returned, but that's just a child of PDO that
 reads your config file. So really it's just a regular `PDO`.
 
 To access the database in your controllers, just do `$app->getDatabase(?id)` or `$app->db(?id)`...
