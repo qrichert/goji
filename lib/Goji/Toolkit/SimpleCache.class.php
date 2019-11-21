@@ -150,7 +150,9 @@
 		}
 
 		/**
-		 * Stop buffering and save the collected output.
+		 * Stop buffering, save the collected output and delete current output buffer
+		 *
+		 * From the doc: ob_get_clean() essentially executes both ob_get_contents() and ob_end_clean().
 		 *
 		 * Stops the buffer and loads all the output that has been collected into a variable.
 		 * This variable can then be stored.
