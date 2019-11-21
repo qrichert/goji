@@ -24,7 +24,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/hr.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/hr.json5';
 
 		const DEFAULT_MEMBER_ROLES_LIST = [
 			'member' => 1,

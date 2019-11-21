@@ -77,10 +77,10 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/templating.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
 
-		const VIEW_PATH = '../src/View/%{VIEW}.%{FILETYPE}';
-		const TEMPLATE_PATH = '../template/%{TEMPLATE}.template.%{FILETYPE}';
+		const VIEW_PATH = ROOT_PATH . '/src/View/%{VIEW}.%{FILETYPE}';
+		const TEMPLATE_PATH = ROOT_PATH . '/template/%{TEMPLATE}.template.%{FILETYPE}';
 
 		const NORMAL = 'normal';
 		const MERGED = 'merged';

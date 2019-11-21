@@ -22,7 +22,7 @@
 
 		/* <CONSTANTS> */
 
-		const BASE_PATH = '../translation/';
+		const BASE_PATH = ROOT_PATH . '/translation/';
 
 		const E_NO_TARGET_LOCALE = 0;
 		const E_RESOURCE_NOT_FOUND = 1;

@@ -16,7 +16,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/hr.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/hr.json5';
 
 		/**
 		 * Read configuration and initialize attributes.

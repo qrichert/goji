@@ -27,7 +27,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/routes.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/routes.json5';
 
 		const ACCEPT_ALL = 'all';
 		const ACCEPT_MULTIPLE = 'multiple';

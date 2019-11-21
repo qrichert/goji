@@ -30,7 +30,7 @@
 			$companyEmail = $options['company_email'] ?? 'noreply@' . $companyDomainName; // noreply@awesomewebsite.com
 			$replyToName = $options['reply_to_name'] ?? $companyName;
 			$replyToEmail = $options['reply_to_email'] ?? $companyEmail;
-			$templateFile = $options['template_file'] ?? '../template/mail/mail.template.html';
+			$templateFile = $options['template_file'] ?? ROOT_PATH . '/template/mail/mail.template.html';
 
 			// <CONTENT>
 			$emailContent = file_get_contents($templateFile);

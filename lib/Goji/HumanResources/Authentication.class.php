@@ -21,7 +21,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/authentication.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/authentication.json5';
 
 		const AFTER_LOGIN_REDIRECT_TO = 'after-login-redirect-to';
 

@@ -21,7 +21,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/templating.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
 
 		const NORMAL = 'normal';
 		const MERGED = 'merged';

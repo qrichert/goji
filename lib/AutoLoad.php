@@ -22,7 +22,7 @@
 		$className = ltrim($className, '\\');
 
 		// Goji\SimpleTemplate -> ../lib/Goji/SimpleTemplate.class.php
-		$classFile = '../lib/' . str_replace('\\', '/', $className) . '.class.php';
+		$classFile = ROOT_PATH . '/lib/' . str_replace('\\', '/', $className) . '.class.php';
 
 		if (is_file($classFile))
 			require_once $classFile;
@@ -52,7 +52,7 @@
 		$className = str_replace('\\', '/', $className);
 
 		// Model/HomeController -> ../src/Model/HomeModel.class.php
-		$classFile = '../src/' . $className . '.class.php';
+		$classFile = ROOT_PATH . '/src/' . $className . '.class.php';
 
 		if (is_file($classFile))
 			require_once $classFile;

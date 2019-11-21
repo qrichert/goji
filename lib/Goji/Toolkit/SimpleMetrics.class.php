@@ -9,7 +9,7 @@
 	 */
 	class SimpleMetrics {
 
-		const METRICS_PATH = '../var/log/metrics/';
+		const METRICS_PATH = ROOT_PATH . '/var/log/metrics/';
 
 		public static function addPageView($page, $folder = 'pageview') {
 

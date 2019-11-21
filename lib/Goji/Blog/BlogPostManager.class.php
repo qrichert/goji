@@ -23,7 +23,7 @@
 
 		/* <CONSTANTS> */
 
-		const BLOG_POSTS_PATH = '../var/blog/';
+		const BLOG_POSTS_PATH = ROOT_PATH . '/var/blog/';
 		const BLOG_POSTS_EXTENSION = '.post.txt';
 
 		const ACTION_CREATE = 'create';

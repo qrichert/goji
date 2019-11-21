@@ -20,8 +20,8 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/databases.json5';
-		const DATABASES_SAVE_PATH = '../var/db/';
+		const CONFIG_FILE = ROOT_PATH . '/config/databases.json5';
+		const DATABASES_SAVE_PATH = ROOT_PATH . '/var/db/';
 
 		const E_DATABASE_NOT_CONFIGURED = 1;
 

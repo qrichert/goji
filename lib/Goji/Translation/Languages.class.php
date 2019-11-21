@@ -30,7 +30,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/languages.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/languages.json5';
 
 		const E_NO_LANGUAGES_CONFIGURED = 0;
 		const E_LOCALE_DOES_NOT_EXIST = 1;

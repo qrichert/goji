@@ -20,7 +20,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/authentication.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/authentication.json5';
 
 		public function __construct(App $app, string $configFile = self::CONFIG_FILE) {
 

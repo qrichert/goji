@@ -40,7 +40,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/app.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/app.json5';
 
 		const DEBUG = 'debug';
 		const RELEASE = 'release';

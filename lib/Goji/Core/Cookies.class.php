@@ -20,7 +20,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/cookies.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/cookies.json5';
 
 		/**
 		 * Read configuration and initialize attributes.

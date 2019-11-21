@@ -84,7 +84,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/caching.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/caching.json5';
 
 		const CACHE_PATH = ROOT_PATH . '/var/cache/';
 		const CACHE_FILE_EXTENSION = '.cache';

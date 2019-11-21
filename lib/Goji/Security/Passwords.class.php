@@ -20,7 +20,7 @@
 
 		/* <CONSTANTS> */
 
-		const CONFIG_FILE = '../config/passwords.json5';
+		const CONFIG_FILE = ROOT_PATH . '/config/passwords.json5';
 
 		const E_PROPERTY_NOT_SET = 1;
 
