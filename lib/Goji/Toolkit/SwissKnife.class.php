@@ -111,15 +111,15 @@
 
 			$dateTime = DateTime::createFromFormat($format, $date);
 
-				$date = [
-					'full' => $date,
-					'year' => $dateTime->format('Y'),
-					'month' => $dateTime->format('m'),
-					'day' => $dateTime->format('d'),
-					'hour' => $dateTime->format('H'),
-					'min' => $dateTime->format('i'),
-					'sec' => $dateTime->format('s'),
-				];
+			$date = [
+				'full' => $date,
+				'year' => $dateTime->format('Y'),
+				'month' => $dateTime->format('m'),
+				'day' => $dateTime->format('d'),
+				'hour' => $dateTime->format('H'),
+				'min' => $dateTime->format('i'),
+				'sec' => $dateTime->format('s'),
+			];
 
 			return $date;
 		}
@@ -165,5 +165,28 @@
 			$str = trim($str, '-'); // hello-world-123
 
 			return $str;
+		}
+
+		public static function bytesToFileSize(int $bytes, int $precision = 2): string {
+
+			if ($bytes < 1000) {
+				return "$bytes bytes";
+			}
+			elseif ($bytes < 1000000) {
+				$bytes = round($bytes / 1000, $precision);
+				return "$bytes Kb";
+			}
+			elseif ($bytes < 1000000000) {
+				$bytes = round($bytes / 1000000, $precision);
+				return "$bytes Mb";
+			}
+			elseif ($bytes < 1000000000000) {
+				$bytes = round($bytes / 1000000000, $precision);
+				return "$bytes Gb";
+			}
+			else { // $bytes < 1000000000000000
+				$bytes = round($bytes / 1000000000000, $precision);
+				return "$bytes Tb";
+			}
 		}
 	}

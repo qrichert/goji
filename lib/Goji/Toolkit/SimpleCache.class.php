@@ -195,8 +195,12 @@
 		 * Purge cache.
 		 *
 		 * Empties the cache by deleting ALL cache files.
+		 *
+		 * @return array Fragments' name and size
 		 */
-		public static function purgeCache(): void {
+		public static function purgeCache(): array {
+
+			$fragmentsRemoved = [];
 
 			// Get all *.txt file names (unsorted = faster)
 			$fragments = glob(self::CACHE_PATH . '*' . self::CACHE_FILE_EXTENSION, GLOB_NOSORT);
@@ -204,9 +208,20 @@
 			foreach ($fragments as $fragment) { // Iterate fragments
 
 				if (is_file($fragment)) {
-					unlink($fragment); // Delete file
+
+					$fragmentSize = filesize($fragment);
+
+					if (unlink($fragment)) { // Delete fragment
+
+						$fragmentsRemoved[] = [
+							'fragment' => $fragment,
+							'size' => $fragmentSize
+						];
+					}
 				}
 			}
+
+			return $fragmentsRemoved;
 		}
 
 /* <GENERIC FRAGMENT CACHING> */
