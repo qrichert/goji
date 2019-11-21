@@ -27,7 +27,7 @@
 				<div class="action-item__wrapper">
 					<a class="action-item" id="admin-action__clear-cache">
 						<div class="action-item__progress"></div>
-						<img src="<?= $template->rsc('img/lib/Goji/clear-cache.svg'); ?>" alt="" class="action-item__icon">
+						<img src="<?= $template->rsc('img/lib/Goji/cache__clear.svg'); ?>" alt="" class="action-item__icon">
 						<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_CLEAR_CACHE'); ?></span>
 					</a>
 
@@ -35,6 +35,12 @@
 						<div class="action-item__progress"></div>
 						<img src="<?= $template->rsc('img/lib/Goji/git.svg'); ?>" alt="" class="action-item__icon">
 						<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_UPDATE'); ?></span>
+					</a>
+
+					<a class="action-item" id="admin-action__back-up-database">
+						<div class="action-item__progress"></div>
+						<img src="<?= $template->rsc('img/lib/Goji/database__back-up.svg'); ?>" alt="" class="action-item__icon">
+						<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_BACK_UP_DATABASE'); ?></span>
 					</a>
 				</div>
 			<?php
@@ -124,6 +130,47 @@
 
 					SimpleRequest.get(
 						'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-update') ?>',
+						load,
+						error,
+						error,
+						progress,
+						{ get_json: true }
+					);
+
+				}, false);
+
+			})();
+
+			// Back-up DB
+			(function () {
+
+				let backUp = document.querySelector('#admin-action__back-up-database');
+				let backUpAction = new ActionItem(backUp);
+
+				backUp.addEventListener('click', () => {
+
+					backUpAction.startAction();
+
+					let error = () => {
+						backUpAction.endError();
+					};
+
+					let load = (r) => {
+
+						if (r === null || r.status === 'ERROR') {
+							error();
+							return;
+						}
+
+						backUpAction.endSuccess();
+					};
+
+					let progress = (loaded, total) => {
+						backUpAction.setProgress(loaded/total);
+					};
+
+					SimpleRequest.get(
+						'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-back-up-database') ?>',
 						load,
 						error,
 						error,

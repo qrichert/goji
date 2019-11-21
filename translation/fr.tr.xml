@@ -211,5 +211,6 @@
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">Nouvel article</segment>
 		<segment id="ADMIN_ACTION_CLEAR_CACHE">Vider le cache</segment>
 		<segment id="ADMIN_ACTION_UPDATE">Mettre à jour</segment>
+		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up BDD</segment>
 	</page>
 </translation>

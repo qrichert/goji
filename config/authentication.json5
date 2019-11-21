@@ -21,7 +21,8 @@
 		require_authentication: {
 			"root": [
 				"xhr-admin-clear-cache",
-				"xhr-admin-update"
+				"xhr-admin-update",
+				"xhr-admin-back-up-database"
 			],
 			"editor": [
 				"admin",

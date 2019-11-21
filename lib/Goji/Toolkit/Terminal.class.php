@@ -4,6 +4,11 @@
 
 	use Exception;
 
+	/**
+	 * Class Terminal
+	 *
+	 * @package Goji\Toolkit
+	 */
 	class Terminal {
 
 		/* <CONSTANTS> */

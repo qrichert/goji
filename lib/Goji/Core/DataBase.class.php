@@ -212,6 +212,10 @@
 			return $this->m_dataBaseId;
 		}
 
+		public function getDataBaseFile(): ?string {
+			return null;
+		}
+
 		/**
 		 * Shows errors in console
 		 *
