@@ -589,6 +589,7 @@ img.header__logo {
 }
 
 .footer__main-content {
+	/* Footer children are aligned in row. */
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
@@ -599,6 +600,15 @@ img.header__logo {
 .footer__main-content > :not(:last-child) {
 	/* Margin right so lines aligns left when wrapped. */
 	margin-right: var(--gutter-medium);
+}
+
+.footer__main-content > div > * {
+	/* Footer sub-children are aligned in column if their parent is a <div>
+	   (<div>s only because we don't want to mess with inline content). */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
 }
 
 .footer__explore {

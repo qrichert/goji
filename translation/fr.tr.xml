@@ -29,6 +29,7 @@
 		<segment id="FOOTER_PRIVACY_AND_TERMS">Mentions Légales</segment>
 		<segment id="FOOTER_LOG_IN">Connexion</segment>
 		<segment id="FOOTER_LOG_OUT">Déconnexion</segment>
+		<segment id="FOOTER_ADMIN">Admin</segment>
 	</page>
 	<!--
 		Page IDs are regular expressions here (start ^ and end $ are automatically added around them).
