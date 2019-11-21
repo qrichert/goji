@@ -124,6 +124,10 @@
 		route: "/admin/xhr-clear-cache",
 		controller: "Admin\\XhrAdminClearCache"
 	},
+	"xhr-admin-update": {
+		route: "/admin/xhr-update",
+		controller: "Admin\\XhrAdminUpdate"
+	},
 	// <DEMO>
 	// This is the page ID.
 	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )

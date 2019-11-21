@@ -210,5 +210,6 @@
 		<segment id="ADMIN_SECTION_ROOT">Root</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">New blog post</segment>
 		<segment id="ADMIN_ACTION_CLEAR_CACHE">Clear cache</segment>
+		<segment id="ADMIN_ACTION_UPDATE">Update</segment>
 	</page>
 </translation>

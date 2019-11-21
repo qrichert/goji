@@ -20,7 +20,8 @@
 		// Uses the roles set in 'hr' config file
 		require_authentication: {
 			"root": [
-				"xhr-admin-clear-cache"
+				"xhr-admin-clear-cache",
+				"xhr-admin-update"
 			],
 			"editor": [
 				"admin",

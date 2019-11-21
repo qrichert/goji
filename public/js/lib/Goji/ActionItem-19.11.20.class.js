@@ -34,15 +34,6 @@ class ActionItem {
 
 		this.m_icon = this.m_parent.querySelector('.action-item__icon');
 		this.m_caption = this.m_parent.querySelector('.action-item__caption');
-
-		this.addListeners();
-	}
-
-	/**
-	 * @private
-	 */
-	addListeners() {
-		this.m_parent.addEventListener('click', () => { this.startAction(); }, false);
 	}
 
 	/**

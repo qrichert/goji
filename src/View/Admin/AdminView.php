@@ -30,6 +30,12 @@
 						<img src="<?= $template->rsc('img/lib/Goji/clear-cache.svg'); ?>" alt="" class="action-item__icon">
 						<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_CLEAR_CACHE'); ?></span>
 					</a>
+
+					<a class="action-item" id="admin-action__update">
+						<div class="action-item__progress"></div>
+						<img src="<?= $template->rsc('img/lib/Goji/git.svg'); ?>" alt="" class="action-item__icon">
+						<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_UPDATE'); ?></span>
+					</a>
 				</div>
 			<?php
 			}
@@ -47,12 +53,10 @@
 	if ($this->m_app->getMemberManager()->memberIs('root')) {
 	?>
 		<script>
+			// Clear cache
 			(function() {
 
-				// Clear cache
-
 				let clearCache = document.querySelector('#admin-action__clear-cache');
-
 				let clearCacheAction = new ActionItem(clearCache);
 
 				clearCache.addEventListener('click', () => {
@@ -79,6 +83,47 @@
 
 					SimpleRequest.get(
 						'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-clear-cache') ?>',
+						load,
+						error,
+						error,
+						progress,
+						{ get_json: true }
+					);
+
+				}, false);
+
+			})();
+
+			// Update
+			(function () {
+
+				let update = document.querySelector('#admin-action__update');
+				let updateAction = new ActionItem(update);
+
+				update.addEventListener('click', () => {
+
+					updateAction.startAction();
+
+					let error = () => {
+						updateAction.endError();
+					};
+
+					let load = (r) => {
+
+						if (r === null || r.status === 'ERROR') {
+							error();
+							return;
+						}
+
+						updateAction.endSuccess();
+					};
+
+					let progress = (loaded, total) => {
+						updateAction.setProgress(loaded/total);
+					};
+
+					SimpleRequest.get(
+						'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-update') ?>',
 						load,
 						error,
 						error,
