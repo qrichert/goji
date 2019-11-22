@@ -43,7 +43,7 @@
 			}
 		?>
 
-		<?= $blogPost['post']; ?>
+		<p><?= $blogPost['post']; ?></p>
 
 		<p>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('BLOG_POST_BACK_TO_BLOG_POSTS'); ?></a>
