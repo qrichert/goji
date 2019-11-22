@@ -55,7 +55,7 @@
 
 			$sanitizeCallback = $this->m_sanitizeCallback;
 
-			if (is_callable($sanitizeCallback))
+			if (isset($value) && is_callable($sanitizeCallback))
 				$value = $sanitizeCallback($value);
 
 			if ($updateValueAttribute)

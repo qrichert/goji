@@ -98,7 +98,7 @@
 		 */
 		public function hydrateFormWithPostData(): void {
 
-			$this->createForm(); // Creates one if none, doesn't overwrite current one
+			$this->createForm(); // Creates one if none, doesn't overwrite current one if one already exists
 
 			$this->m_form->hydrate();
 		}
@@ -114,6 +114,7 @@
 			$this->createForm(); // Creates one if none, doesn't overwrite current one
 
 				$this->m_form->getInputByName('blog-post[permalink]')->setValue($data['permalink']);
+				$this->m_form->getInputByName('blog-post[illustration]')->setValue($data['illustration']);
 				$this->m_form->getInputByName('blog-post[title]')->setValue($data['title']);
 				$this->m_form->getInputByName('blog-post[post]')->setValue($data['post']);
 		}
@@ -228,6 +229,9 @@
 
 			// Getting values
 
+			// Locale
+			$locale = $this->m_translator->getTargetLocale();
+
 			// Title
 			$title = $this->m_form->getInputByName('blog-post[title]')->getValue();
 				SwissKnife::removeNewLines($title);
@@ -247,13 +251,13 @@
 				// Update form with new permalink
 				$this->m_form->getInputByName('blog-post[permalink]')->setValue($permalink);
 
-			// Locale
-			$locale = $this->m_translator->getTargetLocale();
+			// Illustration
+			$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
 			// Save
 			$query = $this->m_db->prepare('INSERT INTO g_blog
-											       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post,  created_by)
-											VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post, :created_by)');
+											       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post,  created_by,  illustration)
+											VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post, :created_by, :illustration)');
 
 			$query->execute([
 				'locale' => $locale,
@@ -262,7 +266,8 @@
 				'last_edit_date' => date('Y-m-d H:i:s'),
 				'title' => $title,
 				'post' => $post,
-				'created_by' => $this->m_app->getUser()->getId()
+				'created_by' => $this->m_app->getUser()->getId(),
+				'illustration' => $illustration
 			]);
 
 			$query->closeCursor();
@@ -331,7 +336,7 @@
 			$permalink = $this->m_form->getInputByName('blog-post[permalink]')->getValue();
 			$updatePermalink = false;
 
-			// Get the old permalink
+			// Permalink - Get the old permalink
 			$q = 'SELECT permalink
 				  FROM g_blog
 				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
@@ -345,7 +350,7 @@
 
 			$query->closeCursor();
 
-			// Compare it to the new
+			// Permalink -  Compare it to the new
 			if ($permalink != $reply['permalink']) { // Permalink changed
 
 				$updatePermalink = true;
@@ -360,14 +365,16 @@
 				$this->m_form->getInputByName('blog-post[permalink]')->setValue($permalink);
 			}
 
-			// Update
+			// Illustration
+			$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
+			// Update
 			$query = null;
 
 			if ($updatePermalink) {
 
 				$q = 'UPDATE g_blog
-					  SET permalink=:permalink, title=:title, post=:post, last_edit_date=:last_edit_date
+					  SET permalink=:permalink, title=:title, post=:post, illustration=:illustration, last_edit_date=:last_edit_date
 					  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 				$query = $this->m_db->prepare($q);
@@ -375,6 +382,7 @@
 					'permalink' => $permalink,
 					'title' => $title,
 					'post' => $post,
+					'illustration' => $illustration,
 					'last_edit_date' => date('Y-m-d H:i:s'),
 					'id' => $id
 				]);
@@ -382,13 +390,14 @@
 			} else {
 
 				$q = 'UPDATE g_blog
-					  SET title=:title, post=:post, last_edit_date=:last_edit_date
+					  SET title=:title, post=:post, illustration=:illustration, last_edit_date=:last_edit_date
 					  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 				$query = $this->m_db->prepare($q);
 				$query->execute([
 					'title' => $title,
 					'post' => $post,
+					'illustration' => $illustration,
 					'last_edit_date' => date('Y-m-d H:i:s'),
 					'id' => $id
 				]);

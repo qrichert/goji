@@ -197,6 +197,8 @@
 		<segment id="BLOG_POST_WRITING_FAILED">Erreur Interne: Impossible d'enregistrer l'article</segment>
 		<segment id="BLOG_POST_PERMALINK">Permalien</segment>
 		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">mon-histoire</segment>
+		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
+		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://lien.vers/image.jpg</segment>
 		<segment id="BLOG_POST_TITLE">Titre</segment>
 		<segment id="BLOG_POST_TITLE_PLACEHOLDER">Mon Histoire</segment>
 		<segment id="BLOG_POST_POST">Contenu</segment>

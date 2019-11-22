@@ -197,6 +197,8 @@
 		<segment id="BLOG_POST_WRITING_FAILED">Internal Error: The article could not be saved</segment>
 		<segment id="BLOG_POST_PERMALINK">Permalink</segment>
 		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">my-story</segment>
+		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
+		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://link.to/image.jpg</segment>
 		<segment id="BLOG_POST_TITLE">Title</segment>
 		<segment id="BLOG_POST_TITLE_PLACEHOLDER">My Story</segment>
 		<segment id="BLOG_POST_POST">Content</segment>

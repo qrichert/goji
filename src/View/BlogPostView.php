@@ -1,5 +1,12 @@
 <main>
 	<section class="text">
+		<?php
+			if (!empty($blogPost['illustration'])) {
+			?>
+				<img src="<?= $blogPost['illustration']; ?>" alt="<?= $blogPost['title']; ?>" class="blog__illustration">
+			<?php
+			}
+		?>
 		<h1><?= $blogPost['title']; ?></h1>
 		<p class="sub-heading">
 			<?php

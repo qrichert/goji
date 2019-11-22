@@ -3,7 +3,6 @@
 	namespace Goji\Blog;
 
 	use Goji\Form\Form;
-	use Goji\Form\InputButton;
 	use Goji\Form\InputButtonElement;
 	use Goji\Form\InputCustom;
 	use Goji\Form\InputLabel;
@@ -22,6 +21,10 @@
 
 			parent::__construct();
 
+			$sanitizeIllustration = function($illustration) {
+				return trim($illustration);
+			};
+
 			$this->addClass('form__blog-post');
 
 				$this->addInput(new InputButtonElement())
@@ -37,6 +40,13 @@
 					 ->setAttribute('name', 'blog-post[permalink]')
 					 ->setId('blog-post__permalink')
 					 ->setAttribute('placeholder', $tr->_('BLOG_POST_PERMALINK_PLACEHOLDER'));
+				$this->addInput(new InputLabel())
+				     ->setAttribute('for', 'blog-post__illustration')
+				     ->setAttribute('textContent', $tr->_('BLOG_POST_ILLUSTRATION'));
+				$this->addInput(new InputText(null, false, $sanitizeIllustration)) // Can't use URL because we allow %{WEBROOT}/img/img.jpg style links
+				     ->setAttribute('name', 'blog-post[illustration]')
+				     ->setId('blog-post__illustration')
+				     ->setAttribute('placeholder', $tr->_('BLOG_POST_ILLUSTRATION_PLACEHOLDER'));
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'blog-post__title')
 					 ->addClass('required')
@@ -57,9 +67,5 @@
 				     ->setAttribute('placeholder', $tr->_('BLOG_POST_POST_PLACEHOLDER'))
 				     ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
-//				$this->addInput(new InputButtonElement())
-//				     ->setId('blog-post__submit')
-//				     ->addClasses('highlight loader')
-//				     ->setAttribute('textContent', $tr->_('PUBLISH'));
 		}
 	}
