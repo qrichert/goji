@@ -20,7 +20,7 @@
 			$text = preg_replace('#(?<!\\\\)`(.+?)(?<!\\\\)`#is', '@@@@@@@@@@code€€€€€€€€€€$1@@@@@@@@@@/code€€€€€€€€€€', $text);
 
 			// Escape removal
-			$text = preg_replace('#\\\\([\*_~`])#', '$1', $text);
+			$text = preg_replace('#\\\\([*_~`])#', '$1', $text);
 
 			// IMAGES / LINKS
 			$text = preg_replace('#!\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@img src="$2" alt="$1" class="markdown-image"€€€€€€€€€€', $text);
@@ -181,6 +181,24 @@
 				$text = preg_replace('#@@@@@@@@@@hr€€€€€€€€€€#i',
 				                     '@@@@@@@@@@span class="markdown-hr"€€€€€€€€€€@@@@@@@@@@/span€€€€€€€€€€', $text);
 			}
+
+			$text = str_replace('@@@@@@@@@@', '<', $text);
+			$text = str_replace('€€€€€€€€€€', '>', $text);
+
+			return $text;
+		}
+
+		public static function alignmentToHTML(string $text, bool $fakeBlocks = false): string {
+
+			$tag = $fakeBlocks ? 'span' : 'div';
+			$fakeClass = $fakeBlocks ? 'markdown-aligned' : '';
+
+			$text = preg_replace('#(?<!\\\\)\|\+(.+?)(?<!\\\\)-\|#is', "@@@@@@@@@@{$tag} style=\"border: 1px solid red; \" class=\"aligned--left {$fakeClass}\"€€€€€€€€€€$1@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
+			$text = preg_replace('#(?<!\\\\)\|-(.+?)(?<!\\\\)\+\|#is', "@@@@@@@@@@{$tag} style=\"border: 1px solid red; \" class=\"aligned--right {$fakeClass}\"€€€€€€€€€€$1@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
+			$text = preg_replace('#(?<!\\\\)\|\|(.+?)(?<!\\\\)\|\|#is', "@@@@@@@@@@{$tag} style=\"border: 1px solid red; \" class=\"aligned--center {$fakeClass}\"€€€€€€€€€€$1@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
+
+			// Escape removal
+			$text = str_replace('\|', '|', $text);
 
 			$text = str_replace('@@@@@@@@@@', '<', $text);
 			$text = str_replace('€€€€€€€€€€', '>', $text);

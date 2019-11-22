@@ -107,3 +107,13 @@ form > .markdown-heading.h4, form > .markdown-heading.h5, form > .markdown-headi
 	border-top: 1px solid var(--color-text-xxxxxlight);
 	margin: 1.5em 0 1.7em 0;
 }
+
+/* <ALIGNMENT> */
+
+.markdown-aligned {
+	display: block;
+}
+
+.markdown-aligned.aligned--left { text-align: left; }
+.markdown-aligned.aligned--right { text-align: right; }
+.markdown-aligned.aligned--center { text-align: center; }

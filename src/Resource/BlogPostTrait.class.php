@@ -12,7 +12,7 @@
 		 * @param $content
 		 * @return string
 		 */
-		public static function renderAsHtml(string $content): string {
+		public static function renderAsHTML(string $content): string {
 
 			$content = BasicFormatting::formatTextInlineAndEscape($content);
 
@@ -26,6 +26,6 @@
 		 * @return string
 		 */
 		public static function renderClean(string $content): string {
-			return strip_tags(self::renderAsHtml($content));
+			return strip_tags(self::renderAsHTML($content));
 		}
 	}

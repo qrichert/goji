@@ -13,36 +13,6 @@
 
 		/* <CONSTANTS> */
 
-		const BACK_UP = 'back-up';
-		const RESTORE = 'restore';
-
-		/**
-		 * @param string $text
-		 * @param string $way
-		 * @param $hitCount
-		 * @param $hit
-		 */
-		protected static function escapeQuotedStrings(string &$text, string $way, &$hitCount, &$hit): void {
-
-			if ($way == self::BACK_UP) { // Backup
-
-				// Backup values within single or double quotes
-				preg_match_all(RegexPatterns::quotedStrings(), $text, $hit, PREG_PATTERN_ORDER);
-
-				$hitCount = count($hit[1]);
-				for ($i = 0; $i < $hitCount; $i++) {
-					$text = str_replace($hit[1][$i], '££££££££££' . $i . '££££££££££', $text);
-				}
-
-			} else { // Restore
-
-				// Restore back-upped values within single or double quotes
-				for ($i = 0; $i < $hitCount; $i++) {
-					$text = str_replace('££££££££££' . $i . '££££££££££', $hit[1][$i], $text);
-				}
-			}
-		}
-
 		/**
 		 * Converts links to HTML links.
 		 *
@@ -83,6 +53,7 @@
 			$text = BasicMarkdown::inlineToHTML($text);
 			$text = BasicMarkdown::blocksToHTML($text, true);
 			$text = BasicMarkdown::listsToHTML($text, true);
+			$text = BasicMarkdown::alignmentToHTML($text, true);
 
 			// Backup links and images, we don't want to use textLinksToHTML() on <a> or <img> tags
 			preg_match_all('#(<a (.+?)</a>|<img (.+?)>)#is', $text, $hit, PREG_PATTERN_ORDER);

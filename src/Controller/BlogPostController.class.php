@@ -44,7 +44,7 @@
 			$blogPostManager = new BlogPostManager($this);
 			$blogPost = $blogPostManager->read($this->m_permalink, true);
 				// To HTML
-				$blogPost['post'] = self::renderAsHtml($blogPost['post']);
+				$blogPost['post'] = self::renderAsHTML($blogPost['post']);
 
 			$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
 			                               $tr->_('BLOG_POST_PAGE_DESCRIPTION'));

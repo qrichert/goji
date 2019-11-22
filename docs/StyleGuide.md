@@ -60,6 +60,9 @@ Classes
 - **`.spacer`**: Adds a `--gutter-medium` margin on top of the element
 - **`.scalable`**: Element gets scaled by a 1.023 factor on hover
 - **`.rounded`**: Rounds corners at `--border-radius-medium`
+- **`.aligned--left`**: Text align left
+- **`.aligned--right`**: Text align right
+- **`.aligned--center`**: Text align center
 - **`.pre-heading`**: Like a sub title but before the title. Could be used for the date of an article
   or the category.
 - **`.sub-heading`**: Same as `.pre-heading`, but like a... sub heading. Under the title.
