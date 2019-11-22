@@ -25,7 +25,7 @@
 			$totalSize = SwissKnife::bytesToFileSize($totalSize);
 
 			HttpResponse::JSON([
-				'fragments' => $fragmentsRemoved,
+				//'fragments' => $fragmentsRemoved,
 				'nb_removed' => count($fragmentsRemoved),
 				'space_saved' => $totalSize
 			], true);

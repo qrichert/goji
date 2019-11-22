@@ -81,6 +81,17 @@
 						}
 
 						clearCacheAction.endSuccess();
+
+						// Command output
+						let output = '';
+
+						if (typeof r.nb_removed !== 'undefined')
+							output += r.nb_removed + ' fragments removed\n';
+
+						if (typeof r.space_saved !== 'undefined')
+							output += r.space_saved + ' saved';
+
+						clearCache.title = output;
 					};
 
 					let progress = (loaded, total) => {
