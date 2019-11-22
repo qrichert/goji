@@ -2,13 +2,21 @@
 
 	namespace App\Controller;
 
+	use App\Resource\BlogPostTrait;
 	use Goji\Blog\BlogControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Core\App;
 	use Goji\Rendering\SimpleTemplate;
+	use Goji\Toolkit\SwissKnife;
 	use Goji\Translation\Translator;
 
 	class BlogController extends BlogControllerAbstract {
+
+		use BlogPostTrait;
+
+		/* <CONSTANTS> */
+
+		const BLOG_POST_PREVIEW_MAX_LENGTH = 250;
 
 		public function __construct(App $app) {
 
@@ -17,13 +25,26 @@
 			$this->activateCacheIfRolePermits();
 		}
 
+		public static function renderCleanAndCut($content) {
+
+			$content = self::renderClean($content);
+
+			if (mb_strlen($content) > self::BLOG_POST_PREVIEW_MAX_LENGTH)
+				$content = SwissKnife::ceil_str($content, self::BLOG_POST_PREVIEW_MAX_LENGTH) . '...';
+
+			return $content;
+		}
+
 		public function render(): void {
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$blogPostManager = new BlogPostManager($this);
-			$blogPosts = $blogPostManager->getBlogPosts(0, -1, $this->m_app->getLanguages()->getCurrentCountryCode(), 250, true);
+			$blogPosts = $blogPostManager->getBlogPosts(0,
+			                                            -1,
+			                                            $this->m_app->getLanguages()->getCurrentCountryCode(),
+			                                            [self::class, 'renderCleanAndCut']);
 
 			$template = new SimpleTemplate($tr->_('BLOG_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 			                               $tr->_('BLOG_PAGE_DESCRIPTION'));

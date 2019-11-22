@@ -68,12 +68,14 @@
 		 * A mix of markdownToHTML() and textLinksToHTML()
 		 *
 		 * @param string $text
+		 * @param bool $escapeHTML
 		 * @return string
 		 */
-		public static function formatTextInlineAndEscape(string $text): string {
+		public static function formatTextInlineAndEscape(string $text, bool $escapeHTML = true): string {
 
 			// First, just escape regular HTML
-//			$text = htmlspecialchars($text);
+			if ($escapeHTML)
+				$text = htmlspecialchars($text);
 
 			$text = str_replace('%{WEBROOT}', WEBROOT, $text);
 

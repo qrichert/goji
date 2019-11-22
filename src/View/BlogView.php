@@ -45,11 +45,7 @@
 					?>
 				</p>
 				<p>
-					<?php
-						// Markdown or other formatting needs cleaning here, show text only
-						//echo strip_tags($md->text($post['post']));
-						echo htmlspecialchars($post['post']);
-					?>
+					<?= $post['post']; ?>
 					<a href="<?= $link ?>"><?= $tr->_('BLOG_READ_MORE'); ?></a>
 				</p>
 

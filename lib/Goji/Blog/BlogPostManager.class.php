@@ -126,12 +126,10 @@
 		 * @param int $offset
 		 * @param int $count -1 = all, infinite
 		 * @param string $locale
-		 * @param int $cutContentAtNbChars
-		 * @param bool $stripHTMLTags
+		 * @param callable|null $formatFunction
 		 * @return array
 		 */
-		public function getBlogPosts(int $offset = 0, int $count = -1, string $locale = null, int $cutContentAtNbChars = -1, bool $stripHTMLTags = false): array {
-			// TODO: Add callback to render output before stripping tags
+		public function getBlogPosts(int $offset = 0, int $count = -1, string $locale = null, callable $formatFunction = null): array {
 
 			if ($offset < 0)
 				$offset = 0;
@@ -159,15 +157,10 @@
 
 			$query->closeCursor();
 
-			if ($cutContentAtNbChars > 0 || $stripHTMLTags) {
+			if ($formatFunction !== null) {
 
 				foreach ($reply as &$entry) {
-
-					if ($stripHTMLTags)
-						$entry['post'] = strip_tags($entry['post']);
-
-					if ($cutContentAtNbChars > 0 && mb_strlen($entry['post']) > $cutContentAtNbChars)
-						$entry['post'] = SwissKnife::ceil_str($entry['post'], $cutContentAtNbChars) . '...';
+					$entry['post'] = $formatFunction($entry['post']);
 				}
 				unset($entry);
 			}

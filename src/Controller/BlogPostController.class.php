@@ -2,6 +2,7 @@
 
 	namespace App\Controller;
 
+	use App\Resource\BlogPostTrait;
 	use Goji\Blog\BlogControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Core\App;
@@ -10,6 +11,8 @@
 	use Goji\Translation\Translator;
 
 	class BlogPostController extends BlogControllerAbstract {
+
+		use BlogPostTrait;
 
 		/* <ATTRIBUTES> */
 
@@ -40,6 +43,8 @@
 
 			$blogPostManager = new BlogPostManager($this);
 			$blogPost = $blogPostManager->read($this->m_permalink, true);
+				// To HTML
+				$blogPost['post'] = self::renderAsHtml($blogPost['post']);
 
 			$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
 			                               $tr->_('BLOG_POST_PAGE_DESCRIPTION'));
