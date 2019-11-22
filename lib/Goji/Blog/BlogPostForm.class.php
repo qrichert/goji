@@ -3,6 +3,7 @@
 	namespace Goji\Blog;
 
 	use Goji\Form\Form;
+	use Goji\Form\InputButton;
 	use Goji\Form\InputButtonElement;
 	use Goji\Form\InputCustom;
 	use Goji\Form\InputLabel;
@@ -23,6 +24,10 @@
 
 			$this->addClass('form__blog-post');
 
+				$this->addInput(new InputButtonElement())
+				     ->setId('blog-post__submit')
+				     ->addClasses('highlight loader')
+				     ->setAttribute('textContent', $tr->_('PUBLISH'));
 				$this->addInput(new InputCustom('<p class="form__success"></p>'));
 				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 				$this->addInput(new InputLabel())
@@ -48,12 +53,13 @@
 				$this->addInput(new InputTextArea())
 				     ->setAttribute('name', 'blog-post[post]')
 				     ->setId('blog-post__post')
-				     ->addClass('big')
+				     ->addClasses('big content-like')
 				     ->setAttribute('placeholder', $tr->_('BLOG_POST_POST_PLACEHOLDER'))
 				     ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
-				$this->addInput(new InputButtonElement())
-				     ->addClass('highlight loader')
-				     ->setAttribute('textContent', $tr->_('PUBLISH'));
+//				$this->addInput(new InputButtonElement())
+//				     ->setId('blog-post__submit')
+//				     ->addClasses('highlight loader')
+//				     ->setAttribute('textContent', $tr->_('PUBLISH'));
 		}
 	}
