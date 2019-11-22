@@ -122,6 +122,10 @@
 						}
 
 						updateAction.endSuccess();
+
+						// Command output
+						if (typeof r.output !== 'undefined')
+							update.title = r.output.trim();
 					};
 
 					let progress = (loaded, total) => {
