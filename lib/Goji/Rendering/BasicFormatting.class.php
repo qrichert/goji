@@ -57,15 +57,9 @@
 		 */
 		public static function textLinksToHTML(string $text, $clean = false): string {
 
-			// Back-up '...'
-			$text = str_replace('...', '£@$€£@$€£@$€£@$€', $text);
-
-			$text = preg_replace('#((https?://)?([\d\w\.-]+\.[\w\.]{2,6})([^\s\]\[\<\>]*/?))#i',
-				'<a href="$1" ' . ($clean ? 'title="$1"' : '') . '>' . ($clean ? '$3' : '$1') . '</a>',
+			$text = preg_replace(RegexPatterns::url(),
+				'<a href="$0" ' . ($clean ? 'title="$0"' : '') . '>' . ($clean ? '$3$4$5' : '$0') . '</a>',
 				$text);
-
-			// Restore '...'
-			$text = str_replace('£@$€£@$€£@$€£@$€', '...', $text);
 
 			return $text;
 		}
@@ -79,17 +73,15 @@
 		public static function formatTextInlineAndEscape(string $text): string {
 
 			// First, just escape regular HTML
-			// We don't want any <br /> yet cause it would
-			// mess with Markdown
 			$text = htmlspecialchars($text);
 
 			$text = BasicMarkdown::headingsToHTML($text, true); // true = <h1> to <span>
 			$text = BasicMarkdown::inlineToHTML($text);
-			//$text = BasicMarkdown::blocksToHTML($text, true);
-			//$text = BasicMarkdown::listsToHTML($text, true);
+			$text = BasicMarkdown::blocksToHTML($text, true);
+			$text = BasicMarkdown::listsToHTML($text, true);
 
-			// Backup links, we don't want to use textLinksToHTML() on <a> tags
-			preg_match_all('#(<a (.+?)</a>)#i', $text, $hit, PREG_PATTERN_ORDER);
+			// Backup links and images, we don't want to use textLinksToHTML() on <a> or <img> tags
+			preg_match_all('#(<a (.+?)</a>|<img (.+?)>)#is', $text, $hit, PREG_PATTERN_ORDER);
 
 			$hitCount = count($hit[1]);
 			for ($i = 0; $i < $hitCount; $i++) {

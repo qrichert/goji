@@ -161,10 +161,28 @@
 				EOT;
 		}
 
+		/**
+		 * <input name="foo[bar][baz][]'>
+		 *
+		 * @return string
+		 */
 		public static function htmlInputNameArrayKeys(): string {
 
 			return <<<'EOT'
 				#\[?([^\[\]]+)\]?#
 				EOT;
+		}
+
+		/**
+		 * $0 = full URL
+		 * $3$4$5 = domain
+		 *
+		 * @return string
+		 */
+		public static function url(): string {
+
+			return <<<'EOT'
+			#\b((https?|ftp|file)://|(www|ftp)(\.))([-A-Z0-9+&@\#%?=~_|$!:,.;]*[A-Z0-9+&@\#%=~_|$])([-A-Z0-9+&@\#/%?=~_|$!:,.;]*[A-Z0-9+&@\#/%=~_|$])#i
+			EOT;
 		}
 	}
