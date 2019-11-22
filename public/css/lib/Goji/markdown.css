@@ -68,8 +68,13 @@ form > .markdown-heading.h4, form > .markdown-heading.h5, form > .markdown-headi
 	margin: auto;
 }
 
-br + .markdown-image {
-}
+.markdown-image[src$='#l'] { width: 100%; }
+.markdown-image[src$='#m'] { width: 75%; }
+.markdown-image[src$='#s'] { width: 50%; }
+
+.markdown-image[src$='#fl'] { width: 900px; }
+.markdown-image[src$='#fm'] { width: 600px; }
+.markdown-image[src$='#fs'] { width: 350px; }
 
 /* <LISTS> */
 

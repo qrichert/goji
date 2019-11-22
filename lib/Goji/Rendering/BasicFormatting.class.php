@@ -75,6 +75,8 @@
 			// First, just escape regular HTML
 //			$text = htmlspecialchars($text);
 
+			$text = str_replace('%{WEBROOT}', WEBROOT, $text);
+
 			$text = BasicMarkdown::headingsToHTML($text, true); // true = <h1> to <span>
 			$text = BasicMarkdown::inlineToHTML($text);
 			$text = BasicMarkdown::blocksToHTML($text, true);
