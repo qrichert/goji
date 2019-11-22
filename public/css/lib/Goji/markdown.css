@@ -59,6 +59,18 @@ form > .markdown-heading.h4, form > .markdown-heading.h5, form > .markdown-headi
 	.markdown-heading.h2 { font-size: 1.3em; margin: 1em  0; }
 }
 
+/* <INLINE> */
+
+.markdown-image {
+	display: block;
+	max-width: 100%;
+	box-sizing: border-box;
+	margin: auto;
+}
+
+br + .markdown-image {
+}
+
 /* <LISTS> */
 
 .markdown-list.ul,

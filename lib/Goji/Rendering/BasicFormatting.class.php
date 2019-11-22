@@ -73,7 +73,7 @@
 		public static function formatTextInlineAndEscape(string $text): string {
 
 			// First, just escape regular HTML
-			$text = htmlspecialchars($text);
+//			$text = htmlspecialchars($text);
 
 			$text = BasicMarkdown::headingsToHTML($text, true); // true = <h1> to <span>
 			$text = BasicMarkdown::inlineToHTML($text);

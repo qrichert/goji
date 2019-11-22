@@ -13,14 +13,17 @@
 		public static function inlineToHTML(string $text): string {
 
 			// ITALIC / BOLD / UNDERLINE / LINE-THROUGH / INLINE CODE
-			$text = preg_replace('#\*\*(.+?)\*\*#is', '@@@@@@@@@@strong€€€€€€€€€€$1@@@@@@@@@@/strong€€€€€€€€€€', $text);
-			$text = preg_replace('#\*(.+?)\*#is', '@@@@@@@@@@em€€€€€€€€€€$1@@@@@@@@@@/em€€€€€€€€€€', $text);
-			$text = preg_replace('#__(.+?)__#is', '@@@@@@@@@@span style="text-decoration: underline;"€€€€€€€€€€$1@@@@@@@@@@/span€€€€€€€€€€', $text);
-			$text = preg_replace('#~~(.+?)~~#is', '@@@@@@@@@@span style="text-decoration: line-through;"€€€€€€€€€€$1@@@@@@@@@@/span€€€€€€€€€€', $text);
-			$text = preg_replace('#`(.+?)`#is', '@@@@@@@@@@code€€€€€€€€€€$1@@@@@@@@@@/code€€€€€€€€€€', $text);
+			$text = preg_replace('#(?<!\\\\)\*\*(.+?)(?<!\\\\)\*\*#is', '@@@@@@@@@@strong€€€€€€€€€€$1@@@@@@@@@@/strong€€€€€€€€€€', $text);
+			$text = preg_replace('#(?<!\\\\)\*(.+?)(?<!\\\\)\*#is', '@@@@@@@@@@em€€€€€€€€€€$1@@@@@@@@@@/em€€€€€€€€€€', $text);
+			$text = preg_replace('#(?<!\\\\)__(.+?)(?<!\\\\)__#is', '@@@@@@@@@@span style="text-decoration: underline;"€€€€€€€€€€$1@@@@@@@@@@/span€€€€€€€€€€', $text);
+			$text = preg_replace('#(?<!\\\\)~~(.+?)(?<!\\\\)~~#is', '@@@@@@@@@@span style="text-decoration: line-through;"€€€€€€€€€€$1@@@@@@@@@@/span€€€€€€€€€€', $text);
+			$text = preg_replace('#(?<!\\\\)`(.+?)(?<!\\\\)`#is', '@@@@@@@@@@code€€€€€€€€€€$1@@@@@@@@@@/code€€€€€€€€€€', $text);
+
+			// Escape removal
+			$text = preg_replace('#\\\\([\*_~`])#', '$1', $text);
 
 			// IMAGES / LINKS
-			$text = preg_replace('#!\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@img src="$2" alt="$1"€€€€€€€€€€', $text);
+			$text = preg_replace('#!\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@img src="$2" alt="$1" class="markdown-image"€€€€€€€€€€', $text);
 			$text = preg_replace('#\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@a href="$2"€€€€€€€€€€$1@@@@@@@@@@/a€€€€€€€€€€', $text);
 
 			$text = str_replace('@@@@@@@@@@', '<', $text);
