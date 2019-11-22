@@ -193,9 +193,10 @@
 			$tag = $fakeBlocks ? 'span' : 'div';
 			$fakeClass = $fakeBlocks ? 'markdown-aligned' : '';
 
-			$text = preg_replace('#(?<!\\\\)\|\+(.+?)(?<!\\\\)-\|#is', "@@@@@@@@@@{$tag} style=\"border: 1px solid red; \" class=\"aligned--left {$fakeClass}\"€€€€€€€€€€$1@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
-			$text = preg_replace('#(?<!\\\\)\|-(.+?)(?<!\\\\)\+\|#is', "@@@@@@@@@@{$tag} style=\"border: 1px solid red; \" class=\"aligned--right {$fakeClass}\"€€€€€€€€€€$1@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
-			$text = preg_replace('#(?<!\\\\)\|\|(.+?)(?<!\\\\)\|\|#is', "@@@@@@@@@@{$tag} style=\"border: 1px solid red; \" class=\"aligned--center {$fakeClass}\"€€€€€€€€€€$1@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
+			// The \R{0,2} part is to clean unwanted <br>s (always remove one)
+			$text = preg_replace('#(?<!\\\\)\|\+(.+?)(?<!\\\\)-\|(\s*\R{0,2})#is', "@@@@@@@@@@{$tag} class=\"aligned--left {$fakeClass}\"€€€€€€€€€€$1$2@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
+			$text = preg_replace('#(?<!\\\\)\|-(.+?)(?<!\\\\)\+\|(\s*\R{0,2})#is', "@@@@@@@@@@{$tag} class=\"aligned--right {$fakeClass}\"€€€€€€€€€€$1$2@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
+			$text = preg_replace('#(?<!\\\\)\|\|(.+?)(?<!\\\\)\|\|(\s*\R{0,2})#is', "@@@@@@@@@@{$tag} class=\"aligned--center {$fakeClass}\"€€€€€€€€€€$1$2@@@@@@@@@@/{$tag}€€€€€€€€€€", $text);
 
 			// Escape removal
 			$text = str_replace('\|', '|', $text);
