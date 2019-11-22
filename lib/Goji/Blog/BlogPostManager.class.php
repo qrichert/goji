@@ -301,6 +301,7 @@
 			if ($reply === false)
 				$this->m_parent->errorBlogPostDoesNotExist();
 
+			$reply['illustration'] = str_replace('%{WEBROOT}', WEBROOT, $reply['illustration']);
 			$reply['creation_date'] = SwissKnife::dateToComponents($reply['creation_date']);
 			$reply['last_edit_date'] = SwissKnife::dateToComponents($reply['last_edit_date']);
 
