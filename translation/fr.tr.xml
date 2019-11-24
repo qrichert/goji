@@ -196,8 +196,8 @@
 		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_POST_MAIN_TITLE">
-			<alternative count="^create$">Nouvel article</alternative>
-			<alternative count="^update$">Modifier un article</alternative>
+			<option id="create">Nouvel article</option>
+			<option id="update">Modifier un article</option>
 		</segment>
 		<segment id="BLOG_POST_NEW_BLOG_POST">Nouvel article</segment>
 		<segment id="BLOG_POST_GO_TO_BLOG_POST">Aller à l'article</segment>

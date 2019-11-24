@@ -1,6 +1,6 @@
 <main>
 	<section class="text">
-		<h1><?= $tr->_('BLOG_POST_MAIN_TITLE', $this->m_action); ?></h1>
+		<h1><?= $tr->_('BLOG_POST_MAIN_TITLE')[$this->m_action]; ?></h1>
 
 		<?php
 			if ($this->m_action == \Goji\Blog\BlogPostManager::ACTION_UPDATE) {
