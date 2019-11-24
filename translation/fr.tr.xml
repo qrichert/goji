@@ -19,6 +19,16 @@
 		<segment id="CANCEL_CONFIRM">Êtes-vous sûr?\nToutes les modifications seront perdues.</segment>
 		<segment id="SHRUG">¯\_(ツ)_/¯</segment>
 
+		<!-- Units -->
+		<segment id="UNIT_BYTE">
+			<alternative count="^(0|1)$">octet</alternative>
+			<alternative count="rest">octets</alternative>
+		</segment>
+		<segment id="UNIT_KILO_BYTE">ko</segment>
+		<segment id="UNIT_MEGA_BYTE">Mo</segment>
+		<segment id="UNIT_GIGA_BYTE">Go</segment>
+		<segment id="UNIT_TERA_BYTE">To</segment>
+
 		<!-- Nav -->
 		<segment id="NAV_HOME">Accueil</segment>
 		<segment id="NAV_BLOG">Blog</segment>
@@ -214,5 +224,15 @@
 		<segment id="ADMIN_ACTION_CLEAR_CACHE">Vider le cache</segment>
 		<segment id="ADMIN_ACTION_UPDATE">Mettre à jour</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up BDD</segment>
+	</page>
+	<page id="xhr-admin-clear-cache">
+		<segment id="ADMIN_CLEAR_CACHE_NB_FRAGMENTS_REMOVED">
+			<alternative count="^(0|1)$">fragment supprimé</alternative>
+			<alternative count="rest">fragments supprimés</alternative>
+		</segment>
+		<segment id="ADMIN_CLEAR_CACHE_SPACE_SAVED">
+			<alternative count="^(0|1)$">libéré</alternative>
+			<alternative count="rest">libérés</alternative>
+		</segment>
 	</page>
 </translation>

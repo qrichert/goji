@@ -19,6 +19,16 @@
 		<segment id="CANCEL_CONFIRM">Are you sure?\nAll changes will be lost.</segment>
 		<segment id="SHRUG">¯\_(ツ)_/¯</segment>
 
+		<!-- Units -->
+		<segment id="UNIT_BYTE">
+			<alternative count="^1$">byte</alternative>
+			<alternative count="rest">bytes</alternative>
+		</segment>
+		<segment id="UNIT_KILO_BYTE">KB</segment>
+		<segment id="UNIT_MEGA_BYTE">MB</segment>
+		<segment id="UNIT_GIGA_BYTE">GB</segment>
+		<segment id="UNIT_TERA_BYTE">TB</segment>
+
 		<!-- Nav -->
 		<segment id="NAV_HOME">Home</segment>
 		<segment id="NAV_BLOG">Blog</segment>
@@ -214,5 +224,15 @@
 		<segment id="ADMIN_ACTION_CLEAR_CACHE">Clear cache</segment>
 		<segment id="ADMIN_ACTION_UPDATE">Update</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>
+	</page>
+	<page id="xhr-admin-clear-cache">
+		<segment id="ADMIN_CLEAR_CACHE_NB_FRAGMENTS_REMOVED">
+			<alternative count="^1$">fragment removed</alternative>
+			<alternative count="rest">fragments removed</alternative>
+		</segment>
+		<segment id="ADMIN_CLEAR_CACHE_SPACE_SAVED">
+			<alternative count="^1$">freed up</alternative>
+			<alternative count="rest">freed up</alternative>
+		</segment>
 	</page>
 </translation>

@@ -1,18 +1,5 @@
-TODO: Use caching for blog posts and blog list
-
-TODO: Use caching on pages (using page ID from abstract parent class)
-
 TODO: Didn't receive email on subscription
 
 TODO: Don't automatically reset password (in case someone else does it to annoy people), just send a link they can ignore
 
 TODO: Admin, make it possible to configure a list of models to be editable in admin panel (Django-like). Reference the model, && database table name
-
-Cache config: use cache
-Admin page (just list of actions)
-Inpage edit triggers cache refresh of that page
-Same for blog
-Admin cache refresh xhr
-Test firewall on admin xhr
-basic markdown blog
-give default styling to images for blog markdown

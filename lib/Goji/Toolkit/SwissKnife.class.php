@@ -12,6 +12,15 @@
 	 */
 	class SwissKnife {
 
+		/* <CONSTANTS> */
+
+		// Those are translated in Goji's demo language files
+		const UNIT_BYTE = 'UNIT_BYTE';
+		const UNIT_KILO_BYTE = 'UNIT_KILO_BYTE';
+		const UNIT_MEGA_BYTE = 'UNIT_MEGA_BYTE';
+		const UNIT_GIGA_BYTE = 'UNIT_GIGA_BYTE';
+		const UNIT_TERA_BYTE = 'UNIT_TERA_BYTE';
+
 		/**
 		 * Cuts string if longer than $max
 		 *
@@ -167,26 +176,60 @@
 			return $str;
 		}
 
-		public static function bytesToFileSize(int $bytes, int $precision = 2): string {
+		/**
+		 * Returns an array of ['value' => value, 'unit' => unit]
+		 *
+		 * For example, a 5.72 MB file will be returned as
+		 * ['value' => 5.72, 'unit' => SwissKnife::UNIT_MEGA_BYTE]
+		 *
+		 * @param int $bytes
+		 * @param int $precision
+		 * @return array
+		 */
+		public static function bytesToFileSize(int $bytes, int $precision = 2): array {
 
 			if ($bytes < 1000) {
-				return "$bytes bytes";
+
+				return [
+					'value' => $bytes,
+					'unit' => self::UNIT_BYTE
+				];
 			}
 			elseif ($bytes < 1000000) {
+
 				$bytes = round($bytes / 1000, $precision);
-				return "$bytes Kb";
+
+				return [
+					'value' => $bytes,
+					'unit' => self::UNIT_KILO_BYTE
+				];
 			}
 			elseif ($bytes < 1000000000) {
+
 				$bytes = round($bytes / 1000000, $precision);
-				return "$bytes Mb";
+
+				return [
+					'value' => $bytes,
+					'unit' => self::UNIT_MEGA_BYTE
+				];
 			}
 			elseif ($bytes < 1000000000000) {
+
 				$bytes = round($bytes / 1000000000, $precision);
-				return "$bytes Gb";
+
+				return [
+					'value' => $bytes,
+					'unit' => self::UNIT_GIGA_BYTE
+				];
 			}
 			else { // $bytes < 1000000000000000
+
 				$bytes = round($bytes / 1000000000000, $precision);
-				return "$bytes Tb";
+
+				return [
+					'value' => $bytes,
+					'unit' => self::UNIT_TERA_BYTE
+				];
 			}
 		}
 	}

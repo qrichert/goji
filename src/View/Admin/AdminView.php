@@ -86,10 +86,10 @@
 						let output = '';
 
 						if (typeof r.nb_removed !== 'undefined')
-							output += r.nb_removed + ' fragments removed\n';
+							output += r.nb_removed + '\n';
 
 						if (typeof r.space_saved !== 'undefined')
-							output += r.space_saved + ' saved';
+							output += r.space_saved;
 
 						clearCache.title = output;
 					};
