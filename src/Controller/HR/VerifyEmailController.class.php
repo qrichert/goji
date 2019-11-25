@@ -3,17 +3,38 @@
 	namespace App\Controller\HR;
 
 	use Goji\Blueprints\ControllerAbstract;
+	use Goji\Core\App;
+	use Goji\HumanResources\MemberManager;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Translation\Translator;
 
 	class VerifyEmailController extends ControllerAbstract {
 
-		public function render(): void {
+		/* <ATTRIBUTES> */
 
-			// TODO:
-			$emailAddress = 'hello@world.com';
-			$emailAddress = 'quentin.richert@gmail.com';
-			$emailAddress = 'quentin@quentinrichert.com';
+		private $m_id;
+		private $m_token;
+		private $m_email;
+
+		public function __construct(App $app) {
+
+			parent::__construct($app);
+
+			// If no ID or token -> error
+			if (empty($_GET['id']) || empty($_GET['token']))
+				$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
+
+			$this->m_id = (int) $_GET['id'];
+			$this->m_token = (string) $_GET['token'];
+
+			$this->m_email = MemberManager::getTemporaryMemberEmail($this->m_app, $this->m_id, $this->m_token);
+
+			// If email not found (null), so incorrect id/token (token must match id)
+			if (empty($this->m_email))
+				$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
+		}
+
+		public function render(): void {
 
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');

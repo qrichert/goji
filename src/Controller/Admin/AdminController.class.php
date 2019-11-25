@@ -14,7 +14,8 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$template = new SimpleTemplate($tr->_('ADMIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
-			                               $tr->_('ADMIN_PAGE_DESCRIPTION'));
+			                               $tr->_('ADMIN_PAGE_DESCRIPTION'),
+			                               SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 				$template->addSpecial('is-focus-page', true);
 
 			$template->startBuffer();

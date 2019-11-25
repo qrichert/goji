@@ -261,6 +261,36 @@
 		}
 
 		/**
+		 * Returns email on success, null on error
+		 *
+		 * @param \Goji\Core\App $app
+		 * @param int $id
+		 * @param string $token
+		 * @return string|null
+		 * @throws \Exception
+		 */
+		public static function getTemporaryMemberEmail(App $app, int $id, string $token): ?string {
+
+			$query = $app->db()->prepare('SELECT username
+											FROM g_member_tmp
+											WHERE id=:id AND token=:token');
+
+			$query->execute([
+				'id' => $id,
+				'token' => $token
+			]);
+
+			$reply = $query->fetch();
+
+			$query->closeCursor();
+
+			if ($reply === false)
+				return null;
+
+			return $reply['username'];
+		}
+
+		/**
 		 * @param \Goji\Core\App $app
 		 * @param string $username
 		 * @param string $password

@@ -8,7 +8,7 @@
 		<p>
 			<?php
 				$txt = str_replace('%{EMAIL}',
-			                $emailAddress,
+			                $this->m_email,
 			                $tr->_('VERIFY_EMAIL_INSTRUCTIONS'));
 
 				$txt = str_replace('%{LOGIN}',
@@ -35,8 +35,8 @@
 		let resendVerification = document.querySelector('#verify-email__resend-verification-button');
 
 		let data = new FormData();
-			data.append('id', '<?= addcslashes($_GET['id'], "'"); ?>');
-			data.append('token', '<?= addcslashes($_GET['token'], "'"); ?>');
+			data.append('id', '<?= addcslashes($this->m_id, "'"); ?>');
+			data.append('token', '<?= addcslashes($this->m_token, "'"); ?>');
 
 		resendVerification.addEventListener('click', e => {
 
