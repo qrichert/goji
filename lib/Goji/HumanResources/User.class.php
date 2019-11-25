@@ -77,6 +77,9 @@
 			$this->m_id = $id;
 			$this->m_isLoggedIn = true;
 			$this->updateMemberManager();
+
+			// Clear reset password request
+			MemberManager::clearResetPasswordRequestForUser($this->m_app, $id);
 		}
 
 		/**

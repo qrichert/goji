@@ -160,16 +160,20 @@
 		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Nom d'utilisateur ou mot de passe incorrect !</segment>
 	</page>
 	<page id="xhr-reset-password">
-		<segment id="RESET_PASSWORD_HELP_TEXT">Entrez votre adresse email et nous vous enverrons un nouveau mot de passe</segment>
+		<segment id="RESET_PASSWORD_HELP_TEXT">Entrez votre email et suivez les instructions pour réinitialiser votre mot de passe</segment>
 		<segment id="RESET_PASSWORD_FORM_EMAIL">Email</segment>
 		<segment id="RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
 		<segment id="RESET_PASSWORD_FORM_RESET_BUTTON">Réinitialiser</segment>
 		<segment id="RESET_PASSWORD_ERROR">Email invalide ou le compte n'existe pas</segment>
-		<segment id="RESET_PASSWORD_SUCCESS">Un nouveau mot de passe a été envoyé à votre adresse email</segment>
-		<segment id="RESET_PASSWORD_EMAIL_OBJECT">Nouveau mot de passe</segment>
+		<segment id="RESET_PASSWORD_SUCCESS">Les instructions on été envoyées à votre adresse email</segment>
+		<segment id="RESET_PASSWORD_EMAIL_OBJECT">Réinitialisation du mot de passe</segment>
 		<segment id="RESET_PASSWORD_EMAIL_MESSAGE"><![CDATA[
 			<p>Bonjour,</p>
-			<p>Votre nouveau mot de passe est : <strong>%{PASSWORD}</strong></p>
+			<p>
+				Cliquez sur ce lien ou copiez-collez le dans la barre d'adresse de votre navigateur
+				pour réinitialiser votre mot de passe :
+			</p>
+			<p><a href="%{LINK}">%{LINK}</a></p>
 			<p>Amusez-vous !</p>
 		]]></segment>
 	</page>

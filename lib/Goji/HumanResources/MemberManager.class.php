@@ -229,7 +229,7 @@
 		}
 
 		/**
-		 * Select certain fields from user entry where username = $username (regular member only)
+		 * (Helper Function) Select certain fields from user entry where username = $username (regular member only)
 		 *
 		 * @param \Goji\Core\App $app
 		 * @param string $username
@@ -255,6 +255,71 @@
 			$query->closeCursor();
 
 			return $reply; // array if OK, false on error
+		}
+
+		/**
+		 * @param \Goji\Core\App $app
+		 * @param string $username
+		 * @return string Token
+		 * @throws \Exception
+		 */
+		public static function queueResetPasswordRequest(App $app, string $username): string {
+
+			// Get member id from username
+			$memberID = self::getFieldsForUsername($app, $username, ['id'])['id'];
+
+			// Invalid username
+			if ($memberID === false)
+				throw new Exception("Member doesn't exist: '$username'.", self::E_MEMBER_DOES_NOT_EXIST);
+
+			// Get token
+			$query = $app->db()->prepare('SELECT token
+											FROM g_member_reset_password_request
+											WHERE member_id=:member_id');
+
+			$query->execute([
+				'member_id' => $memberID
+			]);
+
+			$reply = $query->fetch();
+
+			$query->closeCursor();
+
+			$token = null;
+
+			// If token exists, return it (request already made)
+			if ($reply !== false)
+				return $reply['token'];
+
+			// Else create a new token
+			$token = Passwords::generateSecureToken();
+
+			// And save it
+			$query = $app->db()->prepare('INSERT INTO g_member_reset_password_request
+															( member_id,  token,  request_date)
+													 VALUES (:member_id, :token, :request_date)');
+
+			$query->execute([
+				'member_id' => $memberID,
+				'token' => $token,
+				'request_date' => date('Y-m-d H:i:s')
+			]);
+
+			$query->closeCursor();
+
+			return $token;
+		}
+
+		public static function clearResetPasswordRequestForUser(App $app, int $id): void {
+
+			$query = $app->db()->prepare('DELETE FROM g_member_reset_password_request
+			                               WHERE member_id=:member_id');
+
+			$query->execute([
+				'member_id' => $id
+			]);
+
+			$query->closeCursor();
 		}
 
 		/**
@@ -381,7 +446,7 @@
 			$hashedPassword = Passwords::hashPassword($newPassword);
 
 			// Generate token
-			$token = Passwords::generateUniqueToken();
+			$token = Passwords::generateSecureToken();
 
 			/*********************/
 

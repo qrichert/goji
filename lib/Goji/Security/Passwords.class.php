@@ -207,11 +207,16 @@
 		}
 
 		/**
-		 * Generates random unique token that looks like '5ddbf249c0bb5iA69b'
+		 * Generates random, cryptographically secure, token that looks like 'fe4271cebf373cd5ffae00d1eca43e06'
 		 *
-		 * @return string
+		 * @return string|null String if success, null on error
 		 */
-		public static function generateUniqueToken(): string {
-			return uniqid() . Passwords::generatePassword(5);
+		public static function generateSecureToken(): ?string {
+
+			try {
+				return bin2hex(random_bytes(16));
+			} catch (Exception $e) {
+				return null;
+			}
 		}
 	}

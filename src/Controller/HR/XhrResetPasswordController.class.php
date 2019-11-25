@@ -3,11 +3,13 @@
 	namespace App\Controller\HR;
 
 	use App\Model\HR\ResetPasswordForm;
+	use Exception;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Form\Form;
 	use Goji\HumanResources\MemberManager;
+	use Goji\Security\Passwords;
 	use Goji\Toolkit\Mail;
 	use Goji\Translation\Translator;
 
@@ -32,21 +34,26 @@
 			// User input
 			$formUsername = $form->getInputByName('reset-password[email]')->getValue();
 
-			$detail = [];
+			$token = '';
 
-			if (!MemberManager::resetPassword($this->m_app, $formUsername, $detail)) {
+			try {
 
-				//if ($detail['error'] == MemberManager::E_MEMBER_DOES_NOT_EXIST) {
+				$token = MemberManager::queueResetPasswordRequest($this->m_app, $formUsername);
 
-					HttpResponse::JSON([
-						'message' => $tr->_('RESET_PASSWORD_ERROR')
-					], false);
-				//}
+			} catch (Exception $e) {
+
+				HttpResponse::JSON([
+					'detail' => $detail,
+					'message' => $tr->_('RESET_PASSWORD_ERROR')
+				], false);
 			}
+
+			$link = $this->m_app->getRouter()->getLinkForPage(null, null, true);
+				$link .= '?token=' . $token;
 
 			// Send Mail
 			$message = $tr->_('RESET_PASSWORD_EMAIL_MESSAGE');
-				$message = str_replace('%{PASSWORD}', htmlspecialchars($detail['password']), $message);
+				$message = str_replace('%{LINK}', htmlspecialchars($link), $message);
 
 			$options = [
 				'site_url' => $this->m_app->getSiteUrl(),
