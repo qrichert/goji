@@ -139,6 +139,7 @@
 		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION"><![CDATA[
 			Vous n'avez pas reçu l'email de vérification ? <a id="%{ID}">Envoyer à nouveau</a>
 		]]></segment>
+		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION_DONE">(fait)</segment>
 	</page>
 	<page id="(xhr-)?login">
 		<segment id="LOGIN_PAGE_TITLE">Connexion</segment>

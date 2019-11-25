@@ -194,7 +194,7 @@
 		 * @return bool
 		 * @throws \Exception
 		 */
-		public static function createMember(App $app, string $username, array &$detail): bool {
+		public static function createTemporaryMember(App $app, string $username, array &$detail): bool {
 
 			// Database
 			$query = $app->db()->prepare('SELECT

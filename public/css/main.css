@@ -22,6 +22,7 @@ body#verify-email {
 
 .verify-email__notification-logo {
 	width: 145px;
+	margin: var(--gutter-default) 0;
 }
 
 .verify-email__resend-verification {

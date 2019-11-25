@@ -35,7 +35,7 @@
 
 			$detail = [];
 
-			if (!MemberManager::createMember($this->m_app, $formUsername, $detail)) {
+			if (!MemberManager::createTemporaryMember($this->m_app, $formUsername, $detail)) {
 
 				//if ($detail['error'] == MemberManager::E_MEMBER_ALREADY_EXISTS) {
 

@@ -46,6 +46,8 @@
 
 						if ($this->m_app->getRouter()->getCurrentPage() == 'blog-post')
 							$page = 'blog';
+						else if ($this->m_app->getRouter()->getCurrentPage() == 'verify-email')
+							$page = 'sign-up';
 
 					echo '<a href="' . $this->m_app->getRouter()->getLinkForPage($page, $locale) . '" data-lang="' . $locale . '">'
 					     . $this->m_app->getLanguages()->getConfigurationLocales()[$locale]

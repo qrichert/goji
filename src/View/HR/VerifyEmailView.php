@@ -34,6 +34,8 @@
 
 		let resendVerification = document.querySelector('#verify-email__resend-verification-button');
 
+		let resendVerificationText = resendVerification.textContent;
+
 		let data = new FormData();
 			data.append('id', '<?= addcslashes($this->m_id, "'"); ?>');
 			data.append('token', '<?= addcslashes($this->m_token, "'"); ?>');
@@ -42,7 +44,30 @@
 
 			e.preventDefault();
 
-			alert(data);
+			let error = () => {
+			};
+
+			let load = (r) => {
+
+				if (r === null || r.status === 'ERROR') {
+					error();
+					return;
+				}
+
+				// If we're here -> SUCCESS
+				resendVerification.textContent = resendVerificationText +
+				                                 ' ' + '<?= addcslashes($tr->_('VERIFY_EMAIL_RESEND_VERIFICATION_DONE'), "'"); ?>';
+			};
+
+			SimpleRequest.post(
+				'<?= $this->m_app->getRouter()->getLinkForPage('xhr-verify-email') ?>',
+				data,
+				load,
+				error,
+				error,
+				null,
+				{ get_json: true }
+			);
 
 		}, false);
 
