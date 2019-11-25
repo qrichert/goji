@@ -226,7 +226,7 @@
 			$hashedPassword = Passwords::hashPassword($newPassword);
 
 			// Generate token
-			$token = uniqid();
+			$token = Passwords::generateUniqueToken();
 
 			/*********************/
 

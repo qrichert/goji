@@ -69,6 +69,8 @@
 				{ get_json: true }
 			);
 
+			resendVerification.textContent = resendVerificationText + '...';
+
 		}, false);
 
 	})();

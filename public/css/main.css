@@ -21,7 +21,7 @@ body#verify-email {
 }
 
 .verify-email__notification-logo {
-	width: 145px;
+	width: 125px;
 	margin: var(--gutter-default) 0;
 }
 

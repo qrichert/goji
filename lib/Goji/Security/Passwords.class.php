@@ -150,33 +150,48 @@
 		 */
 		public static function generatePassword(int $length = 17): string {
 
-			// Generate random strings
+		// Generate random strings
 
-				$lowers		= SwissKnife::mb_str_shuffle('abcdefghijklmnopqrstuvwxyz');
-				$uppers		= SwissKnife::mb_str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
-				$numbers	= SwissKnife::mb_str_shuffle('0123456789');
-				$symbols	= SwissKnife::mb_str_shuffle('-_$@()!?#<>:/*;,.&=+%°'); // These are the most accessible on regular keyboards
+			$lowers		= SwissKnife::mb_str_shuffle('abcdefghijklmnopqrstuvwxyz');
+			$uppers		= SwissKnife::mb_str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+			$numbers	= SwissKnife::mb_str_shuffle('0123456789');
+			$symbols	= SwissKnife::mb_str_shuffle('-_$@()!?#<>:/*;,.&=+%°'); // These are the most accessible on regular keyboards
 
-			// Generate random proportions
+		// Generate random proportions
 
-				$propLowers		= mt_rand(1, 100);
-				$propUppers		= mt_rand(1, 100);
-				$propNumbers	= mt_rand(1, 100);
-				$propSymbols	= mt_rand(1, 100);
+			$propLowers  = 0;
+			$propUppers  = 0;
+			$propNumbers = 0;
+			$propSymbols = 0;
 
-					$propTotal = $propLowers + $propUppers + $propNumbers + $propSymbols;
+				try {
+
+					$propLowers  = mt_rand(1, 100);
+					$propUppers  = mt_rand(1, 100);
+					$propNumbers = mt_rand(1, 100);
+					$propSymbols = mt_rand(1, 100);
+
+				} catch (Exception $e) {
+
+					$propLowers  = mt_rand(1, 100);
+					$propUppers  = mt_rand(1, 100);
+					$propNumbers = mt_rand(1, 100);
+					$propSymbols = mt_rand(1, 100);
+				}
+
+			$propTotal = $propLowers + $propUppers + $propNumbers + $propSymbols;
 
 				$propLowers		= ceil($length * ($propLowers / $propTotal));
 				$propUppers		= ceil($length * ($propUppers / $propTotal));
 				$propNumbers	= ceil($length * ($propNumbers / $propTotal));
 				$propSymbols	= ceil($length * ($propSymbols / $propTotal));
 
-			// Mixing them together
+		// Mixing them together
 
-				$password = mb_substr($lowers, 0, $propLowers)
-						  . mb_substr($uppers, 0, $propUppers)
-						  . mb_substr($numbers, 0, $propNumbers)
-						  . mb_substr($symbols, 0, $propSymbols);
+			$password = mb_substr($lowers, 0, $propLowers)
+					  . mb_substr($uppers, 0, $propUppers)
+					  . mb_substr($numbers, 0, $propNumbers)
+					  . mb_substr($symbols, 0, $propSymbols);
 
 			$password = SwissKnife::mb_str_shuffle($password);
 
@@ -189,5 +204,14 @@
 			}
 
 			return $password;
+		}
+
+		/**
+		 * Generates random unique token that looks like '5ddbf249c0bb5iA69b'
+		 *
+		 * @return string
+		 */
+		public static function generateUniqueToken(): string {
+			return uniqid() . Passwords::generatePassword(5);
 		}
 	}
