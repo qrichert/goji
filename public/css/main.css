@@ -20,6 +20,10 @@ body#verify-email {
 	text-align: center;
 }
 
+.verify-email__notification-logo {
+	width: 145px;
+}
+
 .verify-email__resend-verification {
 	font-size: var(--text-size-medium);
 }

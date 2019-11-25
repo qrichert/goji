@@ -51,6 +51,7 @@ files that could prove handy to be replace by a symlink. For now we have:
 - `/docs/`
 - `/lib/Goji/`
 - `/public/css/lib/Goji/`
+- `/public/img/lib/Goji/`
 - `/public/js/lib/Goji/`
 
 Maybe the `bin/newproject.sh` script could help you (be careful with it though).

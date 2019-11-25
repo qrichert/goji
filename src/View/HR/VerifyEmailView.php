@@ -19,7 +19,7 @@
 			?>
 		</p>
 
-		<img style="width: 170px;" src="" alt="">
+		<img src="<?= $template->rsc('img/lib/Goji/notification.svg'); ?>" alt="" class="verify-email__notification-logo">
 
 		<p class="verify-email__resend-verification">
 			<?= str_replace('%{ID}',

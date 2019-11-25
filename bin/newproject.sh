@@ -51,6 +51,7 @@ then
 		'public/css/goji.css'
 		'public/css/reset.css'
 		'public/css/lib/Goji'
+		'public/img/lib/Goji'
 		'public/js/lib/Goji')
 
 	for file in "${files[@]}"
