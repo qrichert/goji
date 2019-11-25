@@ -68,6 +68,17 @@
 		route: "/xhr-sign-up",
 		controller: "HR\\XhrSignUpController"
 	},
+	"verify-email": {
+		routes: {
+			en: "/verify-email",
+			fr: "/verification-email"
+		},
+		controller: "HR\\VerifyEmailController"
+	},
+	"xhr-verify-email": {
+		route: "/xhr-verify-email",
+		controller: "HR\\XhrVerifyEmailController"
+	},
 	"xhr-login": {
 		route: "/xhr-login",
 		controller: "HR\\XhrLoginController"

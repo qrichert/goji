@@ -16,6 +16,16 @@
 
 /* <CONTACT> */
 
+body#verify-email {
+	text-align: center;
+}
+
+.verify-email__resend-verification {
+	font-size: var(--text-size-medium);
+}
+
+/* <CONTACT> */
+
 .contact__help-message {
 	padding: 0 var(--gutter-default);
 }

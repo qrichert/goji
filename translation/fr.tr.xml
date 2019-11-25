@@ -105,6 +105,7 @@
 	<page id="(xhr-)?sign-up">
 		<segment id="SIGN_UP_PAGE_TITLE">Inscription</segment>
 		<segment id="SIGN_UP_PAGE_DESCRIPTION"></segment>
+		<segment id="SIGN_UP_MAIN_TITLE">Inscription</segment>
 		<segment id="SIGN_UP_FORM_EMAIL">Email</segment>
 		<segment id="SIGN_UP_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
 		<segment id="SIGN_UP_FORM_SIGN_UP_BUTTON">Inscription</segment>
@@ -126,9 +127,23 @@
 			<p>Amusez-vous !</p>
 		]]></segment>
 	</page>
+	<page id="(xhr-)?verify-email">
+		<segment id="VERIFY_EMAIL_PAGE_TITLE">Vérification de l'adresse email</segment>
+		<segment id="VERIFY_EMAIL_PAGE_DESCRIPTION"></segment>
+		<segment id="VERIFY_EMAIL_MAIN_TITLE">Vérification de l'adresse email</segment>
+		<segment id="VERIFY_EMAIL_CHECK_YOUR_INBOX">Rendez-vous dans votre boîte de réception pour vérifier votre email</segment>
+		<segment id="VERIFY_EMAIL_INSTRUCTIONS"><![CDATA[
+			Nous avons envoyé un mot de passe à <strong>%{EMAIL}</strong>.<br>
+			Connectez-vous avec pour valider votre inscription
+		]]></segment>
+		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION"><![CDATA[
+			Vous n'avez pas reçu l'email de vérification ? <a id="%{ID}">Envoyer à nouveau</a>
+		]]></segment>
+	</page>
 	<page id="(xhr-)?login">
 		<segment id="LOGIN_PAGE_TITLE">Connexion</segment>
 		<segment id="LOGIN_PAGE_DESCRIPTION"></segment>
+		<segment id="LOGIN_MAIN_TITLE">Connexion</segment>
 		<segment id="LOGIN_FORM_EMAIL">Email</segment>
 		<segment id="LOGIN_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
 		<segment id="LOGIN_FORGOT_PASSWORD">Mot de passe oublié ?</segment>

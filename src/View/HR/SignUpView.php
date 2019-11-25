@@ -1,5 +1,5 @@
 <main class="centered">
-	<h1 class="hidden" aria-hidden="true">Login</h1>
+	<h1 class="hidden" aria-hidden="true"><?= $tr->_('SIGN_UP_MAIN_TITLE'); ?></h1>
 
 	<section class="centered no-padding h">
 
