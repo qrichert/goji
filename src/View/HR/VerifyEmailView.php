@@ -6,9 +6,17 @@
 
 	<section class="centered">
 		<p>
-			<?= str_replace('%{EMAIL}',
+			<?php
+				$txt = str_replace('%{EMAIL}',
 			                $emailAddress,
-			                $tr->_('VERIFY_EMAIL_INSTRUCTIONS')); ?>
+			                $tr->_('VERIFY_EMAIL_INSTRUCTIONS'));
+
+				$txt = str_replace('%{LOGIN}',
+							$this->m_app->getRouter()->getLinkForPage('login'),
+							$txt);
+
+				echo $txt;
+			?>
 		</p>
 
 		<img style="width: 170px;" src="" alt="">
@@ -25,13 +33,16 @@
 	(function () {
 
 		let resendVerification = document.querySelector('#verify-email__resend-verification-button');
-		let emailAddess = '<?= addcslashes($emailAddress, "'"); ?>';
+
+		let data = new FormData();
+			data.append('id', '<?= addcslashes($_GET['id'], "'"); ?>');
+			data.append('token', '<?= addcslashes($_GET['token'], "'"); ?>');
 
 		resendVerification.addEventListener('click', e => {
 
 			e.preventDefault();
 
-			alert(emailAddess);
+			alert(data);
 
 		}, false);
 

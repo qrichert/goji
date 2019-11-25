@@ -59,6 +59,8 @@
 			Mail::sendMail($formUsername, $tr->_('SIGN_UP_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
 
 			HttpResponse::JSON([
+				'redirect_to' => $this->m_app->getRouter()->getLinkForPage('verify-email') .
+				                 '?id=' . rawurlencode($detail['id']) . '&token=' . rawurlencode($detail['token']),
 				'message' => $tr->_('SIGN_UP_SUCCESS')
 			], true);
 		}

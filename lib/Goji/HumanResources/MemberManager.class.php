@@ -225,6 +225,9 @@
 			$newPassword = Passwords::generatePassword(7);
 			$hashedPassword = Passwords::hashPassword($newPassword);
 
+			// Generate token
+			$token = uniqid();
+
 			/*********************/
 
 			if ($app->getAppMode() === App::DEBUG) {
@@ -237,18 +240,22 @@
 
 			// Save to DB
 			$query = $app->db()->prepare('INSERT INTO g_member_tmp
-												   ( username,  password,  date_registered)
-											VALUES (:username, :password, :date_registered)');
+												   ( username,  password,  date_registered,  token)
+											VALUES (:username, :password, :date_registered, :token)');
 
 			$query->execute([
 				'username' => $username,
 				'password' => $hashedPassword,
-				'date_registered' => date('Y-m-d H:i:s')
+				'date_registered' => date('Y-m-d H:i:s'),
+				'token' => $token
 			]);
+
+			$detail['id'] = $app->db()->lastInsertId();
 
 			$query->closeCursor();
 
 			$detail['password'] = $newPassword;
+			$detail['token'] = $token;
 
 			return true;
 		}

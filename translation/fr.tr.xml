@@ -134,7 +134,7 @@
 		<segment id="VERIFY_EMAIL_CHECK_YOUR_INBOX">Rendez-vous dans votre boîte de réception pour vérifier votre email</segment>
 		<segment id="VERIFY_EMAIL_INSTRUCTIONS"><![CDATA[
 			Nous avons envoyé un mot de passe à <strong>%{EMAIL}</strong>.<br>
-			Connectez-vous avec pour valider votre inscription
+			<a href="%{LOGIN}">Connectez-vous</a> avec pour compléter votre inscription
 		]]></segment>
 		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION"><![CDATA[
 			Vous n'avez pas reçu l'email de vérification ? <a id="%{ID}">Envoyer à nouveau</a>

@@ -35,7 +35,13 @@
 			form.reset();
 			formError.textContent = '';
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.redirect_to !== 'undefined'
+				&& response.redirect_to !== null
+				&& response.redirect_to !== '') {
+
+				location.href = response.redirect_to;
+
+			} else if (typeof response.message !== 'undefined') {
 				formSuccess.innerHTML = response.message;
 			}
 		};

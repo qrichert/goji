@@ -43,6 +43,8 @@
 		disallow_authenticated: [
 			"sign-up",
 			"xhr-sign-up",
+			"verify-email",
+			"xhr-verify-email",
 			"login",
 			"xhr-login",
 			"xhr-reset-password"

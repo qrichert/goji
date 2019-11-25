@@ -134,7 +134,7 @@
 		<segment id="VERIFY_EMAIL_CHECK_YOUR_INBOX">Check your inbox to verify your email</segment>
 		<segment id="VERIFY_EMAIL_INSTRUCTIONS"><![CDATA[
 			We've sent a password to <strong>%{EMAIL}</strong>.<br>
-			Log in with it to validate your registration
+			<a href="%{LOGIN}">Log in</a> with it to complete your registration
 		]]></segment>
 		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION"><![CDATA[
 			Didn't receive the verification email? <a id="%{ID}">Send it again</a>
