@@ -78,6 +78,7 @@
 		}
 
 		/**
+		 * Returns member's ID
 		 * @return int
 		 */
 		public function getId(): int {
@@ -102,6 +103,12 @@
 			return $this->m_memberRole;
 		}
 
+		/**
+		 * Updates member role to new role
+		 * @param $newRole
+		 * @return bool
+		 * @throws \Exception
+		 */
 		public function setMemberRole($newRole): bool {
 
 			$newRoleExists = false;
@@ -187,7 +194,155 @@
 				return $this->m_memberRole >= $roleRequired;
 		}
 
+/* <NOT LOGGED IN> */
+
+/* --- Generic --- */
+
 		/**
+		 * Check if member exists & password is right (regular member only)
+		 *
+		 * @param \Goji\Core\App $app
+		 * @param string $username
+		 * @param string $password
+		 * @param int|null $id
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public static function isValidMember(App $app, string $username, string $password, int &$id = null): bool {
+
+			// Database
+			$reply = self::getFieldsForUsername($app, $username, ['id', 'password']);
+
+			// Stored values
+			$storedId = $reply['id'] ?? null;
+			$storedPassword = $reply['password'] ?? null;
+
+			if ($reply === false || empty($storedId) || empty($storedPassword)
+			    || !Passwords::verifyPassword($password, $storedPassword)) {
+				return false;
+			}
+
+			// Passed by reference
+			$id = $storedId;
+
+			return true;
+		}
+
+		/**
+		 * Select certain fields from user entry where username = $username (regular member only)
+		 *
+		 * @param \Goji\Core\App $app
+		 * @param string $username
+		 * @param array|null $fields (optional) If not set = select all
+		 * @return array|false
+		 * @throws \Exception
+		 */
+		public static function getFieldsForUsername(App $app, string $username, array $fields = null) {
+
+			// Either all * or comma separated values
+			$fields = empty($fields) ? '*' : implode(', ', $fields);
+
+			$query = $app->db()->prepare("SELECT $fields
+											FROM g_member
+											WHERE username=:username");
+
+			$query->execute([
+				'username' => $username
+			]);
+
+			$reply = $query->fetch();
+
+			$query->closeCursor();
+
+			return $reply; // array if OK, false on error
+		}
+
+		/**
+		 * Reset password for given username (for both normal & tmp accounts)
+		 *
+		 * @param \Goji\Core\App $app
+		 * @param string $username
+		 * @param array $detail
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public static function resetPassword(App $app, string $username, array &$detail): bool {
+
+			// Database
+			$query = $app->db()->prepare('SELECT
+												(SELECT COUNT(*)
+												FROM g_member
+												WHERE username=:username)
+											+
+												(SELECT COUNT(*)
+												FROM g_member_tmp
+												WHERE username=:username)
+											AS nb');
+
+			$query->execute([
+				'username' => $username
+			]);
+
+			$reply = $query->fetch();
+				$reply = (int) $reply['nb'];
+
+			$query->closeCursor();
+
+			if ($reply <= 0) { // User doesn't exist
+
+				$detail['error'] = self::E_MEMBER_DOES_NOT_EXIST;
+				return false;
+			}
+
+			// If we got here, credentials are valid -> SUCCESS -> reset password
+
+			// Generate Password
+			$newPassword = Passwords::generatePassword(7);
+			$hashedPassword = Passwords::hashPassword($newPassword);
+
+			/*********************/
+
+			if ($app->getAppMode() === App::DEBUG) {
+				// Log generated password to console
+				Logger::log('Email: ' . $username, Logger::CONSOLE);
+				Logger::log('Password: ' . $newPassword, Logger::CONSOLE);
+			}
+
+			/*********************/
+
+			// Save to DB
+			// Users
+			$query = $app->db()->prepare('UPDATE g_member
+											SET password=:password
+											WHERE username=:username');
+
+			$query->execute([
+				'username' => $username,
+				'password' => $hashedPassword
+			]);
+
+			// And tmp Users
+			$query = $app->db()->prepare('UPDATE g_member_tmp
+											SET password=:password
+											WHERE username=:username');
+
+			$query->execute([
+				'username' => $username,
+				'password' => $hashedPassword
+			]);
+
+			$query->closeCursor();
+
+			$detail['password'] = $newPassword;
+
+			return true;
+		}
+
+/* --- Sign Up --- */
+
+		/**
+		 * Creates member in the temporary database
+		 *
 		 * @param \Goji\Core\App $app
 		 * @param string $username
 		 * @param array $detail
@@ -291,63 +446,6 @@
 		}
 
 		/**
-		 * @param \Goji\Core\App $app
-		 * @param string $username
-		 * @param string $password
-		 * @param int|null $id
-		 * @return bool
-		 * @throws \Exception
-		 */
-		public static function isValidMember(App $app, string $username, string $password, int &$id = null): bool {
-
-			// Database
-			$reply = self::getFieldsForUsername($app, $username, ['id', 'password']);
-
-			// Stored values
-			$storedId = $reply['id'] ?? null;
-			$storedPassword = $reply['password'] ?? null;
-
-			if ($reply === false || empty($storedId) || empty($storedPassword)
-			    || !Passwords::verifyPassword($password, $storedPassword)) {
-				return false;
-			}
-
-			// Passed by reference
-			$id = $storedId;
-
-			return true;
-		}
-
-		/**
-		 * Select certain fields from user entry where username = $username
-		 *
-		 * @param \Goji\Core\App $app
-		 * @param string $username
-		 * @param array|null $fields (optional) If not set = select all
-		 * @return array|false
-		 * @throws \Exception
-		 */
-		public static function getFieldsForUsername(App $app, string $username, array $fields = null) {
-
-			// Either all * or comma separated values
-			$fields = empty($fields) ? '*' : implode(', ', $fields);
-
-			$query = $app->db()->prepare("SELECT $fields
-											FROM g_member
-											WHERE username=:username");
-
-			$query->execute([
-				'username' => $username
-			]);
-
-			$reply = $query->fetch();
-
-			$query->closeCursor();
-
-			return $reply; // array if OK, false on error
-		}
-
-		/**
 		 * Move temporary user to permanent user list
 		 *
 		 * @param \Goji\Core\App $app
@@ -406,78 +504,6 @@
 			]);
 
 			$query->closeCursor();
-
-			return true;
-		}
-
-		public static function resetPassword(App $app, string $username, array &$detail): bool {
-
-			// Database
-			$query = $app->db()->prepare('SELECT
-												(SELECT COUNT(*)
-												FROM g_member
-												WHERE username=:username)
-											+
-												(SELECT COUNT(*)
-												FROM g_member_tmp
-												WHERE username=:username)
-											AS nb');
-
-			$query->execute([
-				'username' => $username
-			]);
-
-			$reply = $query->fetch();
-				$reply = (int) $reply['nb'];
-
-			$query->closeCursor();
-
-			if ($reply <= 0) { // User doesn't exist
-
-				$detail['error'] = self::E_MEMBER_DOES_NOT_EXIST;
-				return false;
-			}
-
-			// If we got here, credentials are valid -> SUCCESS -> reset password
-
-			// Generate Password
-			$newPassword = Passwords::generatePassword(7);
-			$hashedPassword = Passwords::hashPassword($newPassword);
-
-			/*********************/
-
-			if ($app->getAppMode() === App::DEBUG) {
-				// Log generated password to console
-				Logger::log('Email: ' . $username, Logger::CONSOLE);
-				Logger::log('Password: ' . $newPassword, Logger::CONSOLE);
-			}
-
-			/*********************/
-
-			// Save to DB
-			// Users
-			$query = $app->db()->prepare('UPDATE g_member
-											SET password=:password
-											WHERE username=:username');
-
-			$query->execute([
-				'username' => $username,
-				'password' => $hashedPassword
-			]);
-
-			// And tmp Users
-			$query = $app->db()->prepare('UPDATE g_member_tmp
-											SET password=:password
-											WHERE username=:username');
-
-			$query->execute([
-				'username' => $username,
-				'password' => $hashedPassword
-			]);
-
-			$query->closeCursor();
-
-			$detail['password'] = $newPassword;
 
 			return true;
 		}
