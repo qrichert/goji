@@ -1,5 +1,19 @@
-TODO: Didn't receive email on subscription
-
-TODO: Don't automatically reset password (in case someone else does it to annoy people), just send a link they can ignore
-
 TODO: Admin, make it possible to configure a list of models to be editable in admin panel (Django-like). Reference the model, && database table name
+
+getTablesList()
+    if prefix == sqlite
+        SELECT * FROM sqlite_master
+    else
+        SHOW TABLES
+
+- [ ] Centralize gitignore rules and use .gitkeeps instead
+- [ ] Don't version db in prod because of conflict
+- [ ] Pas reçu le mail inscription (bug) ?
+- [ ] Keep me logged in with expirable tokens
+- [ ] Blog  writing markdown help text
+- [ ] Rename username db field to email
+- [ ] Add stripes on typewriter logo
+- [ ] Upload
+- [ ] Manage users
+- [ ] Profile edition
+- [ ] Separate burger menu into plugin CSS

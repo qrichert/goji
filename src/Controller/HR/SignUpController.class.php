@@ -11,8 +11,6 @@
 
 		public function render(): void {
 
-			// TODO: Impletement "didn't receive my email with the password"
-
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
