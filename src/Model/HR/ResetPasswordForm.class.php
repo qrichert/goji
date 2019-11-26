@@ -16,7 +16,7 @@
 
 			parent::__construct();
 
-			$this->setAction('xhr-reset-password');
+			$this->setAction('xhr-reset-password-request');
 
 			$sanitizeEmail = function($email) {
 				SwissKnife::sanitizeEmail($email);

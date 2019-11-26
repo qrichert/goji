@@ -159,7 +159,7 @@
 		</segment>
 		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Nom d'utilisateur ou mot de passe incorrect !</segment>
 	</page>
-	<page id="xhr-reset-password">
+	<page id="xhr-reset-password-request">
 		<segment id="RESET_PASSWORD_HELP_TEXT">Entrez votre email et suivez les instructions pour réinitialiser votre mot de passe</segment>
 		<segment id="RESET_PASSWORD_FORM_EMAIL">Email</segment>
 		<segment id="RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>

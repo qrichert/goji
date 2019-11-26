@@ -9,11 +9,10 @@
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Form\Form;
 	use Goji\HumanResources\MemberManager;
-	use Goji\Security\Passwords;
 	use Goji\Toolkit\Mail;
 	use Goji\Translation\Translator;
 
-	class XhrResetPasswordController extends XhrControllerAbstract {
+	class XhrResetPasswordRequestController extends XhrControllerAbstract {
 
 		private function treatForm(Form $form): void {
 

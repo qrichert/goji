@@ -87,9 +87,9 @@
 		route: "/logout",
 		controller: "HR\\LogoutController"
 	},
-	"xhr-reset-password": {
-		route: "/xhr-reset-password",
-		controller: "HR\\XhrResetPasswordController"
+	"xhr-reset-password-request": {
+		route: "/xhr-reset-password-request",
+		controller: "HR\\XhrResetPasswordRequestController"
 	},
 	"privacy-and-terms": {
 		routes: {
