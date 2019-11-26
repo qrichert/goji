@@ -60,7 +60,7 @@
 			};
 
 			SimpleRequest.post(
-				'<?= $this->m_app->getRouter()->getLinkForPage('xhr-verify-email') ?>',
+				'<?= $this->m_app->getRouter()->getLinkForPage('xhr-verify-email-not-received') ?>',
 				data,
 				load,
 				error,

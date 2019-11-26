@@ -9,7 +9,7 @@
 	use Goji\Toolkit\Mail;
 	use Goji\Translation\Translator;
 
-	class XhrVerifyEmailController extends XhrControllerAbstract {
+	class XhrVerifyEmailNotReceivedController extends XhrControllerAbstract {
 
 		/* <ATTRIBUTES> */
 
@@ -38,8 +38,6 @@
 		/**
 		 * This is actually the 'Re-send email if not email confirmation received'
 		 * So we reset the password (since we can't unhash it to send it back) and send it in a new email
-		 *
-		 * TODO: Rename this class to XhrVerifyEmailNotReceived.class.php
 		 *
 		 * @throws \Exception
 		 */

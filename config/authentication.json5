@@ -44,7 +44,7 @@
 			"sign-up",
 			"xhr-sign-up",
 			"verify-email",
-			"xhr-verify-email",
+			"xhr-verify-email-not-received",
 			"login",
 			"xhr-login",
 			"xhr-reset-password-request",
