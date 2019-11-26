@@ -39,6 +39,8 @@
 			$this->m_value = null;
 		}
 
+/* <VALUE> */
+
 		/**
 		 * @return mixed
 		 */
@@ -63,6 +65,39 @@
 
 			$this->m_value = $value;
 
+			return $this;
+		}
+
+/* <NAME> */
+
+		/**
+		 * @return bool
+		 */
+		public function hasName(): bool {
+			return $this->hasAttribute('name');
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getName(): string {
+			return $this->getAttribute('name');
+		}
+
+		/**
+		 * @param string $name
+		 * @return \Goji\Form\FormElementAbstract
+		 */
+		public function setName(string $name): FormElementAbstract {
+			$this->setAttribute('name', $name);
+			return $this;
+		}
+
+		/**
+		 * @return \Goji\Form\FormElementAbstract
+		 */
+		public function removeName(): FormElementAbstract {
+			$this->removeAttribute('name');
 			return $this;
 		}
 
