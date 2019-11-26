@@ -18,3 +18,47 @@
 
 	</section>
 </main>
+
+<?php
+	$template->linkFiles([
+		'js/lib/Goji/Form-19.6.22.class.min.js'
+	]);
+?>
+<script>
+	(function() {
+
+		// Log In
+
+		let form = document.querySelector('#reset-password__form');
+		let formError = document.querySelector('p.form__error');
+
+		let success = response => {
+
+			formError.textContent = '';
+
+			if (typeof response.redirect_to !== 'undefined'
+			    && response.redirect_to !== null
+			    && response.redirect_to !== '') {
+
+				location.href = response.redirect_to;
+			}
+		};
+
+		let error = response => {
+
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
+				formError.innerHTML = response.message;
+			}
+		};
+
+		new Form(form,
+				 success,
+				 error,
+				 form.querySelector('button.loader'),
+				 form.querySelector('.progress-bar')
+		);
+
+	})();
+</script>

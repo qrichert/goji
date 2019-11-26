@@ -84,24 +84,29 @@
 		let success = response => {
 
 			// Clear message requested (create mode)
-			if (typeof response.redirect !== 'undefined' && response.redirect !== false) {
+			if (typeof response.redirect_to !== 'undefined'
+			    && response.redirect_to !== false) {
 
 				title.value = '';
 				post.value = '';
 
-				location.href = response.redirect;
+				location.href = response.redirect_to;
 
 				return;
 			}
 
 			formError.textContent = '';
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
 				formSuccess.innerHTML = response.message;
 			}
 
 			// Update permalink with sanitized one
-			if (typeof response.permalink !== 'undefined') {
+			if (typeof response.permalink !== 'undefined'
+				&& response.permalink !== null) {
+
 				goToBlogPost.href = linkBase + response.permalink;
 				permalink.value = response.permalink;
 			}
@@ -111,7 +116,9 @@
 
 			formSuccess.textContent = '';
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
 				formError.innerHTML = response.message;
 			}
 		};

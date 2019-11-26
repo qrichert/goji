@@ -39,7 +39,9 @@
 
 			formError.textContent = '';
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
 				formSuccess.innerHTML = response.message;
 			}
 		};
@@ -48,7 +50,9 @@
 
 			formSuccess.textContent = '';
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
 				formError.innerHTML = response.message;
 			}
 		};

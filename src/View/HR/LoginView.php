@@ -38,13 +38,22 @@
 		let formError = document.querySelector('p.form__error');
 
 		let success = response => {
+
 			formError.textContent = '';
-			location.href = response.redirect_to;
+
+			if (typeof response.redirect_to !== 'undefined'
+			    && response.redirect_to !== null
+			    && response.redirect_to !== '') {
+
+				location.href = response.redirect_to;
+			}
 		};
 
 		let error = response => {
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
 				formError.innerHTML = response.message;
 			}
 		};
@@ -65,8 +74,9 @@
 		// Dialog
 		let dialog = document.querySelector('.dialog');
 		let triggerOpen = document.querySelector('#login__forgot-password');
+		let inputEmail = dialog.querySelector('#reset-password-request__email');
 
-		new Dialog(dialog, triggerOpen);
+		new Dialog(dialog, triggerOpen, null, () => { inputEmail.focus(); });
 
 		// Form
 
@@ -79,7 +89,9 @@
 			form.reset();
 			formError.textContent = '';
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
 				formSuccess.innerHTML = response.message;
 			}
 		};
@@ -88,7 +100,9 @@
 
 			formSuccess.textContent = '';
 
-			if (typeof response.message !== 'undefined') {
+			if (typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
 				formError.innerHTML = response.message;
 			}
 		};

@@ -11,8 +11,10 @@ class Dialog {
 	 * @param {Element} dialog
 	 * @param {Element|Array} triggerOpen
 	 * @param {Element|Array} triggerClose
+	 * @param openCallback Function called when dialog is opened
+	 * @param closeCallback Function called when dialog is closed
 	 */
-	constructor(dialog, triggerOpen, triggerClose = null) {
+	constructor(dialog, triggerOpen, triggerClose = null, openCallback = null, closeCallback = null) {
 
 		this.m_parent = document.createElement('div');
 			this.m_parent.classList.add('dialog__parent');
@@ -29,6 +31,9 @@ class Dialog {
 
 			if (this.m_triggerClose !== null && !Array.isArray(this.m_triggerClose))
 				this.m_triggerClose = [this.m_triggerClose];
+
+		this.m_openCallback = openCallback;
+		this.m_closeCallback = closeCallback;
 
 		this.m_dialogOpen = false;
 
@@ -78,6 +83,9 @@ class Dialog {
 
 		this.m_parent.classList.add('shown');
 		this.m_dialogOpen = true;
+
+		if (this.m_openCallback !== null)
+			this.m_openCallback();
 	}
 
 	/**
@@ -93,5 +101,8 @@ class Dialog {
 
 		this.m_parent.classList.remove('shown');
 		this.m_dialogOpen = false;
+
+		if (this.m_closeCallback !== null)
+			this.m_closeCallback();
 	}
 }

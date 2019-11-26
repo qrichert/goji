@@ -61,7 +61,7 @@
 					'message' => $message,
 					'id' => $this->m_blogPostID,
 					'permalink' => $manager->getForm()->getInputByName('blog-post[permalink]')->getValue(),
-					'redirect' => $redirectTo
+					'redirect_to' => $redirectTo
 				], true);
 			}
 

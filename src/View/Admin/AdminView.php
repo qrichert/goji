@@ -85,10 +85,10 @@
 						// Command output
 						let output = '';
 
-						if (typeof r.nb_removed !== 'undefined')
+						if (typeof r.nb_removed !== 'undefined' && r.nb_removed !== null)
 							output += r.nb_removed + '\n';
 
-						if (typeof r.space_saved !== 'undefined')
+						if (typeof r.space_saved !== 'undefined' && r.space_saved !== null)
 							output += r.space_saved;
 
 						clearCache.title = output;
@@ -135,7 +135,7 @@
 						updateAction.endSuccess();
 
 						// Command output
-						if (typeof r.output !== 'undefined')
+						if (typeof r.output !== 'undefined' && r.output !== null)
 							update.title = r.output.trim();
 					};
 
