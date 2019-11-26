@@ -3,7 +3,7 @@
 	namespace App\Controller\HR;
 
 	use App\Model\HR\LoginForm;
-	use App\Model\HR\ResetPasswordForm;
+	use App\Model\HR\ResetPasswordRequestForm;
 	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Translation\Translator;
@@ -17,7 +17,7 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml', false, 'xhr-reset-password-request');
 
 			$form = new LoginForm($tr);
-			$resetPasswordForm = new ResetPasswordForm($tr);
+			$resetPasswordRequestForm = new ResetPasswordRequestForm($tr);
 
 			$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 										   $tr->_('LOGIN_PAGE_DESCRIPTION'),

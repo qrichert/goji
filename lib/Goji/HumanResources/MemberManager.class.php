@@ -266,11 +266,13 @@
 		public static function queueResetPasswordRequest(App $app, string $username): string {
 
 			// Get member id from username
-			$memberID = self::getFieldsForUsername($app, $username, ['id'])['id'];
+			$memberID = self::getFieldsForUsername($app, $username, ['id']);
 
 			// Invalid username
 			if ($memberID === false)
 				throw new Exception("Member doesn't exist: '$username'.", self::E_MEMBER_DOES_NOT_EXIST);
+
+			$memberID = $memberID['id'];
 
 			// Get token
 			$query = $app->db()->prepare('SELECT token
@@ -310,6 +312,63 @@
 			return $token;
 		}
 
+		/**
+		 * Check if a requests exists with given token and optionally token AND email
+		 * @param \Goji\Core\App $app
+		 * @param string $token
+		 * @param string|null $email
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public static function isValidResetPasswordRequest(App $app, string $token, string $email = null): bool {
+
+			$reply = null;
+
+			// Check by token only
+			if ($email === null) {
+
+				$query = $app->db()->prepare('SELECT id
+												FROM g_member_reset_password_request
+												WHERE token=:token');
+
+				$query->execute([
+					'token' => $token
+				]);
+
+				$reply = $query->fetch();
+
+				$query->closeCursor();
+
+			} else {
+
+				$query = $app->db()->prepare('SELECT request.id
+												FROM g_member_reset_password_request AS request
+												INNER JOIN g_member AS member
+												ON request.member_id = member.id
+												WHERE token=:token AND username=:username');
+
+				$query->execute([
+					'token' => $token,
+					'username' => $email
+				]);
+
+				$reply = $query->fetch();
+
+				$query->closeCursor();
+			}
+
+			if ($reply === false || empty($reply['id']) || !is_numeric($reply['id']))
+				return false;
+			else
+				return true;
+		}
+
+		/**
+		 * Removes reset password request for a member (given by member ID)
+		 * @param \Goji\Core\App $app
+		 * @param int $id
+		 * @throws \Exception
+		 */
 		public static function clearResetPasswordRequestForUser(App $app, int $id): void {
 
 			$query = $app->db()->prepare('DELETE FROM g_member_reset_password_request

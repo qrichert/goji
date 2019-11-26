@@ -102,6 +102,24 @@
 		<segment id="CONTACT_SUCCESS">Your message has been sent. Thanks!</segment>
 		<segment id="CONTACT_ERROR">The form contains errors</segment>
 	</page>
+	<page id="privacy-and-terms">
+		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Privacy &amp; Terms</segment>
+		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>
+		<segment id="PRIVACY_AND_TERMS_MAIN_TITLE">Privacy &amp; Terms</segment>
+	</page>
+	<page id="landing-page">
+		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
+		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
+		<segment id="LANDING_PAGE_PRE_HEADING">Hello,</segment>
+		<segment id="LANDING_PAGE_MAIN_TITLE">"Who Else Wants More Goji Berries—With No Hard Work?"</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_LEGEND">More goji berries than you can dream of...</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_COPY"><![CDATA[
+			<h2>Have You Ever Wondered Why Some People Seem to Get So Many Berries?</h2>
+			<p>It's not by accident...</p>
+			<p>Click the button below to discover how they do it!</p>
+			%{CTA}Take My Money!%{/CTA}
+		]]></segment>
+	</page>
 	<page id="(xhr-)?sign-up">
 		<segment id="SIGN_UP_PAGE_TITLE">Sign Up</segment>
 		<segment id="SIGN_UP_PAGE_DESCRIPTION"></segment>
@@ -177,23 +195,10 @@
 			<p>Have fun!</p>
 		]]></segment>
 	</page>
-	<page id="privacy-and-terms">
-		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Privacy &amp; Terms</segment>
-		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>
-		<segment id="PRIVACY_AND_TERMS_MAIN_TITLE">Privacy &amp; Terms</segment>
-	</page>
-	<page id="landing-page">
-		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
-		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
-		<segment id="LANDING_PAGE_PRE_HEADING">Hello,</segment>
-		<segment id="LANDING_PAGE_MAIN_TITLE">"Who Else Wants More Goji Berries—With No Hard Work?"</segment>
-		<segment id="LANDING_PAGE_GOJI_BERRIES_LEGEND">More goji berries than you can dream of...</segment>
-		<segment id="LANDING_PAGE_GOJI_BERRIES_COPY"><![CDATA[
-			<h2>Have You Ever Wondered Why Some People Seem to Get So Many Berries?</h2>
-			<p>It's not by accident...</p>
-			<p>Click the button below to discover how they do it!</p>
-			%{CTA}Take My Money!%{/CTA}
-		]]></segment>
+	<page id="(xhr-)?reset-password">
+		<segment id="RESET_PASSWORD_PAGE_TITLE">Reset password</segment>
+		<segment id="RESET_PASSWORD_PAGE_DESCRIPTION"></segment>
+		<segment id="RESET_PASSWORD_MAIN_TITLE">Reset password</segment>
 	</page>
 	<page id="blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>

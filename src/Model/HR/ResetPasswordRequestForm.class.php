@@ -10,7 +10,7 @@
 	use Goji\Toolkit\SwissKnife;
 	use Goji\Translation\Translator;
 
-	class ResetPasswordForm extends Form {
+	class ResetPasswordRequestForm extends Form {
 
 		function __construct(Translator $tr) {
 

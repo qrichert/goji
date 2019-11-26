@@ -46,6 +46,14 @@
 		route: "/xhr-contact",
 		controller: "XhrContactController"
 	},
+	"privacy-and-terms": {
+		routes: {
+			en: "/privacy-and-terms",
+			fr: "/mentions-legales"
+		},
+		controller: "PrivacyAndTermsController"
+	},
+	// <HR>
 	"login": {
 		routes: {
 			all: "/login"
@@ -91,12 +99,16 @@
 		route: "/xhr-reset-password-request",
 		controller: "HR\\XhrResetPasswordRequestController"
 	},
-	"privacy-and-terms": {
+	"reset-password": {
 		routes: {
-			en: "/privacy-and-terms",
-			fr: "/mentions-legales"
+			en: "/reset-password",
+			fr: "/reinitialisation-du-mot-de-passe"
 		},
-		controller: "PrivacyAndTermsController"
+		controller: "HR\\ResetPasswordController"
+	},
+	"xhr-reset-password": {
+		route: "/xhr-reset-password",
+		controller: "HR\\XhrResetPasswordController"
 	},
 	// <FUNNEL>
 	"landing-page": {

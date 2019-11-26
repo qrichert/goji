@@ -47,7 +47,9 @@
 			"xhr-verify-email",
 			"login",
 			"xhr-login",
-			"xhr-reset-password-request"
+			"xhr-reset-password-request",
+			"reset-password",
+			"xhr-reset-password"
 		]
 	}
 }

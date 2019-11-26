@@ -19,7 +19,7 @@
 </main>
 
 <div class="dialog">
-	<?php $resetPasswordForm->render(); ?>
+	<?php $resetPasswordRequestForm->render(); ?>
 </div>
 
 <?php

@@ -2,7 +2,7 @@
 
 	namespace App\Controller\HR;
 
-	use App\Model\HR\ResetPasswordForm;
+	use App\Model\HR\ResetPasswordRequestForm;
 	use Exception;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
@@ -42,13 +42,12 @@
 			} catch (Exception $e) {
 
 				HttpResponse::JSON([
-					'detail' => $detail,
 					'message' => $tr->_('RESET_PASSWORD_ERROR')
 				], false);
 			}
 
-			$link = $this->m_app->getRouter()->getLinkForPage(null, null, true);
-				$link .= '?token=' . $token;
+			$link = $this->m_app->getRouter()->getLinkForPage('reset-password', null, true);
+				$link .= '?token=' . rawurlencode($token);
 
 			// Send Mail
 			$message = $tr->_('RESET_PASSWORD_EMAIL_MESSAGE');
@@ -73,7 +72,7 @@
 			$tr = new Translator($this->m_app);
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$form = new ResetPasswordForm($tr);
+			$form = new ResetPasswordRequestForm($tr);
 				$form->hydrate();
 
 			$this->treatForm($form);
