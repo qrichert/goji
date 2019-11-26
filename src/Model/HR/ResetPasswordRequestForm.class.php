@@ -24,21 +24,21 @@
 			};
 
 			$this->addClass('form__centered')
-				 ->setId('reset-password__form');
+				 ->setId('reset-password-request__form');
 
-				$this->addInput(new InputCustom('<p class="form__help-text">' . $tr->_('RESET_PASSWORD_HELP_TEXT') . '</p>'));
+				$this->addInput(new InputCustom('<p class="form__help-text">' . $tr->_('RESET_PASSWORD_RQ_HELP_TEXT') . '</p>'));
 				$this->addInput(new InputLabel())
-					 ->setAttribute('for', 'reset-password__email')
-					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_EMAIL'));
+					 ->setAttribute('for', 'reset-password-request__email')
+					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_RQ_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
 					 ->setAttribute('name', 'reset-password[email]')
-					 ->setId('reset-password__email')
-					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER'))
+					 ->setId('reset-password-request__email')
+					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_RQ_FORM_EMAIL_PLACEHOLDER'))
 					 ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 				$this->addInput(new InputButtonElement())
 					 ->addClass('highlight loader')
-					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_RESET_BUTTON'));
+					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_RQ_FORM_RESET_BUTTON'));
 				$this->addInput(new InputCustom('<p class="form__success"></p>'));
 				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 		}

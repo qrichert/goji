@@ -24,7 +24,7 @@
 
 				HttpResponse::JSON([
 					'detail' => $detail,
-					'message' => $tr->_('RESET_PASSWORD_ERROR')
+					'message' => $tr->_('RESET_PASSWORD_RQ_ERROR')
 				], false);
 			}
 
@@ -42,7 +42,7 @@
 			} catch (Exception $e) {
 
 				HttpResponse::JSON([
-					'message' => $tr->_('RESET_PASSWORD_ERROR')
+					'message' => $tr->_('RESET_PASSWORD_RQ_ERROR')
 				], false);
 			}
 
@@ -50,7 +50,7 @@
 				$link .= '?token=' . rawurlencode($token);
 
 			// Send Mail
-			$message = $tr->_('RESET_PASSWORD_EMAIL_MESSAGE');
+			$message = $tr->_('RESET_PASSWORD_RQ_EMAIL_MESSAGE');
 				$message = str_replace('%{LINK}', htmlspecialchars($link), $message);
 
 			$options = [
@@ -60,10 +60,10 @@
 				'company_email' => $this->m_app->getCompanyEmail()
 			];
 
-			Mail::sendMail($formUsername, $tr->_('RESET_PASSWORD_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
+			Mail::sendMail($formUsername, $tr->_('RESET_PASSWORD_RQ_EMAIL_OBJECT'), $message, $options, $this->m_app->getAppMode() === App::DEBUG);
 
 			HttpResponse::JSON([
-				'message' => $tr->_('RESET_PASSWORD_SUCCESS')
+				'message' => $tr->_('RESET_PASSWORD_RQ_SUCCESS')
 			], true);
 		}
 
