@@ -209,6 +209,7 @@
 		<segment id="RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirmation</segment>
 		<segment id="RESET_PASSWORD_FORM_RESET_BUTTON">Reset</segment>
 		<segment id="RESET_PASSWORD_FORM_RESET_BUTTON">Réinitialiser</segment>
+		<segment id="RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH">Les mots de passes doivent être identiques</segment>
 		<segment id="RESET_PASSWORD_DONE">C'est bon ?</segment>
 		<segment id="RESET_PASSWORD_LOG_IN">Connectez-vous</segment>
 	</page>

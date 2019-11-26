@@ -208,6 +208,7 @@
 		<segment id="RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION">Password (again)</segment>
 		<segment id="RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirm new password</segment>
 		<segment id="RESET_PASSWORD_FORM_RESET_BUTTON">Reset</segment>
+		<segment id="RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH">Passwords must match</segment>
 		<segment id="RESET_PASSWORD_DONE">Good?</segment>
 		<segment id="RESET_PASSWORD_LOG_IN">Log In</segment>
 	</page>
