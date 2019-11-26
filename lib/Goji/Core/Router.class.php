@@ -7,7 +7,7 @@
 	use Goji\Parsing\RegexPatterns;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Translation\Languages;
-	use App\Controller\HttpErrorController;
+	use App\Controller\System\HttpErrorController;
 	use Exception;
 
 	/**

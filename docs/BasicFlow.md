@@ -132,7 +132,7 @@ of your controller. It goes like this:
       config file. Once the right route is found, `Router` calls the `render()` method of the appropriate
       controller.
     - If there's an error somewhere (like a 404), `Router::requestErrorDocument()` will be called which
-      will ultimately render the `\App\Controller\HttpErrorController` (that you can modify because it's
+      will ultimately render the `\App\Controller\System\HttpErrorController` (that you can modify because it's
       not part of the lib, it's in the `/src/Controller/` folder).
 
 `App::exec()` should always be the last instruction. This is because `App::exec()` calls  `Router::route()`,

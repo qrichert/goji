@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Controller;
+	namespace App\Controller\System;
 
 	use Goji\Blueprints\HttpErrorControllerAbstract;
 	use Goji\Core\App;
@@ -44,7 +44,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('ErrorView');
+			require_once $template->getView('System/ErrorView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();
