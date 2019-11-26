@@ -27,7 +27,7 @@ if [ -e "$BASE_DIR/$projectName" ]; then
 	exit 1
 fi
 
-git clone https://github.com/qrichert/goji.git "$BASE_DIR/$projectName"
+git clone --depth 1 https://github.com/qrichert/goji.git "$BASE_DIR/$projectName"
 
 rm -rf "$BASE_DIR/$projectName/.git"
 rm "$BASE_DIR/$projectName/.gitignore"
@@ -42,7 +42,7 @@ read -p "Project created, share library files with a clean Goji repository ? (y/
 if [ $useSymlinks = 'y' ];
 then
 	if [ ! -d "$BASE_DIR/goji" ]; then
-		git clone https://github.com/qrichert/goji.git "$BASE_DIR/goji"
+		git clone --depth 1 https://github.com/qrichert/goji.git "$BASE_DIR/goji"
 	fi
 
 	files=('bin'

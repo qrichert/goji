@@ -1,10 +1,43 @@
 Basic Flow
 ==========
 
-1. [Request Chain](#request-chain)
-2. [App](#app)
-3. [Database](#database)
-3. [Controllers](#controllers)
+1. [Directory Structure](#directory-structure)
+2. [Request Chain](#request-chain)
+3. [App](#app)
+4. [Database](#database)
+5. [Controllers](#controllers)
+
+Directory Structure
+-------------------
+
+- **`_BACKUP_`**, *used to store backups of your files or databases.*
+- **`_FACTORY_`**, *used to store work files unrelated to development (*e.g.* Photoshop or Illustrator files).*
+- **`bin`**, *contains helper tools.*
+    - **`http-headers`**, *reads HTTP headers from given URL.*
+    - **`img2base64`**, *converts image file to base64 string.*
+    - **`password-maker`**, *generates strong passwords.*
+    - **`newproject.sh`**, *automates cloning Goji into a new project (sharing library files).*
+- **`config`**, *contains project configuration files.*
+- **`docs`**, *contains Goji's documentation files written in Markdown.*
+- **`lib`**, *your project libraries.*
+    - **`Goji`**, *reserved for Goji source files (Goji core library).*
+    - **`AutoLoad.php`**, *auto-loading functions, add your own if needed.*
+    - **`RootPath.php`**, *sets constants containing root and webroot paths.*
+    - **`Settings.php`**, *basic PHP project settings.*
+- **`public`**, *contains all files accessible from the Web.*
+    - **`css`**, *everything that is linked to styling.*
+    - **`img`**, *images that are part of the content (not styling).*
+    - **`js`**, *JavaScript files.*
+    - **`upload`**, *public uploads are stored here.*
+- **`src`**, *contains user code (yours).*
+    - **`Controller`**, *controller files.*
+    - **`Model`**, *model files.*
+    - **`Resource`**, *additional "toolkit" code (e.g. traits).*
+    - **`View`**, *view files.*
+- **`template`**, *contains template files (*e.g.* page templates).*
+- **`translation`**, *contains all files related to translation.*
+- **`var`**, *for data storage (*e.g.* cache files or metrics files).*
+- **`vendor`**, *for external libraries.*
 
 Request Chain
 -------------
@@ -95,12 +128,12 @@ of your controller. It goes like this:
    app and finds the best match.
 2. Creates a `\Goji\Core\Router` object, accessible via `App::getRouter()`.
 3. Calls `Router::route()`.
-	- If everything is okay, `Router` will match the request path with the routes you have set in your
-	  config file. Once the right route is found, `Router` calls the `render()` method of the appropriate
-	  controller.
-	- If there's an error somewhere (like a 404), `Router::requestErrorDocument()` will be called which
-	  will ultimately render the `\App\Controller\HttpErrorController` (that you can modify because it's
-	  not part of the lib, it's in the `/src/Controller/` folder).
+    - If everything is okay, `Router` will match the request path with the routes you have set in your
+      config file. Once the right route is found, `Router` calls the `render()` method of the appropriate
+      controller.
+    - If there's an error somewhere (like a 404), `Router::requestErrorDocument()` will be called which
+      will ultimately render the `\App\Controller\HttpErrorController` (that you can modify because it's
+      not part of the lib, it's in the `/src/Controller/` folder).
 
 `App::exec()` should always be the last instruction. This is because `App::exec()` calls  `Router::route()`,
 and `Router::route()` calls `exit;` just after rendering the controller. `Controller::render()` is meant to
@@ -134,8 +167,8 @@ Controllers must:
 
 1. Be in the `\App\Controller` namespace
 2. Extend the `Goji\Blueprints\ControllerAbstract` abstract class, so:
-	- Have a `public function __construct(App $app);` method if you overload it
-	- Have a `public function render(): void;` method
+    - Have a `public function __construct(App $app);` method if you overload it
+    - Have a `public function render(): void;` method
 
 By default, `Goji\Blueprints\ControllerAbstract` gives you a `$this->m_app` attribute, so you can access
 the main `App` object from your controller, but you're not forced to use it. On the other hand, if you

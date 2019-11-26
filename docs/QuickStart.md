@@ -15,8 +15,8 @@ Create a Project
 3. Replace the `.gitignore` file by `project.gitignore` to remove Goji files from versioning (optional).
 
 ```sh
-git clone https://github.com/qrichert/goji.git your-project
-cd your-project
+git clone --depth 1 https://github.com/qrichert/goji.git project-name
+cd project-name
 rm -rf .git
 rm .gitignore && mv project.gitignore .gitignore
 ```
@@ -28,6 +28,10 @@ If you want to version your project, just initialize it after, as you always do:
 git add .
 git commit -am "Initial commit."
 ```
+
+Note the `--depth 1` option, it tells Git to only download the latest version of the code, without the
+whole project history (shallow clone). It's not essential but makes the download faster since you'll
+delete all Git history right after anyway.
 
 Edit Pages
 ----------
