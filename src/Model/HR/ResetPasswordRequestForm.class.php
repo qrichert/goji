@@ -31,7 +31,7 @@
 					 ->setAttribute('for', 'reset-password-request__email')
 					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_RQ_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
-					 ->setAttribute('name', 'reset-password[email]')
+					 ->setAttribute('name', 'reset-password-request[email]')
 					 ->setId('reset-password-request__email')
 					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_RQ_FORM_EMAIL_PLACEHOLDER'))
 					 ->setAttribute('required');

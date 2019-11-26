@@ -39,19 +39,21 @@
 
 			// If empty, let the 'required' handle it
 			if (password.value === '' || passwordConfirmation.value === '')
-				password.setCustomValidity('');
+				passwordConfirmation.setCustomValidity('');
 			// Passwords not empty && match -> Good
 			else if (password.value === passwordConfirmation.value)
-				password.setCustomValidity('');
+				passwordConfirmation.setCustomValidity('');
 			// Passwords not empty and no match -> Show error
 			else
-				password.setCustomValidity('<?= addcslashes($tr->_('RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH'), "'"); ?>');
+				passwordConfirmation.setCustomValidity('<?= addcslashes($tr->_('RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH'), "'"); ?>');
 		};
 
 		password.addEventListener('keyup', passwordsMatch, false);
 		passwordConfirmation.addEventListener('keyup', passwordsMatch, false);
 
 		let success = response => {
+
+			form.reset();
 
 			formError.textContent = '';
 

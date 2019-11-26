@@ -35,6 +35,14 @@
 				$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_FORBIDDEN);
 		}
 
+		/**
+		 * This is actually the 'Re-send email if not email confirmation received'
+		 * So we reset the password (since we can't unhash it to send it back) and send it in a new email
+		 *
+		 * TODO: Rename this class to XhrVerifyEmailNotReceived.class.php
+		 *
+		 * @throws \Exception
+		 */
 		public function render(): void {
 
 			// If we're here, id/token was valid and we got an email

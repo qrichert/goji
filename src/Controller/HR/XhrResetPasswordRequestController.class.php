@@ -31,7 +31,7 @@
 			// Verify validity here (credentials validity)
 
 			// User input
-			$formUsername = $form->getInputByName('reset-password[email]')->getValue();
+			$formUsername = $form->getInputByName('reset-password-request[email]')->getValue();
 
 			$token = '';
 

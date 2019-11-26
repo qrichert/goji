@@ -5,6 +5,7 @@
 	use Goji\Form\Form;
 	use Goji\Form\InputButtonElement;
 	use Goji\Form\InputCustom;
+	use Goji\Form\InputHidden;
 	use Goji\Form\InputLabel;
 	use Goji\Form\InputTextEmail;
 	use Goji\Form\InputTextPassword;
@@ -50,6 +51,9 @@
 					 ->setAttribute('name', 'reset-password[password-confirmation]')
 					 ->setId('reset-password__password-confirmation')
 					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER'))
+					 ->setAttribute('required');
+				$this->addInput(new InputHidden())
+					 ->setAttribute('name', 'reset-password[token]')
 					 ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 				$this->addInput(new InputButtonElement())

@@ -35,6 +35,7 @@
 				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 			$resetPasswordForm = new ResetPasswordForm($tr);
+				$resetPasswordForm->getInputByName('reset-password[token]')->setValue($this->m_token);
 
 			$template = new SimpleTemplate($tr->_('RESET_PASSWORD_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 			                               $tr->_('RESET_PASSWORD_PAGE_DESCRIPTION'),

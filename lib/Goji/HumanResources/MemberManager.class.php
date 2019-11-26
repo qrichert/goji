@@ -257,6 +257,8 @@
 			return $reply; // array if OK, false on error
 		}
 
+/* --- Password Reset --- */
+
 		/**
 		 * @param \Goji\Core\App $app
 		 * @param string $username
@@ -314,20 +316,22 @@
 
 		/**
 		 * Check if a requests exists with given token and optionally token AND email
+		 *
 		 * @param \Goji\Core\App $app
 		 * @param string $token
 		 * @param string|null $email
+		 * @param int|null $memberId Will contain id of member
 		 * @return bool
 		 * @throws \Exception
 		 */
-		public static function isValidResetPasswordRequest(App $app, string $token, string $email = null): bool {
+		public static function isValidResetPasswordRequest(App $app, string $token, string $email = null, int &$memberId = null): bool {
 
 			$reply = null;
 
 			// Check by token only
 			if ($email === null) {
 
-				$query = $app->db()->prepare('SELECT id
+				$query = $app->db()->prepare('SELECT id, member_id
 												FROM g_member_reset_password_request
 												WHERE token=:token');
 
@@ -341,7 +345,7 @@
 
 			} else {
 
-				$query = $app->db()->prepare('SELECT request.id
+				$query = $app->db()->prepare('SELECT request.id AS id, member.id AS member_id
 												FROM g_member_reset_password_request AS request
 												INNER JOIN g_member AS member
 												ON request.member_id = member.id
@@ -356,6 +360,9 @@
 
 				$query->closeCursor();
 			}
+
+			if ($reply !== false && !empty($reply['member_id']))
+				$memberId = (int) $reply['member_id'];
 
 			if ($reply === false || empty($reply['id']) || !is_numeric($reply['id']))
 				return false;
@@ -383,6 +390,8 @@
 
 		/**
 		 * Reset password for given username (for both normal & tmp accounts)
+		 *
+		 * Generates a new password, and send it by email to the member.
 		 *
 		 * @param \Goji\Core\App $app
 		 * @param string $username
@@ -458,6 +467,42 @@
 			$query->closeCursor();
 
 			$detail['password'] = $newPassword;
+
+			return true;
+		}
+
+		/**
+		 * When member resets password after having forgotten it.
+		 *
+		 * @param \Goji\Core\App $app
+		 * @param int $memberId
+		 * @param string $newPassword
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public static function setNewPassword(App $app, int $memberId, string $newPassword): bool {
+
+			/*********************/
+
+			if ($app->getAppMode() === App::DEBUG) {
+				// Log generated password to console
+				Logger::log('New password: ' . $newPassword, Logger::CONSOLE);
+			}
+
+			/*********************/
+
+			$newPassword = Passwords::hashPassword($newPassword);
+
+			$query = $app->db()->prepare('UPDATE g_member
+											SET password=:password
+											WHERE id=:id');
+
+			$query->execute([
+				'id' => $memberId,
+				'password' => $newPassword
+			]);
+
+			$query->closeCursor();
 
 			return true;
 		}
