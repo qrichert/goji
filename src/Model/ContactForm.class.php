@@ -32,14 +32,14 @@
 					 ->setAttribute('for', 'contact__name')
 					 ->setAttribute('textContent', $tr->_('CONTACT_FORM_NAME'));
 				$this->addInput(new InputText())
-					 ->setAttribute('name', 'contact[name]')
+					 ->setName('contact[name]')
 					 ->setId('contact__name')
 					 ->setAttribute('placeholder', $tr->_('CONTACT_FORM_NAME_PLACEHOLDER'));
 				$this->addInput(new InputLabel())
 					 ->setAttribute('for', 'contact__email')
 					 ->setAttribute('textContent', $tr->_('CONTACT_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
-					 ->setAttribute('name', 'contact[email]')
+					 ->setName('contact[email]')
 					 ->setId('contact__email')
 					 ->setAttribute('placeholder', $tr->_('CONTACT_FORM_EMAIL_PLACEHOLDER'));
 				$this->addInput(new InputLabel())
@@ -47,7 +47,7 @@
 					 ->addClass('required')
 					 ->setAttribute('textContent', $tr->_('CONTACT_FORM_MESSAGE'));
 				$this->addInput(new InputTextArea())
-					 ->setAttribute('name', 'contact[message]')
+					 ->setName('contact[message]')
 					 ->setId('contact__message')
 					 ->addClass('big')
 					 ->setAttribute('placeholder', $tr->_('CONTACT_FORM_MESSAGE_PLACEHOLDER'))

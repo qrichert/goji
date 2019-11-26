@@ -30,7 +30,7 @@
 				     ->setAttribute('for', 'sign-up__email')
 				     ->setAttribute('textContent', $tr->_('SIGN_UP_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
-				     ->setAttribute('name', 'sign-up[email]')
+				     ->setName('sign-up[email]')
 				     ->setId('sign-up__email')
 				     ->setAttribute('placeholder', $tr->_('SIGN_UP_FORM_EMAIL_PLACEHOLDER'))
 				     ->setAttribute('required');

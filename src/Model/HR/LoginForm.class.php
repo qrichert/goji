@@ -31,7 +31,7 @@
 					 ->setAttribute('for', 'login__email')
 					 ->setAttribute('textContent', $tr->_('LOGIN_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
-					 ->setAttribute('name', 'login[email]')
+					 ->setName('login[email]')
 					 ->setId('login__email')
 					 ->setAttribute('placeholder', $tr->_('LOGIN_FORM_EMAIL_PLACEHOLDER'))
 					 ->setAttribute('required');
@@ -40,7 +40,7 @@
 					 ->setAttribute('textContent', $tr->_('LOGIN_FORM_PASSWORD'))
 					 ->setSideInfo('a', ['href' => '#', 'id' => 'login__forgot-password'], $tr->_('LOGIN_FORGOT_PASSWORD'));
 				$this->addInput(new InputTextPassword())
-					 ->setAttribute('name', 'login[password]')
+					 ->setName('login[password]')
 					 ->setId('login__password')
 					 ->setAttribute('placeholder', $tr->_('LOGIN_FUN_MESSAGE', mt_rand(1, 3)))
 					 ->setAttribute('required');

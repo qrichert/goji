@@ -65,7 +65,7 @@ With this you don't have to instantiate the input into a variable to "prepare" i
 $form = new Form();
     $form->addClass('form__contact');
         $form->addInput(new InputText()) // Returns the InputText
-             ->setAttribute('name', 'contact[name]'); // Building onto the same InputText
+             ->setName('contact[name]'); // Building onto the same InputText
 ```
 
 Note that if you add an `InputFile` input, the `enctype` will automatically be switched to
@@ -166,7 +166,7 @@ by the generated attributes.
 
 ```php
 $input = new InputCustom('<custom %{ATTRIBUTES}>', '</custom>');
-    $input->setAttribute('name', 'custom-element')
+    $input->setName('custom-element')
           ->setAttribute('textContent', 'My Custom Element');
 ```
 
@@ -217,20 +217,20 @@ $form = new Form();
              ->setSideInfo('a', array('class' => 'label'), 'More infos?');
 
         $form->addInput(new InputText())
-             ->setAttribute('name', 'contact[name]')
+             ->setName('contact[name]')
              ->setId('contact__name')
              ->setAttribute('placeholder', 'John Doe')
              ->setAttribute('required');
 
         $form->addInput(new InputTextArea())
-             ->setAttribute('name', 'contact[message]')
+             ->setName('contact[message]')
              ->setId('contact__message')
              ->addClass('big')
              ->setAttribute('placeholder', 'Message')
              ->setAttribute('required');
 
         $inputSelect = new InputSelect();
-            $inputSelect->setAttribute('name', 'contact[preference]');
+            $inputSelect->setName('contact[preference]');
 
             $optGroup = new InputSelectOptionGroup();
             $optGroup->setAttribute('label', 'Group');
@@ -254,19 +254,19 @@ $form = new Form();
         $form->addInput($inputSelect);
 
         $form->addInput(new InputCheckBox())
-              ->setAttribute('name', 'contact[remember-me]')
+              ->setName('contact[remember-me]')
               ->setId('contact__remember-me')
               ->addClass('toggle')
               ->setAttribute('textContent', 'Remember my details');
               
         $form->addInput(new InputRadioButton())
-             ->setAttribute('name', 'contact[receive-confirmation]')
+             ->setName('contact[receive-confirmation]')
              ->setId('contact__receive-confirmation')
              ->setAttribute('checked')
              ->setAttribute('value', 'yes')
              ->setAttribute('textContent', 'Yes');
         $form->addInput(new InputRadioButton())
-             ->setAttribute('name', 'contact[receive-confirmation]')
+             ->setName('contact[receive-confirmation]')
              ->setId('contact__receive-confirmation')
              ->setAttribute('value', 'no')
              ->setAttribute('textContent', 'Nope');

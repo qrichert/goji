@@ -32,7 +32,7 @@
 					 ->setAttribute('for', 'reset-password__email')
 					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_EMAIL'));
 				$this->addInput(new InputTextEmail(null, false, $sanitizeEmail))
-					 ->setAttribute('name', 'reset-password[email]')
+					 ->setName('reset-password[email]')
 					 ->setId('reset-password__email')
 					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER'))
 					 ->setAttribute('required');
@@ -40,7 +40,7 @@
 					 ->setAttribute('for', 'reset-password__password')
 					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_PASSWORD'));
 				$this->addInput(new InputTextPassword())
-					 ->setAttribute('name', 'reset-password[password]')
+					 ->setName('reset-password[password]')
 					 ->setId('reset-password__password')
 					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_FORM_PASSWORD_PLACEHOLDER'))
 					 ->setAttribute('required');
@@ -48,12 +48,12 @@
 					 ->setAttribute('for', 'reset-password__password-confirmation')
 					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION'));
 				$this->addInput(new InputTextPassword())
-					 ->setAttribute('name', 'reset-password[password-confirmation]')
+					 ->setName('reset-password[password-confirmation]')
 					 ->setId('reset-password__password-confirmation')
 					 ->setAttribute('placeholder', $tr->_('RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER'))
 					 ->setAttribute('required');
 				$this->addInput(new InputHidden())
-					 ->setAttribute('name', 'reset-password[token]')
+					 ->setName('reset-password[token]')
 					 ->setAttribute('required');
 				$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 				$this->addInput(new InputButtonElement())

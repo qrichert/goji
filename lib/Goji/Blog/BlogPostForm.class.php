@@ -37,14 +37,14 @@
 				     ->setAttribute('for', 'blog-post__permalink')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_PERMALINK'));
 				$this->addInput(new InputText())
-					 ->setAttribute('name', 'blog-post[permalink]')
+					 ->setName('blog-post[permalink]')
 					 ->setId('blog-post__permalink')
 					 ->setAttribute('placeholder', $tr->_('BLOG_POST_PERMALINK_PLACEHOLDER'));
 				$this->addInput(new InputLabel())
 				     ->setAttribute('for', 'blog-post__illustration')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_ILLUSTRATION'));
 				$this->addInput(new InputText(null, false, $sanitizeIllustration)) // Can't use URL because we allow %{WEBROOT}/img/img.jpg style links
-				     ->setAttribute('name', 'blog-post[illustration]')
+				     ->setName('blog-post[illustration]')
 				     ->setId('blog-post__illustration')
 				     ->setAttribute('placeholder', $tr->_('BLOG_POST_ILLUSTRATION_PLACEHOLDER'));
 				$this->addInput(new InputLabel())
@@ -52,7 +52,7 @@
 					 ->addClass('required')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_TITLE'));
 				$this->addInput(new InputText())
-				     ->setAttribute('name', 'blog-post[title]')
+				     ->setName('blog-post[title]')
 				     ->setId('blog-post__title')
 				     ->setAttribute('placeholder', $tr->_('BLOG_POST_TITLE_PLACEHOLDER'))
 					 ->setAttribute('required');
@@ -61,7 +61,7 @@
 				     ->addClass('required')
 				     ->setAttribute('textContent', $tr->_('BLOG_POST_POST'));
 				$this->addInput(new InputTextArea())
-				     ->setAttribute('name', 'blog-post[post]')
+				     ->setName('blog-post[post]')
 				     ->setId('blog-post__post')
 				     ->addClasses('big content-like')
 				     ->setAttribute('placeholder', $tr->_('BLOG_POST_POST_PLACEHOLDER'))
