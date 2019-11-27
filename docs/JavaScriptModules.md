@@ -5,6 +5,7 @@ Goji comes with several (Vanilla !) JavaScript modules or plugins.
 
 All these modules come in a standard `.js` and compiled `.min.js` version.
 
+- **`ActionItem`**: Handles events and display for action items (like in the Admin panel).
 - **`Dialog`**: Makes a given element an interactive dialog with open/close events.
 - **`DocumentScroll`**: Returns the scroll of the whole document.
 - **`ElementScroll`**: Returns the scroll of a given element respective to the viewport.
@@ -12,6 +13,7 @@ All these modules come in a standard `.js` and compiled `.min.js` version.
   address. Instead, you write an encoded string and this module will dynamically decode it on the fly.
 - **`Form`**: Ajaxifies a `<form>` with success/error callbacks and loading progress.
 - **`ImageSequenceAnimator`**: Helps you animate an image sequence (you just have to set the progress).
+- **`InPageContentEdit`**: Handles in-page content edition (added automatically if when needed).
 - **`LightBox`**: Lightbox to display content on dark (or whatever you want) background.
 - **`Polyfills`**: A few handy polyfills for `matches`, `CustomEvent` and `forEach`.
 - **`SimpleRequest`**: Simple module for Ajax HTTP requests. Supports `GET`, `POST`, `PUT` and `DELETE`.
