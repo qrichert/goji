@@ -56,13 +56,13 @@
 		</segment>
 	</page>
 	<page id="password-wall">
-		<segment id="PASSWORD_WALL_PAGE_TITLE">Ouverture Imminente</segment>
+		<segment id="PASSWORD_WALL_PAGE_TITLE">Ouverture Prochaine</segment>
 		<segment id="PASSWORD_WALL_PAGE_DESCRIPTION"></segment>
-		<segment id="PASSWORD_WALL_MAIN_TITLE">Ouverture Imminente</segment>
-		<segment id="PASSWORD_WALL_FORM_PASSWORD">Mot de passe</segment>
-		<segment id="PASSWORD_WALL_FORM_PASSWORD_PLACEHOLDER">H3110</segment>
+		<segment id="PASSWORD_WALL_MAIN_TITLE">Ouverture Prochaine</segment>
+		<segment id="PASSWORD_WALL_FORM_PASSWORD">Vous faites partie du projet?</segment>
+		<segment id="PASSWORD_WALL_FORM_PASSWORD_PLACEHOLDER">Mot de passe</segment>
 		<segment id="PASSWORD_WALL_FORM_ENTER_BUTTON">Entrer</segment>
-		<segment id="PASSWORD_WALL_WRONG_PASSWORD">Désolé, mot de pass incorrect</segment>
+		<segment id="PASSWORD_WALL_WRONG_PASSWORD">Désolé, mot de passe incorrect</segment>
 	</page>
 	<!--
 		Page ID must match page ID in routes.json5 if you use \Goji\Translation\Translator.
