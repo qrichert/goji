@@ -131,7 +131,7 @@ of your controller. It goes like this:
     - If everything is okay, `Router` will match the request path with the routes you have set in your
       config file. Once the right route is found, `Router` calls the `render()` method of the appropriate
       controller.
-    - If there's an error somewhere (like a 404), `Router::requestErrorDocument()` will be called which
+    - If there's an error somewhere (like a 404), `Router::redirectToErrorDocument()` will be called which
       will ultimately render the `\App\Controller\System\HttpErrorController` (that you can modify because it's
       not part of the lib, it's in the `/src/Controller/` folder).
 

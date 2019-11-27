@@ -23,7 +23,7 @@
 
 			// If no ID or token -> error
 			if (empty($_POST['id']) || empty($_POST['token']))
-				$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_FORBIDDEN);
+				$this->m_app->getRouter()->redirectToErrorDocument(self::HTTP_ERROR_FORBIDDEN);
 
 			$this->m_id = (int) $_POST['id'];
 			$this->m_token = (string) $_POST['token'];
@@ -32,7 +32,7 @@
 
 			// If email not found (null), so incorrect id/token (token must match id)
 			if (empty($this->m_email))
-				$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_FORBIDDEN);
+				$this->m_app->getRouter()->redirectToErrorDocument(self::HTTP_ERROR_FORBIDDEN);
 		}
 
 		/**

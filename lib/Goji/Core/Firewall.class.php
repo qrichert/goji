@@ -78,7 +78,7 @@
 			// If no page ID given (redirect_to: null)
 			// Redirect to 403
 			if ($redirectTo === null && $this->m_app->hasRouter())
-				$this->m_app->getRouter()->requestErrorDocument(Router::HTTP_ERROR_FORBIDDEN);
+				$this->m_app->getRouter()->redirectToErrorDocument(Router::HTTP_ERROR_FORBIDDEN);
 
 			// If no page ID given, and/or App doesn't have a router, in which
 			// case we can't redirect to 403, we default to redirecting to the root

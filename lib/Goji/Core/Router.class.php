@@ -603,25 +603,6 @@
 			exit;
 		}
 
-		/**
-		 * @param string $location
-		 */
-		public function redirectTo(string $location): void {
-
-			$location = trim($location);
-
-			header("Location: $location");
-			exit;
-		}
-
-		/**
-		 * @param int|null $errorCode
-		 * @throws \Exception
-		 */
-		public function requestErrorDocument(?int $errorCode): void {
-			$this->redirectToErrorDocument($errorCode);
-		}
-
 		public function requestLocaleSwitch(string $newLocale): void {
 
 			// If locale doesn't exist -> 404
@@ -647,10 +628,21 @@
 		}
 
 		/**
+		 * @param string $location
+		 */
+		public function redirectTo(string $location): void {
+
+			$location = trim($location);
+
+			header("Location: $location");
+			exit;
+		}
+
+		/**
 		 * @param int|null $errorCode
 		 * @throws \Exception
 		 */
-		private function redirectToErrorDocument(?int $errorCode): void {
+		public function redirectToErrorDocument(?int $errorCode): void {
 
 			$this->m_currentPageIsErrorPage = true;
 
@@ -672,7 +664,7 @@
 		 *
 		 * @throws \Exception
 		 */
-		private function redirectToLoginPage(): void {
+		public function redirectToLoginPage(): void {
 
 			$loginPage = $this->m_app->getAuthentication()->getLoginPage(); // Page ID
 				$loginPage = $this->getLinkForPage($loginPage);
@@ -691,7 +683,7 @@
 		 * In the rare cases where you don't have a Router set at the time of the redirection,
 		 * it will default to RequestHandler::getRootFolder()
 		 */
-		private function redirectToAuthenticatedDisallowed(): void {
+		public function redirectToAuthenticatedDisallowed(): void {
 			$this->m_app->getFirewall()->redirectToAuthenticatedDisallowed();
 		}
 	}

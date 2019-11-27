@@ -20,13 +20,13 @@
 			parent::__construct($app);
 
 			if (empty($_GET['token']))
-				$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
+				$this->m_app->getRouter()->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 
 			$this->m_token = (string) $_GET['token'];
 
 			// Check if given token exists
 			if (!MemberManager::isValidResetPasswordRequest($this->m_app, $this->m_token))
-				$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
+				$this->m_app->getRouter()->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 		}
 
 		public function render(): void {

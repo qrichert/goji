@@ -429,7 +429,7 @@
 				$this->m_router = new Router($this);
 
 			if ($this->m_requestHandler->getErrorDetected())
-				$this->m_router->requestErrorDocument($this->m_requestHandler->getRedirectStatus());
+				$this->m_router->redirectToErrorDocument($this->m_requestHandler->getRedirectStatus());
 			else if ($this->m_requestHandler->getForcedLocaleDetected() !== null)
 				$this->m_router->requestLocaleSwitch($this->m_requestHandler->getForcedLocaleDetected());
 			else
@@ -442,7 +442,7 @@
 		 * @param int|null $errorCode
 		 * @throws \Exception
 		 */
-		public function requestErrorDocument(?int $errorCode): void {
+		public function redirectToErrorDocument(?int $errorCode): void {
 
 			if (!isset($this->m_languages))
 				$this->m_languages = new Languages($this);
@@ -450,6 +450,6 @@
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);
 
-			$this->m_router->requestErrorDocument($errorCode);
+			$this->m_router->redirectToErrorDocument($errorCode);
 		}
 	}

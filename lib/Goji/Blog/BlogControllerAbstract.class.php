@@ -33,6 +33,6 @@
 		}
 
 		public function errorBlogPostDoesNotExist(): void {
-			$this->m_app->getRouter()->requestErrorDocument(self::HTTP_ERROR_NOT_FOUND);
+			$this->m_app->getRouter()->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 		}
 	}
