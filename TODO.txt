@@ -17,3 +17,4 @@ getTablesList()
 - [ ] Manage users
 - [ ] Profile edition
 - [ ] Separate burger menu into plugin CSS
+- [ ] Clean routes, make special cases commented demo cases that are easy to remove, also update authentication accordingly
