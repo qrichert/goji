@@ -104,7 +104,8 @@
 		<?= $template->getPageContent(); ?>
 
 		<?php
-			if ($template->getSpecial('is-minimal-page')) ; // No footer
+			if ($template->getSpecial('is-minimal-page'))
+				require_once $template->getTemplate('page/include/footer.minimal');
 			else
 				require_once $template->getTemplate('page/include/footer');
 		?>

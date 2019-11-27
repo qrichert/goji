@@ -9,6 +9,7 @@ window.addEventListener('load', function() {
 		windowSizeDisplay.style.right = '10px';
 		windowSizeDisplay.style.bottom = '10px';
 		windowSizeDisplay.style.margin = '0';
+		windowSizeDisplay.style.pointerEvents = 'none';
 		windowSizeDisplay.classList.add('window-size-display');
 			document.querySelector('body').appendChild(windowSizeDisplay);
 

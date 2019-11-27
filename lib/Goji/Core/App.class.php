@@ -448,12 +448,12 @@
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);
 
-			if ($this->m_showPasswordWall)
+			if ($this->m_requestHandler->getForcedLocaleDetected() !== null)
+				$this->m_router->requestLocaleSwitch($this->m_requestHandler->getForcedLocaleDetected());
+			else if ($this->m_showPasswordWall)
 				$this->m_router->redirectToPasswordWall();
 			else if ($this->m_requestHandler->getErrorDetected())
 				$this->m_router->redirectToErrorDocument($this->m_requestHandler->getRedirectStatus());
-			else if ($this->m_requestHandler->getForcedLocaleDetected() !== null)
-				$this->m_router->requestLocaleSwitch($this->m_requestHandler->getForcedLocaleDetected());
 			else
 				$this->m_router->route();
 		}
