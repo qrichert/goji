@@ -59,7 +59,6 @@
 				$this->addInput(new InputButtonElement())
 					 ->addClass('highlight loader')
 					 ->setAttribute('textContent', $tr->_('RESET_PASSWORD_FORM_RESET_BUTTON'));
-				$this->addInput(new InputCustom('<p class="form__success"></p>'));
 				$this->addInput(new InputCustom('<p class="form__error"></p>'));
 		}
 	}

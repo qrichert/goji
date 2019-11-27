@@ -3,6 +3,7 @@
  *
  * Reserved page names are:
  * - http-error-* (* = HTTP error code)
+ * - password-wall
  */
 
 {
@@ -53,7 +54,7 @@
 		},
 		controller: "PrivacyAndTermsController"
 	},
-	// <HR>
+// <HR>
 	"login": {
 		routes: {
 			all: "/login"
@@ -110,12 +111,12 @@
 		route: "/xhr-reset-password",
 		controller: "HR\\XhrResetPasswordController"
 	},
-	// <FUNNEL>
+// <FUNNEL>
 	"landing-page": {
 		route: "/landing-page",
 		controller: "LandingPageController"
 	},
-	// <BLOG>
+// <BLOG>
 	"blog": {
 		route: "/blog",
 		controller: "BlogController"
@@ -134,7 +135,7 @@
 		route: "/admin/xhr-blog-post",
 		controller: "Admin\\XhrAdminBlogPostController"
 	},
-	// <ADMIN>
+// <ADMIN>
 	"admin": {
 		route: "/admin",
 		controller: "Admin\\AdminController"
@@ -155,7 +156,7 @@
 		route: "/admin/xhr-back-up-database",
 		controller: "Admin\\XhrAdminBackUpDatabase"
 	},
-	// <DEMO>
+// <DEMO>
 	// This is the page ID.
 	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )
 	// It is also put as <body id=""> in default template, so make sure it's HTML#id compliant

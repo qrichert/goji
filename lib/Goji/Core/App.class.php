@@ -38,6 +38,9 @@
 		private $m_router;
 		private $m_translator;
 
+		private $m_passwordWallPassword;
+		private $m_showPasswordWall;
+
 		/* <CONSTANTS> */
 
 		const CONFIG_FILE = ROOT_PATH . '/config/app.json5';
@@ -47,6 +50,8 @@
 
 		const NORMAL = 'normal';
 		const MERGED = 'merged';
+
+		const PASSWORD_WALL_COOKIE = 'password-wall-authenticated';
 
 		const E_NO_LANGUAGES = 0;
 		const E_NO_ROUTER = 1;
@@ -86,6 +91,12 @@
 			$this->m_firewall = new Firewall($this);
 			$this->m_router = null;
 			$this->m_translator = null;
+
+			// If set, use password wall. If not set or empty, don't use it
+			$this->m_passwordWallPassword = !empty($config['password_wall']) ? (string) $config['password_wall'] : null;
+			// Use it IF password IS set AND cookie IS NOT set
+			$this->m_showPasswordWall = !empty($this->m_passwordWallPassword)
+			                                && empty(Cookies::get(self::PASSWORD_WALL_COOKIE));
 		}
 
 		/**
@@ -416,6 +427,15 @@
 		}
 
 		/**
+		 * Returns password set in config/app.json5, or null if not set
+		 *
+		 * @return string|null
+		 */
+		public function getPasswordWallPassword(): ?string {
+			return $this->m_passwordWallPassword;
+		}
+
+		/**
 		 * Starts the routing process.
 		 *
 		 * @throws \Exception
@@ -428,7 +448,9 @@
 			if (!isset($this->m_router))
 				$this->m_router = new Router($this);
 
-			if ($this->m_requestHandler->getErrorDetected())
+			if ($this->m_showPasswordWall)
+				$this->m_router->redirectToPasswordWall();
+			else if ($this->m_requestHandler->getErrorDetected())
 				$this->m_router->redirectToErrorDocument($this->m_requestHandler->getRedirectStatus());
 			else if ($this->m_requestHandler->getForcedLocaleDetected() !== null)
 				$this->m_router->requestLocaleSwitch($this->m_requestHandler->getForcedLocaleDetected());

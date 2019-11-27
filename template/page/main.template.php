@@ -96,13 +96,18 @@
 		<?php
 			if ($template->getSpecial('is-focus-page') || $template->getSpecial('is-funnel-page'))
 				require_once $template->getTemplate('page/include/header.focus');
+			else if ($template->getSpecial('is-minimal-page')) ; // No header
 			else
 				require_once $template->getTemplate('page/include/header');
 		?>
 
 		<?= $template->getPageContent(); ?>
 
-		<?php require_once $template->getTemplate('page/include/footer'); ?>
+		<?php
+			if ($template->getSpecial('is-minimal-page')) ; // No footer
+			else
+				require_once $template->getTemplate('page/include/footer');
+		?>
 
 		<?php require_once $template->getTemplate('page/include/bottom-javascript'); ?>
 	</body>

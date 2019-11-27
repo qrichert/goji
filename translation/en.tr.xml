@@ -55,6 +55,15 @@
 			<option id="500">Internal error</option>
 		</segment>
 	</page>
+	<page id="password-wall">
+		<segment id="PASSWORD_WALL_PAGE_TITLE">Opening Soon</segment>
+		<segment id="PASSWORD_WALL_PAGE_DESCRIPTION"></segment>
+		<segment id="PASSWORD_WALL_MAIN_TITLE">Opening Soon</segment>
+		<segment id="PASSWORD_WALL_FORM_PASSWORD">Password</segment>
+		<segment id="PASSWORD_WALL_FORM_PASSWORD_PLACEHOLDER">H3110</segment>
+		<segment id="PASSWORD_WALL_FORM_ENTER_BUTTON">Enter</segment>
+		<segment id="PASSWORD_WALL_WRONG_PASSWORD">Sorry, wrong password</segment>
+	</page>
 	<!--
 		Page ID must match page ID in routes.json5 if you use \Goji\Translation\Translator.
 		Only segments where page ID matches current ID (and global pages, without ID) will be loaded.

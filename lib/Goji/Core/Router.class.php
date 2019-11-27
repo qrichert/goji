@@ -2,6 +2,7 @@
 
 	namespace Goji\Core;
 
+	use App\Controller\System\PasswordWallController;
 	use Goji\Blueprints\HttpStatusInterface;
 	use Goji\HumanResources\Authentication;
 	use Goji\Parsing\RegexPatterns;
@@ -24,6 +25,7 @@
 		private $m_mappedRoutes;
 		private $m_currentPage;
 		private $m_currentPageIsErrorPage;
+		private $m_currentPageIsPasswordWallPage;
 
 		/* <CONSTANTS> */
 
@@ -56,6 +58,7 @@
 
 			$this->m_currentPage = null;
 			$this->m_currentPageIsErrorPage = false;
+			$this->m_currentPageIsPasswordWallPage = false;
 		}
 
 		/**
@@ -323,6 +326,14 @@
 		}
 
 		/**
+		 * Returns true if current page is password wall page, false if not.
+		 * @return bool
+		 */
+		public function getCurrentPageIsPasswordWallPage(): bool {
+			return $this->m_currentPageIsPasswordWallPage;
+		}
+
+		/**
 		 * Returns the link associated to a given page.
 		 *
 		 * Returns the absolute path, without the domain.
@@ -359,9 +370,10 @@
 			}
 
 			$isErrorPage = mb_substr($page, 0, 11) == 'http-error-';
+			$isPasswordWallPage = $page == 'password-wall';
 
 			// Make sure page exists
-			if (!isset($this->m_routes[$page]) && !$isErrorPage)
+			if (!isset($this->m_routes[$page]) && !$isErrorPage && !$isPasswordWallPage)
 				throw new Exception('Page does not exist: ' . $page, self::E_PAGE_DOES_NOT_EXIST);
 
 			if (!isset($locale))
@@ -404,8 +416,9 @@
 					break;
 			}
 
-			// 404 pages can't have routes for example
-			if (!isset($link) && $isErrorPage) {
+			// 404 pages can't have routes for example, neither can password wall
+			// So we give it the 'current link'(i.e. the requested page)
+			if (!isset($link) && ($isErrorPage || $isPasswordWallPage)) {
 				$link = '/' . $this->m_app->getRequestHandler()->getRequestPage();
 			}
 
@@ -612,7 +625,7 @@
 			// Change lang
 			$this->m_app->getLanguages()->setCurrentLocale($newLocale);
 
-			// Get current query string & remove the forceLocalePart
+			// Get current query string & remove the forceLocale part
 			$queryString = $this->m_app->getRequestHandler()->getQueryString();
 			unset($queryString['forceLocale']);
 
@@ -625,6 +638,7 @@
 					$redirectTo .= '?' . $queryString;
 
 			$this->redirectTo($redirectTo);
+			exit;
 		}
 
 		/**
@@ -649,7 +663,7 @@
 			if (!HttpErrorController::isValidError($errorCode))
 				$errorCode = HttpErrorController::HTTP_ERROR_DEFAULT;
 
-			// Override 'page' (admin -> 403 -> override to 'http-error-403'
+			// Override 'page' (ex: admin -> 403 -> override to 'http-error-403')
 			$this->m_currentPage = 'http-error-' . (string) $errorCode;
 
 			$controller = new HttpErrorController($this->m_app);
@@ -673,6 +687,7 @@
 			             $this->m_app->getRequestHandler()->getRequestURI()); // In case _last is configured
 
 			$this->redirectTo($loginPage);
+			exit;
 		}
 
 		/**
@@ -685,5 +700,18 @@
 		 */
 		public function redirectToAuthenticatedDisallowed(): void {
 			$this->m_app->getFirewall()->redirectToAuthenticatedDisallowed();
+			exit;
+		}
+
+		public function redirectToPasswordWall(): void {
+
+			$this->m_currentPageIsPasswordWallPage = true;
+
+			$this->m_currentPage = 'password-wall';
+
+			$controller = new PasswordWallController($this->m_app);
+				$controller->render();
+
+			exit;
 		}
 	}

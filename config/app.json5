@@ -5,7 +5,14 @@
  */
 
 {
+// <DEVELOPMENT>
 	app_mode: "debug", // debug|release (case insensitive, default = release)
+	// If set, show wall with given password. If empty or missing, wall is deactivated
+	// The wall is used during the development phase to hide the app from unexpected visitors
+	// You can also choose to leave it there until client pays, or modify
+	// App\Controller\(Xhr)PasswordWallController to make something else out of it
+	//password_wall: "goji", // Password can be versioned. It's not meant to be secure, just a small guard.
+// <APP>
 	// Trailing slash will be removed
 	site_url: "https://www.SITE_URL.com",
 	site_name: "Goji",
