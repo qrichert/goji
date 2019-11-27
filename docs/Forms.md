@@ -9,30 +9,7 @@ Goji includes a form handler class. You can create your form in PHP so you can r
 reuse it very easily.
 
 All the elements we will see inherit from `FormObjectAbstract`, this means they all have
-some public methods in common:
-
-- `hasClass(string $class): bool`
-- `getClasses(): array`
-- `addClasses(string|array $classes): FormObjectAbstract`
-- `addClass(string|array $classes): FormObjectAbstract`
-- `setClasses(string|array $classes): FormObjectAbstract`
-- `removeClasses(string|array $classes): FormObjectAbstract`
-- `removeClass(string|array $classes): FormObjectAbstract`
-- `clearClasses(): FormObjectAbstract`
-- `renderClassList(): string`
-- `hasId(): bool`
-- `getId(): string`
-- `setId(string $id): FormObjectAbstract`
-- `removeId(): FormObjectAbstract`
-- `hasAttribute(string $key): bool`
-- `getAttribute(string $key): string`
-- `getAttributes(): array`
-- `setAttribute(string $key, $value = null): FormObjectAbstract`
-- `setAttributes(array $attributes): FormObjectAbstract`
-- `removeAttribute(string $key): FormObjectAbstract`
-- `removeAttributes(array $keys): FormObjectAbstract`
-- `renderAttributes(bool $skipValueAttribute = false, bool $addSlashes = true, $dontRender = []): string`, render the attributes only
-- `render(): void`, render the whole element
+some public methods in common (see the `FormObjectAbstract` class file for details).
 
 Form
 ----

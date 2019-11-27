@@ -334,7 +334,8 @@
 			$attr = '';
 
 			// Render classes
-			$attr .= 'class="' . $this->renderClassList() . '"';
+			if (!empty($this->getClasses()))
+				$attr .= 'class="' . $this->renderClassList() . '"';
 
 			// Render other attributes
 			foreach ($this->m_attributes as $key => $value) {
