@@ -132,6 +132,7 @@
 				'data-action',
 				'data-page-id',
 				'data-placeholder',
+				'data-text'
 			];
 
 			// Remove base (edit) class
