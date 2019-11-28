@@ -77,5 +77,6 @@ Thumbs.db
 /public/js/vendor/*
 /var/*
 !/var/db/
+/vendor/*
 
 !.gitkeep

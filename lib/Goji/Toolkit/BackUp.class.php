@@ -14,16 +14,23 @@
 		/* <CONSTANTS> */
 
 		const BACKUP_PATH = ROOT_PATH . '/var/backup/';
+		const BACKUP_FILE_EXTENSION = '.backup';
+
 		const DATABASE_PREFIX = 'db__';
 
-		public static function database(Database $db): bool {
+		public static function database(Database $db, bool $addFileMTime = true): bool {
 
 			$dbFile = $db->getDatabaseFile();
 
 			if ($dbFile === null || !is_file($dbFile))
 				return false;
 
-			$backupFile = self::BACKUP_PATH . self::DATABASE_PREFIX . basename($dbFile);
+			$fileName = basename($dbFile);
+
+			if ($addFileMTime)
+				$fileName .= '.' . (string) filemtime($dbFile);
+
+			$backupFile = self::BACKUP_PATH . self::DATABASE_PREFIX . $fileName . self::BACKUP_FILE_EXTENSION;
 
 			if (!is_dir(self::BACKUP_PATH))
 				mkdir(self::BACKUP_PATH, 0777, true);
