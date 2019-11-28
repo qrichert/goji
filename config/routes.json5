@@ -40,6 +40,9 @@
 	"contact": {
 		routes: {
 			all: "/contact"
+			// If you add another language that has a different word for 'contact',
+			// you can add it as simply as doing:
+			//it: "/contatto"
 		},
 		controller: "ContactController"
 	},
@@ -156,6 +159,7 @@
 		route: "/admin/xhr-back-up-database",
 		controller: "Admin\\XhrAdminBackUpDatabase"
 	},
+/*
 // <DEMO>
 	// This is the page ID.
 	// It can be used to get a specific URL with Router::getLinkForPage( id , locale )
@@ -183,10 +187,9 @@
 		route: "/some-other-page-again",
 		controller: "SomeOtherPageAgainController"
 	},
-	/*
-		"xhr-get-last-posts": {
-			route: "/xhr-get-last-posts-([0-9]+)(?:-([0-9]+))?"
-			controller: "XhrGetLastPostsController"
-		}
-	*/
+	"xhr-get-last-posts": {
+		route: "/xhr-get-last-posts-([0-9]+)(?:-([0-9]+))?"
+		controller: "XhrGetLastPostsController"
+	}
+*/
 }

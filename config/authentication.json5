@@ -34,7 +34,7 @@
 			// For example, could be pages common to all users, like a dashboard or account settings
 			// Don't add 'logout' because it would redirect to login page instead of 'home' as it does by default.
 			"any": [
-				"some-other-reserved-page"
+				//"some-other-reserved-page"
 			]
 		},
 		// List of route IDs that can't be accessed of logged in.
