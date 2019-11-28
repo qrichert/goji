@@ -349,7 +349,7 @@
 				// First portion = 'foo'=value1
 				// Second portion = foo='value1'
 				// We use the 3rd parameter (limit) to have maximum 2 chunks (in case there is an '=' in the value)
-				list($param, $value) = explode('=', $paramValue, 2);
+				[$param, $value] = explode('=', $paramValue, 2);
 
 				// We passed $paramValue by reference, so we can modify it
 				$paramValue = [

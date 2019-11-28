@@ -53,7 +53,7 @@
 				$config = ConfigurationLoader::loadFileToArray($configFile);
 
 				// If loading was successful, we format it so we can use it more easily
-				list($this->m_configurationLocales, $this->m_fallbackLocale) = $this->formatConfigurationLocales($config);
+				[$this->m_configurationLocales, $this->m_fallbackLocale] = $this->formatConfigurationLocales($config);
 
 				$this->m_supportedLocales = [];
 
