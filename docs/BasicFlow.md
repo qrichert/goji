@@ -16,7 +16,7 @@ Directory Structure
     - **`http-headers`**, *reads HTTP headers from given URL.*
     - **`img2base64`**, *converts image file to base64 string.*
     - **`password-maker`**, *generates strong passwords.*
-    - **`newproject.sh`**, *automates cloning Goji into a new project (sharing library files).*
+    - **`newproject.sh`**, *automates cloning Goji into a new project (and optionally sharing library files).*
 - **`config`**, *contains project configuration files.*
 - **`docs`**, *contains Goji's documentation files written in Markdown.*
 - **`lib`**, *your project libraries.*
@@ -28,7 +28,6 @@ Directory Structure
     - **`css`**, *everything that is linked to styling.*
     - **`img`**, *images that are part of the content (not styling).*
     - **`js`**, *JavaScript files.*
-    - **`upload`**, *public uploads are stored here.*
 - **`src`**, *contains user code (yours).*
     - **`Controller`**, *controller files.*
     - **`Model`**, *model files.*
@@ -36,7 +35,12 @@ Directory Structure
     - **`View`**, *view files.*
 - **`template`**, *contains template files (*e.g.* page templates).*
 - **`translation`**, *contains all files related to translation.*
-- **`var`**, *for data storage (*e.g.* cache files or metrics files).*
+- **`var`**, *for data storage.*
+    **`backup`**, *application-backupped files.*
+    **`cache`**, *cached files.*
+    **`db`**, *databases (like SQLite).*
+    **`log`**, *log files (like metrics).*
+    **`upload`**, *user uploaded files.*
 - **`vendor`**, *for external libraries.*
 
 Request Chain

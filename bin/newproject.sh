@@ -51,9 +51,9 @@ then
 	files=('bin'
 		'docs'
 		'lib/Goji'
-		'public/css/goji.css'
-		'public/css/reset.css'
 		'public/css/lib/Goji'
+		'public/css/reset.css'
+		'public/css/goji.css'
 		'public/img/lib/Goji'
 		'public/js/lib/Goji')
 
