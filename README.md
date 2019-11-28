@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-	A simple full stack framework for the web.
+	A simple full-stack framework for the web.
 </p>
 
 Installation
@@ -48,8 +48,8 @@ other libraries, you can add them too.
 
 **&#35;4 - It’s customerveloper focused**. The one benefit of CMSs like WordPress is that customers
 can edit content themselves if they need to. But those are usually clunky gas factories, where writing
-code is more like an added bonus-functionality than a core design choice. Goji is made for developers
-who care about their customers: it starts with the code, so you don't have to hack the system to make
+code is more like an added bonus-feature than a core design choice. Goji is made for developers
+who care about their customers; it starts with the code, so you don't have to hack the system to make
 quality products. It is also lean, lightweight and fast by default. And it still provides tools for
 customers to edit content.
 
