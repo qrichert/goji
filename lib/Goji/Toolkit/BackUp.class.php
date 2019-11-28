@@ -18,7 +18,7 @@
 
 		const DATABASE_PREFIX = 'db__';
 
-		public static function database(Database $db, bool $addFileMTime = true): bool {
+		public static function database(Database $db, bool $addBackupDate = true, bool $addFileMTime = true): bool {
 
 			$dbFile = $db->getDatabaseFile();
 
@@ -26,6 +26,9 @@
 				return false;
 
 			$fileName = basename($dbFile);
+
+			if ($addBackupDate)
+				$fileName .= '.' . date('Y-m-d');
 
 			if ($addFileMTime)
 				$fileName .= '.' . (string) filemtime($dbFile);

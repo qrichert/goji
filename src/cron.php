@@ -5,8 +5,12 @@
 	require_once '../lib/AutoLoad.php';
 
 	use Goji\Core\Database;
+	use Goji\Toolkit\BackUp;
 
 	$db = new Database();
+
+		// Backup database before working on it
+		BackUp::database($db);
 
 		// Delete tmp users older than 2 days (48h)
 		$db->exec("DELETE FROM g_member_tmp
