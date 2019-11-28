@@ -93,8 +93,10 @@
 				// Load segments
 				if ($loadSegmentsAsConstants) {
 
-					foreach ($segments as $segmentID => $segmentValue)
-						define($segmentID, $segmentValue);
+					foreach ($segments as $segmentID => $segmentValue) {
+						if (!defined($segmentID))
+							define($segmentID, $segmentValue);
+					}
 
 				} else {
 
@@ -192,8 +194,10 @@
 			// Load segments
 			if ($loadSegmentsAsConstants) {
 
-				foreach ($segments as $segmentID => $segmentValue)
-					define($segmentID, $segmentValue);
+				foreach ($segments as $segmentID => $segmentValue) {
+					if (!defined($segmentID))
+						define($segmentID, $segmentValue);
+				}
 
 			} else {
 
