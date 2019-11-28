@@ -12,7 +12,7 @@
 		 *
 		 * 0022 mask -> chmod 0644
 		 *
-		 * (file are not executable by default)
+		 * (file are not executable by default, Linux doesn't allow +x on creation, so -> 666)
 		 *
 		 * default:   0666  rw- rw- rw-
 		 * umask:   - 0022  --- -w- -w-
