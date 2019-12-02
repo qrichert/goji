@@ -7,6 +7,7 @@
 	use Goji\HumanResources\Authentication;
 	use Goji\Parsing\RegexPatterns;
 	use Goji\Toolkit\SimpleMetrics;
+	use Goji\Toolkit\UrlManager;
 	use Goji\Translation\Languages;
 	use App\Controller\System\HttpErrorController;
 	use Exception;
@@ -616,6 +617,12 @@
 			exit;
 		}
 
+		/**
+		 * In case there is a forced locale (forceLocale in query string) we make the change, remove the forceLocale and redirect.
+		 *
+		 * @param string $newLocale
+		 * @throws \Exception
+		 */
 		public function requestLocaleSwitch(string $newLocale): void {
 
 			// If locale doesn't exist -> 404
@@ -630,7 +637,7 @@
 			unset($queryString['forceLocale']);
 
 			// Rebuild the query string without forceLocale
-			$queryString = RequestHandler::buildQueryStringFromArray($queryString);
+			$queryString = UrlManager::buildQueryStringFromArray($queryString);
 
 			$redirectTo = $this->m_app->getRequestHandler()->getRequestPageURI();
 
