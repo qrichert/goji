@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+.terminal {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: var(--gutter-thin);
+	background-color: #1a1a1a;
+	color: white;
+	font-family: Menlo, Courier, monospace;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	box-sizing: border-box;
+}
+
+.terminal input[type=text],
+.terminal input[type=password] {
+	width: 100%;
+	height: 2em;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	border: 0;
+}
+
+.terminal__output {
+	margin: 0;
+	padding: 0;
+}
+
+.terminal__output .message__warning { color: #ffa500; font-weight: bold; }
+.terminal__output .message__error   { color: #ff6347; font-weight: bold; }
+
+.terminal__prompt {
+	height: 2em;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.terminal__prompt--info {
+	flex-shrink: 0;
+}
+
+.terminal__prompt--info .user { color: #9bdd54; font-weight: bold; }
+.terminal__prompt--info .path { color: #658ec5; font-weight: bold; }
+
+.terminal__prompt--command {
+	width: 100%;
+}
