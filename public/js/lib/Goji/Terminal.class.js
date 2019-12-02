@@ -192,7 +192,7 @@ class Terminal {
 
 			this.m_promptInfoWaitingForResponse.textContent = loadingCharsSequence[currentChar];
 
-		}, 150);
+		}, 250);
 
 		this.m_promptInfoWaitingForCommand.style.display = 'none';
 		this.m_promptInfoWaitingForResponse.style.display = 'inline';
