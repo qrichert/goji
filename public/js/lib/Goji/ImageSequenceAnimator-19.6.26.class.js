@@ -8,7 +8,7 @@
  *     <img src="image-sequence.png" alt="">
  * </div>
  *
- * let imageSequenceAnimator = new ImageSequenceAnimator(document.querySelector('#image-sequence')
+ * let imageSequenceAnimator = new ImageSequenceAnimator(document.querySelector('#image-sequence'),
  *                                                       38, // 38 images
  *                                                       10); // 9 images per row (or 9 columns)
  *

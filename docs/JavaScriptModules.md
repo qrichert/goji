@@ -19,6 +19,8 @@ All these modules come in a standard `.js` and compiled `.min.js` version.
 - **`SimpleRequest`**: Simple module for Ajax HTTP requests. Supports `GET`, `POST`, `PUT` and `DELETE`.
 - **`Slider`**: An `<img>` (and `<div>`) slider.
 - **`SliderLightBoxInterface`**: Simple interface to link a `Slider` to a `LightBox`.
+- **`Spawn`**: Removes the `.waiting` class of every `.spawn` element when they first become visible on scroll.
 - **`TextAreaAutoResize`**: Make a `<textarea>` fit its content if it overflows.
+- **`VideoScroll`**: Plays a video according to scroll percentage (only smooth playback in Safari as of 12/2019).
 - **`WindowSizeDisplay`**: Displays the size of the window in the bottom right corner (ideal for responsive
   design integration).

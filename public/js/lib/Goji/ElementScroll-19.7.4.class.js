@@ -48,7 +48,7 @@ class ElementScroll {
 		window.addEventListener('scroll', e => this.scrollEvent(e), false);
 		window.addEventListener('resize', e => this.scrollEvent(e), false);
 
-		this.scrollEvent()
+		this.scrollEvent();
 	}
 
 	/**

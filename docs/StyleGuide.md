@@ -115,7 +115,8 @@ don't have a top and bottom margin respectively.
 
 #### Modifiers
 
-- **`.centered`**: Content is centered horizontally.
+- **`.centered`**: Content is centered horizontally and vertically (if applicable).
+- **`.fullscreen`**: Section is at least as high as the viewport (min-height: 100vh).
 - **`.no-padding`**: Section that has no padding, you can be more specific with:
     - **`.no-padding.h`**: No padding left and right only (horizontal)
     - **`.no-padding.v`**: No padding top and bottom only (vertical)

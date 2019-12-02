@@ -728,6 +728,12 @@ section.centered {
 	align-items: center;
 }
 
+/* <Section Fullscreen> */
+
+section.fullscreen {
+	min-height: 100vh;
+}
+
 /* <Section No Padding> */
 
 section.no-padding {
