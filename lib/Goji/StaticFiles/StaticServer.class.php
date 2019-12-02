@@ -43,10 +43,9 @@
 
 				$config = ConfigurationLoader::loadFileToArray($configFile);
 
-				if (isset($config['linked_files_mode'])
-				    && ($config['linked_files_mode'] == self::NORMAL
-				        || $config['linked_files_mode'] == self::MERGED))
-							$this->m_linkedFilesMode = $config['linked_files_mode'];
+				if (!empty($config['merge_linked_files'])
+				    && $config['merge_linked_files'] === true)
+						$this->m_linkedFilesMode = self::MERGED;
 				else
 					$this->m_linkedFilesMode = self::NORMAL;
 

@@ -5,5 +5,6 @@
  */
 
 {
-	linked_files_mode: "normal" // normal|merged (case insensitive, default = normal)
+	// /!\ Don't forget to purge cache after changing this
+	merge_linked_files: false // normal = false | merged = true (default = false)
 }
