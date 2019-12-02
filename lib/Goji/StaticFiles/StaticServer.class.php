@@ -83,8 +83,16 @@
 					if (mb_substr($f, 0, $webRootLength) == $webRoot)
 						$f = mb_substr($f, $webRootLength);
 
-					if (!is_file($f))
-						throw new Exception("File not found: $f", self::E_FILE_NOT_FOUND);
+					if (!is_file($f)) {
+						// Maybe it doesn't find it because there is a file version in the name (for browser cache).
+						// Like 'css/responsive.v1558194608.css' -> 'css/responsive.css'
+						// Let's try & remove the v1558194608 part
+						$f = preg_replace('#\.v[0-9]+(\.[^.]+)$#i', '$1', $f);
+
+						// If it still doesn't exist
+						if (!is_file($f))
+							throw new Exception("File not found: '$f'", self::E_FILE_NOT_FOUND);
+					}
 				}
 				unset($f);
 

@@ -89,6 +89,7 @@
 		const JAVASCRIPT = 'js';
 
 		const E_UNSUPPORTED_FILE_TYPE = 0;
+		const E_FILE_DOES_NOT_EXIST = 1;
 
 		/**
 		 * SimpleTemplate constructor.
@@ -400,13 +401,14 @@
 		 * Link JS and CSS files (as single items or merged depending on configuration)
 		 *
 		 * @param string|array $files
+		 * @param bool $appendFileMTime Append file last modified timestamp to filenames (to update browser cached version if needed)
 		 * @param bool $renderAbsolutePaths css/main.css -> /WEBROOT/css/main.css
 		 * @param bool $returnAsString
 		 * @param string|null $forceMode
 		 * @return string|null
 		 * @throws \Exception
 		 */
-		public function linkFiles($files, bool $renderAbsolutePaths = true, bool $returnAsString = false, string $forceMode = null): ?string {
+		public function linkFiles($files, bool $appendFileMTime = true, bool $renderAbsolutePaths = true, bool $returnAsString = false, string $forceMode = null): ?string {
 
 			// Make sure it's either string or array
 			if (!is_array($files) && !is_string($files))
@@ -418,6 +420,33 @@
 			// If there's no element in the array, quit
 			if (count($files) === 0)
 				return null;
+
+			if ($appendFileMTime) {
+
+				// Add filemtime to file name goji.css -> goji.0123456789.css
+				foreach ($files as &$f) {
+
+					$realFile = $f;
+
+					// If it starts with '/', we make './' so it still means 'look inside the current folder,
+					// where there is index.php (WEBROOT)
+					if (mb_substr($realFile, 0, 1) == '/')
+						$realFile = '.' . $realFile;
+
+					if (!is_file($realFile)) {
+						throw new Exception("File does not exist: '$realFile'", self::E_FILE_DOES_NOT_EXIST);
+					}
+
+					// ex: css/lib/Goji/inputs.css
+					$baseDir = dirname($f); // ex: css/lib/Goji (Strips trailing /)
+					$fileName = pathinfo($f, PATHINFO_FILENAME); // ex: inputs
+					$extension = pathinfo($f, PATHINFO_EXTENSION); // ex: css (Strips .)
+
+					// Reconstruct with filemtime
+					$f = $baseDir . '/' . $fileName . '.v' . filemtime($realFile) . '.' . $extension;
+				}
+				unset($f);
+			}
 
 			if ($renderAbsolutePaths) {
 
@@ -478,7 +507,7 @@
 		 * @param bool $output
 		 * @return string
 		 */
-		public static function getResourceWebRootPath(string $resource, bool $output = false): ?string {
+		public static function getResource(string $resource, bool $output = false): ?string {
 
 			if (mb_substr($resource, 0, 1) !== '/')
 				$resource = '/' . $resource;
@@ -494,13 +523,13 @@
 		}
 
 		/**
-		 * Alias for SimpleTemplate::getResourceWebRootPath()
+		 * Alias for SimpleTemplate::getResource()
 		 *
 		 * @param array $args
 		 * @return array|string
 		 */
 		public static function rsc(...$args) {
-			return self::getResourceWebRootPath(...$args);
+			return self::getResource(...$args);
 		}
 
 		/**
