@@ -41,9 +41,9 @@
 <?php
 
 	$template->linkFiles([
-		'js/lib/Goji/Polyfills-19.6.20.min.js',
-		'js/lib/Goji/SimpleRequest-19.6.20.class.min.js'
+		'js/lib/Goji/Polyfills.min.js',
+		'js/lib/Goji/SimpleRequest.class.min.js'
 	]);
 
 	if ($this->m_app->getAppMode() === \Goji\Core\App::DEBUG)
-		$template->linkFiles('js/lib/Goji/WindowSizeDisplay-18.12.8.min.js');
+		$template->linkFiles('js/lib/Goji/WindowSizeDisplay.min.js');

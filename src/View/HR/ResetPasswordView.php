@@ -21,7 +21,7 @@
 
 <?php
 	$template->linkFiles([
-		'js/lib/Goji/Form-19.6.22.class.min.js'
+		'js/lib/Goji/Form.class.min.js'
 	]);
 ?>
 <script>

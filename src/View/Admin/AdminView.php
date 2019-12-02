@@ -51,7 +51,7 @@
 
 <?php
 	$template->linkFiles([
-		'js/lib/Goji/ActionItem-19.11.20.class.min.js'
+		'js/lib/Goji/ActionItem.class.min.js'
 	]);
 ?>
 <?php
