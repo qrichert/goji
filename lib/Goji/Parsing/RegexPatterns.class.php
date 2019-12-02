@@ -185,4 +185,16 @@
 			#\b((https?|ftp|file)://|(www|ftp)(\.))([-A-Z0-9+&@\#%?=~_|$!:,.;]*[A-Z0-9+&@\#%=~_|$])([-A-Z0-9+&@\#/%?=~_|$!:,.;]*[A-Z0-9+&@\#/%=~_|$])#i
 			EOT;
 		}
+
+		/**
+		 * To check whether a string is a domain name
+		 *
+		 * @return string
+		 */
+		public static function validateDomainName(): string {
+
+			return <<<'EOT'
+			#^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$#i
+			EOT;
+		}
 	}

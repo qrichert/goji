@@ -26,10 +26,36 @@
 		 *
 		 * @param string $str
 		 * @param int $max
+		 * @param string $pad
 		 * @return string
 		 */
-		public static function ceil_str(string $str, int $max): string {
-			return (mb_strlen($str) > $max ? mb_substr($str, 0, $max) : $str);
+		public static function ceil_str(string $str, int $max, string $pad = ''): string {
+
+			if (mb_strlen($str) > $max) {
+				$nbPadChars = mb_strlen($pad);
+				$str = mb_substr($str, 0, $max - $nbPadChars) . $pad;
+			}
+
+			return $str;
+		}
+
+		/**
+		 * Like ceil_str() but cut the beginning instead of the end
+		 *
+		 * @param string $str
+		 * @param int $max
+		 * @param string $pad
+		 * @return string
+		 */
+		public static function ceil_str_inverse(string $str, int $max, string $pad = ''): string {
+
+			if (mb_strlen($str) > $max) {
+
+				$nbPadChars = mb_strlen($pad);
+				$str = $pad . mb_substr($str, -($max - $nbPadChars));
+			}
+
+			return $str;
 		}
 
 		/**
