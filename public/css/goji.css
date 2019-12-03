@@ -30,6 +30,8 @@ body {
 	background-color: var(--color-body);
 	color: var(--color-text-default);
 
+	overflow-x: hidden;
+
 	/* Not necessary with reset.css */
 	padding: 0;
 	margin: 0;
@@ -341,7 +343,7 @@ tr:not(:last-child) td,
 }
 
 .toolbar.main-toolbar { /* Top-of-the page, main toolbar */
-	margin-bottom: calc(2 * var(--gutter-default));
+	margin-bottom: var(--gutter-big);
 }
 
 .toolbar > *:not(:first-child) {
@@ -674,7 +676,7 @@ img.header__logo {
 main {
 	width: 100%;
 	margin: auto;
-	padding: var(--gutter-default) 0 calc(2 * var(--gutter-default)) 0; /* Completed by sections' padding. */
+	padding: var(--gutter-default) 0 var(--gutter-big) 0; /* Completed by sections' padding. */
 
 	/* Footer at bottom */
 	flex-grow: 1;
@@ -734,6 +736,11 @@ section.fullscreen {
 	min-height: 100vh;
 }
 
+section.fullscreen:not(.no-padding) {
+	padding-top: var(--gutter-big);
+	padding-bottom: var(--gutter-big);
+}
+
 /* <Section No Padding> */
 
 section.no-padding {
@@ -776,7 +783,7 @@ section.no-padding.l {
 
 section.error {
 	text-align: center;
-	padding-bottom: calc(2 * var(--gutter-default));
+	padding-bottom: var(--gutter-big);
 }
 
 section.error > h1 {
@@ -814,7 +821,7 @@ section.text img {
 
 	section.text.with-outline > .outline {
 		display: block;
-		width: calc(((100vw - 800px) / 2) - (2 * var(--gutter-default)));
+		width: calc(((100vw - 800px) / 2) - var(--gutter-big));
 		position: fixed;
 		top: var(--header-height);
 		left: var(--gutter-default);
@@ -837,7 +844,7 @@ section.side-by-side {
 
 section.side-by-side > * {
 	width: 50%;
-	padding: var(--gutter-default) calc(2 * var(--gutter-default));
+	padding: var(--gutter-default) var(--gutter-big);
 	box-sizing: border-box;
 }
 
@@ -879,7 +886,7 @@ section.side-by-side.right-bigger > :last-child {
 
 section.video {
 	width: 75%;
-	max-width: calc(700px + (2 * var(--gutter-default)));
+	max-width: calc(700px + var(--gutter-big));
 	margin: auto;
 }
 
