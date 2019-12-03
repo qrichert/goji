@@ -2,7 +2,7 @@
 
 /* <FONTS> */
 
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
 /*
 @font-face {
@@ -17,8 +17,8 @@
 
 	/* Fonts */
 
-	--font-title: Helvetica, Arial, sans-serif;
-	--font-default: Lato, sans-serif;
+	--font-title: Roboto, Helvetica, sans-serif;
+	--font-default: Roboto, Helvetica, sans-serif;
 	--font-code: Menlo, Courier, monospace;
 
 	/* Sizes */

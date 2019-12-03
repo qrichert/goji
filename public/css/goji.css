@@ -31,6 +31,7 @@ body {
 	color: var(--color-text-default);
 
 	overflow-x: hidden;
+	position: relative; /* WebKit x-scroll bug */
 
 	/* Not necessary with reset.css */
 	padding: 0;
@@ -713,11 +714,11 @@ section {
 	padding: var(--gutter-default);
 }
 
-section > :first-child {
+section:not(.fullscreen) > :first-child {
 	margin-top: 0;
 }
 
-section > :last-child {
+section:not(.fullscreen) > :last-child {
 	margin-bottom: 0;
 }
 
@@ -739,6 +740,11 @@ section.fullscreen {
 section.fullscreen:not(.no-padding) {
 	padding-top: var(--gutter-big);
 	padding-bottom: var(--gutter-big);
+}
+
+section.fullscreen h1, section.fullscreen h2, section.fullscreen h3,
+section.fullscreen h4, section.fullscreen h5, section.fullscreen h6 {
+	margin-top: 2.5em;
 }
 
 /* <Section No Padding> */
