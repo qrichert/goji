@@ -48,6 +48,12 @@ table {
 	border-spacing: 0;
 }
 /* Custom */
+* {
+	box-sizing: border-box;
+}
+*:focus {
+	outline: 0;
+}
 pre {
 	font-family: monospace;
 }

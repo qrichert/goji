@@ -9,8 +9,6 @@
 
 /* <GENERAL> */
 
-*:focus { outline: 0; }
-
 html, body {
 	/* Footer at bottom */
 	height: 100%;
@@ -29,9 +27,6 @@ body {
 	font-family: var(--font-default);
 	background-color: var(--color-body);
 	color: var(--color-text-default);
-
-	overflow-x: hidden;
-	position: relative; /* WebKit x-scroll bug */
 
 	/* Not necessary with reset.css */
 	padding: 0;
