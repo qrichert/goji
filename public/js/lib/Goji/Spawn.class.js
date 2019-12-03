@@ -3,7 +3,7 @@
  *
  * Use for example to make text slide up on scroll.
  *
- * Similar to Appear.js but more specialized with default action on event (remove .waiting class)
+ * Similar to Appear.class.js but more specialized with default action on event (remove .waiting class)
  *
  * document.querySelectorAll('.spawn').forEach(el => { new Spawn(el); });
  *
