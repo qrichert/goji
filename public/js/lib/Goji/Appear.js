@@ -1,36 +1,20 @@
 /**
- * Class Spawn
+ * Class Appear
  *
- * Use for example to make text slide up on scroll.
+ * let callback = () => { doSomething(); }
  *
- * Similar to Appear.js but more specialized with default action on event (remove .waiting class)
+ * document.querySelectorAll('.appear').forEach(el => { new Appear(el, callback); });
  *
- * document.querySelectorAll('.spawn').forEach(el => { new Spawn(el); });
- *
- * Callback is called on spawn.
- *
- * Use CSS:
- * --------
- *
- * .spawn {
- *     transition: transform 1.3s ease,
- *                 opacity 1.3s ease;
- *     opacity: 1;
- * }
- *
- * .spawn.waiting {
- *     transform: translateY(3em);
- *     opacity: 0.3;
- * }
+ * Callback is called when the element first appears on screen.
  */
-class Spawn {
+class Appear {
 
 	/**
 	 * @param parent
 	 * @param callback
 	 * @param scrollRatio between 0 and 0.99
 	 */
-	constructor(parent, callback = null, scrollRatio = 0) {
+	constructor(parent, callback, scrollRatio = 0) {
 
 		this.m_parent = parent;
 		this.m_callback = callback;
@@ -88,13 +72,8 @@ class Spawn {
 		this.m_scroll = output;
 
 		if (this.m_scroll > this.m_scrollRatio) {
-
-			this.m_parent.classList.remove('waiting');
-
 			this.m_shown = true;
-
-			if (this.m_callback !== null)
-				this.m_callback(output);
+			this.m_callback(output);
 		}
 	}
 }

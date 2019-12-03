@@ -6,6 +6,7 @@ Goji comes with several (Vanilla !) JavaScript modules or plugins.
 All these modules come in a standard `.js` and compiled `.min.js` version.
 
 - **`ActionItem`**: Handles events and display for action items (like in the Admin panel).
+- **`Appear`**: Call a callback function when the element first appears on scroll (can be delayed).
 - **`Dialog`**: Makes a given element an interactive dialog with open/close events.
 - **`DocumentScroll`**: Returns the scroll of the whole document.
 - **`ElementScroll`**: Returns the scroll of a given element respective to the viewport.
@@ -19,7 +20,8 @@ All these modules come in a standard `.js` and compiled `.min.js` version.
 - **`SimpleRequest`**: Simple module for Ajax HTTP requests. Supports `GET`, `POST`, `PUT` and `DELETE`.
 - **`Slider`**: An `<img>` (and `<div>`) slider.
 - **`SliderLightBoxInterface`**: Simple interface to link a `Slider` to a `LightBox`.
-- **`Spawn`**: Removes the `.waiting` class of every `.spawn` element when they first become visible on scroll.
+- **`Spawn`**: Removes the `.waiting` class of an element when it first becomes visible on scroll (similar to
+  `Appear.js`, but more specialized).
 - **`Terminal`**: Module that emulates a terminal (use in combination with `terminal.css` stylesheet).
 - **`TextAreaAutoResize`**: Make a `<textarea>` fit its content if it overflows.
 - **`VideoScroll`**: Plays a video according to scroll percentage (only smooth playback in Safari as of 12/2019).
