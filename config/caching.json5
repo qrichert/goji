@@ -5,5 +5,12 @@
  */
 
 {
-	use_cache: true // /!\ 'false' should be for DEBUG ONLY
+	/*
+	 * Activate or deactivate Goji's internal cache (SimpleCache).
+	 *
+	 * /!\ 'false' should be for DEBUG ONLY. Goji makes use of caching in its internal engine.
+	 * So, unless you rewrite those library elements, you should leave it on (even if you use
+	 * another caching system in your own code).
+	 */
+	use_cache: true
 }

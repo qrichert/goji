@@ -239,6 +239,11 @@
 		 */
 		public static function cacheFragment(string $frag, string $id): bool {
 
+			self::initialize();
+
+			if (!self::$m_useCache)
+				return false;
+
 			$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
 
 			if (!is_dir(self::CACHE_PATH))
