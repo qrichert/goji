@@ -48,9 +48,6 @@
 		const DEBUG = 'debug';
 		const RELEASE = 'release';
 
-		const NORMAL = 'normal';
-		const MERGED = 'merged';
-
 		const PASSWORD_WALL_COOKIE = 'password-wall-authenticated';
 
 		const E_NO_LANGUAGES = 0;
@@ -79,7 +76,10 @@
 			$this->setSiteFullDomain($config['site_full_domain'] ?? '');
 			$this->setCompanyEmail($config['company_email'] ?? '');
 
-			$this->setAppMode($config['app_mode']);
+			if (isset($config['debug']) && $config['debug'] === true)
+				$this->setAppMode(self::DEBUG);
+			else
+				$this->setAppMode(self::RELEASE); // Default
 
 			$this->m_languages = null;
 			$this->m_requestHandler = new RequestHandler();
@@ -203,13 +203,13 @@
 		 * @return string
 		 */
 		public function getAppMode(): string {
-			return $this->m_appMode ?? self::RELEASE;
+			return $this->m_appMode;
 		}
 
 		/**
-		 * @param \Goji\Core\App::APP_MODE $applicationMode
+		 * @param string \Goji\Core\App::APP_MODE $appMode
 		 */
-		public function setAppMode($appMode): void {
+		public function setAppMode(string $appMode = self::RELEASE): void {
 
 			$appMode = mb_strtolower($appMode);
 

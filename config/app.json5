@@ -8,11 +8,11 @@
 // <DEVELOPMENT>
 
 	/*
-	 * In debug mode you can get some information dumped into the console. For example
-	 * emails (not necessarily working in dev environment) or passwords set automatically.
-	 * You can also use is in your own code with App::getAppMode();
+	 * In debug mode you can get some information dumped into the console. For example emails
+	 * (which are not necessarily working in dev environment), DB errors or passwords set automatically.
+	 * You can also use it in your own code with App::getAppMode();
 	 */
-	app_mode: "debug", // debug|release (case insensitive, default = release)
+	debug: false, // debug = true | release = false (default = release)
 	/*
 	 * If set, show wall with given password. If empty or missing, wall is deactivated
 	 * The wall is used during the development phase to hide the app from unexpected visitors
@@ -23,7 +23,7 @@
 
 // <APP>
 
-	site_url: "https://www.SITE_URL.com", // Trailing slash will be removed
+	site_url: "https:\/\/www.SITE_URL.com", // Trailing slash will be removed
 	site_name: "Goji",
 	site_domain_name: "SITE_URL.com", // Trailing slash will be removed
 	site_full_domain: "www.SITE_URL.com", // Trailing slash will be removed
