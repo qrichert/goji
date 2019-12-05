@@ -3,6 +3,7 @@
 	namespace Goji\Core;
 
 	use Exception;
+	use Goji\Blueprints\HttpContentTypeInterface;
 	use Goji\Blueprints\HttpMethodInterface;
 	use Goji\Blueprints\HttpStatusInterface;
 	use Goji\Blueprints\RobotsInterface;
@@ -12,7 +13,7 @@
 	 *
 	 * @package Goji\Core
 	 */
-	class HttpResponse implements HttpStatusInterface, HttpMethodInterface, RobotsInterface {
+	class HttpResponse implements HttpStatusInterface, HttpMethodInterface, RobotsInterface, HttpContentTypeInterface {
 
 		/* <CONSTANTS> */
 
@@ -64,6 +65,20 @@
 		}
 
 		/**
+		 * @param string $contentType
+		 * @param string|null $charset
+		 */
+		public static function setContentType(string $contentType, ?string $charset = 'utf-8'): void {
+
+			$contentType = "Content-Type: $contentType";
+
+			if (!empty($charset))
+				$contentType .= "; charset=$charset";
+
+			header($contentType, true);
+		}
+
+		/**
 		 * Adds JSON header, status if given, json_encode()s array and exits by default.
 		 *
 		 * @param array|null $data (associative array)
@@ -80,7 +95,7 @@
 			else if ($success === false)
 				$data['status'] = 'ERROR';
 
-			header('Content-Type: application/json', true);
+			self::setContentType(self::CONTENT_JSON);
 
 			echo json_encode($data);
 

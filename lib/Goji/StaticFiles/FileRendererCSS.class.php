@@ -4,6 +4,7 @@
 
 	use Exception;
 	use Goji\Core\ConfigurationLoader;
+	use Goji\Core\HttpResponse;
 	use Goji\Parsing\SimpleMinifierCSS;
 	use Goji\Toolkit\SimpleCache;
 
@@ -37,7 +38,7 @@
 				$this->m_replaceCSSVariablesByValue = false;
 			}
 
-			header('Content-type: text/css; charset=utf-8');
+			HttpResponse::setContentType(HttpResponse::CONTENT_CSS);
 		}
 
 		public function renderMerged() {

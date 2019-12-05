@@ -2,6 +2,7 @@
 
 	namespace Goji\StaticFiles;
 
+	use Goji\Core\HttpResponse;
 	use Goji\Parsing\SimpleMinifierJS;
 	use Goji\Toolkit\SimpleCache;
 
@@ -16,7 +17,7 @@
 
 			parent::__construct($server);
 
-			header('Content-type: application/javascript; charset=utf-8');
+			HttpResponse::setContentType(HttpResponse::CONTENT_JS);
 		}
 
 		public function renderMerged() {
