@@ -10,11 +10,13 @@
 	"home": {
 		// If you have multiple languages, use 'routes' with an 's'
 		routes: {
-			// Keyword 'all' means the page is is not tied to a specific language
-			// If you don't need translation, use 'route' instead (see "some-other-page")
-			// Here it just means that '/' (no page specified) is tied to the home page
-			// and also that it doesn't force any language. If French is selected, and we load
-			// /home, English will replace French as the new language. Whereas with 'all', it won't.
+			/*
+			 * Keyword 'all' means the page is is not tied to a specific language
+			 * If you don't need translation, use 'route' instead (see "some-other-page")
+			 * Here it just means that '/' (no page specified) is tied to the home page
+			 * and also that it doesn't force any language. If French is selected, and we load
+			 * /home, English will replace French as the new language. Whereas with 'all', it won't.,
+			 */
 			all: "/",
 
 			// 'en_US' and 'en_GB' are two separate pages (but are both in English).
@@ -29,12 +31,14 @@
 			// Here there are two paths pointing to the same page for french (first one will be used as default)
 			fr: ["/accueil", "/bienvenue"],
 		},
-		// 'controller' is the controller to which the page is tied to.
-		// In this example, the "home" controller is \App\Controller\HomeController()
-		// in /src/Controller/HomeController.class.php
-		// The class is imported and called automatically, this is why you only
-		// need to enter the class name. But it's also why you have to respect the
-		// naming convention and make it implement \Goji\Blueprints\ControllerAbstract().
+		/*
+		 * 'controller' is the controller to which the page is tied to.
+		 * In this example, the "home" controller is \App\Controller\HomeController()
+		 * in /src/Controller/HomeController.class.php
+		 * The class is imported and called automatically, this is why you only
+		 * need to enter the class name. But it's also why you have to respect the
+		 * naming convention and make it implement \Goji\Blueprints\ControllerAbstract().,
+		 */
 		controller: "HomeController"
 	},
 	"contact": {

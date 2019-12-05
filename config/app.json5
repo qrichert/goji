@@ -6,20 +6,26 @@
 
 {
 // <DEVELOPMENT>
+
+	/*
+	 * In debug mode you can get some information dumped into the console. For example
+	 * emails (not necessarily working in dev environment) or passwords set automatically.
+	 * You can also use is in your own code with App::getAppMode();
+	 */
 	app_mode: "debug", // debug|release (case insensitive, default = release)
-	// If set, show wall with given password. If empty or missing, wall is deactivated
-	// The wall is used during the development phase to hide the app from unexpected visitors
-	// You can also choose to leave it there until client pays, or modify
-	// App\Controller\(Xhr)PasswordWallController to make something else out of it
+	/*
+	 * If set, show wall with given password. If empty or missing, wall is deactivated
+	 * The wall is used during the development phase to hide the app from unexpected visitors
+	 * You can also choose to leave it there until client pays, or modify
+	 * App\Controller\(Xhr)PasswordWallController to make something else out of it
+	 */
 	//password_wall: "goji", // Password can be versioned. It's not meant to be secure, just a small guard.
+
 // <APP>
-	// Trailing slash will be removed
-	site_url: "https://www.SITE_URL.com",
+
+	site_url: "https://www.SITE_URL.com", // Trailing slash will be removed
 	site_name: "Goji",
-	// Trailing slash will be removed
-	site_domain_name: "SITE_URL.com",
-	// Trailing slash will be removed
-	site_full_domain: "www.SITE_URL.com",
-	// Default mail to contact the company
-	company_email: "user@SITE_URL.com"
+	site_domain_name: "SITE_URL.com", // Trailing slash will be removed
+	site_full_domain: "www.SITE_URL.com", // Trailing slash will be removed
+	company_email: "user@SITE_URL.com" // Default mail to contact the company
 }

@@ -3,14 +3,20 @@
  */
 
 {
-	// If set to false, no cookie will be settable using Cookies::set();
-	// Those that already exist won't be affected and will still be readable.
+	/*
+	 * If set to false, no cookie will be settable using Cookies::set();
+	 * Those that already exist won't be affected and will still be readable.
+	 */
 	use_cookies: true,
-	// If true, cookies will only be set in HTTPS protocol,
-	// If false, cookies will be set regardless of HTTP/HTTPS
-	// If null or missing (default), cookies will be set to secure if HTTPS is enabled, false if not
+	/*
+	 * If true, cookies will only be set in HTTPS protocol,
+	 * If false, cookies will be set regardless of HTTP/HTTPS
+	 * If null or missing (default), cookies will be set to secure if HTTPS is enabled, false if not
+	 */
 	secure: null,
-	// Prefix will be prepended automatically to the cookie's names.
-	// Ex: Cookie::set('key') will actually be saved as "goji-key".
+	/*
+	 * Prefix will be prepended automatically to the cookie's names.
+	 * Ex: Cookie::set('key') will actually be saved as "goji-key".
+	 */
 	cookies_prefix: "goji-"
 }

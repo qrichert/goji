@@ -3,20 +3,26 @@
  */
 
 {
-	// Represents a single person visiting the site, logged in or not.
-	// If not set, uses the default \Goji\HumanResources\User
+	/*
+	 * Represents a single person visiting the site, logged in or not.
+	 * If not set, uses the default \Goji\HumanResources\User
+	 */
 	//user: "\\Goji\\HumanResources\\User",
 
-	// Member = User that is also logged in (complementary to User, doesn't replace it).
-	// If not set, uses the default \Goji\HumanResources\MemberManager
+	/*
+	 * Member = User that is also logged in (complementary to User, doesn't replace it).
+	 * If not set, uses the default \Goji\HumanResources\MemberManager
+	 */
 	//member_manager: "\\Goji\\HumanResources\\MemberManager",
 
-	// List of roles available, with string identifier and power lever
-	// Here (default), editor (5) has more rights than member (1), but less than admin (7)
-	// So that if a member is an editor and you do $this->m_app->getMemberManager()->memberIs('admin') it
-	// would return 'false' (5 <= 7), but memberIs('member') would return 'true' (5 >= 1) and memberIs('editor')
-	// would return 'true' as well (5 >= 5)
-	// Always use (string) id and (int) value (/!\ 'any' is a reserved keyword)
+	/*
+	 * List of roles available, with string identifier and power lever
+	 * Here (default), editor (5) has more rights than member (1), but less than admin (7)
+	 * So that if a member is an editor and you do $this->m_app->getMemberManager()->memberIs('admin') it
+	 * would return 'false' (5 <= 7), but memberIs('member') would return 'true' (5 >= 1) and memberIs('editor')
+	 * would return 'true' as well (5 >= 5)
+	 * Always use (string) id and (int) value (/!\ 'any' is a reserved keyword)
+	 */
 	//roles: {
 	//	member: 1, // "1" is used as default role when someone signs up (see: MemberManager::moveTemporaryMemberToPermanentList())
 	//	editor: 5,
@@ -24,7 +30,9 @@
 	//	root: 9 // For developers only, not for clients
 	//},
 
-	// Query to get member role from database ('%{ID}' will be replaced by the current member's id)
-	// If not set, 'SELECT role FROM g_member WHERE id=%{ID}' will be used
+	/*
+	 * Query to get member role from database ('%{ID}' will be replaced by the current member's id)
+	 * If not set, 'SELECT role FROM g_member WHERE id=%{ID}' will be used
+	 */
 	//member_role_query: "SELECT role FROM g_member WHERE id=%{ID}"
 }

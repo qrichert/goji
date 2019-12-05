@@ -4,20 +4,31 @@
 
 {
 	login: {
-		route: "login", // ID of the route to redirect to if current page is forbidden (see routes.json5)
-		redirect_to: ["_last", "home"]	// Redirect to when log in is successful
-										// Last page in history if possible, else "home" (route ID)
-										// If you want a constant page, just do 'redirect_to: "page"'
+		/*
+		 * ID of the route to redirect to if current page is forbidden (see routes.json5)
+		 */
+		route: "login",
+		/*
+		 * Redirect to when log in is successful
+		 * Last page in history if possible, else "home" (route ID)
+		 * If you want a constant page, just do 'redirect_to: "page"'
+		 */
+		redirect_to: ["_last", "home"]
 	},
 	forbidden: {
-		redirect_to: "home" // Redirect to when accessing forbidden page (page ID) (disallow_authenticated)
-							// If none use 'null', in which case it will emit a 403 error
+		/*
+		 * Redirect to when accessing forbidden page (page ID) (disallow_authenticated)
+		 * If none use 'null', in which case it will emit a 403 error
+		 */
+		redirect_to: "home"
 	},
 	firewall: {
-		// List of route IDs that will redirect to the login page if user not logged in.
-		// This will look for the info you've set for 'login'
-		// Always use a dictionary/associative array. If none, leave empty ({})
-		// Uses the roles set in 'hr' config file
+		/*
+		 * List of route IDs that will redirect to the login page if user not logged in.
+		 * This will look for the info you've set for 'login'
+		 * Always use a dictionary/associative array. If none, leave empty ({})
+		 * Uses the roles set in 'hr' config file
+		 */
 		require_authentication: {
 			"root": [
 				"xhr-admin-clear-cache",
@@ -30,16 +41,20 @@
 				"admin-blog-post",
 				"xhr-admin-blog-post"
 			],
-			// Pages where you don't need a specific role, just need to be logged in
-			// For example, could be pages common to all users, like a dashboard or account settings
-			// Don't add 'logout' because it would redirect to login page instead of 'home' as it does by default.
+			/*
+			 * Pages where you don't need a specific role, just need to be logged in
+			 * For example, could be pages common to all users, like a dashboard or account settings
+			 * Don't add 'logout' because it would redirect to login page instead of 'home' as it does by default.,
+			 */
 			"any": [
 				//"some-other-reserved-page"
 			]
 		},
-		// List of route IDs that can't be accessed of logged in.
-		// If none, leave empty
-		// This will look for the info you've set for 'forbidden'
+		/*
+		 * List of route IDs that can't be accessed of logged in.
+		 * If none, leave empty
+		 * This will look for the info you've set for 'forbidden',
+		 */
 		disallow_authenticated: [
 			"sign-up",
 			"xhr-sign-up",
