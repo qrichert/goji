@@ -5,6 +5,24 @@
  */
 
 {
-	// /!\ Don't forget to purge cache after changing this
-	merge_linked_files: false // normal = false | merged = true (default = false)
+	// /!\ Don't forget to purge cache after changing all these:
+
+	/*
+	 * If true, CSS files will be merged together, and JS files will be merged together
+	 * (provided you use SimpleTemplate's linkFiles() method)
+	 */
+	merge_linked_files: false, // normal = false | merged = true (default = false, better for debug)
+
+	/*
+	 * If true, CSS variables will be replaced by their value (in merge mode only)
+	 * Activate it if you need to support legacy browsers (IE11 doesn't support them)
+	 *
+	 * /!\ Be very careful because the replacement is naive, in the sens that it only remembers
+	 * the initial value. Once a variable is set, you can't change its value (i.e. you can't have
+	 * a different with different media queries for example). So, if you want to overwrite the default
+	 * values you must either edit the default root.css or include your custom.root.css BEFORE root.css
+	 * (so it retains only the custom values an overwrites the default). This is backwards to the normal
+	 * approach where the last file included has precedence.
+	 */
+	replace_css_variables_by_value: false // replace = true | don't replace = false (default = false)
 }

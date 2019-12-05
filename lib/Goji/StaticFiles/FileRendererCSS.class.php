@@ -2,6 +2,8 @@
 
 	namespace Goji\StaticFiles;
 
+	use Exception;
+	use Goji\Core\ConfigurationLoader;
 	use Goji\Parsing\SimpleMinifierCSS;
 	use Goji\Toolkit\SimpleCache;
 
@@ -12,9 +14,28 @@
 	 */
 	class FileRendererCSS extends FileRendererAbstract {
 
-		public function __construct(StaticServer $server) {
+		/* <ATTRIBUTES> */
+
+		private $m_replaceCSSVariablesByValue;
+
+		/* <CONSTANTS> */
+
+		const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
+
+		public function __construct(StaticServer $server, string $configFile = self::CONFIG_FILE) {
 
 			parent::__construct($server);
+
+			try {
+
+				$config = ConfigurationLoader::loadFileToArray($configFile);
+
+				$this->m_replaceCSSVariablesByValue = $config['replace_css_variables_by_value'] ?? false;
+
+			} catch (Exception $e) {
+
+				$this->m_replaceCSSVariablesByValue = false;
+			}
 
 			header('Content-type: text/css; charset=utf-8');
 		}
@@ -30,7 +51,7 @@
 
 			} else { // Regenerate and cache
 
-				$content = SimpleMinifierCSS::minifyFile($this->m_files);
+				$content = SimpleMinifierCSS::minifyFile($this->m_files, $this->m_replaceCSSVariablesByValue);
 
 				SimpleCache::cacheFilePreprocessed($content, $this->m_files, $cacheId);
 

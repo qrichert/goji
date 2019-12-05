@@ -16,7 +16,7 @@
 		 * @param bool $replaceCSSVariablesByValue
 		 * @return string
 		 */
-		public static function minify(string $code, bool $replaceCSSVariablesByValue = true): string {
+		public static function minify(string $code, bool $replaceCSSVariablesByValue = false): string {
 
 			$cssUnits = implode('|', ['cm', 'mm', 'in', 'px', 'pt', 'pc', 'ex', 'ch',
 										   'em', 'rem', 'vw', 'vh', 'vmin', 'vmax', '%',
@@ -209,7 +209,7 @@
 		 * @return string|null
 		 * @throws \Exception
 		 */
-		public static function minifyFile($file, bool $replaceCSSVariablesByValue = true): ?string { // $file = (string) | (array)
+		public static function minifyFile($file, bool $replaceCSSVariablesByValue = false): ?string { // $file = (string) | (array)
 
 			$code = '';
 			$file = (array) $file;

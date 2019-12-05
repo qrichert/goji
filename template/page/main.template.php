@@ -59,6 +59,7 @@
 				'css/lib/Goji/inputs.css',
 				'css/lib/Goji/inpagecontentedit.css',
 				'css/lib/Goji/markdown.css',
+				'css/custom.root.css', // /!\ If you're replacing CSS variables, put this one above root.css
 				'css/main.css',
 				'css/responsive.css'
 			];
@@ -67,14 +68,8 @@
 			if ($template->getSpecial('is-focus-page')
 				|| $template->getSpecial('is-funnel-page')) {
 
-				if ($template->getLinkedFilesMode() == \Goji\Rendering\SimpleTemplate::MERGED)
-					// In merged mode, first value to be set will be used everywhere (fixed value)
-					// So we need to set the special ones before anything else
-					array_unshift($cssFiles, 'css/root.focus.css');
-				else
-					// In normal mode, new values replace the old (regular CSS)
-					// Se we can set them wherever we want, provided it's after 'root.css'
-					array_push($cssFiles, 'css/root.focus.css');
+				// /!\ If you're replacing CSS variables, put this one above root.css
+				$cssFiles[] = 'css/root.focus.css';
 			}
 
 			$template->linkFiles($cssFiles);
