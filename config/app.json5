@@ -12,7 +12,7 @@
 	 * (which are not necessarily working in dev environment), DB errors or passwords set automatically.
 	 * You can also use it in your own code with App::getAppMode();
 	 */
-	debug: false, // debug = true | release = false (default = release)
+	debug: true, // debug = true | release = false
 	/*
 	 * If set, show wall with given password. If empty or missing, wall is deactivated
 	 * The wall is used during the development phase to hide the app from unexpected visitors
