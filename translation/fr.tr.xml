@@ -40,6 +40,13 @@
 		<segment id="FOOTER_LOG_IN">Connexion</segment>
 		<segment id="FOOTER_LOG_OUT">Déconnexion</segment>
 		<segment id="FOOTER_ADMIN">Admin</segment>
+
+		<!-- Copyright Notices -->
+		<segment id="HTML_COPYRIGHT_NOTICE"><![CDATA[<!--
+			© %{YEAR} Goji, Inc.
+			-----------------
+			Bonjour ! :)
+		-->]]></segment>
 	</page>
 	<!--
 		Page IDs are regular expressions here (start ^ and end $ are automatically added around them).

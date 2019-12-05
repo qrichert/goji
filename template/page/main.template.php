@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="<?= $this->m_app->getLanguages()->getCurrentHyphenLocale(); ?>">
 	<head>
+		<?= str_replace('%{YEAR}',  date('Y'), $tr->_('HTML_COPYRIGHT_NOTICE')); ?>
+
+
 		<!-- Document -->
 		<meta charset="utf-8">
 		<!--<base href="<?= $this->m_app->getRequestHandler()->getRootFolder(); ?>">-->
