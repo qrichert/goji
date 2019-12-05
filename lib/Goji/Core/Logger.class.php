@@ -23,7 +23,7 @@
 		 * @param $el
 		 * @param int $output
 		 */
-		public static function log($el, $output = self::BROWSER): void {
+		public static function log($el, $output = self::CONSOLE): void {
 
 			$console = $output == self::CONSOLE || $output == self::BOTH;
 			$browser = $output == self::BROWSER || $output == self::BOTH;
@@ -56,7 +56,7 @@
 		 * @param $el
 		 * @param int $output
 		 */
-		public static function dump($el, $output = self::BROWSER): void {
+		public static function dump($el, $output = self::CONSOLE): void {
 
 			$console = $output == self::CONSOLE || $output == self::BOTH;
 			$browser = $output == self::BROWSER || $output == self::BOTH;
@@ -81,7 +81,7 @@
 		 *
 		 * @param int $output
 		 */
-		public static function backtrace($output = self::BROWSER): void {
+		public static function backtrace($output = self::CONSOLE): void {
 
 			$e = new Exception();
 			$trace = explode("\n", $e->getTraceAsString());
