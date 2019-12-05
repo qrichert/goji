@@ -53,9 +53,11 @@
 		<!-- Style -->
 		<?php
 			// Put library files first, so you can overwrite them.
+			// (And refresh cache after change)
 			$cssFiles = [
 				'css/reset.css',
 				'css/root.css',
+				//'css/darkmode.root.css',
 				'css/goji.css',
 				//'css/lib/Goji/books.css',
 				'css/lib/Goji/flags.css',

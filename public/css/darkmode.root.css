@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+:root {
+	/*
+	 * Declares support for color schemes.
+	 * Safari only, let's the system change default colors to dark mode.
+	 */
+	/*color-scheme: light dark;*/
+}
+
+@media (prefers-color-scheme: dark) {
+
+	:root {
+
+		/* Colors */
+
+		--color-default: white;
+		--color-default-transparent: rgba(255, 255, 255, 0.2); /* --color-default */
+		--color-default-seethrough: rgba(255, 255, 255, 0.33); /* --color-default */
+		--color-default-opaque: rgba(255, 255, 255, 0.7); /* --color-default */
+
+		--color-body: #1e1e1e;
+		/*--color-header: transparent;*/
+		--color-header-focus: transparent;
+		--color-footer: #262626;
+
+		--color-text-dark: var(--color-default);
+		--color-text-default: var(--color-default);
+		--color-text-light: var(--color-default);
+	}
+}

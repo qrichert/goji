@@ -11,7 +11,7 @@
 
 	/* Colors */
 
-	--color-header: var(--color-default);
+	--color-header: var(--color-header-focus);
 
 	--color-nav-link: var(--color-link-alt);
 	--color-nav-link-hover: var(--color-link-hover-alt);

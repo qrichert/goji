@@ -488,11 +488,11 @@ tr:not(:last-child) td,
 	text-decoration: none !important; /* In case there's text. */
 }
 
-.header__logo :not(:first-child) {
+.header__logo > :not(:first-child) {
 	margin-left: var(--gutter-thin);
 }
 
-.header__logo > img {
+.header__logo img {
 	margin: auto;
 	height: calc(var(--header-height) * 0.5);
 	max-width: 257px;
