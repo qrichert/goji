@@ -17,8 +17,9 @@ class InPageContentEdit {
 			this.m_rawContent = parent.dataset.rawContent; // Content without formatting, as in database
 
 		this.m_editableArea = parent.querySelector('.in-page-content-edit__editable-area');
+		this.m_editableAreaStyle = window.getComputedStyle(this.m_editableArea, null);
 
-			this.m_editableAreaDisplay = window.getComputedStyle(this.m_editableArea, null).getPropertyValue('display');
+			this.m_editableAreaDisplay = this.m_editableAreaStyle.getPropertyValue('display');
 
 		this.m_editor = parent.querySelector('.in-page-content-edit__editor');
 			this.m_editor.value = this.m_rawContent;
@@ -26,19 +27,19 @@ class InPageContentEdit {
 			this.m_editor.style.resize = 'none';
 			this.m_editor.style.overflow = 'hidden'; // Prevent scrollbars
 			this.m_editor.style.width = '100%';
-			this.m_editor.style.minHeight = this.getEditableAreaProperty('line-height');
-			this.m_editor.style.fontSize = this.getEditableAreaProperty('font-size');
-			this.m_editor.style.fontFamily = this.getEditableAreaProperty('font-family');
-			this.m_editor.style.fontWeight = this.getEditableAreaProperty('font-weight');
-			this.m_editor.style.lineHeight = this.getEditableAreaProperty('line-height');
-			this.m_editor.style.color = this.getEditableAreaProperty('color');
-			this.m_editor.style.textDecoration = this.getEditableAreaProperty('text-decoration');
-			this.m_editor.style.padding = this.getEditableAreaProperty('padding');
-			this.m_editor.style.margin = this.getEditableAreaProperty('margin');
+			this.m_editor.style.minHeight = this.m_editableAreaStyle.getPropertyValue('line-height');
+			this.m_editor.style.fontSize = this.m_editableAreaStyle.getPropertyValue('font-size');
+			this.m_editor.style.fontFamily = this.m_editableAreaStyle.getPropertyValue('font-family');
+			this.m_editor.style.fontWeight = this.m_editableAreaStyle.getPropertyValue('font-weight');
+			this.m_editor.style.lineHeight = this.m_editableAreaStyle.getPropertyValue('line-height');
+			this.m_editor.style.color = this.m_editableAreaStyle.getPropertyValue('color');
+			this.m_editor.style.textDecoration = this.m_editableAreaStyle.getPropertyValue('text-decoration');
+			this.m_editor.style.padding = this.m_editableAreaStyle.getPropertyValue('padding');
+			this.m_editor.style.margin = this.m_editableAreaStyle.getPropertyValue('margin');
 			this.m_editor.style.marginBottom = '0';
-			this.m_editor.style.border = this.getEditableAreaProperty('border');
-			this.m_editor.style.boxShadow = this.getEditableAreaProperty('box-shadow');
-			this.m_editor.style.borderRadius = this.getEditableAreaProperty('border-radius');
+			this.m_editor.style.border = this.m_editableAreaStyle.getPropertyValue('border');
+			this.m_editor.style.boxShadow = this.m_editableAreaStyle.getPropertyValue('box-shadow');
+			this.m_editor.style.borderRadius = this.m_editableAreaStyle.getPropertyValue('border-radius');
 
 		this.m_buttons = parent.querySelector('.in-page-content-edit__buttons');
 			this.m_buttons.style.display = 'none';
@@ -56,14 +57,6 @@ class InPageContentEdit {
 		this.addListeners();
 
 		this.checkIfEmpty();
-	}
-
-	/**
-	 * @param property
-	 * @return {string}
-	 */
-	getEditableAreaProperty(property) {
-		return window.getComputedStyle(this.m_editableArea, null).getPropertyValue(property);
 	}
 
 	addListeners() {
