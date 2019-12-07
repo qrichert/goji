@@ -248,7 +248,7 @@ class Terminal {
 							promptInfo.appendChild(lastCommandText);
 			}
 
-			let commandResult = document.createElement('div');
+			let commandResult = document.createElement('pre');
 				commandResult.innerHTML = output;
 					docFrag.appendChild(commandResult);
 
@@ -415,7 +415,7 @@ class Terminal {
 			return;
 		}
 
-		let command = this.m_input.value.trim().toLowerCase();
+		let command = this.m_input.value.trim();
 
 		this.m_commandHistory.push(command);
 		this.m_commandHistoryCount = this.m_commandHistory.length;
