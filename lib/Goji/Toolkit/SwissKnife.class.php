@@ -258,4 +258,24 @@
 				];
 			}
 		}
+
+		/**
+		 * Joins path segments into a full path, with nice directory separator awareness.
+		 *
+		 * Emulates Python's os.path.join()
+		 *
+		 * @param mixed ...$args
+		 * @return string
+		 */
+		public static function osPathJoin(...$args): string {
+
+			$paths = [];
+
+			foreach ($args as $arg) {
+				if (!empty($arg))
+					$paths[] = (string) $arg;
+			}
+
+			return preg_replace('#/+#','/',join('/', $paths));
+		}
 	}
