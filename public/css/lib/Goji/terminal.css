@@ -31,6 +31,11 @@
 	padding: 0;
 }
 
+.terminal__output > div,
+.terminal__output > pre {
+	overflow-x: scroll;
+}
+
 .terminal__output .message__warning { color: #ffa500; font-weight: bold; }
 .terminal__output .message__error   { color: #ff6347; font-weight: bold; }
 
