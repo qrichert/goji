@@ -276,6 +276,6 @@
 					$paths[] = (string) $arg;
 			}
 
-			return preg_replace('#/+#','/',join('/', $paths));
+			return preg_replace('#/+#', '/', join('/', $paths));
 		}
 	}
