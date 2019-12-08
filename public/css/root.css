@@ -19,6 +19,7 @@
 
 	--font-title: Roboto, Helvetica, sans-serif;
 	--font-default: Roboto, Helvetica, sans-serif;
+	--font-reading: Georgia, serif;
 	--font-code: Menlo, Courier, monospace;
 
 	/* Sizes */
@@ -72,40 +73,87 @@
 
 	/* Colors */
 
-	--color-default: #24292e;
-	--color-default-transparent: rgba(36, 41, 46, 0.2); /* --color-default */
-	--color-default-seethrough: rgba(36, 41, 46, 0.33); /* --color-default */
-	--color-default-opaque: rgba(36, 41, 46, 0.7); /* --color-default */
+	/*
+	 * It's better to use them to set other variables than directly in the CSS.
+	 * They are to other variables what variables are to CSS, something to centralize
+	 * information and avoid repetition.
+	 */
+
+	--color-blue-ultradark: #171c21;
+
+	--color-blue-dark: #24292e;
+	--color-blue-dark-transparent: rgba(36, 41, 46, 0.2);
+	--color-blue-dark-seethrough: rgba(36, 41, 46, 0.33);
+	--color-blue-dark-opaque: rgba(36, 41, 46, 0.7);
+
+	--color-blue-electric: #026fe3; /* hsl(210, 99%, 89%); */
+	--color-blue-electric-darker: #0067d3;
+	--color-blue-electric-transparent: rgba(193, 219, 246, 0.30); /* hsla(210, 74%, 86%, 0.30) || #c1dbf6 */
+
+	--color-green-sea: #138663;
+	--color-green-acid: #1ed400; /* Insegnalis */
+	--color-green-pale: #d4eadb;
+
+	--color-yellow-pale: #fafad2; /* lightgoldenrodyellow */
+	--color-yellow-gold: #e4d1a4; /* QR */
+
+	--color-red-wine: #6d1c32;
+	--color-red-purple: #a4045f; /* Proximii */
+	--color-red-acid: #ff005c; /* TBC */
+	--color-red-impact: #e43d2a; /* Proximii */
+
+	--color-red-lipstick: #cd3d64;
+	--color-red-pale: #fcdce8;
+
+	--color-purple-acid: #8900ff;
+
+	--color-grey: #586069;
+	--color-grey-light: #7d8085;
+	--color-grey-xlight: #959da5;
+	--color-grey-xxlight: #cccccc;
+	--color-grey-xxxlight: #dedede;
+	--color-grey-xxxxlight: #f1f1f1;
+	--color-grey-xxxxxlight: #f8fafb;
+
+	--color-white-soft-reading: #fafaf8;
+	--color-black-soft-reading: #2b2b29;
+
+	/* Colors - Use */
+
+	--color-default: var(--color-blue-dark);
+	--color-default-transparent: var(--color-blue-dark-transparent);
+	--color-default-seethrough: var(--color-blue-dark-seethrough);
+	--color-default-opaque: var(--color-blue-dark-opaque);
 
 	--color-body: white;
 	--color-header: transparent;
-	--color-header-focus: var(--color-default);
-	--color-footer: #f8fafb;
+	--color-header-focus: var(--color-blue-dark);
+	--color-footer: var(--color-grey-xxxxxlight);
 
-	--color-highlight: #026fe3; /* hsl(210, 99%, 89%); */
-	--color-highlight-hover: #0067d3;
-	--color-highlight-halo: rgba(193, 219, 246, 0.30); /* hsla(210, 74%, 86%, 0.30) || #c1dbf6 */
+	--color-highlight: var(--color-blue-electric); /* hsl(210, 99%, 89%); */
+	--color-highlight-hover: var(--color-blue-electric-darker);
+	--color-highlight-halo: var(--color-blue-electric-transparent);
 
-	--color-text-dark: #171c21;
+	--color-text-dark: var(--color-blue-ultradark);
 	--color-text-default: var(--color-default);
-	--color-text-light: #586069;
-	--color-text-xlight: #7d8085;
-	--color-text-xxlight: #959da5;
-	--color-text-xxxlight: #cccccc;
-	--color-text-xxxxlight: #dedede;
-	--color-text-xxxxxlight: #f1f1f1;
+	--color-text-light: var(--color-grey);
+	--color-text-xlight: var(--color-grey-light);
+	--color-text-xxlight: var(--color-grey-xlight);
+	--color-text-xxxlight: var(--color-grey-xxlight);
+	--color-text-xxxxlight: var(--color-grey-xxxlight);
+	--color-text-xxxxxlight: var(--color-grey-xxxxlight);
 
 	--color-link: var(--color-highlight);
 	--color-link-hover: var(--color-link);
 	--color-link-alt: white;
 	--color-link-hover-alt: var(--color-link-alt);
 
-	--color-valid-light: #d4eadb;
-	--color-valid: #138663;
-	--color-warning-light: lightgoldenrodyellow;
-	--color-danger-light: #fcdce8;
-	--color-danger: #cd3d64;
-	--color-danger-dark: #6d1c32;
+	--color-valid-light: var(--color-green-pale);
+	--color-valid: var(--color-green-sea);
+	--color-warning-light: var(--color-yellow-pale);
+	--color-danger-light: var(--color-red-pale);
+	--color-danger: var(--color-red-lipstick);
+	--color-danger-dark: var(--color-red-wine);
 
 	--color-disabled: var(--color-text-xxxlight);
 
