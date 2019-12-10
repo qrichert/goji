@@ -13,13 +13,12 @@ a `section.text` or `<section class="text">`.*
 Files
 -----
 
-Goji comes with five CSS files:
+Goji comes with four main CSS files:
 
 - **`reset.css`**
 - **`root.css`**
 - **`goji.css`**
 - **`main.css`**
-- **`responsive.css`**
 
 First, you don't have to use any of them. They are just here for convenience. If there's something
 you don't want, just delete it.
@@ -35,8 +34,6 @@ can use (see the [widgets part](#widgets)). It is recommended not to modify this
 decided to use it), but rather overwrite the elements in `main.css`. But it's up to you.
 
 **`main.css`** is where you put the project CSS and overwrite `goji.css` rules.
-
-**`responsive.css`** is meant to contain all media queries. Everything that is linked to responsiveness.
 
 There are also a **`lib`** and a **`vendor`** folder. **`lib`** is for reusable CSS modules that you have
 made and **`vendor`** are for external CSS modules or libraries.
