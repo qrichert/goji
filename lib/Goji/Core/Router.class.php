@@ -2,7 +2,7 @@
 
 	namespace Goji\Core;
 
-	use App\Controller\System\PasswordWallController;
+	use Exception;
 	use Goji\Blueprints\HttpStatusInterface;
 	use Goji\HumanResources\Authentication;
 	use Goji\Parsing\RegexPatterns;
@@ -10,8 +10,8 @@
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\UrlManager;
 	use Goji\Translation\Languages;
-	use App\Controller\System\HttpErrorController;
-	use Exception;
+	use System\Controller\HttpErrorController;
+	use System\Controller\PasswordWallController;
 
 	/**
 	 * Class Router

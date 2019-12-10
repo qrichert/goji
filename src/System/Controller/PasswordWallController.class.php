@@ -1,8 +1,7 @@
 <?php
 
-	namespace App\Controller\System;
+	namespace System\Controller;
 
-	use App\Model\System\PasswordWallForm;
 	use Goji\Blueprints\ControllerAbstract;
 	use Goji\Core\App;
 	use Goji\Core\Cookies;
@@ -10,6 +9,7 @@
 	use Goji\Form\Form;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Translation\Translator;
+	use System\Model\PasswordWallForm;
 
 	class PasswordWallController extends ControllerAbstract {
 

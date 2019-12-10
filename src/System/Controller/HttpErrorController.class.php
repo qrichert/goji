@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Controller\System;
+	namespace System\Controller;
 
 	use Goji\Blueprints\HttpErrorControllerAbstract;
 	use Goji\Core\App;
