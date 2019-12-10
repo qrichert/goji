@@ -6,6 +6,7 @@
 	use Goji\Blueprints\HttpStatusInterface;
 	use Goji\HumanResources\Authentication;
 	use Goji\Parsing\RegexPatterns;
+	use Goji\Toolkit\SimpleCache;
 	use Goji\Toolkit\SimpleMetrics;
 	use Goji\Toolkit\UrlManager;
 	use Goji\Translation\Languages;
@@ -52,10 +53,39 @@
 
 			$this->m_app = $app;
 
-			$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
-				$this->m_routes = $this->formatRoutes($this->m_routes);
+		// Routes
 
-			$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
+			$baseCacheId = SimpleCache::cacheIDFromFileFullPath($configFile);
+
+			$this->m_routes = null;
+
+			// Formatted routes caching
+			$cacheId =  $baseCacheId . '--formatted';
+
+			if (SimpleCache::isValidFilePreprocessed($cacheId, $configFile)) {
+				$this->m_routes = SimpleCache::loadFilePreprocessed($cacheId);
+					$this->m_routes = json_decode($this->m_routes, true);
+			} else {
+				$this->m_routes = ConfigurationLoader::loadFileToArray($configFile, false); // Useless to cache it 2 times, config never gets used raw
+					$this->m_routes = $this->formatRoutes($this->m_routes);
+				SimpleCache::cacheFilePreprocessed(json_encode($this->m_routes), $configFile, $cacheId);
+			}
+
+
+		// Mapped routes
+
+			$this->m_mappedRoutes = null;
+
+			// Mapped Routes caching
+			$cacheId = $baseCacheId . '--mapped';
+
+			if (SimpleCache::isValidFilePreprocessed($cacheId, $configFile)) {
+				$this->m_mappedRoutes = SimpleCache::loadFilePreprocessed($cacheId);
+					$this->m_mappedRoutes = json_decode($this->m_mappedRoutes, true);
+			} else {
+				$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
+				SimpleCache::cacheFilePreprocessed(json_encode($this->m_mappedRoutes), $configFile, $cacheId);
+			}
 
 			$this->m_currentPage = null;
 			$this->m_currentPageIsErrorPage = false;

@@ -81,7 +81,6 @@
 				// Generating cache ID
 				$cacheId = SimpleCache::cacheIDFromFileFullPath($file);
 
-
 				// We cache it as JSON, so we don't have to re-convert it each time.
 				if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) { // Get cached version (JSON)
 
