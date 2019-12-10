@@ -2,8 +2,7 @@
 
 	namespace Blog\Controller\Admin;
 
-	use Goji\Blog\BlogAdminControllerAbstract;
-	use Goji\Blog\BlogPostManager;
+	use Blog\Model\BlogPostManager;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
 	use Goji\Translation\Translator;

@@ -1,9 +1,9 @@
 <?php
 
-	namespace Goji\Blog;
+	namespace Blog\Model;
 
+	use Blog\Controller\BlogControllerAbstract;
 	use Goji\Toolkit\SwissKnife;
-	use Goji\Translation\Translator;
 	use Exception;
 
 	/**
@@ -43,7 +43,7 @@
 		/**
 		 * BlogPostManager constructor.
 		 *
-		 * @param \Goji\Blog\BlogControllerAbstract $parent
+		 * @param \Blog\Controller\BlogControllerAbstract $parent
 		 * @throws \Exception
 		 */
 		public function __construct(BlogControllerAbstract $parent) {
@@ -64,7 +64,7 @@
 		}
 
 		/**
-		 * @return \Goji\Blog\BlogPostForm|null
+		 * @return \Blog\Model\BlogPostForm|null
 		 */
 		public function getForm(): ?BlogPostForm {
 			return $this->m_form;
@@ -246,6 +246,7 @@
 					$permalink = $title;
 
 				$permalink = SwissKnife::stringToID($permalink);
+				$permalink = empty($permalink) ? '-' : $permalink;
 				$permalink = $this->makePermalinkUnique($permalink);
 
 				// Update form with new permalink
@@ -360,6 +361,7 @@
 					$permalink = $title;
 
 				$permalink = SwissKnife::stringToID($permalink);
+				$permalink = empty($permalink) ? '-' : $permalink;
 				$permalink = $this->makePermalinkUnique($permalink);
 
 				// Update form with new permalink

@@ -1,7 +1,9 @@
 <?php
 
-	namespace Goji\Blog;
+	namespace Blog\Controller\Admin;
 
+	use Blog\Controller\BlogControllerAbstract;
+	use Blog\Model\BlogPostManager;
 	use Goji\Core\App;
 
 	/**

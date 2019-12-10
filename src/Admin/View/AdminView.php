@@ -10,7 +10,7 @@
 				<h2><?= $tr->_('ADMIN_SECTION_EDITING'); ?></h2>
 				<div class="action-item__wrapper">
 					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
-					             '?action=' . \Goji\Blog\BlogPostManager::ACTION_CREATE; ?>"
+					             '?action=' . \Blog\Model\BlogPostManager::ACTION_CREATE; ?>"
 					   class="action-item" id="admin-action__new-blog-post">
 						<div class="action-item__progress"></div>
 						<img src="<?= $template->rsc('img/lib/Goji/typewriter.svg'); ?>" alt="" class="action-item__icon">

@@ -1,6 +1,6 @@
 <?php
 
-	namespace Goji\Blog;
+	namespace Blog\Model;
 
 	use Goji\Form\Form;
 	use Goji\Form\InputButtonElement;

@@ -28,11 +28,11 @@
 			    && $this->m_app->getMemberManager()->memberIs('editor')) {
 
 				$editLink = $this->m_app->getRouter()->getLinkForPage('admin-blog-post');
-					$editLink .= '?action=' . \Goji\Blog\BlogPostManager::ACTION_UPDATE;
+					$editLink .= '?action=' . \Blog\Model\BlogPostManager::ACTION_UPDATE;
 					$editLink .= '&id=' . $blogPost['id'];
 
 				$deleteLink = $this->m_app->getRouter()->getLinkForPage('admin-blog-post');
-					$deleteLink .= '?action=' . \Goji\Blog\BlogPostManager::ACTION_DELETE;
+					$deleteLink .= '?action=' . \Blog\Model\BlogPostManager::ACTION_DELETE;
 					$deleteLink .= '&id=' . $blogPost['id'];
 			?>
 				<div class="blog__toolbar toolbar main-toolbar">

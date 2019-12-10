@@ -3,14 +3,14 @@
 		<h1><?= $tr->_('BLOG_POST_MAIN_TITLE')[$this->m_action]; ?></h1>
 
 		<?php
-			if ($this->m_action == \Goji\Blog\BlogPostManager::ACTION_UPDATE) {
+			if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_UPDATE) {
 
 				$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' .
 				        $blogPostManager->getForm()->getInputByName('blog-post[permalink]')->getValue();
 			?>
 				<div class="blog__toolbar toolbar main-toolbar">
 					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
-					             '?action=' . \Goji\Blog\BlogPostManager::ACTION_CREATE; ?>"
+					             '?action=' . \Blog\Model\BlogPostManager::ACTION_CREATE; ?>"
 					   class="link-button highlight add" id="blog__toolbar--new-blog-post">
 						<?= $tr->_('BLOG_POST_NEW_BLOG_POST'); ?>
 					</a>
@@ -38,7 +38,7 @@
 	(function () {
 
 		<?php
-			if ($this->m_action == \Goji\Blog\BlogPostManager::ACTION_CREATE) {
+			if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_CREATE) {
 			?>
 				let permalink = document.querySelector('#blog-post__permalink');
 				let title = document.querySelector('#blog-post__title');

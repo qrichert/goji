@@ -3,8 +3,7 @@
 	namespace Blog\Controller;
 
 	use Blog\Resource\BlogPostTrait;
-	use Goji\Blog\BlogControllerAbstract;
-	use Goji\Blog\BlogPostManager;
+	use Blog\Model\BlogPostManager;
 	use Goji\Core\App;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Toolkit\SimpleCache;
