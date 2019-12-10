@@ -71,7 +71,6 @@
 				SimpleCache::cacheFilePreprocessed(json_encode($this->m_routes), $configFile, $cacheId);
 			}
 
-
 		// Mapped routes
 
 			$this->m_mappedRoutes = null;
@@ -112,6 +111,9 @@
 		private function formatRoutes($routes): array {
 
 			foreach ($routes as $page => &$config) {
+
+				if (!empty($config['controller']))
+					$config['controller'] = AutoLoader::sanitizeController($config['controller']);
 
 				if (isset($config['routes']) && is_array($config['routes'])) {
 
@@ -238,7 +240,7 @@
 				if (!isset($config['controller']) || !is_string($config['controller']))
 					throw new Exception('Route is lacking controller. (' . $page .')', self::E_ROUTE_LACKING_CONTROLLER);
 
-				$controller = AutoLoader::sanitizeController($config['controller']);
+				$controller = $config['controller'];
 
 				if (isset($config['routes']) && is_array($config['routes'])) {
 

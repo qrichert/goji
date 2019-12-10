@@ -6,7 +6,6 @@
 	use Goji\Core\AutoLoader;
 	use Goji\Core\ConfigurationLoader;
 	use Exception;
-	use Goji\Core\Logger;
 	use Goji\Toolkit\SwissKnife;
 
 	/**
