@@ -31,7 +31,9 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('HomeView');
+			// Like for controllers in config/routes.json5, this function is smart and will add the missing /View/ component
+			// You just need to specify Module/FileName
+			require_once $template->getView('App/HomeView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

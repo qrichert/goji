@@ -208,7 +208,7 @@
 				if (!isset($config['controller']) || !is_string($config['controller']))
 					throw new Exception('Route is lacking controller. (' . $page .')', self::E_ROUTE_LACKING_CONTROLLER);
 
-				$controller = $config['controller'];
+				$controller = AutoLoader::sanitizeController($config['controller']);
 
 				if (isset($config['routes']) && is_array($config['routes'])) {
 
@@ -556,7 +556,7 @@
 					}
 
 					// $controller = \App\Controller\HomeController
-					$controller = '\App\Controller\\' . $route['controller'];
+					$controller = $route['controller'];
 
 					$this->m_app->getRequestHandler()->setRequestParameters($matches);
 

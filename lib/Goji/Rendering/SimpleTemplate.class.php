@@ -3,8 +3,10 @@
 	namespace Goji\Rendering;
 
 	use Goji\Blueprints\RobotsInterface;
+	use Goji\Core\AutoLoader;
 	use Goji\Core\ConfigurationLoader;
 	use Exception;
+	use Goji\Core\Logger;
 	use Goji\Toolkit\SwissKnife;
 
 	/**
@@ -79,7 +81,7 @@
 
 		const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
 
-		const VIEW_PATH = ROOT_PATH . '/src/View/%{VIEW}.%{FILETYPE}';
+		const VIEW_PATH = ROOT_PATH . '/src/%{VIEW}.%{FILETYPE}';
 		const TEMPLATE_PATH = ROOT_PATH . '/template/%{TEMPLATE}.template.%{FILETYPE}';
 
 		const NORMAL = 'normal';
@@ -366,6 +368,8 @@
 		 * @return string
 		 */
 		public function getView(string $view, string $fileType = 'php'): string {
+
+			$view = AutoLoader::sanitizeView($view, false);
 
 			$view = str_replace('%{VIEW}', $view, self::VIEW_PATH);
 			$view = str_replace('%{FILETYPE}', $fileType, $view);

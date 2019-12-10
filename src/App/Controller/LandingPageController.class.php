@@ -29,7 +29,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('LandingPageView');
+			require_once $template->getView('App/LandingPageView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

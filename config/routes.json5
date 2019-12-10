@@ -33,13 +33,23 @@
 		},
 		/*
 		 * 'controller' is the controller to which the page is tied to.
+		 *
 		 * In this example, the "home" controller is \App\Controller\HomeController()
-		 * in /src/Controller/HomeController.class.php
-		 * The class is imported and called automatically, this is why you only
-		 * need to enter the class name. But it's also why you have to respect the
-		 * naming convention and make it implement \Goji\Blueprints\ControllerAbstract().,
+		 * in /src/App/Controller/HomeController.class.php
+		 *
+		 * The class is imported and called automatically, this is why you have to make it
+		 * implement \Goji\Blueprints\ControllerAbstract().
+		 *
+		 * The importer is smart, so you only need to specify Module/ClassName, it will transform it
+		 * automatically to the full path \Module\Controller\ClassName (/ will be converted to \).
+		 *
+		 * For example:
+		 * - HomeController                -> Controller\HomeController
+		 * - App/HomeController            -> App\Controller\HomeController
+		 * - Controller/HomeController     -> Controller\HomeController
+		 * - App\Controller\HomeController -> App\Controller\HomeController
 		 */
-		controller: "HomeController"
+		controller: "App/HomeController"
 	},
 	"contact": {
 		routes: {
@@ -48,18 +58,18 @@
 			// you can add it as simply as doing:
 			//it: "/contatto"
 		},
-		controller: "ContactController"
+		controller: "App/ContactController"
 	},
 	"xhr-contact": {
 		route: "/xhr-contact",
-		controller: "XhrContactController"
+		controller: "App/XhrContactController"
 	},
 	"privacy-and-terms": {
 		routes: {
 			en: "/privacy-and-terms",
 			fr: "/mentions-legales"
 		},
-		controller: "PrivacyAndTermsController"
+		controller: "App/PrivacyAndTermsController"
 	},
 // <HR>
 	"login": {
@@ -121,7 +131,7 @@
 // <FUNNEL>
 	"landing-page": {
 		route: "/landing-page",
-		controller: "LandingPageController"
+		controller: "App/LandingPageController"
 	},
 // <BLOG>
 	"blog": {

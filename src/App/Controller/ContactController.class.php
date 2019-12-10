@@ -30,7 +30,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('ContactView');
+			require_once $template->getView('App/ContactView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

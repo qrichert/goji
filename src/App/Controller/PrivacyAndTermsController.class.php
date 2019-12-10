@@ -20,7 +20,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('PrivacyAndTermsView');
+			require_once $template->getView('App/PrivacyAndTermsView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

@@ -42,17 +42,8 @@
 		// There shouldn't be a leading backslash, but you never know
 		$className = ltrim($className, '\\');
 
-		// App\Controller\HomeController -> Controller\HomeController
-		// We want only to remove the 'App\' part
-		// $len = mb_strlen('App\\');
-		// $len = 4;
-		$className = mb_substr($className, 4);
-
-		// Model\Admin\BlogPost -> Model/Admin/BlogPost
-		$className = str_replace('\\', '/', $className);
-
-		// Model/HomeController -> ../src/Model/HomeModel.class.php
-		$classFile = ROOT_PATH . '/src/' . $className . '.class.php';
+		// App/Model/HomeController -> ../src/App/Model/HomeModel.class.php
+		$classFile = ROOT_PATH . '/src/' . str_replace('\\', '/', $className) . '.class.php';
 
 		if (is_file($classFile))
 			require_once $classFile;
