@@ -81,18 +81,18 @@
 			// Which would mean "use '/login' for all English pages
 			// ('en_*' locales), and '/connexion' for French"
 		},
-		controller: "HR\\LoginController"
+		controller: "HR/LoginController"
 	},
 	"sign-up": {
 		routes: {
 			en: "/sign-up",
 			fr: "/inscription"
 		},
-		controller: "HR\\SignUpController"
+		controller: "HR/SignUpController"
 	},
 	"xhr-sign-up": {
 		route: "/xhr-sign-up",
-		controller: "HR\\XhrSignUpController"
+		controller: "HR/XhrSignUpController"
 	},
 	"verify-email": {
 		routes: {
@@ -155,23 +155,23 @@
 // <ADMIN>
 	"admin": {
 		route: "/admin",
-		controller: "Admin\\AdminController"
+		controller: "Admin/AdminController"
 	},
 	"xhr-admin-in-page-content-edit": {
 		route: "/admin/xhr-in-page-content-edit",
-		controller: "Admin\\XhrAdminInPageContentEditController"
+		controller: "Admin/XhrInPageContentEditController"
 	},
 	"xhr-admin-clear-cache": {
 		route: "/admin/xhr-clear-cache",
-		controller: "Admin\\XhrAdminClearCache"
+		controller: "Admin/XhrClearCacheController"
 	},
 	"xhr-admin-update": {
 		route: "/admin/xhr-update",
-		controller: "Admin\\XhrAdminUpdate"
+		controller: "Admin/XhrUpdateController"
 	},
 	"xhr-admin-back-up-database": {
 		route: "/admin/xhr-back-up-database",
-		controller: "Admin\\XhrAdminBackUpDatabase"
+		controller: "Admin/XhrBackUpDatabaseController"
 	},
 /*
 // <DEMO>

@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Controller\Admin;
+	namespace Admin\Controller;
 
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\HttpResponse;
@@ -8,7 +8,7 @@
 	use Goji\Toolkit\SwissKnife;
 	use Goji\Translation\Translator;
 
-	class XhrAdminClearCache extends XhrControllerAbstract {
+	class XhrClearCacheController extends XhrControllerAbstract {
 
 		public function render(): void {
 

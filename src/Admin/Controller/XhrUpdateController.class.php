@@ -1,12 +1,12 @@
 <?php
 
-	namespace App\Controller\Admin;
+	namespace Admin\Controller;
 
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\HttpResponse;
 	use Goji\Toolkit\Terminal;
 
-	class XhrAdminUpdate extends XhrControllerAbstract {
+	class XhrUpdateController extends XhrControllerAbstract {
 
 		public function render(): void {
 

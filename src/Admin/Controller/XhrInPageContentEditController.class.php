@@ -1,12 +1,12 @@
 <?php
 
-	namespace App\Controller\Admin;
+	namespace Admin\Controller;
 
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\HttpResponse;
 	use Goji\Rendering\InPageEditableContent;
 
-	class XhrAdminInPageContentEditController extends XhrControllerAbstract {
+	class XhrInPageContentEditController extends XhrControllerAbstract {
 
 		public function render(): void {
 
