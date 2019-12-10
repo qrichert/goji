@@ -66,7 +66,7 @@
 				'css/lib/Goji/markdown.css',
 				'css/custom.root.css', // /!\ If you're replacing CSS variables, put this one above root.css
 				'css/main.css',
-				'css/responsive.css'
+				'css/blog.css'
 			];
 
 			// Add alternate 'root.css'
