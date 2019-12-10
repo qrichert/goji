@@ -1,8 +1,7 @@
 <?php
 
-	namespace App\Controller\HR;
+	namespace HR\Controller;
 
-	use App\Model\HR\SignUpForm;
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
@@ -10,6 +9,7 @@
 	use Goji\HumanResources\MemberManager;
 	use Goji\Toolkit\Mail;
 	use Goji\Translation\Translator;
+	use HR\Model\SignUpForm;
 
 	class XhrSignUpController extends XhrControllerAbstract {
 

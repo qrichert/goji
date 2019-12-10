@@ -1,13 +1,13 @@
 <?php
 
-	namespace App\Controller\HR;
+	namespace HR\Controller;
 
-	use App\Model\HR\LoginForm;
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\HttpResponse;
 	use Goji\Form\Form;
 	use Goji\HumanResources\MemberManager;
 	use Goji\Translation\Translator;
+	use HR\Model\LoginForm;
 
 	class XhrLoginController extends XhrControllerAbstract {
 

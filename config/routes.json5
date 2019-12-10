@@ -99,34 +99,34 @@
 			en: "/verify-email",
 			fr: "/verification-email"
 		},
-		controller: "HR\\VerifyEmailController"
+		controller: "HR/VerifyEmailController"
 	},
 	"xhr-verify-email-not-received": {
 		route: "/xhr-verify-email-not-received",
-		controller: "HR\\XhrVerifyEmailNotReceivedController"
+		controller: "HR/XhrVerifyEmailNotReceivedController"
 	},
 	"xhr-login": {
 		route: "/xhr-login",
-		controller: "HR\\XhrLoginController"
+		controller: "HR/XhrLoginController"
 	},
 	"logout": {
 		route: "/logout",
-		controller: "HR\\LogoutController"
+		controller: "HR/LogoutController"
 	},
 	"xhr-reset-password-request": {
 		route: "/xhr-reset-password-request",
-		controller: "HR\\XhrResetPasswordRequestController"
+		controller: "HR/XhrResetPasswordRequestController"
 	},
 	"reset-password": {
 		routes: {
 			en: "/reset-password",
 			fr: "/reinitialisation-du-mot-de-passe"
 		},
-		controller: "HR\\ResetPasswordController"
+		controller: "HR/ResetPasswordController"
 	},
 	"xhr-reset-password": {
 		route: "/xhr-reset-password",
-		controller: "HR\\XhrResetPasswordController"
+		controller: "HR/XhrResetPasswordController"
 	},
 // <FUNNEL>
 	"landing-page": {

@@ -1,12 +1,12 @@
 <?php
 
-	namespace App\Controller\HR;
+	namespace HR\Controller;
 
-	use App\Model\HR\LoginForm;
-	use App\Model\HR\ResetPasswordRequestForm;
 	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Translation\Translator;
+	use HR\Model\LoginForm;
+	use HR\Model\ResetPasswordRequestForm;
 
 	class LoginController extends CachedControllerAbstract {
 

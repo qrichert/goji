@@ -1,11 +1,11 @@
 <?php
 
-	namespace App\Controller\HR;
+	namespace HR\Controller;
 
-	use App\Model\HR\SignUpForm;
 	use Goji\Blueprints\CachedControllerAbstract;
 	use Goji\Rendering\SimpleTemplate;
 	use Goji\Translation\Translator;
+	use HR\Model\SignUpForm;
 
 	class SignUpController extends CachedControllerAbstract {
 

@@ -1,8 +1,7 @@
 <?php
 
-	namespace App\Controller\HR;
+	namespace HR\Controller;
 
-	use App\Model\HR\ResetPasswordRequestForm;
 	use Exception;
 	use Goji\Core\App;
 	use Goji\Core\HttpResponse;
@@ -11,6 +10,7 @@
 	use Goji\HumanResources\MemberManager;
 	use Goji\Toolkit\Mail;
 	use Goji\Translation\Translator;
+	use HR\Model\ResetPasswordRequestForm;
 
 	class XhrResetPasswordRequestController extends XhrControllerAbstract {
 

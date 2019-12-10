@@ -1,6 +1,6 @@
 <?php
 
-	namespace App\Controller\HR;
+	namespace HR\Controller;
 
 	use Goji\Blueprints\XhrControllerAbstract;
 	use Goji\Core\App;

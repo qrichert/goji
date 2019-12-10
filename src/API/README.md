@@ -1,8 +1,9 @@
-# API Controllers
+API Module
+==========
 
 This is in case you want to have a regular website AND and API running.
 
-You can either create API-specific Controllers and bind them with, for instance,
+You can either create API-specific components and bind them with, for instance,
 routes like `/api/users/42` directly in the same app. Or, you could completely
 detach them into two separate apps.
 
