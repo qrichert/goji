@@ -1,6 +1,6 @@
 <?php
 
-	namespace Admin\Controller;
+	namespace Blog\Controller\Admin;
 
 	use Goji\Blog\BlogAdminControllerAbstract;
 	use Goji\Blog\BlogPostManager;
@@ -52,7 +52,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('Admin/AdminBlogPostView');
+			require_once $template->getView('Blog/Admin/AdminBlogPostView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

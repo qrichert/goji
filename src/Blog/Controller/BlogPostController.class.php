@@ -1,8 +1,8 @@
 <?php
 
-	namespace App\Controller;
+	namespace Blog\Controller;
 
-	use App\Resource\BlogPostTrait;
+	use Blog\Resource\BlogPostTrait;
 	use Goji\Blog\BlogControllerAbstract;
 	use Goji\Blog\BlogPostManager;
 	use Goji\Core\App;
@@ -52,7 +52,7 @@
 			$template->startBuffer();
 
 			// Getting the view (into buffer)
-			require_once $template->getView('BlogPostView');
+			require_once $template->getView('Blog/BlogPostView');
 
 			// Now the view is accessible as string w/ $template->getPageContent()
 			$template->saveBuffer();

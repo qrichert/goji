@@ -136,21 +136,21 @@
 // <BLOG>
 	"blog": {
 		route: "/blog",
-		controller: "BlogController"
+		controller: "Blog/BlogController"
 	},
 	"blog-post": {
 		// Note that '/blog/' route is different from '/blog' route without trailing slash
 		// In the default BlogPostController '/blog/' (without permalink) is redirected to '/blog'
 		route: "/blog/(.+)?",
-		controller: "BlogPostController"
+		controller: "Blog/BlogPostController"
 	},
 	"admin-blog-post": {
 		route: "/admin/blog-post",
-		controller: "Admin\\AdminBlogPostController"
+		controller: "Blog/Admin/AdminBlogPostController"
 	},
 	"xhr-admin-blog-post": {
 		route: "/admin/xhr-blog-post",
-		controller: "Admin\\XhrAdminBlogPostController"
+		controller: "Blog/Admin/XhrAdminBlogPostController"
 	},
 // <ADMIN>
 	"admin": {

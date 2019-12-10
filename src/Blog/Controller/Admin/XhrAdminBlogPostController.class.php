@@ -1,6 +1,6 @@
 <?php
 
-	namespace Admin\Controller;
+	namespace Blog\Controller\Admin;
 
 	use Goji\Blog\BlogAdminControllerAbstract;
 	use Goji\Blog\BlogPostManager;
