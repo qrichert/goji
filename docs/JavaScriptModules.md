@@ -22,7 +22,6 @@ All these modules come in a standard `.js` and compiled `.min.js` version.
 - **`SliderLightBoxInterface`**: Simple interface to link a `Slider` to a `LightBox`.
 - **`Spawn`**: Removes the `.waiting` class of an element when it first becomes visible on scroll (similar to
   `Appear`, but more specialized).
-- **`Terminal`**: Module that emulates a terminal (use in combination with `terminal.css` stylesheet).
 - **`TextAreaAutoResize`**: Make a `<textarea>` fit its content if it overflows.
 - **`VideoScroll`**: Plays a video according to scroll percentage (only smooth playback in Safari as of 12/2019).
 - **`Visible`**: Calls a callback every time an element appears or disappears on scroll (can be two different callbacks).
