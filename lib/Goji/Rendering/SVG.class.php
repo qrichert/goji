@@ -2,6 +2,8 @@
 
 	namespace Goji\Rendering;
 
+	use Exception;
+
 	/**
 	 * Class SVG
 	 *
@@ -17,13 +19,14 @@
 		 * Outputs SVG code starting at <svg... (without XML declaration)
 		 *
 		 * @param $file
+		 * @throws \Exception
 		 */
 		public static function includeFile($file): void {
 
 			$f = fopen($file, 'r');
 
 			if ($f === false)
-				return;
+				throw new Exception("Cannot open SVG file for reading: '$file'", self::E_FILE_CANNOT_BE_READ);
 
 			while ($line = fgets($f)) {
 
