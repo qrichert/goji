@@ -6,7 +6,6 @@ getTablesList()
     else
         SHOW TABLES
 
-- [ ] Centralize gitignore rules and use .gitkeeps instead
 - [ ] Don't version db in prod because of conflict
 - [ ] Pas reçu le mail inscription (bug) ?
 - [ ] Keep me logged in with expirable tokens
