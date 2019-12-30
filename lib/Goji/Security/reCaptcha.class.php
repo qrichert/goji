@@ -2,6 +2,8 @@
 
 	namespace Goji\Security;
 
+	use Goji\Toolkit\SimpleRequest;
+
 	/**
 	 * Class reCaptcha
 	 *
@@ -15,33 +17,20 @@
 				return false;
 
 			$data = [
-				'secret'   => Passwords::getProperty('google_captcha_private_key'),
+				'secret' => Passwords::getProperty('google_captcha_private_key'),
 				'response' => $code
 			];
 
-			if ($ip) {
+			if (!empty($ip))
 				$data['remoteip'] = $ip;
-			}
 
-			$url = "https://www.google.com/recaptcha/api/siteverify";
+			$response = SimpleRequest::post('https://www.google.com/recaptcha/api/siteverify', $data);
 
-			$options = [
-				'http'=> [
-							'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-							'method'  => 'POST',
-							'content' => http_build_query($data)
-				]
-			];
-
-			$context = stream_context_create($options);
-
-			$response = file_get_contents($url, false, $context);
-
-			if ($response === false)
+			if (empty($response))
 				return false;
 
-			$json = json_decode($response);
+			$response = json_decode($response);
 
-			return $json->success;
+			return $response->success;
 		}
 	}
