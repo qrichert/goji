@@ -64,12 +64,16 @@
 
 	--text-size-small: 12px;
 	--text-size-medium: 14px;
-	--text-size-default: 16px;
-	--text-size-big: 19px;
+	--text-size-default: 17px;
+	--text-size-big: 20px;
 
 	--input-height-default: 33px;
 
 	--progress-bar-height: 2px;
+
+	--line-height-default: 1.2;
+	--line-height-medium: 1.5;
+	--line-height-big: 2;
 
 	/* Colors */
 

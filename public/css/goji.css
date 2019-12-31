@@ -17,8 +17,8 @@ html, body {
 html {
 	font-size: var(--text-size-default);
 	/*-webkit-font-kerning: normal;*/
-	/*-webkit-font-smoothing: antialiased;*/
-	/*-moz-osx-font-smoothing: grayscale;*/
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	/*font-kerning: normal;*/
 	/*text-rendering: optimizeLegibility;*/
 }
@@ -31,7 +31,7 @@ body {
 	/* Not necessary with reset.css */
 	padding: 0;
 	margin: 0;
-	line-height: 1.2;
+	line-height: var(--line-height-default);
 
 	/* Footer at bottom */
 	display: flex;
@@ -94,7 +94,7 @@ h4 + p, h5 + p, h6 + p {
 
 p, ul, ol, figcaption, textarea.content-like {
 	margin: 1.5em 0;
-	line-height: 1.5;
+	line-height: var(--line-height-medium);
 }
 
 figcaption, p.caption {
@@ -888,7 +888,7 @@ img.header__logo {
 
 .footer__main p,
 .footer__main a {
-	line-height: 2em;
+	line-height: var(--line-height-big);
 }
 
 .footer__main a img {
