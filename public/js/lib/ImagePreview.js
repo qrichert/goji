@@ -44,7 +44,7 @@ function ImagePreview(parentForm, // <form>
 			this.m_deleteImageButton = null; // Just make sure it's null
 		}
 
-		this.m_deleteImageButton.addEventListener(TOUCH_EVENT, function() {
+		this.m_deleteImageButton.addEventListener('click', function() {
 			_this.deleteImage();
 		}, false);
 

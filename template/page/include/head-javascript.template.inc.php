@@ -1,17 +1,22 @@
 <script>
 
-	/* CONSTANTS */
+	/* <CONSTANTS> */
 
 	const PAGE = '<?= $this->m_app->getRouter()->getCurrentPage(); ?>';
-//	let SCREEN_WIDTH  = window.innerWidth;
+
+	const DARK_MODE = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+//	const TOUCH_DEVICE = 'ontouchstart' in window ? true : false;
+
+//	let SCREEN_WIDTH = window.innerWidth;
 //	let SCREEN_HEIGHT = window.innerHeight;
-	const TOUCH_EVENT = 'click'; //'ontouchstart' in window ? 'touchend' : 'click';
-//	const TOUCH_DEVICE  = 'ontouchstart' in window ? true : false;
 //
 //	window.addEventListener('resize', function() {
-//		SCREEN_WIDTH  = window.innerWidth;
+//		SCREEN_WIDTH = window.innerWidth;
 //		SCREEN_HEIGHT = window.innerHeight;
 //	}, false);
+
+	/* <FUNCTIONS> */
 
 //	/*
 //		Returns scroll ratio. (0 = top || 1 = bottom)

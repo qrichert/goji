@@ -57,7 +57,6 @@
 			$cssFiles = [
 				'css/reset.css',
 				'css/root.css',
-				//'css/darkmode.root.css',
 				'css/goji.css',
 				//'css/lib/Goji/books.css',
 				'css/lib/Goji/flags.css',
