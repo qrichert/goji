@@ -109,7 +109,7 @@
 		public function hydrateFormWithExistingBlogPost($id): void {
 
 			// If bad ID, read() will fail
-			$data = $this->read($id);
+			$data = $this->read($id, false, true); // Read raw (e.g. don't transform '%{WEBROOT}')
 
 			$this->createForm(); // Creates one if none, doesn't overwrite current one
 
@@ -280,10 +280,11 @@
 		 * Read from DB
 		 *
 		 * @param $id
-		 * @param bool $isPermalink If we read from a permalink
+		 * @param bool $isPermalink If ID is a permalink or a read database id
+		 * @param bool $raw
 		 * @return array
 		 */
-		public function read($id, $isPermalink = false): array {
+		public function read($id, bool $isPermalink = false, bool $raw = false): array {
 
 			if ($id === null)
 				$this->m_parent->errorBlogPostDoesNotExist();
@@ -302,9 +303,11 @@
 			if ($reply === false)
 				$this->m_parent->errorBlogPostDoesNotExist();
 
-			$reply['illustration'] = str_replace('%{WEBROOT}', WEBROOT, $reply['illustration']);
-			$reply['creation_date'] = SwissKnife::dateToComponents($reply['creation_date']);
-			$reply['last_edit_date'] = SwissKnife::dateToComponents($reply['last_edit_date']);
+			if (!$raw) {
+				$reply['illustration'] = str_replace('%{WEBROOT}', WEBROOT, $reply['illustration']);
+				$reply['creation_date'] = SwissKnife::dateToComponents($reply['creation_date']);
+				$reply['last_edit_date'] = SwissKnife::dateToComponents($reply['last_edit_date']);
+			}
 
 			return $reply;
 		}
