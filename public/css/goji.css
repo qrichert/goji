@@ -16,9 +16,9 @@ html, body {
 
 html {
 	font-size: var(--text-size-default);
-	/*-webkit-font-kerning: normal;*/
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	/*-webkit-font-kerning: normal;*/
 	/*font-kerning: normal;*/
 	/*text-rendering: optimizeLegibility;*/
 }
