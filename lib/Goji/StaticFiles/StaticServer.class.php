@@ -28,9 +28,8 @@
 
 		const CSS = 'css';
 		const JAVASCRIPT = 'js';
-		const GGUI = 'ggui';
 
-		const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT, self::GGUI];
+		const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT];
 
 		const E_REQUEST_IS_EMPTY = 0;
 		const E_FILE_NOT_FOUND = 1;
@@ -99,10 +98,6 @@
 			$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
 				$this->m_fileType = mb_strtolower($this->m_fileType);
 
-			// Ggui ?
-			if ($this->m_files[0] == FileRendererGgui::GGUI_IMPORT_FILE)
-				$this->m_fileType = self::GGUI;
-
 			if (!in_array($this->m_fileType, self::SUPPORTED_FILE_TYPES))
 				throw new Exception("File type not supported: {$this->m_fileType}", self::E_FILE_TYPE_NOT_SUPPORTED);
 		}
@@ -132,10 +127,6 @@
 
 				case self::JAVASCRIPT:
 					$renderer = new FileRendererJS($this);
-					break;
-
-				case self::GGUI:
-					$renderer = new FileRendererGgui($this);
 					break;
 			}
 
