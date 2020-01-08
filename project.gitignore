@@ -71,12 +71,9 @@ Thumbs.db
 #/public/css/lib/Goji/
 #/public/css/reset.css
 #/public/css/goji.css
-/public/css/vendor/*
 #/public/img/lib/Goji/
 #/public/js/lib/Goji/
-/public/js/vendor/*
 /var/*
 !/var/db/
-/vendor/*
 
 !.gitkeep

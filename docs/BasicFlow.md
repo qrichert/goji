@@ -41,7 +41,6 @@ Directory Structure
     **`db`**, *databases (like SQLite).*
     **`log`**, *log files (like metrics).*
     **`upload`**, *user uploaded files.*
-- **`vendor`**, *for external libraries.*
 
 Request Chain
 -------------

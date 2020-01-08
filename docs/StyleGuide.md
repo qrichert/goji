@@ -35,8 +35,8 @@ decided to use it), but rather overwrite the elements in `main.css`. But it's up
 
 **`main.css`** is where you put the project CSS and overwrite `goji.css` rules.
 
-There are also a **`lib`** and a **`vendor`** folder. **`lib`** is for reusable CSS modules that you have
-made and **`vendor`** are for external CSS modules or libraries.
+There is also a **`lib`** folder. **`lib`** is for reusable CSS modules that you have made, or external
+CSS modules and libraries.
 
 Variables
 ---------

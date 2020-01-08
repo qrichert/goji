@@ -34,11 +34,11 @@
 		/*
 		 * 'controller' is the controller to which the page is tied to.
 		 *
-		 * In this example, the "home" controller is \App\Controller\HomeController()
+		 * In this example, the "home" controller is \App\Controller\HomeController
 		 * in /src/App/Controller/HomeController.class.php
 		 *
 		 * The class is imported and called automatically, this is why you have to make it
-		 * implement \Goji\Blueprints\ControllerAbstract().
+		 * implement \Goji\Blueprints\ControllerAbstract.
 		 *
 		 * The importer is smart, so you only need to specify Module/ClassName, it will transform it
 		 * automatically to the full path \Module\Controller\ClassName (/ will be converted to \).

@@ -3,6 +3,7 @@ Tips And Tricks
 
 1. [Working With Symlinks](#working-with-symlinks)
 2. [Remote Access](#remote-access)
+3. [Deploying With Git](#deploying-with-git)
 
 Working With Symlinks
 ---------------------
@@ -111,3 +112,16 @@ How to do this depends on your specific router. Just search on Google for *nat p
 forwarding your-router-brand*. You'll then be able to connect to your machine the same
 way as before, using your WLAN IP address (which may change daily). To get your WLAN IP,
 search for *what is my ip* on Google. It will look something like `http://93.23.180.172:8888`. 
+
+Deploying With Git
+------------------
+
+Git is great for versioning, and it's very good at deploying too. You can just `git clone` a
+public repository on your server and keep it up-to-date with a simple `git pull`.
+
+Even cheap host providers sometimes have Git installed, and you can access it with tools like
+[_terminal](https://github.com/qrichert/_terminal) (a PHP-based CLI emulator) if you can't use SSH.
+
+If you can't use SSH and for private repositories, you can use a deploy token/key instead of your
+username and password. GitHub gives you an account-level token. If want a per-project-level token,
+you might want to check out GitLab instead.
