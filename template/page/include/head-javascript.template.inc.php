@@ -23,8 +23,8 @@
 	 * $() selects one element (= document.querySelector)
 	 * $$() selects multiple elements (= document.querySelectorAll)
 	 */
-	let $ = selector => { return document.querySelector(selector); };
-	let $$ = selector => { return document.querySelectorAll(selector); };
+	let $ = selector => document.querySelector(selector);
+	let $$ = selector => document.querySelectorAll(selector);
 
 	/**
 	 * element.addEventListener() helper
