@@ -121,6 +121,9 @@ public repository on your server and keep it up-to-date with a simple `git pull`
 
 Even cheap host providers sometimes have Git installed, and you can access it with tools like
 [_terminal](https://github.com/qrichert/_terminal) (a PHP-based CLI emulator) if you can't use SSH.
+Goji itself provides you with a 'git pull' updater in the admin interface. Just click on the 'Update'
+button with the Git logo to do so. If you hover over the button after the update, you'll be able to
+see the changelist.
 
 If you can't use SSH and for private repositories, you can use a deploy token/key instead of your
 username and password. GitHub gives you an account-level token. If want a per-project-level token,
