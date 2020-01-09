@@ -84,7 +84,7 @@ RedirectMatch 404 /\.git
 # --- AVOID FOLDER LISTING ---
 
 Options -Indexes
-#IndexOptions Charset=UTF-8
+IndexOptions Charset=UTF-8
 
 # --- IGNORE FILES IN INDEX BASED ON NAME ---
 
