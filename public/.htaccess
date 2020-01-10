@@ -81,14 +81,19 @@ ErrorDocument 500 /index.php
 RedirectMatch 404 /\.git
 #RedirectMatch 404 /tmp/
 
-# --- AVOID FOLDER LISTING ---
+# --- FOLDER LISTING POLICIES ---
 
 Options -Indexes
 IndexOptions Charset=UTF-8
-
-# --- IGNORE FILES IN INDEX BASED ON NAME ---
-
+IndexOptions IgnoreCase FancyIndexing FoldersFirst NameWidth=* DescriptionWidth=*
+IndexOrderDefault Ascending Name
 #IndexIgnore *.secret
+
+# --- FORCE DOWNLOAD OF CERTAIN TYPES OF FILE ---
+
+#<FilesMatch "\.(pdf|mp4|mkv)$">
+#	Header set Content-Disposition attachment
+#</FilesMatch>
 
 # --- REMOVE UNWANTED HEADERS ---
 
