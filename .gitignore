@@ -44,7 +44,6 @@
 /log/*
 !/log/.keep
 /tmp
-/__pycache__/
 
 .DS_Store
 .DS_Store?
@@ -55,6 +54,8 @@ ehthumbs.db
 Thumbs.db
 /.idea/
 /venv/
+__pycache__/
+node_modules/
 
 /_BACKUP_/*
 /_FACTORY_/*
