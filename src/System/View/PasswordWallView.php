@@ -10,9 +10,9 @@
 </main>
 
 <?php
-	$template->linkFiles([
-		'js/lib/Goji/Form.class.min.js'
-	]);
+$template->linkFiles([
+	'js/lib/Goji/Form.class.min.js'
+]);
 ?>
 <script>
 	(function() {

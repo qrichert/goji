@@ -1,15 +1,15 @@
 <?php
 
-	namespace Admin\Controller;
+namespace Admin\Controller;
 
-	use Goji\Blueprints\XhrControllerAbstract;
-	use Goji\Core\HttpResponse;
-	use Goji\Toolkit\BackUp;
+use Goji\Blueprints\XhrControllerAbstract;
+use Goji\Core\HttpResponse;
+use Goji\Toolkit\BackUp;
 
-	class XhrBackUpDatabaseController extends XhrControllerAbstract {
+class XhrBackUpDatabaseController extends XhrControllerAbstract {
 
-		public function render(): void {
+	public function render(): void {
 
-			HttpResponse::JSON([], BackUp::database($this->m_app->db()));
-		}
+		HttpResponse::JSON([], BackUp::database($this->m_app->db()));
 	}
+}

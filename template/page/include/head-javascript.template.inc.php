@@ -90,10 +90,10 @@
 
 <?php
 
-	$template->linkFiles([
-		'js/lib/Goji/Polyfills.min.js',
-		'js/lib/Goji/SimpleRequest.class.min.js'
-	]);
+$template->linkFiles([
+	'js/lib/Goji/Polyfills.min.js',
+	'js/lib/Goji/SimpleRequest.class.min.js'
+]);
 
-	if ($this->m_app->getAppMode() === \Goji\Core\App::DEBUG)
-		$template->linkFiles('js/lib/Goji/WindowSizeDisplay.min.js');
+if ($this->m_app->getAppMode() === \Goji\Core\App::DEBUG)
+	$template->linkFiles('js/lib/Goji/WindowSizeDisplay.min.js');

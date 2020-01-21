@@ -15,10 +15,10 @@
 </main>
 
 <?php
-	$template->linkFiles([
-		'js/lib/Goji/TextAreaAutoResize.class.min.js',
-		'js/lib/Goji/Form.class.min.js'
-	]);
+$template->linkFiles([
+	'js/lib/Goji/TextAreaAutoResize.class.min.js',
+	'js/lib/Goji/Form.class.min.js'
+]);
 ?>
 <script>
 	(function () {

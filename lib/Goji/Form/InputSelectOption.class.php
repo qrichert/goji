@@ -1,22 +1,22 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputSelectOption
+ *
+ * @package Goji\Form
+ */
+class InputSelectOption extends FormElementAbstract {
 
 	/**
-	 * Class InputSelectOption
-	 *
-	 * @package Goji\Form
+	 * InputSelectOption constructor.
 	 */
-	class InputSelectOption extends FormElementAbstract {
+	public function __construct() {
 
-		/**
-		 * InputSelectOption constructor.
-		 */
-		public function __construct() {
+		parent::__construct();
 
-			parent::__construct();
-
-			$this->m_openingTag = '<option %{ATTRIBUTES}>';
-			$this->m_closingTag = '</option>';
-		}
+		$this->m_openingTag = '<option %{ATTRIBUTES}>';
+		$this->m_closingTag = '</option>';
 	}
+}

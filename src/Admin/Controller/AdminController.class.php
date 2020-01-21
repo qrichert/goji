@@ -1,29 +1,29 @@
 <?php
 
-	namespace Admin\Controller;
+namespace Admin\Controller;
 
-	use Goji\Blueprints\ControllerAbstract;
-	use Goji\Rendering\SimpleTemplate;
-	use Goji\Translation\Translator;
+use Goji\Blueprints\ControllerAbstract;
+use Goji\Rendering\SimpleTemplate;
+use Goji\Translation\Translator;
 
-	class AdminController extends ControllerAbstract {
+class AdminController extends ControllerAbstract {
 
-		public function render(): void {
+	public function render(): void {
 
-			$tr = new Translator($this->m_app);
-				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+		$tr = new Translator($this->m_app);
+			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-			$template = new SimpleTemplate($tr->_('ADMIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
-			                               $tr->_('ADMIN_PAGE_DESCRIPTION'),
-			                               SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
-				$template->addSpecial('is-focus-page', true);
+		$template = new SimpleTemplate($tr->_('ADMIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
+		                               $tr->_('ADMIN_PAGE_DESCRIPTION'),
+		                               SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
+			$template->addSpecial('is-focus-page', true);
 
-			$template->startBuffer();
+		$template->startBuffer();
 
-			require_once $template->getView('Admin/AdminView');
+		require_once $template->getView('Admin/AdminView');
 
-			$template->saveBuffer();
+		$template->saveBuffer();
 
-			require_once $template->getTemplate('page/main');
-		}
+		require_once $template->getTemplate('page/main');
 	}
+}

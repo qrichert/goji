@@ -1,20 +1,20 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
 
-	use Goji\Blueprints\HtmlAttributesManagerAbstract;
+use Goji\Blueprints\HtmlAttributesManagerAbstract;
 
-	/**
-	 * Class FormElementAbstract
-	 *
-	 * @package Goji\Form
-	 */
-	abstract class FormObjectAbstract extends HtmlAttributesManagerAbstract {
+/**
+ * Class FormElementAbstract
+ *
+ * @package Goji\Form
+ */
+abstract class FormObjectAbstract extends HtmlAttributesManagerAbstract {
 
 /* <RENDERING> */
 
-		/**
-		 * Output as HTML
-		 */
-		abstract public function render(): void;
-	}
+	/**
+	 * Output as HTML
+	 */
+	abstract public function render(): void;
+}

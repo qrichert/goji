@@ -1,149 +1,149 @@
 <?php
 
-	namespace Goji\StaticFiles;
+namespace Goji\StaticFiles;
 
-	use Goji\Core\ConfigurationLoader;
-	use Exception;
+use Goji\Core\ConfigurationLoader;
+use Exception;
+
+/**
+ * Class StaticServer
+ *
+ * @package Goji\StaticFiles
+ */
+class StaticServer {
+
+	/* <ATTRIBUTES> */
+
+	private $m_linkedFilesMode;
+	private $m_requestFileURI;
+	private $m_fileType;
+	private $m_files;
+
+	/* <CONSTANTS> */
+
+	const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
+
+	const NORMAL = 'normal';
+	const MERGED = 'merged';
+
+	const CSS = 'css';
+	const JAVASCRIPT = 'js';
+
+	const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT];
+
+	const E_REQUEST_IS_EMPTY = 0;
+	const E_FILE_NOT_FOUND = 1;
+	const E_FILE_TYPE_NOT_SUPPORTED = 2;
+
+	public function __construct(string $configFile = self::CONFIG_FILE) {
+
+		// Config
+		try {
+
+			$config = ConfigurationLoader::loadFileToArray($configFile);
+
+			if (!empty($config['merge_linked_files'])
+			    && $config['merge_linked_files'] === true)
+					$this->m_linkedFilesMode = self::MERGED;
+			else
+				$this->m_linkedFilesMode = self::NORMAL;
+
+		} catch (Exception $e) {
+
+			$this->m_linkedFilesMode = self::NORMAL;
+		}
+
+		// Request file URI
+		$this->m_requestFileURI = $_SERVER['REQUEST_URI'];
+
+			$this->m_requestFileURI = rawurldecode($this->m_requestFileURI);
+
+			// We only want the page, not the query string
+			// /home?q=query -> /home
+			$pos = mb_strpos($this->m_requestFileURI, '?');
+
+			if ($pos !== false)
+				$this->m_requestFileURI = mb_substr($this->m_requestFileURI, 0, $pos);
+
+			if (empty($this->m_requestFileURI))
+				throw new Exception("Request is empty", self::E_REQUEST_IS_EMPTY);
+
+		// Extract files from request
+		$this->m_files = explode('|', $this->m_requestFileURI); // explode() always returns an array
+
+			$webRoot = WEBROOT . '/';
+			$webRootLength = mb_strlen($webRoot);
+
+			// Remove WEBROOT & Quick validity check
+			// We remove the WEBROOT because we are already in it (/public/static.php)
+			foreach ($this->m_files as &$f) {
+
+				if (mb_substr($f, 0, $webRootLength) == $webRoot)
+					$f = mb_substr($f, $webRootLength);
+
+				if (!is_file($f)) {
+					// Maybe it doesn't find it because there is a file version in the name (for browser cache).
+					// Like 'css/responsive.v1558194608.css' -> 'css/responsive.css'
+					// Let's try & remove the v1558194608 part
+					$f = preg_replace('#\.v[0-9]+(\.[^.]+)$#i', '$1', $f);
+
+					// If it still doesn't exist
+					if (!is_file($f))
+						throw new Exception("File not found: '$f'", self::E_FILE_NOT_FOUND);
+				}
+			}
+			unset($f);
+
+		// File type
+		$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
+			$this->m_fileType = mb_strtolower($this->m_fileType);
+
+		if (!in_array($this->m_fileType, self::SUPPORTED_FILE_TYPES))
+			throw new Exception("File type not supported: {$this->m_fileType}", self::E_FILE_TYPE_NOT_SUPPORTED);
+	}
 
 	/**
-	 * Class StaticServer
-	 *
-	 * @package Goji\StaticFiles
+	 * @return string|array|null
 	 */
-	class StaticServer {
-
-		/* <ATTRIBUTES> */
-
-		private $m_linkedFilesMode;
-		private $m_requestFileURI;
-		private $m_fileType;
-		private $m_files;
-
-		/* <CONSTANTS> */
-
-		const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
-
-		const NORMAL = 'normal';
-		const MERGED = 'merged';
-
-		const CSS = 'css';
-		const JAVASCRIPT = 'js';
-
-		const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT];
-
-		const E_REQUEST_IS_EMPTY = 0;
-		const E_FILE_NOT_FOUND = 1;
-		const E_FILE_TYPE_NOT_SUPPORTED = 2;
-
-		public function __construct(string $configFile = self::CONFIG_FILE) {
-
-			// Config
-			try {
-
-				$config = ConfigurationLoader::loadFileToArray($configFile);
-
-				if (!empty($config['merge_linked_files'])
-				    && $config['merge_linked_files'] === true)
-						$this->m_linkedFilesMode = self::MERGED;
-				else
-					$this->m_linkedFilesMode = self::NORMAL;
-
-			} catch (Exception $e) {
-
-				$this->m_linkedFilesMode = self::NORMAL;
-			}
-
-			// Request file URI
-			$this->m_requestFileURI = $_SERVER['REQUEST_URI'];
-
-				$this->m_requestFileURI = rawurldecode($this->m_requestFileURI);
-
-				// We only want the page, not the query string
-				// /home?q=query -> /home
-				$pos = mb_strpos($this->m_requestFileURI, '?');
-
-				if ($pos !== false)
-					$this->m_requestFileURI = mb_substr($this->m_requestFileURI, 0, $pos);
-
-				if (empty($this->m_requestFileURI))
-					throw new Exception("Request is empty", self::E_REQUEST_IS_EMPTY);
-
-			// Extract files from request
-			$this->m_files = explode('|', $this->m_requestFileURI); // explode() always returns an array
-
-				$webRoot = WEBROOT . '/';
-				$webRootLength = mb_strlen($webRoot);
-
-				// Remove WEBROOT & Quick validity check
-				// We remove the WEBROOT because we are already in it (/public/static.php)
-				foreach ($this->m_files as &$f) {
-
-					if (mb_substr($f, 0, $webRootLength) == $webRoot)
-						$f = mb_substr($f, $webRootLength);
-
-					if (!is_file($f)) {
-						// Maybe it doesn't find it because there is a file version in the name (for browser cache).
-						// Like 'css/responsive.v1558194608.css' -> 'css/responsive.css'
-						// Let's try & remove the v1558194608 part
-						$f = preg_replace('#\.v[0-9]+(\.[^.]+)$#i', '$1', $f);
-
-						// If it still doesn't exist
-						if (!is_file($f))
-							throw new Exception("File not found: '$f'", self::E_FILE_NOT_FOUND);
-					}
-				}
-				unset($f);
-
-			// File type
-			$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
-				$this->m_fileType = mb_strtolower($this->m_fileType);
-
-			if (!in_array($this->m_fileType, self::SUPPORTED_FILE_TYPES))
-				throw new Exception("File type not supported: {$this->m_fileType}", self::E_FILE_TYPE_NOT_SUPPORTED);
-		}
-
-		/**
-		 * @return string|array|null
-		 */
-		public function getFiles() {
-			return $this->m_files;
-		}
-
-		/**
-		 * Starts routing
-		 */
-		public function exec(): void {
-
-			if ($this->m_fileType === null || $this->m_files === null)
-				$this->fileNotFound();
-
-			$renderer = null;
-
-			switch ($this->m_fileType) {
-
-				case self::CSS:
-					$renderer = new FileRendererCSS($this);
-					break;
-
-				case self::JAVASCRIPT:
-					$renderer = new FileRendererJS($this);
-					break;
-			}
-
-			if ($renderer === null)
-				$this->fileNotFound();
-
-			if ($this->m_linkedFilesMode == self::MERGED)
-				$renderer->renderMerged();
-			else
-				$renderer->renderFlat();
-		}
-
-		/**
-		 * Sends 404 and exit;s
-		 */
-		public function fileNotFound(): void {
-			header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
-			exit;
-		}
+	public function getFiles() {
+		return $this->m_files;
 	}
+
+	/**
+	 * Starts routing
+	 */
+	public function exec(): void {
+
+		if ($this->m_fileType === null || $this->m_files === null)
+			$this->fileNotFound();
+
+		$renderer = null;
+
+		switch ($this->m_fileType) {
+
+			case self::CSS:
+				$renderer = new FileRendererCSS($this);
+				break;
+
+			case self::JAVASCRIPT:
+				$renderer = new FileRendererJS($this);
+				break;
+		}
+
+		if ($renderer === null)
+			$this->fileNotFound();
+
+		if ($this->m_linkedFilesMode == self::MERGED)
+			$renderer->renderMerged();
+		else
+			$renderer->renderFlat();
+	}
+
+	/**
+	 * Sends 404 and exit;s
+	 */
+	public function fileNotFound(): void {
+		header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found', true, 404);
+		exit;
+	}
+}

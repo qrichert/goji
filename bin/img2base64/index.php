@@ -1,22 +1,22 @@
 <?php
 
-	if (isset($_FILES['image'])) {
+if (isset($_FILES['image'])) {
 
-		$imageInfos = pathinfo($_FILES['image']['name']);
-			$imageExtension = $imageInfos['extension'];
+	$imageInfos = pathinfo($_FILES['image']['name']);
+		$imageExtension = $imageInfos['extension'];
 
-		if (preg_match("#^jpe?g|png|gif|bmp$#i", $imageExtension)) {
+	if (preg_match("#^jpe?g|png|gif|bmp$#i", $imageExtension)) {
 
-			$data = file_get_contents($_FILES['image']['tmp_name']);
+		$data = file_get_contents($_FILES['image']['tmp_name']);
 
-			header('Content-Type: text/plain; charset=utf8');
-			header('Content-Disposition: attachment; filename="' . $imageInfos['filename'] . '.txt"');
+		header('Content-Type: text/plain; charset=utf8');
+		header('Content-Disposition: attachment; filename="' . $imageInfos['filename'] . '.txt"');
 
-			echo 'data:' . $_FILES['image']['type'] . ';base64,' . base64_encode($data);
+		echo 'data:' . $_FILES['image']['type'] . ';base64,' . base64_encode($data);
 
-			exit;
-		}
+		exit;
 	}
+}
 
 ?><!DOCTYPE html>
 <html>

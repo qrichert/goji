@@ -1,545 +1,545 @@
 <?php
 
-	namespace Goji\Rendering;
+namespace Goji\Rendering;
 
-	use Goji\Blueprints\RobotsInterface;
-	use Goji\Core\AutoLoader;
-	use Goji\Core\ConfigurationLoader;
-	use Exception;
-	use Goji\Toolkit\SwissKnife;
+use Goji\Blueprints\RobotsInterface;
+use Goji\Core\AutoLoader;
+use Goji\Core\ConfigurationLoader;
+use Exception;
+use Goji\Toolkit\SwissKnife;
+
+/**
+ * Class SimpleTemplate
+ *
+ * Easily handles page templates.
+ *
+ * Ex:
+ *
+ * ```php
+ * // Controller
+ *
+ * use Goji\Rendering\SimpleTemplate;
+ *
+ * // Template is an object containing all the data the template
+ * // file may need to be generated, like page title and content.
+ * $template = new SimpleTemplate();
+ * 		$template->setPageTitle('Title'); // Set page title
+ * 		$template->setPageDescription('Description'); // Set page description
+ * 		$template->setRobotsBehaviour(SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW); // Disallow robot indexing
+ * 		$template->setSpecials([
+ * 			'tracking_event' => 'View page',
+ * 			'og_image' => 'img/og.jpg'
+ * 		]);
+ *
+ * // Instead of buffering the view file, you could also just
+ * // do $template->setPageContent($string), but it's usually easier
+ * // to just buffer an entire HTML file into a string than generating
+ * // a string from scratch.
+ * $template->startBuffer(); // Start buffering HTML
+ *
+ * 		// Generating the View
+ * 		// Main page content goes here
+ *
+ * // This calls SimpleTemplate::setPageContent($buffer), no need to set it manually.
+ * $template->saveBuffer(); // Saves content internally.
+ *
+ * // Template file will read the values of SimpleTemplate
+ * require_once $template->getTemplate('page/main'); // Load template file (../template/page/main.template.php)
+ *
+ * // Inside the template you can read values like this
+ *
+ * 		// Outputting them directly
+ * 		<?= $template->getPageTitle(); ?>
+ * 		<?= $template->getPageDescription(); ?>
+ *
+ * 		// Or with 'echo', it's the same shit
+ * 		echo $template->getPageContent(); // Get buffered HTML
+ * 		echo $template->getRobotsBehaviour(); // Returns string like <meta name="robots...>
+ * 		echo $template->getSpecial('tracking_event'); // Here would return 'View page' as set before
+ * ```
+ *
+ * If you want to add elements not supported by default, you can use Specials.
+ * See SimpleTemplate::setSpecials(), SimpleTemplate::addSpecial() and SimpleTemplate::getSpecial()
+ *
+ * @package Goji\Rendering
+ */
+class SimpleTemplate implements RobotsInterface {
+
+	/* <ATTRIBUTES> */
+
+	private $m_webRoot;
+	private $m_pageTitle;
+	private $m_pageDescription;
+	private $m_robotsBehaviour;
+	private $m_showCanonicalPageAndAlternates;
+	private $m_pageContent;
+	private $m_specials;
+	private $m_linkedFilesMode;
+
+	/* <CONSTANTS> */
+
+	const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
+
+	const VIEW_PATH = ROOT_PATH . '/src/%{VIEW}.%{FILETYPE}';
+	const TEMPLATE_PATH = ROOT_PATH . '/template/%{TEMPLATE}.template.%{FILETYPE}';
+
+	const NORMAL = 'normal';
+	const MERGED = 'merged';
+
+	const CSS = 'css';
+	const JAVASCRIPT = 'js';
+
+	const E_UNSUPPORTED_FILE_TYPE = 0;
+	const E_FILE_DOES_NOT_EXIST = 1;
 
 	/**
-	 * Class SimpleTemplate
+	 * SimpleTemplate constructor.
 	 *
-	 * Easily handles page templates.
+	 * @param string $pageTitle (optional) default = ''
+	 * @param string $pageDescription (optional) default = ''
+	 * @param int $robotsBehaviour (optional) default = SimpleTemplate::ROBOTS_ALLOW_INDEX_AND_FOLLOW
+	 * @param bool $showCanonicalPageAndAlternates (optional) default = true
+	 * @param string $configFile
+	 */
+	public function __construct(string $pageTitle = '',
+	                            string $pageDescription = '',
+	                            int $robotsBehaviour = self::ROBOTS_ALLOW_INDEX_AND_FOLLOW,
+								bool $showCanonicalPageAndAlternates = true,
+								string $configFile = self::CONFIG_FILE) {
+
+		$this->m_webRoot = WEBROOT;
+		$this->m_pageTitle = $pageTitle;
+		$this->m_pageDescription = $pageDescription;
+		$this->m_robotsBehaviour = $robotsBehaviour;
+		$this->m_showCanonicalPageAndAlternates = $showCanonicalPageAndAlternates;
+		$this->m_pageContent = '';
+		$this->m_specials = [];
+
+		try {
+
+			$config = ConfigurationLoader::loadFileToArray($configFile);
+
+			if (!empty($config['merge_linked_files'])
+			    && $config['merge_linked_files'] === true)
+					$this->m_linkedFilesMode = self::MERGED;
+			else
+				$this->m_linkedFilesMode = self::NORMAL;
+
+		} catch (Exception $e) {
+
+			$this->m_linkedFilesMode = self::NORMAL;
+		}
+	}
+
+	/* <GETTERS/SETTERS> */
+
+	/**
+	 * @return string
+	 */
+	public function getWebRoot(): string {
+		return $this->m_webRoot;
+	}
+
+	/**
+	 * Returns page <title>.
 	 *
-	 * Ex:
+	 * @return string
+	 */
+	public function getPageTitle(): string {
+		return $this->m_pageTitle;
+	}
+
+	/**
+	 * Sets page <title>.
 	 *
-	 * ```php
-	 * // Controller
+	 * @param string $title
+	 */
+	public function setPageTitle(string $title): void {
+		$this->m_pageTitle = $title;
+	}
+
+	/**
+	 * Returns page <meta name="description">.
 	 *
-	 * use Goji\Rendering\SimpleTemplate;
+	 * @return string
+	 */
+	public function getPageDescription(): string {
+		return $this->m_pageDescription;
+	}
+
+	/**
+	 * Sets page <meta name="description">.
 	 *
-	 * // Template is an object containing all the data the template
-	 * // file may need to be generated, like page title and content.
-	 * $template = new SimpleTemplate();
-	 * 		$template->setPageTitle('Title'); // Set page title
-	 * 		$template->setPageDescription('Description'); // Set page description
-	 * 		$template->setRobotsBehaviour(SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW); // Disallow robot indexing
-	 * 		$template->setSpecials([
-	 * 			'tracking_event' => 'View page',
-	 * 			'og_image' => 'img/og.jpg'
-	 * 		]);
+	 * @param string $description
+	 */
+	public function setPageDescription(string $description): void {
+		$this->m_pageDescription = $description;
+	}
+
+	/**
+	 * Returns page <meta name="robots">.
 	 *
-	 * // Instead of buffering the view file, you could also just
-	 * // do $template->setPageContent($string), but it's usually easier
-	 * // to just buffer an entire HTML file into a string than generating
-	 * // a string from scratch.
-	 * $template->startBuffer(); // Start buffering HTML
+	 * It can return four different values:
 	 *
-	 * 		// Generating the View
-	 * 		// Main page content goes here
-	 *
-	 * // This calls SimpleTemplate::setPageContent($buffer), no need to set it manually.
-	 * $template->saveBuffer(); // Saves content internally.
-	 *
-	 * // Template file will read the values of SimpleTemplate
-	 * require_once $template->getTemplate('page/main'); // Load template file (../template/page/main.template.php)
-	 *
-	 * // Inside the template you can read values like this
-	 *
-	 * 		// Outputting them directly
-	 * 		<?= $template->getPageTitle(); ?>
-	 * 		<?= $template->getPageDescription(); ?>
-	 *
-	 * 		// Or with 'echo', it's the same shit
-	 * 		echo $template->getPageContent(); // Get buffered HTML
-	 * 		echo $template->getRobotsBehaviour(); // Returns string like <meta name="robots...>
-	 * 		echo $template->getSpecial('tracking_event'); // Here would return 'View page' as set before
+	 * ```html
+	 * <meta name="robots" content="noindex">
+	 * <meta name="robots" content="nofollow">
+	 * <meta name="robots" content="noindex, nofollow">
+	 * <!-- Fourth value is an empty string. -->
 	 * ```
 	 *
-	 * If you want to add elements not supported by default, you can use Specials.
-	 * See SimpleTemplate::setSpecials(), SimpleTemplate::addSpecial() and SimpleTemplate::getSpecial()
-	 *
-	 * @package Goji\Rendering
+	 * @return string
 	 */
-	class SimpleTemplate implements RobotsInterface {
+	public function getRobotsBehaviour(): string {
 
-		/* <ATTRIBUTES> */
+		switch ($this->m_robotsBehaviour) {
 
-		private $m_webRoot;
-		private $m_pageTitle;
-		private $m_pageDescription;
-		private $m_robotsBehaviour;
-		private $m_showCanonicalPageAndAlternates;
-		private $m_pageContent;
-		private $m_specials;
-		private $m_linkedFilesMode;
-
-		/* <CONSTANTS> */
-
-		const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
-
-		const VIEW_PATH = ROOT_PATH . '/src/%{VIEW}.%{FILETYPE}';
-		const TEMPLATE_PATH = ROOT_PATH . '/template/%{TEMPLATE}.template.%{FILETYPE}';
-
-		const NORMAL = 'normal';
-		const MERGED = 'merged';
-
-		const CSS = 'css';
-		const JAVASCRIPT = 'js';
-
-		const E_UNSUPPORTED_FILE_TYPE = 0;
-		const E_FILE_DOES_NOT_EXIST = 1;
-
-		/**
-		 * SimpleTemplate constructor.
-		 *
-		 * @param string $pageTitle (optional) default = ''
-		 * @param string $pageDescription (optional) default = ''
-		 * @param int $robotsBehaviour (optional) default = SimpleTemplate::ROBOTS_ALLOW_INDEX_AND_FOLLOW
-		 * @param bool $showCanonicalPageAndAlternates (optional) default = true
-		 * @param string $configFile
-		 */
-		public function __construct(string $pageTitle = '',
-		                            string $pageDescription = '',
-		                            int $robotsBehaviour = self::ROBOTS_ALLOW_INDEX_AND_FOLLOW,
-									bool $showCanonicalPageAndAlternates = true,
-									string $configFile = self::CONFIG_FILE) {
-
-			$this->m_webRoot = WEBROOT;
-			$this->m_pageTitle = $pageTitle;
-			$this->m_pageDescription = $pageDescription;
-			$this->m_robotsBehaviour = $robotsBehaviour;
-			$this->m_showCanonicalPageAndAlternates = $showCanonicalPageAndAlternates;
-			$this->m_pageContent = '';
-			$this->m_specials = [];
-
-			try {
-
-				$config = ConfigurationLoader::loadFileToArray($configFile);
-
-				if (!empty($config['merge_linked_files'])
-				    && $config['merge_linked_files'] === true)
-						$this->m_linkedFilesMode = self::MERGED;
-				else
-					$this->m_linkedFilesMode = self::NORMAL;
-
-			} catch (Exception $e) {
-
-				$this->m_linkedFilesMode = self::NORMAL;
-			}
+			case self::ROBOTS_NOINDEX:          return '<meta name="robots" content="noindex">' . PHP_EOL;              break;
+			case self::ROBOTS_NOFOLLOW:         return '<meta name="robots" content="nofollow">' . PHP_EOL;             break;
+			case self::ROBOTS_NOINDEX_NOFOLLOW: return '<meta name="robots" content="noindex, nofollow">' . PHP_EOL;    break;
 		}
 
-		/* <GETTERS/SETTERS> */
+		return ''; // Default, nothing
+	}
 
-		/**
-		 * @return string
-		 */
-		public function getWebRoot(): string {
-			return $this->m_webRoot;
-		}
+	/**
+	 * Sets page <meta name="robots">.
+	 *
+	 * It can take four different values:
+	 *
+	 * ```php`
+	 * SimpleTemplate::ROBOTS_ALLOW_INDEX_AND_FOLLOW // Default
+	 * SimpleTemplate::ROBOTS_NOINDEX
+	 * SimpleTemplate::NOFOLLOW
+	 * SimpleTemplate::NOINDEX_NOFOLLOW
+	 * ``
+	 *
+	 * @param \Goji\Toolkit\SimpleTemplate::ROBOTS_BEHAVIOUR $behaviour
+	 */
+	public function setRobotsBehaviour(int $behaviour): void {
+		$this->m_robotsBehaviour = $behaviour;
+	}
 
-		/**
-		 * Returns page <title>.
-		 *
-		 * @return string
-		 */
-		public function getPageTitle(): string {
-			return $this->m_pageTitle;
-		}
+	/**
+	 * @return bool
+	 */
+	public function getShowCanonicalPageAndAlternates(): bool {
+		return $this->m_showCanonicalPageAndAlternates;
+	}
 
-		/**
-		 * Sets page <title>.
-		 *
-		 * @param string $title
-		 */
-		public function setPageTitle(string $title): void {
-			$this->m_pageTitle = $title;
-		}
+	/**
+	 * Show canonical page link and alternate languages or not.
+	 *
+	 * @param bool $show
+	 */
+	public function setShowCanonicalPageAndAlternates(bool $show): void {
+		$this->m_showCanonicalPageAndAlternates = $show;
+	}
 
-		/**
-		 * Returns page <meta name="description">.
-		 *
-		 * @return string
-		 */
-		public function getPageDescription(): string {
-			return $this->m_pageDescription;
-		}
+	/**
+	 * Returns page main content.
+	 *
+	 * @return string
+	 */
+	public function getPageContent(): string {
+		return $this->m_pageContent;
+	}
 
-		/**
-		 * Sets page <meta name="description">.
-		 *
-		 * @param string $description
-		 */
-		public function setPageDescription(string $description): void {
-			$this->m_pageDescription = $description;
-		}
+	/**
+	 * Sets page main content.
+	 *
+	 * @param string $content
+	 */
+	public function setPageContent(string $content): void {
 
-		/**
-		 * Returns page <meta name="robots">.
-		 *
-		 * It can return four different values:
-		 *
-		 * ```html
-		 * <meta name="robots" content="noindex">
-		 * <meta name="robots" content="nofollow">
-		 * <meta name="robots" content="noindex, nofollow">
-		 * <!-- Fourth value is an empty string. -->
-		 * ```
-		 *
-		 * @return string
-		 */
-		public function getRobotsBehaviour(): string {
+		// Make sure it's valid
+		if (is_string($content))
+			$this->m_pageContent = $content;
+	}
 
-			switch ($this->m_robotsBehaviour) {
+	/**
+	 * Get the value of a specific special.
+	 *
+	 * For example:
+	 *
+	 * ```php
+	 * <?= $template->getSpecial('tracking_event'); ?>
+	 * ```
+	 *
+	 * @param string $key
+	 * @return mixed|null
+	 */
+	public function getSpecial(string $key) {
 
-				case self::ROBOTS_NOINDEX:          return '<meta name="robots" content="noindex">' . PHP_EOL;              break;
-				case self::ROBOTS_NOFOLLOW:         return '<meta name="robots" content="nofollow">' . PHP_EOL;             break;
-				case self::ROBOTS_NOINDEX_NOFOLLOW: return '<meta name="robots" content="noindex, nofollow">' . PHP_EOL;    break;
-			}
+		if (isset($this->m_specials[$key]))
+			return $this->m_specials[$key];
+		else
+			return null;
+	}
 
-			return ''; // Default, nothing
-		}
+	/**
+	 * Deletes all specials and replaces it with given array.
+	 *
+	 * Given array should be associative with string keys, like:
+	 *
+	 * ```php
+	 * $template->setSpecials([
+	 * 		'tracking_event' => 'View page',
+	 * 		'og_image' => 'img/og.jpg'
+	 * ]);
+	 * ```
+	 *
+	 * @param array $arr
+	 */
+	public function setSpecials(array $arr): void {
+		$this->m_specials = $arr;
+	}
 
-		/**
-		 * Sets page <meta name="robots">.
-		 *
-		 * It can take four different values:
-		 *
-		 * ```php`
-		 * SimpleTemplate::ROBOTS_ALLOW_INDEX_AND_FOLLOW // Default
-		 * SimpleTemplate::ROBOTS_NOINDEX
-		 * SimpleTemplate::NOFOLLOW
-		 * SimpleTemplate::NOINDEX_NOFOLLOW
-		 * ``
-		 *
-		 * @param \Goji\Toolkit\SimpleTemplate::ROBOTS_BEHAVIOUR $behaviour
-		 */
-		public function setRobotsBehaviour(int $behaviour): void {
-			$this->m_robotsBehaviour = $behaviour;
-		}
+	/**
+	 * Add a mixed value to the Specials.
+	 *
+	 * Key should be string.
+	 * Mixed value means any type as long as it fits into an array.
+	 *
+	 * ```php
+	 * $template->addSpecial('tracking_event', 'View page');
+	 * ```
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	public function addSpecial(string $key, $value): void {
+		$this->m_specials[$key] = $value;
+	}
 
-		/**
-		 * @return bool
-		 */
-		public function getShowCanonicalPageAndAlternates(): bool {
-			return $this->m_showCanonicalPageAndAlternates;
-		}
+	/**
+	 * @return string
+	 */
+	public function getLinkedFilesMode(): string {
+		return $this->m_linkedFilesMode;
+	}
 
-		/**
-		 * Show canonical page link and alternate languages or not.
-		 *
-		 * @param bool $show
-		 */
-		public function setShowCanonicalPageAndAlternates(bool $show): void {
-			$this->m_showCanonicalPageAndAlternates = $show;
-		}
+	/* <TEMPLATE FUNCTIONS> */
 
-		/**
-		 * Returns page main content.
-		 *
-		 * @return string
-		 */
-		public function getPageContent(): string {
-			return $this->m_pageContent;
-		}
+	/**
+	 * Starts buffering. Calls ob_start().
+	 */
+	public function startBuffer(): void {
+		ob_start();
+	}
 
-		/**
-		 * Sets page main content.
-		 *
-		 * @param string $content
-		 */
-		public function setPageContent(string $content): void {
+	/**
+	 * Closes buffer and loads fragment into variable.
+	 *
+	 * @return false|string
+	 */
+	public function readBuffer() {
+		return ob_get_clean();
+	}
 
-			// Make sure it's valid
-			if (is_string($content))
-				$this->m_pageContent = $content;
-		}
+	/**
+	 * Closes buffer and discards content.
+	 */
+	public function closeBuffer(): void {
+		ob_end_clean();
+	}
 
-		/**
-		 * Get the value of a specific special.
-		 *
-		 * For example:
-		 *
-		 * ```php
-		 * <?= $template->getSpecial('tracking_event'); ?>
-		 * ```
-		 *
-		 * @param string $key
-		 * @return mixed|null
-		 */
-		public function getSpecial(string $key) {
+	/**
+	 * Closes buffer and saves content.
+	 *
+	 * This is equivalent to doing:
+	 *
+	 * ```php
+	 * $content = $template->readBuffer();
+	 * $template->setPageContent($content);
+	 * ```
+	 */
+	public function saveBuffer(): void {
+		// Get content && update page content
+		$this->setPageContent($this->readBuffer());
+	}
 
-			if (isset($this->m_specials[$key]))
-				return $this->m_specials[$key];
-			else
-				return null;
-		}
+	/**
+	 * Returns file path for given View
+	 *
+	 * @param string $view
+	 * @param string $fileType
+	 * @return string
+	 */
+	public function getView(string $view, string $fileType = 'php'): string {
 
-		/**
-		 * Deletes all specials and replaces it with given array.
-		 *
-		 * Given array should be associative with string keys, like:
-		 *
-		 * ```php
-		 * $template->setSpecials([
-		 * 		'tracking_event' => 'View page',
-		 * 		'og_image' => 'img/og.jpg'
-		 * ]);
-		 * ```
-		 *
-		 * @param array $arr
-		 */
-		public function setSpecials(array $arr): void {
-			$this->m_specials = $arr;
-		}
+		$view = AutoLoader::sanitizeView($view, false);
 
-		/**
-		 * Add a mixed value to the Specials.
-		 *
-		 * Key should be string.
-		 * Mixed value means any type as long as it fits into an array.
-		 *
-		 * ```php
-		 * $template->addSpecial('tracking_event', 'View page');
-		 * ```
-		 *
-		 * @param string $key
-		 * @param mixed $value
-		 */
-		public function addSpecial(string $key, $value): void {
-			$this->m_specials[$key] = $value;
-		}
+		$view = str_replace('%{VIEW}', $view, self::VIEW_PATH);
+		$view = str_replace('%{FILETYPE}', $fileType, $view);
 
-		/**
-		 * @return string
-		 */
-		public function getLinkedFilesMode(): string {
-			return $this->m_linkedFilesMode;
-		}
+		return $view;
+	}
 
-		/* <TEMPLATE FUNCTIONS> */
+	/**
+	 * Returns file path for given template
+	 *
+	 * @param string $template
+	 * @param string $fileType
+	 * @return string
+	 */
+	public function getTemplate(string $template, string $fileType = 'php'): string {
 
-		/**
-		 * Starts buffering. Calls ob_start().
-		 */
-		public function startBuffer(): void {
-			ob_start();
-		}
+		$template = str_replace('%{TEMPLATE}', $template, self::TEMPLATE_PATH);
 
-		/**
-		 * Closes buffer and loads fragment into variable.
-		 *
-		 * @return false|string
-		 */
-		public function readBuffer() {
-			return ob_get_clean();
-		}
+		// .template.php
+		$templateRegular = str_replace('%{FILETYPE}', $fileType, $template);
 
-		/**
-		 * Closes buffer and discards content.
-		 */
-		public function closeBuffer(): void {
-			ob_end_clean();
-		}
+		if (is_file($templateRegular))
+			return $templateRegular;
 
-		/**
-		 * Closes buffer and saves content.
-		 *
-		 * This is equivalent to doing:
-		 *
-		 * ```php
-		 * $content = $template->readBuffer();
-		 * $template->setPageContent($content);
-		 * ```
-		 */
-		public function saveBuffer(): void {
-			// Get content && update page content
-			$this->setPageContent($this->readBuffer());
-		}
+		// .template.inc.php
+		$template = str_replace('%{FILETYPE}', 'inc.' . $fileType, $template);
 
-		/**
-		 * Returns file path for given View
-		 *
-		 * @param string $view
-		 * @param string $fileType
-		 * @return string
-		 */
-		public function getView(string $view, string $fileType = 'php'): string {
+		return $template;
+	}
 
-			$view = AutoLoader::sanitizeView($view, false);
+	/**
+	 * Link JS and CSS files (as single items or merged depending on configuration)
+	 *
+	 * @param string|array $files
+	 * @param bool $appendFileMTime Append file last modified timestamp to filenames (to update browser cached version if needed)
+	 * @param bool $renderAbsolutePaths css/main.css -> /WEBROOT/css/main.css
+	 * @param bool $returnAsString
+	 * @param string|null $forceMode
+	 * @return string|null
+	 * @throws \Exception
+	 */
+	public function linkFiles($files, bool $appendFileMTime = true, bool $renderAbsolutePaths = true, bool $returnAsString = false, string $forceMode = null): ?string {
 
-			$view = str_replace('%{VIEW}', $view, self::VIEW_PATH);
-			$view = str_replace('%{FILETYPE}', $fileType, $view);
+		// Make sure it's either string or array
+		if (!is_array($files) && !is_string($files))
+			return null;
 
-			return $view;
-		}
+		// If it's a string, make it an array
+		$files = (array) $files;
 
-		/**
-		 * Returns file path for given template
-		 *
-		 * @param string $template
-		 * @param string $fileType
-		 * @return string
-		 */
-		public function getTemplate(string $template, string $fileType = 'php'): string {
+		// If there's no element in the array, quit
+		if (count($files) === 0)
+			return null;
 
-			$template = str_replace('%{TEMPLATE}', $template, self::TEMPLATE_PATH);
+		if ($appendFileMTime) {
 
-			// .template.php
-			$templateRegular = str_replace('%{FILETYPE}', $fileType, $template);
+			// Add filemtime to file name goji.css -> goji.0123456789.css
+			foreach ($files as &$f) {
 
-			if (is_file($templateRegular))
-				return $templateRegular;
+				$realFile = $f;
 
-			// .template.inc.php
-			$template = str_replace('%{FILETYPE}', 'inc.' . $fileType, $template);
+				// If it starts with '/', we make './' so it still means 'look inside the current folder,
+				// where there is index.php (WEBROOT)
+				if (mb_substr($realFile, 0, 1) == '/')
+					$realFile = '.' . $realFile;
 
-			return $template;
-		}
-
-		/**
-		 * Link JS and CSS files (as single items or merged depending on configuration)
-		 *
-		 * @param string|array $files
-		 * @param bool $appendFileMTime Append file last modified timestamp to filenames (to update browser cached version if needed)
-		 * @param bool $renderAbsolutePaths css/main.css -> /WEBROOT/css/main.css
-		 * @param bool $returnAsString
-		 * @param string|null $forceMode
-		 * @return string|null
-		 * @throws \Exception
-		 */
-		public function linkFiles($files, bool $appendFileMTime = true, bool $renderAbsolutePaths = true, bool $returnAsString = false, string $forceMode = null): ?string {
-
-			// Make sure it's either string or array
-			if (!is_array($files) && !is_string($files))
-				return null;
-
-			// If it's a string, make it an array
-			$files = (array) $files;
-
-			// If there's no element in the array, quit
-			if (count($files) === 0)
-				return null;
-
-			if ($appendFileMTime) {
-
-				// Add filemtime to file name goji.css -> goji.0123456789.css
-				foreach ($files as &$f) {
-
-					$realFile = $f;
-
-					// If it starts with '/', we make './' so it still means 'look inside the current folder,
-					// where there is index.php (WEBROOT)
-					if (mb_substr($realFile, 0, 1) == '/')
-						$realFile = '.' . $realFile;
-
-					if (!is_file($realFile)) {
-						throw new Exception("File does not exist: '$realFile'", self::E_FILE_DOES_NOT_EXIST);
-					}
-
-					// ex: css/lib/Goji/inputs.css
-					$baseDir = dirname($f); // ex: css/lib/Goji (Strips trailing /)
-					$fileName = pathinfo($f, PATHINFO_FILENAME); // ex: inputs
-					$extension = pathinfo($f, PATHINFO_EXTENSION); // ex: css (Strips .)
-
-					// Reconstruct with filemtime
-					$f = $baseDir . '/' . $fileName . '.v' . filemtime($realFile) . '.' . $extension;
+				if (!is_file($realFile)) {
+					throw new Exception("File does not exist: '$realFile'", self::E_FILE_DOES_NOT_EXIST);
 				}
-				unset($f);
+
+				// ex: css/lib/Goji/inputs.css
+				$baseDir = dirname($f); // ex: css/lib/Goji (Strips trailing /)
+				$fileName = pathinfo($f, PATHINFO_FILENAME); // ex: inputs
+				$extension = pathinfo($f, PATHINFO_EXTENSION); // ex: css (Strips .)
+
+				// Reconstruct with filemtime
+				$f = $baseDir . '/' . $fileName . '.v' . filemtime($realFile) . '.' . $extension;
 			}
+			unset($f);
+		}
 
-			if ($renderAbsolutePaths) {
+		if ($renderAbsolutePaths) {
 
-				// Prepend webroot + slash if none
-				foreach ($files as &$f) {
-					$slash = mb_substr($f, 0, 1) == '/' ? '' : '/';
-					$f = WEBROOT . $slash . $f;
-				}
-				unset($f);
+			// Prepend webroot + slash if none
+			foreach ($files as &$f) {
+				$slash = mb_substr($f, 0, 1) == '/' ? '' : '/';
+				$f = WEBROOT . $slash . $f;
 			}
+			unset($f);
+		}
 
-			$linkedFilesMode = $this->m_linkedFilesMode;
+		$linkedFilesMode = $this->m_linkedFilesMode;
 
-			// If force mode is set & valid, use it
-			if (isset($forceMode)
-			    && ($forceMode === self::NORMAL || $forceMode === self::MERGED))
-					$linkedFilesMode = $forceMode;
+		// If force mode is set & valid, use it
+		if (isset($forceMode)
+		    && ($forceMode === self::NORMAL || $forceMode === self::MERGED))
+				$linkedFilesMode = $forceMode;
 
-			// Now we guess the file type
-			$fileType = pathinfo($files[0], PATHINFO_EXTENSION);
-				$fileType = mb_strtolower($fileType);
+		// Now we guess the file type
+		$fileType = pathinfo($files[0], PATHINFO_EXTENSION);
+			$fileType = mb_strtolower($fileType);
 
-			$linkStatement = '';
+		$linkStatement = '';
 
-			if ($fileType === self::CSS)
-				$linkStatement = '<link rel="stylesheet" type="text/css" href="%{PATH}">';
-			else if ($fileType === self::JAVASCRIPT)
-				$linkStatement = '<script src="%{PATH}"></script>';
-			else
-				throw new Exception('Unsupported file type: ' . $fileType, self::E_UNSUPPORTED_FILE_TYPE);
+		if ($fileType === self::CSS)
+			$linkStatement = '<link rel="stylesheet" type="text/css" href="%{PATH}">';
+		else if ($fileType === self::JAVASCRIPT)
+			$linkStatement = '<script src="%{PATH}"></script>';
+		else
+			throw new Exception('Unsupported file type: ' . $fileType, self::E_UNSUPPORTED_FILE_TYPE);
 
-			$output = '';
+		$output = '';
 
-			if ($linkedFilesMode === self::MERGED) {
+		if ($linkedFilesMode === self::MERGED) {
 
-				$output = implode(rawurlencode('|'), $files);
-				$output = str_replace('%{PATH}', $output, $linkStatement) . PHP_EOL;
+			$output = implode(rawurlencode('|'), $files);
+			$output = str_replace('%{PATH}', $output, $linkStatement) . PHP_EOL;
 
-			} else { // self::NORMAL
+		} else { // self::NORMAL
 
-				foreach ($files as $file) {
-					$output .= str_replace('%{PATH}', $file, $linkStatement) . PHP_EOL;
-				}
+			foreach ($files as $file) {
+				$output .= str_replace('%{PATH}', $file, $linkStatement) . PHP_EOL;
 			}
+		}
 
-			if ($returnAsString)
-				return $output;
-			else
-				echo $output;
+		if ($returnAsString)
+			return $output;
+		else
+			echo $output;
 
+		return null;
+	}
+
+	/**
+	 * Adds Webroot to get resource absolute path (starting with '/')
+	 *
+	 * @param string $resource
+	 * @param bool $output
+	 * @return string
+	 */
+	public static function getResource(string $resource, bool $output = false): ?string {
+
+		if (mb_substr($resource, 0, 1) !== '/')
+			$resource = '/' . $resource;
+
+		$resource = WEBROOT . $resource;
+
+		if ($output) {
+			echo $resource;
 			return null;
 		}
 
-		/**
-		 * Adds Webroot to get resource absolute path (starting with '/')
-		 *
-		 * @param string $resource
-		 * @param bool $output
-		 * @return string
-		 */
-		public static function getResource(string $resource, bool $output = false): ?string {
-
-			if (mb_substr($resource, 0, 1) !== '/')
-				$resource = '/' . $resource;
-
-			$resource = WEBROOT . $resource;
-
-			if ($output) {
-				echo $resource;
-				return null;
-			}
-
-			return $resource;
-		}
-
-		/**
-		 * Alias for SimpleTemplate::getResource()
-		 *
-		 * @param array $args
-		 * @return array|string
-		 */
-		public static function rsc(...$args) {
-			return self::getResource(...$args);
-		}
-
-		/**
-		 * Cleans string to make it a [a-z0-9-] id
-		 * @param string $id
-		 * @return string
-		 */
-		public static function anchorify(string $id): string {
-			return SwissKnife::stringToID($id);
-		}
+		return $resource;
 	}
+
+	/**
+	 * Alias for SimpleTemplate::getResource()
+	 *
+	 * @param array $args
+	 * @return array|string
+	 */
+	public static function rsc(...$args) {
+		return self::getResource(...$args);
+	}
+
+	/**
+	 * Cleans string to make it a [a-z0-9-] id
+	 * @param string $id
+	 * @return string
+	 */
+	public static function anchorify(string $id): string {
+		return SwissKnife::stringToID($id);
+	}
+}

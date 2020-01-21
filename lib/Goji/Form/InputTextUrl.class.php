@@ -1,27 +1,27 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputTextUrl
+ *
+ * @package Goji\Form
+ */
+class InputTextUrl extends InputText {
 
 	/**
-	 * Class InputTextUrl
+	 * InputTextUrl constructor.
 	 *
-	 * @package Goji\Form
+	 * @param callable|null $isValidCallback
+	 * @param bool $forceCallbackOnly
+	 * @param callable|null $sanitizeCallback
 	 */
-	class InputTextUrl extends InputText {
+	public function __construct(callable $isValidCallback = null,
+	                            bool $forceCallbackOnly = false,
+	                            callable $sanitizeCallback = null) {
 
-		/**
-		 * InputTextUrl constructor.
-		 *
-		 * @param callable|null $isValidCallback
-		 * @param bool $forceCallbackOnly
-		 * @param callable|null $sanitizeCallback
-		 */
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_openingTag = '<input type="url" %{ATTRIBUTES}>';
-		}
+		$this->m_openingTag = '<input type="url" %{ATTRIBUTES}>';
 	}
+}

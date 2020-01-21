@@ -1,8 +1,8 @@
 <?php
 
-	namespace AutoLoad;
+namespace AutoLoad;
 
-	require_once 'Goji/Core/AutoLoader.class.php';
+require_once 'Goji/Core/AutoLoader.class.php';
 
-	spl_autoload_register('\Goji\Core\AutoLoader::autoLoadLibrary');
-	spl_autoload_register('\Goji\Core\AutoLoader::autoLoadSource');
+spl_autoload_register('\Goji\Core\AutoLoader::autoLoadLibrary');
+spl_autoload_register('\Goji\Core\AutoLoader::autoLoadSource');

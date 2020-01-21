@@ -1,37 +1,37 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputTextArea
+ *
+ * @package Goji\Form
+ */
+class InputTextArea extends InputText {
 
 	/**
-	 * Class InputTextArea
+	 * InputTextArea constructor.
 	 *
-	 * @package Goji\Form
+	 * @param callable|null $isValidCallback
+	 * @param bool $forceCallbackOnly
+	 * @param callable|null $sanitizeCallback
 	 */
-	class InputTextArea extends InputText {
+	public function __construct(callable $isValidCallback = null,
+	                            bool $forceCallbackOnly = false,
+	                            callable $sanitizeCallback = null) {
 
-		/**
-		 * InputTextArea constructor.
-		 *
-		 * @param callable|null $isValidCallback
-		 * @param bool $forceCallbackOnly
-		 * @param callable|null $sanitizeCallback
-		 */
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_openingTag = '<textarea %{ATTRIBUTES}>';
-			$this->m_closingTag = '</textarea>';
-		}
-
-		public function render(): void {
-
-			$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(true, false), $this->m_openingTag);
-			$output .= $this->hasAttribute('value') ? htmlspecialchars($this->getAttribute('value')) : '';
-			$output .= $this->m_closingTag;
-
-			echo $output;
-		}
+		$this->m_openingTag = '<textarea %{ATTRIBUTES}>';
+		$this->m_closingTag = '</textarea>';
 	}
+
+	public function render(): void {
+
+		$output = str_replace('%{ATTRIBUTES}', $this->renderAttributes(true, false), $this->m_openingTag);
+		$output .= $this->hasAttribute('value') ? htmlspecialchars($this->getAttribute('value')) : '';
+		$output .= $this->m_closingTag;
+
+		echo $output;
+	}
+}

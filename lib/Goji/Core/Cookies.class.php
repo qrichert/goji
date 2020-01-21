@@ -1,184 +1,184 @@
 <?php
 
-	namespace Goji\Core;
+namespace Goji\Core;
 
-	use Exception;
+use Exception;
+
+/**
+ * Class Cookies
+ *
+ * @package Goji\Core
+ */
+class Cookies {
+
+	/* <ATTRIBUTES> */
+
+	private static $m_isInitialized;
+	private static $m_useCookies;
+	private static $m_secure;
+	private static $m_cookiesPrefix;
+
+	/* <CONSTANTS> */
+
+	const CONFIG_FILE = ROOT_PATH . '/config/cookies.json5';
 
 	/**
-	 * Class Cookies
+	 * Read configuration and initialize attributes.
 	 *
-	 * @package Goji\Core
+	 * This function is designed to load configuration only on the first use of
+	 * a class method.
+	 *
+	 * @param string $configFile
 	 */
-	class Cookies {
+	private static function initialize(string $configFile = self::CONFIG_FILE): void {
 
-		/* <ATTRIBUTES> */
+		if (self::$m_isInitialized)
+			return;
 
-		private static $m_isInitialized;
-		private static $m_useCookies;
-		private static $m_secure;
-		private static $m_cookiesPrefix;
+		try {
 
-		/* <CONSTANTS> */
+			$config = ConfigurationLoader::loadFileToArray($configFile);
 
-		const CONFIG_FILE = ROOT_PATH . '/config/cookies.json5';
+			self::$m_useCookies = isset($config['use_cookies']) && $config['use_cookies'] === true;
+			self::$m_secure = self::isSecure($config['secure']);
+			self::$m_cookiesPrefix = $config['cookies_prefix'] ?? '';
 
-		/**
-		 * Read configuration and initialize attributes.
-		 *
-		 * This function is designed to load configuration only on the first use of
-		 * a class method.
-		 *
-		 * @param string $configFile
-		 */
-		private static function initialize(string $configFile = self::CONFIG_FILE): void {
+		} catch (Exception $e) {
 
-			if (self::$m_isInitialized)
-				return;
-
-			try {
-
-				$config = ConfigurationLoader::loadFileToArray($configFile);
-
-				self::$m_useCookies = isset($config['use_cookies']) && $config['use_cookies'] === true;
-				self::$m_secure = self::isSecure($config['secure']);
-				self::$m_cookiesPrefix = $config['cookies_prefix'] ?? '';
-
-			} catch (Exception $e) {
-
-				self::$m_useCookies = true;
-				self::$m_secure = self::isSecure();
-				self::$m_cookiesPrefix = '';
-			}
-
-			self::$m_isInitialized = true;
+			self::$m_useCookies = true;
+			self::$m_secure = self::isSecure();
+			self::$m_cookiesPrefix = '';
 		}
 
-		/**
-		 * @param mixed $secure
-		 * @return bool
-		 */
-		private static function isSecure($secure = null): bool {
+		self::$m_isInitialized = true;
+	}
 
-			if (!isset($secure)) {
+	/**
+	 * @param mixed $secure
+	 * @return bool
+	 */
+	private static function isSecure($secure = null): bool {
 
-				if (!empty($_SERVER['HTTPS']) && mb_strtolower($_SERVER['HTTPS']) !== 'off') {
+		if (!isset($secure)) {
 
-					return true;
+			if (!empty($_SERVER['HTTPS']) && mb_strtolower($_SERVER['HTTPS']) !== 'off') {
 
-				} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
-				        || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && mb_strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on') {
-
-					return true;
-				}
-			}
-
-			if (isset($secure) && true === (bool) $secure)
 				return true;
 
-			// $secure != true
+			} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+			        || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && mb_strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on') {
+
+				return true;
+			}
+		}
+
+		if (isset($secure) && true === (bool) $secure)
+			return true;
+
+		// $secure != true
+		return false;
+	}
+
+	/**
+	 * Create or set the value of a cookie.
+	 *
+	 * @param string $name
+	 * @param string $value
+	 * @param int $expireIn
+	 * @param string $path
+	 * @param string $domain
+	 * @param bool $secure default = null -> use config
+	 * @param bool $httponly
+	 * @return bool
+	 */
+	public static function set(string $name, string $value = '', int $expireIn = -1,
+	                           string $path = '/', string $domain = '', bool $secure = null,
+	                           bool $httponly = true): bool {
+
+		self::initialize();
+
+		if (!self::$m_useCookies)
 			return false;
-		}
 
-		/**
-		 * Create or set the value of a cookie.
-		 *
-		 * @param string $name
-		 * @param string $value
-		 * @param int $expireIn
-		 * @param string $path
-		 * @param string $domain
-		 * @param bool $secure default = null -> use config
-		 * @param bool $httponly
-		 * @return bool
-		 */
-		public static function set(string $name, string $value = '', int $expireIn = -1,
-		                           string $path = '/', string $domain = '', bool $secure = null,
-		                           bool $httponly = true): bool {
+		$name = self::$m_cookiesPrefix . $name;
 
-			self::initialize();
+		if ($expireIn == -1)
+			$expireIn = 10 * 12 * 30 * 24 * 3600; // 10 years
 
-			if (!self::$m_useCookies)
-				return false;
+		$expireIn = time() + $expireIn;
 
-			$name = self::$m_cookiesPrefix . $name;
+		if (!isset($secure))
+			$secure = self::$m_secure;
 
-			if ($expireIn == -1)
-				$expireIn = 10 * 12 * 30 * 24 * 3600; // 10 years
+		return setcookie($name, $value, $expireIn, $path, $domain, $secure, $httponly);
+	}
 
-			$expireIn = time() + $expireIn;
+	/**
+	 * Get a value from a cookie.
+	 *
+	 * @param string $name
+	 * @return mixed|string
+	 */
+	public static function get(string $name) {
 
-			if (!isset($secure))
-				$secure = self::$m_secure;
+		self::initialize();
 
-			return setcookie($name, $value, $expireIn, $path, $domain, $secure, $httponly);
-		}
+		$name = self::$m_cookiesPrefix . $name;
 
-		/**
-		 * Get a value from a cookie.
-		 *
-		 * @param string $name
-		 * @return mixed|string
-		 */
-		public static function get(string $name) {
+		if (isset($_COOKIE[$name]))
+			return $_COOKIE[$name];
+		else
+			return null;
+	}
 
-			self::initialize();
+	/**
+	 * Delete a specific cookie.
+	 *
+	 * @param string $name
+	 * @param string $path
+	 * @param string $domain
+	 * @return bool
+	 */
+	public static function unset(string $name, string $path = '/', string $domain = ''): bool {
 
-			$name = self::$m_cookiesPrefix . $name;
+		self::initialize();
 
-			if (isset($_COOKIE[$name]))
-				return $_COOKIE[$name];
-			else
-				return null;
-		}
+		$name = self::$m_cookiesPrefix . $name;
 
-		/**
-		 * Delete a specific cookie.
-		 *
-		 * @param string $name
-		 * @param string $path
-		 * @param string $domain
-		 * @return bool
-		 */
-		public static function unset(string $name, string $path = '/', string $domain = ''): bool {
+		unset($_COOKIE[$name]);
 
-			self::initialize();
+		return setcookie($name, '', time() - 24 * 3600, $path, $domain, false, true);
+	}
 
-			$name = self::$m_cookiesPrefix . $name;
+	/**
+	 * Delete all cookies.
+	 *
+	 * @return bool
+	 */
+	public static function purge(): bool {
 
-			unset($_COOKIE[$name]);
+		$purgeSuccessful = true;
 
-			return setcookie($name, '', time() - 24 * 3600, $path, $domain, false, true);
-		}
+		if (isset($_SERVER['HTTP_COOKIE'])) {
 
-		/**
-		 * Delete all cookies.
-		 *
-		 * @return bool
-		 */
-		public static function purge(): bool {
+			$cookies = explode(';', $_SERVER['HTTP_COOKIE']);
 
-			$purgeSuccessful = true;
+			foreach($cookies as $cookie) {
 
-			if (isset($_SERVER['HTTP_COOKIE'])) {
+				$parts = explode('=', $cookie);
+				$name = trim($parts[0]);
 
-				$cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+				if (!setcookie($name, '', time() - 24 * 3600))
+					$purgeSuccessful = false;
 
-				foreach($cookies as $cookie) {
-
-					$parts = explode('=', $cookie);
-					$name = trim($parts[0]);
-
-					if (!setcookie($name, '', time() - 24 * 3600))
-						$purgeSuccessful = false;
-
-					if (!setcookie($name, '', time() - 24 * 3600, '/'))
-						$purgeSuccessful = false;
-				}
-
-			} else {
-				$purgeSuccessful = false;
+				if (!setcookie($name, '', time() - 24 * 3600, '/'))
+					$purgeSuccessful = false;
 			}
 
-			return $purgeSuccessful;
+		} else {
+			$purgeSuccessful = false;
 		}
+
+		return $purgeSuccessful;
 	}
+}

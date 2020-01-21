@@ -1,17 +1,17 @@
 <?php
 
-	namespace Admin\Controller;
+namespace Admin\Controller;
 
-	use Goji\Blueprints\XhrControllerAbstract;
-	use Goji\Core\HttpResponse;
-	use Goji\Toolkit\Terminal;
+use Goji\Blueprints\XhrControllerAbstract;
+use Goji\Core\HttpResponse;
+use Goji\Toolkit\Terminal;
 
-	class XhrUpdateController extends XhrControllerAbstract {
+class XhrUpdateController extends XhrControllerAbstract {
 
-		public function render(): void {
+	public function render(): void {
 
-			$output = Terminal::execute('git pull', $success);
+		$output = Terminal::execute('git pull', $success);
 
-			HttpResponse::JSON(['output' => $output], $success);
-		}
+		HttpResponse::JSON(['output' => $output], $success);
 	}
+}

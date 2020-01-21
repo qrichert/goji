@@ -24,10 +24,10 @@
 </div>
 
 <?php
-	$template->linkFiles([
-		'js/lib/Goji/Form.class.min.js',
-		'js/lib/Goji/Dialog.class.min.js'
-	]);
+$template->linkFiles([
+	'js/lib/Goji/Form.class.min.js',
+	'js/lib/Goji/Dialog.class.min.js'
+]);
 ?>
 <script>
 	(function() {

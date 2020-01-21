@@ -3,24 +3,24 @@
 		<h1><?= $tr->_('BLOG_POST_MAIN_TITLE')[$this->m_action]; ?></h1>
 
 		<?php
-			if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_UPDATE) {
+		if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_UPDATE) {
 
-				$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' .
-				        $blogPostManager->getForm()->getInputByName('blog-post[permalink]')->getValue();
-			?>
-				<div class="blog__toolbar toolbar main-toolbar">
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
-					             '?action=' . \Blog\Model\BlogPostManager::ACTION_CREATE; ?>"
-					   class="link-button highlight add" id="blog__toolbar--new-blog-post">
-						<?= $tr->_('BLOG_POST_NEW_BLOG_POST'); ?>
-					</a>
-					<a href="<?= $link; ?>"
-					   class="link-button" id="blog__toolbar--go-to-blog-post">
-						<?= $tr->_('BLOG_POST_GO_TO_BLOG_POST'); ?>
-					</a>
-				</div>
-			<?php
-			}
+			$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' .
+			        $blogPostManager->getForm()->getInputByName('blog-post[permalink]')->getValue();
+		?>
+			<div class="blog__toolbar toolbar main-toolbar">
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
+				             '?action=' . \Blog\Model\BlogPostManager::ACTION_CREATE; ?>"
+				   class="link-button highlight add" id="blog__toolbar--new-blog-post">
+					<?= $tr->_('BLOG_POST_NEW_BLOG_POST'); ?>
+				</a>
+				<a href="<?= $link; ?>"
+				   class="link-button" id="blog__toolbar--go-to-blog-post">
+					<?= $tr->_('BLOG_POST_GO_TO_BLOG_POST'); ?>
+				</a>
+			</div>
+		<?php
+		}
 		?>
 
 		<?php $blogPostManager->getForm()->render(); ?>
@@ -29,42 +29,42 @@
 </main>
 
 <?php
-	$template->linkFiles([
-		'js/lib/Goji/TextAreaAutoResize.class.min.js', // ../js/lib/.. if you use <script> tag in HTML
-		'js/lib/Goji/Form.class.min.js'
-	]);
+$template->linkFiles([
+	'js/lib/Goji/TextAreaAutoResize.class.min.js', // ../js/lib/.. if you use <script> tag in HTML
+	'js/lib/Goji/Form.class.min.js'
+]);
 ?>
 <script>
 	(function () {
 
 		<?php
-			if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_CREATE) {
-			?>
-				let permalink = document.querySelector('#blog-post__permalink');
-				let title = document.querySelector('#blog-post__title');
-				let permalinkEdited = false;
+		if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_CREATE) {
+		?>
+			let permalink = document.querySelector('#blog-post__permalink');
+			let title = document.querySelector('#blog-post__title');
+			let permalinkEdited = false;
 
-				function formatPermalink(permalink) {
+			function formatPermalink(permalink) {
 
-					permalink = permalink.toLowerCase();
-					permalink = permalink.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-					permalink = permalink.replace(/[^A-Z0-9]+/gi, '-');
-					permalink = permalink.replace(/(^-+|-+$)/g, '');
+				permalink = permalink.toLowerCase();
+				permalink = permalink.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+				permalink = permalink.replace(/[^A-Z0-9]+/gi, '-');
+				permalink = permalink.replace(/(^-+|-+$)/g, '');
 
-					return permalink;
-				}
-
-				permalink.addEventListener('keyup', () => permalinkEdited = true, false);
-
-				title.addEventListener('keyup', () => {
-
-					if (permalinkEdited)
-						return;
-
-					permalink.value = formatPermalink(title.value);
-				}, false);
-			<?php
+				return permalink;
 			}
+
+			permalink.addEventListener('keyup', () => permalinkEdited = true, false);
+
+			title.addEventListener('keyup', () => {
+
+				if (permalinkEdited)
+					return;
+
+				permalink.value = formatPermalink(title.value);
+			}, false);
+		<?php
+		}
 		?>
 
 		new TextAreaAutoResize(document.querySelector('#blog-post__post'));

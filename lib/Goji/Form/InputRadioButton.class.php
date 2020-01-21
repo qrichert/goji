@@ -1,28 +1,28 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputRadioButton
+ *
+ * @package Goji\Form
+ */
+class InputRadioButton extends InputCheckBox {
 
 	/**
-	 * Class InputRadioButton
+	 * InputRadioButton constructor.
 	 *
-	 * @package Goji\Form
+	 * @param callable|null $isValidCallback
+	 * @param bool $forceCallbackOnly
+	 * @param callable|null $sanitizeCallback
 	 */
-	class InputRadioButton extends InputCheckBox {
+	public function __construct(callable $isValidCallback = null,
+	                            bool $forceCallbackOnly = false,
+	                            callable $sanitizeCallback = null) {
 
-		/**
-		 * InputRadioButton constructor.
-		 *
-		 * @param callable|null $isValidCallback
-		 * @param bool $forceCallbackOnly
-		 * @param callable|null $sanitizeCallback
-		 */
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_openingTag = '<input type="radio" %{ID} %{ATTRIBUTES}><label %{FOR}><span></span>';
-			$this->m_closingTag = '</label>';
-		}
+		$this->m_openingTag = '<input type="radio" %{ID} %{ATTRIBUTES}><label %{FOR}><span></span>';
+		$this->m_closingTag = '</label>';
 	}
+}

@@ -1,34 +1,34 @@
 <?php
 
-	namespace HR\Controller;
+namespace HR\Controller;
 
-	use Goji\Blueprints\CachedControllerAbstract;
-	use Goji\Rendering\SimpleTemplate;
-	use Goji\Translation\Translator;
-	use HR\Model\LoginForm;
-	use HR\Model\ResetPasswordRequestForm;
+use Goji\Blueprints\CachedControllerAbstract;
+use Goji\Rendering\SimpleTemplate;
+use Goji\Translation\Translator;
+use HR\Model\LoginForm;
+use HR\Model\ResetPasswordRequestForm;
 
-	class LoginController extends CachedControllerAbstract {
+class LoginController extends CachedControllerAbstract {
 
-		public function render(): void {
+	public function render(): void {
 
-			$tr = new Translator($this->m_app);
-				$tr->loadTranslationResource('%{LOCALE}.tr.xml');
-				$tr->loadTranslationResource('%{LOCALE}.tr.xml', false, 'xhr-reset-password-request');
+		$tr = new Translator($this->m_app);
+			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+			$tr->loadTranslationResource('%{LOCALE}.tr.xml', false, 'xhr-reset-password-request');
 
-			$form = new LoginForm($tr);
-			$resetPasswordRequestForm = new ResetPasswordRequestForm($tr);
+		$form = new LoginForm($tr);
+		$resetPasswordRequestForm = new ResetPasswordRequestForm($tr);
 
-			$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
-										   $tr->_('LOGIN_PAGE_DESCRIPTION'),
-										   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
+		$template = new SimpleTemplate($tr->_('LOGIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
+									   $tr->_('LOGIN_PAGE_DESCRIPTION'),
+									   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 
-			$template->startBuffer();
+		$template->startBuffer();
 
-			require_once $template->getView('HR/LoginView');
+		require_once $template->getView('HR/LoginView');
 
-			$template->saveBuffer();
+		$template->saveBuffer();
 
-			require_once $template->getTemplate('page/main');
-		}
+		require_once $template->getTemplate('page/main');
 	}
+}

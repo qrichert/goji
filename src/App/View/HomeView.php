@@ -15,13 +15,13 @@
 		?></p>
 
 		<?php
-			$homeIntro = $tr->_('HOME_TIRED_OF_NOT_HAVING_BERRIES');
-			$homeIntro = \Goji\Rendering\TemplateExtensions::ctaToHTML(
-				$homeIntro,
-				$this->m_app->getRouter()->getLinkForPage('landing-page')
-			);
+		$homeIntro = $tr->_('HOME_TIRED_OF_NOT_HAVING_BERRIES');
+		$homeIntro = \Goji\Rendering\TemplateExtensions::ctaToHTML(
+			$homeIntro,
+			$this->m_app->getRouter()->getLinkForPage('landing-page')
+		);
 
-			echo $homeIntro;
+		echo $homeIntro;
 		?>
 
 		<?php $inPageContentEdit->renderContent('IN_PAGE_CONTENT_EDIT_DEMO_TITLE', 'h2'); ?>
@@ -34,36 +34,35 @@
 		<p>
 			👉&nbsp&nbsp
 			<?php
+			$count = count($this->m_app->getLanguages()->getSupportedLocales());
+			$i = 0;
+			foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
 
-				$count = count($this->m_app->getLanguages()->getSupportedLocales());
-				$i = 0;
-				foreach ($this->m_app->getLanguages()->getSupportedLocales() as $locale) {
+				if ($locale == $this->m_app->getLanguages()->getCurrentLocale())
+					continue;
 
-					if ($locale == $this->m_app->getLanguages()->getCurrentLocale())
-						continue;
+				$i++;
 
-					$i++;
+				echo '<a href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale) . '">'
+				     . $this->m_app->getLanguages()->getConfigurationLocales()[$locale]
+				     . '</a>',
+					$i < $count - 1 ? ' - ' : '',
+					PHP_EOL;
+			}
 
-					echo '<a href="' . $this->m_app->getRouter()->getLinkForPage(null, $locale) . '">'
-					     . $this->m_app->getLanguages()->getConfigurationLocales()[$locale]
-					     . '</a>',
-						$i < $count - 1 ? ' - ' : '',
-						PHP_EOL;
-				}
+			/* Or if you prefer to do it manually
 
-				/* Or if you prefer to do it manually
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'fr'); ?>">
+				<?= $this->m_app->getLanguages()->getConfigurationLocales()['fr']; ?>
+			</a> -
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_US'); ?>">
+				<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_US']; ?>
+			</a> -
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_GB'); ?>">
+				<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_GB']; ?>
+			</a>
 
-				<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'fr'); ?>">
-					<?= $this->m_app->getLanguages()->getConfigurationLocales()['fr']; ?>
-				</a> -
-				<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_US'); ?>">
-					<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_US']; ?>
-				</a> -
-				<a href="<?= $this->m_app->getRouter()->getLinkForPage(null, 'en_GB'); ?>">
-					<?= $this->m_app->getLanguages()->getConfigurationLocales()['en_GB']; ?>
-				</a>
-
-				*/
+			*/
 			?>
 		</p>
 	</section>

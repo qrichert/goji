@@ -173,7 +173,7 @@ $form->addInput(new InputLabel())
 
 Will render as (Goji adds some formatting on top of it to conform to default styling rules):
 
-```php
+```html
 <div class="form__label-relative">
     <label>Password</label>
     <a href="#" class="form__side-info">Forgot password?</a>

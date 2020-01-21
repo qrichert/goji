@@ -1,200 +1,200 @@
 <?php
 
-	namespace Goji\Parsing;
+namespace Goji\Parsing;
+
+/**
+ * Class RegexPatterns
+ *
+ * @package Goji\Parsing
+ */
+class RegexPatterns {
 
 	/**
-	 * Class RegexPatterns
+	 * Matches single or double quoted strings.
 	 *
-	 * @package Goji\Parsing
+	 * Implements Friedl's "unrolling-the-loop" technique.
+	 *
+	 * Returns:
+	 * #(\'[^\'\\]*(?:\\.[^\'\\]*)*\'|\"[^\"\\]*(?:\\.[^\"\\]*)*\")#s
+	 *
+	 * @return string
 	 */
-	class RegexPatterns {
+	public static function quotedStrings(): string {
 
-		/**
-		 * Matches single or double quoted strings.
-		 *
-		 * Implements Friedl's "unrolling-the-loop" technique.
-		 *
-		 * Returns:
-		 * #(\'[^\'\\]*(?:\\.[^\'\\]*)*\'|\"[^\"\\]*(?:\\.[^\"\\]*)*\")#s
-		 *
-		 * @return string
+		/*
+		 * Original regex from nanorc.sample: \"(\\.|[^\"])*\"
 		 */
-		public static function quotedStrings(): string {
-
-			/*
-			 * Original regex from nanorc.sample: \"(\\.|[^\"])*\"
-			 */
 /*
-			$re = <<<'EOT'
-				#(\'(\\.|[^\'])*\'|\"(\\.|[^\"])*\")#s
-				EOT;
+		$re = <<<'EOT'
+			#(\'(\\.|[^\'])*\'|\"(\\.|[^\"])*\")#s
+			EOT;
 */
-			/*
-			 * This is apparently better.
-			 * Implements Friedl's "unrolling-the-loop" technique: "[^"\\]*(?:\\.[^"\\]*)*"
-			 */
-			return <<<'EOT'
-				#(\'[^\'\\]*(?:\\.[^\'\\]*)*\'|\"[^\"\\]*(?:\\.[^\"\\]*)*\")#s
-				EOT;
-		}
-
-		/**
-		 * Matches unescaped double quotes.
-		 *
-		 * foo \"bar" foo \\" bar
-		 * -> Matches the one after bar and the one after \\ (\\" <- escapes the \, not the ")
-		 * -> Doesn't match the first one \", it is escaped
-		 *
-		 * @return string
+		/*
+		 * This is apparently better.
+		 * Implements Friedl's "unrolling-the-loop" technique: "[^"\\]*(?:\\.[^"\\]*)*"
 		 */
-		public static function unescapedDoubleQuotes(): string {
+		return <<<'EOT'
+			#(\'[^\'\\]*(?:\\.[^\'\\]*)*\'|\"[^\"\\]*(?:\\.[^\"\\]*)*\")#s
+			EOT;
+	}
 
-			return <<<'EOT'
-				#(?<!\\)(?:\\{2})*\K\"#
-				EOT;
-		}
+	/**
+	 * Matches unescaped double quotes.
+	 *
+	 * foo \"bar" foo \\" bar
+	 * -> Matches the one after bar and the one after \\ (\\" <- escapes the \, not the ")
+	 * -> Doesn't match the first one \", it is escaped
+	 *
+	 * @return string
+	 */
+	public static function unescapedDoubleQuotes(): string {
 
-		/**
-		 * Matches unescaped single quotes.
-		 *
-		 * foo \'bar' foo \\' bar
-		 * -> Matches the one after bar and the one after \\ (\\' <- escapes the \, not the ')
-		 * -> Doesn't match the first one \', it is escaped
-		 *
-		 * @return string
-		 */
-		public static function unescapedSingleQuotes(): string {
+		return <<<'EOT'
+			#(?<!\\)(?:\\{2})*\K\"#
+			EOT;
+	}
 
-			return <<<'EOT'
-				#(?<!\\)(?:\\{2})*\K\'#
-				EOT;
-		}
+	/**
+	 * Matches unescaped single quotes.
+	 *
+	 * foo \'bar' foo \\' bar
+	 * -> Matches the one after bar and the one after \\ (\\' <- escapes the \, not the ')
+	 * -> Doesn't match the first one \', it is escaped
+	 *
+	 * @return string
+	 */
+	public static function unescapedSingleQuotes(): string {
 
-		/**
-		 * Matches a group of unescaped capturing parenthesis.
-		 *
-		 * some-other-page-([0-9]+)-(?:-([0-9]+\)))?
-		 * -> Matches ([0-9]+) and ([0-9]+\))
-		 * -> (?: is non capturing and \) is escaped
-		 *
-		 * @return string
-		 */
-		public static function unescapedParenthesisGroups(): string {
+		return <<<'EOT'
+			#(?<!\\)(?:\\{2})*\K\'#
+			EOT;
+	}
 
-			return <<<'EOT'
-				#((?<!\\)(?:\\{2})*\K\((?!\?:).*(?<!\\)(?:\\{2})*\K\))#U
-				EOT;
-		}
+	/**
+	 * Matches a group of unescaped capturing parenthesis.
+	 *
+	 * some-other-page-([0-9]+)-(?:-([0-9]+\)))?
+	 * -> Matches ([0-9]+) and ([0-9]+\))
+	 * -> (?: is non capturing and \) is escaped
+	 *
+	 * @return string
+	 */
+	public static function unescapedParenthesisGroups(): string {
 
-		/**
-		 * Matches unscaped metacharacters.
-		 *
-		 * (?: (?! (?= (?<! (?<= |?*+.()[]{}
-		 *
-		 * @return string
-		 */
-		public static function unescapedMetacharacters(): string {
+		return <<<'EOT'
+			#((?<!\\)(?:\\{2})*\K\((?!\?:).*(?<!\\)(?:\\{2})*\K\))#U
+			EOT;
+	}
 
-			return <<<'EOT'
-				#(?<!\\)(?:\\{2})*\K(\(\?:|\(\?!|\(\?=|\(\?<!|\(\?<=|[|?*+.()[\]{}])#U
-				EOT;
-		}
+	/**
+	 * Matches unscaped metacharacters.
+	 *
+	 * (?: (?! (?= (?<! (?<= |?*+.()[]{}
+	 *
+	 * @return string
+	 */
+	public static function unescapedMetacharacters(): string {
 
-		/**
-		 * Matches C style multiline comments.
-		 *
-		 * /* comment * /
-		 *
-		 * @return string
-		 */
-		public static function multiLineCStyleComments(): string {
+		return <<<'EOT'
+			#(?<!\\)(?:\\{2})*\K(\(\?:|\(\?!|\(\?=|\(\?<!|\(\?<=|[|?*+.()[\]{}])#U
+			EOT;
+	}
 
-			return '#/\*[^*]*\*+([^/][^*]*\*+)*/#';
-		}
+	/**
+	 * Matches C style multiline comments.
+	 *
+	 * /* comment * /
+	 *
+	 * @return string
+	 */
+	public static function multiLineCStyleComments(): string {
 
-		/**
-		 * Matches C style single-line comments.
-		 *
-		 * // comment
-		 *
-		 * @return string
-		 */
-		public static function singleLineCStyleComments(): string {
+		return '#/\*[^*]*\*+([^/][^*]*\*+)*/#';
+	}
 
-			return '#//.*$#m';
-		}
+	/**
+	 * Matches C style single-line comments.
+	 *
+	 * // comment
+	 *
+	 * @return string
+	 */
+	public static function singleLineCStyleComments(): string {
 
-		/**
-		 * Matches hexadecimal numbers like 0xDECAF.
-		 *
-		 * @return string
-		 */
-		public static function hexadecimalNumber(): string {
+		return '#//.*$#m';
+	}
 
-			return '#0x[\da-f]+#i';
-		}
+	/**
+	 * Matches hexadecimal numbers like 0xDECAF.
+	 *
+	 * @return string
+	 */
+	public static function hexadecimalNumber(): string {
 
-		/**
-		 * Matches escaped new lines.
-		 *
-		 * Lines that are \
-		 * cut with a backslash.
-		 *
-		 * @return string
-		 */
-		public static function escapedNewLines(): string {
+		return '#0x[\da-f]+#i';
+	}
 
-			return <<<'EOT'
-				#\\(\r\n|\n|\r)#
-				EOT;
-		}
+	/**
+	 * Matches escaped new lines.
+	 *
+	 * Lines that are \
+	 * cut with a backslash.
+	 *
+	 * @return string
+	 */
+	public static function escapedNewLines(): string {
 
-		/**
-		 * Matches white space.
-		 *
-		 * @return string
-		 */
-		public static function whiteSpace(): string {
+		return <<<'EOT'
+			#\\(\r\n|\n|\r)#
+			EOT;
+	}
 
-			return <<<'EOT'
-				#[\s\r\n\t\p{Z}]+#
-				EOT;
-		}
+	/**
+	 * Matches white space.
+	 *
+	 * @return string
+	 */
+	public static function whiteSpace(): string {
 
-		/**
-		 * <input name="foo[bar][baz][]'>
-		 *
-		 * @return string
-		 */
-		public static function htmlInputNameArrayKeys(): string {
+		return <<<'EOT'
+			#[\s\r\n\t\p{Z}]+#
+			EOT;
+	}
 
-			return <<<'EOT'
-				#\[?([^\[\]]+)\]?#
-				EOT;
-		}
+	/**
+	 * <input name="foo[bar][baz][]'>
+	 *
+	 * @return string
+	 */
+	public static function htmlInputNameArrayKeys(): string {
 
-		/**
-		 * $0 = full URL
-		 * $3$4$5 = domain
-		 *
-		 * @return string
-		 */
-		public static function url(): string {
+		return <<<'EOT'
+			#\[?([^\[\]]+)\]?#
+			EOT;
+	}
 
-			return <<<'EOT'
+	/**
+	 * $0 = full URL
+	 * $3$4$5 = domain
+	 *
+	 * @return string
+	 */
+	public static function url(): string {
+
+		return <<<'EOT'
 			#\b((https?|ftp|file)://|(www|ftp)(\.))([-A-Z0-9+&@\#%?=~_|$!:,.;]*[A-Z0-9+&@\#%=~_|$])([-A-Z0-9+&@\#/%?=~_|$!:,.;]*[A-Z0-9+&@\#/%=~_|$])#i
 			EOT;
-		}
+	}
 
-		/**
-		 * To check whether a string is a domain name
-		 *
-		 * @return string
-		 */
-		public static function validateDomainName(): string {
+	/**
+	 * To check whether a string is a domain name
+	 *
+	 * @return string
+	 */
+	public static function validateDomainName(): string {
 
-			return <<<'EOT'
+		return <<<'EOT'
 			#^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$#i
 			EOT;
-		}
 	}
+}

@@ -1,20 +1,20 @@
 <?php
 
-	namespace HR\Controller;
+namespace HR\Controller;
 
-	use Goji\Blueprints\ControllerAbstract;
-	use Goji\Core\HttpResponse;
+use Goji\Blueprints\ControllerAbstract;
+use Goji\Core\HttpResponse;
 
-	class LogoutController extends ControllerAbstract {
+class LogoutController extends ControllerAbstract {
 
-		public function render(): void {
+	public function render(): void {
 
-			$this->m_app->getUser()->logOut();
+		$this->m_app->getUser()->logOut();
 
-			HttpResponse::setRobotsHeader(HttpResponse::ROBOTS_NOINDEX);
+		HttpResponse::setRobotsHeader(HttpResponse::ROBOTS_NOINDEX);
 
-			$redirectTo = $this->m_app->getRouter()->getLinkForPage('home');
+		$redirectTo = $this->m_app->getRouter()->getLinkForPage('home');
 
-			$this->m_app->getRouter()->redirectTo($redirectTo);
-		}
+		$this->m_app->getRouter()->redirectTo($redirectTo);
 	}
+}

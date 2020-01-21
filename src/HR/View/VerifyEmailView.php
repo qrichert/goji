@@ -7,15 +7,15 @@
 	<section class="centered">
 		<p>
 			<?php
-				$txt = str_replace('%{EMAIL}',
-			                $this->m_email,
-			                $tr->_('VERIFY_EMAIL_INSTRUCTIONS'));
+			$txt = str_replace('%{EMAIL}',
+		                $this->m_email,
+		                $tr->_('VERIFY_EMAIL_INSTRUCTIONS'));
 
-				$txt = str_replace('%{LOGIN}',
-							$this->m_app->getRouter()->getLinkForPage('login'),
-							$txt);
+			$txt = str_replace('%{LOGIN}',
+						$this->m_app->getRouter()->getLinkForPage('login'),
+						$txt);
 
-				echo $txt;
+			echo $txt;
 			?>
 		</p>
 

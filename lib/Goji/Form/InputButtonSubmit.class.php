@@ -1,21 +1,21 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputButtonSubmit
+ *
+ * @package Goji\Form
+ */
+class InputButtonSubmit extends InputButton {
 
 	/**
-	 * Class InputButtonSubmit
-	 *
-	 * @package Goji\Form
+	 * InputButtonSubmit constructor.
 	 */
-	class InputButtonSubmit extends InputButton {
+	public function __construct() {
 
-		/**
-		 * InputButtonSubmit constructor.
-		 */
-		public function __construct() {
+		parent::__construct();
 
-			parent::__construct();
-
-			$this->m_openingTag = '<input type="submit" %{ATTRIBUTES}>';
-		}
+		$this->m_openingTag = '<input type="submit" %{ATTRIBUTES}>';
 	}
+}

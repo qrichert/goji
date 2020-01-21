@@ -1,27 +1,27 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputTextSearch
+ *
+ * @package Goji\Form
+ */
+class InputTextSearch extends InputText {
 
 	/**
-	 * Class InputTextSearch
+	 * InputTextSearch constructor.
 	 *
-	 * @package Goji\Form
+	 * @param callable|null $isValidCallback
+	 * @param bool $forceCallbackOnly
+	 * @param callable|null $sanitizeCallback
 	 */
-	class InputTextSearch extends InputText {
+	public function __construct(callable $isValidCallback = null,
+	                            bool $forceCallbackOnly = false,
+	                            callable $sanitizeCallback = null) {
 
-		/**
-		 * InputTextSearch constructor.
-		 *
-		 * @param callable|null $isValidCallback
-		 * @param bool $forceCallbackOnly
-		 * @param callable|null $sanitizeCallback
-		 */
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_openingTag = '<input type="search" %{ATTRIBUTES}>';
-		}
+		$this->m_openingTag = '<input type="search" %{ATTRIBUTES}>';
 	}
+}

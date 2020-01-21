@@ -1,53 +1,53 @@
 <main>
 	<section class="text">
 		<?php
-			if (!empty($blogPost['illustration'])) {
-			?>
-				<img src="<?= $blogPost['illustration']; ?>" alt="<?= $blogPost['title']; ?>" class="blog__illustration">
-			<?php
-			}
+		if (!empty($blogPost['illustration'])) {
+		?>
+			<img src="<?= $blogPost['illustration']; ?>" alt="<?= $blogPost['title']; ?>" class="blog__illustration">
+		<?php
+		}
 		?>
 		<h1><?= $blogPost['title']; ?></h1>
 		<p class="sub-heading">
 			<?php
-				$date = $tr->_('BLOG_POST_DATE');
-					$date = str_replace('%{YEAR}', $blogPost['creation_date']['year'], $date);
-					$date = str_replace('%{MONTH}', $blogPost['creation_date']['month'], $date);
-					$date = str_replace('%{DAY}', $blogPost['creation_date']['day'], $date);
+			$date = $tr->_('BLOG_POST_DATE');
+				$date = str_replace('%{YEAR}', $blogPost['creation_date']['year'], $date);
+				$date = str_replace('%{MONTH}', $blogPost['creation_date']['month'], $date);
+				$date = str_replace('%{DAY}', $blogPost['creation_date']['day'], $date);
 
-					$date = str_replace('%{HOUR}', $blogPost['creation_date']['hour'], $date);
-					$date = str_replace('%{MIN}', $blogPost['creation_date']['min'], $date);
-					$date = str_replace('%{SEC}', $blogPost['creation_date']['sec'], $date);
+				$date = str_replace('%{HOUR}', $blogPost['creation_date']['hour'], $date);
+				$date = str_replace('%{MIN}', $blogPost['creation_date']['min'], $date);
+				$date = str_replace('%{SEC}', $blogPost['creation_date']['sec'], $date);
 
-				echo $date;
+			echo $date;
 			?>
 		</p>
 
 		<?php
-			if ($this->m_app->getUser()->isLoggedIn()
-			    && $this->m_app->getMemberManager()->memberIs('editor')) {
+		if ($this->m_app->getUser()->isLoggedIn()
+		    && $this->m_app->getMemberManager()->memberIs('editor')) {
 
-				$editLink = $this->m_app->getRouter()->getLinkForPage('admin-blog-post');
-					$editLink .= '?action=' . \Blog\Model\BlogPostManager::ACTION_UPDATE;
-					$editLink .= '&id=' . $blogPost['id'];
+			$editLink = $this->m_app->getRouter()->getLinkForPage('admin-blog-post');
+				$editLink .= '?action=' . \Blog\Model\BlogPostManager::ACTION_UPDATE;
+				$editLink .= '&id=' . $blogPost['id'];
 
-				$deleteLink = $this->m_app->getRouter()->getLinkForPage('admin-blog-post');
-					$deleteLink .= '?action=' . \Blog\Model\BlogPostManager::ACTION_DELETE;
-					$deleteLink .= '&id=' . $blogPost['id'];
-			?>
-				<div class="blog__toolbar toolbar main-toolbar">
-					<a href="<?= $editLink; ?>"
-						class="link-button highlight">
-						<?= $tr->_('EDIT'); ?>
-					</a>
-					<a href="<?= $deleteLink; ?>"
-					   class="link-button delete"
-					   id="button__delete-blog-post">
-						<?= $tr->_('DELETE'); ?>
-					</a>
-				</div>
-			<?php
-			}
+			$deleteLink = $this->m_app->getRouter()->getLinkForPage('admin-blog-post');
+				$deleteLink .= '?action=' . \Blog\Model\BlogPostManager::ACTION_DELETE;
+				$deleteLink .= '&id=' . $blogPost['id'];
+		?>
+			<div class="blog__toolbar toolbar main-toolbar">
+				<a href="<?= $editLink; ?>"
+					class="link-button highlight">
+					<?= $tr->_('EDIT'); ?>
+				</a>
+				<a href="<?= $deleteLink; ?>"
+				   class="link-button delete"
+				   id="button__delete-blog-post">
+					<?= $tr->_('DELETE'); ?>
+				</a>
+			</div>
+		<?php
+		}
 		?>
 
 		<p><?= $blogPost['post']; ?></p>
@@ -59,31 +59,31 @@
 </main>
 
 <?php
-	if ($this->m_app->getUser()->isLoggedIn()
-	    && $this->m_app->getMemberManager()->memberIs('editor')) {
-	?>
-		<script>
-			(function () {
+if ($this->m_app->getUser()->isLoggedIn()
+    && $this->m_app->getMemberManager()->memberIs('editor')) {
+?>
+	<script>
+		(function () {
 
-				let deleteButton = document.querySelector('#button__delete-blog-post');
+			let deleteButton = document.querySelector('#button__delete-blog-post');
 
-				deleteButton.addEventListener('click', e => {
+			deleteButton.addEventListener('click', e => {
 
-					<?php
-						$confirmation = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), '"');
-						$input = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), '"');
-						$string = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'");
-					?>
+				<?php
+				$confirmation = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), '"');
+				$input = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), '"');
+				$string = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'");
+				?>
 
-					let response = prompt("<?= $confirmation; ?>", "<?= $input; ?>");
+				let response = prompt("<?= $confirmation; ?>", "<?= $input; ?>");
 
-					if (response !== '<?= $string; ?>')
-						e.preventDefault();
+				if (response !== '<?= $string; ?>')
+					e.preventDefault();
 
-				}, false);
+			}, false);
 
-			})();
-		</script>
-	<?php
-	}
+		})();
+	</script>
+<?php
+}
 ?>

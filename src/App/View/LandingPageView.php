@@ -13,14 +13,14 @@
 		</figure>
 		<div>
 			<?php
-				$homeIntro = $tr->_('LANDING_PAGE_GOJI_BERRIES_COPY');
-				$homeIntro = \Goji\Rendering\TemplateExtensions::ctaToHTML(
-					$homeIntro,
-					'#'
-					//$this->m_app->getRouter()->getLinkForPage('vsl')
-				);
+			$homeIntro = $tr->_('LANDING_PAGE_GOJI_BERRIES_COPY');
+			$homeIntro = \Goji\Rendering\TemplateExtensions::ctaToHTML(
+				$homeIntro,
+				'#'
+				//$this->m_app->getRouter()->getLinkForPage('vsl')
+			);
 
-				echo $homeIntro;
+			echo $homeIntro;
 			?>
 		</div>
 	</section>

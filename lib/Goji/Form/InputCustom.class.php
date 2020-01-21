@@ -1,39 +1,39 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputCustom
+ *
+ * @package Goji\Form
+ */
+class InputCustom extends FormElementAbstract {
 
 	/**
-	 * Class InputCustom
+	 * InputCustom constructor.
 	 *
-	 * @package Goji\Form
+	 * @param string $openingTag
+	 * @param string $closingTag
+	 * @param callable|null $isValidCallback
+	 * @param bool $forceCallbackOnly
+	 * @param callable|null $sanitizeCallback
 	 */
-	class InputCustom extends FormElementAbstract {
+	public function __construct(string $openingTag,
+								string $closingTag = '',
+								callable $isValidCallback = null,
+								bool $forceCallbackOnly = false,
+								callable $sanitizeCallback = null) {
 
-		/**
-		 * InputCustom constructor.
-		 *
-		 * @param string $openingTag
-		 * @param string $closingTag
-		 * @param callable|null $isValidCallback
-		 * @param bool $forceCallbackOnly
-		 * @param callable|null $sanitizeCallback
-		 */
-		public function __construct(string $openingTag,
-									string $closingTag = '',
-									callable $isValidCallback = null,
-									bool $forceCallbackOnly = false,
-									callable $sanitizeCallback = null) {
+		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
-
-			$this->m_openingTag = $openingTag;
-			$this->m_closingTag = $closingTag;
-		}
-
-		/**
-		 * @return bool
-		 */
-		public function isValid(): bool {
-			return $this->isValidCallback();
-		}
+		$this->m_openingTag = $openingTag;
+		$this->m_closingTag = $closingTag;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function isValid(): bool {
+		return $this->isValidCallback();
+	}
+}

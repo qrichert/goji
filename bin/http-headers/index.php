@@ -7,7 +7,7 @@
 	</head>
 	<body>
 
-<?php
+	<?php
 	$form = '<form action="#" method="post" id="top">
 				<input type="text" name="url" placeholder="url">
 				<input type="submit" value="Envoyer">
@@ -29,7 +29,7 @@
 	else {
 		echo $form;
 	}
-?>
+	?>
 
 	</body>
 </html>

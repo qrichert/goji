@@ -1,9 +1,9 @@
 <?php
 
-	require_once '../../lib/Goji/Toolkit/SwissKnife.class.php';
-	require_once '../../lib/Goji/Security/Passwords.class.php';
+require_once '../../lib/Goji/Toolkit/SwissKnife.class.php';
+require_once '../../lib/Goji/Security/Passwords.class.php';
 
-	use Goji\Security\Passwords;
+use Goji\Security\Passwords;
 
 ?><!DOCTYPE html>
 <html>
@@ -25,31 +25,31 @@
 	</head>
 	<body>
 		<?php
-			for ($i = 0; $i < 7; $i++) {
-				$nbChars = 12 + $i;
-			?>
-				<div>
-					<p><?= $nbChars; ?> chars</p>
-					<?php
-						$pwd = Passwords::generatePassword($nbChars);
-						$pwd = htmlspecialchars($pwd);
-					?>
-					<input type="text" id="pwd-<?= $i; ?>" value="<?= $pwd; ?>">
-					<a href="#" id="cpy-<?= $i; ?>">Copy</a>
-				</div>
-				<script>
-					(function() {
-						let pwd = document.querySelector('#pwd-<?= $i; ?>');
+		for ($i = 0; $i < 7; $i++) {
+			$nbChars = 12 + $i;
+		?>
+			<div>
+				<p><?= $nbChars; ?> chars</p>
+				<?php
+				$pwd = Passwords::generatePassword($nbChars);
+				$pwd = htmlspecialchars($pwd);
+				?>
+				<input type="text" id="pwd-<?= $i; ?>" value="<?= $pwd; ?>">
+				<a href="#" id="cpy-<?= $i; ?>">Copy</a>
+			</div>
+			<script>
+				(function() {
+					let pwd = document.querySelector('#pwd-<?= $i; ?>');
 
-						document.querySelector('#cpy-<?= $i; ?>').addEventListener('click', e => {
-							e.preventDefault();
-							pwd.select();
-							document.execCommand("copy");
-						}, false);
-					})();
-				</script>
-			<?php
-			}
+					document.querySelector('#cpy-<?= $i; ?>').addEventListener('click', e => {
+						e.preventDefault();
+						pwd.select();
+						document.execCommand("copy");
+					}, false);
+				})();
+			</script>
+		<?php
+		}
 		?>
 		<div>
 			<p>Browser password<span id="nb-chars-pwd-text"></span></p>

@@ -1,62 +1,62 @@
 <?php
 
-	namespace Goji\StaticFiles;
+namespace Goji\StaticFiles;
 
-	use Exception;
-	use Goji\Core\ConfigurationLoader;
-	use Goji\Core\HttpResponse;
-	use Goji\Parsing\SimpleMinifierCSS;
-	use Goji\Toolkit\SimpleCache;
+use Exception;
+use Goji\Core\ConfigurationLoader;
+use Goji\Core\HttpResponse;
+use Goji\Parsing\SimpleMinifierCSS;
+use Goji\Toolkit\SimpleCache;
 
-	/**
-	 * Class FileRendererCSS
-	 *
-	 * @package Goji\StaticFiles
-	 */
-	class FileRendererCSS extends FileRendererAbstract {
+/**
+ * Class FileRendererCSS
+ *
+ * @package Goji\StaticFiles
+ */
+class FileRendererCSS extends FileRendererAbstract {
 
-		/* <ATTRIBUTES> */
+	/* <ATTRIBUTES> */
 
-		private $m_replaceCSSVariablesByValue;
+	private $m_replaceCSSVariablesByValue;
 
-		/* <CONSTANTS> */
+	/* <CONSTANTS> */
 
-		const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
+	const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
 
-		public function __construct(StaticServer $server, string $configFile = self::CONFIG_FILE) {
+	public function __construct(StaticServer $server, string $configFile = self::CONFIG_FILE) {
 
-			parent::__construct($server);
+		parent::__construct($server);
 
-			try {
+		try {
 
-				$config = ConfigurationLoader::loadFileToArray($configFile);
+			$config = ConfigurationLoader::loadFileToArray($configFile);
 
-				$this->m_replaceCSSVariablesByValue = $config['replace_css_variables_by_value'] ?? false;
+			$this->m_replaceCSSVariablesByValue = $config['replace_css_variables_by_value'] ?? false;
 
-			} catch (Exception $e) {
+		} catch (Exception $e) {
 
-				$this->m_replaceCSSVariablesByValue = false;
-			}
-
-			HttpResponse::setContentType(HttpResponse::CONTENT_CSS);
+			$this->m_replaceCSSVariablesByValue = false;
 		}
 
-		public function renderMerged() {
+		HttpResponse::setContentType(HttpResponse::CONTENT_CSS);
+	}
 
-			// Generating cache ID
-			$cacheId = SimpleCache::cacheIDFromFileFullPath($this->m_files);
+	public function renderMerged() {
 
-			if (SimpleCache::isValidFilePreprocessed($cacheId, $this->m_files)) { // Get cached version
+		// Generating cache ID
+		$cacheId = SimpleCache::cacheIDFromFileFullPath($this->m_files);
 
-				SimpleCache::loadFilePreprocessed($cacheId, true);
+		if (SimpleCache::isValidFilePreprocessed($cacheId, $this->m_files)) { // Get cached version
 
-			} else { // Regenerate and cache
+			SimpleCache::loadFilePreprocessed($cacheId, true);
 
-				$content = SimpleMinifierCSS::minifyFile($this->m_files, $this->m_replaceCSSVariablesByValue);
+		} else { // Regenerate and cache
 
-				SimpleCache::cacheFilePreprocessed($content, $this->m_files, $cacheId);
+			$content = SimpleMinifierCSS::minifyFile($this->m_files, $this->m_replaceCSSVariablesByValue);
 
-				echo $content;
-			}
+			SimpleCache::cacheFilePreprocessed($content, $this->m_files, $cacheId);
+
+			echo $content;
 		}
 	}
+}

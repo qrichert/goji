@@ -1,8 +1,8 @@
 <?php
 
-	require_once '../lib/Goji/Goji.php';
+require_once '../lib/Goji/Goji.php';
 
-	use Goji\StaticFiles\StaticServer;
+use Goji\StaticFiles\StaticServer;
 
-	$staticServer = new StaticServer();
-		$staticServer->exec();
+$staticServer = new StaticServer();
+	$staticServer->exec();

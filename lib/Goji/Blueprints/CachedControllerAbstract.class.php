@@ -1,20 +1,20 @@
 <?php
 
-	namespace Goji\Blueprints;
+namespace Goji\Blueprints;
 
-	use Goji\Core\App;
+use Goji\Core\App;
 
-	/**
-	 * Class CachedControllerAbstract
-	 *
-	 * @package Goji\Blueprints
-	 */
-	abstract class CachedControllerAbstract extends ControllerAbstract {
+/**
+ * Class CachedControllerAbstract
+ *
+ * @package Goji\Blueprints
+ */
+abstract class CachedControllerAbstract extends ControllerAbstract {
 
-		public function __construct(App $app) {
+	public function __construct(App $app) {
 
-			parent::__construct($app);
+		parent::__construct($app);
 
-			$this->activateCacheIfRolePermits();
-		}
+		$this->activateCacheIfRolePermits();
 	}
+}

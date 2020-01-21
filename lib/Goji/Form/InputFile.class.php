@@ -1,75 +1,75 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputFile
+ *
+ * @package Goji\Form
+ */
+class InputFile extends FormElementAbstract {
 
 	/**
-	 * Class InputFile
+	 * InputFile constructor.
 	 *
-	 * @package Goji\Form
+	 * @param callable|null $isValidCallback
+	 * @param bool $forceCallbackOnly
+	 * @param callable|null $sanitizeCallback
 	 */
-	class InputFile extends FormElementAbstract {
+	public function __construct(callable $isValidCallback = null,
+	                            bool $forceCallbackOnly = false,
+	                            callable $sanitizeCallback = null) {
 
-		/**
-		 * InputFile constructor.
-		 *
-		 * @param callable|null $isValidCallback
-		 * @param bool $forceCallbackOnly
-		 * @param callable|null $sanitizeCallback
-		 */
-		public function __construct(callable $isValidCallback = null,
-		                            bool $forceCallbackOnly = false,
-		                            callable $sanitizeCallback = null) {
+		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-			parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
+		$this->m_openingTag = '<input type="file" %{ATTRIBUTES}>';
+	}
 
-			$this->m_openingTag = '<input type="file" %{ATTRIBUTES}>';
-		}
+	/**
+	 * @return bool
+	 */
+	protected function isEmpty(): bool {
 
-		/**
-		 * @return bool
-		 */
-		protected function isEmpty(): bool {
+		if (empty($this->m_value))
+			return true;
 
-			if (empty($this->m_value))
-				return true;
+		$uploadError = $this->m_value['error'] ?? null;
 
-			$uploadError = $this->m_value['error'] ?? null;
+		return $uploadError == UPLOAD_ERR_NO_FILE;
+	}
 
-			return $uploadError == UPLOAD_ERR_NO_FILE;
-		}
+	/**
+	 * @return bool
+	 */
+	private function isUploadOk(): bool {
 
-		/**
-		 * @return bool
-		 */
-		private function isUploadOk(): bool {
+		$uploadError = $this->m_value['error'] ?? null;
 
-			$uploadError = $this->m_value['error'] ?? null;
+		return $uploadError == UPLOAD_ERR_OK;
+	}
 
-			return $uploadError == UPLOAD_ERR_OK;
-		}
+	/**
+	 * @return bool
+	 */
+	public function isValid(): bool {
 
-		/**
-		 * @return bool
-		 */
-		public function isValid(): bool {
+		$valid = true;
 
-			$valid = true;
+		if (!$this->m_forceCallbackOnly) {
 
-			if (!$this->m_forceCallbackOnly) {
+			if ($this->isRequiredButEmpty()) {
 
-				if ($this->isRequiredButEmpty()) {
+				$valid = false;
 
-					$valid = false;
+			} else { // not required, but may be empty
 
-				} else { // not required, but may be empty
+				if (!$this->isEmpty()) {
 
-					if (!$this->isEmpty()) {
-
-						$valid = $this->isUploadOk();
-					}
+					$valid = $this->isUploadOk();
 				}
 			}
-
-			return $valid && $this->isValidCallback();
 		}
+
+		return $valid && $this->isValidCallback();
 	}
+}

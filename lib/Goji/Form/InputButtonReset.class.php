@@ -1,21 +1,21 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputButtonReset
+ *
+ * @package Goji\Form
+ */
+class InputButtonReset extends InputButton {
 
 	/**
-	 * Class InputButtonReset
-	 *
-	 * @package Goji\Form
+	 * InputButtonReset constructor.
 	 */
-	class InputButtonReset extends InputButton {
+	public function __construct() {
 
-		/**
-		 * InputButtonReset constructor.
-		 */
-		public function __construct() {
+		parent::__construct();
 
-			parent::__construct();
-
-			$this->m_openingTag = '<input type="reset" %{ATTRIBUTES}>';
-		}
+		$this->m_openingTag = '<input type="reset" %{ATTRIBUTES}>';
 	}
+}

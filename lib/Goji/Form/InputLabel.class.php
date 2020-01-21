@@ -1,70 +1,70 @@
 <?php
 
-	namespace Goji\Form;
+namespace Goji\Form;
+
+/**
+ * Class InputLabel
+ *
+ * @package Goji\Form
+ */
+class InputLabel extends FormElementAbstract {
+
+	/* <ATTRIBUTES> */
+
+	private $m_sideInfo;
 
 	/**
-	 * Class InputLabel
-	 *
-	 * @package Goji\Form
+	 * InputLabel constructor.
 	 */
-	class InputLabel extends FormElementAbstract {
+	public function __construct() {
 
-		/* <ATTRIBUTES> */
+		parent::__construct();
 
-		private $m_sideInfo;
+		$this->m_openingTag = '<label %{ATTRIBUTES}>';
+		$this->m_closingTag = '</label>';
 
-		/**
-		 * InputLabel constructor.
-		 */
-		public function __construct() {
+		$this->m_sideInfo = null;
+	}
 
-			parent::__construct();
+	/**
+	 * @param string $tag
+	 * @param array|null $attributes
+	 * @param string $textContent
+	 * @return \Goji\Form\InputLabel
+	 */
+	public function setSideInfo(string $tag, array $attributes = null, string $textContent = ''): InputLabel {
 
-			$this->m_openingTag = '<label %{ATTRIBUTES}>';
-			$this->m_closingTag = '</label>';
+		if ($attributes === null)
+			$attributes = [];
 
-			$this->m_sideInfo = null;
+		if (array_key_exists('class', $attributes))
+			$attributes['class'] = $attributes['class'] . ' form__side-info';
+		else
+			$attributes['class'] = 'form__side-info';
+
+		$renderedAttributes = '';
+
+		foreach ($attributes as $key => $value)
+			$renderedAttributes .= $key . '="' . $value . '" ';
+
+		$this->m_sideInfo = "<$tag $renderedAttributes>$textContent</$tag>";
+
+		return $this;
+	}
+
+	public function render(): void {
+
+		if ($this->m_sideInfo !== null) {
+			echo '<div class="form__label-relative">';
 		}
 
-		/**
-		 * @param string $tag
-		 * @param array|null $attributes
-		 * @param string $textContent
-		 * @return \Goji\Form\InputLabel
-		 */
-		public function setSideInfo(string $tag, array $attributes = null, string $textContent = ''): InputLabel {
+		echo str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag);
+		echo $this->hasAttribute('textContent') ? $this->getAttribute('textContent') : '';
+		echo $this->m_closingTag;
 
-			if ($attributes === null)
-				$attributes = [];
-
-			if (array_key_exists('class', $attributes))
-				$attributes['class'] = $attributes['class'] . ' form__side-info';
-			else
-				$attributes['class'] = 'form__side-info';
-
-			$renderedAttributes = '';
-
-			foreach ($attributes as $key => $value)
-				$renderedAttributes .= $key . '="' . $value . '" ';
-
-			$this->m_sideInfo = "<$tag $renderedAttributes>$textContent</$tag>";
-
-			return $this;
-		}
-
-		public function render(): void {
-
-			if ($this->m_sideInfo !== null) {
-				echo '<div class="form__label-relative">';
-			}
-
-			echo str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag);
-			echo $this->hasAttribute('textContent') ? $this->getAttribute('textContent') : '';
-			echo $this->m_closingTag;
-
-			if ($this->m_sideInfo !== null) {
-				echo $this->m_sideInfo;
-				echo '</div>';
-			}
+		if ($this->m_sideInfo !== null) {
+			echo $this->m_sideInfo;
+			echo '</div>';
 		}
 	}
+}

@@ -1,41 +1,41 @@
 <?php
 
-	namespace Goji\StaticFiles;
+namespace Goji\StaticFiles;
 
-	use Goji\Core\HttpResponse;
-	use Goji\Parsing\SimpleMinifierJS;
-	use Goji\Toolkit\SimpleCache;
+use Goji\Core\HttpResponse;
+use Goji\Parsing\SimpleMinifierJS;
+use Goji\Toolkit\SimpleCache;
 
-	/**
-	 * Class FileRendererJS
-	 *
-	 * @package Goji\StaticFiles
-	 */
-	class FileRendererJS extends FileRendererAbstract {
+/**
+ * Class FileRendererJS
+ *
+ * @package Goji\StaticFiles
+ */
+class FileRendererJS extends FileRendererAbstract {
 
-		public function __construct(StaticServer $server) {
+	public function __construct(StaticServer $server) {
 
-			parent::__construct($server);
+		parent::__construct($server);
 
-			HttpResponse::setContentType(HttpResponse::CONTENT_JS);
-		}
+		HttpResponse::setContentType(HttpResponse::CONTENT_JS);
+	}
 
-		public function renderMerged() {
+	public function renderMerged() {
 
-			// Generating cache ID
-			$cacheId = SimpleCache::cacheIDFromFileFullPath($this->m_files);
+		// Generating cache ID
+		$cacheId = SimpleCache::cacheIDFromFileFullPath($this->m_files);
 
-			if (SimpleCache::isValidFilePreprocessed($cacheId, $this->m_files)) { // Get cached version
+		if (SimpleCache::isValidFilePreprocessed($cacheId, $this->m_files)) { // Get cached version
 
-				SimpleCache::loadFilePreprocessed($cacheId, true);
+			SimpleCache::loadFilePreprocessed($cacheId, true);
 
-			} else { // Regenerate and cache
+		} else { // Regenerate and cache
 
-				$content = SimpleMinifierJS::minifyFile($this->m_files);
+			$content = SimpleMinifierJS::minifyFile($this->m_files);
 
-				SimpleCache::cacheFilePreprocessed($content, $this->m_files, $cacheId);
+			SimpleCache::cacheFilePreprocessed($content, $this->m_files, $cacheId);
 
-				echo $content;
-			}
+			echo $content;
 		}
 	}
+}

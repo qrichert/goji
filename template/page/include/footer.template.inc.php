@@ -15,22 +15,22 @@
 				</a>
 			</div>
 			<?php
-				if ($this->m_app->getUser()->isLoggedIn()) {
-				?>
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>" rel="nofollow"><?= $tr->_('FOOTER_LOG_OUT'); ?></a>
-				<?php
-				} else {
-				?>
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('login'); ?>" rel="nofollow"><?= $tr->_('FOOTER_LOG_IN'); ?></a>
-				<?php
-				}
+			if ($this->m_app->getUser()->isLoggedIn()) {
+			?>
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>" rel="nofollow"><?= $tr->_('FOOTER_LOG_OUT'); ?></a>
+			<?php
+			} else {
+			?>
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('login'); ?>" rel="nofollow"><?= $tr->_('FOOTER_LOG_IN'); ?></a>
+			<?php
+			}
 
-				if ($this->m_app->getUser()->isLoggedIn()
-				    && $this->m_app->getMemberManager()->memberIs('editor')) {
-				?>
-					<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin'); ?>" rel="nofollow"><?= $tr->_('FOOTER_ADMIN'); ?></a>
-				<?php
-				}
+			if ($this->m_app->getUser()->isLoggedIn()
+			    && $this->m_app->getMemberManager()->memberIs('editor')) {
+			?>
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin'); ?>" rel="nofollow"><?= $tr->_('FOOTER_ADMIN'); ?></a>
+			<?php
+			}
 			?>
 			<p>Made with ❤️ and PHP</p>
 		</div>
