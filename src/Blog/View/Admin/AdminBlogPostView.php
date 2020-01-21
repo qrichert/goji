@@ -37,9 +37,8 @@ $template->linkFiles([
 <script>
 	(function () {
 
-		<?php
-		if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_CREATE) {
-		?>
+		<?php if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_CREATE): ?>
+
 			let permalink = document.querySelector('#blog-post__permalink');
 			let title = document.querySelector('#blog-post__title');
 			let permalinkEdited = false;
@@ -62,10 +61,10 @@ $template->linkFiles([
 					return;
 
 				permalink.value = formatPermalink(title.value);
+
 			}, false);
-		<?php
-		}
-		?>
+
+		<?php endif; ?>
 
 		new TextAreaAutoResize(document.querySelector('#blog-post__post'));
 	})();

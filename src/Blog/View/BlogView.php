@@ -2,10 +2,9 @@
 	<section class="text">
 		<h1><?= $tr->_('BLOG_MAIN_TITLE'); ?></h1>
 
-		<?php
-		if ($this->m_app->getUser()->isLoggedIn()
-		    && $this->m_app->getMemberManager()->memberIs('editor')) {
-		?>
+		<?php if ($this->m_app->getUser()->isLoggedIn()
+		    && $this->m_app->getMemberManager()->memberIs('editor')): ?>
+
 			<div class="blog__toolbar toolbar main-toolbar">
 				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
 			             '?action=' . \Blog\Model\BlogPostManager::ACTION_CREATE; ?>"
@@ -13,9 +12,8 @@
 					<?= $tr->_('BLOG_NEW_BLOG_POST'); ?>
 				</a>
 			</div>
-		<?php
-		}
-		?>
+
+		<?php endif; ?>
 
 		<?php
 		if (empty($blogPosts))
@@ -25,12 +23,10 @@
 		<?php
 		$nbPosts = count($blogPosts);
 		$i = 0;
-
 		$linkBase = $this->m_app->getRouter()->getLinkForPage('blog');
 
 		foreach ($blogPosts as $post) {
 			$i++;
-
 			$link = $linkBase . '/' . $post['permalink'];
 		?>
 			<h2><a href="<?= $link ?>"><?= $post['title']; ?></a></h2>

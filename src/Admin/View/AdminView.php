@@ -2,10 +2,10 @@
 	<section class="text">
 		<h1><?= $tr->_('ADMIN_MAIN_TITLE'); ?></h1>
 
-		<?php
-		// <EDITOR>
-		if ($this->m_app->getMemberManager()->memberIs('editor')) {
-		?>
+		<!-- <EDITOR> -->
+
+		<?php if ($this->m_app->getMemberManager()->memberIs('editor')): ?>
+
 			<h2><?= $tr->_('ADMIN_SECTION_EDITING'); ?></h2>
 			<div class="action-item__wrapper">
 				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
@@ -16,12 +16,13 @@
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_NEW_BLOG_POST'); ?></span>
 				</a>
 			</div>
-		<?php
-		}
 
-		// <ROOT>
-		if ($this->m_app->getMemberManager()->memberIs('root')) {
-		?>
+		<?php endif; ?>
+
+		<!-- <ROOT> -->
+
+		<?php if ($this->m_app->getMemberManager()->memberIs('root')): ?>
+
 			<h2><?= $tr->_('ADMIN_SECTION_ROOT'); ?></h2>
 			<div class="action-item__wrapper">
 				<a class="action-item" id="admin-action__clear-cache">
@@ -42,9 +43,8 @@
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_BACK_UP_DATABASE'); ?></span>
 				</a>
 			</div>
-		<?php
-		}
-		?>
+
+		<?php endif; ?>
 	</section>
 </main>
 
@@ -53,10 +53,11 @@ $template->linkFiles([
 	'js/lib/Goji/ActionItem.class.min.js'
 ]);
 ?>
-<?php
-// <ROOT>
-if ($this->m_app->getMemberManager()->memberIs('root')) {
-?>
+
+<!-- <ROOT> -->
+
+<?php if ($this->m_app->getMemberManager()->memberIs('root')): ?>
+
 	<script>
 		// Clear cache
 		(function() {
@@ -196,6 +197,5 @@ if ($this->m_app->getMemberManager()->memberIs('root')) {
 
 		})();
 	</script>
-<?php
-}
-?>
+
+<?php endif; ?>

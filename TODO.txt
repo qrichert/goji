@@ -18,6 +18,9 @@ getTablesList()
 - [ ] Make render() default but not mandatory (allow Controller::method())
 - [ ] Replace m_ neatly (/!\ methods with same name as property)
 - [ ] Implement _WIP_/debug.png
-- [ ] Chekout _WIP_/templating.png (use <?php if (): ?> ?
+- [x] Chekout _WIP_/templating.png (use <?php if (): ?> ?
+- [ ] Check that alternate syntax (if ():, etc.) is properly implemented in views
+- [ ] Reindent <?php in views (like you would in {} templating}
+- [ ] Clean routes.json5 and provide a routes.json5.txt for the demo ?
 - [ ] Choose proper syntax for <<<'EOT'
 - [ ] Implement basic tests (loads each page, listens for error, logs in, etc)

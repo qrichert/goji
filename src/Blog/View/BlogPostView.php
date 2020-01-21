@@ -1,12 +1,9 @@
 <main>
 	<section class="text">
-		<?php
-		if (!empty($blogPost['illustration'])) {
-		?>
+		<?php if (!empty($blogPost['illustration'])): ?>
 			<img src="<?= $blogPost['illustration']; ?>" alt="<?= $blogPost['title']; ?>" class="blog__illustration">
-		<?php
-		}
-		?>
+		<?php endif; ?>
+
 		<h1><?= $blogPost['title']; ?></h1>
 		<p class="sub-heading">
 			<?php
@@ -58,10 +55,9 @@
 	</section>
 </main>
 
-<?php
-if ($this->m_app->getUser()->isLoggedIn()
-    && $this->m_app->getMemberManager()->memberIs('editor')) {
-?>
+<?php if ($this->m_app->getUser()->isLoggedIn()
+    && $this->m_app->getMemberManager()->memberIs('editor')): ?>
+
 	<script>
 		(function () {
 
@@ -84,6 +80,5 @@ if ($this->m_app->getUser()->isLoggedIn()
 
 		})();
 	</script>
-<?php
-}
-?>
+
+<?php endif; ?>
