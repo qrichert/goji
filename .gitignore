@@ -57,8 +57,7 @@ Thumbs.db
 __pycache__/
 node_modules/
 
-/_BACKUP_/*
-/_FACTORY_/*
+/_WIP_/*
 
 /var/*
 !/var/db/

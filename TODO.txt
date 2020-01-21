@@ -15,3 +15,9 @@ getTablesList()
 - [ ] Upload
 - [ ] Manage users
 - [ ] Profile edition
+- [ ] Make render() default but not mandatory (allow Controller::method())
+- [ ] Replace m_ neatly (/!\ methods with same name as property)
+- [ ] Implement _WIP_/debug.png
+- [ ] Chekout _WIP_/templating.png (use <?php if (): ?> ?
+- [ ] Choose proper syntax for <<<'EOT'
+- [ ] Implement basic tests (loads each page, listens for error, logs in, etc)

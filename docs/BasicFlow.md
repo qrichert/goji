@@ -10,8 +10,7 @@ Basic Flow
 Directory Structure
 -------------------
 
-- **`_BACKUP_`**, *used to store backups of your files or databases.*
-- **`_FACTORY_`**, *used to store work files unrelated to development (*e.g.* Photoshop or Illustrator files).*
+- **`_WIP_`**, *used to store work files, ideas, etc. (*e.g.* Photoshop or Illustrator files).*
 - **`bin`**, *contains helper tools.*
     - **`http-headers`**, *reads HTTP headers from given URL.*
     - **`img2base64`**, *converts image file to base64 string.*

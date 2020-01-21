@@ -57,9 +57,8 @@ Thumbs.db
 __pycache__/
 node_modules/
 
-# Work files
-/_BACKUP_/*
-/_FACTORY_/*
+# Work files, ideas, etc. (e.g. *.ai, *.psd, ...)
+/_WIP_/*
 
 # Config files with sensitive data
 /config/databases.json5
