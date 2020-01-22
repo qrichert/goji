@@ -16,8 +16,8 @@ Installation
 
 1. Download the source files.
    ```sh
-   git clone -–depth 1 https://github.com/qrichert/goji.git project-name
-   rm -rf project-name/.git
+   git clone -–depth 1 https://github.com/qrichert/goji.git <project-name>
+   rm -rf <project-name>/.git
    ```
 2. Make sure your domain points to the `public` folder (web root).
 3. Done.
@@ -43,8 +43,8 @@ There are no dependencies and no extra software to install—it's plug & play!
 **&#35;3 - It’s fast, modular, and full-stack**. When you install it you get a fully working "demo".
 Virtually everything you need to make basic websites is already there, plus more. Move things around,
 remove what you don't need, that's it. You've got back-end PHP libraries, front-end JavaScript libraries,
-a solid HTML template and a Bootstrap-like CSS stylesheet and additional CSS plug-ins. If you need
-other libraries, or want to work with something like React.js, you can add them too.
+a solid HTML template and a Bootstrap-like CSS stylesheet plus additional CSS plug-ins. If you need
+other libraries, or want to work with something like React, you can add them too.
 
 **&#35;4 - It’s customerveloper focused**. The one benefit of CMSs like WordPress is that customers
 can edit content themselves if they need to. But those are usually clunky gas factories, where writing
