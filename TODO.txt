@@ -1,4 +1,7 @@
-TODO: Admin, make it possible to configure a list of models to be editable in admin panel (Django-like). Reference the model, && database table name
+TODO
+====
+
+Admin, make it possible to configure a list of models to be editable in admin panel (Django-like). Reference the model, && database table name
 
 getTablesList()
     if prefix == sqlite
@@ -17,6 +20,7 @@ getTablesList()
 - [ ] Profile edition (Full Name (profile) if not ‘Anonymous something’)
 - [ ] Blog categories, tags & author
 - [ ] Make render() default but not mandatory (allow Controller::method())
+- [ ] Give possibility to route method to GET or POST automatically (maybe in config create 'method: post' flag or 'get' flag
 - [ ] Replace m_ neatly (/!\ methods with same name as property)
 - [ ] Implement _WIP_/debug.png
 - [x] Chekout _WIP_/templating.png (use <?php if (): ?> ?
@@ -27,3 +31,5 @@ getTablesList()
 - [ ] Implement basic tests (loads each page, listens for error, logs in, etc)
 - [ ] nginx.conf
 - [ ] Dockerfile
+- [ ] Middleware functions (middleware.json5, ex: App/Middleware/SomeClasss::someStaticMethod() methods must be static)
+- [ ] Make password wall a middleware?

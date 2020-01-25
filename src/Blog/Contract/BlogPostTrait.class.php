@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Resource;
+namespace Blog\Contract;
 
 use Goji\Rendering\BasicFormatting;
 
