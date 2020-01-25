@@ -33,6 +33,7 @@ Directory Structure
     - **`Resource`**, *additional "toolkit" code (e.g. traits).*
     - **`View`**, *view files.*
 - **`template`**, *contains template files (*e.g.* page templates).*
+- **`tests`**, *root directory for test sources.*
 - **`translation`**, *contains all files related to translation.*
 - **`var`**, *for data storage.*
     **`backup`**, *application-backupped files.*

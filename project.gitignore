@@ -73,6 +73,7 @@ node_modules/
 #/public/css/goji.css
 #/public/img/lib/Goji/
 #/public/js/lib/Goji/
+/tests/Goji/*
 /var/*
 !/var/db/
 
