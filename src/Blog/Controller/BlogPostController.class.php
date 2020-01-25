@@ -2,7 +2,7 @@
 
 namespace Blog\Controller;
 
-use Blog\Contract\BlogPostTrait;
+use Blog\Blueprint\BlogPostTrait;
 use Blog\Model\BlogPostManager;
 use Goji\Core\App;
 use Goji\Rendering\SimpleTemplate;
