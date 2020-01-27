@@ -160,7 +160,7 @@ class Form {
 
 		this.m_currentXHR = SimpleRequest.post(uri,
 											   data,
-											   r => { this.load(r); },
+											   (r, s) => { this.load(r, s); },
 											   e => { this.error(); },
 											   e => { this.abort(); },
 											   (l, t) => { this.progress(l, t); },
@@ -173,11 +173,11 @@ class Form {
 	/**
 	 * @private
 	 * @param response
+	 * @param status
 	 */
-	load(response) {
+	load(response, status) {
 
-		if (response === null
-			|| response.status !== 'SUCCESS') {
+		if (response === null || status !== 200) {
 
 			this.error(response);
 			return;

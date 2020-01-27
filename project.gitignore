@@ -58,14 +58,14 @@ __pycache__/
 node_modules/
 
 # Work files, ideas, etc. (e.g. *.ai, *.psd, ...)
-/_WIP_/*
+/_WIP_/
 
 # Config files with sensitive data
 /config/databases.json5
 /config/passwords.json5
 
 # Ignore Goji files
-/bin/*
+/bin/
 /docs/
 #/lib/Goji/
 #/public/css/lib/Goji/
@@ -73,8 +73,9 @@ node_modules/
 #/public/css/goji.css
 #/public/img/lib/Goji/
 #/public/js/lib/Goji/
-/tests/Goji/*
+/tests/Goji/
 /var/*
 !/var/db/
+/vendor/
 
 !.gitkeep

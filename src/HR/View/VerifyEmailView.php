@@ -47,9 +47,9 @@
 			let error = () => {
 			};
 
-			let load = (r) => {
+			let load = (r, s) => {
 
-				if (r === null || r.status === 'ERROR') {
+				if (r === null || s !== 200) {
 					error();
 					return;
 				}

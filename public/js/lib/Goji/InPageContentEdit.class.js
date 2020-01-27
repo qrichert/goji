@@ -59,6 +59,9 @@ class InPageContentEdit {
 		this.checkIfEmpty();
 	}
 
+	/**
+	 * @private
+	 */
 	addListeners() {
 
 		this.m_parent.addEventListener('click', () => {}, false);
@@ -92,6 +95,8 @@ class InPageContentEdit {
 
 	/**
 	 * Resize the TextArea after a resize-triggering event
+	 *
+	 * @private
 	 */
 	resizeEditor() {
 
@@ -108,11 +113,16 @@ class InPageContentEdit {
 	 * Triggers the resize after a small delay.
 	 *
 	 * Without the delay, the resize would not work properly after pasting & shit
+	 *
+	 * @private
 	 */
 	resizeEditorDelayed() {
 		setTimeout(() => { this.resizeEditor(); }, 7);
 	}
 
+	/**
+	 * @private
+	 */
 	setModified(modified) {
 
 		this.m_modified = modified;
@@ -125,6 +135,8 @@ class InPageContentEdit {
 
 	/**
 	 * What to do if no content.
+	 *
+	 * @private
 	 */
 	checkIfEmpty() {
 
@@ -136,6 +148,9 @@ class InPageContentEdit {
 		this.m_editableArea.textContent = this.m_text.placeholder;
 	}
 
+	/**
+	 * @private
+	 */
 	activateEditMode() {
 
 		this.m_editableArea.style.display = 'none';
@@ -147,6 +162,9 @@ class InPageContentEdit {
 		this.resizeEditorDelayed();
 	}
 
+	/**
+	 * @private
+	 */
 	deactivateEditMode() {
 		this.m_editableArea.style.display = null;
 		this.m_editor.style.display = 'none';
@@ -155,6 +173,8 @@ class InPageContentEdit {
 
 	/**
 	 * @param {Boolean} lock
+	 *
+	 * @private
 	 */
 	lockEditor(lock) {
 		this.m_editor.disabled = lock;
@@ -163,12 +183,13 @@ class InPageContentEdit {
 		this.m_buttonCancel.disabled = lock;
 	}
 
-	xhrSuccess(response, callbackSuccess = null, callbackError = null) {
+	/**
+	 * @private
+	 */
+	xhrSuccess(response, httpStatus, callbackSuccess = null, callbackError = null) {
 
 		try {
-			response = JSON.parse(response);
-
-			if (response.status === 'ERROR')
+			if (httpStatus !== 200)
 				throw 0;
 
 			this.m_editableArea.innerHTML = response.content;
@@ -186,6 +207,9 @@ class InPageContentEdit {
 		this.checkIfEmpty();
 	}
 
+	/**
+	 * @private
+	 */
 	xhrError(callbackError = null) {
 
 		if (callbackError !== null)
@@ -194,6 +218,9 @@ class InPageContentEdit {
 		this.lockEditor(false);
 	}
 
+	/**
+	 * @private
+	 */
 	xhrPost(action, callbackSuccess = null, callbackError = null) {
 
 		let data = new FormData();
@@ -203,11 +230,18 @@ class InPageContentEdit {
 			data.append('content', this.m_editor.value);
 
 		SimpleRequest.post(this.m_action, data,
-			(response) => {
-				this.xhrSuccess(response, callbackSuccess, callbackError);
+			(response, status) => {
+				this.xhrSuccess(response, status, callbackSuccess, callbackError);
 			},
 			() => {
 				this.xhrError(callbackError);
+			},
+			() => {
+				this.xhrError(callbackError);
+			},
+			null,
+			{
+				get_json: true
 			}
 		);
 	}
@@ -216,6 +250,8 @@ class InPageContentEdit {
 	 * Show modifications, but don't save them (neither online, nor locally)
 	 *
 	 * Push temporary text online to get formatted version & display it
+	 *
+	 * @private
 	 */
 	previewEdition() {
 
@@ -246,6 +282,8 @@ class InPageContentEdit {
 
 	/**
 	 * Save and update everything
+	 *
+	 * @private
 	 */
 	saveEdition(e) {
 
@@ -284,6 +322,8 @@ class InPageContentEdit {
 
 	/**
 	 * Cancel everything, go back to previous state
+	 *
+	 * @private
 	 */
 	cancelEdition(e) {
 

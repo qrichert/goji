@@ -57,10 +57,11 @@ Thumbs.db
 __pycache__/
 node_modules/
 
-/_WIP_/*
+/_WIP_/
 
 /var/*
 !/var/db/
 !/var/upload/
+/vendor/
 
 !.gitkeep

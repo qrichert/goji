@@ -81,19 +81,32 @@ class HttpResponse implements HttpStatusInterface, HttpMethodInterface, RobotsIn
 	/**
 	 * Adds JSON header, status if given, json_encode()s array and exits by default.
 	 *
+	 * If success === true -> HTTP 200 OK (default)
+	 * If success === false -> HTTP 400 Bad Request
+	 * If success is int -> HTTP (int)
+	 *
 	 * @param array|null $data (associative array)
-	 * @param bool|null $success
+	 * @param int|bool $success
 	 * @param bool $exit
+	 * @throws \Exception
 	 */
-	public static function JSON(?array $data = null, ?bool $success = null, bool $exit = true): void {
+	public static function JSON(?array $data = null, $success = true, bool $exit = true): void {
 
 		if ($data === null)
 			$data = [];
 
-		if ($success === true)
-			$data['status'] = 'SUCCESS';
-		else if ($success === false)
-			$data['status'] = 'ERROR';
+		// Set status according to given value
+		if (is_int($success)) {
+			self::setStatusHeader($success);
+
+		// Set status according to default rules
+		} else {
+
+			if ($success === false)
+				self::setStatusHeader(self::HTTP_ERROR_BAD_REQUEST);
+			else // true or not int/bool
+				self::setStatusHeader(self::HTTP_SUCCESS_OK);
+		}
 
 		self::setContentType(self::CONTENT_JSON);
 

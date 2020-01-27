@@ -23,14 +23,18 @@
  * ----------
  *
  * The next three parameters are callback functions for the following events:
- * - load(response text|binary data|json|null)
+ * - load(response text|binary data|json|null, http status code)
  * - error(event)
  * - abort(event)
  * - progress(loaded, total)
  *
+ * /!\ error() is only called on network level errors, regardless of HTTP status code.
+ * If response is HTTP 404, load() will still be called because at the network level, the
+ * request was successful.
+ *
  * ```javascript
  * // GET
- * SimpleRequest.get('page.html', (response) => { alert(response); });
+ * SimpleRequest.get('page.html', (response, httpStatusCode) => { alert(httpStatusCode + ":\n" + response); });
  *
  * // POST
  * let formData = new FormData();
@@ -47,7 +51,7 @@
  * Options are passed as an object. Those ignored will be set as default (as in example).
  *
  * options = {
- *     encode_uri: true, // Encode URI before sending (can be useful to avoid double encoding)
+ *     encode_uri: true, // Encode URI before sending (false can be useful to avoid double encoding)
  *     get_binary: false, // Download response as binary data (Blob)
  *     get_json: false // Download response as JSON object
  * };
@@ -101,31 +105,35 @@ class SimpleRequest {
 
 		xhr.addEventListener('load', e => {
 
-			if (xhr.readyState != 4 && xhr.status != 200) {
+			if (load === null)
+				return;
 
+			if (xhr.readyState !== 4) {
 				if (error !== null)
-					error(e);
+					error(null);
 			}
 
-			if (load !== null) {
+			xhr.status = parseInt(xhr.status, 10); // Just to be sure it's an int
 
-				if (options.getBinary) {
+			// Binary
+			if (options.getBinary) {
 
-					load(xhr.response);
+				load(xhr.response, xhr.status);
 
-				} else if (options.getJSON) {
+			// JSON
+			} else if (options.getJSON) {
 
-					try {
-						let json = JSON.parse(xhr.responseText);
-						load(json);
-					} catch (e) {
-						load(null);
-					}
-
-				} else {
-
-					load(xhr.responseText);
+				try {
+					let json = JSON.parse(xhr.responseText);
+					load(json, xhr.status);
+				} catch (error) {
+					error(null);
 				}
+
+			// Text (default)
+			} else {
+
+				load(xhr.responseText, xhr.status);
 			}
 
 		}, false);
@@ -193,7 +201,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('GET', uri);
-				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';
@@ -228,7 +236,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('POST', uri);
-				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';
@@ -263,7 +271,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('PUT', uri);
-				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';
@@ -297,7 +305,7 @@ class SimpleRequest {
 			this.attachEvents(xhr, load, error, abort, progress, options);
 
 			xhr.open('DELETE', uri);
-				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 			if (options.getBinary)
 				xhr.responseType = 'blob';

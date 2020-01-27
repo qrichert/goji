@@ -73,9 +73,9 @@ $template->linkFiles([
 					clearCacheAction.endError();
 				};
 
-				let load = (r) => {
+				let load = (r, s) => {
 
-					if (r === null || r.status === 'ERROR') {
+					if (r === null || s !== 200) {
 						error();
 						return;
 					}
@@ -125,9 +125,9 @@ $template->linkFiles([
 					updateAction.endError();
 				};
 
-				let load = (r) => {
+				let load = (r, s) => {
 
-					if (r === null || r.status === 'ERROR') {
+					if (r === null || s !== 200) {
 						error();
 						return;
 					}
@@ -170,9 +170,9 @@ $template->linkFiles([
 					backUpAction.endError();
 				};
 
-				let load = (r) => {
+				let load = (r, s) => {
 
-					if (r === null || r.status === 'ERROR') {
+					if (r === null || s !== 200) {
 						error();
 						return;
 					}
