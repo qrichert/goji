@@ -58,7 +58,8 @@ __pycache__/
 node_modules/
 
 # Work files, ideas, etc. (e.g. *.ai, *.psd, ...)
-/_WIP_/
+/_WIP_/*
+!/_WIP_/TODO.txt
 
 # Config files with sensitive data
 /config/databases.json5
