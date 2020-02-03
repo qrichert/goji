@@ -296,7 +296,7 @@
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirm password</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_ROLE">Role</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_SUBMIT">Create</segment>
-		<segment id="ADMIN_ACTION_ADD_MEMBER_SUCCESS">The new member has been added successfully</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_SUCCESS">The new member has been successfully added</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR">The form contains errors</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_PASSWORDS_MUST_MATCH">Passwords must match</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_USERNAME_ALREADY_EXISTS">The email address is already registered</segment>
