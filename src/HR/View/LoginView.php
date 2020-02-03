@@ -79,7 +79,6 @@ $template->linkFiles([
 		new Dialog(dialog, triggerOpen, null, () => { inputEmail.focus(); });
 
 		// Form
-
 		let form = document.querySelector('#reset-password-request__form');
 		let formSuccess = form.querySelector('p.form__success');
 		let formError = form.querySelector('p.form__error');

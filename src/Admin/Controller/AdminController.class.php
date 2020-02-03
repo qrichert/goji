@@ -2,6 +2,7 @@
 
 namespace Admin\Controller;
 
+use Admin\Model\AddMemberForm;
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
@@ -12,6 +13,8 @@ class AdminController extends ControllerAbstract {
 
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+
+		$addMemberForm = new AddMemberForm($tr, $this->m_app);
 
 		$template = new SimpleTemplate($tr->_('ADMIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 		                               $tr->_('ADMIN_PAGE_DESCRIPTION'),

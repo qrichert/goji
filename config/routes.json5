@@ -161,6 +161,10 @@
 		route: "/admin/xhr-in-page-content-edit",
 		controller: "Admin/XhrInPageContentEditController"
 	},
+	"xhr-admin-add-member": {
+		route: "/admin/xhr-add-member",
+		controller: "Admin/XhrAddMemberController"
+	},
 	"xhr-admin-clear-cache": {
 		route: "/admin/xhr-clear-cache",
 		controller: "Admin/XhrClearCacheController"

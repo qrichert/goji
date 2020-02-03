@@ -194,6 +194,23 @@ class MemberManager {
 			return $this->m_memberRole >= $roleRequired;
 	}
 
+	/**
+	 * Returns all roles available to the current member (= roles where memberIs() === true)
+	 *
+	 * @return array
+	 */
+	public function getRolesAvailable(): array {
+
+		$rolesAvailable = [];
+
+		foreach ($this->m_roles as $role => $weight) {
+			if ($weight <= $this->m_memberRole)
+				$rolesAvailable[$role] = $weight;
+		}
+
+		return $rolesAvailable;
+	}
+
 /* <NOT LOGGED IN> */
 
 /* --- Generic --- */
@@ -509,16 +526,7 @@ class MemberManager {
 
 /* --- Sign Up --- */
 
-	/**
-	 * Creates member in the temporary database
-	 *
-	 * @param \Goji\Core\App $app
-	 * @param string $username
-	 * @param array $detail
-	 * @return bool
-	 * @throws \Exception
-	 */
-	public static function createTemporaryMember(App $app, string $username, array &$detail): bool {
+	private static function usernameExists(App $app, string $username): bool {
 
 		// Database
 		$query = $app->db()->prepare('SELECT
@@ -536,11 +544,65 @@ class MemberManager {
 		]);
 
 		$reply = $query->fetch();
-			$reply = (int) $reply['nb'];
+		$reply = (int) $reply['nb'];
 
 		$query->closeCursor();
 
-		if ($reply !== 0) { // User already exists
+		if ($reply !== 0) // User already exists
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * Creates member immediately (added by admin for example)
+	 *
+	 * @param \Goji\Core\App $app
+	 * @param string $username
+	 * @param string $password
+	 * @param string|int $role
+	 * @param array $detail
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public static function createMember(App $app, string $username, string $password, int $role, array &$detail): bool {
+
+		if (self::usernameExists($app, $username)) { // User already exists
+			$detail['error'] = self::E_MEMBER_ALREADY_EXISTS;
+			return false;
+		}
+
+		// Save to DB
+		$query = $app->db()->prepare('INSERT INTO g_member
+											   ( username,  password,  role,  date_registered)
+										VALUES (:username, :password, :role, :date_registered)');
+
+		$query->execute([
+			'username' => $username,
+			'password' => Passwords::hashPassword($password),
+			'role' => $role,
+			'date_registered' => date('Y-m-d H:i:s')
+		]);
+
+		$detail['id'] = $app->db()->lastInsertId();
+
+		$query->closeCursor();
+
+		return true;
+	}
+
+	/**
+	 * Creates member in the temporary database
+	 *
+	 * @param \Goji\Core\App $app
+	 * @param string $username
+	 * @param array $detail
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public static function createTemporaryMember(App $app, string $username, array &$detail): bool {
+
+		if (self::usernameExists($app, $username)) { // User already exists
 			$detail['error'] = self::E_MEMBER_ALREADY_EXISTS;
 			return false;
 		}

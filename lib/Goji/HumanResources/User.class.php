@@ -9,8 +9,7 @@ use Goji\Core\Session;
  * Class User
  *
  * Represents a single person visiting the site, logged in or not.
- * A logged in user is also called a member and has a Goji\HumanResources\Member
- * profile and a Goji\HumanResources\MemberManager manager.
+ * A logged in user is also called a member and has a Goji\HumanResources\MemberManager manager.
  *
  * @package Goji\HumanResources
  */
@@ -71,6 +70,7 @@ class User {
 
 	/**
 	 * @param int $id
+	 * @throws \Exception
 	 */
 	public function logIn(int $id): void {
 		Session::set(self::USER_ID, $id);

@@ -126,7 +126,7 @@ class SimpleRequest {
 				try {
 					let json = JSON.parse(xhr.responseText);
 					load(json, xhr.status);
-				} catch (error) {
+				} catch (e) {
 					error(null);
 				}
 

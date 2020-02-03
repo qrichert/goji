@@ -37,7 +37,7 @@ class XhrSignUpController extends XhrControllerAbstract {
 
 		if (!MemberManager::createTemporaryMember($this->m_app, $formUsername, $detail)) {
 
-			//if ($detail['error'] == MemberManager::E_MEMBER_ALREADY_EXISTS) {
+			//if (!empty($detail['error']) && $detail['error'] == MemberManager::E_MEMBER_ALREADY_EXISTS) {
 
 				HttpResponse::JSON([
 					'message' => $tr->_('SIGN_UP_INVALID_USERNAME')

@@ -18,7 +18,6 @@ class XhrResetPasswordController extends XhrControllerAbstract {
 		$detail = [];
 
 		if (!$form->isValid($detail)) {
-
 			HttpResponse::JSON([
 				'detail' => $detail,
 				'message' => $tr->_('RESET_PASSWORD_ERROR')
@@ -31,14 +30,12 @@ class XhrResetPasswordController extends XhrControllerAbstract {
 		$formToken = $form->getInputByName('reset-password[token]')->getValue();
 
 		if (empty($formPassword) || $formPassword !== $formPasswordConfirmation) {
-
 			HttpResponse::JSON([
 				'message' => $tr->_('RESET_PASSWORD_ERROR')
 			], false);
 		}
 
 		if (!MemberManager::isValidResetPasswordRequest($this->m_app, $formToken, $formEmail, $memberId)) {
-
 			HttpResponse::JSON([
 				'message' => $tr->_('RESET_PASSWORD_ERROR')
 			], false);
@@ -47,7 +44,6 @@ class XhrResetPasswordController extends XhrControllerAbstract {
 		// From here on the request is valid:
 
 		if (!MemberManager::setNewPassword($this->m_app, (int) $memberId, $formPassword)) {
-
 			HttpResponse::JSON([
 				'message' => $tr->_('RESET_PASSWORD_ERROR')
 			], false);

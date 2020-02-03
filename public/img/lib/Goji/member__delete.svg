@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="Silhouette" inkscape:version="0.48.4 r9939" sodipodi:docname="person.svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 150"
+	 style="enable-background:new 0 0 150 150;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#CD3D64;}
+	.st1{fill:#24292E;}
+</style>
+<path id="Cross" class="st0" d="M98.2,140.1c1.7,1.7,4.5,1.7,6.3,0l9.2-9.2l9.1,9.1c1.7,1.7,4.5,1.7,6.3,0c1.7-1.7,1.7-4.3,0-6.2
+	l-9.1-9.1l9.1-9.1c1.7-1.7,1.7-4.5,0-6.3c-1.7-1.7-4.5-1.7-6.4-0.1l-9.1,9.1l-9.1-9.1c-1.6-1.6-4.4-1.6-6.3,0.1
+	c-1.7,1.7-1.7,4.5,0,6.3l9,9l-9.1,9.1C96.5,135.5,96.5,138.3,98.2,140.1z"/>
+<path id="Torso" class="st1" d="M132.6,119.3c0.3-0.3,0.6-0.7,0.9-1.1c0.3,1.5,0.5,3,0.8,4.6c0,0-2.1,1.1-6.7,2.5l-0.6-0.6
+	L132.6,119.3z M94.7,130.3l5.5-5.5l-5.4-5.4c-1.8-1.8-2.8-4.1-2.8-6.8c0-2.6,1-4.9,2.8-6.8c1.8-1.8,4.2-2.8,6.8-2.8s4.8,1,6.6,2.7
+	l5.5,5.5l5.5-5.5l0.1-0.1l0.1-0.1c1.8-1.6,4.1-2.5,6.6-2.5c1.4,0,2.8,0.3,4.1,0.9c-4.5-11.1-13.7-19.9-39-29.4
+	c0,0-10.3,6.7-16.1,6.7s-16.1-6.7-16.1-6.7c-37.7,14.4-39.5,27-43.2,48.4c0,0,18.1,9.3,59.3,9.3c6.9,0,13.1-0.3,18.8-0.7
+	C94,131,94.3,130.6,94.7,130.3z"/>
+<path id="Head" inkscape:connector-curvature="0" sodipodi:nodetypes="ccscsccc" class="st1" d="M75.8,72.8
+	c13.1-2.1,19.8-7.5,22.7-33c0.7-12,1.3-18.7-1.4-24.5C92.5,5.9,83.6,2.5,75.2,2.5S57.5,5.9,53.1,15.3c-2.8,5.8-2.1,12.5-1.4,24.5
+	c3,25.5,9.6,30.9,22.7,33H75.8z"/>
+</svg>

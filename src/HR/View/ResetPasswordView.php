@@ -21,7 +21,8 @@
 
 <?php
 $template->linkFiles([
-	'js/lib/Goji/Form.class.min.js'
+	'js/lib/Goji/Form.class.min.js',
+	'js/lib/Goji/PasswordsMatch.class.min.js'
 ]);
 ?>
 <script>
@@ -32,24 +33,11 @@ $template->linkFiles([
 		let form = document.querySelector('#reset-password__form');
 		let formError = document.querySelector('p.form__error');
 
-		let password = form.querySelector('#reset-password__password');
-		let passwordConfirmation = form.querySelector('#reset-password__password-confirmation');
-
-		let passwordsMatch = () => {
-
-			// If empty, let the 'required' handle it
-			if (password.value === '' || passwordConfirmation.value === '')
-				passwordConfirmation.setCustomValidity('');
-			// Passwords not empty && match -> Good
-			else if (password.value === passwordConfirmation.value)
-				passwordConfirmation.setCustomValidity('');
-			// Passwords not empty and no match -> Show error
-			else
-				passwordConfirmation.setCustomValidity('<?= addcslashes($tr->_('RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH'), "'"); ?>');
-		};
-
-		password.addEventListener('keyup', passwordsMatch, false);
-		passwordConfirmation.addEventListener('keyup', passwordsMatch, false);
+		new PasswordsMatch(
+			form.querySelector('#reset-password__password'),
+			form.querySelector('#reset-password__password-confirmation'),
+			'<?= addcslashes($tr->_('RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH'), "'"); ?>'
+		);
 
 		let success = response => {
 

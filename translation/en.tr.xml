@@ -19,6 +19,13 @@
 		<segment id="CANCEL_CONFIRM">Are you sure?\nAll changes will be lost.</segment>
 		<segment id="SHRUG">¯\_(ツ)_/¯</segment>
 
+		<segment id="ROLE">
+			<alternative count="^(member|1)$">Member</alternative>
+			<alternative count="^(editor|5)$">Editor</alternative>
+			<alternative count="^(admin|7)$">Admin</alternative>
+			<alternative count="^(root|9)$">Root</alternative>
+		</segment>
+
 		<!-- Units -->
 		<segment id="UNIT_BYTE">
 			<alternative count="^1$">byte</alternative>
@@ -268,16 +275,31 @@
 		<segment id="BLOG_POST_POST">Content</segment>
 		<segment id="BLOG_POST_POST_PLACEHOLDER">Once upon a time...</segment>
 	</page>
-	<page id="admin">
+	<page id="admin|xhr-admin-add-member">
 		<segment id="ADMIN_PAGE_TITLE">Administration</segment>
 		<segment id="ADMIN_PAGE_DESCRIPTION"></segment>
 		<segment id="ADMIN_MAIN_TITLE">Administration</segment>
 		<segment id="ADMIN_SECTION_EDITING">Editing</segment>
+		<segment id="ADMIN_SECTION_ADMIN">Admin</segment>
 		<segment id="ADMIN_SECTION_ROOT">Root</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">New blog post</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER">New member</segment>
 		<segment id="ADMIN_ACTION_CLEAR_CACHE">Clear cache</segment>
 		<segment id="ADMIN_ACTION_UPDATE">Update</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>
+
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL">Email</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL_PLACEHOLDER">the@email.com</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD">Password</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_PLACEHOLDER">a-sTr0n6_pwd@~_</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION">Password (again)</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirm password</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_ROLE">Role</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_SUBMIT">Create</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_SUCCESS">The new member has been added successfully</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR">The form contains errors</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_PASSWORDS_MUST_MATCH">Passwords must match</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_USERNAME_ALREADY_EXISTS">The email address is already registered</segment>
 	</page>
 	<page id="xhr-admin-clear-cache">
 		<segment id="ADMIN_CLEAR_CACHE_NB_FRAGMENTS_REMOVED">

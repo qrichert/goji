@@ -19,6 +19,21 @@
 
 		<?php endif; ?>
 
+		<!-- <ADMIN> -->
+
+		<?php if ($this->m_app->getMemberManager()->memberIs('admin')): ?>
+
+			<h2><?= $tr->_('ADMIN_SECTION_ADMIN'); ?></h2>
+			<div class="action-item__wrapper">
+				<a class="action-item" id="admin-action__add-member">
+					<div class="action-item__progress"></div>
+					<img src="<?= $template->rsc('img/lib/Goji/member__add.svg'); ?>" alt="" class="action-item__icon">
+					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_ADD_MEMBER'); ?></span>
+				</a>
+			</div>
+
+		<?php endif; ?>
+
 		<!-- <ROOT> -->
 
 		<?php if ($this->m_app->getMemberManager()->memberIs('root')): ?>
@@ -48,11 +63,85 @@
 	</section>
 </main>
 
+<!-- <ADMIN> -->
+
+<?php if ($this->m_app->getMemberManager()->memberIs('admin')): ?>
+
+	<div id="admin-action__add-member--dialog">
+		<?php $addMemberForm->render(); ?>
+	</div>
+
+<?php endif; ?>
+
 <?php
 $template->linkFiles([
-	'js/lib/Goji/ActionItem.class.min.js'
+	'js/lib/Goji/ActionItem.class.min.js',
+	'js/lib/Goji/Form.class.min.js',
+	'js/lib/Goji/Dialog.class.min.js',
+	'js/lib/Goji/PasswordsMatch.class.min.js'
 ]);
 ?>
+
+<!-- <ADMIN> -->
+
+<?php if ($this->m_app->getMemberManager()->memberIs('admin')): ?>
+
+	<script>
+		// Add member
+		(function () {
+
+			// Dialog
+			let addMember = document.querySelector('#admin-action__add-member');
+			let addMemberAction = new ActionItem(addMember);
+			let dialog = document.querySelector('#admin-action__add-member--dialog');
+
+			new Dialog(dialog, addMember);
+
+			// Form
+			let form = document.querySelector('#admin-action__add-member--form');
+			let formSuccess = form.querySelector('p.form__success');
+			let formError = form.querySelector('p.form__error');
+
+			new PasswordsMatch(
+				form.querySelector('#add-member__password'),
+				form.querySelector('#add-member__password-confirmation'),
+				'<?= addcslashes($tr->_('ADMIN_ACTION_ADD_MEMBER_ERROR_PASSWORDS_MUST_MATCH'), "'"); ?>'
+			);
+
+			let success = response => {
+
+				form.reset();
+				formError.textContent = '';
+
+				if (typeof response.message !== 'undefined'
+				    && response.message !== null) {
+
+					formSuccess.innerHTML = response.message;
+				}
+			};
+
+			let error = response => {
+
+				formSuccess.textContent = '';
+
+				if (typeof response.message !== 'undefined'
+				    && response.message !== null) {
+
+					formError.innerHTML = response.message;
+				}
+			};
+
+			new Form(form,
+				success,
+				error,
+				form.querySelector('button.loader'),
+				form.querySelector('.progress-bar')
+			);
+
+		})();
+	</script>
+
+<?php endif; ?>
 
 <!-- <ROOT> -->
 

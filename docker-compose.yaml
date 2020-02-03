@@ -2,11 +2,12 @@ version: "3.7"
 
 services:
   app:
-    image: qrichert/goji
+    #image: qrichert/goji
+    build: .
     restart: always
     ports:
       - "80:80"
     volumes:
-      - "./var/log/apache:/var/log/apache2"  # Apache log files
-      - "./var/log/php:/var/log/php"  # PHP log files
-      - ".:/var/www/html"  # App source code
+      - "./var/log/apache2:/var/log/apache2"
+      - "./var/log/php:/var/log/php"
+      - ".:/var/www/html"
