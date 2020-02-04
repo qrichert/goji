@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+COMMAND=''
+
+if [[ -z "$1" ]]; then
+	echo "Commands:"
+	echo "  build        Build Docker container"
+	echo "  buildnrun    Build Docker container and run it"
+	echo "  stop         Stop running Docker  container"
+	echo "  push         Push new commits to Git repository"
+	echo "  update       Update from Git repository and rebuild Docker container"
+
+	exit 1
+else
+	COMMAND=$1
+
+	if [[ $COMMAND = 'build' ]]; then
+		docker-compose build
+	elif [[ $COMMAND = 'buildnrun' ]]; then
+		docker-compose up --build --detach
+	elif [[ $COMMAND = 'stop' ]]; then
+		docker-compose down
+	elif [[ $COMMAND = 'push' ]]; then
+		#git checkout master && git merge wip && git checkout wip
+		git pull && git push && git checkout master && git pull && git merge wip && git push && git checkout wip
+	elif [[ $COMMAND = 'update' ]]; then
+		git pull && docker-compose up --build --detach
+	else
+		echo "Error: Command not found."
+	fi
+fi
