@@ -88,9 +88,6 @@ then
   git checkout master >/dev/null 2>&1
   # Back to original directory
   cd $currentDir
-else
-  # Remove the 'wip' part of the update file
-  echo -e "#!/usr/bin/env bash\n\ngit pull && git push" > "$BASE_DIR/$projectName/update.sh"
 fi
 
 echo "Done."
