@@ -31,4 +31,4 @@ COPY . .
 
 # Debug
 
-RUN echo '<?php phpinfo();' > /var/www/html/public/phpinfo.php
+#RUN echo '<?php phpinfo();' > /var/www/html/public/phpinfo.php
