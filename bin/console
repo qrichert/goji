@@ -6,7 +6,7 @@ if [[ -z "$1" ]]; then
 	echo "Commands:"
 	echo "  build        Build Docker container"
 	echo "  buildnrun    Build Docker container and run it"
-	echo "  stop         Stop running Docker  container"
+	echo "  stop         Stop running Docker container"
 	echo "  push         Push new commits to Git repository"
 	echo "  update       Update from Git repository and rebuild Docker container"
 
