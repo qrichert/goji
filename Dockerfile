@@ -27,7 +27,7 @@ RUN echo 'display_errors = Off' >> /usr/local/etc/php/php.ini \
 
 # App
 
-COPY . .
+#COPY . .
 
 # Debug
 
