@@ -128,6 +128,17 @@
 		route: "/xhr-reset-password",
 		controller: "HR/XhrResetPasswordController"
 	},
+	"settings": {
+		routes: {
+			en: "/settings",
+			fr: "/parametres"
+		},
+		controller: "HR/SettingsController"
+	},
+	"xhr-settings-password": {
+		route: "/xhr-settings-password",
+		controller: "HR/XhrSettingsPasswordController"
+	},
 // <FUNNEL>
 	"landing-page": {
 		route: "/landing-page",

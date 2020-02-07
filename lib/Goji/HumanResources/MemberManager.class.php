@@ -20,7 +20,7 @@ class MemberManager {
 	protected $m_app;
 	protected $m_id;
 	protected $m_roles;
-	protected $m_memberRole;
+	protected $m_role;
 
 	/* <CONSTANTS> */
 
@@ -50,7 +50,7 @@ class MemberManager {
 
 			$this->m_roles = $config['roles'] ?? self::DEFAULT_MEMBER_ROLES_LIST;
 
-			$this->m_memberRole = self::DEFAULT_MEMBER_ROLE;
+			$this->m_role = self::DEFAULT_MEMBER_ROLE;
 
 				$memberRoleQuery = $config['member_role_query'] ?? 'SELECT role FROM g_member WHERE id=%{ID}';
 					$memberRoleQuery = str_replace('%{ID}', ':id', $memberRoleQuery);
@@ -65,16 +65,16 @@ class MemberManager {
 				$query->closeCursor();
 
 				if ($reply !== false && !empty($reply['role']))
-					$this->m_memberRole = (int) $reply['role'];
+					$this->m_role = (int) $reply['role'];
 
 		} catch (Exception $e) {
 
 			$this->m_roles = self::DEFAULT_MEMBER_ROLES_LIST;
-			$this->m_memberRole = self::DEFAULT_MEMBER_ROLE;
+			$this->m_role = self::DEFAULT_MEMBER_ROLE;
 		}
 
 		// Just making sure it's really an int
-		$this->m_memberRole = (int) $this->m_memberRole;
+		$this->m_role = (int) $this->m_role;
 	}
 
 	/**
@@ -100,7 +100,7 @@ class MemberManager {
 	 * @return int
 	 */
 	public function getMemberRole(): int {
-		return $this->m_memberRole;
+		return $this->m_role;
 	}
 
 	/**
@@ -140,7 +140,10 @@ class MemberManager {
 
 		$newRole = (int) $newRole;
 
-		$query = $this->m_app->db()->prepare('UPDATE g_member SET role=:role WHERE id=:id');
+		$query = $this->m_app->db()->prepare('UPDATE g_member
+												SET role=:role
+												WHERE id=:id');
+
 		$query->execute([
 			'role' => $newRole,
 			'id' => $this->m_id
@@ -148,7 +151,7 @@ class MemberManager {
 
 		$query->closeCursor();
 
-		$this->m_memberRole = $newRole;
+		$this->m_role = $newRole;
 
 		return true;
 	}
@@ -189,9 +192,9 @@ class MemberManager {
 		$roleRequired = (int) $roleRequired;
 
 		if ($exact)
-			return $this->m_memberRole === $roleRequired;
+			return $this->m_role === $roleRequired;
 		else
-			return $this->m_memberRole >= $roleRequired;
+			return $this->m_role >= $roleRequired;
 	}
 
 	/**
@@ -204,11 +207,47 @@ class MemberManager {
 		$rolesAvailable = [];
 
 		foreach ($this->m_roles as $role => $weight) {
-			if ($weight <= $this->m_memberRole)
+			if ($weight <= $this->m_role)
 				$rolesAvailable[$role] = $weight;
 		}
 
 		return $rolesAvailable;
+	}
+
+	/**
+	 * Checks whether given (clear) password is valid for the current user
+	 *
+	 * @param string $password
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function getPasswordIsValid(string $password): bool {
+
+		$storedPassword = self::getFieldsForId($this->m_app, $this->m_id, ['password'])['password'];
+
+		return Passwords::verifyPassword($password, $storedPassword);
+	}
+
+	public function setPassword(string $password): bool {
+
+		if (empty($password))
+			return false;
+
+		$password = Passwords::hashPassword($password);
+
+		// Save to DB
+		$query = $this->m_app->db()->prepare('UPDATE g_member
+												SET password=:password
+												WHERE id=:id');
+
+		$query->execute([
+			'password' => $password,
+			'id' => $this->m_id
+		]);
+
+		$query->closeCursor();
+
+		return true;
 	}
 
 /* <NOT LOGGED IN> */
@@ -246,7 +285,36 @@ class MemberManager {
 	}
 
 	/**
-	 * (Helper Function) Select certain fields from user entry where username = $username (regular member only)
+	 * (Helper Function) Select certain fields from user entry where id = id (regular member only, not tmp)
+	 *
+	 * @param \Goji\Core\App $app
+	 * @param int $id
+	 * @param array|null $fields (optional) If not set = select all
+	 * @return array|false
+	 * @throws \Exception
+	 */
+	public static function getFieldsForId(App $app, int $id, array $fields = null) {
+
+		// Either all * or comma separated values
+		$fields = empty($fields) ? '*' : implode(', ', $fields);
+
+		$query = $app->db()->prepare("SELECT $fields
+										FROM g_member
+										WHERE id=:id");
+
+		$query->execute([
+			'id' => $id
+		]);
+
+		$reply = $query->fetch();
+
+		$query->closeCursor();
+
+		return $reply; // array if OK, false on error
+	}
+
+	/**
+	 * (Helper Function) Select certain fields from user entry where username = $username (regular member only, not tmp)
 	 *
 	 * @param \Goji\Core\App $app
 	 * @param string $username

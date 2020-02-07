@@ -25,6 +25,7 @@ class LandingPageController extends CachedControllerAbstract {
 		$template = new SimpleTemplate($tr->_('LANDING_PAGE_PAGE_TITLE'),
 		                               $tr->_('LANDING_PAGE_PAGE_DESCRIPTION'));
 			$template->addSpecial('is-funnel-page', true);
+			// $template->addSpecial('is-minimal-page', true);
 
 		$template->startBuffer();
 

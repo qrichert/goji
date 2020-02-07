@@ -10,6 +10,7 @@
 		<segment id="GO_BACK_HOME">← Retourner vers la page d'accueil</segment>
 		<segment id="SEND">Envoyer</segment>
 		<segment id="PUBLISH">Publier</segment>
+		<segment id="CREATE">Créer</segment>
 		<segment id="EDIT">Modifier</segment>
 		<segment id="DELETE">Supprimer</segment>
 		<segment id="SAVE">Enregistrer</segment>
@@ -47,6 +48,7 @@
 		<segment id="FOOTER_LOG_IN">Connexion</segment>
 		<segment id="FOOTER_LOG_OUT">Déconnexion</segment>
 		<segment id="FOOTER_ADMIN">Admin</segment>
+		<segment id="FOOTER_SETTINGS">Paramètres</segment>
 
 		<!-- Copyright Notices -->
 		<segment id="HTML_COPYRIGHT_NOTICE"><![CDATA[<!--
@@ -134,7 +136,7 @@
 		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
 		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
 		<segment id="LANDING_PAGE_PRE_HEADING">Bonjour,</segment>
-		<segment id="LANDING_PAGE_MAIN_TITLE">"Qui d’Autre Veut Plus de Baies de Goji—Sans Trop d’Effort ?"</segment>
+		<segment id="LANDING_PAGE_MAIN_TITLE">"Qui d’Autre Veut Plus de Baies de Goji—Sans Effort ?"</segment>
 		<segment id="LANDING_PAGE_GOJI_BERRIES_LEGEND">Plus de baies de goji que vous ne pouvez en rêver...</segment>
 		<segment id="LANDING_PAGE_GOJI_BERRIES_COPY"><![CDATA[
 			<h2>Vous Êtes-Vous Déjà Demandé Pourquoi Certaines Personnes Semblent Avoir Autant de Baies ?</h2>
@@ -236,6 +238,23 @@
 		<segment id="RESET_PASSWORD_DONE">C'est bon ?</segment>
 		<segment id="RESET_PASSWORD_LOG_IN">Connectez-vous</segment>
 	</page>
+	<page id="settings|xhr-settings-.+">
+		<segment id="SETTINGS_PAGE_TITLE">Paramètres</segment>
+		<segment id="SETTINGS_PAGE_DESCRIPTION"></segment>
+		<segment id="SETTINGS_MAIN_TITLE">Paramètres</segment>
+		<segment id="SETTINGS_PASSWORD">Mot de passe</segment>
+
+		<segment id="SETTINGS_FORM_CURRENT_PASSWORD">Mot de passe</segment>
+		<segment id="SETTINGS_FORM_CURRENT_PASSWORD_PLACEHOLDER">Mot de passe actuel</segment>
+		<segment id="SETTINGS_FORM_PASSWORD">Nouveau mot de passe</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_PLACEHOLDER">uN-mdp_F0r7@~_</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION">Nouveau mot de passe (encore)</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirmation</segment>
+		<segment id="SETTINGS_FORM_SUCCESS">Le mot de passe a bien été mis à jour</segment>
+		<segment id="SETTINGS_FORM_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="SETTINGS_FORM_ERROR_WRONG_PASSWORD">Le mot de passe actuel est invalide</segment>
+		<segment id="SETTINGS_FORM_ERROR_PASSWORDS_MUST_MATCH">Les nouveaux mots de passe doivent être identiques</segment>
+	</page>
 	<page id="blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
@@ -295,7 +314,6 @@
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION">Mot de passe (encore)</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirmation</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_ROLE">Rôle</segment>
-		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_SUBMIT">Créer</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_SUCCESS">Le nouveau membre a bien été ajouté</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR">Le formulaire contient des erreurs</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_PASSWORDS_MUST_MATCH">Les mots de passe doivent être identiques</segment>

@@ -1076,11 +1076,29 @@ section.text img {
 	max-width: 100%;
 }
 
+section.text form {
+	padding-left: 0;
+	padding-right: 0;
+	max-width: 630px;
+}
+
 /* Up to 375px */
 @media all and (max-width: 375px) {
 
 	section.text {
 		padding: var(--gutter-medium);
+	}
+}
+
+/* Down to 375px */
+@media all and (min-width: 525px){
+
+	section.text form button,
+	section.text form input[type=button],
+	section.text form input[type=submit],
+	section.text form input[type=reset],
+	section.text form .link-button {
+		width: unset;
 	}
 }
 

@@ -81,7 +81,7 @@ class AddMemberForm extends Form {
 			$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 			$this->addInput(new InputButtonElement())
 			     ->addClass('highlight loader')
-			     ->setAttribute('textContent', $tr->_('ADMIN_ACTION_ADD_MEMBER_FORM_SUBMIT'));
+			     ->setAttribute('textContent', $tr->_('CREATE'));
 			$this->addInput(new InputCustom('<p class="form__success"></p>'));
 			$this->addInput(new InputCustom('<p class="form__error"></p>'));
 	}
