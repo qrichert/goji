@@ -17,7 +17,8 @@ class SettingsPasswordForm extends Form {
 
 		$this->setAction('xhr-settings-password');
 
-		$this->setId('settings__form--password');
+		$this->addClass('settings')
+			 ->setId('settings__form--password');
 
 		$this->addInput(new InputLabel())
 		     ->setAttribute('for', 'settings__current-password')

@@ -1076,7 +1076,7 @@ section.text img {
 	max-width: 100%;
 }
 
-section.text form {
+section.text form.settings {
 	padding-left: 0;
 	padding-right: 0;
 	max-width: 630px;
@@ -1093,11 +1093,11 @@ section.text form {
 /* Down to 375px */
 @media all and (min-width: 525px){
 
-	section.text form button,
-	section.text form input[type=button],
-	section.text form input[type=submit],
-	section.text form input[type=reset],
-	section.text form .link-button {
+	section.text form.settings button,
+	section.text form.settings input[type=button],
+	section.text form.settings input[type=submit],
+	section.text form.settings input[type=reset],
+	section.text form.settings .link-button {
 		width: unset;
 	}
 }
