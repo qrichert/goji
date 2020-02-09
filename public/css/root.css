@@ -40,9 +40,11 @@
 	--header-height: 116px;
 	--header-height-alt: 55px;
 
-	--burger-menu-bar-height: 2px;
-	--burger-menu-width: 33px;
-	--burger-menu-height: 15px; /* (h-3bh) should be even, to divide the gaps by 2 */
+	--burger-menu-bar-height: 1px;
+	--burger-menu-width: 23px;
+	--burger-menu-height: 11px; /* (h-3bh) should be even, to divide the gaps by 2 */
+	--burger-menu-use-middle-bar: 1; /* 1 = yes, 0 = no */
+	--burger-menu-user-rounded-bars: 0; /* 1 = yes, 0 = no */
 	/*
 		Calculating --burger-menu-height-unfolded is just some Pythagoras
 		taking bar height into account. (Rotation origin is x = y = bar height / 2)
@@ -60,7 +62,7 @@
 		w: 33, bh: 3 => 24.21
 		w: 33, bh: 4 => 24.51 (looks better with h: 19)
 	*/
-	--burger-menu-height-unfolded: 23.92px;
+	--burger-menu-height-unfolded: 16.56px;
 
 	--text-size-small: 12px;
 	--text-size-medium: 14px;

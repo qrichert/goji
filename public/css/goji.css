@@ -738,8 +738,8 @@ img.header__logo {
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
-	width: calc(var(--burger-menu-width) * 0.9);
-	height: calc(var(--burger-menu-height) * 0.9);
+	width: var(--burger-menu-width);
+	height: var(--burger-menu-height);
 	margin-left: var(--gutter-default);
 	z-index: 3001;
 	transition: height var(--transition-default);
@@ -747,20 +747,24 @@ img.header__logo {
 
 .nav__burger-menu:hover,
 .nav__burger-menu.cross {
-	height: calc(var(--burger-menu-height-unfolded) * 0.9);
+	height: var(--burger-menu-height-unfolded);
 }
 
 .nav__burger-menu div {
 	width: 100%;
 	height: var(--burger-menu-bar-height);
 	background-color: var(--color-burger-menu);
-	border-radius: calc(var(--burger-menu-bar-height) / 2);
+	border-radius: calc(var(--burger-menu-bar-height) / 2 * var(--burger-menu-user-rounded-bars));
 	/* To inverse, use calc(var(--burger-menu-bar-height) / 2) for both */
 	transform-origin: calc(100% - var(--burger-menu-bar-height) / 4)
 					  calc(var(--burger-menu-bar-height) / 2);
 	transition: transform var(--transition-default),
 				opacity var(--transition-default),
 				background-color var(--transition-default);
+}
+
+.nav__burger-menu div:nth-child(2) {
+	opacity: var(--burger-menu-use-middle-bar);
 }
 
 .nav__burger-menu.cross div {
@@ -792,11 +796,11 @@ img.header__logo {
 @media all and (any-hover: none) {
 
 	.nav__burger-menu:hover {
-		height: calc(var(--burger-menu-height) * 0.9);
+		height: var(--burger-menu-height);
 	}
 
 	.nav__burger-menu.cross:hover {
-		height: calc(var(--burger-menu-height-unfolded) * 0.9);
+		height: var(--burger-menu-height-unfolded);
 	}
 }
 
