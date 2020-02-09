@@ -990,6 +990,11 @@ section.centered {
 	align-items: center;
 }
 
+section.centered h1, section.centered h2, section.centered h3,
+section.centered h4, section.centered h5, section.centered h6 {
+	text-align: center;
+}
+
 /* <Section Fullscreen> */
 
 section.fullscreen {
