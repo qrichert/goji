@@ -2,7 +2,7 @@
 
 COMMAND=''
 
-if [[ -z "$1" ]]; then
+if [[ -z "$1" ]] || [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
 	echo "Commands:"
 	echo "  build        Build Docker container"
 	echo "  buildnrun    Build Docker container and run it"
@@ -10,7 +10,7 @@ if [[ -z "$1" ]]; then
 	echo "  push         Push new commits to Git repository"
 	echo "  update       Update from Git repository and rebuild Docker container"
 
-	exit 1
+	exit 0
 else
 	COMMAND=$1
 
