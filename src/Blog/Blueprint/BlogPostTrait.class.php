@@ -3,6 +3,7 @@
 namespace Blog\Blueprint;
 
 use Goji\Rendering\BasicFormatting;
+use Goji\Rendering\TemplateExtensions;
 
 trait BlogPostTrait {
 
@@ -15,6 +16,8 @@ trait BlogPostTrait {
 	public static function renderAsHTML(string $content): string {
 
 		$content = BasicFormatting::formatTextInlineAndEscape($content);
+		$content = TemplateExtensions::ctaToHTML($content);
+		$content = TemplateExtensions::embedInstagram($content);
 
 		return $content;
 	}

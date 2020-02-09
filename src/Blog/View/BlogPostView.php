@@ -56,7 +56,7 @@
 </main>
 
 <?php if ($this->m_app->getUser()->isLoggedIn()
-    && $this->m_app->getMemberManager()->memberIs('editor')): ?>
+          && $this->m_app->getMemberManager()->memberIs('editor')): ?>
 
 	<script>
 		(function () {

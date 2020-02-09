@@ -2,6 +2,7 @@
 
 namespace Goji\Rendering;
 
+use Goji\Core\Logger;
 use Goji\Parsing\JSON5;
 
 /**
@@ -119,6 +120,36 @@ class TemplateExtensions {
 			}
 
 			return $out;
+
+		}, $templateString);
+	}
+
+	/**
+	 * Renders Instagram embed post from post ID
+	 *
+	 * https://www.instagram.com/p/B8KRPhqIRZ36IyVi7akGTw8l9KsVRJDhrj-omk0/
+	 *                            |                   ID                  |
+	 * ---->                       B8KRPhqIRZ36IyVi7akGTw8l9KsVRJDhrj-omk0
+	 *
+	 * %{INSTAGRAM B8KRPhqIRZ36IyVi7akGTw8l9KsVRJDhrj-omk0}
+	 *
+	 * @param string $templateString
+	 * @return string
+	 */
+	public static function embedInstagram(string $templateString): string {
+
+		$instagramEmbedCode = @file_get_contents('../template/embed/instagram.html');
+
+		if ($instagramEmbedCode === false) {
+			Logger::log("Warning: Instagram embed template not found in 'template/embed/instagram.html'");
+			return $templateString;
+		}
+
+		$instagramEmbedCode = "</p>$instagramEmbedCode<p>";
+
+		return preg_replace_callback('#%\{INSTAGRAM (.*)\}#isU', function($match) use($instagramEmbedCode) {
+
+			return str_replace('%{POST_ID}', trim($match[1]), $instagramEmbedCode);
 
 		}, $templateString);
 	}
