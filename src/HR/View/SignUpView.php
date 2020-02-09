@@ -36,13 +36,15 @@ $template->linkFiles([
 			form.reset();
 			formError.textContent = '';
 
-			if (typeof response.redirect_to !== 'undefined'
+			if (response !== null
+				&& typeof response.redirect_to !== 'undefined'
 				&& response.redirect_to !== null
 				&& response.redirect_to !== '') {
 
 				location.href = response.redirect_to;
 
-			} else if (typeof response.message !== 'undefined'
+			} else if (response !== null
+			           && typeof response.message !== 'undefined'
 			           && response.message !== null) {
 
 				formSuccess.innerHTML = response.message;
@@ -53,7 +55,8 @@ $template->linkFiles([
 
 			formSuccess.textContent = '';
 
-			if (typeof response.message !== 'undefined'
+			if (response !== null
+			    && typeof response.message !== 'undefined'
 			    && response.message !== null) {
 
 				formError.innerHTML = response.message;

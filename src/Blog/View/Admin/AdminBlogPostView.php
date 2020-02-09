@@ -96,7 +96,8 @@ $template->linkFiles([
 
 			formError.textContent = '';
 
-			if (typeof response.message !== 'undefined'
+			if (response !== null
+			    && typeof response.message !== 'undefined'
 			    && response.message !== null) {
 
 				formSuccess.innerHTML = response.message;
@@ -115,7 +116,8 @@ $template->linkFiles([
 
 			formSuccess.textContent = '';
 
-			if (typeof response.message !== 'undefined'
+			if (response !== null
+			    && typeof response.message !== 'undefined'
 			    && response.message !== null) {
 
 				formError.innerHTML = response.message;

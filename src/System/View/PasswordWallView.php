@@ -30,11 +30,14 @@ $template->linkFiles([
 
 		let error = response => {
 
-			if (typeof response.message !== 'undefined'
+			if (response !== null
+			    && typeof response.message !== 'undefined'
 			    && response.message !== null) {
 
 				formError.innerHTML = response.message;
 			}
+
+			form.reset();
 		};
 
 		new Form(form,
