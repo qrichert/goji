@@ -57,6 +57,14 @@
 					<img src="<?= $template->rsc('img/lib/Goji/database__back-up.svg'); ?>" alt="" class="action-item__icon">
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_BACK_UP_DATABASE'); ?></span>
 				</a>
+
+				<?php if (!empty($terminalPath)): ?>
+					<a class="action-item" id="admin-action__terminal" data-href="<?= $terminalPath ?>">
+						<div class="action-item__progress"></div>
+						<img src="<?= $template->rsc('img/lib/Goji/terminal.svg'); ?>" alt="" class="action-item__icon">
+						<div class="action-item__caption"><?= $tr->_('ADMIN_ACTION_TERMINAL'); ?></div>
+					</a>
+				<?php endif; ?>
 			</div>
 
 		<?php endif; ?>
@@ -287,6 +295,22 @@ $template->linkFiles([
 			}, false);
 
 		})();
+
+		<?php if (!empty($terminalPath)): ?>
+
+			// Terminal
+			(function() {
+
+				let terminal = document.querySelector('#admin-action__terminal');
+				let terminalHref = terminal.dataset.href;
+
+				terminal.addEventListener('click', () => {
+					open(terminalHref, '_blank');
+				}, false);
+
+			})();
+
+		<?php endif; ?>
 	</script>
 
 <?php endif; ?>

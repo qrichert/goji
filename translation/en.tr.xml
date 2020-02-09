@@ -306,6 +306,7 @@
 		<segment id="ADMIN_ACTION_CLEAR_CACHE">Clear cache</segment>
 		<segment id="ADMIN_ACTION_UPDATE">Update</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>
+		<segment id="ADMIN_ACTION_TERMINAL">Terminal</segment>
 
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL">Email</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL_PLACEHOLDER">the@email.com</segment>
