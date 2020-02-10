@@ -53,7 +53,9 @@ $template->linkFiles([
 				return permalink;
 			}
 
-			permalink.addEventListener('keyup', () => permalinkEdited = true, false);
+			permalink.addEventListener('keyup', () => {
+				permalinkEdited = permalink.value !== '';
+			}, false);
 
 			title.addEventListener('keyup', () => {
 
