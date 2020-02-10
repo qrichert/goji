@@ -16,6 +16,8 @@ class AdminController extends ControllerAbstract {
 
 		$addMemberForm = new AddMemberForm($tr, $this->m_app);
 
+		$useGit = is_dir('../.git');
+
 		$terminalPath = null;
 
 			if (is_dir('_terminal'))

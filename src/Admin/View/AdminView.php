@@ -52,11 +52,13 @@
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_CLEAR_CACHE'); ?></span>
 				</a>
 
-				<a class="action-item" id="admin-action__update">
-					<div class="action-item__progress"></div>
-					<img src="<?= $template->rsc('img/lib/Goji/git.svg'); ?>" alt="" class="action-item__icon">
-					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_UPDATE'); ?></span>
-				</a>
+				<?php if ($useGit): ?>
+					<a class="action-item" id="admin-action__update">
+						<div class="action-item__progress"></div>
+						<img src="<?= $template->rsc('img/lib/Goji/git.svg'); ?>" alt="" class="action-item__icon">
+						<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_UPDATE'); ?></span>
+					</a>
+				<?php endif; ?>
 
 				<?php if (!empty($terminalPath)): ?>
 					<a class="action-item" id="admin-action__terminal" data-href="<?= $terminalPath ?>">
@@ -251,50 +253,54 @@ $template->linkFiles([
 
 		})();
 
-		// Update
-		(function () {
+		<?php if ($useGit): ?>
 
-			let update = document.querySelector('#admin-action__update');
-			let updateAction = new ActionItem(update);
+			// Update
+			(function () {
 
-			update.addEventListener('click', () => {
+				let update = document.querySelector('#admin-action__update');
+				let updateAction = new ActionItem(update);
 
-				updateAction.startAction();
+				update.addEventListener('click', () => {
 
-				let error = () => {
-					updateAction.endError();
-				};
+					updateAction.startAction();
 
-				let load = (r, s) => {
+					let error = () => {
+						updateAction.endError();
+					};
 
-					if (r === null || s !== 200) {
-						error();
-						return;
-					}
+					let load = (r, s) => {
 
-					updateAction.endSuccess();
+						if (r === null || s !== 200) {
+							error();
+							return;
+						}
 
-					// Command output
-					if (typeof r.output !== 'undefined' && r.output !== null)
-						update.title = r.output.trim();
-				};
+						updateAction.endSuccess();
 
-				let progress = (loaded, total) => {
-					updateAction.setProgress(loaded/total);
-				};
+						// Command output
+						if (typeof r.output !== 'undefined' && r.output !== null)
+							update.title = r.output.trim();
+					};
 
-				SimpleRequest.get(
-					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-update') ?>',
-					load,
-					error,
-					error,
-					progress,
-					{ get_json: true }
-				);
+					let progress = (loaded, total) => {
+						updateAction.setProgress(loaded/total);
+					};
 
-			}, false);
+					SimpleRequest.get(
+						'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-update') ?>',
+						load,
+						error,
+						error,
+						progress,
+						{ get_json: true }
+					);
 
-		})();
+				}, false);
+
+			})();
+
+		<?php endif; ?>
 
 		<?php if (!empty($terminalPath)): ?>
 
