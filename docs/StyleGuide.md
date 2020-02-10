@@ -70,6 +70,12 @@ Classes
   <div class="loading-dots loading"></div>
   ```
   Use the `.loading` modifier as shown above to trigger the loading animation
+- **`.tooltip`**: A "?" button showing some text on hover. The tooltip can take a `.left` or `.right` modifier.
+  ```css
+  div.tooltip >
+        div.tooltip__button:empty
+      + .tooltip__text /* Can be a <div> to contain sub-elements or directly a <p>. */
+  ```
 - **`.dialog`**: A dialog window. Ideally should be used with the `Dialog` JavaScript class. If not,
   `.dialog` must be contained inside a `.dialog__parent` and can be toggled with the `.show` modifier.
   (`Dialog` does all that automatically).

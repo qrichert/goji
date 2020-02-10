@@ -2,8 +2,7 @@
 	<section class="text">
 		<h1><?= $tr->_('BLOG_POST_MAIN_TITLE')[$this->m_action]; ?></h1>
 
-		<?php
-		if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_UPDATE) {
+		<?php if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_UPDATE):
 
 			$link = $this->m_app->getRouter()->getLinkForPage('blog') . '/' .
 			        $blogPostManager->getForm()->getInputByName('blog-post[permalink]')->getValue();
@@ -19,9 +18,8 @@
 					<?= $tr->_('BLOG_POST_GO_TO_BLOG_POST'); ?>
 				</a>
 			</div>
-		<?php
-		}
-		?>
+
+		<?php endif; ?>
 
 		<?php $blogPostManager->getForm()->render(); ?>
 

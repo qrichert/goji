@@ -171,6 +171,13 @@ class BasicMarkdown {
 		return $text;
 	}
 
+	/**
+	 * <hr>
+	 *
+	 * @param string $text
+	 * @param bool $fakeBlocks
+	 * @return string
+	 */
 	public static function blocksToHTML(string $text, bool $fakeBlocks = false): string {
 
 		// <hr>
@@ -193,6 +200,16 @@ class BasicMarkdown {
 		return $text;
 	}
 
+	/**
+	 * Alignment:
+	 * |+ left               -|
+	 * |-              right +|
+	 * ||       center       ||
+	 *
+	 * @param string $text
+	 * @param bool $fakeBlocks
+	 * @return string
+	 */
 	public static function alignmentToHTML(string $text, bool $fakeBlocks = false): string {
 
 		$tag = $fakeBlocks ? 'span' : 'div';

@@ -33,6 +33,14 @@ class BlogPostForm extends Form {
 			     ->setAttribute('textContent', $tr->_('PUBLISH'));
 			$this->addInput(new InputCustom('<p class="form__success"></p>'));
 			$this->addInput(new InputCustom('<p class="form__error"></p>'));
+			$this->addInput(new InputCustom('
+				<div class="tooltip left">
+					<div class="tooltip__button"></div>
+					<div class="tooltip__text">
+						' . $tr->printRawTranslationResource('blog-markdown-tooltip.%{LOCALE}.tr.html', false) . '
+					</div>
+				</div>
+			'));
 			$this->addInput(new InputLabel())
 			     ->setAttribute('for', 'blog-post__permalink')
 			     ->setAttribute('textContent', $tr->_('BLOG_POST_PERMALINK'));
