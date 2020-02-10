@@ -602,6 +602,8 @@ tr:not(:last-child) td,
 	color: var(--color-nav-link);
 	font-family: var(--font-title);
 	text-decoration: none !important; /* In case there's text. */
+	font-size: var(--text-size-big);
+	font-weight: bold;
 }
 
 .header__logo > :not(:first-child) {
