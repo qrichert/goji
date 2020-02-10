@@ -32,11 +32,11 @@
 		require_authentication: {
 			"root": [
 				"xhr-admin-clear-cache",
-				"xhr-admin-update",
-				"xhr-admin-back-up-database"
+				"xhr-admin-update"
 			],
 			"admin": [
-				"xhr-admin-add-member"
+				"xhr-admin-add-member",
+				"xhr-admin-back-up-database"
 			],
 			"editor": [
 				"admin",
