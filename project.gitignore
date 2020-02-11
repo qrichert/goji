@@ -74,11 +74,13 @@ node_modules/
 #/public/css/goji.css
 #/public/img/lib/Goji/
 #/public/js/lib/Goji/
-/public/_terminal/
-/public/terminal/
 /tests/Goji/
 /var/*
 !/var/db/
 /vendor/
+
+# Symlinks
+/public/_terminal
+/public/terminal
 
 !.gitkeep

@@ -60,11 +60,13 @@ node_modules/
 /_WIP_/*
 !/_WIP_/TODO.txt
 
-/public/_terminal/
-/public/terminal/
 /var/*
 !/var/db/
 !/var/upload/
 /vendor/
+
+# Symlinks
+/public/_terminal
+/public/terminal
 
 !.gitkeep
