@@ -8,7 +8,7 @@ use Goji\HumanResources\MemberManager;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
 
-class VerifyEmailController extends ControllerAbstract {
+class VerifyEmailController extends ControllerAbstract { // Not cached, displayed email changes
 
 	/* <ATTRIBUTES> */
 

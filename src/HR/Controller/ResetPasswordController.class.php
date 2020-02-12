@@ -9,7 +9,7 @@ use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
 use HR\Model\ResetPasswordForm;
 
-class ResetPasswordController extends ControllerAbstract {
+class ResetPasswordController extends ControllerAbstract { // Not cached, token changes
 
 	/* <ATTRIBUTES> */
 
