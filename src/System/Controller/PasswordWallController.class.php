@@ -2,7 +2,7 @@
 
 namespace System\Controller;
 
-use Goji\Blueprints\CachedControllerAbstract;
+use Goji\Blueprints\ControllerAbstract;
 use Goji\Core\App;
 use Goji\Core\Cookies;
 use Goji\Core\HttpResponse;
@@ -11,7 +11,7 @@ use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
 use System\Model\PasswordWallForm;
 
-class PasswordWallController extends CachedControllerAbstract {
+class PasswordWallController extends ControllerAbstract { // Not cached, sends responses
 
 	private function treatForm(Form $form): void {
 
