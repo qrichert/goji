@@ -48,7 +48,7 @@ class DocumentScroll {
 	 */
 	scrollEvent(e = null) {
 
-		this.m_scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;;
+		this.m_scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
 		if (this.m_callback !== null)
 			this.m_callback(this.m_scroll);
