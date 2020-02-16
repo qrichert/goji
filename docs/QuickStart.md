@@ -53,7 +53,7 @@ To add a basic route, add a page ID, with a `route` and a `controller`.
 ```json5
 "new-page-id": {
     route: "/new-page",
-    controller: "NewPageController"
+    controller: "App/NewPageController"
 }
 ```
 

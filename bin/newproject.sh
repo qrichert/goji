@@ -76,18 +76,18 @@ fi
 
 if [[ $useGit = 'y' ]]
 then
-  echo "Initializing the Git repository..."
-  # Git commands must be executed in project directory
-  currentDir=$PWD
-  cd "$BASE_DIR/$projectName"
-  # Init project from project dir (don't show output)
-  git init >/dev/null 2>&1
-  git add . >/dev/null 2>&1
-  git commit -am "Initial commit." >/dev/null 2>&1
-  git checkout -b wip >/dev/null 2>&1
-  git checkout master >/dev/null 2>&1
-  # Back to original directory
-  cd $currentDir
+	echo "Initializing the Git repository..."
+	# Git commands must be executed in project directory
+	currentDir=$PWD
+	cd "$BASE_DIR/$projectName"
+	# Init project from project dir (don't show output)
+	git init >/dev/null 2>&1
+	git add . >/dev/null 2>&1
+	git commit -am "Initial commit." >/dev/null 2>&1
+	git checkout -b wip >/dev/null 2>&1
+	git checkout master >/dev/null 2>&1
+	# Back to original directory
+	cd $currentDir
 fi
 
 echo "Done."
