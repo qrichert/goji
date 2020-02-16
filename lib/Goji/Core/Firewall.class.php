@@ -28,6 +28,12 @@ class Firewall {
 
 		$config = ConfigurationLoader::loadFileToArray($configFile);
 
+		if (!array_key_exists('firewall', $config))
+			$config['firewall'] = null;
+
+		if (!array_key_exists('forbidden', $config))
+			$config['forbidden'] = null;
+
 		$routesRequiringAuthentication = (array) $config['firewall']['require_authentication'] ?? [];
 
 			$this->m_routesRequiringAuthentication = [];

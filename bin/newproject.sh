@@ -34,7 +34,7 @@ rm "$BASE_DIR/$projectName/.gitignore"
 rm "$BASE_DIR/$projectName/LICENSE"
 mv "$BASE_DIR/$projectName/project.gitignore" "$BASE_DIR/$projectName/.gitignore"
 > "$BASE_DIR/$projectName/README.md"
-echo -e "TODO\n====\n" > "$BASE_DIR/$projectName/_WIP_/TODO.txt"
+echo -e "TODO\n====" > "$BASE_DIR/$projectName/_WIP_/TODO.txt"
 
 # Will be done after symlinks, but we ask before because you can pass the symlinks questions
 # by quickly typing y/Enter or n/Enter and so you'll probably miss the Git question at the end.

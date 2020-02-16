@@ -31,6 +31,9 @@ class Authentication {
 
 		$config = ConfigurationLoader::loadFileToArray($configFile);
 
+		if (!array_key_exists('login', $config))
+			$config['login'] = null;
+
 		$this->m_loginPage = $config['login']['route'] ?? null;
 
 		$this->m_onLoginSuccessRedirectTo = $config['login']['redirect_to'] ?? '_last';
