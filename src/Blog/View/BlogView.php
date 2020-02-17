@@ -68,6 +68,8 @@
 			let form = document.querySelector('#form__blog-search');
 			let formQuery = document.querySelector('#blog-search__query');
 
+			form.addEventListener('submit', e => { e.preventDefault(); }, false);
+
 			let loadingInProgress = document.querySelector('#blog__blog-posts-loading-in-progress');
 			let loadingQueueLength = 0;
 
@@ -198,11 +200,28 @@
 				);
 			};
 
+			let timerId = null;
+
 			formQuery.addEventListener('keyup', () => {
-				if (formQuery.value === '')
+
+				// If another key has been pressed less than 750ms after the previous one,
+				// we cancel the timer to prevent the request (we want the last key)
+				if (timerId !== null)
+					clearTimeout(timerId);
+
+				// We can reset it immediately since we don't make a request for that
+				if (formQuery.value === '') {
 					regenerateBlogPostList(defaultArticles);
-				else
+					timerId = null;
+					return;
+				}
+
+				// Wait 750ms after last input
+				// This is to space out the requests
+				timerId = setTimeout(() => {
 					fetchArticlesForQuery(formQuery.value);
+				}, 750);
+
 			}, false);
 
 		})();
