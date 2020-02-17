@@ -2,7 +2,7 @@
 
 namespace Goji\Rendering;
 
-use Goji\Core\Logger;
+use Goji\Debug\Logger;
 use Goji\Parsing\JSON5;
 
 /**

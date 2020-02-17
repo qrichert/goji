@@ -2,7 +2,7 @@
 
 namespace Goji\Toolkit;
 
-use Goji\Core\Logger;
+use Goji\Debug\Logger;
 
 /**
  * Class Mail

@@ -1,6 +1,6 @@
 <?php
 
-namespace Goji\Core;
+namespace Goji\Debug;
 
 use Exception;
 

@@ -5,7 +5,7 @@ namespace Goji\HumanResources;
 use Exception;
 use Goji\Core\App;
 use Goji\Core\ConfigurationLoader;
-use Goji\Core\Logger;
+use Goji\Debug\Logger;
 use Goji\Security\Passwords;
 
 /**
