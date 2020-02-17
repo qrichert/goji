@@ -260,6 +260,7 @@
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_MAIN_TITLE">Blog</segment>
 		<segment id="BLOG_NEW_BLOG_POST">Nouvel article</segment>
+		<segment id="BLOG_SEARCH_BLOG_POST_PLACEHOLDER">Rechercher un article...</segment>
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR}</segment>
 		<segment id="BLOG_NO_BLOG_POSTS">Il n'y a pas encore d'article, revenez plus tard...</segment>
 		<segment id="BLOG_READ_MORE">Lire la suite...</segment>

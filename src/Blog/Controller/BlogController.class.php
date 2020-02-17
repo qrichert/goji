@@ -4,6 +4,7 @@ namespace Blog\Controller;
 
 use Blog\Blueprint\BlogPostTrait;
 use Blog\Model\BlogPostManager;
+use Blog\Model\BlogSearchForm;
 use Goji\Core\App;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Toolkit\SwissKnife;
@@ -38,6 +39,8 @@ class BlogController extends BlogControllerAbstract {
 
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+
+		$blogSearchForm = new BlogSearchForm($tr);
 
 		$blogPostManager = new BlogPostManager($this);
 		$blogPosts = $blogPostManager->getBlogPosts(0,
