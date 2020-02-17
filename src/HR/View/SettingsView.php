@@ -19,7 +19,7 @@ $template->linkFiles([
 
 <script>
 	// Password
-	(function () {
+	(function() {
 
 		let form = document.querySelector('#settings__form--password');
 		let formSuccess = form.querySelector('p.form__success');

@@ -29,4 +29,3 @@ getTablesList()
 - [ ] nginx.conf
 - [ ] Middleware functions (middleware.json5, ex: App/Middleware/SomeClasss::someStaticMethod() methods must be static)
 - [ ] Make password wall a middleware?
-- [ ] (function () {})(); -> (function() {})(); => Remove space between function and ()

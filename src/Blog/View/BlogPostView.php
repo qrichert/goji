@@ -59,7 +59,7 @@
           && $this->m_app->getMemberManager()->memberIs('editor')): ?>
 
 	<script>
-		(function () {
+		(function() {
 
 			let deleteButton = document.querySelector('#button__delete-blog-post');
 

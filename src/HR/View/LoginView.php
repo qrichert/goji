@@ -68,7 +68,7 @@ $template->linkFiles([
 
 	})();
 
-	(function () {
+	(function() {
 
 		// Reset Password
 

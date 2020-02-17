@@ -30,7 +30,7 @@
 </main>
 
 <script>
-	(function () {
+	(function() {
 
 		let resendVerification = document.querySelector('#verify-email__resend-verification-button');
 

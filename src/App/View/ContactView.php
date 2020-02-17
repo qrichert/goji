@@ -21,7 +21,7 @@ $template->linkFiles([
 ]);
 ?>
 <script>
-	(function () {
+	(function() {
 		new TextAreaAutoResize(document.querySelector('#contact__message'));
 	})();
 

@@ -20,7 +20,7 @@
 </header>
 
 <script>
-	(function () {
+	(function() {
 
 		/* <BURGER MENU> */
 

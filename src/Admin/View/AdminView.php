@@ -98,7 +98,7 @@ $template->linkFiles([
 
 	<script>
 		// Add member
-		(function () {
+		(function() {
 
 			// Dialog
 			let addMember = document.querySelector('#admin-action__add-member');
@@ -153,7 +153,7 @@ $template->linkFiles([
 		})();
 
 		// Back-up DB
-		(function () {
+		(function() {
 
 			let backUp = document.querySelector('#admin-action__back-up-database');
 			let backUpAction = new ActionItem(backUp);
@@ -256,7 +256,7 @@ $template->linkFiles([
 		<?php if ($useGit): ?>
 
 			// Update
-			(function () {
+			(function() {
 
 				let update = document.querySelector('#admin-action__update');
 				let updateAction = new ActionItem(update);

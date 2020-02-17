@@ -33,7 +33,7 @@ $template->linkFiles([
 ]);
 ?>
 <script>
-	(function () {
+	(function() {
 
 		<?php if ($this->m_action == \Blog\Model\BlogPostManager::ACTION_CREATE): ?>
 
