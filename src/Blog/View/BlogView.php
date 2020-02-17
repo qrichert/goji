@@ -153,15 +153,19 @@
 
 			regenerateBlogPostList(defaultArticles);
 
-
 			let fetchArticlesForQuery = (query) => {
+
+				let error  = () => {
+
+					loadingQueueLength--;
+
+					if (loadingQueueLength === 0)
+						stopLoading();
+				};
 
 				let load = (r, s) => {
 
 					loadingQueueLength--;
-
-					if (loadingQueueLength < 0)
-						loadingQueueLength = 0;
 
 					if (loadingQueueLength === 0)
 						stopLoading();
@@ -187,8 +191,8 @@
 					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-blog') ?>',
 					new FormData(form),
 					load,
-					null,
-					null,
+					error,
+					error,
 					null,
 					{ get_json: true }
 				);
