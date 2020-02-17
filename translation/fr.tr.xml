@@ -255,7 +255,7 @@
 		<segment id="SETTINGS_FORM_ERROR_WRONG_PASSWORD">Le mot de passe actuel est invalide</segment>
 		<segment id="SETTINGS_FORM_ERROR_PASSWORDS_MUST_MATCH">Les nouveaux mots de passe doivent être identiques</segment>
 	</page>
-	<page id="blog">
+	<page id="(xhr-)?blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_MAIN_TITLE">Blog</segment>
@@ -264,6 +264,7 @@
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR}</segment>
 		<segment id="BLOG_NO_BLOG_POSTS">Il n'y a pas encore d'article, revenez plus tard...</segment>
 		<segment id="BLOG_READ_MORE">Lire la suite...</segment>
+		<segment id="BLOG_NOTHING_FOUND">Aucun article correspondant à votre recherche n'a été trouvé...</segment>
 	</page>
 	<page id="blog-post">
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>

@@ -255,7 +255,7 @@
 		<segment id="SETTINGS_FORM_ERROR_WRONG_PASSWORD">The current password is invalid</segment>
 		<segment id="SETTINGS_FORM_ERROR_PASSWORDS_MUST_MATCH">The new passwords must match</segment>
 	</page>
-	<page id="blog">
+	<page id="(xhr-)?blog">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_MAIN_TITLE">Blog</segment>
@@ -264,6 +264,7 @@
 		<segment id="BLOG_POST_DATE">%{MONTH}/%{DAY}/%{YEAR}</segment>
 		<segment id="BLOG_NO_BLOG_POSTS">There are no blog posts yet, come back later...</segment>
 		<segment id="BLOG_READ_MORE">Read more...</segment>
+		<segment id="BLOG_NOTHING_FOUND">No blog post matching your search has been found...</segment>
 	</page>
 	<page id="blog-post">
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>

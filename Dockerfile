@@ -20,6 +20,11 @@ RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
 
 # PHP_INI_DIR = /usr/local/etc/php
 
+RUN apt-get -y update \
+ && apt-get install -y libicu-dev \
+ && docker-php-ext-configure intl \
+ && docker-php-ext-install intl
+
 COPY config/environment/php.ini $PHP_INI_DIR/conf.d
 
 # App

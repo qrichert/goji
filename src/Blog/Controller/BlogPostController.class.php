@@ -2,7 +2,7 @@
 
 namespace Blog\Controller;
 
-use Blog\Blueprint\BlogPostTrait;
+use Blog\Blueprint\BlogTrait;
 use Blog\Model\BlogPostManager;
 use Goji\Core\App;
 use Goji\Rendering\SimpleTemplate;
@@ -11,7 +11,7 @@ use Goji\Translation\Translator;
 
 class BlogPostController extends BlogControllerAbstract {
 
-	use BlogPostTrait;
+	use BlogTrait;
 
 	/* <ATTRIBUTES> */
 

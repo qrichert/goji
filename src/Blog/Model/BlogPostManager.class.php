@@ -128,9 +128,14 @@ class BlogPostManager {
 	 * @param int $count -1 = all, infinite
 	 * @param string $locale
 	 * @param callable|null $formatFunction
+	 * @param array $formatFunctionParams
 	 * @return array
 	 */
-	public function getBlogPosts(int $offset = 0, int $count = -1, string $locale = null, callable $formatFunction = null): array {
+	public function getBlogPosts(int $offset = 0,
+	                             int $count = -1,
+	                             string $locale = null,
+	                             callable $formatFunction = null,
+	                             array $formatFunctionParams = []): array {
 
 		if ($offset < 0)
 			$offset = 0;
@@ -161,7 +166,67 @@ class BlogPostManager {
 		if ($formatFunction !== null) {
 
 			foreach ($reply as &$entry) {
-				$entry['post'] = $formatFunction($entry['post']);
+				$entry['post'] = $formatFunction($entry['post'], ...$formatFunctionParams);
+			}
+			unset($entry);
+		}
+
+		foreach ($reply as &$entry) {
+			$entry['creation_date'] = SwissKnife::dateToComponents($entry['creation_date']);
+			$entry['last_edit_date'] = SwissKnife::dateToComponents($entry['last_edit_date']);
+		}
+		unset($entry);
+
+		return $reply;
+	}
+
+	public function getBlogPostsForQuery(string $query,
+	                                     int $offset = 0,
+	                                     int $count = -1,
+	                                     string $locale = null,
+	                                     callable $formatFunction = null,
+	                                     array $formatFunctionParams = []): array {
+
+		// Transforming $query
+
+		$query = "%$query%";
+
+		// Getting the posts
+
+		if ($offset < 0)
+			$offset = 0;
+
+		$q = 'SELECT * FROM g_blog ';
+		$q .= 'WHERE (title LIKE :query OR post LIKE :query)';
+
+		$params = [
+			'query' => $query
+		];
+
+		if (!empty($locale)) {
+			$q .= 'AND locale LIKE :locale ';
+			$params['locale'] = "$locale%";
+		}
+
+		$q .= 'ORDER BY id DESC ';
+
+		if ($offset > 0 || $count > -1)
+			$q .= 'LIMIT ' . ((string) $offset);
+
+		if ($count > -1)
+			$q .= ', ' . ((string) $count);
+
+		$query = $this->m_db->prepare($q);
+		$query->execute($params);
+
+		$reply = $query->fetchAll();
+
+		$query->closeCursor();
+
+		if ($formatFunction !== null) {
+
+			foreach ($reply as &$entry) {
+				$entry['post'] = $formatFunction($entry['post'], ...$formatFunctionParams);
 			}
 			unset($entry);
 		}

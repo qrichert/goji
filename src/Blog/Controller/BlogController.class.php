@@ -2,37 +2,24 @@
 
 namespace Blog\Controller;
 
-use Blog\Blueprint\BlogPostTrait;
+use Blog\Blueprint\BlogTrait;
 use Blog\Model\BlogPostManager;
 use Blog\Model\BlogSearchForm;
 use Goji\Core\App;
 use Goji\Rendering\SimpleTemplate;
-use Goji\Toolkit\SwissKnife;
 use Goji\Translation\Translator;
 
 class BlogController extends BlogControllerAbstract {
 
-	use BlogPostTrait;
+	use BlogTrait;
 
 	/* <CONSTANTS> */
-
-	const BLOG_POST_PREVIEW_MAX_LENGTH = 250;
 
 	public function __construct(App $app) {
 
 		parent::__construct($app);
 
 		$this->activateCacheIfRolePermits();
-	}
-
-	public static function renderCleanAndCut($content) {
-
-		$content = self::renderClean($content);
-
-		if (mb_strlen($content) > self::BLOG_POST_PREVIEW_MAX_LENGTH)
-			$content = SwissKnife::ceil_str($content, self::BLOG_POST_PREVIEW_MAX_LENGTH) . '...';
-
-		return $content;
 	}
 
 	public function render(): void {

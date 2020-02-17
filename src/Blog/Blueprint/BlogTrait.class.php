@@ -4,8 +4,9 @@ namespace Blog\Blueprint;
 
 use Goji\Rendering\BasicFormatting;
 use Goji\Rendering\TemplateExtensions;
+use Goji\Toolkit\SwissKnife;
 
-trait BlogPostTrait {
+trait BlogTrait {
 
 	/**
 	 * Raw content to HTML
@@ -30,5 +31,22 @@ trait BlogPostTrait {
 	 */
 	public static function renderClean(string $content): string {
 		return strip_tags(self::renderAsHTML($content));
+	}
+
+	/**
+	 * Renders text without HTML tags and
+	 *
+	 * @param string $content
+	 * @param int $maxLength
+	 * @return string
+	 */
+	public static function renderCleanAndCut(string $content, int $maxLength = 250) {
+
+		$content = self::renderClean($content);
+
+		if (mb_strlen($content) > $maxLength)
+			$content = SwissKnife::ceil_str($content, $maxLength) . '...';
+
+		return $content;
 	}
 }

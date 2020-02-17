@@ -51,17 +51,18 @@
 
 /* List */
 
-.form__blog-search {
+#form__blog-search {
 	width: 100%;
 	margin-right: auto;
 	padding: 0;
 }
 
-.form__blog-search #blog-search__query {
+#form__blog-search #blog-search__query {
 	border: none;
 	box-shadow: none;
 	padding-left: 0;
 	padding-right: 0;
+	margin: 0;
 }
 
 @media all and (min-width: 470px) {

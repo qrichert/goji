@@ -28,9 +28,9 @@ Directory Structure
     - **`img`**, *images that are part of the content (not styling).*
     - **`js`**, *JavaScript files.*
 - **`src`**, *contains user code (yours).*
+    - **`Blueprint`**, *additional "toolkit" code (e.g. traits).*
     - **`Controller`**, *controller files.*
     - **`Model`**, *model files.*
-    - **`Resource`**, *additional "toolkit" code (e.g. traits).*
     - **`View`**, *view files.*
 - **`template`**, *contains template files (*e.g.* page templates).*
 - **`tests`**, *root directory for test sources.*

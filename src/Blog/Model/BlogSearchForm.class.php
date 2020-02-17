@@ -12,7 +12,7 @@ class BlogSearchForm extends Form {
 
 		parent::__construct();
 
-		$this->addClass('form__blog-search no-padding');
+		$this->setId('form__blog-search');
 
 			$this->addInput(new InputText())
 				 ->setName('blog-search[query]')
