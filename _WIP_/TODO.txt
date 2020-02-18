@@ -9,7 +9,6 @@ getTablesList()
     else
         SHOW TABLES
 
-- [ ] Don't version db in prod because of conflict
 - [ ] Pas reçu le mail inscription (bug) ?
 - [ ] Keep me logged in with expirable tokens
 - [ ] Blog  writing markdown help text
@@ -21,12 +20,9 @@ getTablesList()
 - [ ] Blog categories, tags & author
 - [ ] Make render() default but not mandatory (allow Controller::method())
 - [ ] Give possibility to route method to GET or POST automatically (maybe in config create 'method: post' flag or 'get' flag
-- [ ] Replace m_ neatly (/!\ methods with same name as property)
 - [ ] Implement _WIP_/debug.png
 - [ ] Check that alternate syntax (if ():, etc.) is properly implemented in views
 - [ ] Clean routes.json5 and provide a routes.json5.txt for the demo ?
 - [ ] Implement basic tests (loads each page, listens for error, logs in, etc)
-- [ ] nginx.conf
 - [ ] Middleware functions (middleware.json5, ex: App/Middleware/SomeClasss::someStaticMethod() methods must be static)
 - [ ] Make password wall a middleware?
-- [ ] Improve search (copy old code from proximii)

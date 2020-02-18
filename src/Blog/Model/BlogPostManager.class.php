@@ -187,21 +187,54 @@ class BlogPostManager {
 	                                     callable $formatFunction = null,
 	                                     array $formatFunctionParams = []): array {
 
-		// Transforming $query
-
-		$query = "%$query%";
-
-		// Getting the posts
-
 		if ($offset < 0)
 			$offset = 0;
 
-		$q = 'SELECT * FROM g_blog ';
-		$q .= 'WHERE (title LIKE :query OR post LIKE :query)';
+		// Transforming $query
 
-		$params = [
-			'query' => $query
-		];
+		// (1) Put all the 'words' into an array
+		$queryKeywords = preg_split('#[\W\s_-]#', $query);
+
+		$queryKeywords = array_filter($queryKeywords);
+
+		foreach ($queryKeywords as &$keyword) {
+
+			// (2) Replace plurals and infinitives by SQL wildcards
+			if (mb_strlen($keyword) > 4)
+				$keyword = preg_replace('#(s|aux|i|e|es|en|er|ir)$#', '%', $keyword);
+
+			// (3) Remove repeated letters
+			$keyword = preg_replace('#(.)\1+#', '$1%', $keyword);
+
+			// (4) Wildcardize keyword
+			$keyword = '%' . $keyword . '%';
+		}
+		unset($keyword);
+
+		// SQLizing query
+		$query = [];
+		$params = [];
+
+		$i = 0;
+		foreach ($queryKeywords as $keyword) {
+			$i++;
+
+			$subQuery = [];
+
+			foreach (['title', 'post'] as $tableColumn) {
+				$subQuery[] = "$tableColumn LIKE :keyword$i";
+			}
+
+			$params["keyword$i"] = $keyword;
+
+			$query[] = '(' . implode(' OR ', $subQuery) . ')';
+		}
+
+		$query = implode(' OR ', $query);
+
+		// Getting the posts
+
+		$q = "SELECT * FROM g_blog WHERE ($query) ";
 
 		if (!empty($locale)) {
 			$q .= 'AND locale LIKE :locale ';
