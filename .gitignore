@@ -62,6 +62,7 @@ node_modules/
 
 /var/*
 !/var/db/
+/var/db/goji.analytics.sqlite3
 !/var/upload/
 /vendor/
 

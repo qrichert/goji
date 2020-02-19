@@ -77,6 +77,7 @@ node_modules/
 /tests/Goji/
 /var/*
 !/var/db/
+/var/db/goji.analytics.sqlite3
 /vendor/
 
 # Symlinks

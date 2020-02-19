@@ -40,31 +40,31 @@ class AnalyticsForm extends Form {
 								 ->setAttribute('required');
 
 		$inputSelectTimeFrame->addOption(new InputSelectOption())
-		                     ->setAttribute('value', 'past-7-days')
+		                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_7_DAYS)
 		                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_7_DAYS'));
 
 			$inputSelectTimeFrame->addOption(new InputSelectOption())
-								 ->setAttribute('value', 'past-30-days')
+								 ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_30_DAYS)
 								 ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_30_DAYS'));
 
 			$inputSelectTimeFrame->addOption(new InputSelectOption())
-			                     ->setAttribute('value', 'past-90-days')
+			                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_90_DAYS)
 			                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_90_DAYS'));
 
 			$inputSelectTimeFrame->addOption(new InputSelectOption())
-			                     ->setAttribute('value', 'past-6-months')
+			                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_6_MONTHS)
 			                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_6_MONTHS'));
 
 			$inputSelectTimeFrame->addOption(new InputSelectOption())
-			                     ->setAttribute('value', 'past-12-months')
+			                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_12_MONTHS)
 			                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_12_MONTHS'));
 
 			$inputSelectTimeFrame->addOption(new InputSelectOption())
-			                     ->setAttribute('value', 'past-5-years')
+			                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_5_YEARS)
 			                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_5_YEARS'));
 
 			$inputSelectTimeFrame->addOption(new InputSelectOption())
-			                     ->setAttribute('value', 'all-time')
+			                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_ALL_TIME)
 			                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_ALL_TIME'));
 	}
 }

@@ -25,13 +25,15 @@ class XhrAnalyticsController extends XhrControllerAbstract {
 		$formPage = $form->getInputByName('analytics[page]')->getValue();
 		$formTimeFrame = $form->getInputByName('analytics[time-frame]')->getValue();
 
-		$analyticsController = new AnalyticsModel();
+		$analyticsModel = new AnalyticsModel();
+
+		$data = [];
+
+		foreach ($analyticsModel->getPageViewsForPageAndTimeFrame($formPage, $formTimeFrame) as $dataPoint)
+			$data[] = $dataPoint;
 
 		HttpResponse::JSON([
-			'data' => [
-				$formPage,
-				$formTimeFrame
-			],
+			'data' => $data,
 		], true);
 	}
 

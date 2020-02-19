@@ -2,6 +2,7 @@
 
 namespace Admin\Model;
 
+use Generator;
 use Goji\Core\Database;
 use Goji\Toolkit\SimpleMetrics;
 
@@ -9,26 +10,26 @@ class AnalyticsModel {
 
 	private $m_db;
 
+	const TIME_FRAME_PAST_7_DAYS = 'past-7-days';
+	const TIME_FRAME_PAST_30_DAYS = 'past-30-days';
+	const TIME_FRAME_PAST_90_DAYS = 'past-90-days';
+	const TIME_FRAME_PAST_6_MONTHS = 'past-6-months';
+	const TIME_FRAME_PAST_12_MONTHS = 'past-12-months';
+	const TIME_FRAME_PAST_5_YEARS = 'past-5-years';
+	const TIME_FRAME_ALL_TIME = 'all-time';
+
 	public function __construct() {
+
+		$dataBaseFile = Database::DATABASES_SAVE_PATH . 'goji.analytics.sqlite3';
+
+		// If analytics database file doesn't exist, copy it from blueprint
+		if (!is_file($dataBaseFile))
+			if (is_file($dataBaseFile . '.blueprint'))
+				copy($dataBaseFile . '.blueprint', $dataBaseFile);
 
 		$this->m_db = new Database('analytics');
 
 		$this->buildAnalyticsDataFromSimpleMetrics();
-	}
-
-	private function savePageViewsToDatabase(string $year, string $month, string $day, string $page, int $nbViews): void {
-
-		$query = $this->m_db->prepare('INSERT INTO g_pageview
-												(snapshot_date,   page,  nb_views)
-										 VALUES (:snapshot_date, :page, :nb_views)');
-
-		$query->execute([
-			'snapshot_date' => "$year-$month-$day 00:00:00",
-			'page' => $page,
-			'nb_views' => $nbViews
-		]);
-
-		$query->closeCursor();
 	}
 
 	private function buildAnalyticsDataFromSimpleMetrics(): void {
@@ -85,5 +86,50 @@ class AnalyticsModel {
 		}
 
 		SimpleMetrics::cleanup();
+	}
+
+	private function savePageViewsToDatabase(string $year, string $month, string $day, string $page, int $nbViews): void {
+
+		$query = $this->m_db->prepare('INSERT INTO g_pageview
+												(snapshot_date,   page,  nb_views)
+										 VALUES (:snapshot_date, :page, :nb_views)');
+
+		$query->execute([
+			'snapshot_date' => "$year-$month-$day 00:00:00",
+			'page' => $page,
+			'nb_views' => $nbViews
+		]);
+
+		$query->closeCursor();
+	}
+
+	public function getPageViewsForPageAndTimeFrame(string $page, string $timeFrame): Generator{
+
+		switch ($timeFrame) {
+			case self::TIME_FRAME_PAST_7_DAYS:      $timeFrame = '-7 DAY';      break;
+			case self::TIME_FRAME_PAST_30_DAYS:     $timeFrame = '-30 DAY';     break;
+			case self::TIME_FRAME_PAST_90_DAYS:     $timeFrame = '-90 DAY';     break;
+			case self::TIME_FRAME_PAST_6_MONTHS:    $timeFrame = '-6 MONTH';    break;
+			case self::TIME_FRAME_PAST_12_MONTHS:   $timeFrame = '-12 MONTH';   break;
+			case self::TIME_FRAME_PAST_5_YEARS:     $timeFrame = '-5 YEAR';     break;
+			default:                                $timeFrame = '';            break;
+		}
+
+		if (!empty($timeFrame))
+			$timeFrame = "AND snapshot_date > DATE('NOW', '$timeFrame', '-1 DAY')"; // -1 DAY because today is excluded
+
+		$query = $this->m_db->prepare("SELECT DATE(snapshot_date) AS snapshot_date, nb_views
+										FROM g_pageview
+										WHERE page=:page $timeFrame
+										ORDER BY snapshot_date ASC");
+
+		$query->execute([
+			'page' => $page
+		]);
+
+		while ($reply = $query->fetch())
+			yield $reply;
+
+		$query->closeCursor();
 	}
 }
