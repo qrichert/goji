@@ -305,9 +305,10 @@
 		<segment id="ADMIN_SECTION_ROOT">Root</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">New blog post</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER">New member</segment>
+		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>
+		<segment id="ADMIN_ACTION_ANALYTICS">Analytics</segment>
 		<segment id="ADMIN_ACTION_CLEAR_CACHE">Clear cache</segment>
 		<segment id="ADMIN_ACTION_UPDATE">Update</segment>
-		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>
 		<segment id="ADMIN_ACTION_TERMINAL">Terminal</segment>
 
 		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL">Email</segment>
@@ -331,5 +332,17 @@
 			<alternative count="^1$">freed up</alternative>
 			<alternative count="rest">freed up</alternative>
 		</segment>
+	</page>
+	<page id="(xhr-)?admin-analytics">
+		<segment id="ANALYTICS_PAGE_TITLE">Analytics</segment>
+		<segment id="ANALYTICS_PAGE_DESCRIPTION"></segment>
+		<segment id="ANALYTICS_MAIN_TITLE">Analytics</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_7_DAYS">Past 7 days</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_30_DAYS">Past 30 days</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_90_DAYS">Past 90 days</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_6_MONTHS">Past 6 months</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_12_MONTHS">Past 12 months</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_5_YEARS">Past 5 Years</segment>
+		<segment id="ANALYTICS_TIME_FRAME_ALL_TIME">All time</segment>
 	</page>
 </translation>

@@ -36,6 +36,13 @@
 					<img src="<?= $template->rsc('img/lib/Goji/database__back-up.svg'); ?>" alt="" class="action-item__icon">
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_BACK_UP_DATABASE'); ?></span>
 				</a>
+
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-analytics'); ?>"
+				   class="action-item" id="admin-action__analytics">
+					<div class="action-item__progress"></div>
+					<img src="<?= $template->rsc('img/lib/Goji/analytics.svg'); ?>" alt="" class="action-item__icon">
+					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_ANALYTICS'); ?></span>
+				</a>
 			</div>
 
 		<?php endif; ?>

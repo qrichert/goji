@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Graph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 150 150" style="enable-background:new 0 0 150 150;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#24292E;stroke-width:5;stroke-miterlimit:10;}
+	.st1{fill:#24292E;}
+	.st2{fill:#03BCFC;}
+	.st3{fill:#FF5892;}
+	.st4{fill:#FECB4D;}
+	.st5{fill:#026FE3;}
+</style>
+<polyline id="Curve" class="st0" points="16.4,94.4 51.8,59.3 90.1,96.6 133.6,53.4 "/>
+<g id="Nodes">
+	<g id="Node_1">
+		<path class="st1" d="M16.4,80.6c-7.7,0-13.9,6.2-13.9,13.7c0,7.6,6.2,13.7,13.9,13.7s13.9-6.2,13.9-13.7
+			C30.3,86.8,24.1,80.6,16.4,80.6L16.4,80.6z"/>
+		<ellipse class="st2" cx="16.4" cy="94.4" rx="8.9" ry="8.7"/>
+	</g>
+	<g id="Node_2">
+		<path class="st1" d="M51.8,45.5c-7.7,0-13.9,6.2-13.9,13.7S44.1,73,51.8,73s13.9-6.2,13.9-13.7S59.5,45.5,51.8,45.5L51.8,45.5z"/>
+		<ellipse class="st3" cx="51.8" cy="59.3" rx="8.9" ry="8.7"/>
+	</g>
+	<g id="Node_3">
+		<path class="st1" d="M90.1,82.9c-7.7,0-13.9,6.2-13.9,13.7s6.2,13.7,13.9,13.7s13.9-6.2,13.9-13.7S97.7,82.9,90.1,82.9L90.1,82.9z
+			"/>
+		<ellipse class="st4" cx="90.1" cy="96.6" rx="8.9" ry="8.7"/>
+	</g>
+	<g id="Node_4">
+		<path class="st1" d="M133.6,39.6c-7.7,0-13.9,6.2-13.9,13.7s6.2,13.7,13.9,13.7s13.9-6.2,13.9-13.7S141.3,39.6,133.6,39.6
+			L133.6,39.6z"/>
+		<ellipse class="st5" cx="133.6" cy="53.4" rx="8.9" ry="8.7"/>
+	</g>
+</g>
+</svg>

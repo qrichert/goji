@@ -36,7 +36,9 @@
 			],
 			"admin": [
 				"xhr-admin-add-member",
-				"xhr-admin-back-up-database"
+				"xhr-admin-back-up-database",
+				"admin-analytics",
+				"xhr-admin-analytics",
 			],
 			"editor": [
 				"admin",

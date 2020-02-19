@@ -192,6 +192,14 @@
 		route: "/admin/xhr-back-up-database",
 		controller: "Admin/XhrBackUpDatabaseController"
 	},
+	"admin-analytics": {
+		route: "/admin/analytics",
+		controller: "Admin/AnalyticsController"
+	},
+	"xhr-admin-analytics": {
+		route: "/admin/xhr-analytics",
+		controller: "Admin/XhrAnalyticsController"
+	},
 /*
 // <DEMO>
 	// This is the page ID.

@@ -66,7 +66,7 @@ class BackUp {
 
 		$pattern = self::BACKUP_PATH . $prefix . '*' . self::BACKUP_FILE_EXTENSION;
 
-		$backupFiles = glob($pattern);
+		$backupFiles = glob($pattern, GLOB_NOSORT); // GLOB_NOSORT to improve efficiency, will be sorted by rsort() later anyway
 		// Get them sorted in natural order, newest first
 		rsort($backupFiles, SORT_NATURAL);
 

@@ -74,16 +74,3 @@
 		flex-wrap: nowrap;
 	}
 }
-
-/* Make it use same space when hidden. */
-#blog .loading-dots,
-#blog .loading-dots:not(.loading) {
-	display: block;
-	visibility: hidden;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-#blog .loading-dots.loading {
-	visibility: visible;
-}

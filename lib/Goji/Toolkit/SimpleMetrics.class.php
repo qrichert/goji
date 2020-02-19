@@ -5,18 +5,27 @@ namespace Goji\Toolkit;
 /**
  * Class SimpleMetrics
  *
+ * This class just saves metrics in the most basic way:
+ * year folder, month folder, day folder, file named as ID, file containing value
+ *
+ * It is up to other classes to process this data and / or save it to DB.
+ *
+ * For example, \Admin\Model\AnalyticsModel processes page views and saves them neatly to
+ * the database, and removes SimpleMetrics files afterwards.
+ *
  * @package Goji\Toolkit
  */
 class SimpleMetrics {
 
 	const METRICS_PATH = ROOT_PATH . '/var/log/metrics/';
+	const PAGE_VIEW = 'pageview';
 
-	public static function addPageView($page, $folder = 'pageview') {
+	/**
+	 * @param string $page
+	 */
+	public static function addPageView(string $page): void {
 
-		$folder = self::METRICS_PATH . $folder;
-
-		if (mb_substr($folder, -1) != '/')
-			$folder .= '/'; // metrics/pageview/
+		$folder = self::getMetricsFolderPath(self::PAGE_VIEW);
 
 		$folder .= date('Y/m/d'); // metrics/pageview/2018/03/11
 
@@ -41,18 +50,50 @@ class SimpleMetrics {
 		}
 	}
 
-	/*
-		Functions : get all pageviews in array
-					same but from date to date
-					or over 1y, 1m, 1d
+	/**
+	 * Returns metrics folder
+	 *
+	 * Ends with trailing slash
+	 *
+	 * @param string $folder
+	 * @return string
+	 */
+	public static function getMetricsFolderPath(string $folder = ''): string {
 
-					{
-						"home": {
-							"2018": {
-								"03": 123,
-								"04": 97
-							}
-						}
-					}
-	*/
+		$folder = self::METRICS_PATH . $folder;
+
+		if (mb_substr($folder, -1) != '/')
+			$folder .= '/'; // metrics/pageview/
+
+		return $folder;
+	}
+
+	/**
+	 * Removes empty folders in path
+	 *
+	 * @param string $path
+	 */
+	public static function cleanup($path = self::METRICS_PATH) {
+
+		if (mb_substr($path, -1) != '/')
+			$path .= '/';
+
+		$folders = glob($path . '*', GLOB_ONLYDIR | GLOB_NOSORT);
+
+		foreach ($folders as $folder) {
+
+			if (mb_substr($folder, -1) != '/')
+				$folder .= '/';
+
+			self::cleanup($folder);
+
+			// Ignore .DS_Store
+			if (file_exists($folder . '.DS_Store'))
+				@unlink($folder . '.DS_Store');
+
+			// Remove folder if nothing in it, folder or files
+			if (empty(glob($folder . '*', GLOB_NOSORT)))
+				@rmdir($folder);
+		}
+	}
 }

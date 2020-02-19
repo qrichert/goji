@@ -235,11 +235,11 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	animation-iteration-count: infinite;
 	animation-delay: 0ms;
 	margin: 10px auto 10px auto;
-	display: none;
+	visibility: hidden;
 }
 
 .loading-dots.loading {
-	display: block;
+	visibility: visible;
 }
 
 .loading-dots::before,
@@ -1348,6 +1348,16 @@ form.form__centered {
 form.form__centered .form__success,
 form.form__centered .form__error {
 	text-align: center;
+}
+
+form.inline {
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+form.inline > *:not(:first-child) {
+	margin-left: var(--gutter-thin);
 }
 
 /* Up to 375px */

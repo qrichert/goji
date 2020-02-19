@@ -313,7 +313,41 @@ class Router implements HttpStatusInterface {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getRoutes(): array {
+		return $this->m_routes;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getMappedRoutes(): array {
+		return $this->m_mappedRoutes;
+	}
+
+	/**
+	 * All routes available (for current locale).
+	 *
+	 * ID => LINK
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
+	public function getRoutesAvailable(): array {
+
+		$routesAvailable = [];
+
+		foreach ($this->m_routes as $route => $_) {
+			$routesAvailable[$route] = $this->getLinkForPage($route);
+		}
+
+		return $routesAvailable;
+	}
+
+	/**
 	 * Returns current page ID (key in routes.json5)
+	 *
 	 * @return string
 	 * @throws \Exception
 	 */
@@ -360,6 +394,7 @@ class Router implements HttpStatusInterface {
 
 	/**
 	 * Returns true if current page is password wall page, false if not.
+	 *
 	 * @return bool
 	 */
 	public function getCurrentPageIsPasswordWallPage(): bool {
