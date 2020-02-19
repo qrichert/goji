@@ -21,14 +21,19 @@ class BackUp {
 	/**
 	 * Backup SQLite database file
 	 *
-	 * @param \Goji\Core\Database $db
+	 * @param \Goji\Core\Database|string $db
 	 * @param bool $addBackupDate
 	 * @param bool $addFileMTime
 	 * @return bool
 	 */
-	public static function database(Database $db, bool $addBackupDate = true, bool $addFileMTime = true): bool {
+	public static function database($db, bool $addBackupDate = true, bool $addFileMTime = true): bool {
 
-		$dbFile = $db->getDatabaseFile();
+		$dbFile = null;
+
+		if ($db instanceof Database)
+			$dbFile = $db->getDatabaseFile();
+		else
+			$dbFile = (string) $db;
 
 		if ($dbFile === null || !is_file($dbFile))
 			return false;
@@ -50,7 +55,7 @@ class BackUp {
 			return false;
 
 		// Remove old backups
-		self::removeOldBackupFiles(self::DATABASE_PREFIX);
+		self::removeOldBackupFiles(self::DATABASE_PREFIX . basename($dbFile));
 
 		return true;
 	}
@@ -62,7 +67,7 @@ class BackUp {
 	 * @param int $maxCount How many should be kept (optional, default = 15)
 	 * @return bool
 	 */
-	public static function removeOldBackupFiles(string $prefix, int $maxCount = 15): bool {
+	public static function removeOldBackupFiles(string $prefix, int $maxCount = 7): bool {
 
 		$pattern = self::BACKUP_PATH . $prefix . '*' . self::BACKUP_FILE_EXTENSION;
 

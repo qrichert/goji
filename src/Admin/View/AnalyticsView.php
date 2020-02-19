@@ -130,6 +130,7 @@ $template->linkFiles([
 						borderColor: '#ffdfe1',
 						fill: false,
 						pointRadius: 0,
+						pointHoverRadius: 0,
 					}]
 				},
 
