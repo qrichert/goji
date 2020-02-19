@@ -27,10 +27,15 @@ class XhrAnalyticsController extends XhrControllerAbstract {
 
 		$analyticsModel = new AnalyticsModel();
 
-		$data = [];
+		$data = [
+			'snapshot_date' => [],
+			'nb_views' => []
+		];
 
-		foreach ($analyticsModel->getPageViewsForPageAndTimeFrame($formPage, $formTimeFrame) as $dataPoint)
-			$data[] = $dataPoint;
+		foreach ($analyticsModel->getPageViewsForPageAndTimeFrame($formPage, $formTimeFrame) as $dataPoint) {
+			$data['snapshot_date'][] = $dataPoint['snapshot_date'];
+			$data['nb_views'][] = $dataPoint['nb_views'];
+		}
 
 		HttpResponse::JSON([
 			'data' => $data,
