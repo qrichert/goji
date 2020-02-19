@@ -345,6 +345,7 @@
 		<segment id="ANALYTICS_TIME_FRAME_PAST_5_YEARS">5 dernières années</segment>
 		<segment id="ANALYTICS_TIME_FRAME_ALL_TIME">Depuis le début</segment>
 		<segment id="ANALYTICS_LABEL_PAGE_VIEWS">Nombre de vues</segment>
+		<segment id="ANALYTICS_LABEL_TRENDLINE">Courbe de tendance</segment>
 		<segment id="ANALYTICS_BACK_TO_ADMIN_AREA">← Retourner vers l'espace admin</segment>
 	</page>
 </translation>

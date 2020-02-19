@@ -39,9 +39,9 @@ class AnalyticsForm extends Form {
 								 ->setId('analytics__time-frame')
 								 ->setAttribute('required');
 
-		$inputSelectTimeFrame->addOption(new InputSelectOption())
-		                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_7_DAYS)
-		                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_7_DAYS'));
+			$inputSelectTimeFrame->addOption(new InputSelectOption())
+			                     ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_7_DAYS)
+			                     ->setAttribute('textContent', $tr->_('ANALYTICS_TIME_FRAME_PAST_7_DAYS'));
 
 			$inputSelectTimeFrame->addOption(new InputSelectOption())
 								 ->setAttribute('value', AnalyticsModel::TIME_FRAME_PAST_30_DAYS)

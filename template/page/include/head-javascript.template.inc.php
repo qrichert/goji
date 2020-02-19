@@ -59,6 +59,21 @@
 
 	/* <FUNCTIONS> */
 
+	let zip = (array1, array2) => {
+		let zippedArray = [];
+		let lengthArray1 = array1.length;
+		let lengthArray2 = array2.length;
+
+		if (lengthArray1 !== lengthArray2)
+			throw new RangeError("Arrays must have matching lengths.");
+
+		for (let i = 0; i < lengthArray1; i++) {
+			zippedArray.push([array1[i], array2[i]]);
+		}
+
+		return zippedArray;
+	};
+
 //	/**
 //	 * Returns scroll ratio. (0 = top || 1 = bottom)
 // 	 * @return Float

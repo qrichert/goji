@@ -8,7 +8,7 @@
 
 		<div id="analytics__loading-in-progress" class="loading-dots"></div>
 
-		<canvas id="analytics__chart"></canvas>
+		<canvas id="analytics__chart" width="2" height="1"></canvas>
 
 		<p>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin'); ?>"><?= $tr->_('ANALYTICS_BACK_TO_ADMIN_AREA'); ?></a>
@@ -18,7 +18,8 @@
 
 <?php
 $template->linkFiles([
-	'js/vendor/Chart.bundle.min.js'
+	'js/vendor/Chart.bundle.min.js',
+	'js/vendor/regression.min.js'
 ]);
 ?>
 <script>
@@ -32,6 +33,8 @@ $template->linkFiles([
 		let form = document.querySelector('#analytics__form');
 		let formSelectPage = form.querySelector('#analytics__page');
 		let formSelectTimeFrame = form.querySelector('#analytics__time-frame');
+
+		let pageViewData = null;
 
 		let loadingInProgress = document.querySelector('#analytics__loading-in-progress');
 
@@ -65,7 +68,8 @@ $template->linkFiles([
 				if (typeof r.data === 'undefined' || r.data === null)
 					r.data = [];
 
-				regenerateChart(r.data);
+				pageViewData = r.data;
+				regenerateChart();
 			};
 
 			startLoading();
@@ -81,15 +85,27 @@ $template->linkFiles([
 			);
 		};
 
-		let regenerateChart = (pageviewData) => {
-
-			if (pageviewData === null) {
-				alert('no data');
-				return;
-			}
+		let regenerateChart = () => {
 
 			if (chart !== null)
 				chart.destroy();
+
+			if (pageViewData === null) {
+				return;
+			}
+
+			// Convert dates to indexes, so we have numbers to work with mathematically
+			let regressionValues = zip([...pageViewData.snapshot_date.keys()], pageViewData.nb_views);
+				regressionValues = regression.linear(regressionValues).points; // TODO: regression.exponential() seems good too, look what works best with real world data
+
+			// Keep only Y values
+			for (let i = 0; i < regressionValues.length; i++) {
+				regressionValues[i] = regressionValues[i][1];
+
+				// Cap at 0, can't be negative
+				if (regressionValues[i] < 0)
+					regressionValues[i] = 0
+			}
 
 			chart = new Chart(chartCtx, {
 				// The type of chart we want to create
@@ -97,16 +113,23 @@ $template->linkFiles([
 
 				// The data for our dataset
 				data: {
-					labels: pageviewData.snapshot_date,
+					labels: pageViewData.snapshot_date,
 					datasets: [{
+						data: pageViewData.nb_views,
 						label: '<?= addcslashes($tr->_('ANALYTICS_LABEL_PAGE_VIEWS'), "'"); ?>',
-						backgroundColor: chartColorHighlightHalo,
 						borderColor: chartColorHighlight,
+						backgroundColor: chartColorHighlightHalo,
 						pointBorderColor: chartColorHighlight,
 						pointBackgroundColor: chartColorHighlight,
-						data: pageviewData.nb_views,
 						// cubicInterpolationMode: 'monotone',
 						// lineTension: 0.3
+					}, {
+						data: regressionValues,
+						label: '<?= addcslashes($tr->_('ANALYTICS_LABEL_TRENDLINE'), "'"); ?>',
+						borderWidth: 2,
+						borderColor: '#ffdfe1',
+						fill: false,
+						pointRadius: 0,
 					}]
 				},
 

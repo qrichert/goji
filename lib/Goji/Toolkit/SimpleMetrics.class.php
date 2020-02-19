@@ -18,6 +18,7 @@ namespace Goji\Toolkit;
 class SimpleMetrics {
 
 	const METRICS_PATH = ROOT_PATH . '/var/log/metrics/';
+	const METRICS_FILE_EXTENSION = '.txt';
 	const PAGE_VIEW = 'pageview';
 
 	/**
@@ -32,7 +33,7 @@ class SimpleMetrics {
 		if (!is_dir($folder))
 			mkdir($folder, 0777, true);
 
-		$file = $folder . '/' . $page . '.txt';
+		$file = $folder . '/' . $page . self::METRICS_FILE_EXTENSION;
 
 		if (!is_file($file)) { // If no page view for this day, we create it
 

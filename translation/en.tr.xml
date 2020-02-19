@@ -345,6 +345,7 @@
 		<segment id="ANALYTICS_TIME_FRAME_PAST_5_YEARS">Past 5 Years</segment>
 		<segment id="ANALYTICS_TIME_FRAME_ALL_TIME">All time</segment>
 		<segment id="ANALYTICS_LABEL_PAGE_VIEWS">Page Views</segment>
+		<segment id="ANALYTICS_LABEL_TRENDLINE">Trendline</segment>
 		<segment id="ANALYTICS_BACK_TO_ADMIN_AREA">← Back to admin area</segment>
 	</page>
 </translation>

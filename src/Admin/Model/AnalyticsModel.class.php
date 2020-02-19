@@ -63,7 +63,7 @@ class AnalyticsModel {
 					if ($year == date('Y') && $month == date('m') && $day == date('d'))
 						continue;
 
-					$pages = glob("{$BASE_DIR}$year/$month/$day/*.txt", GLOB_NOSORT);
+					$pages = glob("{$BASE_DIR}$year/$month/$day/*" . SimpleMetrics::METRICS_FILE_EXTENSION, GLOB_NOSORT);
 
 					foreach ($pages as $page) {
 
@@ -103,7 +103,7 @@ class AnalyticsModel {
 		$query->closeCursor();
 	}
 
-	public function getPageViewsForPageAndTimeFrame(string $page, string $timeFrame): Generator{
+	public function getPageViewsForPageAndTimeFrame(string $page, string $timeFrame): Generator {
 
 		switch ($timeFrame) {
 			case self::TIME_FRAME_PAST_7_DAYS:      $timeFrame = '-7 DAY';      break;
@@ -116,7 +116,7 @@ class AnalyticsModel {
 		}
 
 		if (!empty($timeFrame))
-			$timeFrame = "AND snapshot_date > DATE('NOW', '$timeFrame', '-1 DAY')"; // -1 DAY because today is excluded
+			$timeFrame = "AND snapshot_date > DATE('NOW', '$timeFrame', '-1 DAY')"; // -1 DAY to get full x days back
 
 		$query = $this->m_db->prepare("SELECT DATE(snapshot_date) AS snapshot_date, nb_views
 										FROM g_pageview
@@ -127,8 +127,27 @@ class AnalyticsModel {
 			'page' => $page
 		]);
 
-		while ($reply = $query->fetch())
+		while ($reply = $query->fetch()) {
+			$reply['nb_views'] = (int) $reply['nb_views'];
 			yield $reply;
+		}
+
+		// TODAY (Read current metrics file)
+		$dataFileForToday = SimpleMetrics::getMetricsFolderPath(SimpleMetrics::PAGE_VIEW);
+			$dataFileForToday .= date('Y/m/d') . '/';
+			$dataFileForToday .= $page . SimpleMetrics::METRICS_FILE_EXTENSION;
+
+		if (is_file($dataFileForToday)) {
+
+			$nbViews = @file_get_contents($dataFileForToday);
+
+			if ($nbViews !== false) {
+				yield [
+					'snapshot_date' => date('Y-m-d'),
+					'nb_views' => (int) $nbViews
+				];
+			}
+		}
 
 		$query->closeCursor();
 	}
