@@ -8,6 +8,7 @@
 		<!-- Global -->
 		<segment id="HELLO_WORLD">bonjour, monde</segment>
 		<segment id="GO_BACK_HOME">← Retourner vers la page d'accueil</segment>
+		<segment id="GO_BACK_TO_ADMIN_AREA">← Retourner vers l'espace admin</segment>
 		<segment id="SEND">Envoyer</segment>
 		<segment id="PUBLISH">Publier</segment>
 		<segment id="CREATE">Créer</segment>
@@ -346,6 +347,5 @@
 		<segment id="ANALYTICS_TIME_FRAME_ALL_TIME">Depuis le début</segment>
 		<segment id="ANALYTICS_LABEL_PAGE_VIEWS">Nombre de vues</segment>
 		<segment id="ANALYTICS_LABEL_TRENDLINE">Courbe de tendance</segment>
-		<segment id="ANALYTICS_BACK_TO_ADMIN_AREA">← Retourner vers l'espace admin</segment>
 	</page>
 </translation>

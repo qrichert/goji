@@ -8,6 +8,7 @@
 		<!-- Global -->
 		<segment id="HELLO_WORLD">hello, world</segment>
 		<segment id="GO_BACK_HOME">← Go back home</segment>
+		<segment id="GO_BACK_TO_ADMIN_AREA">← Back to admin area</segment>
 		<segment id="SEND">Send</segment>
 		<segment id="PUBLISH">Publish</segment>
 		<segment id="CREATE">Create</segment>
@@ -346,6 +347,5 @@
 		<segment id="ANALYTICS_TIME_FRAME_ALL_TIME">All time</segment>
 		<segment id="ANALYTICS_LABEL_PAGE_VIEWS">Page Views</segment>
 		<segment id="ANALYTICS_LABEL_TRENDLINE">Trendline</segment>
-		<segment id="ANALYTICS_BACK_TO_ADMIN_AREA">← Back to admin area</segment>
 	</page>
 </translation>

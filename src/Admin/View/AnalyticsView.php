@@ -11,7 +11,7 @@
 		<canvas id="analytics__chart" width="2" height="1"></canvas>
 
 		<p>
-			<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin'); ?>"><?= $tr->_('ANALYTICS_BACK_TO_ADMIN_AREA'); ?></a>
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin'); ?>"><?= $tr->_('GO_BACK_TO_ADMIN_AREA'); ?></a>
 		</p>
 	</section>
 </main>
