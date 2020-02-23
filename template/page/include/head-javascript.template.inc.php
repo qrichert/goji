@@ -104,12 +104,13 @@
 </script>
 
 <?php
-
 $template->linkFiles([
 	'js/lib/Goji/Polyfills.min.js',
 	'js/lib/Goji/SimpleRequest.class.min.js'
 ]);
 
-if ($this->m_app->getAppMode() === \Goji\Core\App::DEBUG
-	&& $this->m_app->getRouter()->getCurrentPage() !== 'password-wall')
+if ($this->m_app->getAppMode() === \Goji\Core\App::DEBUG) {
+
+	if ($this->m_app->getRouter()->getCurrentPage() !== 'password-wall')
 		$template->linkFiles('js/lib/Goji/WindowSizeDisplay.min.js');
+}

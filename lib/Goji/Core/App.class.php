@@ -20,6 +20,8 @@ class App {
 
 	/* <ATTRIBUTES> */
 
+	private $m_requestedAt;
+
 	private $m_siteUrl;
 	private $m_siteName;
 	private $m_siteDomainName;
@@ -68,6 +70,10 @@ class App {
 	 */
 	public function __construct(string $configFile = self::CONFIG_FILE) {
 
+		// ex: 2020-02-22T23:35:51.69975600+00:00
+		$this->m_requestedAt = date('Y-m-d\TH:i:s') . '.' . substr(microtime(), 2, 8) . date('P');
+		HttpResponse::setHeader('Goji-Requested-At', $this->m_requestedAt);
+
 		$config = ConfigurationLoader::loadFileToArray($configFile);
 
 		$this->setSiteUrl($config['site_url'] ?? '');
@@ -97,6 +103,17 @@ class App {
 		// Use it IF password IS set AND cookie IS NOT set
 		$this->m_showPasswordWall = !empty($this->m_passwordWallPassword)
 		                                && empty(Cookies::get(self::PASSWORD_WALL_COOKIE));
+	}
+
+	/**
+	 * Timestamp of the page request
+	 *
+	 * Ex: Sat, 22 Feb 2020 17:15:36 +0000
+	 *
+	 * @return string
+	 */
+	public function getRequestedAt(): string {
+		return $this->m_requestedAt;
 	}
 
 	/**

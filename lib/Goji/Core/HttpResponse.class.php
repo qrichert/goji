@@ -79,6 +79,15 @@ class HttpResponse implements HttpStatusInterface, HttpMethodInterface, RobotsIn
 	}
 
 	/**
+	 * @param string $headerName
+	 * @param string $headerValue
+	 * @param bool $replace
+	 */
+	public static function setHeader(string $headerName, string $headerValue, bool $replace = true): void {
+		header("$headerName: $headerValue", $replace);
+	}
+
+	/**
 	 * Adds JSON header, status if given, json_encode()s array and exits by default.
 	 *
 	 * If success === true -> HTTP 200 OK (default)
