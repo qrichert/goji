@@ -201,7 +201,7 @@ class BlogPostManager {
 
 			// (2) Replace plurals and infinitives by SQL wildcards
 			if (mb_strlen($keyword) > 4)
-				$keyword = preg_replace('#(s|aux|i|e|es|en|er|ir)$#', '%', $keyword);
+				$keyword = preg_replace('#(s|aux|i|e|es|en|er|ir)$#i', '%', $keyword);
 
 			// (3) Remove repeated letters
 			$keyword = preg_replace('#(.)\1+#', '$1%', $keyword);
