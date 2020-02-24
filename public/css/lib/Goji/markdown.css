@@ -59,9 +59,10 @@ form > .markdown-heading.h4, form > .markdown-heading.h5, form > .markdown-headi
 	.markdown-heading.h2 { font-size: 1.3em; margin: 1em  0; }
 }
 
-/* <INLINE> */
+/* <INLINE IMAGES & BLOCK VIDEOS> */
 
-.markdown-image {
+.markdown-image,
+.markdown-video {
 	display: block;
 	max-width: 100%;
 	box-sizing: border-box;
@@ -75,6 +76,14 @@ form > .markdown-heading.h4, form > .markdown-heading.h5, form > .markdown-headi
 .markdown-image[src$='#fl'] { width: 900px; }
 .markdown-image[src$='#fm'] { width: 600px; }
 .markdown-image[src$='#fs'] { width: 350px; }
+
+.markdown-video.l { width: 100%; padding-bottom: 56.25%; }
+.markdown-video.m { width: 75%;  padding-bottom: 42.19%; }
+.markdown-video.s { width: 50%;  padding-bottom: 28.13%; }
+
+.markdown-video.fl { width: 900px; padding-bottom: 506px; }
+.markdown-video.fm { width: 600px; padding-bottom: 338px; }
+.markdown-video.fs { width: 350px; padding-bottom: 197px; }
 
 /* <LISTS> */
 

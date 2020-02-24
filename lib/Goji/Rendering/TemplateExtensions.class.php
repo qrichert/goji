@@ -153,4 +153,35 @@ class TemplateExtensions {
 
 		}, $templateString);
 	}
+
+	/**
+	 * Renders YouTube embedded video from video ID
+	 *
+	 * @param string $templateString
+	 * @return string
+	 */
+	public static function embedYouTube(string $templateString): string {
+
+		return preg_replace_callback('#%\{YOUTUBE ([^\#]*)(?:\#(l|m|s|fl|fm|fs))?\}#isU', function($match) {
+
+			$match[1] = trim($match[1]);
+			$match[2] = trim($match[2] ?? '');
+
+			return <<<EOT
+				</p>
+				<div class="video-wrapper markdown-video {$match[2]}">
+					<iframe
+						width="560"
+						height="315"
+						src="https://www.youtube.com/embed/{$match[1]}?rel=0&amp;showinfo=0"
+						frameborder="0"
+						allow="autoplay; encrypted-media"
+						allowfullscreen
+					></iframe>
+				</div>
+				<p>
+				EOT;
+
+		}, $templateString);
+	}
 }

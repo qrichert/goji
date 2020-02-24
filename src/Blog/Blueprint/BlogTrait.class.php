@@ -19,6 +19,7 @@ trait BlogTrait {
 		$content = BasicFormatting::formatTextInlineAndEscape($content);
 		$content = TemplateExtensions::ctaToHTML($content);
 		$content = TemplateExtensions::embedInstagram($content);
+		$content = TemplateExtensions::embedYouTube($content);
 
 		return $content;
 	}

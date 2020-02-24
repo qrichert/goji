@@ -122,6 +122,9 @@ class SimpleCache {
 		if (self::$m_isInitialized)
 			return;
 
+		if (!file_exists(self::CACHE_PATH))
+			mkdir(self::CACHE_PATH, 0777, true);
+
 		try {
 
 			// Can't use cache for this one, because it would call isValid*() and isValid*() calls this function
@@ -245,9 +248,6 @@ class SimpleCache {
 			return false;
 
 		$cacheFile = self::CACHE_PATH . $id . self::CACHE_FILE_EXTENSION;
-
-		if (!is_dir(self::CACHE_PATH))
-			mkdir(self::CACHE_PATH, 0777, true);
 
 		return file_put_contents($cacheFile, $frag) !== false;
 	}
