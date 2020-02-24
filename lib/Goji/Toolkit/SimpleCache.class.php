@@ -122,8 +122,8 @@ class SimpleCache {
 		if (self::$m_isInitialized)
 			return;
 
-		if (!file_exists(self::CACHE_PATH))
-			mkdir(self::CACHE_PATH, 0777, true);
+		if (!is_dir(self::CACHE_PATH))
+			@mkdir(self::CACHE_PATH, 0777, true);
 
 		try {
 

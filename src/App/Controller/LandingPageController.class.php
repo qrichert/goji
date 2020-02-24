@@ -22,7 +22,7 @@ class LandingPageController extends CachedControllerAbstract {
 		// Of course you don't need tu use SimpleTemplate.
 		// You could also just include an entire html/php file (use readfile( *.html ))
 
-		$template = new SimpleTemplate($tr->_('LANDING_PAGE_PAGE_TITLE'),
+		$template = new SimpleTemplate($tr->_('LANDING_PAGE_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 		                               $tr->_('LANDING_PAGE_PAGE_DESCRIPTION'));
 			$template->addSpecial('is-funnel-page', true);
 
