@@ -116,7 +116,7 @@ class AnalyticsModel {
 		}
 
 		if (!empty($timeFrame))
-			$timeFrame = "AND snapshot_date > DATE('NOW', '$timeFrame', '-1 DAY')"; // -1 DAY to get full x days back
+			$timeFrame = "AND snapshot_date > DATE('NOW', '$timeFrame')";
 
 		$query = $this->m_db->prepare("SELECT DATE(snapshot_date) AS snapshot_date, nb_views
 										FROM g_pageview
@@ -131,6 +131,8 @@ class AnalyticsModel {
 			$reply['nb_views'] = (int) $reply['nb_views'];
 			yield $reply;
 		}
+
+		$query->closeCursor();
 
 		// TODAY (Read current metrics file)
 		$dataFileForToday = SimpleMetrics::getMetricsFolderPath(SimpleMetrics::PAGE_VIEW);
@@ -148,7 +150,5 @@ class AnalyticsModel {
 				];
 			}
 		}
-
-		$query->closeCursor();
 	}
 }
