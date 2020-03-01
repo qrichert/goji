@@ -170,7 +170,8 @@ If not, you can add a **`.dark`** modifier for a dark icon version.
 There are other classes that imitate buttons:
 
 - **`.call-to-action`**: A big button. You can wrap it inside a `div.call-to-action__wrapper` so
-  Goji can add variations depending on the situation (like centering it).
+  Goji can add variations depending on the situation, like centering it (`span` works too if you
+  need an inline element).
     - **`.small`**: Same, but small
     - **`.smaller`**: Same, but even smaller
 

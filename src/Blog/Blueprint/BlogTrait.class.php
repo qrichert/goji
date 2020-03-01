@@ -16,8 +16,22 @@ trait BlogTrait {
 	 */
 	public static function renderAsHTML(string $content): string {
 
+		// Backup %{CTA}
+		preg_match_all('#%\{CTA(.*)%\{/CTA\}#isU', $content, $hit, PREG_PATTERN_ORDER);
+
+		$hitCount = count($hit[0]);
+		for ($i = 0; $i < $hitCount; $i++) {
+			$content = str_replace($hit[0][$i], '$£$£$£$£$£' . $i . '$£$£$£$£$£', $content);
+		}
+
 		$content = BasicFormatting::formatTextInlineAndEscape($content);
-		$content = TemplateExtensions::ctaToHTML($content);
+
+		// Restore backupped values within single or double quotes
+		for ($i = 0; $i < $hitCount; $i++) {
+			$content = str_replace('$£$£$£$£$£' . $i . '$£$£$£$£$£', $hit[0][$i], $content);
+		}
+
+		$content = TemplateExtensions::ctaToHTML($content, '#', true);
 		$content = TemplateExtensions::embedInstagram($content);
 		$content = TemplateExtensions::embedYouTube($content);
 

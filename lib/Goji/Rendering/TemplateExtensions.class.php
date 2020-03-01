@@ -23,17 +23,27 @@ class TemplateExtensions {
 	 * the second parameter $aHref.
 	 *
 	 * @param string $templateString
-	 * @param string $aHref
+	 * @param string $aHref Default href="" to use for link
+	 * @param bool $inline Use <span> instead of <div>
 	 * @return string
 	 */
-	public static function ctaToHTML(string $templateString, string $aHref = '#'): string {
+	public static function ctaToHTML(string $templateString, string $aHref = '#', bool $inline = false): string {
 
-		return preg_replace_callback('#%\{CTA( .*)?\}(.*)%\{/CTA\}#isU', function($match) use($aHref) {
+		return preg_replace_callback('#%\{CTA( .*)?\}(.*)%\{/CTA\}#isU', function($match) use($aHref, $inline) {
+
+			if (preg_match('#\[(.+?)\]\((.+?)\)#i', $match[2])) {
+				$aHref = preg_replace('#\[(.+?)\]\((.+?)\)#i', '$2', $match[2]);
+				$match[2] = preg_replace('#\[(.+?)\]\((.+?)\)#i', '$1', $match[2]);
+			}
+
+			$match[2] = trim($match[2]);
+
+			$htmlTag = $inline ? 'span' : 'div';
 
 			return <<<EOT
-				<div class="call-to-action__wrapper">
+				<{$htmlTag} class="call-to-action__wrapper">
 					<a href="$aHref" class="call-to-action{$match[1]}">{$match[2]}</a>
-				</div>
+				</{$htmlTag}>
 				EOT;
 
 		}, $templateString);
