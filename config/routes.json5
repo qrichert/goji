@@ -5,7 +5,7 @@
  * - http-error-* (* = HTTP error code)
  * - password-wall
  *
- * Also, you can't use 'files' as a page name as it is reserved for
+ * Also, you can't use 'resources' as a page name as it is reserved for
  * linking other routes config files (from within modules).
  *
  * /!\ Page ID's don't belong to namespaces, they all are in
@@ -89,7 +89,7 @@
 	},
 
 	// You can specify files within modules containing routes
-	files: [ // The order here also determines the order in analytics
+	resources: [ // The order here also determines the order in analytics
 		'Blog/blog.routes.json5',
 		'HR/hr.routes.json5',
 		'Admin/admin.routes.json5',

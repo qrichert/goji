@@ -62,8 +62,8 @@ class Router implements HttpStatusInterface {
 		$baseCacheId = SimpleCache::cacheIDFromFileFullPath($configFile);
 
 		$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
-		$routesConfigFiles = $this->m_routes['files'] ?? [];
-		unset($this->m_routes['files']);
+		$routesConfigFiles = $this->m_routes['resources'] ?? [];
+		unset($this->m_routes['resources']);
 
 		foreach ($routesConfigFiles as &$f) {
 			$f = realpath('../src/' . $f);
