@@ -37,7 +37,7 @@ class BlogPostForm extends Form {
 				<div class="tooltip left">
 					<div class="tooltip__button"></div>
 					<div class="tooltip__text">
-						' . $tr->printRawTranslationResource('blog-markdown-tooltip.%{LOCALE}.tr.html', false) . '
+						' . $tr->_('BLOG_POST_MARKDOWN_TOOLTIP') . '
 					</div>
 				</div>
 			'));

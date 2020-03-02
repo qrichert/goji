@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="en">
+	<!--
+		~~~ <ENGLISH> ~~~
+		This is the English language file.
+	-->
+	<page id="(xhr-)?blog">
+		<segment id="BLOG_PAGE_TITLE">Blog</segment>
+		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_MAIN_TITLE">Blog</segment>
+		<segment id="BLOG_NEW_BLOG_POST">New blog post</segment>
+		<segment id="BLOG_SEARCH_BLOG_POST_PLACEHOLDER">Search for a blog post...</segment>
+		<segment id="BLOG_POST_DATE">%{MONTH}/%{DAY}/%{YEAR}</segment>
+		<segment id="BLOG_NO_BLOG_POSTS">There are no blog posts yet, come back later...</segment>
+		<segment id="BLOG_READ_MORE">Read more...</segment>
+		<segment id="BLOG_NOTHING_FOUND">No blog post matching your search has been found...</segment>
+	</page>
+	<page id="blog-post">
+		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR} at %{HOUR}:%{MIN}</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION">Delete the blog post, are you sure?\nThis action can't be undone.</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_INPUT">Enter "yes" to confirm</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_STRING">yes</segment>
+		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Back to blog posts</segment>
+	</page>
+	<page id="(xhr-)?admin-blog-post">
+		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
+		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_POST_MAIN_TITLE">
+			<option id="create">New Blog Post</option>
+			<option id="update">Edit Blog Post</option>
+		</segment>
+		<segment id="BLOG_POST_NEW_BLOG_POST">New blog post</segment>
+		<segment id="BLOG_POST_GO_TO_BLOG_POST">Go to blog post</segment>
+		<segment id="BLOG_POST_SUCCESS">Your blog post has been published</segment>
+		<segment id="BLOG_POST_UPDATE_SUCCESS">Your blog post has been updated</segment>
+		<segment id="BLOG_POST_ERROR">The form contains errors</segment>
+		<segment id="BLOG_POST_WRITING_FAILED">Internal Error: The article could not be saved</segment>
+		<segment id="BLOG_POST_PERMALINK">Permalink</segment>
+		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">my-story</segment>
+		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
+		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://link.to/image.jpg</segment>
+		<segment id="BLOG_POST_TITLE">Title</segment>
+		<segment id="BLOG_POST_TITLE_PLACEHOLDER">My Story</segment>
+		<segment id="BLOG_POST_POST">Content</segment>
+		<segment id="BLOG_POST_POST_PLACEHOLDER">Once upon a time...</segment>
+
+		<segment id="BLOG_POST_MARKDOWN_TOOLTIP"><![CDATA[
+			<p>
+				Formatting:<br>
+				&nbsp;&nbsp; **<strong>bold</strong>**<br>
+				&nbsp;&nbsp; *<em>italic</em>*<br>
+				&nbsp;&nbsp; __<span style="text-decoration: underline;">underlined</span>__<br>
+				&nbsp;&nbsp; ~~<span style="text-decoration: line-through;">line-through</span>~~<br>
+				&nbsp;&nbsp; `<code>code</code>`
+			</p>
+			<p>
+				Elements :<br>
+				&nbsp;&nbsp; [Link](https://link.to/a-page)<br>
+				&nbsp;&nbsp; ![Image](https://link.to/image.jpg[#l|m|s|fl|fm|fs])<br>
+				&nbsp;&nbsp; %{INSTAGRAM postId}<br>
+				&nbsp;&nbsp; %{YOUTUBE videoId[#l|m|s|fl|fm|fs]}
+			</p>
+			<p>
+				Alignment :<br>
+				&nbsp;&nbsp; |+ aligned left -|<br>
+				&nbsp;&nbsp; |- aligned right +|<br>
+				&nbsp;&nbsp; || centered ||
+			</p>
+			<p>
+				Buttons :<br>
+				&nbsp;&nbsp; %{CTA}[Call To Action](https://...)%{/CTA}<br>
+				&nbsp;&nbsp; %{CTA small}Call To Action%{/CTA}<br>
+				&nbsp;&nbsp; %{CTA smaller}Call To Action%{/CTA}
+			</p>
+			<p>
+				Headings :<br>
+				&nbsp;&nbsp; <strong>## Heading 2</strong><br>
+				&nbsp;&nbsp; <strong>### Heading 3</strong><br>
+				&nbsp;&nbsp; <strong>#### Heading 4</strong><br>
+				&nbsp;&nbsp; <strong>##### Heading 5</strong><br>
+				&nbsp;&nbsp; <strong>###### Heading 6</strong>
+			</p>
+		]]></segment>
+	</page>
+</translation>

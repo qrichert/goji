@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="en">
+	<!--
+		~~~ <ENGLISH> ~~~
+		This is the English language file.
+	-->
+	<page id="admin|xhr-admin-add-member">
+		<segment id="ADMIN_PAGE_TITLE">Administration</segment>
+		<segment id="ADMIN_PAGE_DESCRIPTION"></segment>
+		<segment id="ADMIN_MAIN_TITLE">Administration</segment>
+		<segment id="ADMIN_SECTION_EDITING">Editing</segment>
+		<segment id="ADMIN_SECTION_ADMIN">Admin</segment>
+		<segment id="ADMIN_SECTION_ROOT">Root</segment>
+		<segment id="ADMIN_ACTION_NEW_BLOG_POST">New blog post</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER">New member</segment>
+		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>
+		<segment id="ADMIN_ACTION_ANALYTICS">Analytics</segment>
+		<segment id="ADMIN_ACTION_CLEAR_CACHE">Clear cache</segment>
+		<segment id="ADMIN_ACTION_UPDATE">Update</segment>
+		<segment id="ADMIN_ACTION_TERMINAL">Terminal</segment>
+
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL">Email</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL_PLACEHOLDER">the@email.com</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD">Password</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_PLACEHOLDER">a-sTr0n6_pwd@~_</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION">Password (again)</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirm password</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_ROLE">Role</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_SUCCESS">The new member has been successfully added</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR">The form contains errors</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_PASSWORDS_MUST_MATCH">Passwords must match</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_USERNAME_ALREADY_EXISTS">The email address is already registered</segment>
+	</page>
+	<page id="xhr-admin-clear-cache">
+		<segment id="ADMIN_CLEAR_CACHE_NB_FRAGMENTS_REMOVED">
+			<alternative count="^1$">fragment removed</alternative>
+			<alternative count="rest">fragments removed</alternative>
+		</segment>
+		<segment id="ADMIN_CLEAR_CACHE_SPACE_SAVED">
+			<alternative count="^1$">freed up</alternative>
+			<alternative count="rest">freed up</alternative>
+		</segment>
+	</page>
+	<page id="(xhr-)?admin-analytics">
+		<segment id="ANALYTICS_PAGE_TITLE">Analytics</segment>
+		<segment id="ANALYTICS_PAGE_DESCRIPTION"></segment>
+		<segment id="ANALYTICS_MAIN_TITLE">Analytics</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_7_DAYS">Past 7 days</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_30_DAYS">Past 30 days</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_90_DAYS">Past 90 days</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_6_MONTHS">Past 6 months</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_12_MONTHS">Past 12 months</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_5_YEARS">Past 5 Years</segment>
+		<segment id="ANALYTICS_TIME_FRAME_ALL_TIME">All time</segment>
+		<segment id="ANALYTICS_LABEL_PAGE_VIEWS">Page Views</segment>
+		<segment id="ANALYTICS_LABEL_TRENDLINE">Trendline</segment>
+	</page>
+</translation>

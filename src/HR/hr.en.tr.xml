@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="en">
+	<!--
+		~~~ <ENGLISH> ~~~
+		This is the English language file.
+	-->
+	<page id="(xhr-)?login">
+		<segment id="LOGIN_PAGE_TITLE">Log In</segment>
+		<segment id="LOGIN_PAGE_DESCRIPTION"></segment>
+		<segment id="LOGIN_MAIN_TITLE">Log In</segment>
+		<segment id="LOGIN_FORM_EMAIL">Email</segment>
+		<segment id="LOGIN_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
+		<segment id="LOGIN_FORGOT_PASSWORD">Forgot password?</segment>
+		<segment id="LOGIN_FORM_PASSWORD">Password</segment>
+		<segment id="LOGIN_FORM_LOG_IN_BUTTON">Log In</segment>
+		<segment id="LOGIN_NO_ACCOUNT">Don’t have an account?</segment>
+		<segment id="LOGIN_SIGN_UP">Sign up</segment>
+		<segment id="LOGIN_FUN_MESSAGE">
+			<alternative count="^1$">Hi, how are you?</alternative>
+			<alternative count="^2$">Do you like goji berries?</alternative>
+			<alternative count="rest">:)</alternative>
+		</segment>
+		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Wrong username or password!</segment>
+	</page>
+	<page id="(xhr-)?sign-up">
+		<segment id="SIGN_UP_PAGE_TITLE">Sign Up</segment>
+		<segment id="SIGN_UP_PAGE_DESCRIPTION"></segment>
+		<segment id="SIGN_UP_MAIN_TITLE">Sign Up</segment>
+		<segment id="SIGN_UP_FORM_EMAIL">Email</segment>
+		<segment id="SIGN_UP_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
+		<segment id="SIGN_UP_FORM_SIGN_UP_BUTTON">Sign Up</segment>
+		<segment id="SIGN_UP_ALREADY_ACCOUNT">Already have an account?</segment>
+		<segment id="SIGN_UP_LOG_IN">Log In</segment>
+		<segment id="SIGN_UP_SUCCESS">
+			Success! We just sent you an email with a temporary password.<![CDATA[<br>]]>
+			Log in to validate your account
+		</segment>
+		<segment id="SIGN_UP_INVALID_USERNAME">Invalid username or already registered</segment>
+		<segment id="SIGN_UP_EMAIL_OBJECT">Welcome!</segment>
+		<segment id="SIGN_UP_EMAIL_MESSAGE"><![CDATA[
+			<p>Welcome to Goji!</p>
+			<p>Your password is: <strong>%{PASSWORD}</strong></p>
+			<p>
+				Use it to log into your account within the next 48h. Passed that delay,
+				your temporary account will be deleted automatically.
+			</p>
+			<p>Have fun!</p>
+		]]></segment>
+	</page>
+	<page id="(xhr-)?verify-email">
+		<segment id="VERIFY_EMAIL_PAGE_TITLE">Verify Email Address</segment>
+		<segment id="VERIFY_EMAIL_PAGE_DESCRIPTION"></segment>
+		<segment id="VERIFY_EMAIL_MAIN_TITLE">Verify Email Address</segment>
+		<segment id="VERIFY_EMAIL_CHECK_YOUR_INBOX">Check your inbox to verify your email</segment>
+		<segment id="VERIFY_EMAIL_INSTRUCTIONS"><![CDATA[
+			We've sent a password to <strong>%{EMAIL}</strong>.<br>
+			<a href="%{LOGIN}">Log in</a> with it to complete your registration
+		]]></segment>
+		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION"><![CDATA[
+			Didn't receive the verification email? <a id="%{ID}">Send it again</a>
+		]]></segment>
+		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION_DONE">(done)</segment>
+	</page>
+	<page id="xhr-reset-password-request">
+		<segment id="RESET_PASSWORD_RQ_HELP_TEXT">
+			Enter your email and follow the instructions to reset your password
+		</segment>
+		<segment id="RESET_PASSWORD_RQ_FORM_EMAIL">Email</segment>
+		<segment id="RESET_PASSWORD_RQ_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
+		<segment id="RESET_PASSWORD_RQ_FORM_RESET_BUTTON">Reset</segment>
+		<segment id="RESET_PASSWORD_RQ_ERROR">Invalid email or account not found</segment>
+		<segment id="RESET_PASSWORD_RQ_SUCCESS">Instructions have been sent to your email address</segment>
+		<segment id="RESET_PASSWORD_RQ_EMAIL_OBJECT">Password Reset</segment>
+		<segment id="RESET_PASSWORD_RQ_EMAIL_MESSAGE"><![CDATA[
+			<p>Hello,</p>
+			<p>
+				Click this link or copy-paste it into your browser's address bar to
+				reset your password:
+			</p>
+			<p><a href="%{LINK}">%{LINK}</a></p>
+			<p>Have fun!</p>
+		]]></segment>
+	</page>
+	<page id="(xhr-)?reset-password">
+		<segment id="RESET_PASSWORD_PAGE_TITLE">Reset password</segment>
+		<segment id="RESET_PASSWORD_PAGE_DESCRIPTION"></segment>
+		<segment id="RESET_PASSWORD_MAIN_TITLE">Reset password</segment>
+		<segment id="RESET_PASSWORD_FORM_EMAIL">Email</segment>
+		<segment id="RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER">your@email.com</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD">Password</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD_PLACEHOLDER">New password</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION">Password (again)</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirm new password</segment>
+		<segment id="RESET_PASSWORD_FORM_RESET_BUTTON">Reset</segment>
+		<segment id="RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH">Passwords must match</segment>
+		<segment id="RESET_PASSWORD_ERROR">Invalid data or account not found</segment>
+		<segment id="RESET_PASSWORD_DONE">Good?</segment>
+		<segment id="RESET_PASSWORD_LOG_IN">Log In</segment>
+	</page>
+	<page id="settings|xhr-settings-.+">
+		<segment id="SETTINGS_PAGE_TITLE">Settings</segment>
+		<segment id="SETTINGS_PAGE_DESCRIPTION"></segment>
+		<segment id="SETTINGS_MAIN_TITLE">Settings</segment>
+		<segment id="SETTINGS_PASSWORD">Password</segment>
+
+		<segment id="SETTINGS_FORM_CURRENT_PASSWORD">Password</segment>
+		<segment id="SETTINGS_FORM_CURRENT_PASSWORD_PLACEHOLDER">Current password</segment>
+		<segment id="SETTINGS_FORM_PASSWORD">New password</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_PLACEHOLDER">a-sTr0n6_pwd@~_</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION">New password (again)</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirm new password</segment>
+		<segment id="SETTINGS_FORM_SUCCESS">The password has been successfully updated</segment>
+		<segment id="SETTINGS_FORM_ERROR">The form contains errors</segment>
+		<segment id="SETTINGS_FORM_ERROR_WRONG_PASSWORD">The current password is invalid</segment>
+		<segment id="SETTINGS_FORM_ERROR_PASSWORDS_MUST_MATCH">The new passwords must match</segment>
+	</page>
+</translation>

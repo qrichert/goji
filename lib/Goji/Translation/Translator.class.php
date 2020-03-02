@@ -5,6 +5,7 @@ namespace Goji\Translation;
 use Goji\Core\App;
 use Goji\Toolkit\SimpleCache;
 use Exception;
+use SimpleXMLElement;
 
 /**
  * Class Translator
@@ -75,38 +76,10 @@ class Translator {
 
 	/**
 	 * @param string $file
-	 * @param string $currentPage
-	 * @param bool $loadSegmentsAsConstants (optional) default = false. Load segments as define( ID , VALUE)
+	 * @return \SimpleXMLElement
 	 * @throws \Exception
 	 */
-	private function loadXML(string $file, string $currentPage, bool $loadSegmentsAsConstants = false): void {
-
-		// If cached, load from cache
-		$cacheId = SimpleCache::cacheIDFromFileFullPath($file) . '-' .
-		           SimpleCache::cacheIDFromString($currentPage);
-
-		if (SimpleCache::isValidFilePreprocessed($cacheId, $file)) {
-
-			$segments = SimpleCache::loadFilePreprocessed($cacheId);
-			$segments = json_decode($segments, true);
-
-			// Load segments
-			if ($loadSegmentsAsConstants) {
-
-				foreach ($segments as $segmentID => $segmentValue) {
-					if (!defined($segmentID))
-						define($segmentID, $segmentValue);
-				}
-
-			} else {
-
-				$this->m_segments = array_merge($this->m_segments, $segments);
-			}
-
-			return;
-		}
-
-		// If we're here, cache is invalid
+	private function loadXMLFileToXMLObject(string $file): SimpleXMLElement {
 
 		libxml_use_internal_errors(true);
 		$xml = simplexml_load_file($file);
@@ -115,12 +88,24 @@ class Translator {
 
 			$errors = "\n";
 
-			foreach(libxml_get_errors() as $error) {
+			foreach (libxml_get_errors() as $error) {
 				$errors .= "\t-> " . $error->message;
 			}
 
 			throw new Exception('XML file could not be parsed: ' . $file . "\n" .  $errors . "\n", self::E_COULD_NOT_PARSE_XML_FILE);
 		}
+
+		libxml_clear_errors();
+
+		return $xml;
+	}
+
+	/**
+	 * @param object $xml XML or JSON object
+	 * @param string $currentPage
+	 * @param bool $loadSegmentsAsConstants (optional) default = false. Load segments as define( ID , VALUE)
+	 */
+	private function loadSegmentsFromXMLObject($xml, string $currentPage, bool $loadSegmentsAsConstants = false): void {
 
 		$segments = [];
 
@@ -203,9 +188,39 @@ class Translator {
 
 			$this->m_segments = array_merge($this->m_segments, $segments);
 		}
+	}
 
-		// Cache page segments
-		SimpleCache::cacheFilePreprocessed(json_encode($segments), $file, $cacheId);
+	/**
+	 * @param string $file
+	 * @param string $currentPage
+	 * @param bool $loadSegmentsAsConstants (optional) default = false. Load segments as define( ID , VALUE)
+	 * @throws \Exception
+	 */
+	private function loadXML(string $file, string $currentPage, bool $loadSegmentsAsConstants = false): void {
+
+		// Load main translation file fully
+		$xml = $this->loadXMLFileToXMLObject($file);
+		$this->loadSegmentsFromXMLObject($xml, $currentPage);
+
+		// If we need to load additional resource files
+		if (isset($xml->resource)) {
+
+			foreach ($xml->resource as $resource) {
+
+				if (!empty($resource['file'])) {
+
+					$resource = (string) $resource['file'];
+
+					// ./ = translation/ folder
+					if (substr($resource, 0, 2) == './')
+						$resource = self::BASE_PATH . substr($resource, 2);
+					else
+						$resource = '../src/' . $resource;
+
+					$this->loadXML($resource, $currentPage, $loadSegmentsAsConstants);
+				}
+			}
+		}
 	}
 
 	/**

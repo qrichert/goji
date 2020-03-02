@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="en">
+	<!--
+		~~~ <ENGLISH> ~~~
+		This is the English language file.
+	-->
+	<!--
+		Page IDs are regular expressions here (start ^ and end $ are automatically added around them).
+		Here it will match anything that begins with http-error-
+	-->
+	<page id="http-error-.*">
+		<segment id="ERROR_PAGE_TITLE">Error %{ERROR_CODE}</segment> <!-- + Error code -->
+		<segment id="ERROR_PAGE_DESCRIPTION">We encountered a problem while loading the page.</segment>
+		<segment id="ERROR_DESCRIPTION">
+			<option id="403">Access denied</option>
+			<option id="404">Page could not be found</option>
+			<option id="418">I'm a teapot</option>
+			<option id="500">Internal error</option>
+		</segment>
+	</page>
+	<page id="password-wall">
+		<segment id="PASSWORD_WALL_PAGE_TITLE">Opening Soon</segment>
+		<segment id="PASSWORD_WALL_PAGE_DESCRIPTION"></segment>
+		<segment id="PASSWORD_WALL_MAIN_TITLE">Opening Soon</segment>
+		<segment id="PASSWORD_WALL_FORM_PASSWORD">Are you part of the project?</segment>
+		<segment id="PASSWORD_WALL_FORM_PASSWORD_PLACEHOLDER">Password</segment>
+		<segment id="PASSWORD_WALL_FORM_ENTER_BUTTON">Enter</segment>
+		<segment id="PASSWORD_WALL_WRONG_PASSWORD">Sorry, wrong password</segment>
+	</page>
+</translation>

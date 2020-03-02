@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="fr">
+	<!--
+		~~~ <FRENCH> ~~~
+		This is the French language file.
+	-->
+	<page id="(xhr-)?login">
+		<segment id="LOGIN_PAGE_TITLE">Connexion</segment>
+		<segment id="LOGIN_PAGE_DESCRIPTION"></segment>
+		<segment id="LOGIN_MAIN_TITLE">Connexion</segment>
+		<segment id="LOGIN_FORM_EMAIL">Email</segment>
+		<segment id="LOGIN_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="LOGIN_FORGOT_PASSWORD">Mot de passe oublié ?</segment>
+		<segment id="LOGIN_FORM_PASSWORD">Mot de passe</segment>
+		<segment id="LOGIN_FORM_LOG_IN_BUTTON">Connexion</segment>
+		<segment id="LOGIN_NO_ACCOUNT">Pas encore de compte ?</segment>
+		<segment id="LOGIN_SIGN_UP">Inscrivez-vous</segment>
+		<segment id="LOGIN_FUN_MESSAGE">
+			<alternative count="^1$">Bonjour, comment ça va?</alternative>
+			<alternative count="^2$">Vous aimez les baies de goji?</alternative>
+			<alternative count="rest">:)</alternative>
+		</segment>
+		<segment id="LOGIN_WRONG_USERNAME_OR_PASSWORD">Nom d'utilisateur ou mot de passe incorrect !</segment>
+	</page>
+	<page id="(xhr-)?sign-up">
+		<segment id="SIGN_UP_PAGE_TITLE">Inscription</segment>
+		<segment id="SIGN_UP_PAGE_DESCRIPTION"></segment>
+		<segment id="SIGN_UP_MAIN_TITLE">Inscription</segment>
+		<segment id="SIGN_UP_FORM_EMAIL">Email</segment>
+		<segment id="SIGN_UP_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="SIGN_UP_FORM_SIGN_UP_BUTTON">Inscription</segment>
+		<segment id="SIGN_UP_ALREADY_ACCOUNT">Déjà un compte ?</segment>
+		<segment id="SIGN_UP_LOG_IN">Connectez-vous</segment>
+		<segment id="SIGN_UP_SUCCESS">
+			Succès ! Nous venons de vous envoyer un email contenant un mot de passe temporaire.<![CDATA[<br>]]>
+			Connectez-vous pour valider votre inscription
+		</segment>
+		<segment id="SIGN_UP_INVALID_USERNAME">Nom d'utilisateur invalide ou déjà enregistré</segment>
+		<segment id="SIGN_UP_EMAIL_OBJECT">Bienvenue !</segment>
+		<segment id="SIGN_UP_EMAIL_MESSAGE"><![CDATA[
+			<p>Bienvenue chez Goji!</p>
+			<p>Votre mot de passe est : <strong>%{PASSWORD}</strong><br></p>
+			<p>
+				Utilisez-le pour vous connecter à votre compte dans les prochaines 48h.
+				Passé ce délai, votre compte temporaire sera supprimé automatiquement.
+			</p>
+			<p>Amusez-vous !</p>
+		]]></segment>
+	</page>
+	<page id="(xhr-)?verify-email">
+		<segment id="VERIFY_EMAIL_PAGE_TITLE">Vérification de l'adresse email</segment>
+		<segment id="VERIFY_EMAIL_PAGE_DESCRIPTION"></segment>
+		<segment id="VERIFY_EMAIL_MAIN_TITLE">Vérification de l'adresse email</segment>
+		<segment id="VERIFY_EMAIL_CHECK_YOUR_INBOX">Rendez-vous dans votre boîte de réception pour vérifier votre email</segment>
+		<segment id="VERIFY_EMAIL_INSTRUCTIONS"><![CDATA[
+			Nous avons envoyé un mot de passe à <strong>%{EMAIL}</strong>.<br>
+			<a href="%{LOGIN}">Connectez-vous</a> avec pour compléter votre inscription
+		]]></segment>
+		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION"><![CDATA[
+			Vous n'avez pas reçu l'email de vérification ? <a id="%{ID}">Envoyer à nouveau</a>
+		]]></segment>
+		<segment id="VERIFY_EMAIL_RESEND_VERIFICATION_DONE">(fait)</segment>
+	</page>
+	<page id="xhr-reset-password-request">
+		<segment id="RESET_PASSWORD_RQ_HELP_TEXT">
+			Entrez votre email et suivez les instructions pour réinitialiser votre mot de passe
+		</segment>
+		<segment id="RESET_PASSWORD_RQ_FORM_EMAIL">Email</segment>
+		<segment id="RESET_PASSWORD_RQ_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="RESET_PASSWORD_RQ_FORM_RESET_BUTTON">Réinitialiser</segment>
+		<segment id="RESET_PASSWORD_RQ_ERROR">Email invalide ou le compte n'existe pas</segment>
+		<segment id="RESET_PASSWORD_RQ_SUCCESS">Les instructions on été envoyées à votre adresse email</segment>
+		<segment id="RESET_PASSWORD_RQ_EMAIL_OBJECT">Réinitialisation du mot de passe</segment>
+		<segment id="RESET_PASSWORD_RQ_EMAIL_MESSAGE"><![CDATA[
+			<p>Bonjour,</p>
+			<p>
+				Cliquez sur ce lien ou copiez-collez le dans la barre d'adresse de votre navigateur
+				pour réinitialiser votre mot de passe :
+			</p>
+			<p><a href="%{LINK}">%{LINK}</a></p>
+			<p>Amusez-vous !</p>
+		]]></segment>
+	</page>
+	<page id="(xhr-)?reset-password">
+		<segment id="RESET_PASSWORD_PAGE_TITLE">Réinitialisation du mot de passe</segment>
+		<segment id="RESET_PASSWORD_PAGE_DESCRIPTION"></segment>
+		<segment id="RESET_PASSWORD_MAIN_TITLE">Réinitialisation du mot de passe</segment>
+		<segment id="RESET_PASSWORD_FORM_EMAIL">Email</segment>
+		<segment id="RESET_PASSWORD_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD">Mot de passe</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD_PLACEHOLDER">Nouveau mot de passe</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION">Mot de passe (encore)</segment>
+		<segment id="RESET_PASSWORD_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirmation</segment>
+		<segment id="RESET_PASSWORD_FORM_RESET_BUTTON">Réinitialiser</segment>
+		<segment id="RESET_PASSWORD_ERROR_PASSWORDS_MUST_MATCH">Les mots de passe doivent être identiques</segment>
+		<segment id="RESET_PASSWORD_ERROR">Données non valides ou le compte n'existe pas</segment>
+		<segment id="RESET_PASSWORD_DONE">C'est bon ?</segment>
+		<segment id="RESET_PASSWORD_LOG_IN">Connectez-vous</segment>
+	</page>
+	<page id="settings|xhr-settings-.+">
+		<segment id="SETTINGS_PAGE_TITLE">Paramètres</segment>
+		<segment id="SETTINGS_PAGE_DESCRIPTION"></segment>
+		<segment id="SETTINGS_MAIN_TITLE">Paramètres</segment>
+		<segment id="SETTINGS_PASSWORD">Mot de passe</segment>
+
+		<segment id="SETTINGS_FORM_CURRENT_PASSWORD">Mot de passe</segment>
+		<segment id="SETTINGS_FORM_CURRENT_PASSWORD_PLACEHOLDER">Mot de passe actuel</segment>
+		<segment id="SETTINGS_FORM_PASSWORD">Nouveau mot de passe</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_PLACEHOLDER">uN-mdp_F0r7@~_</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION">Nouveau mot de passe (encore)</segment>
+		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirmation</segment>
+		<segment id="SETTINGS_FORM_SUCCESS">Le mot de passe a bien été mis à jour</segment>
+		<segment id="SETTINGS_FORM_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="SETTINGS_FORM_ERROR_WRONG_PASSWORD">Le mot de passe actuel est invalide</segment>
+		<segment id="SETTINGS_FORM_ERROR_PASSWORDS_MUST_MATCH">Les nouveaux mots de passe doivent être identiques</segment>
+	</page>
+</translation>

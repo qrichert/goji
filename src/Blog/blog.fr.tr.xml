@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="fr">
+	<!--
+		~~~ <FRENCH> ~~~
+		This is the French language file.
+	-->
+	<page id="(xhr-)?blog">
+		<segment id="BLOG_PAGE_TITLE">Blog</segment>
+		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_MAIN_TITLE">Blog</segment>
+		<segment id="BLOG_NEW_BLOG_POST">Nouvel article</segment>
+		<segment id="BLOG_SEARCH_BLOG_POST_PLACEHOLDER">Rechercher un article...</segment>
+		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR}</segment>
+		<segment id="BLOG_NO_BLOG_POSTS">Il n'y a pas encore d'article, revenez plus tard...</segment>
+		<segment id="BLOG_READ_MORE">Lire la suite...</segment>
+		<segment id="BLOG_NOTHING_FOUND">Aucun article correspondant à votre recherche n'a été trouvé...</segment>
+	</page>
+	<page id="blog-post">
+		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR} à %{HOUR}:%{MIN}</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION">Supprimer l'article, êtes-vous sûr ?\nCette action est irréversible.</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_INPUT">Entrez « oui » pour confirmer</segment>
+		<segment id="BLOG_POST_DELETE_CONFIRMATION_STRING">oui</segment>
+		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Retourner à la liste des articles</segment>
+	</page>
+	<page id="(xhr-)?admin-blog-post">
+		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
+		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_POST_MAIN_TITLE">
+			<option id="create">Nouvel article</option>
+			<option id="update">Modifier un article</option>
+		</segment>
+		<segment id="BLOG_POST_NEW_BLOG_POST">Nouvel article</segment>
+		<segment id="BLOG_POST_GO_TO_BLOG_POST">Aller à l'article</segment>
+		<segment id="BLOG_POST_SUCCESS">Votre article a bien été publié</segment>
+		<segment id="BLOG_POST_UPDATE_SUCCESS">Votre article a bien été mis à jour</segment>
+		<segment id="BLOG_POST_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="BLOG_POST_WRITING_FAILED">Erreur Interne: Impossible d'enregistrer l'article</segment>
+		<segment id="BLOG_POST_PERMALINK">Permalien</segment>
+		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">mon-histoire</segment>
+		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
+		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://lien.vers/image.jpg</segment>
+		<segment id="BLOG_POST_TITLE">Titre</segment>
+		<segment id="BLOG_POST_TITLE_PLACEHOLDER">Mon Histoire</segment>
+		<segment id="BLOG_POST_POST">Contenu</segment>
+		<segment id="BLOG_POST_POST_PLACEHOLDER">Il était une fois...</segment>
+
+		<segment id="BLOG_POST_MARKDOWN_TOOLTIP"><![CDATA[
+			<p>
+				Mise en forme :<br>
+				&nbsp;&nbsp; **<strong>gras</strong>**<br>
+				&nbsp;&nbsp; *<em>italique</em>*<br>
+				&nbsp;&nbsp; __<span style="text-decoration: underline;">souligné</span>__<br>
+				&nbsp;&nbsp; ~~<span style="text-decoration: line-through;">barré</span>~~<br>
+				&nbsp;&nbsp; `<code>code</code>`
+			</p>
+			<p>
+				Éléments :<br>
+				&nbsp;&nbsp; [Lien](https://lien.vers/une-page)<br>
+				&nbsp;&nbsp; ![Image](https://lien.vers/image.jpg[#l|m|s|fl|fm|fs])<br>
+				&nbsp;&nbsp; %{INSTAGRAM IdPost}<br>
+				&nbsp;&nbsp; %{YOUTUBE IdVideo[#l|m|s|fl|fm|fs]}
+			</p>
+			<p>
+				Alignement :<br>
+				&nbsp;&nbsp; |+ aligné à gauche -|<br>
+				&nbsp;&nbsp; |- aligné à droite +|<br>
+				&nbsp;&nbsp; || centré ||
+			</p>
+			<p>
+				Boutons :<br>
+				&nbsp;&nbsp; %{CTA}[Call To Action](https://...)%{/CTA}<br>
+				&nbsp;&nbsp; %{CTA small}Call To Action%{/CTA}<br>
+				&nbsp;&nbsp; %{CTA smaller}Call To Action%{/CTA}
+			</p>
+			<p>
+				Titres :<br>
+				&nbsp;&nbsp; <strong>## Titre 2</strong><br>
+				&nbsp;&nbsp; <strong>### Titre 3</strong><br>
+				&nbsp;&nbsp; <strong>#### Titre 4</strong><br>
+				&nbsp;&nbsp; <strong>##### Titre 5</strong><br>
+				&nbsp;&nbsp; <strong>###### Titre 6</strong>
+			</p>
+		]]></segment>
+	</page>
+</translation>

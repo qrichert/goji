@@ -4,7 +4,6 @@ namespace Goji\Core;
 
 use Exception;
 use Goji\Blueprints\HttpStatusInterface;
-use Goji\Debug\Logger;
 use Goji\HumanResources\Authentication;
 use Goji\Parsing\RegexPatterns;
 use Goji\Toolkit\SimpleCache;

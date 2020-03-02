@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="fr">
+	<!--
+		~~~ <FRENCH> ~~~
+		This is the French language file.
+	-->
+	<page id="admin|xhr-admin-add-member">
+		<segment id="ADMIN_PAGE_TITLE">Administration</segment>
+		<segment id="ADMIN_PAGE_DESCRIPTION"></segment>
+		<segment id="ADMIN_MAIN_TITLE">Administration</segment>
+		<segment id="ADMIN_SECTION_EDITING">Édition</segment>
+		<segment id="ADMIN_SECTION_ADMIN">Admin</segment>
+		<segment id="ADMIN_SECTION_ROOT">Root</segment>
+		<segment id="ADMIN_ACTION_NEW_BLOG_POST">Nouvel article</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER">Nouv. membre</segment>
+		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up BDD</segment>
+		<segment id="ADMIN_ACTION_ANALYTICS">Analytics</segment>
+		<segment id="ADMIN_ACTION_CLEAR_CACHE">Vider le cache</segment>
+		<segment id="ADMIN_ACTION_UPDATE">Mettre à jour</segment>
+		<segment id="ADMIN_ACTION_TERMINAL">Terminal</segment>
+
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL">Email</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_EMAIL_PLACEHOLDER">son@email.com</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD">Mot de passe</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_PLACEHOLDER">uN-mdp_F0r7@~_</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION">Mot de passe (encore)</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirmation</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_FORM_ROLE">Rôle</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_SUCCESS">Le nouveau membre a bien été ajouté</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_PASSWORDS_MUST_MATCH">Les mots de passe doivent être identiques</segment>
+		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_USERNAME_ALREADY_EXISTS">L'adresse email est déjà enregistrée</segment>
+	</page>
+	<page id="xhr-admin-clear-cache">
+		<segment id="ADMIN_CLEAR_CACHE_NB_FRAGMENTS_REMOVED">
+			<alternative count="^(0|1)$">fragment supprimé</alternative>
+			<alternative count="rest">fragments supprimés</alternative>
+		</segment>
+		<segment id="ADMIN_CLEAR_CACHE_SPACE_SAVED">
+			<alternative count="^(0|1)$">libéré</alternative>
+			<alternative count="rest">libérés</alternative>
+		</segment>
+	</page>
+	<page id="(xhr-)?admin-analytics">
+		<segment id="ANALYTICS_PAGE_TITLE">Analytics</segment>
+		<segment id="ANALYTICS_PAGE_DESCRIPTION"></segment>
+		<segment id="ANALYTICS_MAIN_TITLE">Analytics</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_7_DAYS">7 derniers jours</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_30_DAYS">30 derniers jours</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_90_DAYS">90 derniers jours</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_6_MONTHS">6 derniers mois</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_12_MONTHS">12 derniers mois</segment>
+		<segment id="ANALYTICS_TIME_FRAME_PAST_5_YEARS">5 dernières années</segment>
+		<segment id="ANALYTICS_TIME_FRAME_ALL_TIME">Depuis le début</segment>
+		<segment id="ANALYTICS_LABEL_PAGE_VIEWS">Nombre de vues</segment>
+		<segment id="ANALYTICS_LABEL_TRENDLINE">Courbe de tendance</segment>
+	</page>
+</translation>
