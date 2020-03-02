@@ -58,13 +58,77 @@
 			Bonjour ! :)
 		-->]]></segment>
 	</page>
+	<!--
+		Page ID must match page ID in routes.json5 if you use \Goji\Translation\Translator.
+		Only segments where page ID matches current ID (and global pages, without ID) will be loaded.
+	-->
+	<page id="home">
+		<segment id="HOME_PAGE_TITLE">Accueil</segment>
+		<segment id="HOME_PAGE_DESCRIPTION"></segment>
+		<segment id="HOME_PRE_HEADING">Bonjour, et</segment>
+		<segment id="HOME_BERRIES">Baies ?</segment>
+		<segment id="HOME_PLURALIZATION">
+			<!--
+				For pluralization, put each form in it's own alternative and specify the count attribute.
+				Count attribute is a regex, so:
+				- ^ means start of sequence and $ means end of sequence.
+				- 0|1 means either 0 or 1
+				- You can have more elaborate cases, like for Russian:
+					Numbers that end in 1, except 11:
+					^[^\D1]*1$|^1{3,}$
+					^[^\D1]*1$|\d*[^\D1]\d*1$|^1{3,}$
+				- Don't forget parenthesis for ORs. ^0|1$ matches anything that starts with 0 OR ends with 1 !!!
+				  whereas ^(0|1)$ matches 0 OR 1
+				- This one would match 0 OR 1:
+					<alternative count="^(0|1)$">Il y a %{COUNT} foobar.</alternative>
+			-->
+			<alternative count="^0$">Désolé, pas de baie :(</alternative>
+			<alternative count="^1$">Il n'y a qu'une seule baie, %{COUNT}...</alternative>
+			<alternative count="rest">Il y a %{COUNT} baies.</alternative>
+		</segment>
+		<segment id="HOME_TIRED_OF_NOT_HAVING_BERRIES"><![CDATA[
+			<h2>Marre de ne pas avoir de baies ?</h2>
+			%{CTA small}Cliquez ici pour en avoir !%{/CTA}
+		]]></segment>
+		<segment id="HOME_TRY_A_DIFFERENT_LANGUAGE">Essayez une autre langue :</segment>
+	</page>
+	<page id="(xhr-)?contact">
+		<segment id="CONTACT_PAGE_TITLE">Contact</segment>
+		<segment id="CONTACT_PAGE_DESCRIPTION"></segment>
+		<segment id="CONTACT_MAIN_TITLE">Contact</segment>
+		<segment id="CONTACT_FORM_NAME">Nom</segment>
+		<segment id="CONTACT_FORM_NAME_PLACEHOLDER">Jean Dupont</segment>
+		<segment id="CONTACT_FORM_EMAIL">Email</segment>
+		<segment id="CONTACT_FORM_EMAIL_PLACEHOLDER">votre@email.com</segment>
+		<segment id="CONTACT_FORM_MESSAGE">Message</segment>
+		<segment id="CONTACT_FORM_MESSAGE_PLACEHOLDER">Votre message</segment>
+		<segment id="CONTACT_SUCCESS">Votre message a été envoyé. Merci!</segment>
+		<segment id="CONTACT_ERROR">Le formulaire contient des erreurs</segment>
+	</page>
+	<page id="privacy-and-terms">
+		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Mentions Légales</segment>
+		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>
+		<segment id="PRIVACY_AND_TERMS_MAIN_TITLE">Mentions Légales</segment>
+	</page>
+	<page id="landing-page">
+		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
+		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
+		<segment id="LANDING_PAGE_PRE_HEADING">Bonjour,</segment>
+		<segment id="LANDING_PAGE_MAIN_TITLE">"Qui d’Autre Veut Plus de Baies de Goji—Sans Effort ?"</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_LEGEND">Plus de baies de goji que vous ne pouvez en rêver...</segment>
+		<segment id="LANDING_PAGE_GOJI_BERRIES_COPY"><![CDATA[
+			<h2>Vous Êtes-Vous Déjà Demandé Pourquoi Certaines Personnes Semblent Avoir Autant de Baies ?</h2>
+			<p>Ce n'est pas un hasard...</p>
+			<p>Cliquez sur le bouton ci-dessous pour découvrir comment ils font !</p>
+			%{CTA}Take My Money!%{/CTA}
+		]]></segment>
+	</page>
 
 	<!--
 		You can link additional dependencies like so:
 		Module/resource.tr.xml (= /src/Module/resource.tr.xml)
 	-->
 	<resource file="Admin/admin.fr.tr.xml"/>
-	<resource file="App/app.fr.tr.xml"/>
 	<resource file="Blog/blog.fr.tr.xml"/>
 	<resource file="HR/hr.fr.tr.xml"/>
 	<resource file="System/system.fr.tr.xml"/>
