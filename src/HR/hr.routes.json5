@@ -1,0 +1,69 @@
+{
+	"login": {
+		routes: {
+			all: "/login"
+			// If you wanted, you could have:
+			//   - en: "/login",
+			//   - fr: "/connexion"
+			// Which would mean "use '/login' for all English pages
+			// ('en_*' locales), and '/connexion' for French"
+		},
+		controller: "HR/LoginController"
+	},
+	"sign-up": {
+		routes: {
+			en: "/sign-up",
+			fr: "/inscription"
+		},
+		controller: "HR/SignUpController"
+	},
+	"xhr-sign-up": {
+		route: "/xhr-sign-up",
+		controller: "HR/XhrSignUpController"
+	},
+	"verify-email": {
+		routes: {
+			en: "/verify-email",
+			fr: "/verification-email"
+		},
+		controller: "HR/VerifyEmailController"
+	},
+	"xhr-verify-email-not-received": {
+		route: "/xhr-verify-email-not-received",
+		controller: "HR/XhrVerifyEmailNotReceivedController"
+	},
+	"xhr-login": {
+		route: "/xhr-login",
+		controller: "HR/XhrLoginController"
+	},
+	"logout": {
+		route: "/logout",
+		controller: "HR/LogoutController"
+	},
+	"xhr-reset-password-request": {
+		route: "/xhr-reset-password-request",
+		controller: "HR/XhrResetPasswordRequestController"
+	},
+	"reset-password": {
+		routes: {
+			en: "/reset-password",
+			fr: "/reinitialisation-du-mot-de-passe"
+		},
+		controller: "HR/ResetPasswordController"
+	},
+	"xhr-reset-password": {
+		route: "/xhr-reset-password",
+		controller: "HR/XhrResetPasswordController"
+	},
+	"settings": {
+		routes: {
+			en: "/settings",
+			fr: "/parametres"
+		},
+		controller: "HR/SettingsController"
+	},
+	"xhr-settings-password": {
+		route: "/xhr-settings-password",
+		controller: "HR/XhrSettingsPasswordController"
+	}
+}

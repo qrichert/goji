@@ -1,0 +1,24 @@
+{
+	"blog": {
+		route: "/blog",
+		controller: "Blog/BlogController"
+	},
+	"xhr-blog": {
+		route: "/xhr-blog",
+		controller: "Blog/XhrBlogController"
+	},
+	"blog-post": {
+		// Note that '/blog/' route is different from '/blog' route without trailing slash
+		// In the default BlogPostController '/blog/' (without permalink) is redirected to '/blog'
+		route: "/blog/(.+)?",
+		controller: "Blog/BlogPostController"
+	},
+	"admin-blog-post": {
+		route: "/admin/blog-post",
+		controller: "Blog/Admin/AdminBlogPostController"
+	},
+	"xhr-admin-blog-post": {
+		route: "/admin/xhr-blog-post",
+		controller: "Blog/Admin/XhrAdminBlogPostController"
+	}
+}

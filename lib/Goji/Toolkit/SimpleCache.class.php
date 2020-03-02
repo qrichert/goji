@@ -559,10 +559,16 @@ class SimpleCache {
 			$cacheId = preg_replace('#\W#', '-', $cacheId); // js-main--js
 
 			$file = is_array($file) ? end($file) : $file;
+			$extension = '';
 			if (!empty($file) && is_string($file))
-				$cacheId = pathinfo($file, PATHINFO_EXTENSION) . '-' . $cacheId; // js-js-main--js
+				$extension = pathinfo($file, PATHINFO_EXTENSION) . '-'; // js-js-main--js
 			else
-				$cacheId = 'unknown-' . $cacheId; // unknown-js-main--js
+				$extension = 'unknown-'; // unknown-js-main--js
+
+		$cacheId = $extension . $cacheId;
+
+		if (strlen($cacheId) >= 200)
+			$cacheId = $extension . md5($cacheId);
 
 		return $cacheId;
 	}

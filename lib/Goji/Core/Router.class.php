@@ -4,6 +4,7 @@ namespace Goji\Core;
 
 use Exception;
 use Goji\Blueprints\HttpStatusInterface;
+use Goji\Debug\Logger;
 use Goji\HumanResources\Authentication;
 use Goji\Parsing\RegexPatterns;
 use Goji\Toolkit\SimpleCache;
@@ -53,22 +54,60 @@ class Router implements HttpStatusInterface {
 
 		$this->m_app = $app;
 
-	// Routes
-
-		$baseCacheId = SimpleCache::cacheIDFromFileFullPath($configFile);
+	// Getting list of routes config files
 
 		$this->m_routes = null;
 
-		// Formatted routes caching
-		$cacheId =  $baseCacheId . '--formatted';
+		$requireCacheRefresh = false;
 
-		if (SimpleCache::isValidFilePreprocessed($cacheId, $configFile)) {
+		$baseCacheId = SimpleCache::cacheIDFromFileFullPath($configFile);
+
+		$this->m_routes = ConfigurationLoader::loadFileToArray($configFile);
+		$routesConfigFiles = $this->m_routes['files'] ?? [];
+		unset($this->m_routes['files']);
+
+		foreach ($routesConfigFiles as &$f) {
+			$f = realpath('../src/' . $f);
+		}
+		unset($f);
+
+	// Merging config files into one
+
+		$cacheId = SimpleCache::cacheIDFromFileFullPath($routesConfigFiles);
+
+		$additionalRoutes = [];
+
+		if (SimpleCache::isValidFilePreprocessed($cacheId, $routesConfigFiles)) {
+			$additionalRoutes = SimpleCache::loadFilePreprocessed($cacheId);
+				$additionalRoutes = json_decode($additionalRoutes, true);
+		} else {
+			if (!empty($routesConfigFiles)) {
+				foreach ($routesConfigFiles as $f) {
+					$additionalRoutes = array_merge($additionalRoutes, ConfigurationLoader::loadFileToArray($f));
+				}
+				SimpleCache::cacheFilePreprocessed(json_encode($additionalRoutes), $routesConfigFiles, $cacheId);
+			}
+			$requireCacheRefresh = true;
+		}
+
+		$this->m_routes = array_merge($this->m_routes, $additionalRoutes);
+
+	// Routes
+
+		// TODO: As of PHP 7.4, simply do [$configFile, ...$routesConfigFiles]
+		$routesConfigFiles = array_merge([$configFile], $routesConfigFiles);
+		$baseCacheId = SimpleCache::cacheIDFromFileFullPath($routesConfigFiles);
+
+		// Formatted routes caching
+		$cacheId = $baseCacheId . '--formatted';
+
+		if (!$requireCacheRefresh && SimpleCache::isValidFilePreprocessed($cacheId, $routesConfigFiles)) {
 			$this->m_routes = SimpleCache::loadFilePreprocessed($cacheId);
 				$this->m_routes = json_decode($this->m_routes, true);
 		} else {
-			$this->m_routes = ConfigurationLoader::loadFileToArray($configFile, false); // Useless to cache it 2 times, config never gets used raw
-				$this->m_routes = $this->formatRoutes($this->m_routes);
-			SimpleCache::cacheFilePreprocessed(json_encode($this->m_routes), $configFile, $cacheId);
+			$this->m_routes = $this->formatRoutes($this->m_routes);
+			SimpleCache::cacheFilePreprocessed(json_encode($this->m_routes), $routesConfigFiles, $cacheId);
+			$requireCacheRefresh = true;
 		}
 
 	// Mapped routes
@@ -78,12 +117,12 @@ class Router implements HttpStatusInterface {
 		// Mapped Routes caching
 		$cacheId = $baseCacheId . '--mapped';
 
-		if (SimpleCache::isValidFilePreprocessed($cacheId, $configFile)) {
+		if (!$requireCacheRefresh && SimpleCache::isValidFilePreprocessed($cacheId, $routesConfigFiles)) {
 			$this->m_mappedRoutes = SimpleCache::loadFilePreprocessed($cacheId);
 				$this->m_mappedRoutes = json_decode($this->m_mappedRoutes, true);
 		} else {
 			$this->m_mappedRoutes = $this->mapRoutes($this->m_routes);
-			SimpleCache::cacheFilePreprocessed(json_encode($this->m_mappedRoutes), $configFile, $cacheId);
+			SimpleCache::cacheFilePreprocessed(json_encode($this->m_mappedRoutes), $routesConfigFiles, $cacheId);
 		}
 
 		$this->m_currentPage = null;

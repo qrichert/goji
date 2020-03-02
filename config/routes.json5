@@ -4,202 +4,24 @@
  * Reserved page names are:
  * - http-error-* (* = HTTP error code)
  * - password-wall
+ *
+ * Also, you can't use 'files' as a page name as it is reserved for
+ * linking other routes config files (from within modules).
+ *
+ * /!\ Page ID's don't belong to namespaces, they all are in
+ * the same 'pool', so beware of name collisions.
  */
 
 {
-	"home": {
-		// If you have multiple languages, use 'routes' with an 's'
-		routes: {
-			/*
-			 * Keyword 'all' means the page is is not tied to a specific language
-			 * If you don't need translation, use 'route' instead (see "some-other-page")
-			 * Here it just means that '/' (no page specified) is tied to the home page
-			 * and also that it doesn't force any language. If French is selected, and we load
-			 * /home, English will replace French as the new language. Whereas with 'all', it won't.,
-			 */
-			all: "/",
-
-			// 'en_US' and 'en_GB' are two separate pages (but are both in English).
-			// Note that you can't have two different pages with the same variant
-			// (like if we had en_GB -> /home). In that case, the first occurrence
-			// would always be selected (here en_US). If you don't want to support
-			// variants, use the syntax that is used for French below.
-			en_US: "/home", // Ame
-			en_GB: "/welcome", // BrE
-
-			// 'fr_FR' means French, without any particular variant (usually that's what you want)
-			// Here there are two paths pointing to the same page for french (first one will be used as default)
-			fr: ["/accueil", "/bienvenue"],
-		},
-		/*
-		 * 'controller' is the controller to which the page is tied to.
-		 *
-		 * In this example, the "home" controller is \App\Controller\HomeController
-		 * in /src/App/Controller/HomeController.class.php
-		 *
-		 * The class is imported and called automatically, this is why you have to make it
-		 * implement \Goji\Blueprints\ControllerAbstract.
-		 *
-		 * The importer is smart, so you only need to specify Module/ClassName, it will transform it
-		 * automatically to the full path \Module\Controller\ClassName (/ will be converted to \).
-		 *
-		 * For example:
-		 * - HomeController                -> Controller\HomeController
-		 * - App/HomeController            -> App\Controller\HomeController
-		 * - Controller/HomeController     -> Controller\HomeController
-		 * - App\Controller\HomeController -> App\Controller\HomeController
-		 */
-		controller: "App/HomeController"
-	},
-	"contact": {
-		routes: {
-			all: "/contact"
-			// If you add another language that has a different word for 'contact',
-			// you can add it as simply as doing:
-			//it: "/contatto"
-		},
-		controller: "App/ContactController"
-	},
-	"xhr-contact": {
-		route: "/xhr-contact",
-		controller: "App/XhrContactController"
-	},
-	"privacy-and-terms": {
-		routes: {
-			en: "/privacy-and-terms",
-			fr: "/mentions-legales"
-		},
-		controller: "App/PrivacyAndTermsController"
-	},
-// <HR>
-	"login": {
-		routes: {
-			all: "/login"
-			// If you wanted, you could have:
-			//   - en: "/login",
-			//   - fr: "/connexion"
-			// Which would mean "use '/login' for all English pages
-			// ('en_*' locales), and '/connexion' for French"
-		},
-		controller: "HR/LoginController"
-	},
-	"sign-up": {
-		routes: {
-			en: "/sign-up",
-			fr: "/inscription"
-		},
-		controller: "HR/SignUpController"
-	},
-	"xhr-sign-up": {
-		route: "/xhr-sign-up",
-		controller: "HR/XhrSignUpController"
-	},
-	"verify-email": {
-		routes: {
-			en: "/verify-email",
-			fr: "/verification-email"
-		},
-		controller: "HR/VerifyEmailController"
-	},
-	"xhr-verify-email-not-received": {
-		route: "/xhr-verify-email-not-received",
-		controller: "HR/XhrVerifyEmailNotReceivedController"
-	},
-	"xhr-login": {
-		route: "/xhr-login",
-		controller: "HR/XhrLoginController"
-	},
-	"logout": {
-		route: "/logout",
-		controller: "HR/LogoutController"
-	},
-	"xhr-reset-password-request": {
-		route: "/xhr-reset-password-request",
-		controller: "HR/XhrResetPasswordRequestController"
-	},
-	"reset-password": {
-		routes: {
-			en: "/reset-password",
-			fr: "/reinitialisation-du-mot-de-passe"
-		},
-		controller: "HR/ResetPasswordController"
-	},
-	"xhr-reset-password": {
-		route: "/xhr-reset-password",
-		controller: "HR/XhrResetPasswordController"
-	},
-	"settings": {
-		routes: {
-			en: "/settings",
-			fr: "/parametres"
-		},
-		controller: "HR/SettingsController"
-	},
-	"xhr-settings-password": {
-		route: "/xhr-settings-password",
-		controller: "HR/XhrSettingsPasswordController"
-	},
-// <FUNNEL>
-	"landing-page": {
-		route: "/landing-page",
-		controller: "App/LandingPageController"
-	},
-// <BLOG>
-	"blog": {
-		route: "/blog",
-		controller: "Blog/BlogController"
-	},
-	"xhr-blog": {
-		route: "/xhr-blog",
-		controller: "Blog/XhrBlogController"
-	},
-	"blog-post": {
-		// Note that '/blog/' route is different from '/blog' route without trailing slash
-		// In the default BlogPostController '/blog/' (without permalink) is redirected to '/blog'
-		route: "/blog/(.+)?",
-		controller: "Blog/BlogPostController"
-	},
-	"admin-blog-post": {
-		route: "/admin/blog-post",
-		controller: "Blog/Admin/AdminBlogPostController"
-	},
-	"xhr-admin-blog-post": {
-		route: "/admin/xhr-blog-post",
-		controller: "Blog/Admin/XhrAdminBlogPostController"
-	},
-// <ADMIN>
-	"admin": {
-		route: "/admin",
-		controller: "Admin/AdminController"
-	},
-	"xhr-admin-in-page-content-edit": {
-		route: "/admin/xhr-in-page-content-edit",
-		controller: "Admin/XhrInPageContentEditController"
-	},
-	"xhr-admin-add-member": {
-		route: "/admin/xhr-add-member",
-		controller: "Admin/XhrAddMemberController"
-	},
-	"xhr-admin-clear-cache": {
-		route: "/admin/xhr-clear-cache",
-		controller: "Admin/XhrClearCacheController"
-	},
-	"xhr-admin-update": {
-		route: "/admin/xhr-update",
-		controller: "Admin/XhrUpdateController"
-	},
-	"xhr-admin-back-up-database": {
-		route: "/admin/xhr-back-up-database",
-		controller: "Admin/XhrBackUpDatabaseController"
-	},
-	"admin-analytics": {
-		route: "/admin/analytics",
-		controller: "Admin/AnalyticsController"
-	},
-	"xhr-admin-analytics": {
-		route: "/admin/xhr-analytics",
-		controller: "Admin/XhrAnalyticsController"
-	},
+	// You can specify files within modules containing routes
+	files: [ // The order here also determines the order in analytics
+		'App/app.routes.json5',
+		'Blog/blog.routes.json5',
+		'HR/hr.routes.json5',
+		'Admin/admin.routes.json5',
+		'System/system.routes.json5'
+	]
+	// But you can also add some routes directly in here
 /*
 // <DEMO>
 	// This is the page ID.

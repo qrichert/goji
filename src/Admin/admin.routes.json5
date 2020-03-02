@@ -1,0 +1,34 @@
+{
+	"admin": {
+		route: "/admin",
+		controller: "Admin/AdminController"
+	},
+	"xhr-admin-in-page-content-edit": {
+		route: "/admin/xhr-in-page-content-edit",
+		controller: "Admin/XhrInPageContentEditController"
+	},
+	"xhr-admin-add-member": {
+		route: "/admin/xhr-add-member",
+		controller: "Admin/XhrAddMemberController"
+	},
+	"xhr-admin-clear-cache": {
+		route: "/admin/xhr-clear-cache",
+		controller: "Admin/XhrClearCacheController"
+	},
+	"xhr-admin-update": {
+		route: "/admin/xhr-update",
+		controller: "Admin/XhrUpdateController"
+	},
+	"xhr-admin-back-up-database": {
+		route: "/admin/xhr-back-up-database",
+		controller: "Admin/XhrBackUpDatabaseController"
+	},
+	"admin-analytics": {
+		route: "/admin/analytics",
+		controller: "Admin/AnalyticsController"
+	},
+	"xhr-admin-analytics": {
+		route: "/admin/xhr-analytics",
+		controller: "Admin/XhrAnalyticsController"
+	}
+}
