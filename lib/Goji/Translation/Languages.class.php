@@ -135,6 +135,17 @@ class Languages {
 	}
 
 	/**
+	 * Is a given locale supported or not
+	 *
+	 * @param string $locale
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function isLocaleSupported(string $locale): bool {
+		return in_array($locale, $this->getSupportedLocales());
+	}
+
+	/**
 	 * Returns true if country code matches, else returns false.
 	 *
 	 * Examples:

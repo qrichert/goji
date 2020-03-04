@@ -10,6 +10,14 @@
 		},
 		controller: "HR/LoginController"
 	},
+	"xhr-login": {
+		route: "/xhr-login",
+		controller: "HR/XhrLoginController"
+	},
+	"logout": {
+		route: "/logout",
+		controller: "HR/LogoutController"
+	},
 	"sign-up": {
 		routes: {
 			en: "/sign-up",
@@ -31,14 +39,6 @@
 	"xhr-verify-email-not-received": {
 		route: "/xhr-verify-email-not-received",
 		controller: "HR/XhrVerifyEmailNotReceivedController"
-	},
-	"xhr-login": {
-		route: "/xhr-login",
-		controller: "HR/XhrLoginController"
-	},
-	"logout": {
-		route: "/logout",
-		controller: "HR/LogoutController"
 	},
 	"xhr-reset-password-request": {
 		route: "/xhr-reset-password-request",

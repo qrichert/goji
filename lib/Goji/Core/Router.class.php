@@ -185,12 +185,22 @@ class Router implements HttpStatusInterface {
 					 */
 					if ($locale != self::ACCEPT_ALL
 					    && mb_strlen($locale) == 2
-					    && !in_array($locale, $this->m_app->getLanguages()->getSupportedLocales())) {
+					    && !$this->m_app->getLanguages()->isLocaleSupported($locale)) {
 
 						foreach ($this->m_app->getLanguages()->getSupportedLocales() as $supportedLocale) {
 
-							if ($locale != mb_substr($supportedLocale, 0, 2))
+							if ($locale != mb_substr($supportedLocale, 0, 2)) {
+								/*
+								 * If we're here, it means the locale given in routes.json5 DOES NOT EXIST in languages.json5
+								 * This happens when you want to disable a language but keep the routes.
+								 *
+								 * What we do is we just delete the route from the formatted routes,
+								 * so it will just 404 automatically (will be as if the route wasn't even there)
+								 */
+								unset($config['routes'][$locale]);
+
 								continue;
+							}
 
 							$config['routes'][$supportedLocale] = $route;
 						}
@@ -731,7 +741,7 @@ class Router implements HttpStatusInterface {
 	public function requestLocaleSwitch(string $newLocale): void {
 
 		// If locale doesn't exist -> 404
-		if (!in_array($newLocale, $this->m_app->getLanguages()->getSupportedLocales()))
+		if (!$this->m_app->getLanguages()->isLocaleSupported($newLocale))
 			$this->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 
 		// Change lang

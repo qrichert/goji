@@ -58,7 +58,7 @@
 			'css/reset.css',
 			'css/root.css',
 			'css/goji.css',
-			//'css/lib/Goji/books.css',
+			// 'css/lib/Goji/books.css',
 			'css/lib/Goji/flags.css',
 			'css/lib/Goji/inputs.css',
 			'css/lib/Goji/inpagecontentedit.css',
