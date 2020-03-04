@@ -198,12 +198,19 @@ class Router implements HttpStatusInterface {
 								 * so it will just 404 automatically (will be as if the route wasn't even there)
 								 */
 								unset($config['routes'][$locale]);
-
 								continue;
 							}
 
 							$config['routes'][$supportedLocale] = $route;
 						}
+
+					// Same unset() thing, but for unsupported full locales (fr_FR)
+					} else if ($locale != self::ACCEPT_ALL
+					           && mb_strlen($locale) > 2
+					           && !$this->m_app->getLanguages()->isLocaleSupported($locale)) {
+
+						unset($config['routes'][$locale]);
+						continue;
 					}
 
 					// There can be multiple paths for the same page
