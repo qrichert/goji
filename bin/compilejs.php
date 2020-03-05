@@ -17,7 +17,7 @@
 $file = '';
 
 if (empty($argv[1]))
-	die("Error: You must at least give a filename as input. You can also directly specify the output as second parameter. Or use 'min' as second parameter to created a '.min.js' file.\n");
+	die("Error: You must at least give a filename as input.\nYou can also directly specify the output as second parameter.\nOr use 'min' as second parameter to created a '.min.js' file.\n");
 
 if (!is_file($argv[1]))
 	die("Error: Input file does not exist.\n");

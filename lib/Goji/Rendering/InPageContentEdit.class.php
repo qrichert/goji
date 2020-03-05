@@ -244,8 +244,8 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 		$area = <<<EOT
 			<div {$this->renderAttributes()} data-content-id="{$contentId}" data-raw-content="{$rawContent}">
 				<{$tagName} class="{$this->m_editableAreaClass}">{$formattedContent}</{$tagName}>
-				<textarea class="{$this->m_editorClass}"></textarea>
-				<div class="{$this->m_buttonsClass}">
+				<textarea class="{$this->m_editorClass} hidden"></textarea>
+				<div class="{$this->m_buttonsClass} hidden">
 					<div class="toolbar">
 						<button data-action="save" class="loader highlight">{$this->m_app->getTranslator()->translate('SAVE')}</button>
 						<button data-action="preview" class="loader dark">{$this->m_app->getTranslator()->translate('PREVIEW')}</button>

@@ -40,9 +40,11 @@ class InPageContentEdit {
 			this.m_editor.style.border = this.m_editableAreaStyle.getPropertyValue('border');
 			this.m_editor.style.boxShadow = this.m_editableAreaStyle.getPropertyValue('box-shadow');
 			this.m_editor.style.borderRadius = this.m_editableAreaStyle.getPropertyValue('border-radius');
+			this.m_editor.classList.remove('hidden'); // Hidden before page loaded
 
 		this.m_buttons = parent.querySelector('.in-page-content-edit__buttons');
 			this.m_buttons.style.display = 'none';
+			this.m_buttons.classList.remove('hidden'); // Hidden before page loaded
 
 		this.m_buttons.querySelectorAll('.toolbar > *').forEach(el => {
 			el.style.marginTop = 'var(--gutter-thin)';
