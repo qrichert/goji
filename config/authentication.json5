@@ -41,7 +41,6 @@
 				"xhr-admin-analytics",
 			],
 			"editor": [
-				"admin",
 				"xhr-admin-in-page-content-edit",
 				"admin-blog-post",
 				"xhr-admin-blog-post"
@@ -52,6 +51,7 @@
 			 * Don't add 'logout' because it would redirect to login page instead of 'home' as it does by default.,
 			 */
 			"any": [
+				"admin",
 				"settings",
 				"xhr-settings-password"
 			]

@@ -27,7 +27,7 @@
 				<?php endif; ?>
 			</div>
 
-			<?php if ($this->m_app->getUser()->isLoggedIn() && $this->m_app->getMemberManager()->memberIs('editor')): ?>
+			<?php if ($this->m_app->getUser()->isLoggedIn()): ?>
 				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin'); ?>" rel="nofollow"><?= $tr->_('FOOTER_ADMIN'); ?></a>
 			<?php endif; ?>
 
