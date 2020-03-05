@@ -176,18 +176,21 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 		return new InPageEditableContent(...$args);
 	}
 
-	/**
-	 * Set a custom InPageEditableContent (if you don't want to inherit InPageContentEdit)
-	 *
-	 * You can use YouCustomInPageEditableContent::class to send as parameter for this function.
-	 * This way is better because the class namespace won't be hard-written in your code.
-	 *
-	 * @param string $inPageEditableContent ::class
-	 */
-	public function setInPageEditableContent(string $inPageEditableContent): void {
-		// If wrong class, it will fail at the first getInPageEditableContent()
-		$this->m_inPageEditableContent = $inPageEditableContent;
-	}
+	// /**
+	//  * Set a custom InPageEditableContent (to inherit InPageContentEdit)
+	//  *
+	//  * You can use YouCustomInPageEditableContent::class to send as parameter for this function.
+	//  * This way is better because the class namespace won't be hard-written in your code.
+	//  *
+	//  * This must be a string, not an object, because the object is instantiated in
+	//  * getInPageEditableContent() with the right arguments provided in renderContent()
+	//  *
+	//  * @param string $inPageEditableContent ::class
+	//  */
+	// public function setInPageEditableContent(string $inPageEditableContent): void {
+	// 	// If wrong class, it will fail at the first getInPageEditableContent()
+	// 	$this->m_inPageEditableContent = $inPageEditableContent;
+	// }
 
 	/**
 	 * @param string $contentId

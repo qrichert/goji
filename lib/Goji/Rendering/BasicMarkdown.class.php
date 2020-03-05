@@ -28,8 +28,8 @@ class BasicMarkdown {
 		$text = preg_replace('#\\\\([*_~`])#', '$1', $text);
 
 		// IMAGES / LINKS
-		$text = preg_replace('#!\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@img src="$2" alt="$1" class="markdown-image"€€€€€€€€€€', $text);
-		$text = preg_replace('#\[(.+?)\]\((.+?)\)#is', '@@@@@@@@@@a href="$2"€€€€€€€€€€$1@@@@@@@@@@/a€€€€€€€€€€', $text);
+		$text = preg_replace('#!\[(.*?)\]\((.+?)\)#is', '@@@@@@@@@@img src="$2" alt="$1" class="markdown-image"€€€€€€€€€€', $text);
+		$text = preg_replace('#\[(.*?)\]\((.+?)\)#is', '@@@@@@@@@@a href="$2"€€€€€€€€€€$1@@@@@@@@@@/a€€€€€€€€€€', $text);
 
 		$text = str_replace('@@@@@@@@@@', '<', $text);
 		$text = str_replace('€€€€€€€€€€', '>', $text);
