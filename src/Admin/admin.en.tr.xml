@@ -11,6 +11,8 @@
 		<segment id="ADMIN_SECTION_EDITING">Editing</segment>
 		<segment id="ADMIN_SECTION_ADMIN">Admin</segment>
 		<segment id="ADMIN_SECTION_ROOT">Root</segment>
+		<segment id="ADMIN_ACTION_SETTINGS">Settings</segment>
+		<segment id="ADMIN_ACTION_LOG_OUT">Log Out</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">New blog post</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER">New member</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>

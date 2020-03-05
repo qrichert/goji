@@ -7,6 +7,11 @@
 
 		<?php $settingsPasswordForm->render(); ?>
 
+		<p>
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin'); ?>">
+				<?= $tr->_('GO_BACK_TO_ADMIN_AREA'); ?>
+			</a>
+		</p>
 	</section>
 </main>
 

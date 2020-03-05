@@ -937,7 +937,7 @@ img.header__logo {
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
+	justify-content: space-between;
 	align-items: flex-start;
 }
 
@@ -955,7 +955,8 @@ img.header__logo {
 	margin-right: var(--gutter-medium);
 }
 
-.footer__main-content > div > * {
+.footer__main-content > div > *,
+.footer__explore > div > * {
 	/* Footer sub-children are aligned in column if their parent is a <div>
 	   (<div>s only because we don't want to mess with inline content). */
 	display: flex;
@@ -965,7 +966,6 @@ img.header__logo {
 }
 
 .footer__explore {
-	margin-left: auto;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;

@@ -11,6 +11,8 @@
 		<segment id="ADMIN_SECTION_EDITING">Édition</segment>
 		<segment id="ADMIN_SECTION_ADMIN">Admin</segment>
 		<segment id="ADMIN_SECTION_ROOT">Root</segment>
+		<segment id="ADMIN_ACTION_SETTINGS">Déconnexion</segment>
+		<segment id="ADMIN_ACTION_LOG_OUT">Paramètres</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">Nouvel article</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER">Nouv. membre</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up BDD</segment>

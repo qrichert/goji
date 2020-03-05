@@ -2,6 +2,24 @@
 	<section class="text">
 		<h1><?= $tr->_('ADMIN_MAIN_TITLE'); ?></h1>
 
+		<!-- <MEMBER> -->
+
+		<div class="action-item__wrapper">
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('settings'); ?>"
+			   class="action-item" id="admin-action__new-blog-post">
+				<div class="action-item__progress"></div>
+				<img src="<?= $template->rsc('img/lib/Goji/settings.svg'); ?>" alt="" class="action-item__icon">
+				<span class="action-item__caption"><?= $tr->_('FOOTER_SETTINGS'); ?></span>
+			</a>
+
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>"
+			   class="action-item" id="admin-action__new-blog-post">
+				<div class="action-item__progress"></div>
+				<img src="<?= $template->rsc('img/lib/Goji/log-out.svg'); ?>" alt="" class="action-item__icon">
+				<span class="action-item__caption"><?= $tr->_('FOOTER_LOG_OUT'); ?></span>
+			</a>
+		</div>
+
 		<!-- <EDITOR> -->
 
 		<?php if ($this->m_app->getMemberManager()->memberIs('editor')): ?>
