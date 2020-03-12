@@ -1,6 +1,14 @@
 {
-	"landing-page": {
+	"offer-1-landing-page": {
 		route: "/landing-page",
 		controller: "Funnel/LandingPageController"
+	},
+	"offer-1-vsl": {
+		route: "/vsl",
+		controller: "Funnel/VSLController"
+	},
+	"offer-1-schedule": {
+		route: "/schedule",
+		controller: "Funnel/ScheduleController"
 	}
 }

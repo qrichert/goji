@@ -16,8 +16,7 @@
 			$homeIntro = $tr->_('LANDING_PAGE_GOJI_BERRIES_COPY');
 			$homeIntro = \Goji\Rendering\TemplateExtensions::ctaToHTML(
 				$homeIntro,
-				'#'
-				//$this->m_app->getRouter()->getLinkForPage('vsl')
+				$this->m_app->getRouter()->getLinkForPage('offer-1-vsl')
 			);
 
 			echo $homeIntro;

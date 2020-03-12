@@ -79,3 +79,9 @@ body#privacy-and-terms ol li ol li ol li ol li ol li       { list-style-type: lo
 body#privacy-and-terms .outline {
 	padding-left: 0;
 }
+
+/* <FUNNEL> */
+
+.vsl__step-two-text > .call-to-action__wrapper {
+	text-align: center;
+}

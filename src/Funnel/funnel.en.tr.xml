@@ -4,7 +4,7 @@
 		~~~ <ENGLISH> ~~~
 		This is the English language file.
 	-->
-	<page id="landing-page">
+	<page id="offer-1-landing-page">
 		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
 		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
 		<segment id="LANDING_PAGE_PRE_HEADING">Hello,</segment>
@@ -15,6 +15,32 @@
 			<p>It's not by accident...</p>
 			<p>Click the button below to discover how they do it!</p>
 			%{CTA}Take My Money!%{/CTA}
+		]]></segment>
+	</page>
+	<page id="offer-1-vsl">
+		<segment id="VSL_PAGE_TITLE">VSL</segment>
+		<segment id="VSL_PAGE_DESCRIPTION"></segment>
+		<segment id="VSL_MAIN_TITLE">VSL</segment>
+		<segment id="VSL_STEP_ONE">Step One: Watch The Case Study</segment>
+		<segment id="VSL_STEP_TWO">Step Two: Schedule a Strategy Session</segment>
+		<segment id="VSL_STEP_TWO_TEXT"><![CDATA[
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto atque
+				culpa cum dignissimos dolorem ex ipsam ipsum iusto magni molestias nam quasi quo
+				reiciendis sapiente tempore temporibus, vero voluptas.
+			</p>
+			%{CTA}Schedule Your Strategy Session Now%{/CTA}
+		]]></segment>
+	</page>
+	<page id="offer-1-schedule">
+		<segment id="SCHEDULE_PAGE_TITLE">Schedule a Strategy Session</segment>
+		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
+		<segment id="SCHEDULE_MAIN_TITLE">Schedule a Strategy Session</segment>
+		<segment id="SCHEDULE_TEXT"><![CDATA[
+			<p>
+				This is a demo. You can embed a calendar here with some questions.
+			</p>
+			%{CTA small}Leave the demo%{/CTA}
 		]]></segment>
 	</page>
 </translation>

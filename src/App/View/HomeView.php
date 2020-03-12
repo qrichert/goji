@@ -18,7 +18,7 @@
 		$homeIntro = $tr->_('HOME_TIRED_OF_NOT_HAVING_BERRIES');
 		$homeIntro = \Goji\Rendering\TemplateExtensions::ctaToHTML(
 			$homeIntro,
-			$this->m_app->getRouter()->getLinkForPage('landing-page')
+			$this->m_app->getRouter()->getLinkForPage('offer-1-landing-page')
 		);
 
 		echo $homeIntro;
