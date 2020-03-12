@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace Funnel\Controller;
 
 use Goji\Blueprints\CachedControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
@@ -29,7 +29,7 @@ class LandingPageController extends CachedControllerAbstract {
 		$template->startBuffer();
 
 		// Getting the view (into buffer)
-		require_once $template->getView('App/LandingPageView');
+		require_once $template->getView('Funnel/LandingPageView');
 
 		// Now the view is accessible as string w/ $template->getPageContent()
 		$template->saveBuffer();

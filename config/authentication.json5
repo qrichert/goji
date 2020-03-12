@@ -38,7 +38,7 @@
 				"xhr-admin-add-member",
 				"xhr-admin-back-up-database",
 				"admin-analytics",
-				"xhr-admin-analytics",
+				"xhr-admin-analytics"
 			],
 			"editor": [
 				"xhr-admin-in-page-content-edit",

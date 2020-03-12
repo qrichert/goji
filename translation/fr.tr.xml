@@ -110,19 +110,6 @@
 		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>
 		<segment id="PRIVACY_AND_TERMS_MAIN_TITLE">Mentions Légales</segment>
 	</page>
-	<page id="landing-page">
-		<segment id="LANDING_PAGE_PAGE_TITLE">Landing Page</segment>
-		<segment id="LANDING_PAGE_PAGE_DESCRIPTION"></segment>
-		<segment id="LANDING_PAGE_PRE_HEADING">Bonjour,</segment>
-		<segment id="LANDING_PAGE_MAIN_TITLE">"Qui d’Autre Veut Plus de Baies de Goji—Sans Effort ?"</segment>
-		<segment id="LANDING_PAGE_GOJI_BERRIES_LEGEND">Plus de baies de goji que vous ne pouvez en rêver...</segment>
-		<segment id="LANDING_PAGE_GOJI_BERRIES_COPY"><![CDATA[
-			<h2>Vous Êtes-Vous Déjà Demandé Pourquoi Certaines Personnes Semblent Avoir Autant de Baies ?</h2>
-			<p>Ce n'est pas un hasard...</p>
-			<p>Cliquez sur le bouton ci-dessous pour découvrir comment ils font !</p>
-			%{CTA}Take My Money!%{/CTA}
-		]]></segment>
-	</page>
 
 	<!--
 		You can link additional dependencies like so:
@@ -130,6 +117,7 @@
 	-->
 	<resource file="Admin/admin.fr.tr.xml"/>
 	<resource file="Blog/blog.fr.tr.xml"/>
+	<resource file="Funnel/funnel.fr.tr.xml"/>
 	<resource file="HR/hr.fr.tr.xml"/>
 	<resource file="System/system.fr.tr.xml"/>
 </translation>

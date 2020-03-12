@@ -1,0 +1,6 @@
+{
+	"landing-page": {
+		route: "/landing-page",
+		controller: "Funnel/LandingPageController"
+	}
+}

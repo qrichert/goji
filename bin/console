@@ -9,6 +9,7 @@ if [[ -z "$1" ]] || [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
 	echo "  stop         Stop running Docker container"
 	echo "  push         Push new commits to Git repository"
 	echo "  update       Update from Git repository and rebuild Docker container"
+	echo "  clearcache   Delete content of cache folder (/var/cache/*.cache)"
 
 	exit 0
 else
@@ -25,6 +26,8 @@ else
 		git pull && git push && git checkout master && git pull && git merge wip && git push && git checkout wip
 	elif [[ $COMMAND = 'update' ]]; then
 		git pull && docker-compose up --build --detach
+	elif [[ $COMMAND = 'clearcache' ]]; then
+		rm -f var/cache/*.cache
 	else
 		echo "Error: Command not found."
 	fi
