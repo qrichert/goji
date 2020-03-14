@@ -2,7 +2,7 @@
 
 namespace Goji\StaticFiles;
 
-use Goji\Toolkit\SimpleCache;
+// use Goji\Core\HttpResponse;
 
 /**
  * Class FileRendererAbstract
@@ -22,7 +22,7 @@ abstract class FileRendererAbstract {
 		$this->m_files = $this->m_server->getFiles();
 
 		// Done in .htaccess for all files
-		//SimpleCache::setHttpCachingPolicy([]);
+		// HttpResponse::setHttpCachingPolicy([]);
 	}
 
 	/**
