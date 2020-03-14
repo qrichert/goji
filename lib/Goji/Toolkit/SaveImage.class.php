@@ -59,6 +59,7 @@ class SaveImage {
 		$new = imagecreatetruecolor($new_x, $new_y);
 
 		if ($preserveTransparency && $imageExtension != 'jpg') {
+
 			imagealphablending($new, true);
 
 			$transparent = imagecolorallocatealpha($new, 0, 0, 0, 127); // 127 = 100% transparent
@@ -68,6 +69,8 @@ class SaveImage {
 		}
 
 		imagecopyresampled($new, $source, 0, 0, 0, 0, $new_x, $new_y, $source_x, $source_y);
+
+		imagedestroy($source); // Free up memory from source image
 
 		// Save name
 
@@ -88,6 +91,8 @@ class SaveImage {
 			$saveName .= $imageName;
 			imagepng($new, $saveName); // Save as PNG
 		}
+
+		imagedestroy($new); // Free up memory from new image
 
 		return $imageName;
 	}

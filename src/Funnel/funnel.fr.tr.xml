@@ -33,9 +33,9 @@
 		]]></segment>
 	</page>
 	<page id="offer-1-schedule">
-		<segment id="SCHEDULE_PAGE_TITLE">Réserver un appel stratégique</segment>
+		<segment id="SCHEDULE_PAGE_TITLE">Réservez votre appel stratégique</segment>
 		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
-		<segment id="SCHEDULE_MAIN_TITLE">Réserver un appel stratégique</segment>
+		<segment id="SCHEDULE_MAIN_TITLE">Réservez votre appel stratégique</segment>
 		<segment id="SCHEDULE_TEXT"><![CDATA[
 			<p>
 				Ceci est une démo. Vous pouvez intégrer un calendrier ici avec quelques questions.

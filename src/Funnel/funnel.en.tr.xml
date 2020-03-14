@@ -33,9 +33,9 @@
 		]]></segment>
 	</page>
 	<page id="offer-1-schedule">
-		<segment id="SCHEDULE_PAGE_TITLE">Schedule a Strategy Session</segment>
+		<segment id="SCHEDULE_PAGE_TITLE">Schedule Your Strategy Session</segment>
 		<segment id="SCHEDULE_PAGE_DESCRIPTION"></segment>
-		<segment id="SCHEDULE_MAIN_TITLE">Schedule a Strategy Session</segment>
+		<segment id="SCHEDULE_MAIN_TITLE">Schedule Your Strategy Session</segment>
 		<segment id="SCHEDULE_TEXT"><![CDATA[
 			<p>
 				This is a demo. You can embed a calendar here with some questions.

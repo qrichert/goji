@@ -638,7 +638,7 @@ class SimpleCache {
 	/**
 	 * HTTP Cache Control Privacy (public | private)
 	 *
-	 * public: public indicates the file can be cache in any case, regardess of other settings
+	 * public: public indicates the file can be cached in any case, regardless of other settings
 	 * like HTTP authentication or non-cachable status codes. You don't need it in most cases
 	 * where you'd use max-age, because max-age implies public.
 	 *
