@@ -1,23 +1,33 @@
-<header class="header__main">
-	<div class="header__container">
-		<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>" class="header__logo">
-			<img src="<?= $template->rsc('img/goji__text--dark.svg'); ?>" alt="<?= $tr->_('NAV_HOME'); ?>">
-			<!--goji-->
-		</a>
+<div class="header__wrapper">
+	<header class="header__main">
+		<div class="header__container">
+			<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>" class="header__logo">
+				<img src="<?= $template->rsc('img/goji__text--dark.svg'); ?>" alt="<?= $tr->_('NAV_HOME'); ?>">
+				<!--goji-->
+			</a>
 
-		<nav class="nav__main">
-			<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>"><?= $tr->_('NAV_HOME'); ?></a>
-			<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('NAV_BLOG'); ?></a>
-			<a href="<?= $this->m_app->getRouter()->getLinkForPage('contact'); ?>" rel="nofollow"><?= $tr->_('NAV_CONTACT'); ?></a>
-		</nav>
+			<nav class="nav__main">
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('home'); ?>"><?= $tr->_('NAV_HOME'); ?></a>
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('NAV_BLOG'); ?></a>
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('contact'); ?>" rel="nofollow"><?= $tr->_('NAV_CONTACT'); ?></a>
+			</nav>
 
-		<div class="nav__burger-menu">
-			<div></div>
-			<div></div>
-			<div></div>
+			<div class="nav__burger-menu">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
 		</div>
-	</div>
-</header>
+	</header>
+
+	<?php if ($this->m_app->getRouter()->getCurrentPage() == 'home'): ?>
+
+		<div class="header__home-hero">
+			<img src="<?= $template->rsc('img/goji__berries.svg'); ?>" alt="Musfit.fr">
+		</div>
+
+	<?php endif; ?>
+</div>
 
 <script>
 	(function() {

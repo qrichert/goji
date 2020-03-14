@@ -21,10 +21,17 @@ RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ \
 # PHP_INI_DIR = /usr/local/etc/php
 
 RUN apt-get -y update \
- && apt-get install -y libicu-dev libpng-dev \
+ && apt-get install -y \
+   libicu-dev \
+   libjpeg-dev \
+   libpng-dev \
+   libfreetype6-dev \
  && docker-php-ext-configure intl \
  && docker-php-ext-install intl \
  && docker-php-ext-configure gd \
+   --with-jpeg-dir \
+   --with-png-dir \
+   --with-freetype-dir \
  && docker-php-ext-install gd
 
 COPY config/environment/php.ini $PHP_INI_DIR/conf.d

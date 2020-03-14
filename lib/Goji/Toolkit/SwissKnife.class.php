@@ -278,4 +278,60 @@ class SwissKnife {
 
 		return preg_replace('#/+#', '/', join('/', $paths));
 	}
+
+	/**
+	 * Transforms Hex color to RGB
+	 *
+	 * #f00 -> 255, 0, 0
+	 * #ff0000 -> 255, 0, 0
+	 *
+	 * @param string|null $hexColor
+	 * @param string $defaultHexColor
+	 * @return array
+	 */
+	public static function hexColorToRGB(?string $hexColor, string $defaultHexColor = '#000000'): array {
+
+		if (empty($hexColor))
+			$hexColor = $defaultHexColor;
+
+		// Remove leading '#' if any
+		if (substr($hexColor, 0, 1) == '#')
+			$hexColor = substr($hexColor, 1);
+
+		$red = 0;
+		$green = 0;
+		$blue = 0;
+
+		$colorStringLength = strlen($hexColor);
+
+		if ($colorStringLength !== 3 && $colorStringLength !== 6)
+			return [0, 0, 0]; // Black, default
+
+		// 1fb -> 11, ff, bb
+		if ($colorStringLength === 3) {
+
+			$red = substr($hexColor, 0, 1);
+				$red .= $red;
+
+			$green = substr($hexColor, 1, 1);
+				$green .= $green;
+
+			$blue = substr($hexColor, 2, 1);
+				$blue .= $blue;
+
+		// 1fbc32 -> 1f, bc, 32
+		} else {
+
+			$red = substr($hexColor, 0, 2);
+			$green = substr($hexColor, 2, 2);
+			$blue = substr($hexColor, 4, 2);
+		}
+
+		$red = hexdec($red);
+		$green = hexdec($green);
+		$blue = hexdec($blue);
+
+
+		return [$red, $green, $blue];
+	}
 }

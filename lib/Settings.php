@@ -50,3 +50,6 @@ if (!defined('CHMOD_FOLDER')) {
 	 */
 	define('CHMOD_FOLDER', 0755); // chmod 755 rwx r-x r-x
 }
+
+// Font folder path for GD
+putenv('GDFONTPATH=' . realpath('./css/fonts/'));

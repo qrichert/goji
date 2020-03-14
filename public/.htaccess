@@ -42,6 +42,9 @@ RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [QSA,L,R=301]
 # CSS, JS
 RewriteRule .+\.(?:css|js)$ static.php [QSA,L]
 
+# Generated placeholder images
+RewriteRule ^img/placeholder$ static.php [QSA,L]
+
 # REWRITE : PAGES -------------------------------------------------------------
 
 # Everything that is not a static file or directory
@@ -61,7 +64,7 @@ ErrorDocument 500 /index.php
 
 <FilesMatch "\.(css|js|jpe?g|png|gif|svg|pdf)$">
 	# max-age = 2 weeks
-    Header set Cache-Control max-age=1209600
+	Header set Cache-Control max-age=1209600
 </FilesMatch>
 
 # --- NOINDEX, NOFOLLOW ---

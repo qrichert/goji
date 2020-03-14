@@ -5,6 +5,12 @@
  */
 
 {
+	/*
+	 * Restrict the use of /img/placeholder
+	 * /!\ Deactivate in production
+	 */
+	allow_placeholder_images: true, // (default = false)
+
 	// /!\ Don't forget to purge cache after changing all these:
 
 	/*

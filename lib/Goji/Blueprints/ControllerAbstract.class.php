@@ -21,7 +21,7 @@ abstract class ControllerAbstract implements ControllerInterface {
 
 	/* <CONSTANTS> */
 
-	const DEFAULT_PAGE_CACHE_DURATION = SimpleCache::TIME_30MIN;
+	const DEFAULT_PAGE_CACHE_DURATION = TimeInterface::TIME_30MIN;
 
 	public function __construct(App $app) {
 

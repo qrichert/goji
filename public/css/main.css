@@ -80,6 +80,38 @@ body#privacy-and-terms .outline {
 	padding-left: 0;
 }
 
+/* <HOME> */
+
+body#home .header__wrapper {
+	height: calc(100vh - var(--gutter-big));
+	min-height: var(--header-height);
+	max-height: 750px;
+	background-image: url('../img/placeholder?w=1920&h=1080&t=Goji');
+	background-size: cover;
+	background-position: center center;
+	position: relative;
+}
+
+.header__home-hero {
+	width: 100%;
+	height: calc(100% - var(--header-height));
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: flex-end;
+	padding: var(--gutter-default);
+}
+
+@media all and (max-width: 700px) {
+	.header__home-hero {
+		height: calc(100% - var(--header-height-alt));
+	}
+}
+
+.header__home-hero > img {
+	max-width: 50px;
+}
+
 /* <FUNNEL> */
 
 .vsl__step-two-text > .call-to-action__wrapper {

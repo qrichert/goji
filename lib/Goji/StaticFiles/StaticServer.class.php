@@ -14,6 +14,7 @@ class StaticServer {
 
 	/* <ATTRIBUTES> */
 
+	private $m_allowPlaceholderImages;
 	private $m_linkedFilesMode;
 	private $m_requestFileURI;
 	private $m_fileType;
@@ -22,14 +23,16 @@ class StaticServer {
 	/* <CONSTANTS> */
 
 	const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
+	const IMAGE_PLACEHOLDER_FILE = 'img/placeholder';
 
 	const NORMAL = 'normal';
 	const MERGED = 'merged';
 
 	const CSS = 'css';
 	const JAVASCRIPT = 'js';
+	const IMAGE_PLACEHOLDER = 'image-placeholder';
 
-	const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT];
+	const SUPPORTED_FILE_TYPES = [self::CSS, self::JAVASCRIPT, self::IMAGE_PLACEHOLDER];
 
 	const E_REQUEST_IS_EMPTY = 0;
 	const E_FILE_NOT_FOUND = 1;
@@ -42,6 +45,9 @@ class StaticServer {
 
 			$config = ConfigurationLoader::loadFileToArray($configFile);
 
+			$this->m_allowPlaceholderImages = !empty($config['allow_placeholder_images'])
+			                                  && $config['allow_placeholder_images'] === true;
+
 			if (!empty($config['merge_linked_files'])
 			    && $config['merge_linked_files'] === true)
 					$this->m_linkedFilesMode = self::MERGED;
@@ -50,6 +56,7 @@ class StaticServer {
 
 		} catch (Exception $e) {
 
+			$this->m_allowPlaceholderImages = false;
 			$this->m_linkedFilesMode = self::NORMAL;
 		}
 
@@ -81,7 +88,7 @@ class StaticServer {
 				if (mb_substr($f, 0, $webRootLength) == $webRoot)
 					$f = mb_substr($f, $webRootLength);
 
-				if (!is_file($f)) {
+				if ($f != self::IMAGE_PLACEHOLDER_FILE && !is_file($f)) {
 					// Maybe it doesn't find it because there is a file version in the name (for browser cache).
 					// Like 'css/responsive.v1558194608.css' -> 'css/responsive.css'
 					// Let's try & remove the v1558194608 part
@@ -95,8 +102,16 @@ class StaticServer {
 			unset($f);
 
 		// File type
-		$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
-			$this->m_fileType = mb_strtolower($this->m_fileType);
+		$this->m_fileType = null;
+
+		// Image Placeholder: If file ends with img/placeholder -> file type = self::IMAGE_PLACEHOLDER
+		if (mb_substr($this->m_files[0], -mb_strlen(self::IMAGE_PLACEHOLDER_FILE)) == self::IMAGE_PLACEHOLDER_FILE) {
+			$this->m_fileType = self::IMAGE_PLACEHOLDER;
+		// CSS, JS: File extension = file type
+		} else {
+			$this->m_fileType = pathinfo($this->m_files[0], PATHINFO_EXTENSION);
+				$this->m_fileType = mb_strtolower($this->m_fileType);
+		}
 
 		if (!in_array($this->m_fileType, self::SUPPORTED_FILE_TYPES))
 			throw new Exception("File type not supported: {$this->m_fileType}", self::E_FILE_TYPE_NOT_SUPPORTED);
@@ -114,9 +129,16 @@ class StaticServer {
 	 */
 	public function exec(): void {
 
-		if ($this->m_fileType === null || $this->m_files === null)
+		// File not found
+		if (empty($this->m_fileType) || $this->m_files === null)
 			$this->fileNotFound();
 
+		// If image placeholders are deactivated, return 404
+		if ($this->m_fileType == self::IMAGE_PLACEHOLDER
+			&& !$this->m_allowPlaceholderImages)
+				$this->fileNotFound();
+
+		// Default file rendering
 		$renderer = null;
 
 		switch ($this->m_fileType) {
@@ -127,6 +149,10 @@ class StaticServer {
 
 			case self::JAVASCRIPT:
 				$renderer = new FileRendererJS($this);
+				break;
+
+			case self::IMAGE_PLACEHOLDER:
+				$renderer = new FileRendererImagePlaceholder($this);
 				break;
 		}
 
