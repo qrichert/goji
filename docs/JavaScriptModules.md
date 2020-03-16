@@ -14,6 +14,7 @@ All these modules come in a standard `.js` and compiled `.min.js` version.
   address. Instead, you write an encoded string and this module will dynamically decode it on the fly.
 - **`Form`**: Ajaxifies a `<form>` with success/error callbacks and loading progress.
 - **`Gallery`**: Arranges `<img>`, `<video>` and `<div.gallery__image>` so that they are equal in height and fill the rows.
+- **`GalleryLightBoxInterface`**: Simple interface to link a `Gallery` to a `LightBox`.
 - **`ImageSequenceAnimator`**: Helps you animate an image sequence (you just have to set the progress).
 - **`InPageContentEdit`**: Handles in-page content edition (added automatically if when needed).
 - **`LightBox`**: Lightbox to display content on dark (or whatever you want) background.

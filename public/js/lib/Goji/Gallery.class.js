@@ -29,11 +29,11 @@ class Gallery {
 	 * @param {Object} eventListeners
 	 * @param {Number} gutter
 	 */
-	constructor(parent, eventListeners = false, gutter = 4) {
+	constructor(parent, eventListeners = false, gutter = null) {
 
 		this.m_parent = parent;
 		this.m_eventListeners = eventListeners || {};
-		this.m_gutter = gutter;
+		this.m_gutter = gutter !== null ? gutter : 4;
 		this.m_elements = [];
 		this.m_galleryReady = false; // true after elements have been populated
 
@@ -267,10 +267,67 @@ class Gallery {
 					break; // Past last image
 
 				let node = this.m_elements[currentIndex].get('node');
-					node.style.width = this.m_elements[currentIndex].get('width') * scaleFactor + 'px';
-					node.style.height = this.m_elements[currentIndex].get('height') * scaleFactor + 'px';
+				node.style.width = Math.floor(this.m_elements[currentIndex].get('width') * scaleFactor) + 'px';
+				node.style.height = Math.floor(this.m_elements[currentIndex].get('height') * scaleFactor) + 'px';
 					node.style.marginBottom = (currentIndex < lastRowFirstIndex ? this.m_gutter : 0) + 'px';
 			}
 		}
+	}
+
+	/**
+	 * Returns index of given image
+	 *
+	 * @public
+	 * @param img
+	 */
+	getIndexForImage(img) {
+		let i = 0;
+
+		for (let el of this.m_elements) {
+			if (el.get('node') === img)
+				return i;
+			i++;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns image at given index
+	 *
+	 * @public
+	 * @param index
+	 */
+	getImageForIndex(index) {
+
+		if (typeof this.m_elements[index] === 'undefined')
+			return null;
+
+		let image = this.m_elements[index].get('node');
+
+		if (typeof image === 'undefined')
+			return null;
+
+		return image;
+	}
+
+	/**
+	 * Returns true if image index is the first one, else false.
+	 *
+	 * @public
+	 * @returns {boolean}
+	 */
+	getIndexIsFirstIndex(index) {
+		return index <= 0;
+	}
+
+	/**
+	 * Returns true if image index is the last one, else false.
+	 *
+	 * @public
+	 * @returns {boolean}
+	 */
+	getIndexIsLastIndex(index) {
+		return index >= (this.m_elements.length - 1);
 	}
 }
