@@ -1149,7 +1149,7 @@ section.error {
 }
 
 section.error > h1 {
-	font-size: 6em;
+	font-size: var(--text-size-xxhuge);
 	margin-bottom: 0;
 }
 

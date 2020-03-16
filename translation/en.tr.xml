@@ -43,6 +43,10 @@
 		<segment id="NAV_BLOG">Blog</segment>
 		<segment id="NAV_CONTACT">Contact</segment>
 
+		<!-- Header -->
+		<segment id="HEADER_HERO_HEADLINE">Go Full-Stack.</segment>
+		<segment id="HEADER_HERO_CTA">A simple full-stack framework for the web. %{CTA smaller}Learn more%{/CTA}</segment>
+
 		<!-- Footer -->
 		<segment id="FOOTER_GOJI_ON_GITHUB">Goji on GitHub</segment>
 		<segment id="FOOTER_PRIVACY_AND_TERMS">Privacy &amp; Terms</segment>

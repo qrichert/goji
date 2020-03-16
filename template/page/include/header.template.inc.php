@@ -23,6 +23,18 @@
 	<?php if ($this->m_app->getRouter()->getCurrentPage() == 'home'): ?>
 
 		<div class="header__home-hero">
+			<div>
+				<h2 class="header__home-hero-headline"><?= $tr->_('HEADER_HERO_HEADLINE'); ?></h2>
+				<p class="header__home-hero-cta">
+					<?=
+					\Goji\Rendering\TemplateExtensions::ctaToHTML(
+						$tr->_('HEADER_HERO_CTA'),
+						'#',
+						true
+					);
+					?>
+				</p>
+			</div>
 			<img src="<?= $template->rsc('img/goji__berries.svg'); ?>" alt="Musfit.fr">
 		</div>
 

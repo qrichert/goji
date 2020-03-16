@@ -68,6 +68,9 @@
 	--text-size-medium: 14px;
 	--text-size-default: 17px;
 	--text-size-big: 20px;
+	--text-size-huge: 60px;
+	--text-size-xhuge: 80px;
+	--text-size-xxhuge: 100px;
 
 	--input-height-default: 33px;
 
