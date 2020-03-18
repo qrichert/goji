@@ -11,7 +11,7 @@
 
 label.required::after {
 	content: '*';
-	color: var(--color-danger);
+	color: var(--color-invalid);
 }
 
 /* Inputs - Regular */
@@ -220,7 +220,7 @@ input[type=submit].delete,
 input[type=reset].delete,
 .link-button.delete {
 	color: white;
-	background-color: var(--color-danger);
+	background-color: var(--color-invalid);
 	border: none;
 }
 

@@ -2,6 +2,7 @@
  * Reserved page names are:
  * - http-error-* (* = HTTP error code)
  * - password-wall
+ * - upload (and /upload/* paths)
  */
 
 {}

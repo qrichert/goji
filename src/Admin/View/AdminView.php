@@ -26,6 +26,12 @@
 
 			<h2><?= $tr->_('ADMIN_SECTION_EDITING'); ?></h2>
 			<div class="action-item__wrapper">
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-upload'); ?>" class="action-item" id="admin-action__upload">
+					<div class="action-item__progress"></div>
+					<img src="<?= $template->rsc('img/lib/Goji/upload.svg'); ?>" alt="" class="action-item__icon">
+					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_UPLOAD'); ?></span>
+				</a>
+
 				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-blog-post') .
 				             '?action=' . \Blog\Model\BlogPostManager::ACTION_CREATE; ?>"
 				   class="action-item" id="admin-action__new-blog-post">

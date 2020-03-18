@@ -161,9 +161,9 @@
 	--color-valid-light: var(--color-green-pale);
 	--color-valid: var(--color-green-sea);
 	--color-warning-light: var(--color-yellow-pale);
-	--color-danger-light: var(--color-red-pale);
-	--color-danger: var(--color-red-lipstick);
-	--color-danger-dark: var(--color-red-wine);
+	--color-invalid-light: var(--color-red-pale);
+	--color-invalid: var(--color-red-lipstick);
+	--color-invalid-dark: var(--color-red-wine);
 
 	--color-disabled: var(--color-text-xxxlight);
 

@@ -124,6 +124,11 @@ body#home .header__wrapper {
 	flex-shrink: 0;
 }
 
+.header__home-hero-cta > .call-to-action__wrapper {
+	/* When there's text before the button. */
+	margin-left: var(--gutter-thin);
+}
+
 @media all and (max-width: 750px) {
 
 	.header__home-hero {

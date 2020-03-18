@@ -13,6 +13,7 @@
 		<segment id="ADMIN_SECTION_ROOT">Root</segment>
 		<segment id="ADMIN_ACTION_SETTINGS">Déconnexion</segment>
 		<segment id="ADMIN_ACTION_LOG_OUT">Paramètres</segment>
+		<segment id="ADMIN_ACTION_UPLOAD">Upload</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">Nouvel article</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER">Nouv. membre</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up BDD</segment>
@@ -32,6 +33,14 @@
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR">Le formulaire contient des erreurs</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_PASSWORDS_MUST_MATCH">Les mots de passe doivent être identiques</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER_ERROR_USERNAME_ALREADY_EXISTS">L'adresse email est déjà enregistrée</segment>
+	</page>
+	<page id="(xhr-)?admin-upload">
+		<segment id="UPLOAD_PAGE_TITLE">Upload</segment>
+		<segment id="UPLOAD_PAGE_DESCRIPTION"></segment>
+		<segment id="UPLOAD_MAIN_TITLE">Upload</segment>
+
+		<segment id="UPLOAD_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="UPLOAD_SUCCESS">Le fichier a été uploadé avec succès</segment>
 	</page>
 	<page id="xhr-admin-clear-cache">
 		<segment id="ADMIN_CLEAR_CACHE_NB_FRAGMENTS_REMOVED">

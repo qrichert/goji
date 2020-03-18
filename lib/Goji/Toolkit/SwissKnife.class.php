@@ -334,4 +334,28 @@ class SwissKnife {
 
 		return [$red, $green, $blue];
 	}
+
+	/**
+	 * Digs up values from deep arrays.
+	 *
+	 * Loops through a recursive array and extracts the first value that is not an array.
+	 *
+	 * @param $array
+	 * @return !array|null
+	 */
+	public static function extractFirstNonArrayValueFromRecursiveArray(&$array) {
+
+		if (!is_array($array))
+			return $array;
+
+		foreach ($array as $value) {
+
+			if (!is_array($value))
+				return $value;
+			else
+				return self::extractFirstNonArrayValueFromRecursiveArray($value);
+		}
+
+		return null;
+	}
 }

@@ -12,6 +12,7 @@ use Goji\Toolkit\UrlManager;
 use Goji\Translation\Languages;
 use System\Controller\HttpErrorController;
 use System\Controller\PasswordWallController;
+use System\Controller\UploadFileController;
 
 /**
  * Class Router
@@ -28,6 +29,7 @@ class Router implements HttpStatusInterface {
 	private $m_currentPage;
 	private $m_currentPageIsErrorPage;
 	private $m_currentPageIsPasswordWallPage;
+	private $m_currentPageIsUploadFile;
 
 	/* <CONSTANTS> */
 
@@ -127,6 +129,7 @@ class Router implements HttpStatusInterface {
 		$this->m_currentPage = null;
 		$this->m_currentPageIsErrorPage = false;
 		$this->m_currentPageIsPasswordWallPage = false;
+		$this->m_currentPageIsUploadFile = false;
 	}
 
 	/**
@@ -457,6 +460,13 @@ class Router implements HttpStatusInterface {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function getCurrentPageIsUploadFile(): bool {
+		return $this->m_currentPageIsUploadFile;
+	}
+
+	/**
 	 * Returns the link associated to a given page.
 	 *
 	 * Returns the absolute path, without the domain.
@@ -615,6 +625,9 @@ class Router implements HttpStatusInterface {
 		$locale = null;
 		$controller = null;
 
+		if (mb_substr($page, 0, 8) == '/upload/')
+			$this->redirectToUploadFile();
+
 		// Loop through the routes in configuration, and match them again the requested route
 		// We use a regex so we can have variable parameters
 		// (Note that controller is given, otherwise mapRoutes() would have failed).
@@ -673,7 +686,6 @@ class Router implements HttpStatusInterface {
 
 				// Specific locale given (force locale)
 				} else {
-
 					$this->m_app->getLanguages()->setCurrentLocale($route['locale']);
 				}
 
@@ -839,6 +851,18 @@ class Router implements HttpStatusInterface {
 		$this->m_currentPage = 'password-wall';
 
 		$controller = new PasswordWallController($this->m_app);
+			$controller->render();
+
+		exit;
+	}
+
+	public function redirectToUploadFile(): void {
+
+		$this->m_currentPageIsUploadFile = true;
+
+		$this->m_currentPage = 'upload';
+
+		$controller = new UploadFileController($this->m_app);
 			$controller->render();
 
 		exit;

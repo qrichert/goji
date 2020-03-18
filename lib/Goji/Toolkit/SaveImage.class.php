@@ -9,18 +9,44 @@ namespace Goji\Toolkit;
  */
 class SaveImage {
 
-	public static function save($image, // $_FILES['image']
-								$directory,
-								$prefix = '',
-								$maxSize = 420, // px
-								$quality = 65, // JPG
-								$preserveTransparency = true) {
+	/* <CONSTANTS> */
+
+	const UPLOAD_DIRECTORY = '../var/upload';
+
+	/**
+	 * @param array $image $_FILES['image']
+	 * @param string $directory Save path
+	 * @param string $prefix Prepend a string (e.g. 'thumb_')
+	 * @param string|null $forceFileName Give a custom name instead of using uniqid()
+	 * @param bool $compressImage
+	 * @param int $maxImageSize Max width or height the image can be (only used if $compressImage = true, -1 = infinite)
+	 * @param int $quality JPEG compression (only affects JPEGs)
+	 * @param bool $preserveTransparency true keeps PNG and GIF transparent (converted to PNG unless JPG),
+	 *                                   false will lose alpha layer (converted to PNG)
+	 * @return string Image name
+	 */
+	public static function save(array $image,
+								string $directory = self::UPLOAD_DIRECTORY,
+								string $prefix = '',
+								string $forceFileName = null,
+								bool $compressImage = true,
+								int $maxImageSize = 1700,
+								int $quality = 65,
+								bool $preserveTransparency = true) {
+
+		if (mb_substr($directory, -1) != '/')
+			$directory .= '/';
 
 		// If path doesn't exist we make it (ex : first upload)
 		if (!is_dir($directory))
 			mkdir($directory, 0777, true);
 
-		$imageName = uniqid($prefix);
+		$imageName = $forceFileName;
+
+		if (!is_string($imageName))
+			$imageName = uniqid();
+
+		$imageName = $prefix . $imageName;
 
 		$imageExtension = pathinfo($image['name'], PATHINFO_EXTENSION);
 			$imageExtension = mb_strtolower($imageExtension);
@@ -28,30 +54,27 @@ class SaveImage {
 			if ($imageExtension == 'jpeg')
 				$imageExtension = 'jpg'; // Standard
 
+		// Don't compress if no compression or SVG
+		if (!$compressImage || $imageExtension === 'svg') {
+			$saveName = $directory . $imageName . '.' . $imageExtension;
+			move_uploaded_file($image['tmp_name'], $saveName);
+			return $imageName;
+		}
+
 		$source = null;
 
-		if ($imageExtension == 'bmp') {
-
-			$source = imagecreatefrombmp($image['tmp_name']);
-
-		} else if ($imageExtension == 'gif') {
-
+		if ($imageExtension == 'gif')
 			$source = imagecreatefromgif($image['tmp_name']);
-
-		} else if ($imageExtension == 'png') {
-
+		else if ($imageExtension == 'png')
 			$source = imagecreatefrompng($image['tmp_name']);
-
-		} else { // JPG || JPEG
-
+		else // JPG || JPEG
 			$source = imagecreatefromjpeg($image['tmp_name']);
-		}
 
 		// Shrinking
 		$source_x = imagesx($source);
 		$source_y = imagesy($source);
 
-		$shrinkedSize = ImageSize::shrinkToMaxSize($source_x, $source_y, $maxSize);
+		$shrinkedSize = ImageSize::shrinkToMaxSize($source_x, $source_y, $maxImageSize);
 
 			$new_x = $shrinkedSize['width'];
 			$new_y = $shrinkedSize['height'];
@@ -74,9 +97,6 @@ class SaveImage {
 
 		// Save name
 
-		if (mb_substr($directory, -1) != '/')
-			$directory .= '/';
-
 		$saveName = $directory; // + $imageName
 
 		if ($imageExtension == 'jpg' || !$preserveTransparency) {
@@ -97,9 +117,15 @@ class SaveImage {
 		return $imageName;
 	}
 
-	public static function isValid($image, // $_FILES['image']
-									$allowedFileTypes = ['bmp', 'gif', 'jpg', 'png'],
-									$maxWeight = 7340032) { // 7 MB
+	/**
+	 * @param array $image
+	 * @param int $maxWeight
+	 * @param array $allowedFileTypes
+	 * @return bool
+	 */
+	public static function isValid(array $image, // $_FILES['image']
+									int $maxWeight = 8000000, // 8 MB
+									array $allowedFileTypes = ['gif', 'jpg', 'png', 'svg']) {
 
 		// If upload error
 		if ($image['error'] != UPLOAD_ERR_OK)
@@ -107,10 +133,12 @@ class SaveImage {
 
 		$imageSize = (int) $image['size'];
 
-		$imageExtension = pathinfo($image['name'], PATHINFO_EXTENSION);
+		// If too heavy
+		if ($imageSize > $maxWeight)
+			return false;
 
-		// Uniformization for validation
-		$imageExtension = mb_strtolower($imageExtension);
+		$imageExtension = pathinfo($image['name'], PATHINFO_EXTENSION);
+			$imageExtension = mb_strtolower($imageExtension); // Uniformization for validation
 
 		if ($imageExtension == 'jpeg')
 			$imageExtension = 'jpg'; // Standard
@@ -120,10 +148,6 @@ class SaveImage {
 
 		// If file type not allowed
 		if (!in_array($imageExtension, $allowedFileTypes))
-			return false;
-
-		// If too heavy
-		if ($imageSize > $maxWeight)
 			return false;
 
 		// Else it is valid

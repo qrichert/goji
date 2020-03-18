@@ -7,6 +7,14 @@
 		route: "/admin/xhr-in-page-content-edit",
 		controller: "Admin/XhrInPageContentEditController"
 	},
+	"admin-upload": {
+		route: "/admin/upload",
+		controller: "Admin/UploadController"
+	},
+	"xhr-admin-upload": {
+		route: "/admin/xhr-upload",
+		controller: "Admin/XhrUploadController"
+	},
 	"xhr-admin-add-member": {
 		route: "/admin/xhr-add-member",
 		controller: "Admin/XhrAddMemberController"

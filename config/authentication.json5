@@ -42,6 +42,8 @@
 			],
 			"editor": [
 				"xhr-admin-in-page-content-edit",
+				"admin-upload",
+				"xhr-admin-upload",
 				"admin-blog-post",
 				"xhr-admin-blog-post"
 			],
