@@ -3,6 +3,7 @@
 namespace Goji\Toolkit;
 
 use DateTime;
+use finfo;
 use Transliterator;
 
 /**
@@ -357,5 +358,19 @@ class SwissKnife {
 		}
 
 		return null;
+	}
+
+	public static function mime_content_type(string $file): string {
+
+		$finfo = new finfo(FILEINFO_MIME_TYPE);
+
+		$fileType = $finfo->file($file);
+
+		if ($fileType === false)
+			$fileType = 'text/plain';
+		else if ($fileType == 'image/svg')
+			$fileType .= '+xml'; // image/svg+xml
+
+		return $fileType;
 	}
 }

@@ -4,6 +4,7 @@ namespace System\Controller;
 
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Core\HttpResponse;
+use Goji\Toolkit\SwissKnife;
 
 class UploadFileController extends ControllerAbstract {
 
@@ -19,10 +20,7 @@ class UploadFileController extends ControllerAbstract {
 		if (!is_file($requestFile))
 			$this->m_app->getRouter()->redirectToErrorDocument(self::HTTP_ERROR_NOT_FOUND);
 
-		$fileType = mime_content_type($requestFile);
-
-		if ($fileType === false)
-			$fileType = 'text/plain';
+		$fileType = SwissKnife::mime_content_type($requestFile);
 
 		HttpResponse::setContentType($fileType, null);
 

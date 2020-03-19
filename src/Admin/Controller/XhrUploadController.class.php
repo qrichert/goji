@@ -44,7 +44,7 @@ class XhrUploadController extends XhrControllerAbstract {
 		$thumbName = pathinfo($newImageName, PATHINFO_FILENAME);
 		SaveImage::save($formFile, SaveImage::UPLOAD_DIRECTORY . '/' . $newImageSavePath, 'thumb_', $thumbName, true, 450);
 
-		$fileType = mime_content_type($formFile['tmp_name']);
+		$fileType = SwissKnife::mime_content_type($formFile['tmp_name']);
 
 		$newImageSavePath = 'upload/' . $newImageSavePath;
 
