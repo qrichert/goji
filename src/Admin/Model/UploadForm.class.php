@@ -22,7 +22,9 @@ class UploadForm extends Form {
 				 ->setName('upload[file]')
 				 ->setId('upload__file')
 				 ->setAttribute('required')
-				 ->setAttribute('multiple');
+				 ->setAttribute('multiple')
+				 ->setFileMaxSize(8000000)
+				 ->setAllowedFileTypes(['gif', 'jpg', 'png', 'svg']);
 
 			$this->addInput(new InputLabel())
 				 ->setId('upload__dropzone')

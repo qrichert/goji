@@ -53,7 +53,8 @@
  * options = {
  *     encode_uri: true, // Encode URI before sending (false can be useful to avoid double encoding)
  *     get_binary: false, // Download response as binary data (Blob)
- *     get_json: false // Download response as JSON object
+ *     get_json: false, // Download response as JSON object
+ *     monitor_upload: true // Progress event will watch upload instead of download
  * };
  *
  * If both get_binary and get_json are set to true, get_binary will prevail.
@@ -113,7 +114,8 @@ class SimpleRequest {
 					error(null);
 			}
 
-			xhr.status = parseInt(xhr.status, 10); // Just to be sure it's an int
+			if (!Number.isInteger(xhr.status))
+				xhr.status = parseInt(xhr.status, 10); // Just to be sure it's an int
 
 			// Binary
 			if (options.getBinary) {
@@ -139,25 +141,28 @@ class SimpleRequest {
 		}, false);
 
 		xhr.addEventListener('error', e => {
-
 			if (error !== null)
 				error(e);
-
 		}, false);
 
 		xhr.addEventListener('abort', e => {
-
 			if (abort !== null)
 				abort(e);
-
 		}, false);
 
-		xhr.addEventListener('progress', e => {
+		let progressEvent = e => {
+
+			if (!e.lengthComputable)
+				return;
 
 			if (progress !== null)
 				progress(e.loaded, e.total);
+		};
 
-		}, false);
+		if (options.monitorUpload)
+			xhr.upload.addEventListener('progress', progressEvent, false);
+		else
+			xhr.addEventListener('progress', progressEvent, false);
 	}
 
 	/**
@@ -173,6 +178,7 @@ class SimpleRequest {
 			preparedOptions.encodeURI = this.coalesce(options, 'encode_uri', true);
 			preparedOptions.getBinary = this.coalesce(options, 'get_binary', false);
 			preparedOptions.getJSON = this.coalesce(options, 'get_json', false);
+			preparedOptions.monitorUpload = this.coalesce(options, 'monitor_upload', true);
 
 		return preparedOptions;
 	}

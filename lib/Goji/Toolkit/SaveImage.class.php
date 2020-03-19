@@ -30,7 +30,7 @@ class SaveImage {
 								string $prefix = '',
 								string $forceFileName = null,
 								bool $compressImage = true,
-								int $maxImageSize = 1700,
+								int $maxImageSize = 1500,
 								int $quality = 65,
 								bool $preserveTransparency = true) {
 
@@ -119,12 +119,12 @@ class SaveImage {
 
 	/**
 	 * @param array $image
-	 * @param int $maxWeight
+	 * @param int $maxFileSize Max file size in octets (-1 = infinite)
 	 * @param array $allowedFileTypes
 	 * @return bool
 	 */
 	public static function isValid(array $image, // $_FILES['image']
-									int $maxWeight = 8000000, // 8 MB
+									int $maxFileSize = -1,
 									array $allowedFileTypes = ['gif', 'jpg', 'png', 'svg']) {
 
 		// If upload error
@@ -134,16 +134,15 @@ class SaveImage {
 		$imageSize = (int) $image['size'];
 
 		// If too heavy
-		if ($imageSize > $maxWeight)
+		if ($maxFileSize > -1 && $imageSize > $maxFileSize)
 			return false;
 
 		$imageExtension = pathinfo($image['name'], PATHINFO_EXTENSION);
 			$imageExtension = mb_strtolower($imageExtension); // Uniformization for validation
 
-		if ($imageExtension == 'jpeg')
-			$imageExtension = 'jpg'; // Standard
-
-		if (in_array('jpeg', $allowedFileTypes))
+		if (in_array('jpg', $allowedFileTypes) && !in_array('jpeg', $allowedFileTypes))
+			$allowedFileTypes[] = 'jpeg';
+		else if (in_array('jpeg', $allowedFileTypes) && !in_array('jpg', $allowedFileTypes))
 			$allowedFileTypes[] = 'jpg';
 
 		// If file type not allowed

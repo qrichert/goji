@@ -36,27 +36,29 @@ $template->linkFiles([
 			return;
 		}
 
-		let fileName = response.file_path + 'thumb_' + response.file_name;
+		let fileName = response.file_path + response.file_name;
+		let thumbName = response.file_path + 'thumb_' + response.file_name;
 
 		let img = document.createElement('img');
-			img.src = fileName;
+			img.src = thumbName;
 
 		img.addEventListener('click', () => {
 			alert(`%{WEBROOT}${fileName}`)
 		}, false);
 
 		document.querySelector('section').appendChild(img);
+		// Append child to uploads ordered flex-reverse
 	};
 
-	new Dropzone(dropzone, fileinput, success, {
+	let errorFileTypeInvalid = fileType => {
+		alert(fileType);
+	};
+
+	let errorFileTooHeavy = fileSize => {
+		alert(fileSize);
+	};
+
+	new Dropzone(dropzone, fileinput, success, errorFileTypeInvalid, errorFileTooHeavy, {
 		// default_file_icon: '/img/placeholder?w=200&h=200&t=F'
-		max_file_size: -1,
-		// file_types_allowed: [
-		// 	'image/gif',
-		// 	'image/jpeg',
-		// 	'image/jpg',
-		// 	'image/png',
-		// 	'image/svg+xml'
-		// ]
 	});
 </script>

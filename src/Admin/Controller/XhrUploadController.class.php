@@ -36,13 +36,13 @@ class XhrUploadController extends XhrControllerAbstract {
 		 */
 		$formFile = $form->getInputByName('upload[file]')->getValue();
 
-		if (!SaveImage::isValid($formFile, 8000000)) {
+		if (!SaveImage::isValid($formFile)) {
 			HttpResponse::JSON([
 				'message' => $tr->_('UPLOAD_ERROR')
 			], false);
 		}
 
-		$newImageSavePath = 'img/' . date('Y/m/');
+		$newImageSavePath = date('Y/m/');
 
 		$newImageName = SaveImage::save($formFile, SaveImage::UPLOAD_DIRECTORY . '/' . $newImageSavePath);
 

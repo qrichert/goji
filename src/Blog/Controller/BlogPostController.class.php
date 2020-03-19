@@ -41,9 +41,9 @@ class BlogPostController extends BlogControllerAbstract {
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 		$blogPostManager = new BlogPostManager($this);
+
 		$blogPost = $blogPostManager->read($this->m_permalink, true);
-			// To HTML
-			$blogPost['post'] = self::renderAsHTML($blogPost['post']);
+			$blogPost['post'] = self::renderAsHTML($blogPost['post']); // To HTML
 
 		$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
 		                               $tr->_('BLOG_POST_PAGE_DESCRIPTION'));

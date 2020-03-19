@@ -36,23 +36,6 @@ class DropzoneItem {
 		this.startUpload();
 	}
 
-	// extractFileType(file) {
-	// 	let fileType = file.name.match(/\.([^.]+)$/); // Hello.mp4 -> mp4
-	//
-	// 	if (fileType !== null) {
-	// 		fileType = fileType[1]; // First capture group
-	// 	} else {
-	// 		fileType = file.type.match(/\/([^.]+)$/); // video/mp4 -> mp4
-	//
-	// 		if (fileType !== null)
-	// 			fileType = fileType[1];
-	// 		else
-	// 			fileType = '?';
-	// 	}
-	//
-	// 	return fileType;
-	// }
-
 	extractFileName(file) {
 
 		let fileName = file.name.match(/^(.+)\.([^.]+)$/);
@@ -193,6 +176,9 @@ class DropzoneItem {
 
 	uploadProgress(e) {
 
+		if (!e.lengthComputable)
+			return;
+
 		let progress = e.loaded / e.total;
 
 		if (isNaN(progress))
@@ -214,7 +200,7 @@ class DropzoneItem {
 			this.m_xhr.addEventListener('load', e => { this.uploadLoad(e); }, false);
 			this.m_xhr.addEventListener('error', e => { this.uploadError(e); }, false);
 			this.m_xhr.addEventListener('abort', e => { this.uploadAbort(e); }, false);
-			this.m_xhr.addEventListener('progress', e => { this.uploadProgress(e); }, false);
+			this.m_xhr.upload.addEventListener('progress', e => { this.uploadProgress(e); }, false);
 
 			this.m_xhr.open('POST', this.m_action);
 			this.m_xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -242,8 +228,6 @@ class DropzoneItem {
 
 /**
  * Options:
- * - max_file_size: (int) Maximum allowed file size in octets. (default = 8 Mo, -1 = no limit)
- * - file_types_allowed: (Array) What mime types are allowed. (default = empty, empty = all)
  * - default_file_icon (string) Image to use when file type not recognized (default = empty, no icon)
  */
 class Dropzone {
@@ -252,9 +236,16 @@ class Dropzone {
 	 * @param dropzone
 	 * @param fileInput
 	 * @param callbackSuccess
+	 * @param callbackErrorFileTypeInvalid
+	 * @param callbackErrorFileTooHeavy
 	 * @param options
 	 */
-	constructor(dropzone, fileInput, callbackSuccess = null, options = null) {
+	constructor(dropzone,
+	            fileInput,
+	            callbackSuccess = null,
+	            callbackErrorFileTypeInvalid = null,
+	            callbackErrorFileTooHeavy = null,
+	            options = null) {
 
 		this.m_dropzone = dropzone;
 			this.m_dropzone.classList.add('waiting-for-files');
@@ -264,6 +255,9 @@ class Dropzone {
 			this.m_fileInput.multiple = true;
 
 		this.m_callbackSuccess = callbackSuccess;
+
+		this.m_callbackErrorFileTooHeavy = callbackErrorFileTooHeavy;
+		this.m_callbackErrorFileTypeInvalid = callbackErrorFileTypeInvalid;
 
 		this.m_form = null;
 
@@ -296,8 +290,16 @@ class Dropzone {
 		if (options === null)
 			options = {};
 
-		this.m_maxFileSize = this.coalesce(options, 'max_file_size', 8000000);
-		this.m_fileTypesAllowed = this.coalesce(options, 'file_types_allowed', []);
+		this.m_fileTypesAllowed = this.m_fileInput.accept || '';
+
+			if (this.m_fileTypesAllowed === '')
+				this.m_fileTypesAllowed = [];
+			else
+				this.m_fileTypesAllowed = this.m_fileTypesAllowed.split(',');
+
+		this.m_maxFileSize = this.m_fileInput.dataset.maxFileSize || -1;
+			this.m_maxFileSize = parseInt(this.m_maxFileSize, 10);
+
 		this.m_defaultFileIcon = this.coalesce(options, 'default_file_icon', null);
 
 		this.m_successfulDropHappened = false; // To clear dropzone or not
@@ -351,23 +353,52 @@ class Dropzone {
 		this.m_dropzone.classList.remove('hover');
 	}
 
+	extractFileType(file) {
+		let fileType = file.name.match(/\.([^.]+)$/); // Hello.mp4 -> mp4
+
+		if (fileType !== null) {
+			fileType = fileType[1]; // First capture group
+		} else {
+			fileType = file.type.match(/\/([^.]+)$/); // video/mp4 -> mp4
+
+			if (fileType !== null)
+				fileType = fileType[1];
+			else
+				fileType = '?';
+		}
+
+		return '.' + fileType;
+	}
+
 	fileIsValid(file) {
 
 		if (file.type === '') {
-			alert('Folders are not allowed.');
-			return false;
-		}
 
-		if (this.m_maxFileSize > 0 && file.size > this.m_maxFileSize) {
-			alert('Max file size exceeded. (' + file.size + 'o)');
+			if (this.m_callbackErrorFileTypeInvalid !== null)
+				this.m_callbackErrorFileTypeInvalid('_folder_');
+
 			return false;
 		}
 
 		if (this.m_fileTypesAllowed.length > 0) {
-			if (!this.m_fileTypesAllowed.includes(file.type)) {
-				alert('File type not supported. (' + file.type + ')');
+
+			let fileType = this.extractFileType(file);
+
+			if (!this.m_fileTypesAllowed.includes(fileType)) {
+
+				if (this.m_callbackErrorFileTypeInvalid !== null)
+					this.m_callbackErrorFileTypeInvalid(fileType);
+
 				return false;
 			}
+		}
+
+		if (this.m_maxFileSize > 0 && file.size > this.m_maxFileSize) {
+
+			if (this.m_callbackErrorFileTooHeavy !== null)
+				this.m_callbackErrorFileTooHeavy(file.size);
+
+			return false;
 		}
 
 		return true;

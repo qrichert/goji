@@ -11,6 +11,9 @@ use Goji\Toolkit\SwissKnife;
  */
 class InputFile extends FormElementAbstract {
 
+	protected $m_maxFileSize;
+	protected $m_allowedFileTypes;
+
 	/**
 	 * InputFile constructor.
 	 *
@@ -25,6 +28,9 @@ class InputFile extends FormElementAbstract {
 		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
 		$this->m_openingTag = '<input type="file" %{ATTRIBUTES}>';
+
+		$this->m_maxFileSize = -1; // Infinite
+		$this->m_allowedFileTypes = []; // All
 	}
 
 	/**
@@ -56,6 +62,42 @@ class InputFile extends FormElementAbstract {
 	}
 
 	/**
+	 * Set max file size in octets
+	 *
+	 * @param int $maxFileSize
+	 * @return \Goji\Form\FormElementAbstract
+	 */
+	public function setFileMaxSize(int $maxFileSize): FormElementAbstract {
+		$this->m_maxFileSize = $maxFileSize;
+		$this->setAttribute('data-max-file-size', $this->m_maxFileSize);
+
+		return $this;
+	}
+
+	public function setAllowedFileTypes(array $allowedFileTypes): FormElementAbstract {
+
+		$this->m_allowedFileTypes = $allowedFileTypes;
+
+		// Formatting file types for the accept="" attribute
+
+		if (in_array('jpg', $allowedFileTypes) && !in_array('jpeg', $allowedFileTypes))
+			$allowedFileTypes[] = 'jpeg';
+		else if (in_array('jpeg', $allowedFileTypes) && !in_array('jpg', $allowedFileTypes))
+			$allowedFileTypes[] = 'jpg';
+
+		foreach ($allowedFileTypes as &$type) {
+			$type = '.' . $type;
+		}
+		unset($type);
+
+		$allowedFileTypes = implode(',', $allowedFileTypes);
+
+		$this->setAttribute('accept', $allowedFileTypes);
+
+		return $this;
+	}
+
+	/**
 	 * @return bool
 	 */
 	protected function isEmpty(): bool {
@@ -72,10 +114,7 @@ class InputFile extends FormElementAbstract {
 	 * @return bool
 	 */
 	private function isUploadOk(): bool {
-
-		$uploadError = $this->m_value['error'] ?? null;
-
-		return $uploadError == UPLOAD_ERR_OK;
+		return ($this->m_value['error'] ?? null) == UPLOAD_ERR_OK;
 	}
 
 	/**
@@ -95,7 +134,21 @@ class InputFile extends FormElementAbstract {
 
 				if (!$this->isEmpty()) {
 
-					$valid = $this->isUploadOk();
+					// Could use a series of 'if's here, but when one is false, but
+					// 'else if's spare some checking since if one is false it's considered
+					// invalid anyway.
+
+					$fileExtension = pathinfo($this->m_value['name'], PATHINFO_EXTENSION);
+						$fileExtension = mb_strtolower($fileExtension);
+
+					if (!$this->isUploadOk())
+						$valid = false;
+
+					else if ($this->m_maxFileSize > -1 && (int) $this->m_value['size'] > $this->m_maxFileSize)
+						$valid = false;
+
+					else if (!in_array($fileExtension, $this->m_allowedFileTypes))
+						$valid = false;
 				}
 			}
 		}
