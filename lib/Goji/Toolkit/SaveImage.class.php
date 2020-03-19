@@ -56,8 +56,10 @@ class SaveImage {
 
 		// Don't compress if no compression or SVG
 		if (!$compressImage || $imageExtension === 'svg') {
-			$saveName = $directory . $imageName . '.' . $imageExtension;
-			move_uploaded_file($image['tmp_name'], $saveName);
+			$imageName .= '.svg';
+			$saveName = $directory . $imageName;
+			// move_uploaded_file() would remove the tmp obviously, but we want to keep it there
+			copy($image['tmp_name'], $saveName);
 			return $imageName;
 		}
 

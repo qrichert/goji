@@ -76,15 +76,15 @@ class InputFile extends FormElementAbstract {
 
 	public function setAllowedFileTypes(array $allowedFileTypes): FormElementAbstract {
 
-		$this->m_allowedFileTypes = $allowedFileTypes;
-
-		// Formatting file types for the accept="" attribute
-
+		// We want both JPG and JPEG if relevant
 		if (in_array('jpg', $allowedFileTypes) && !in_array('jpeg', $allowedFileTypes))
 			$allowedFileTypes[] = 'jpeg';
 		else if (in_array('jpeg', $allowedFileTypes) && !in_array('jpg', $allowedFileTypes))
 			$allowedFileTypes[] = 'jpg';
 
+		$this->m_allowedFileTypes = $allowedFileTypes;
+
+		// Formatting file types for the accept="" attribute
 		foreach ($allowedFileTypes as &$type) {
 			$type = '.' . $type;
 		}
@@ -114,7 +114,17 @@ class InputFile extends FormElementAbstract {
 	 * @return bool
 	 */
 	private function isUploadOk(): bool {
-		return ($this->m_value['error'] ?? null) == UPLOAD_ERR_OK;
+
+		$uploadOk = true;
+
+		if ((int) $this->m_value['error'] !== UPLOAD_ERR_OK)
+			$uploadOk = false;
+		else if ((int) $this->m_value['size'] === 0)
+			$uploadOk = false;
+		else if (empty($this->m_value['tmp_name']))
+			$uploadOk = false;
+
+		return $uploadOk;
 	}
 
 	/**
