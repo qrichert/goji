@@ -1,5 +1,5 @@
-<meta property="og:title" content="<?= $template->getPageTitle(); ?>">
-<meta property="og:description" content="<?= $template->getPageDescription(); ?>">
+<meta property="og:title" content="<?= htmlspecialchars($template->getPageTitle()); ?>">
+<meta property="og:description" content="<?= htmlspecialchars($template->getPageDescription()); ?>">
 <meta property="og:type" content="website">
 <meta property="og:url" content="<?= $this->m_app->getSiteUrl(); ?>">
 <!--

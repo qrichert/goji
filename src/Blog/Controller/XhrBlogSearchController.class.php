@@ -10,7 +10,7 @@ use Goji\Core\HttpResponse;
 use Goji\Form\Form;
 use Goji\Translation\Translator;
 
-class XhrBlogController extends BlogControllerAbstract {
+class XhrBlogSearchController extends BlogControllerAbstract {
 
 	use BlogTrait;
 

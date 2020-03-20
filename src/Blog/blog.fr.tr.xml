@@ -4,7 +4,7 @@
 		~~~ <FRENCH> ~~~
 		This is the French language file.
 	-->
-	<page id="(xhr-)?blog">
+	<page id="blog|xhr-blog-search">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_MAIN_TITLE">Blog</segment>
@@ -40,6 +40,8 @@
 		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">mon-histoire</segment>
 		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
 		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://lien.vers/image.jpg</segment>
+		<segment id="BLOG_POST_DESCRIPTION">Description</segment>
+		<segment id="BLOG_POST_DESCRIPTION_PLACEHOLDER">Par où commencer...</segment>
 		<segment id="BLOG_POST_TITLE">Titre</segment>
 		<segment id="BLOG_POST_TITLE_PLACEHOLDER">Mon Histoire</segment>
 		<segment id="BLOG_POST_POST">Contenu</segment>

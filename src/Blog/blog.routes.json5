@@ -3,9 +3,9 @@
 		route: "/blog",
 		controller: "Blog/BlogController"
 	},
-	"xhr-blog": {
-		route: "/xhr-blog",
-		controller: "Blog/XhrBlogController"
+	"xhr-blog-search": {
+		route: "/xhr-blog-search",
+		controller: "Blog/XhrBlogSearchController"
 	},
 	"blog-post": {
 		// Note that '/blog/' route is different from '/blog' route without trailing slash

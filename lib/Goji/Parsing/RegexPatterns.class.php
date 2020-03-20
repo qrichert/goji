@@ -135,6 +135,18 @@ class RegexPatterns {
 	}
 
 	/**
+	 * Matches new lines.
+	 *
+	 * @return string
+	 */
+	public static function newLines(): string {
+
+		return <<<'EOT'
+			#\r\n|\n|\r#
+			EOT;
+	}
+
+	/**
 	 * Matches escaped new lines.
 	 *
 	 * Lines that are \

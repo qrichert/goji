@@ -46,7 +46,7 @@ class BlogPostController extends BlogControllerAbstract {
 			$blogPost['post'] = self::renderAsHTML($blogPost['post']); // To HTML
 
 		$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
-		                               $tr->_('BLOG_POST_PAGE_DESCRIPTION'));
+		                               $blogPost['description']);
 
 		$template->startBuffer();
 

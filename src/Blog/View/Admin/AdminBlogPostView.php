@@ -69,7 +69,7 @@ $template->linkFiles([
 
 		<?php endif; ?>
 
-		new TextAreaAutoResize(document.querySelector('#blog-post__post'));
+		document.querySelectorAll('textarea').forEach(el => new TextAreaAutoResize(el));
 	})();
 
 	(function() {

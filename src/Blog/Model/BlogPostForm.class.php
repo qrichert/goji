@@ -8,6 +8,7 @@ use Goji\Form\InputCustom;
 use Goji\Form\InputLabel;
 use Goji\Form\InputText;
 use Goji\Form\InputTextArea;
+use Goji\Parsing\RegexPatterns;
 use Goji\Translation\Translator;
 
 /**
@@ -23,6 +24,11 @@ class BlogPostForm extends Form {
 
 		$sanitizeIllustration = function($illustration) {
 			return trim($illustration);
+		};
+
+		$sanitizeDescription = function($description) {
+			$description = preg_replace(RegexPatterns::whiteSpace(), ' ', $description);
+			return trim($description);
 		};
 
 		$this->addClass('form__blog-post');
@@ -55,6 +61,14 @@ class BlogPostForm extends Form {
 			     ->setName('blog-post[illustration]')
 			     ->setId('blog-post__illustration')
 			     ->setAttribute('placeholder', $tr->_('BLOG_POST_ILLUSTRATION_PLACEHOLDER'));
+			$this->addInput(new InputLabel())
+				 ->setAttribute('for', 'blog-post__description')
+				 ->setAttribute('textContent', $tr->_('BLOG_POST_DESCRIPTION'));
+			$this->addInput(new InputTextArea(null, false, $sanitizeDescription))
+				 ->setName('blog-post[description]')
+				 ->setId('blog-post__description')
+				 ->addClasses('content-like')
+				 ->setAttribute('placeholder', $tr->_('BLOG_POST_DESCRIPTION_PLACEHOLDER'));
 			$this->addInput(new InputLabel())
 			     ->setAttribute('for', 'blog-post__title')
 				 ->addClass('required')

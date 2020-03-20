@@ -9,8 +9,8 @@
 		<!--<base href="<?= $this->m_app->getRequestHandler()->getRootFolder(); ?>">-->
 
 		<!-- SEO -->
-		<title><?= $template->getPageTitle(); ?></title>
-		<meta name="description" content="<?= $template->getPageDescription(); ?>">
+		<title><?= htmlspecialchars($template->getPageTitle()); ?></title>
+		<meta name="description" content="<?= htmlspecialchars($template->getPageDescription()); ?>">
 		<!--<link type="text/plain" rel="author" href="<?= $template->rsc('humans.txt'); ?>">-->
 		<?= $template->getRobotsBehaviour(); ?>
 		<?php

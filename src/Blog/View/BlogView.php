@@ -190,7 +190,7 @@
 				loadingQueueLength++;
 
 				SimpleRequest.post(
-					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-blog') ?>',
+					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-blog-search') ?>',
 					new FormData(form),
 					load,
 					error,

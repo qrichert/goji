@@ -4,7 +4,7 @@
 		~~~ <ENGLISH> ~~~
 		This is the English language file.
 	-->
-	<page id="(xhr-)?blog">
+	<page id="blog|xhr-blog-search">
 		<segment id="BLOG_PAGE_TITLE">Blog</segment>
 		<segment id="BLOG_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_MAIN_TITLE">Blog</segment>
@@ -40,6 +40,8 @@
 		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">my-story</segment>
 		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
 		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://link.to/image.jpg</segment>
+		<segment id="BLOG_POST_DESCRIPTION">Description</segment>
+		<segment id="BLOG_POST_DESCRIPTION_PLACEHOLDER">Where to begin...</segment>
 		<segment id="BLOG_POST_TITLE">Title</segment>
 		<segment id="BLOG_POST_TITLE_PLACEHOLDER">My Story</segment>
 		<segment id="BLOG_POST_POST">Content</segment>

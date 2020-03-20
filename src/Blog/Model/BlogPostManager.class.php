@@ -115,6 +115,7 @@ class BlogPostManager {
 
 			$this->m_form->getInputByName('blog-post[permalink]')->setValue($data['permalink']);
 			$this->m_form->getInputByName('blog-post[illustration]')->setValue($data['illustration']);
+			$this->m_form->getInputByName('blog-post[description]')->setValue($data['description']);
 			$this->m_form->getInputByName('blog-post[title]')->setValue($data['title']);
 			$this->m_form->getInputByName('blog-post[post]')->setValue($data['post']);
 	}
@@ -353,10 +354,13 @@ class BlogPostManager {
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
+		// Description
+		$description = $this->m_form->getInputByName('blog-post[description]')->getValue();
+
 		// Save
 		$query = $this->m_db->prepare('INSERT INTO g_blog
-										       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post,  created_by,  illustration)
-										VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post, :created_by, :illustration)');
+										       ( locale,  permalink,  creation_date,  last_edit_date,  title,  post,  created_by,  illustration,  description)
+										VALUES (:locale, :permalink, :creation_date, :last_edit_date, :title, :post, :created_by, :illustration, :description)');
 
 		$query->execute([
 			'locale' => $locale,
@@ -366,7 +370,8 @@ class BlogPostManager {
 			'title' => $title,
 			'post' => $post,
 			'created_by' => $this->m_app->getUser()->getId(),
-			'illustration' => $illustration
+			'illustration' => $illustration,
+			'description' => $description
 		]);
 
 		$query->closeCursor();
@@ -472,13 +477,16 @@ class BlogPostManager {
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
+		// Description
+		$description = $this->m_form->getInputByName('blog-post[description]')->getValue();
+
 		// Update
 		$query = null;
 
 		if ($updatePermalink) {
 
 			$q = 'UPDATE g_blog
-				  SET permalink=:permalink, title=:title, post=:post, illustration=:illustration, last_edit_date=:last_edit_date
+				  SET permalink=:permalink, title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
 				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 			$query = $this->m_db->prepare($q);
@@ -487,6 +495,7 @@ class BlogPostManager {
 				'title' => $title,
 				'post' => $post,
 				'illustration' => $illustration,
+				'description' => $description,
 				'last_edit_date' => date('Y-m-d H:i:s'),
 				'id' => $id
 			]);
@@ -494,7 +503,7 @@ class BlogPostManager {
 		} else {
 
 			$q = 'UPDATE g_blog
-				  SET title=:title, post=:post, illustration=:illustration, last_edit_date=:last_edit_date
+				  SET title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
 				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 			$query = $this->m_db->prepare($q);
@@ -502,6 +511,7 @@ class BlogPostManager {
 				'title' => $title,
 				'post' => $post,
 				'illustration' => $illustration,
+				'description' => $description,
 				'last_edit_date' => date('Y-m-d H:i:s'),
 				'id' => $id
 			]);
