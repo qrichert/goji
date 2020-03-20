@@ -403,7 +403,7 @@ class Dropzone {
 
 		if (this.m_fileTypesAllowed.length > 0) {
 
-			let fileType = this.extractFileType(file);
+			let fileType = this.extractFileType(file).toLowerCase();
 
 			if (!this.m_fileTypesAllowed.includes(fileType)) {
 

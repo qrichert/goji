@@ -53,6 +53,32 @@ body#verify-email {
 	}
 }
 
+/* <UPLOAD> */
+
+#upload__form input[type=file] {
+	display: none;
+}
+
+#upload__uploads {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+#upload__uploads > * {
+	width: 25%;
+	padding: 2px;
+	cursor: pointer;
+}
+
+@media all {
+	#upload__uploads > * {
+		width: calc(100% / 3);
+	}
+}
+
 /* <PRIVACY & TERMS> */
 
 body#privacy-and-terms    { counter-reset: h1; /********************/ }

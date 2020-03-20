@@ -151,11 +151,8 @@ class BlogPostManager {
 
 		$q .= 'ORDER BY id DESC ';
 
-		if ($offset > 0 || $count > -1)
-			$q .= 'LIMIT ' . ((string) $offset);
-
-		if ($count > -1)
-			$q .= ', ' . ((string) $count);
+		if ($count > -1) // LIMIT supplied
+			$q .= "LIMIT $count OFFSET $offset ";
 
 		$query = $this->m_db->prepare($q);
 		$query->execute($params);
@@ -244,11 +241,8 @@ class BlogPostManager {
 
 		$q .= 'ORDER BY id DESC ';
 
-		if ($offset > 0 || $count > -1)
-			$q .= 'LIMIT ' . ((string) $offset);
-
-		if ($count > -1)
-			$q .= ', ' . ((string) $count);
+		if ($count > -1) // LIMIT supplied
+			$q .= "LIMIT $count OFFSET $offset ";
 
 		$query = $this->m_db->prepare($q);
 		$query->execute($params);
