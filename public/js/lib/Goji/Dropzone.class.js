@@ -128,6 +128,11 @@ class DropzoneItem {
 		let item = document.createElement('div');
 			item.classList.add('dropzone__item');
 
+			item.addEventListener('click', e => {
+				e.preventDefault();
+				e.stopPropagation();
+			}, false);
+
 		// let icon = document.createElement(...);
 			icon.classList.add('dropzone__item-icon');
 				item.appendChild(icon);
@@ -139,10 +144,19 @@ class DropzoneItem {
 		this.m_progress = document.createElement('div');
 			progressBar.appendChild(this.m_progress);
 
+		let cancelButton = document.createElement('div');
+			cancelButton.classList.add('dropzone__item-cancel');
+				item.appendChild(cancelButton);
+
+			cancelButton.addEventListener('click', () => { this.cancelUpload(); }, false);
+
 		this.m_parent = item;
 	}
 
 	uploadLoad(e) {
+
+		if (!this.m_uploadInProgress || this.m_xhr === null)
+			return;
 
 		if (this.m_xhr.readyState !== 4
 			|| parseInt(this.m_xhr.status, 10) !== 200) {
@@ -172,6 +186,7 @@ class DropzoneItem {
 
 	uploadAbort(e) {
 		this.endUpload();
+		this.m_dropzone.removeChild(this.m_parent);
 	}
 
 	uploadProgress(e) {
@@ -185,11 +200,16 @@ class DropzoneItem {
 			progress = 0;
 
 		this.m_progress.style.width = (progress * 100) + '%';
+
+		if (progress >= 1) {
+			this.m_parent.classList.remove('cancelable');
+		}
 	}
 
 	startUpload() {
 
 		this.m_parent.classList.add('uploading');
+		this.m_parent.classList.add('cancelable');
 		this.m_progress.style.width = '0%';
 
 		let data = new FormData();
@@ -213,6 +233,7 @@ class DropzoneItem {
 	endUpload() {
 
 		this.m_parent.classList.remove('uploading');
+		this.m_parent.classList.remove('cancelable');
 		this.m_progress.style.width = '0%';
 
 		this.m_uploadInProgress = false;

@@ -30,6 +30,6 @@ class UploadForm extends Form {
 				 ->setId('upload__dropzone')
 				 ->addClass('dropzone')
 				 ->setAttribute('for', 'upload__file')
-				 ->setAttribute('textContent', 'Click to select files or drop them here.');
+				 ->setAttribute('textContent', $tr->_('UPLOAD_FORM_LABEL'));
 	}
 }

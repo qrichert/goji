@@ -39,6 +39,7 @@
 		<segment id="UPLOAD_PAGE_DESCRIPTION"></segment>
 		<segment id="UPLOAD_MAIN_TITLE">Upload</segment>
 
+		<segment id="UPLOAD_FORM_LABEL">Click to select files or drop them here.</segment>
 		<segment id="UPLOAD_ERROR">The form contains errors</segment>
 		<segment id="UPLOAD_SUCCESS">The file has been uploaded successfully</segment>
 	</page>
