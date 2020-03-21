@@ -44,6 +44,7 @@
 				"xhr-admin-in-page-content-edit",
 				"admin-upload",
 				"xhr-admin-upload",
+				"xhr-admin-disk-space-usage",
 				"admin-blog-post",
 				"xhr-admin-blog-post"
 			],

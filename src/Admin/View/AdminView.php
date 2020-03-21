@@ -40,6 +40,11 @@
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_NEW_BLOG_POST'); ?></span>
 				</a>
 			</div>
+			<p id="admin__disk-usage">
+				<?= $tr->_('ADMIN_DISK_SPACE_USED'); ?>
+				<span class="admin__disk-usage--space-used"></span>
+				<a></a>
+			</p>
 
 		<?php endif; ?>
 
@@ -83,7 +88,7 @@
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_CLEAR_CACHE'); ?></span>
 				</a>
 
-				<?php if ($useGit): ?>
+				<?php if ($this->m_useGit): ?>
 					<a class="action-item" id="admin-action__update">
 						<div class="action-item__progress"></div>
 						<img src="<?= $template->rsc('img/lib/Goji/git.svg'); ?>" alt="" class="action-item__icon">
@@ -91,8 +96,8 @@
 					</a>
 				<?php endif; ?>
 
-				<?php if (!empty($terminalPath)): ?>
-					<a class="action-item" id="admin-action__terminal" data-href="<?= $terminalPath ?>">
+				<?php if (!empty($this->m_terminalPath)): ?>
+					<a class="action-item" id="admin-action__terminal" data-href="<?= $this->m_terminalPath; ?>">
 						<div class="action-item__progress"></div>
 						<img src="<?= $template->rsc('img/lib/Goji/terminal.svg'); ?>" alt="" class="action-item__icon">
 						<div class="action-item__caption"><?= $tr->_('ADMIN_ACTION_TERMINAL'); ?></div>
@@ -124,6 +129,82 @@ $template->linkFiles([
 ?>
 
 <!-- <ADMIN> -->
+
+<?php if ($this->m_app->getMemberManager()->memberIs('editor')): ?>
+
+	<script>
+		// Disk usage
+		(function () {
+			let diskUsageUsedSpace = document.querySelector('#admin__disk-usage > span.admin__disk-usage--space-used');
+			let diskUsageRefresh = document.querySelector('#admin__disk-usage > a');
+
+			let diskSpaceUsedBytes = null;
+			let diskSpaceUsedFormatted = null;
+
+			let refreshDiskUsageDisplay = () => {
+				diskUsageUsedSpace.textContent = (diskSpaceUsedFormatted || '???');
+			};
+
+			let loadingInProgress = false;
+
+			let startLoading = () => {
+				loadingInProgress = true;
+				diskUsageRefresh.textContent = '(<?= $tr->_('REFRESH'); ?>...)';
+			};
+
+			let endLoading = () => {
+				loadingInProgress = false;
+				diskUsageRefresh.textContent = `(<?= $tr->_('REFRESH'); ?>)`;
+				refreshDiskUsageDisplay();
+			};
+
+			endLoading();
+
+			diskUsageRefresh.addEventListener('click', e => {
+				e.preventDefault();
+				refreshDiskUsage();
+			}, false);
+
+			let refreshDiskUsage = (refresh = true) => {
+
+				if (loadingInProgress)
+					return;
+
+				startLoading();
+
+				let error = () => {
+					endLoading();
+					diskUsageUsedSpace.textContent = '<?= $tr->_('ERROR'); ?>';
+				};
+
+				let load = (r, s) => {
+					if (r === null || s !== 200) {
+						error();
+						return;
+					}
+
+					diskSpaceUsedBytes = r.used_bytes;
+					diskSpaceUsedFormatted = r.used_formatted;
+
+					endLoading();
+				};
+
+				SimpleRequest.get(
+					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-disk-space-usage'); ?>'
+						+ (refresh === true ? '?refresh' : ''),
+					load,
+					error,
+					error,
+					null,
+					{ get_json: true }
+				);
+			};
+
+			refreshDiskUsage(false); // false, refresh from cache
+		})();
+	</script>
+
+<?php endif; ?>
 
 <?php if ($this->m_app->getMemberManager()->memberIs('admin')): ?>
 
@@ -189,7 +270,9 @@ $template->linkFiles([
 			let backUp = document.querySelector('#admin-action__back-up-database');
 			let backUpAction = new ActionItem(backUp);
 
-			backUp.addEventListener('click', () => {
+			backUp.addEventListener('click', e => {
+
+				e.preventDefault();
 
 				backUpAction.startAction();
 
@@ -212,7 +295,7 @@ $template->linkFiles([
 				};
 
 				SimpleRequest.get(
-					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-back-up-database') ?>',
+					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-back-up-database'); ?>',
 					load,
 					error,
 					error,
@@ -238,7 +321,9 @@ $template->linkFiles([
 			let clearCache = document.querySelector('#admin-action__clear-cache');
 			let clearCacheAction = new ActionItem(clearCache);
 
-			clearCache.addEventListener('click', () => {
+			clearCache.addEventListener('click', e => {
+
+				e.preventDefault();
 
 				clearCacheAction.startAction();
 
@@ -272,7 +357,7 @@ $template->linkFiles([
 				};
 
 				SimpleRequest.get(
-					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-clear-cache') ?>',
+					'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-clear-cache'); ?>',
 					load,
 					error,
 					error,
@@ -284,7 +369,7 @@ $template->linkFiles([
 
 		})();
 
-		<?php if ($useGit): ?>
+		<?php if ($this->m_useGit): ?>
 
 			// Update
 			(function() {
@@ -292,7 +377,9 @@ $template->linkFiles([
 				let update = document.querySelector('#admin-action__update');
 				let updateAction = new ActionItem(update);
 
-				update.addEventListener('click', () => {
+				update.addEventListener('click', e => {
+
+					e.preventDefault();
 
 					updateAction.startAction();
 
@@ -319,7 +406,7 @@ $template->linkFiles([
 					};
 
 					SimpleRequest.get(
-						'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-update') ?>',
+						'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-update'); ?>',
 						load,
 						error,
 						error,
@@ -333,7 +420,7 @@ $template->linkFiles([
 
 		<?php endif; ?>
 
-		<?php if (!empty($terminalPath)): ?>
+		<?php if (!empty($this->m_terminalPath)): ?>
 
 			// Terminal
 			(function() {
@@ -341,7 +428,8 @@ $template->linkFiles([
 				let terminal = document.querySelector('#admin-action__terminal');
 				let terminalHref = terminal.dataset.href;
 
-				terminal.addEventListener('click', () => {
+				terminal.addEventListener('click', e => {
+					e.preventDefault();
 					open(terminalHref, '_blank');
 				}, false);
 

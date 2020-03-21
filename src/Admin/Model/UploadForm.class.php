@@ -28,7 +28,7 @@ class UploadForm extends Form {
 
 			$this->addInput(new InputLabel())
 				 ->setId('upload__dropzone')
-				 ->addClass('dropzone')
+				 ->addClasses(['dropzone', 'waiting-for-files'])
 				 ->setAttribute('for', 'upload__file')
 				 ->setAttribute('textContent', $tr->_('UPLOAD_FORM_LABEL'));
 	}

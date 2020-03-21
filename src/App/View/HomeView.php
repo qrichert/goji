@@ -1,11 +1,11 @@
 <main>
 	<section class="text">
-		<p class="pre-heading"><?= $tr->_('HOME_PRE_HEADING') ?></p>
+		<p class="pre-heading"><?= $tr->_('HOME_PRE_HEADING'); ?></p>
 		<h1><?= $tr->_('HELLO_WORLD'); ?></h1>
 
 		<img src="<?= $template->rsc('img/goji__berries.svg'); ?>" alt="Goji" width="150px">
 
-		<h2><?= $tr->_('HOME_BERRIES') ?></h2>
+		<h2><?= $tr->_('HOME_BERRIES'); ?></h2>
 
 		<p class="pluralization-example"><?=
 			$tr->_('HOME_PLURALIZATION', 0) . '<br>',
@@ -28,7 +28,7 @@
 
 		<?php $inPageContentEdit->renderContent('IN_PAGE_CONTENT_EDIT_DEMO_TEXT'); ?>
 
-		<h2><?= $tr->_('HOME_TRY_A_DIFFERENT_LANGUAGE') ?></h2>
+		<h2><?= $tr->_('HOME_TRY_A_DIFFERENT_LANGUAGE'); ?></h2>
 
 		<!-- URLs translated -->
 		<p>

@@ -4,10 +4,30 @@ namespace Admin\Controller;
 
 use Admin\Model\AddMemberForm;
 use Goji\Blueprints\ControllerAbstract;
+use Goji\Core\App;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
 
 class AdminController extends ControllerAbstract {
+
+	private $m_useGit;
+	private $m_terminalPath;
+
+	public function __construct(App $app) {
+
+		parent::__construct($app);
+
+		// Git
+		$this->m_useGit = is_dir('../.git');
+
+		// Terminal
+		$this->m_terminalPath = null;
+
+			if (is_dir('_terminal'))
+				$this->m_terminalPath = '_terminal';
+			else if (is_dir('terminal'))
+				$this->m_terminalPath = 'terminal';
+	}
 
 	public function render(): void {
 
@@ -15,15 +35,6 @@ class AdminController extends ControllerAbstract {
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 		$addMemberForm = new AddMemberForm($tr, $this->m_app);
-
-		$useGit = is_dir('../.git');
-
-		$terminalPath = null;
-
-			if (is_dir('_terminal'))
-				$terminalPath = '_terminal';
-			else if (is_dir('terminal'))
-				$terminalPath = 'terminal';
 
 		$template = new SimpleTemplate($tr->_('ADMIN_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 		                               $tr->_('ADMIN_PAGE_DESCRIPTION'),

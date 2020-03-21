@@ -261,6 +261,35 @@ class SwissKnife {
 	}
 
 	/**
+	 * Returns dirsize in bytes or -1 on failure
+	 *
+	 * This command can be quite slow, use cache if possible.
+	 *
+	 * @param string $dir
+	 * @return int
+	 * @throws \Exception
+	 */
+	public static function dirsize(string $dir): int {
+
+		$success = null;
+
+		/*
+		 * du = disk usage
+		 * -s = compiled
+		 * -k = chunks of 1024 bytes
+		 */
+		$dirsize = Terminal::execute('du -sk ' . $dir, $success); // 112764	/var/www/html
+
+		if ($success === false)
+			return -1;
+
+		$dirsize = (int) preg_replace('#^(\d+)\D.*#', '$1', $dirsize); // 112764
+		$dirsize *= 1024; // 112764 (chunks of 1024 bytes) * 1024 = nb bytes
+
+		return $dirsize;
+	}
+
+	/**
 	 * Joins path segments into a full path, with nice directory separator awareness.
 	 *
 	 * Emulates Python's os.path.join()

@@ -77,7 +77,7 @@ $template->linkFiles([
 			startLoading();
 
 			SimpleRequest.post(
-				'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-analytics') ?>',
+				'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-analytics'); ?>',
 				new FormData(form),
 				load,
 				error,

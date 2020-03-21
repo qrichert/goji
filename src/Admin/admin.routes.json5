@@ -11,6 +11,10 @@
 		route: "/admin/upload",
 		controller: "Admin/UploadController"
 	},
+	"xhr-admin-disk-space-usage": {
+		route: "/admin/xhr-disk-space-usage",
+		controller: "Admin/XhrDiskSpaceUsageController"
+	},
 	"xhr-admin-upload": {
 		route: "/admin/xhr-upload",
 		controller: "Admin/XhrUploadController"

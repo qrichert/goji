@@ -20,6 +20,8 @@
 		<segment id="CANCEL">Cancel</segment>
 		<segment id="CANCEL_CONFIRM">Are you sure?\nAll changes will be lost.</segment>
 		<segment id="SHRUG">¯\_(ツ)_/¯</segment>
+		<segment id="REFRESH">Refresh</segment>
+		<segment id="ERROR">Error</segment>
 
 		<segment id="ROLE">
 			<alternative count="^(member|1)$">Member</alternative>

@@ -53,6 +53,12 @@ body#verify-email {
 	}
 }
 
+/* <ADMIN> */
+
+#admin__disk-usage {
+	font-size: var(--text-size-small);
+}
+
 /* <UPLOAD> */
 
 #upload__form input[type=file] {
