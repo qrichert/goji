@@ -68,6 +68,8 @@
 	--text-size-medium: 14px;
 	--text-size-default: 17px;
 	--text-size-big: 20px;
+	--text-size-xbig: 30px;
+	--text-size-xxbig: 45px;
 	--text-size-huge: 60px;
 	--text-size-xhuge: 80px;
 	--text-size-xxhuge: 100px;
@@ -95,9 +97,14 @@
 	--color-blue-dark-seethrough: rgba(36, 41, 46, 0.33);
 	--color-blue-dark-opaque: rgba(36, 41, 46, 0.7);
 
-	--color-blue-electric: #026fe3; /* hsl(210, 99%, 89%); */
+	--color-blue-electric: #026fe3; /* Hue: 210 */
 	--color-blue-electric-darker: #0067d3;
-	--color-blue-electric-transparent: rgba(193, 219, 246, 0.30); /* hsla(210, 74%, 86%, 0.30) || #c1dbf6 */
+	--color-blue-electric-transparent: rgba(193, 219, 246, 0.30); /* #c1dbf6 */
+
+	--color-orange-yellow: #ffa500; /* HTML orange */
+	--color-orange-tangerine: #f5750c; /* Musfit */
+	--color-orange-tangerine-lighter: #f77d25;
+	--color-orange-tangerine-transparent: rgba(245, 211, 193, 0.3);
 
 	--color-green-sea: #138663;
 	--color-green-acid: #1ed400; /* Insegnalis */

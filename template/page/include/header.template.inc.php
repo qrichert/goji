@@ -43,7 +43,7 @@
 					?>
 				</p>
 			</div>
-			<img src="<?= $template->rsc('img/goji__berries.svg'); ?>" alt="Musfit.fr">
+			<img src="<?= $template->rsc('img/goji__berries.svg'); ?>" alt="<?= $this->m_app->getSiteName(); ?>">
 		</div>
 
 	<?php endif; ?>
