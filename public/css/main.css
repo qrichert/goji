@@ -118,10 +118,18 @@ body#home .header__wrapper {
 	height: calc(100vh - var(--gutter-big));
 	min-height: var(--header-height);
 	max-height: 750px;
-	background-image: url('../img/placeholder?w=1920&h=1080&t=Goji');
-	background-size: cover;
-	background-position: center center;
 	position: relative;
+}
+
+.header__wrapper > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 50%;
+	z-index: -1;
 }
 
 .header__home-hero {

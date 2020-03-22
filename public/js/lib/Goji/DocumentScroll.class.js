@@ -1,6 +1,8 @@
 /**
  * DocumentScroll class
  *
+ * Get the amount of pixels scrolled (0px = top).
+ *
  * How to use it:
  * --------------
  *

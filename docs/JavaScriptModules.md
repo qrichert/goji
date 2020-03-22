@@ -8,7 +8,7 @@ All these modules come in a standard `.js` and compiled `.min.js` version.
 - **`ActionItem`**: Handles events and display for action items (like in the Admin panel).
 - **`Appear`**: Calls a callback function when the element first appears on scroll (can be delayed).
 - **`Dialog`**: Makes a given element an interactive dialog with open/close events.
-- **`DocumentScroll`**: Returns the scroll of the whole document.
+- **`DocumentScroll`**: Returns the scroll of the whole document in pixels.
 - **`ElementScroll`**: Returns the scroll of a given element respective to the viewport.
 - **`EmailScrambler`**: Enables you to display email addresses on a web page without leaving the actual address.
   Instead, you write an encoded string and this module will dynamically decode it on the fly.
