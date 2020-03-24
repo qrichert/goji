@@ -637,7 +637,8 @@ span.call-to-action__wrapper {
 	color: white;
 	background-color: var(--color-highlight);
 	cursor: pointer;
-	transition: background-color var(--transition-duration-slow) ease;
+	transition: background-color var(--transition-duration-slow) ease,
+				border-color var(--transition-duration-slow) ease;
 }
 
 .call-to-action:hover {
@@ -645,6 +646,35 @@ span.call-to-action__wrapper {
 	text-decoration: none;
 	background-color: var(--color-highlight-hover);
 }
+
+.call-to-action.transparent {
+	color: var(--color-highlight);
+	background-color: transparent;
+	border: 2px solid var(--color-highlight);
+}
+
+.call-to-action.transparent:hover {
+	border-color: var(--color-highlight-hover);
+}
+
+.call-to-action.transparent::after {
+	content: '';
+	visibility: hidden;
+	opacity: 0;
+	display: inline-block;
+	transform: translateX(-2em);
+	transition: transform var(--transition-duration-slow) ease,
+				opacity var(--transition-duration-slow) ease;
+}
+
+.call-to-action.transparent:hover::after {
+	content: '→';
+	visibility: visible;
+	opacity: 1;
+	padding-left: 0.6em;
+	transform: translateX(0em);
+}
+
 
 .call-to-action {
 	margin-top: var(--gutter-thin);
@@ -658,7 +688,7 @@ span.call-to-action__wrapper {
 	margin-top: var(--gutter-xthin);
 	margin-bottom: var(--gutter-xthin);
 	padding: 11px 20px;
-	font-size: 16px;
+	font-size: var(--text-size-default);
 	line-height: 25px;
 }
 
@@ -666,7 +696,7 @@ span.call-to-action__wrapper {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	padding: 10px 17px;
-	font-size: 15px;
+	font-size: var(--text-size-default);
 	line-height: 14px;
 }
 

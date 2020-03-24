@@ -33,7 +33,10 @@
 		ratio = Math.round(ratio * 100) / 100; // Round @ 2 decimals
 		ratio = 50 + ratio;
 
-		heroImage.style.objectPosition = `center ${ratio}%`;
+		// Trigger the repaint at the best time for the browser
+		requestAnimationFrame(() => {
+			heroImage.style.objectPosition = `center ${ratio}%`;
+		});
 	};
 
 	window.addEventListener('scroll', scrollEvent, false);

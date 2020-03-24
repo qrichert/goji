@@ -159,6 +159,7 @@
 	--color-text-xxxlight: var(--color-grey-xxlight);
 	--color-text-xxxxlight: var(--color-grey-xxxlight);
 	--color-text-xxxxxlight: var(--color-grey-xxxxlight);
+	--color-text-xxxxxxlight: var(--color-grey-xxxxxlight);
 
 	--color-link: var(--color-highlight);
 	--color-link-hover: var(--color-link);

@@ -64,7 +64,7 @@ class BackUp {
 	 * Removes oldest files (sorted by name) if number of files exceeds $maxCount
 	 *
 	 * @param string $prefix What prefix is concerned (ex: db__*)
-	 * @param int $maxCount How many should be kept (optional, default = 15)
+	 * @param int $maxCount How many should be kept (optional, default = 7)
 	 * @return bool
 	 */
 	public static function removeOldBackupFiles(string $prefix, int $maxCount = 7): bool {

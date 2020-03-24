@@ -130,6 +130,7 @@ body#home .header__wrapper {
 	object-fit: cover;
 	object-position: center 50%;
 	z-index: -1;
+	background-color: var(--color-grey-xxlight);
 }
 
 .header__home-hero {
