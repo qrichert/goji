@@ -1,3 +1,23 @@
+<?php if (in_array($this->m_app->getRouter()->getCurrentPage(), ['home', 'blog', 'blog-post', 'contact'])): ?>
+	<div class="footer__about">
+		<section class="footer__about-container side-by-side right-bigger">
+			<figure class="image">
+				<img src="<?= $template->rsc('img/placeholder?w=1500&h=1250'); ?>" alt="" class="scalable">
+			</figure>
+			<div>
+				<h2>Lorem ipsum</h2>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab, accusantium ad cum dignissimos
+					dolore ea enim eos est harum, iusto necessitatibus nulla odio possimus sunt ut voluptatum!
+					Blanditiis, perspiciatis.
+				</p
+				<p class="call-to-action__wrapper">
+					<a href="#" class="call-to-action smaller transparent"><?= $tr->_('LEARN_MORE'); ?></a>
+				</p>
+			</div>
+		</section>
+	</div>
+<?php endif; ?>
 <footer class="footer__main">
 	<div class="footer__container">
 		<!-- Left -->

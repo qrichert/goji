@@ -22,6 +22,7 @@
 		<segment id="SHRUG">¯\_(ツ)_/¯</segment>
 		<segment id="REFRESH">Refresh</segment>
 		<segment id="ERROR">Error</segment>
+		<segment id="LEARN_MORE">Learn more</segment>
 
 		<segment id="ROLE">
 			<alternative count="^(member|1)$">Member</alternative>

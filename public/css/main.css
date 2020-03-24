@@ -14,6 +14,12 @@
 }
 */
 
+/* <FOOTER> */
+
+.footer__about {
+	background-color: var(--color-highlight-halo);
+}
+
 /* <VERIFY EMAIL> */
 
 body#verify-email {

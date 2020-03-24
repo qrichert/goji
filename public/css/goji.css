@@ -358,6 +358,26 @@ h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 	margin-bottom: var(--gutter-thin);
 }
 
+/* Slider (JS Plugin) */
+
+.slider.noscript {
+	width: 100%;
+	height: 350px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+
+.slider.noscript > * {
+	height: 100%;
+}
+
+.slider.noscript > * + * {
+	margin-left: 20px;
+}
 
 /* Dialogs */
 
