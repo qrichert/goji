@@ -10,7 +10,7 @@
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab, accusantium ad cum dignissimos
 					dolore ea enim eos est harum, iusto necessitatibus nulla odio possimus sunt ut voluptatum!
 					Blanditiis, perspiciatis.
-				</p
+				</p>
 				<p class="call-to-action__wrapper">
 					<a href="#" class="call-to-action smaller transparent"><?= $tr->_('LEARN_MORE'); ?></a>
 				</p>

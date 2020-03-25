@@ -20,6 +20,20 @@
 	background-color: var(--color-highlight-halo);
 }
 
+.footer__about-container > div > :first-child {
+	margin-top: 0;
+}
+
+.footer__about-container > div > :last-child {
+	margin-bottom: 0;
+}
+
+@media all and (max-width: 920px) {
+	.footer__about .side-by-side .image {
+		display: none;
+	}
+}
+
 /* <VERIFY EMAIL> */
 
 body#verify-email {

@@ -22,7 +22,7 @@
 
 		<div id="blog__blog-posts-loading-in-progress" class="loading-dots"></div>
 
-		<div id="blog__blog-posts-list">
+		<div id="blog__blog-posts-list" <?= empty($blogPosts) ? 'class="empty"' : ''; ?>>
 			<?php if (empty($blogPosts)): ?>
 
 				<p><?= $tr->_('BLOG_NO_BLOG_POSTS'); ?></p>
@@ -105,12 +105,16 @@
 					while (blogPostsList.firstChild)
 						blogPostsList.removeChild(blogPostsList.firstChild);
 
+					blogPostsList.classList.add('empty');
+
 					let nothingFound = document.createElement('p');
 						nothingFound.textContent = NOTHING_FOUND;
 							blogPostsList.appendChild(nothingFound);
 
 					return;
 				}
+
+				blogPostsList.classList.remove('empty');
 
 				let docFrag = document.createDocumentFragment();
 
@@ -123,8 +127,11 @@
 						date = date.replace('%{MONTH}', post.creation_date.month);
 						date = date.replace('%{DAY}', post.creation_date.day);
 
+					let blogPostContainer = document.createElement('div');
+						docFrag.appendChild(blogPostContainer);
+
 					let blogPostTitle = document.createElement('h2');
-						docFrag.appendChild(blogPostTitle);
+						blogPostContainer.appendChild(blogPostTitle);
 
 						let blogPostTitleLink = document.createElement('a');
 							blogPostTitleLink.href = link;
@@ -134,11 +141,11 @@
 					let blogPostDate = document.createElement('p');
 						blogPostDate.classList.add('sub-heading');
 						blogPostDate.textContent = date;
-							docFrag.appendChild(blogPostDate);
+							blogPostContainer.appendChild(blogPostDate);
 
 					let blogPostPreview = document.createElement('p');
 						blogPostPreview.appendChild(document.createTextNode(post.post));
-							docFrag.appendChild(blogPostPreview);
+							blogPostContainer.appendChild(blogPostPreview);
 
 						let blogPostPreviewLink = document.createElement('a');
 							blogPostPreviewLink.href = link;
@@ -146,7 +153,7 @@
 								blogPostPreview.appendChild(blogPostPreviewLink);
 
 					if (i < nbPosts-1) {
-						docFrag.appendChild(document.createElement('hr'));
+						blogPostContainer.appendChild(document.createElement('hr'));
 					}
 				}
 
