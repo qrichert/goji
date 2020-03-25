@@ -70,24 +70,14 @@ h4 + p, h5 + p, h6 + p {
 
 /* Up to to 920px */
 @media all and (max-width: 920px) {
-
 	h1 { font-size: 2.5em; margin: 1em  0; }
 	h2 { font-size: 1.5em; margin: 1em  0; }
-
-	/* Adapting those */
-	h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 2.5em); margin-bottom: calc(2.5em - var(--gutter-thin)); }
-	h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.5em); margin-bottom: calc(1.5em - var(--gutter-thin)); }
 }
 
 /* Up to 375px */
 @media all and (max-width: 375px) {
-
 	h1 { font-size: 2em;   margin: 1em  0; }
 	h2 { font-size: 1.3em; margin: 1em  0; }
-
-	/* Adapting those */
-	h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 2em);   margin-bottom: calc(2em - var(--gutter-thin));   }
-	h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.3em); margin-bottom: calc(1.3em - var(--gutter-thin)); }
 }
 
 /* Body Elements */
@@ -203,6 +193,18 @@ h3 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom
 h4 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.12em); margin-bottom: calc(1.12em - var(--gutter-thin)); }
 h5 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom: calc(1.25em - var(--gutter-thin)); }
 h6 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.25em); margin-bottom: calc(1.25em - var(--gutter-thin)); }
+
+/* Up to to 920px */
+@media all and (max-width: 920px) {
+	h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 2.5em); margin-bottom: calc(2.5em - var(--gutter-thin)); }
+	h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.5em); margin-bottom: calc(1.5em - var(--gutter-thin)); }
+}
+
+/* Up to 375px */
+@media all and (max-width: 375px) {
+	h1 + .sub-heading { margin-top: calc(var(--gutter-thin) - 2em);   margin-bottom: calc(2em - var(--gutter-thin));   }
+	h2 + .sub-heading { margin-top: calc(var(--gutter-thin) - 1.3em); margin-bottom: calc(1.3em - var(--gutter-thin)); }
+}
 
 /* Iframe Videos */
 

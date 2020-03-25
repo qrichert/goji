@@ -637,6 +637,7 @@ span.call-to-action__wrapper {
 	color: white;
 	background-color: var(--color-highlight);
 	cursor: pointer;
+	text-align: center;
 	transition: background-color var(--transition-duration-slow) ease,
 				border-color var(--transition-duration-slow) ease;
 }
