@@ -111,9 +111,17 @@ class BlogPostManager {
 		// If bad ID, read() will fail
 		$data = $this->read($id, false, true); // Read raw (e.g. don't transform '%{WEBROOT}')
 
+		$date = SwissKnife::dateToComponents($data['creation_date']);
+
 		$this->createForm(); // Creates one if none, doesn't overwrite current one
 
 			$this->m_form->getInputByName('blog-post[permalink]')->setValue($data['permalink']);
+			$this->m_form->getInputByName('blog-post[publication-date][year]')->setValue($date['year']);
+			$this->m_form->getInputByName('blog-post[publication-date][month]')->setValue($date['month']);
+			$this->m_form->getInputByName('blog-post[publication-date][day]')->setValue($date['day']);
+			$this->m_form->getInputByName('blog-post[publication-date][hours]')->setValue($date['hour']);
+			$this->m_form->getInputByName('blog-post[publication-date][minutes]')->setValue($date['min']);
+			$this->m_form->getInputByName('blog-post[publication-date][seconds]')->setValue($date['sec']);
 			$this->m_form->getInputByName('blog-post[illustration]')->setValue($data['illustration']);
 			$this->m_form->getInputByName('blog-post[description]')->setValue($data['description']);
 			$this->m_form->getInputByName('blog-post[title]')->setValue($data['title']);
@@ -468,6 +476,17 @@ class BlogPostManager {
 			$this->m_form->getInputByName('blog-post[permalink]')->setValue($permalink);
 		}
 
+		// Date
+		$date = [];
+		$date['year'] = $this->m_form->getInputByName('blog-post[publication-date][year]')->getValue();
+		$date['month'] = $this->m_form->getInputByName('blog-post[publication-date][month]')->getValue();
+		$date['day'] = $this->m_form->getInputByName('blog-post[publication-date][day]')->getValue();
+		$date['hours'] = $this->m_form->getInputByName('blog-post[publication-date][hours]')->getValue();
+		$date['minutes'] = $this->m_form->getInputByName('blog-post[publication-date][minutes]')->getValue();
+		$date['seconds'] = $this->m_form->getInputByName('blog-post[publication-date][seconds]')->getValue();
+
+		$date = "{$date['year']}-{$date['month']}-{$date['day']} {$date['hours']}:{$date['minutes']}:{$date['seconds']}";
+
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
@@ -480,12 +499,13 @@ class BlogPostManager {
 		if ($updatePermalink) {
 
 			$q = 'UPDATE g_blog
-				  SET permalink=:permalink, title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
+				  SET permalink=:permalink, creation_date=:creation_date, title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
 				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 			$query = $this->m_db->prepare($q);
 			$query->execute([
 				'permalink' => $permalink,
+				'creation_date' => $date,
 				'title' => $title,
 				'post' => $post,
 				'illustration' => $illustration,
@@ -497,11 +517,12 @@ class BlogPostManager {
 		} else {
 
 			$q = 'UPDATE g_blog
-				  SET title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
+				  SET creation_date=:creation_date, title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
 				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 			$query = $this->m_db->prepare($q);
 			$query->execute([
+				'creation_date' => $date,
 				'title' => $title,
 				'post' => $post,
 				'illustration' => $illustration,

@@ -27,6 +27,28 @@
 	margin-top: 0;
 }
 
+#blog-post__more-options {
+	text-align: right;
+}
+
+#blog-post__publication-date input {
+	width: 2.5em;
+	text-align: right;
+	background-color: var(--color-grey-xxxxxlight);
+}
+
+#blog-post__publication-date input:hover {
+	background-color: var(--color-highlight-halo);
+}
+
+#blog-post__publication-date input[id$="--year"] {
+	width: 3.7em;
+}
+
+#blog-post__publication-date input[id$="--day"] {
+	margin-right: 1em;
+}
+
 .form__blog-post #blog-post__permalink {
 	color: var(--color-link);
 	text-decoration: underline;

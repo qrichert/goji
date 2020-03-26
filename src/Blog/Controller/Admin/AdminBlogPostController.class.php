@@ -31,12 +31,21 @@ class AdminBlogPostController extends BlogAdminControllerAbstract {
 			$blogPostManager->createForm();
 			$blogPostManager->getForm()->setAction($formAction);
 
+		if ($this->m_action == BlogPostManager::ACTION_CREATE) {
+
+			$blogPostManager->getForm()->getInputByName('blog-post[publication-date][year]')->setValue(date('Y'));
+			$blogPostManager->getForm()->getInputByName('blog-post[publication-date][month]')->setValue(date('m'));
+			$blogPostManager->getForm()->getInputByName('blog-post[publication-date][day]')->setValue(date('d'));
+			$blogPostManager->getForm()->getInputByName('blog-post[publication-date][hours]')->setValue(date('H'));
+			$blogPostManager->getForm()->getInputByName('blog-post[publication-date][minutes]')->setValue(date('i'));
+			$blogPostManager->getForm()->getInputByName('blog-post[publication-date][seconds]')->setValue(date('s'));
+
 		// If we update, we fetch the current values
-		if ($this->m_action == BlogPostManager::ACTION_UPDATE) {
+		} else if ($this->m_action == BlogPostManager::ACTION_UPDATE) {
 
 			$blogPostManager->hydrateFormWithExistingBlogPost($this->m_blogPostID);
 
-		} elseif ($this->m_action == BlogPostManager::ACTION_DELETE) {
+		} else if ($this->m_action == BlogPostManager::ACTION_DELETE) {
 
 			$blogPostManager->delete($this->m_blogPostID);
 

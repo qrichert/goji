@@ -36,8 +36,11 @@
 		<segment id="BLOG_POST_UPDATE_SUCCESS">Votre article a bien été mis à jour</segment>
 		<segment id="BLOG_POST_ERROR">Le formulaire contient des erreurs</segment>
 		<segment id="BLOG_POST_WRITING_FAILED">Erreur Interne: Impossible d'enregistrer l'article</segment>
+		<segment id="BLOG_POST_MORE_OPTIONS">+ Plus</segment>
+		<segment id="BLOG_POST_LESS_OPTIONS">- Moins</segment>
 		<segment id="BLOG_POST_PERMALINK">Permalien</segment>
 		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">mon-histoire</segment>
+		<segment id="BLOG_POST_DATE">Date</segment>
 		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
 		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://lien.vers/image.jpg</segment>
 		<segment id="BLOG_POST_DESCRIPTION">Description</segment>

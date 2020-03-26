@@ -7,7 +7,6 @@
  * <input type="datetime">
  * <input type="datetime-local">
  * <input type="month">
- * <input type="number">
  * <input type="range">
  * <input type="time">
  * <input type="week">

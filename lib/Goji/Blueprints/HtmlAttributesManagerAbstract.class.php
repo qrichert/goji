@@ -350,9 +350,14 @@ abstract class HtmlAttributesManagerAbstract {
 			if ($key == 'textContent')
 				continue;
 
-			if (!empty($value) && $addSlashes)
+			$empty = (
+				!is_numeric($value) // empty('0') and empty(0) both evaluate to true...
+				&& empty($value)
+			);
+
+			if (!$empty && $addSlashes)
 				$attr .= ' ' . $key . '="' . addcslashes($value, '"') . '"';
-			else if (!empty($value))
+			else if (!$empty)
 				$attr .= ' ' . $key . '="' . $value . '"';
 			else
 				$attr .= ' ' . $key;

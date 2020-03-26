@@ -50,9 +50,11 @@ class InputCheckBox extends FormElementAbstract {
 	 * Skips id attribute.
 	 *
 	 * @param bool $skipValueAttribute
+	 * @param bool $addSlashes
+	 * @param array $dontRender
 	 * @return string
 	 */
-	public function renderAttributes($skipValueAttribute = false): string {
+	public function renderAttributes($skipValueAttribute = false, bool $addSlashes = true, $dontRender = []): string {
 
 		$attr = '';
 

@@ -197,6 +197,40 @@ abstract class FormElementAbstract extends FormObjectAbstract {
 		return is_numeric($this->getValue()) && mb_strlen((string) $this->getValue()) >= $minlength;
 	}
 
+	/**
+	 * @return bool
+	 */
+	protected function isLesserThanMax(): bool {
+
+		if (!$this->hasAttribute('max'))
+			return true;
+
+		// If empty we want it to block on the isValid() test, not here
+		if ($this->isEmpty())
+			return true;
+
+		$max = (int) $this->getAttribute('max');
+
+		return is_numeric($this->getValue()) && (int) $this->getValue() <= $max;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function isGreaterThanMin(): bool {
+
+		if (!$this->hasAttribute('min'))
+			return true;
+
+		// If empty we want it to block on the isValid() test, not here
+		if ($this->isEmpty())
+			return true;
+
+		$min = (int) $this->getAttribute('min');
+
+		return is_numeric($this->getValue()) && (int) $this->getValue() >= $min;
+	}
+
 /* <RENDERING> */
 
 	/**
