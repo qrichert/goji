@@ -157,7 +157,7 @@ class BlogPostManager {
 			$params['locale'] = "$locale%";
 		}
 
-		$q .= 'ORDER BY id DESC ';
+		$q .= 'ORDER BY creation_date DESC ';
 
 		if ($count > -1) // LIMIT supplied
 			$q .= "LIMIT $count OFFSET $offset ";
@@ -247,7 +247,7 @@ class BlogPostManager {
 			$params['locale'] = "$locale%";
 		}
 
-		$q .= 'ORDER BY id DESC ';
+		$q .= 'ORDER BY creation_date DESC ';
 
 		if ($count > -1) // LIMIT supplied
 			$q .= "LIMIT $count OFFSET $offset ";

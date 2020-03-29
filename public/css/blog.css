@@ -17,10 +17,10 @@
 
 .form__blog-post input,
 .form__blog-post textarea {
-	border: none !important;;
+	border: none !important;
 	box-shadow: none !important;
-	padding-left: 0 !important;;
-	padding-right: 0 !important;;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 }
 
 .form__blog-post textarea {
@@ -33,7 +33,7 @@
 
 #blog-post__publication-date input {
 	width: 2.5em;
-	text-align: right;
+	text-align: center;
 	background-color: var(--color-grey-xxxxxlight);
 }
 
