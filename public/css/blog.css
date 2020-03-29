@@ -9,6 +9,23 @@
 	object-position: center;
 }
 
+.blog__previous-and-next {
+	display: flex;
+	flex-direction: row;
+}
+
+.blog__previous-and-next > * {
+	max-width: 42%;
+}
+
+.blog__previous-and-next .call-to-action {
+	line-height: var(--line-height-default);
+}
+
+.blog__previous-and-next > .next {
+	margin-left: auto;
+}
+
 /* Form */
 
 .form__blog-post {

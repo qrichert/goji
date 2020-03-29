@@ -276,6 +276,57 @@ class BlogPostManager {
 		return $reply;
 	}
 
+	protected function getSurroundingBlogPost(string $previousOrNext, string $blogPostCreationDate, string $locale = null): ?array {
+
+		$query = null;
+		$params = [
+			'blog_post_creation_date' => $blogPostCreationDate
+		];
+
+		if (!empty($locale)) {
+			$params['locale'] = "$locale%";
+			$locale = 'AND locale LIKE :locale';
+		}
+
+		if ($previousOrNext == 'previous') {
+
+			$query = 'SELECT id, permalink, title
+					  FROM g_blog
+					  WHERE creation_date < :blog_post_creation_date ' . $locale . '
+					  ORDER BY creation_date DESC
+					  LIMIT 1';
+
+		} else if ($previousOrNext == 'next') {
+
+			$query = 'SELECT id, permalink, title
+					  FROM g_blog
+					  WHERE creation_date > :blog_post_creation_date ' . $locale . '
+					  ORDER BY creation_date ASC
+					  LIMIT 1';
+
+		} else {
+			return null;
+		}
+
+		$query = $this->m_db->prepare($query);
+		$query->execute($params);
+		$reply = $query->fetch();
+		$query->closeCursor();
+
+		if ($reply === false || empty($reply))
+			return null;
+
+		return $reply;
+	}
+
+	public function getPreviousBlogPost(string $blogPostCreationDate, string $locale = null): ?array {
+		return $this->getSurroundingBlogPost('previous', $blogPostCreationDate, $locale);
+	}
+
+	public function getNextBlogPost(string $blogPostCreationDate, string $locale = null): ?array {
+		return $this->getSurroundingBlogPost('next', $blogPostCreationDate, $locale);
+	}
+
 	/**
 	 * If permalink already exists, add *-2, if *-2 exists, add *-3, etc.
 	 *

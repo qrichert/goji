@@ -7,6 +7,7 @@ use Blog\Model\BlogPostManager;
 use Goji\Core\App;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Toolkit\SimpleCache;
+use Goji\Toolkit\SwissKnife;
 use Goji\Translation\Translator;
 
 class BlogPostController extends BlogControllerAbstract {
@@ -44,6 +45,17 @@ class BlogPostController extends BlogControllerAbstract {
 
 		$blogPost = $blogPostManager->read($this->m_permalink, true);
 			$blogPost['post'] = self::renderAsHTML($blogPost['post']); // To HTML
+
+		$blogPost['previous'] = $blogPostManager->getPreviousBlogPost($blogPost['creation_date']['full'], $this->m_app->getLanguages()->getCurrentCountryCode());
+
+			if (!empty($blogPost['previous']['title']))
+				$blogPost['previous']['title'] = SwissKnife::ceil_str($blogPost['previous']['title'], 70, '...'); // 60 max. anyway in SEO guidelines
+
+		$blogPost['next'] = $blogPostManager->getNextBlogPost($blogPost['creation_date']['full'], $this->m_app->getLanguages()->getCurrentCountryCode());
+
+			if (!empty($blogPost['next']['title']))
+				$blogPost['next']['title'] = SwissKnife::ceil_str($blogPost['next']['title'], 70, '...'); // 60 max. anyway in SEO guidelines
+
 
 		$template = new SimpleTemplate($blogPost['title'] . ' - ' . $this->m_app->getSiteName(),
 		                               $blogPost['description']);

@@ -648,35 +648,6 @@ span.call-to-action__wrapper {
 	background-color: var(--color-highlight-hover);
 }
 
-.call-to-action.transparent {
-	color: var(--color-highlight);
-	background-color: transparent;
-	border: 2px solid var(--color-highlight);
-}
-
-.call-to-action.transparent:hover {
-	border-color: var(--color-highlight-hover);
-}
-
-.call-to-action.transparent::after {
-	content: '';
-	visibility: hidden;
-	opacity: 0;
-	display: inline-block;
-	transform: translateX(-2em);
-	transition: transform var(--transition-duration-slow) ease,
-				opacity var(--transition-duration-slow) ease;
-}
-
-.call-to-action.transparent:hover::after {
-	content: '→';
-	visibility: visible;
-	opacity: 1;
-	padding-left: 0.6em;
-	transform: translateX(0em);
-}
-
-
 .call-to-action {
 	margin-top: var(--gutter-thin);
 	margin-bottom: var(--gutter-thin);
@@ -699,6 +670,51 @@ span.call-to-action__wrapper {
 	padding: 10px 17px;
 	font-size: var(--text-size-default);
 	line-height: 14px;
+}
+
+.call-to-action.transparent {
+	color: var(--color-highlight);
+	background-color: transparent;
+	border: 2px solid var(--color-highlight);
+}
+
+.call-to-action.transparent:hover {
+	border-color: var(--color-highlight-hover);
+}
+
+.call-to-action.transparent:not(.left)::after,
+.call-to-action.transparent.left::before {
+	content: '';
+	visibility: hidden;
+	opacity: 0;
+	display: inline-block;
+	transition: transform var(--transition-duration-slow) ease,
+				opacity var(--transition-duration-slow) ease;
+}
+
+.call-to-action.transparent:not(.left)::after {
+	transform: translateX(-2em);
+}
+
+.call-to-action.transparent.left::before {
+	transform: translateX(2em);
+}
+
+.call-to-action.transparent:not(.left):hover::after,
+.call-to-action.transparent.left:hover::before {
+	visibility: visible;
+	opacity: 1;
+	transform: translateX(0em);
+}
+
+.call-to-action.transparent:not(.left):hover::after {
+	content: '→';
+	padding-left: 0.6em;
+}
+
+.call-to-action.transparent.left:hover::before {
+	content: '←';
+	padding-right: 0.6em;
 }
 
 /* Up to to 920px */

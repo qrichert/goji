@@ -49,6 +49,28 @@
 
 		<p><?= $blogPost['post']; ?></p>
 
+		<?php if (!empty($blogPost['previous']) || !empty($blogPost['next'])): ?>
+			<div class="blog__previous-and-next">
+
+				<?php if (!empty($blogPost['previous'])): ?>
+					<p class="call-to-action__wrapper previous">
+						<a href="<?= $blogPost['previous']['permalink']; ?>" class="call-to-action smaller transparent left">
+							<?= $blogPost['previous']['title']; ?>
+						</a>
+					</p>
+				<?php endif; ?>
+
+				<?php if (!empty($blogPost['next'])): ?>
+					<p class="call-to-action__wrapper next">
+						<a href="<?= $blogPost['next']['permalink']; ?>" class="call-to-action smaller transparent">
+							<?= $blogPost['next']['title']; ?>
+						</a>
+					</p>
+				<?php endif; ?>
+
+			</div>
+		<?php endif; ?>
+
 		<p>
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('blog'); ?>"><?= $tr->_('BLOG_POST_BACK_TO_BLOG_POSTS'); ?></a>
 		</p>
