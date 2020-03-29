@@ -131,36 +131,16 @@ class BlogPostManager {
 // <READ/WRITE>
 
 	/**
-	 * Returns a list of blog post entries
-	 *
-	 * @param int $offset
-	 * @param int $count -1 = all, infinite
-	 * @param string $locale
-	 * @param callable|null $formatFunction
-	 * @param array $formatFunctionParams
+	 * @param string $q Query
+	 * @param array $params Query parameters
+	 * @param callable|null $formatFunction Blog post format function
+	 * @param array $formatFunctionParams Blog post format function parameters
 	 * @return array
 	 */
-	public function getBlogPosts(int $offset = 0,
-	                             int $count = -1,
-	                             string $locale = null,
-	                             callable $formatFunction = null,
-	                             array $formatFunctionParams = []): array {
-
-		if ($offset < 0)
-			$offset = 0;
-
-		$q = 'SELECT * FROM g_blog ';
-		$params = [];
-
-		if (!empty($locale)) {
-			$q .= 'WHERE locale LIKE :locale ';
-			$params['locale'] = "$locale%";
-		}
-
-		$q .= 'ORDER BY creation_date DESC ';
-
-		if ($count > -1) // LIMIT supplied
-			$q .= "LIMIT $count OFFSET $offset ";
+	protected function fetchBlogPostsFromDatabase(string $q,
+	                                              array $params,
+	                                              callable $formatFunction = null,
+	                                              array $formatFunctionParams = []): array {
 
 		$query = $this->m_db->prepare($q);
 		$query->execute($params);
@@ -180,10 +160,53 @@ class BlogPostManager {
 		foreach ($reply as &$entry) {
 			$entry['creation_date'] = SwissKnife::dateToComponents($entry['creation_date']);
 			$entry['last_edit_date'] = SwissKnife::dateToComponents($entry['last_edit_date']);
+			$entry['hidden'] = SwissKnife::sqlBool($entry['hidden']);
 		}
 		unset($entry);
 
 		return $reply;
+	}
+
+	/**
+	 * Returns a list of blog post entries
+	 *
+	 * @param int $offset
+	 * @param int $count -1 = all, infinite
+	 * @param string $locale
+	 * @param callable|null $formatFunction
+	 * @param array $formatFunctionParams
+	 * @return array
+	 */
+	public function getBlogPosts(int $offset = 0,
+	                             int $count = -1,
+	                             string $locale = null,
+	                             callable $formatFunction = null,
+	                             array $formatFunctionParams = []): array {
+
+		if ($offset < 0)
+			$offset = 0;
+
+		$q = "SELECT *, creation_date > DATETIME('NOW') AS hidden FROM g_blog ";
+		$params = [];
+
+		if (!$this->m_app->getUser()->isLoggedIn()
+		    || !$this->m_app->getMemberManager()->memberIs('editor')) {
+			$q .= "WHERE creation_date <= DATETIME('NOW') ";
+		} else {
+			$q .= 'WHERE 1 ';
+		}
+
+		if (!empty($locale)) {
+			$q .= 'AND locale LIKE :locale ';
+			$params['locale'] = "$locale%";
+		}
+
+		$q .= 'ORDER BY creation_date DESC ';
+
+		if ($count > -1) // LIMIT supplied
+			$q .= "LIMIT $count OFFSET $offset ";
+
+		return $this->fetchBlogPostsFromDatabase($q, $params, $formatFunction, $formatFunctionParams);
 	}
 
 	public function getBlogPostsForQuery(string $query,
@@ -240,7 +263,12 @@ class BlogPostManager {
 
 		// Getting the posts
 
-		$q = "SELECT * FROM g_blog WHERE ($query) ";
+		$q = "SELECT *, creation_date > DATETIME('NOW') AS hidden FROM g_blog WHERE ($query) ";
+
+		if (!$this->m_app->getUser()->isLoggedIn()
+		    || !$this->m_app->getMemberManager()->memberIs('editor')) {
+			$q .= "AND creation_date <= DATETIME('NOW') ";
+		}
 
 		if (!empty($locale)) {
 			$q .= 'AND locale LIKE :locale ';
@@ -252,28 +280,7 @@ class BlogPostManager {
 		if ($count > -1) // LIMIT supplied
 			$q .= "LIMIT $count OFFSET $offset ";
 
-		$query = $this->m_db->prepare($q);
-		$query->execute($params);
-
-		$reply = $query->fetchAll();
-
-		$query->closeCursor();
-
-		if ($formatFunction !== null) {
-
-			foreach ($reply as &$entry) {
-				$entry['post'] = $formatFunction($entry['post'], ...$formatFunctionParams);
-			}
-			unset($entry);
-		}
-
-		foreach ($reply as &$entry) {
-			$entry['creation_date'] = SwissKnife::dateToComponents($entry['creation_date']);
-			$entry['last_edit_date'] = SwissKnife::dateToComponents($entry['last_edit_date']);
-		}
-		unset($entry);
-
-		return $reply;
+		return $this->fetchBlogPostsFromDatabase($q, $params, $formatFunction, $formatFunctionParams);
 	}
 
 	protected function getSurroundingBlogPost(string $previousOrNext, string $blogPostCreationDate, string $locale = null): ?array {
@@ -290,19 +297,25 @@ class BlogPostManager {
 
 		if ($previousOrNext == 'previous') {
 
-			$query = 'SELECT id, permalink, title
+			$query = "SELECT id, permalink, title
 					  FROM g_blog
-					  WHERE creation_date < :blog_post_creation_date ' . $locale . '
+					  WHERE
+					        creation_date < :blog_post_creation_date
+					    AND creation_date <= DATETIME('NOW')
+					    $locale
 					  ORDER BY creation_date DESC
-					  LIMIT 1';
+					  LIMIT 1";
 
 		} else if ($previousOrNext == 'next') {
 
-			$query = 'SELECT id, permalink, title
+			$query = "SELECT id, permalink, title
 					  FROM g_blog
-					  WHERE creation_date > :blog_post_creation_date ' . $locale . '
+					  WHERE
+					        creation_date > :blog_post_creation_date
+					    AND creation_date <= DATETIME('NOW')
+				        $locale
 					  ORDER BY creation_date ASC
-					  LIMIT 1';
+					  LIMIT 1";
 
 		} else {
 			return null;
@@ -445,7 +458,9 @@ class BlogPostManager {
 		if ($id === null)
 			$this->m_parent->errorBlogPostDoesNotExist();
 
-		$q = 'SELECT * FROM g_blog WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
+		$q = "SELECT *, creation_date > DATETIME('NOW') AS hidden
+			  FROM g_blog
+			  WHERE " . ($isPermalink ? 'permalink' : 'id') . "=:id";
 
 		$query = $this->m_db->prepare($q);
 		$query->execute([
@@ -463,6 +478,7 @@ class BlogPostManager {
 			$reply['illustration'] = str_replace('%{WEBROOT}', WEBROOT, $reply['illustration']);
 			$reply['creation_date'] = SwissKnife::dateToComponents($reply['creation_date']);
 			$reply['last_edit_date'] = SwissKnife::dateToComponents($reply['last_edit_date']);
+			$entry['hidden'] = SwissKnife::sqlBool($reply['hidden']);
 		}
 
 		return $reply;

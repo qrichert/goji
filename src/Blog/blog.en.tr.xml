@@ -21,6 +21,7 @@
 		<segment id="BLOG_POST_DELETE_CONFIRMATION">Delete the blog post, are you sure?\nThis action can't be undone.</segment>
 		<segment id="BLOG_POST_DELETE_CONFIRMATION_INPUT">Enter "yes" to confirm</segment>
 		<segment id="BLOG_POST_DELETE_CONFIRMATION_STRING">yes</segment>
+		<segment id="BLOG_POST_VISIBLE_FOR_EDITORS_ONLY">This blog post will be available to the public on %{DATE}.</segment>
 		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Back to blog posts</segment>
 	</page>
 	<page id="(xhr-)?admin-blog-post">

@@ -76,7 +76,6 @@ class BlogPostForm extends Form {
 				$this->addInput(new InputNumber())
 					 ->setName('blog-post[publication-date][year]')
 					 ->setId('blog-post__publication-date--year')
-					 ->setAttribute('max', (int) date('Y'))
 					 ->setAttribute('min', 1995)
 					 ->setAttribute('placeholder', date('Y'));
 

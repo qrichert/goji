@@ -128,7 +128,11 @@
 						date = date.replace('%{DAY}', post.creation_date.day);
 
 					let blogPostContainer = document.createElement('div');
-						docFrag.appendChild(blogPostContainer);
+
+						if (post.hidden)
+							blogPostContainer.classList.add('visible-for-editors-only');
+
+							docFrag.appendChild(blogPostContainer);
 
 					let blogPostTitle = document.createElement('h2');
 						blogPostContainer.appendChild(blogPostTitle);

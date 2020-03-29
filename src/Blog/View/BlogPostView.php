@@ -47,6 +47,12 @@
 		}
 		?>
 
+		<?php if ($blogPost['hidden']): ?>
+			<p class="visible-for-editors-only">
+				<?= str_replace('%{DATE}', $date, $tr->_('BLOG_POST_VISIBLE_FOR_EDITORS_ONLY')); ?>
+			</p>
+		<?php endif; ?>
+
 		<p><?= $blogPost['post']; ?></p>
 
 		<?php if (!empty($blogPost['previous']) || !empty($blogPost['next'])): ?>

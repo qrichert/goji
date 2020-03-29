@@ -44,7 +44,16 @@ class BlogPostController extends BlogControllerAbstract {
 		$blogPostManager = new BlogPostManager($this);
 
 		$blogPost = $blogPostManager->read($this->m_permalink, true);
-			$blogPost['post'] = self::renderAsHTML($blogPost['post']); // To HTML
+
+		if ($blogPost['hidden']) {
+			if (!$this->m_app->getUser()->isLoggedIn()
+		        || !$this->m_app->getMemberManager()->memberIs('editor')) {
+
+				$this->errorBlogPostDoesNotExist();
+			}
+		}
+
+		$blogPost['post'] = self::renderAsHTML($blogPost['post']); // To HTML
 
 		$blogPost['previous'] = $blogPostManager->getPreviousBlogPost($blogPost['creation_date']['full'], $this->m_app->getLanguages()->getCurrentCountryCode());
 

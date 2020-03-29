@@ -112,6 +112,16 @@
 	margin-bottom: var(--gutter-thin);
 }
 
+#blog .visible-for-editors-only {
+	opacity: 0.3;
+}
+
+#blog-post .visible-for-editors-only {
+	background-color: var(--color-highlight-halo);
+	border-radius: var(--border-radius-default);
+	padding: var(--gutter-thin) var(--gutter-medium);
+}
+
 @media all and (min-width: 470px) {
 	#blog .blog__toolbar {
 		flex-wrap: nowrap;
