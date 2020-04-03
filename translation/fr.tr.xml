@@ -116,6 +116,10 @@
 		<segment id="ADMIN_CONTACT_PAGE_TITLE">Contact</segment>
 		<segment id="ADMIN_CONTACT_PAGE_DESCRIPTION"></segment>
 		<segment id="ADMIN_CONTACT_MAIN_TITLE">Contact</segment>
+		<segment id="ADMIN_CONTACT_NO_MESSAGES">Aucun message.</segment>
+		<segment id="ADMIN_CONTACT_MESSAGE_DATE">%{DAY}/%{MONTH}/%{YEAR} à %{HOUR}:%{MIN}</segment>
+		<segment id="ADMIN_CONTACT_MESSAGE_SENDER_NAME">Nom :</segment>
+		<segment id="ADMIN_CONTACT_MESSAGE_SENDER_EMAIL">Email :</segment>
 	</page>
 	<page id="privacy-and-terms">
 		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Mentions Légales</segment>

@@ -82,7 +82,7 @@
 	},
 	"xhr-admin-contact": {
 		route: "/admin/xhr-contact",
-		controller: "App/Admin/XhrContactController"
+		controller: "App/Admin/XhrAdminContactController"
 	},
 	"privacy-and-terms": {
 		routes: {

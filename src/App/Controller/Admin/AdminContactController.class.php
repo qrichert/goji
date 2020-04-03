@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Model\ContactManager;
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
@@ -13,6 +14,10 @@ class AdminContactController extends ControllerAbstract {
 		// Translation
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+
+		$contactManager = new ContactManager($this->m_app);
+			$messages = $contactManager->getMail(0, -1);
+			$contactManager->markAllAsOpened();
 
 		// Template
 		$template = new SimpleTemplate($tr->_('ADMIN_CONTACT_PAGE_TITLE'),
