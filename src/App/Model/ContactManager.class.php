@@ -34,4 +34,17 @@ class ContactManager {
 
 		return true;
 	}
+
+	public function getUnopenedMailCount(): int {
+
+		$query = $this->m_db->prepare('SELECT COUNT(*) AS nb
+										FROM g_contact
+										WHERE opened=0');
+
+		$query->execute();
+		$reply = $query->fetch();
+		$query->closeCursor();
+
+		return (int) $reply['nb'];
+	}
 }

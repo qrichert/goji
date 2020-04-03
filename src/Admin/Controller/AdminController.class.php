@@ -3,6 +3,7 @@
 namespace Admin\Controller;
 
 use Admin\Model\AddMemberForm;
+use App\Model\ContactManager;
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Core\App;
 use Goji\Rendering\SimpleTemplate;
@@ -10,12 +11,16 @@ use Goji\Translation\Translator;
 
 class AdminController extends ControllerAbstract {
 
+	private $m_contactUnopenedMailCount;
 	private $m_useGit;
 	private $m_terminalPath;
 
 	public function __construct(App $app) {
 
 		parent::__construct($app);
+
+		// Contact, unopened mail
+		$this->m_contactUnopenedMailCount = (new ContactManager($this->m_app))->getUnopenedMailCount();
 
 		// Git
 		$this->m_useGit = is_dir('../.git');

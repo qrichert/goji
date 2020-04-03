@@ -6,14 +6,14 @@
 
 		<div class="action-item__wrapper">
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('settings'); ?>"
-			   class="action-item" id="admin-action__new-blog-post">
+			   class="action-item" id="admin-action__settings">
 				<div class="action-item__progress"></div>
 				<img src="<?= $template->rsc('img/lib/Goji/settings.svg'); ?>" alt="" class="action-item__icon">
 				<span class="action-item__caption"><?= $tr->_('FOOTER_SETTINGS'); ?></span>
 			</a>
 
 			<a href="<?= $this->m_app->getRouter()->getLinkForPage('logout'); ?>"
-			   class="action-item" id="admin-action__new-blog-post">
+			   class="action-item" id="admin-action__logout">
 				<div class="action-item__progress"></div>
 				<img src="<?= $template->rsc('img/lib/Goji/log-out.svg'); ?>" alt="" class="action-item__icon">
 				<span class="action-item__caption"><?= $tr->_('FOOTER_LOG_OUT'); ?></span>
@@ -26,7 +26,8 @@
 
 			<h2><?= $tr->_('ADMIN_SECTION_EDITING'); ?></h2>
 			<div class="action-item__wrapper">
-				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-upload'); ?>" class="action-item" id="admin-action__upload">
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-upload'); ?>"
+				   class="action-item" id="admin-action__upload">
 					<div class="action-item__progress"></div>
 					<img src="<?= $template->rsc('img/lib/Goji/upload.svg'); ?>" alt="" class="action-item__icon">
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_UPLOAD'); ?></span>
@@ -38,6 +39,14 @@
 					<div class="action-item__progress"></div>
 					<img src="<?= $template->rsc('img/lib/Goji/typewriter.svg'); ?>" alt="" class="action-item__icon">
 					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_NEW_BLOG_POST'); ?></span>
+				</a>
+
+				<a href="<?= $this->m_app->getRouter()->getLinkForPage('admin-contact'); ?>"
+				   class="action-item" id="admin-action__contact"
+				   data-unopened-mail-count="<?= $this->m_contactUnopenedMailCount; ?>">
+					<div class="action-item__progress"></div>
+					<img src="<?= $template->rsc('img/lib/Goji/mail.svg'); ?>" alt="" class="action-item__icon">
+					<span class="action-item__caption"><?= $tr->_('ADMIN_ACTION_CONTACT'); ?></span>
 				</a>
 			</div>
 			<p id="admin__disk-usage">
@@ -201,6 +210,23 @@ $template->linkFiles([
 			};
 
 			refreshDiskUsage(false); // false, refresh from cache
+		})();
+
+		// Unopened Mail
+		(function () {
+
+			let actionContact = document.querySelector('#admin-action__contact');
+			let actionContactCaption = document.querySelector('#admin-action__contact > .action-item__caption');
+			let unopenedMailCount = parseInt(actionContact.dataset.unopenedMailCount, 10);
+
+			if (unopenedMailCount > 0) {
+
+				if (unopenedMailCount > 100)
+					unopenedMailCount = '99+';
+
+				actionContactCaption.appendChild(document.createTextNode(` (${unopenedMailCount})`));
+				actionContact.classList.add('attention-required');
+			}
 		})();
 	</script>
 

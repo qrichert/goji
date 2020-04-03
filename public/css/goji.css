@@ -565,6 +565,11 @@ tr:not(:last-child) td,
 	background-color: var(--color-invalid-light);
 }
 
+.action-item.attention-required,
+.action-item.attention-required:hover {
+	background-color: var(--color-invalid-light);
+}
+
 .action-item__progress {
 	position: absolute;
 	top: 0;

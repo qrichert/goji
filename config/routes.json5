@@ -74,6 +74,16 @@
 		route: "/xhr-contact",
 		controller: "App/XhrContactController"
 	},
+	"admin-contact": {
+		routes: {
+			all: "/admin/contact"
+		},
+		controller: "App/Admin/AdminContactController"
+	},
+	"xhr-admin-contact": {
+		route: "/admin/xhr-contact",
+		controller: "App/Admin/XhrContactController"
+	},
 	"privacy-and-terms": {
 		routes: {
 			en: "/privacy-and-terms",

@@ -112,6 +112,11 @@
 		<segment id="CONTACT_SUCCESS">Your message has been sent. Thanks!</segment>
 		<segment id="CONTACT_ERROR">The form contains errors</segment>
 	</page>
+	<page id="admin-contact">
+		<segment id="ADMIN_CONTACT_PAGE_TITLE">Contact</segment>
+		<segment id="ADMIN_CONTACT_PAGE_DESCRIPTION"></segment>
+		<segment id="ADMIN_CONTACT_MAIN_TITLE">Contact</segment>
+	</page>
 	<page id="privacy-and-terms">
 		<segment id="PRIVACY_AND_TERMS_PAGE_TITLE">Privacy &amp; Terms</segment>
 		<segment id="PRIVACY_AND_TERMS_PAGE_DESCRIPTION"></segment>

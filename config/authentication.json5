@@ -46,7 +46,9 @@
 				"xhr-admin-upload",
 				"xhr-admin-disk-space-usage",
 				"admin-blog-post",
-				"xhr-admin-blog-post"
+				"xhr-admin-blog-post",
+				"admin-contact",
+				"xhr-admin-contact"
 			],
 			/*
 			 * Pages where you don't need a specific role, just need to be logged in

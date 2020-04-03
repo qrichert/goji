@@ -15,6 +15,7 @@
 		<segment id="ADMIN_ACTION_LOG_OUT">Log Out</segment>
 		<segment id="ADMIN_ACTION_UPLOAD">Upload</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">New blog post</segment>
+		<segment id="ADMIN_ACTION_CONTACT">Contact</segment>
 		<segment id="ADMIN_DISK_SPACE_USED">Disk space used:</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER">New member</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up DB</segment>
