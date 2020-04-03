@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\ContactForm;
+use App\Model\ContactManager;
 use Goji\Blueprints\XhrControllerAbstract;
 use Goji\Core\App;
 use Goji\Core\HttpResponse;
@@ -29,7 +30,16 @@ class XhrContactController extends XhrControllerAbstract {
 		$name = $form->getInputByName('contact[name]')->getValue();
 		$email = $form->getInputByName('contact[email]')->getValue();
 		$message = $form->getInputByName('contact[message]')->getValue();
-			$message = nl2br(htmlspecialchars($message));
+
+		$contactManager = new ContactManager($this->m_app);
+
+		if (!$contactManager->create($name, $email, $message)) {
+			HttpResponse::JSON([
+				'message' => $tr->_('CONTACT_ERROR'),
+			], false);
+		}
+
+		$message = nl2br(htmlspecialchars($message));
 
 		$message = <<<EOT
 			<p>

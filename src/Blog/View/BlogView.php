@@ -149,11 +149,12 @@
 
 					let blogPostPreview = document.createElement('p');
 						blogPostPreview.appendChild(document.createTextNode(post.post));
+						blogPostPreview.appendChild(document.createTextNode(' '));
 							blogPostContainer.appendChild(blogPostPreview);
 
 						let blogPostPreviewLink = document.createElement('a');
 							blogPostPreviewLink.href = link;
-							blogPostPreviewLink.textContent = ' ' + READ_MORE;
+							blogPostPreviewLink.textContent = READ_MORE;
 								blogPostPreview.appendChild(blogPostPreviewLink);
 
 					if (i < nbPosts-1) {

@@ -181,4 +181,12 @@ class Cookies {
 
 		return $purgeSuccessful;
 	}
+
+	/**
+	 * @return string
+	 */
+	public static function getCookiesPrefix(): string {
+		self::initialize();
+		return self::$m_cookiesPrefix;
+	}
 }

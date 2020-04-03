@@ -7,9 +7,11 @@ use Goji\Core\App;
 class UploadManager {
 
 	private $m_app;
+	private $m_db;
 
 	public function __construct(App $app) {
 		$this->m_app = $app;
+		$this->m_db = $this->m_app->getDatabase();
 	}
 
 	/**
@@ -38,7 +40,7 @@ class UploadManager {
 		if ($count > -1) // LIMIT supplied
 			$query .= "LIMIT $count OFFSET $offset ";
 
-		$query = $this->m_app->db()->prepare($query);
+		$query = $this->m_db->prepare($query);
 		$query->execute($queryParameters);
 		$reply = $query->fetchAll();
 		$query->closeCursor();
