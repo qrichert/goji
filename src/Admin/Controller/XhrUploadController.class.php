@@ -3,12 +3,11 @@
 namespace Admin\Controller;
 
 use Admin\Model\UploadForm;
+use Admin\Model\UploadManager;
 use Goji\Blueprints\XhrControllerAbstract;
 use Goji\Core\HttpResponse;
 use Goji\Form\Form;
 use Goji\Rendering\SimpleTemplate;
-use Goji\Toolkit\SaveImage;
-use Goji\Toolkit\SwissKnife;
 use Goji\Translation\Translator;
 
 class XhrUploadController extends XhrControllerAbstract {
@@ -36,32 +35,8 @@ class XhrUploadController extends XhrControllerAbstract {
 		 */
 		$formFile = $form->getInputByName('upload[file]')->getValue();
 
-		$newImageSavePath = date('Y/m/');
-
-		$newImageName = SaveImage::save($formFile, SaveImage::UPLOAD_DIRECTORY . '/' . $newImageSavePath);
-
-		// Save thumb as well
-		$thumbName = pathinfo($newImageName, PATHINFO_FILENAME);
-		SaveImage::save($formFile, SaveImage::UPLOAD_DIRECTORY . '/' . $newImageSavePath, 'thumb_', $thumbName, true, 450);
-
-		$fileType = SwissKnife::mime_content_type($formFile['tmp_name']);
-
-		$newImageSavePath = 'upload/' . $newImageSavePath;
-
-		$query = $this->m_app->db()->prepare('INSERT INTO g_upload
-															   ( path,  name,  type,  size,  uploaded_by,  upload_date)
-														VALUES (:path, :name, :type, :size, :uploaded_by, :upload_date)');
-
-		$query->execute([
-			'path' => $newImageSavePath,
-			'name' => $newImageName,
-			'type' => $fileType,
-			'size' => (int) $formFile['size'],
-			'uploaded_by' => $this->m_app->getUser()->getId(),
-			'upload_date' => date('Y-m-d H:i:s')
-		]);
-
-		$query->closeCursor();
+		$uploadManager = new UploadManager($this->m_app);
+		[$newImageSavePath, $newImageName] = $uploadManager->saveUpload($formFile);
 
 		HttpResponse::JSON([
 			'file_path' => SimpleTemplate::rsc($newImageSavePath),

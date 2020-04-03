@@ -3,6 +3,8 @@
 namespace Admin\Model;
 
 use Goji\Core\App;
+use Goji\Toolkit\SaveImage;
+use Goji\Toolkit\SwissKnife;
 
 class UploadManager {
 
@@ -12,6 +14,42 @@ class UploadManager {
 	public function __construct(App $app) {
 		$this->m_app = $app;
 		$this->m_db = $this->m_app->getDatabase();
+	}
+
+	/**
+	 * @param array $formFile
+	 * @return array
+	 */
+	public function saveUpload(array $formFile): array {
+
+		$newImageSavePath = date('Y/m/');
+
+		$newImageName = SaveImage::save($formFile, SaveImage::UPLOAD_DIRECTORY . '/' . $newImageSavePath);
+
+		// Save thumb as well
+		$thumbName = pathinfo($newImageName, PATHINFO_FILENAME);
+		SaveImage::save($formFile, SaveImage::UPLOAD_DIRECTORY . '/' . $newImageSavePath, 'thumb_', $thumbName, true, 450);
+
+		$fileType = SwissKnife::mime_content_type($formFile['tmp_name']);
+
+		$newImageSavePath = 'upload/' . $newImageSavePath;
+
+		$query = $this->m_db->prepare('INSERT INTO g_upload
+											   ( path,  name,  type,  size,  uploaded_by,  upload_date)
+										VALUES (:path, :name, :type, :size, :uploaded_by, :upload_date)');
+
+		$query->execute([
+			'path' => $newImageSavePath,
+			'name' => $newImageName,
+			'type' => $fileType,
+			'size' => (int) $formFile['size'],
+			'uploaded_by' => $this->m_app->getUser()->getId(),
+			'upload_date' => date('Y-m-d H:i:s')
+		]);
+
+		$query->closeCursor();
+
+		return [$newImageSavePath, $newImageName];
 	}
 
 	/**
