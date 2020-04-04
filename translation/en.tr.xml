@@ -23,6 +23,9 @@
 		<segment id="REFRESH">Refresh</segment>
 		<segment id="ERROR">Error</segment>
 		<segment id="LEARN_MORE">Learn more</segment>
+		<segment id="READ_MORE">Read more...</segment>
+		<segment id="TEXT_UNWRAP">Read more ⌄</segment>
+		<segment id="TEXT_WRAP">Wrap ^</segment>
 
 		<segment id="ROLE">
 			<alternative count="^(member|1)$">Member</alternative>

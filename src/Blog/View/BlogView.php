@@ -57,7 +57,7 @@
 
 			const LINK_BASE = '<?= addcslashes($this->m_app->getRouter()->getLinkForPage('blog'), "'"); ?>';
 			const DATE_FORMAT = '<?= addcslashes($tr->_('BLOG_POST_DATE'), "'"); ?>';
-			const READ_MORE = '<?= addcslashes($tr->_('BLOG_READ_MORE'), "'"); ?>';
+			const READ_MORE = '<?= addcslashes($tr->_('READ_MORE'), "'"); ?>';
 			const NOTHING_FOUND = '<?= addcslashes($tr->_('BLOG_NOTHING_FOUND'), "'"); ?>';
 
 			let blogPostsList = document.querySelector('#blog__blog-posts-list');

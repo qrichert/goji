@@ -63,6 +63,37 @@ body#verify-email {
 	margin-top: 0;
 }
 
+/* Admin */
+
+.admin-contact__message {
+	padding: var(--gutter-thin);
+}
+
+.admin-contact__message > :first-child {
+	margin-top: 0;
+}
+
+.admin-contact__message > :last-child {
+	margin-bottom: 0;
+}
+
+.admin-contact__message:hover {
+	background-color: var(--color-text-xxxxxlight);
+}
+
+
+.admin-contact__message:hover .wrapped::after {
+	background-image: linear-gradient(to top, var(--color-text-xxxxxlight), rgba(255, 255, 255, 0));
+}
+
+.admin-contact__message-date {
+	text-align: right;
+}
+
+.admin-contact__message-body {
+	position: relative;
+}
+
 /* Up to to 920px */
 @media all and (max-width: 920px) {
 

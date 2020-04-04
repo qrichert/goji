@@ -23,6 +23,10 @@
 		<segment id="REFRESH">Rafraîchir</segment>
 		<segment id="ERROR">Erreur</segment>
 		<segment id="LEARN_MORE">En savoir plus</segment>
+		<segment id="READ_MORE">Lire la suite...</segment>
+		<segment id="TEXT_UNWRAP">Lire plus ⌄</segment>
+		<segment id="TEXT_WRAP">Fermer ^</segment>
+
 
 		<segment id="ROLE">
 			<alternative count="^(member|1)$">Membre</alternative>

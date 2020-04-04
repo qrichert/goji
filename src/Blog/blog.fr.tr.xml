@@ -12,7 +12,6 @@
 		<segment id="BLOG_SEARCH_BLOG_POST_PLACEHOLDER">Rechercher un article...</segment>
 		<segment id="BLOG_POST_DATE">%{DAY}/%{MONTH}/%{YEAR}</segment>
 		<segment id="BLOG_NO_BLOG_POSTS">Il n'y a pas encore d'article, revenez plus tard...</segment>
-		<segment id="BLOG_READ_MORE">Lire la suite...</segment>
 		<segment id="BLOG_NOTHING_FOUND">Aucun article correspondant à votre recherche n'a été trouvé...</segment>
 	</page>
 	<page id="blog-post">

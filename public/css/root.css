@@ -143,6 +143,7 @@
 	--color-default-opaque: var(--color-blue-dark-opaque);
 
 	--color-body: white;
+	--color-body-transparent: rgba(255, 255, 255, 0);
 	--color-header: transparent;
 	--color-header-focus: var(--color-blue-dark);
 	--color-footer: var(--color-grey-xxxxxlight);

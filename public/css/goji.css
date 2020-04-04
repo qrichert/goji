@@ -160,6 +160,28 @@ pre > code {
 .aligned--right { text-align: right; }
 .aligned--center { text-align: center; }
 
+.wrapped {
+	max-height: 140px;
+	overflow: hidden;
+}
+
+.wrapped::after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: var(--gutter-big);
+	background-image: linear-gradient(to top, var(--color-body), var(--color-body-transparent));
+}
+
+.wrapped__unwrap-button {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
 /* Pre Heading / Sub Heading */
 
 .pre-heading,

@@ -51,7 +51,8 @@ class ContactForm extends Form {
 				 ->setId('contact__message')
 				 ->addClass('big')
 				 ->setAttribute('placeholder', $tr->_('CONTACT_FORM_MESSAGE_PLACEHOLDER'))
-				 ->setAttribute('required');
+				 ->setAttribute('required')
+				 ->setAttribute('maxlength', 5000);
 			$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 			$this->addInput(new InputButtonElement())
 				 ->addClass('highlight loader')

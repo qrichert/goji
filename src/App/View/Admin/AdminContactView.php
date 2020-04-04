@@ -17,11 +17,12 @@
 		const DATE_FORMAT = '<?= addcslashes($tr->_('ADMIN_CONTACT_MESSAGE_DATE'), "'"); ?>';
 		const SENDER_NAME = '<?= addcslashes($tr->_('ADMIN_CONTACT_MESSAGE_SENDER_NAME'), "'"); ?>';
 		const SENDER_EMAIL = '<?= addcslashes($tr->_('ADMIN_CONTACT_MESSAGE_SENDER_EMAIL'), "'"); ?>';
+		const TEXT_UNWRAP = '<?= addcslashes($tr->_('TEXT_UNWRAP'), "'"); ?>';
+		const TEXT_WRAP = '<?= addcslashes($tr->_('TEXT_WRAP'), "'"); ?>';
 
 		let messagesList = document.querySelector('#admin-contact__messages-list');
 
 		let appendMessages = messages => {
-			console.log(messages);
 
 			if (messages.length === 0) {
 				if (!messagesList.firstChild) {
@@ -50,7 +51,12 @@
 					date = date.replace('%{MIN}', message.date_sent.min);
 
 				let messageContainer = document.createElement('div');
-					docFrag.appendChild(messageContainer);
+					messageContainer.classList.add('admin-contact__message');
+
+					if (message.unopened)
+						messageContainer.classList.add('unopened');
+
+						docFrag.appendChild(messageContainer);
 
 					if (message.name !== '' || message.email !== '') {
 
@@ -83,14 +89,35 @@
 
 					let messageDate = document.createElement('p');
 						messageDate.classList.add('sub-heading');
-						messageDate.classList.add('aligned--right');
+						messageDate.classList.add('admin-contact__message-date');
 						messageDate.textContent = date;
 							messageContainer.appendChild(messageDate);
 
 					let messageBody = document.createElement('p');
+						messageBody.classList.add('admin-contact__message-body');
 						messageBody.textContent = message.message;
 						messageBody.style.whiteSpace = 'pre-wrap';
+						messageBody.style.wordWrap = 'break-word';
 							messageContainer.appendChild(messageBody);
+
+					if (message.message.length > 700) {
+						messageBody.classList.add('wrapped');
+
+						let readMore = document.createElement('a');
+							readMore.classList.add('admin-contact__message-read-more');
+							readMore.classList.add('wrapped__unwrap-button');
+							readMore.textContent = TEXT_UNWRAP;
+								messageContainer.appendChild(readMore);
+
+						readMore.addEventListener('click', e => {
+							e.preventDefault();
+
+							if (messageBody.classList.toggle('wrapped'))
+								readMore.textContent = TEXT_UNWRAP;
+							else
+								readMore.textContent = TEXT_WRAP;
+						}, false);
+					}
 
 			}
 

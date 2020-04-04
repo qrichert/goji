@@ -181,7 +181,7 @@ abstract class FormElementAbstract extends FormObjectAbstract {
 
 		$maxlength = (int) $this->getAttribute('maxlength');
 
-		return is_numeric($this->getValue()) && mb_strlen((string) $this->getValue()) <= $maxlength;
+		return mb_strlen((string) $this->getValue()) <= $maxlength;
 	}
 
 	/**
@@ -194,7 +194,7 @@ abstract class FormElementAbstract extends FormObjectAbstract {
 
 		$minlength = (int) $this->getAttribute('minlength');
 
-		return is_numeric($this->getValue()) && mb_strlen((string) $this->getValue()) >= $minlength;
+		return mb_strlen((string) $this->getValue()) >= $minlength;
 	}
 
 	/**
