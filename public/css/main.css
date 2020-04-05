@@ -81,7 +81,6 @@ body#verify-email {
 	background-color: var(--color-text-xxxxxlight);
 }
 
-
 .admin-contact__message:hover .wrapped::after {
 	background-image: linear-gradient(to top, var(--color-text-xxxxxlight), rgba(255, 255, 255, 0));
 }
@@ -92,6 +91,15 @@ body#verify-email {
 
 .admin-contact__message-body {
 	position: relative;
+}
+
+.admin-contact__message-delete {
+	text-align: right;
+}
+
+.admin-contact__message-delete > a {
+	color: var(--color-invalid);
+	font-size: var(--text-size-small);
 }
 
 /* Up to to 920px */

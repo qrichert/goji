@@ -14,6 +14,9 @@
 		<segment id="CREATE">Create</segment>
 		<segment id="EDIT">Edit</segment>
 		<segment id="DELETE">Delete</segment>
+		<segment id="DELETE_CONFIRM">Are you sure?\nThe element will be deleted permanently.</segment>
+		<segment id="DELETE_EVERYTHING">Delete Everything</segment>
+		<segment id="DELETE_EVERYTHING_CONFIRM">Are you sure?\nAll elements will be deleted permanently.</segment>
 		<segment id="SAVE">Save</segment>
 		<segment id="SAVE_CONFIRM">Are you sure?\nNew changes will permanently overwrite previous ones.</segment>
 		<segment id="PREVIEW">Preview</segment>

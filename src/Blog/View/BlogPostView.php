@@ -88,24 +88,20 @@
 
 	<script>
 		(function() {
+			const CONFIRMATION = '<?= addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), "'"); ?>';
+			const CONFIRMATION_INPUT = '<?= addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), "'"); ?>';
+			const CONFIRMATION_STRING = '<?= addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'"); ?>';
 
 			let deleteButton = document.querySelector('#button__delete-blog-post');
 
 			deleteButton.addEventListener('click', e => {
 
-				<?php
-				$confirmation = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION'), '"');
-				$input = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_INPUT'), '"');
-				$string = addcslashes($tr->_('BLOG_POST_DELETE_CONFIRMATION_STRING'), "'");
-				?>
+				let response = prompt(CONFIRMATION, CONFIRMATION_INPUT);
 
-				let response = prompt("<?= $confirmation; ?>", "<?= $input; ?>");
-
-				if (response !== '<?= $string; ?>')
+				if (response !== CONFIRMATION_STRING)
 					e.preventDefault();
 
 			}, false);
-
 		})();
 	</script>
 

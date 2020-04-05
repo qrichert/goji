@@ -36,6 +36,27 @@ class ContactManager {
 		return true;
 	}
 
+	public function delete(int $id): bool {
+
+		if (!is_numeric($id))
+			return false;
+
+		$query = $this->m_db->prepare('DELETE FROM g_contact
+										WHERE id=:id');
+
+		$query->execute([
+			'id' => $id
+		]);
+
+		$query->closeCursor();
+
+		return true;
+	}
+
+	public function deleteAll(): bool {
+		return $this->m_db->exec('DELETE FROM g_contact') !== false;
+	}
+
 	public function getMail(int $offset = 0, int $count = -1): array {
 
 		if ($offset < 0)

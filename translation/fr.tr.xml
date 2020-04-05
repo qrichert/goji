@@ -14,6 +14,9 @@
 		<segment id="CREATE">Créer</segment>
 		<segment id="EDIT">Modifier</segment>
 		<segment id="DELETE">Supprimer</segment>
+		<segment id="DELETE_CONFIRM">Êtes-vous sûr?\nL'élément sera supprimé de manière définitive.</segment>
+		<segment id="DELETE_EVERYTHING">Tout Supprimer</segment>
+		<segment id="DELETE_EVERYTHING_CONFIRM">Êtes-vous sûr?\nTous les éléments seront supprimés de manière définitive.</segment>
 		<segment id="SAVE">Enregistrer</segment>
 		<segment id="SAVE_CONFIRM">Êtes-vous sûr?\nLes nouveaux changements vont écraser les anciens de manière permanente.</segment>
 		<segment id="PREVIEW">Aperçu</segment>
@@ -26,7 +29,6 @@
 		<segment id="READ_MORE">Lire la suite...</segment>
 		<segment id="TEXT_UNWRAP">Lire plus ⌄</segment>
 		<segment id="TEXT_WRAP">Fermer ^</segment>
-
 
 		<segment id="ROLE">
 			<alternative count="^(member|1)$">Membre</alternative>

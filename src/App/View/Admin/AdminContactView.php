@@ -2,6 +2,13 @@
 	<section class="text">
 		<h1><?= $tr->_('ADMIN_CONTACT_MAIN_TITLE'); ?></h1>
 
+		<div class="toolbar main-toolbar">
+			<a class="link-button delete"
+			   id="admin-contact__delete-everything">
+				<?= $tr->_('DELETE_EVERYTHING'); ?>
+			</a>
+		</div>
+
 		<div id="admin-contact__messages-list"></div>
 
 		<p>
@@ -19,8 +26,100 @@
 		const SENDER_EMAIL = '<?= addcslashes($tr->_('ADMIN_CONTACT_MESSAGE_SENDER_EMAIL'), "'"); ?>';
 		const TEXT_UNWRAP = '<?= addcslashes($tr->_('TEXT_UNWRAP'), "'"); ?>';
 		const TEXT_WRAP = '<?= addcslashes($tr->_('TEXT_WRAP'), "'"); ?>';
+		const DELETE = '<?= addcslashes($tr->_('DELETE'), "'"); ?>';
+		const DELETE_CONFIRM = '<?= addcslashes($tr->_('DELETE_CONFIRM'), "'"); ?>';
+		const DELETE_EVERYTHING_CONFIRM = '<?= addcslashes($tr->_('DELETE_EVERYTHING_CONFIRM'), "'"); ?>';
+
+		let deleteEverything = document.querySelector('#admin-contact__delete-everything');
+
+			deleteEverything.addEventListener('click', e => {
+				e.preventDefault();
+
+				if (deleteEverything.classList.contains('disabled'))
+					return;
+
+				if (confirm(DELETE_EVERYTHING_CONFIRM))
+					deleteAllMessages();
+			}, false);
 
 		let messagesList = document.querySelector('#admin-contact__messages-list');
+
+		let deleteMessage = message => {
+
+			// Replace message with loading dots
+			let loadingDots = document.createElement('div');
+				loadingDots.classList.add('loading-dots');
+				loadingDots.classList.add('loading');
+					messagesList.replaceChild(loadingDots, message);
+
+			let error = () => {
+				// Add message back
+				messagesList.replaceChild(message, loadingDots);
+			};
+
+			let load = (r, s) => {
+
+				if (r === null || s !== 200) {
+					error();
+					return;
+				}
+
+				// Remove loading dots
+				messagesList.removeChild(loadingDots);
+
+				// Remove <hr>s
+				document.querySelectorAll(`
+					hr:first-child,
+					hr:last-child,
+					hr + hr
+				`).forEach(el => messagesList.removeChild(el));
+			};
+
+			SimpleRequest.get(
+				'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-contact'); ?>'
+					+ '?action=delete&id=' + encodeURIComponent(parseInt(message.dataset.id, 10)),
+				load,
+				error,
+				error,
+				null,
+				{ get_json: true }
+			);
+		};
+
+		let deleteAllMessages = () => {
+
+			let loadingDots = document.createElement('div');
+				loadingDots.classList.add('loading-dots');
+				loadingDots.classList.add('loading');
+					messagesList.insertBefore(loadingDots, messagesList.firstChild);
+
+			let error = () => {
+				messagesList.removeChild(loadingDots);
+			};
+
+			let load = (r, s) => {
+
+				if (r === null || s !== 200) {
+					error();
+					return;
+				}
+
+				while (messagesList.firstChild)
+					messagesList.removeChild(messagesList.firstChild);
+
+				appendMessages([]);
+			};
+
+			SimpleRequest.get(
+				'<?= $this->m_app->getRouter()->getLinkForPage('xhr-admin-contact'); ?>'
+					+ '?action=delete&id=all',
+				load,
+				error,
+				error,
+				null,
+				{ get_json: true }
+			);
+		};
 
 		let appendMessages = messages => {
 
@@ -30,8 +129,11 @@
 						message.textContent = NO_MESSAGES;
 							messagesList.appendChild(message);
 				}
+				deleteEverything.classList.add('disabled');
 				return;
 			}
+
+			deleteEverything.classList.remove('disabled');
 
 			if (messagesList.firstChild)
 				messagesList.appendChild(document.createElement('hr'));
@@ -51,6 +153,7 @@
 					date = date.replace('%{MIN}', message.date_sent.min);
 
 				let messageContainer = document.createElement('div');
+					messageContainer.dataset.id = message.id;
 					messageContainer.classList.add('admin-contact__message');
 
 					if (message.unopened)
@@ -119,6 +222,20 @@
 						}, false);
 					}
 
+					let messageDelete = document.createElement('p');
+						messageDelete.classList.add('admin-contact__message-delete');
+							messageContainer.appendChild(messageDelete);
+
+						let messageDeleteButton = document.createElement('a');
+							messageDeleteButton.textContent = DELETE;
+								messageDelete.appendChild(messageDeleteButton);
+
+						messageDeleteButton.addEventListener('click', e => {
+							e.preventDefault();
+
+							if (confirm(DELETE_CONFIRM))
+								deleteMessage(messageContainer);
+						}, false);
 			}
 
 			messagesList.appendChild(docFrag);
