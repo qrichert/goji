@@ -403,6 +403,8 @@ $template->linkFiles([
 				let update = document.querySelector('#admin-action__update');
 				let updateAction = new ActionItem(update);
 
+				let clearCache = document.querySelector('#admin-action__clear-cache');
+
 				update.addEventListener('click', e => {
 
 					e.preventDefault();
@@ -419,6 +421,8 @@ $template->linkFiles([
 							error();
 							return;
 						}
+
+						clearCache.click();
 
 						updateAction.endSuccess();
 
