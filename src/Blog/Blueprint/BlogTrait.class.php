@@ -24,7 +24,7 @@ trait BlogTrait {
 			$content = str_replace($hit[0][$i], '$£$£$£$£$£' . $i . '$£$£$£$£$£', $content);
 		}
 
-		$content = BasicFormatting::formatTextInlineAndEscape($content);
+		$content = BasicFormatting::formatTextInlineAndEscape($content, true, false);
 
 		// Restore backupped values within single or double quotes
 		for ($i = 0; $i < $hitCount; $i++) {

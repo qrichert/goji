@@ -2,6 +2,8 @@
 
 namespace Goji\Rendering;
 
+use Goji\Parsing\RegexPatterns;
+
 /**
  * Class BasicMarkdown
  *
@@ -40,10 +42,14 @@ class BasicMarkdown {
 	/**
 	 * @param string $text
 	 * @param bool $fakeHeadings
+	 * @param bool|null $breakParagraphs (default !$fakeHeadings)
 	 * @param bool $underlinedHeadings
 	 * @return string
 	 */
-	public static function headingsToHTML(string $text, bool $fakeHeadings = false, bool $underlinedHeadings = false): string {
+	public static function headingsToHTML(string $text, bool $fakeHeadings = false, bool $breakParagraphs = null, bool $underlinedHeadings = false): string {
+
+		if ($breakParagraphs === null)
+			$breakParagraphs = !$fakeHeadings;
 
 		// TITLES
 
@@ -58,18 +64,29 @@ class BasicMarkdown {
 			$text = preg_replace('#^(.+?)\R-{3,}\s*?$#m', '@@@@@@@@@@h2€€€€€€€€€€$1@@@@@@@@@@/h2€€€€€€€€€€', $text);
 		}
 
-		// CLEANING OUT MY CLOSET
-		// We don't want any <br /> after <h[1-6]>, <hr>, <ul>, <ol>, <li> because these are block elements
-		// and would provoke a double line break.
-		// But we only remove 1 to 2 line breaks, more than that is probably done on purpose by the user
-		$text = preg_replace('#(@@@@@@@@@@/?(?:h[1-6])€€€€€€€€€€)\R{1,2}#i', '$1', $text);
+		$text = preg_replace_callback('#@@@@@@@@@@h([1-6])€€€€€€€€€€(.*?)@@@@@@@@@@/h[1-6]€€€€€€€€€€#im', function($matches) use($fakeHeadings, $breakParagraphs) {
 
-		// Means we don't want to use real titles not to mess up the document
-		// This replaces all headings (<h[1-6]>) with a regular paragraph and a markdown-heading h[1-6] class
-		if ($fakeHeadings) {
-			$text = preg_replace('#@@@@@@@@@@h([1-6])€€€€€€€€€€(.+?)@@@@@@@@@@/h[1-6]€€€€€€€€€€#i',
-			                     '@@@@@@@@@@span class="markdown-heading h$1"€€€€€€€€€€$2@@@@@@@@@@/span€€€€€€€€€€', $text);
-		}
+			// No newlines inside heading
+			$heading = preg_replace(RegexPatterns::newLines(), '', $matches[2]);
+
+			// Means we don't want to use real titles not to mess up the document
+			// This replaces all headings (<h[1-6]>) with a regular paragraph and a markdown-heading h[1-6] class
+			if ($fakeHeadings)
+				$heading = '@@@@@@@@@@span class="markdown-heading h' . $matches[1] . '"€€€€€€€€€€' . $heading . '@@@@@@@@@@/span€€€€€€€€€€';
+			else
+				$heading = '@@@@@@@@@@h' . $matches[1] . '€€€€€€€€€€' . $heading . '@@@@@@@@@@/h' . $matches[1] . '€€€€€€€€€€';
+
+			// For block headings we need to break the <p>'s
+			// <p>lorem<h2>title</h2>ipsum</p> -> <p>lorem</p><h2>title</h2><p>ipsum</p>
+			if ($breakParagraphs)
+				$heading = "</p>$heading<p>";
+
+			return $heading;
+
+		}, $text);
+
+		// No <br> after reopening of a paragraph
+		$text = preg_replace('#€€€€€€€€€€(<p>)?\R+#', '€€€€€€€€€€$1', $text);
 
 		$text = str_replace('@@@@@@@@@@', '<', $text);
 		$text = str_replace('€€€€€€€€€€', '>', $text);

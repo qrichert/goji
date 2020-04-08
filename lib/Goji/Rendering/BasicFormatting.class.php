@@ -39,9 +39,10 @@ class BasicFormatting {
 	 *
 	 * @param string $text
 	 * @param bool $escapeHTML
+	 * @param bool $fakeHeadings
 	 * @return string
 	 */
-	public static function formatTextInlineAndEscape(string $text, bool $escapeHTML = true): string {
+	public static function formatTextInlineAndEscape(string $text, bool $escapeHTML = true, bool $fakeHeadings = true): string {
 
 		// First, just escape regular HTML
 		if ($escapeHTML)
@@ -49,7 +50,7 @@ class BasicFormatting {
 
 		$text = str_replace('%{WEBROOT}', WEBROOT, $text);
 
-		$text = BasicMarkdown::headingsToHTML($text, true); // true = <h1> to <span>
+		$text = BasicMarkdown::headingsToHTML($text, $fakeHeadings); // true = <h1> to <span>
 		$text = BasicMarkdown::inlineToHTML($text);
 		$text = BasicMarkdown::blocksToHTML($text, true);
 		$text = BasicMarkdown::listsToHTML($text, true);
