@@ -101,7 +101,10 @@
 		<segment id="SETTINGS_PAGE_TITLE">Settings</segment>
 		<segment id="SETTINGS_PAGE_DESCRIPTION"></segment>
 		<segment id="SETTINGS_MAIN_TITLE">Settings</segment>
+		<segment id="SETTINGS_PROFILE">Profile</segment>
 		<segment id="SETTINGS_PASSWORD">Password</segment>
+
+		<segment id="SETTINGS_FORM_DISPLAY_NAME">Display name</segment>
 
 		<segment id="SETTINGS_FORM_CURRENT_PASSWORD">Password</segment>
 		<segment id="SETTINGS_FORM_CURRENT_PASSWORD_PLACEHOLDER">Current password</segment>
@@ -109,9 +112,11 @@
 		<segment id="SETTINGS_FORM_PASSWORD_PLACEHOLDER">a-sTr0n6_pwd@~_</segment>
 		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION">New password (again)</segment>
 		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirm new password</segment>
-		<segment id="SETTINGS_FORM_SUCCESS">The password has been successfully updated</segment>
-		<segment id="SETTINGS_FORM_ERROR">The form contains errors</segment>
+		<segment id="SETTINGS_FORM_SUCCESS_PASSWORD_CHANGED">The password has been successfully updated</segment>
 		<segment id="SETTINGS_FORM_ERROR_WRONG_PASSWORD">The current password is invalid</segment>
 		<segment id="SETTINGS_FORM_ERROR_PASSWORDS_MUST_MATCH">The new passwords must match</segment>
+
+		<segment id="SETTINGS_FORM_SUCCESS">Your settings have been saved successfully</segment>
+		<segment id="SETTINGS_FORM_ERROR">The form contains errors</segment>
 	</page>
 </translation>

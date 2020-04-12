@@ -5,7 +5,9 @@ namespace HR\Controller;
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
+use HR\Model\MemberProfile;
 use HR\Model\SettingsPasswordForm;
+use HR\Model\SettingsProfileForm;
 
 class SettingsController extends ControllerAbstract {
 
@@ -14,6 +16,11 @@ class SettingsController extends ControllerAbstract {
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml', false, 'xhr-reset-password-request');
+
+		$memberProfile = new MemberProfile($this->m_app, $this->m_app->getUser()->getId());
+
+		$settingsProfileForm = new SettingsProfileForm($tr);
+			$settingsProfileForm->getInputByName('settings[display-name]')->setValue($memberProfile->getDisplayName());
 
 		$settingsPasswordForm = new SettingsPasswordForm($tr);
 

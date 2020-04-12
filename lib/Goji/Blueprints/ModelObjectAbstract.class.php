@@ -16,9 +16,10 @@ use Goji\Core\App;
  * Takes a row from the database and automatically creates getters and setters:
  * id, last_name -> getId() / setId(), getLastName() / setLastName()
  *
- * Use writeLock() / writeUnlock() to lock colmuns that should not be modified (like id)
+ * Use writeLock() / writeUnlock() to lock columns that should not be modified (like id)
+ * ID column is locked by default.
  *
- * You must call ModelObjectAbstract::save() to 'push' changes to the databse.
+ * You must call ModelObjectAbstract::save() to 'push' changes to the database.
  * If you don't want to, you can set $m_autoSave to true (in which case it will update automatically after every 'set*()')
  *
  * Inherit from this class like (for example):

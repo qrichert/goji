@@ -5,6 +5,7 @@ namespace Blog\Model;
 use Blog\Controller\BlogControllerAbstract;
 use Goji\Toolkit\SwissKnife;
 use Exception;
+use HR\Model\MemberProfile;
 
 /**
  * Class BlogPostManager
@@ -161,6 +162,7 @@ class BlogPostManager {
 			$entry['creation_date'] = SwissKnife::dateToComponents($entry['creation_date']);
 			$entry['last_edit_date'] = SwissKnife::dateToComponents($entry['last_edit_date']);
 			$entry['hidden'] = SwissKnife::sqlBool($entry['hidden']);
+			$entry['created_by_display_name'] = MemberProfile::getDisplayNameForMemberId($this->m_db, $entry['created_by']);
 		}
 		unset($entry);
 
@@ -478,7 +480,8 @@ class BlogPostManager {
 			$reply['illustration'] = str_replace('%{WEBROOT}', WEBROOT, $reply['illustration']);
 			$reply['creation_date'] = SwissKnife::dateToComponents($reply['creation_date']);
 			$reply['last_edit_date'] = SwissKnife::dateToComponents($reply['last_edit_date']);
-			$entry['hidden'] = SwissKnife::sqlBool($reply['hidden']);
+			$reply['hidden'] = SwissKnife::sqlBool($reply['hidden']);
+			$reply['created_by_display_name'] = MemberProfile::getDisplayNameForMemberId($this->m_db, $reply['created_by']);
 		}
 
 		return $reply;

@@ -652,7 +652,19 @@ class MemberManager {
 			'date_registered' => date('Y-m-d H:i:s')
 		]);
 
-		$detail['id'] = $app->db()->lastInsertId();
+		$newMemberId = $app->db()->lastInsertId();
+		$detail['id'] = $newMemberId;
+
+		$query->closeCursor();
+
+		$query = $app->db()->prepare('INSERT INTO g_member_profile
+												( member_id,  display_name)
+										 VALUES (:member_id, :display_name)');
+
+		$query->execute([
+			'member_id' => $newMemberId,
+			'display_name' => ''
+		]);
 
 		$query->closeCursor();
 
@@ -800,6 +812,19 @@ class MemberManager {
 		$query->execute([
 			'id' => $reply['id'],
 			'username' => $reply['username']
+		]);
+
+		$newMemberId = $app->db()->lastInsertId();
+
+		$query->closeCursor();
+
+		$query = $app->db()->prepare('INSERT INTO g_member_profile
+												( member_id,  display_name)
+										 VALUES (:member_id, :display_name)');
+
+		$query->execute([
+			'member_id' => $newMemberId,
+			'display_name' => ''
 		]);
 
 		$query->closeCursor();

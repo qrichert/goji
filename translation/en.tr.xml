@@ -29,6 +29,8 @@
 		<segment id="READ_MORE">Read more...</segment>
 		<segment id="TEXT_UNWRAP">Read more ⌄</segment>
 		<segment id="TEXT_WRAP">Wrap ^</segment>
+		<segment id="ANONYMOUS">Anonymous</segment>
+		<segment id="BY">by</segment>
 
 		<segment id="ROLE">
 			<alternative count="^(member|1)$">Member</alternative>

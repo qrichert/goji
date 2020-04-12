@@ -62,6 +62,10 @@
 		},
 		controller: "HR/SettingsController"
 	},
+	"xhr-settings-profile": {
+		route: "/xhr-settings-profile",
+		controller: "HR/XhrSettingsProfileController"
+	},
 	"xhr-settings-password": {
 		route: "/xhr-settings-password",
 		controller: "HR/XhrSettingsPasswordController"

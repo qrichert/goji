@@ -3,6 +3,10 @@
 
 		<h1><?= $tr->_('SETTINGS_MAIN_TITLE'); ?></h1>
 
+		<h2><?= $tr->_('SETTINGS_PROFILE'); ?></h2>
+
+		<?php $settingsProfileForm->render(); ?>
+
 		<h2><?= $tr->_('SETTINGS_PASSWORD'); ?></h2>
 
 		<?php $settingsPasswordForm->render(); ?>
@@ -23,6 +27,46 @@ $template->linkFiles([
 ?>
 
 <script>
+	// Profile
+	(function () {
+
+		let form = document.querySelector('#settings__form--profile');
+		let formSuccess = form.querySelector('p.form__success');
+		let formError = form.querySelector('p.form__error');
+
+		let success = response => {
+
+			formError.textContent = '';
+
+			if (response !== null
+			    && typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
+				formSuccess.innerHTML = response.message;
+			}
+		};
+
+		let error = response => {
+
+			formSuccess.textContent = '';
+
+			if (response !== null
+			    && typeof response.message !== 'undefined'
+			    && response.message !== null) {
+
+				formError.innerHTML = response.message;
+			}
+		};
+
+		new Form(form,
+			success,
+			error,
+			form.querySelector('button.loader'),
+			form.querySelector('.progress-bar')
+		);
+
+	})();
+
 	// Password
 	(function() {
 

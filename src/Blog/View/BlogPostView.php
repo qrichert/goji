@@ -18,6 +18,9 @@
 					$date = str_replace('%{SEC}', $blogPost['creation_date']['sec'], $date);
 
 				echo $date;
+
+				if (!empty($blogPost['created_by_display_name']))
+					echo " - {$tr->_('BY')} {$blogPost['created_by_display_name']}";
 				?>
 			</p>
 

@@ -50,7 +50,7 @@ class XhrSettingsPasswordController extends XhrControllerAbstract {
 		}
 
 		HttpResponse::JSON([
-			'message' => $tr->_('SETTINGS_FORM_SUCCESS')
+			'message' => $tr->_('SETTINGS_FORM_SUCCESS_PASSWORD_CHANGED')
 		], true);
 	}
 

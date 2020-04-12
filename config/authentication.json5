@@ -58,6 +58,7 @@
 			"any": [
 				"admin",
 				"settings",
+				"xhr-settings-profile",
 				"xhr-settings-password"
 			]
 		},

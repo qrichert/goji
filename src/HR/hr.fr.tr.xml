@@ -101,7 +101,10 @@
 		<segment id="SETTINGS_PAGE_TITLE">Paramètres</segment>
 		<segment id="SETTINGS_PAGE_DESCRIPTION"></segment>
 		<segment id="SETTINGS_MAIN_TITLE">Paramètres</segment>
+		<segment id="SETTINGS_PROFILE">Profil</segment>
 		<segment id="SETTINGS_PASSWORD">Mot de passe</segment>
+
+		<segment id="SETTINGS_FORM_DISPLAY_NAME">Nom d'affichage</segment>
 
 		<segment id="SETTINGS_FORM_CURRENT_PASSWORD">Mot de passe</segment>
 		<segment id="SETTINGS_FORM_CURRENT_PASSWORD_PLACEHOLDER">Mot de passe actuel</segment>
@@ -109,9 +112,11 @@
 		<segment id="SETTINGS_FORM_PASSWORD_PLACEHOLDER">uN-mdp_F0r7@~_</segment>
 		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION">Nouveau mot de passe (encore)</segment>
 		<segment id="SETTINGS_FORM_PASSWORD_CONFIRMATION_PLACEHOLDER">Confirmation</segment>
-		<segment id="SETTINGS_FORM_SUCCESS">Le mot de passe a bien été mis à jour</segment>
-		<segment id="SETTINGS_FORM_ERROR">Le formulaire contient des erreurs</segment>
+		<segment id="SETTINGS_FORM_SUCCESS_PASSWORD_CHANGED">Le mot de passe a bien été mis à jour</segment>
 		<segment id="SETTINGS_FORM_ERROR_WRONG_PASSWORD">Le mot de passe actuel est invalide</segment>
 		<segment id="SETTINGS_FORM_ERROR_PASSWORDS_MUST_MATCH">Les nouveaux mots de passe doivent être identiques</segment>
+
+		<segment id="SETTINGS_FORM_SUCCESS">Vos paramètres ont été enregistrés avec succès</segment>
+		<segment id="SETTINGS_FORM_ERROR">Le formulaire contient des erreurs</segment>
 	</page>
 </translation>
