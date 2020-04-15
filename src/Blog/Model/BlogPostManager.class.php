@@ -188,12 +188,12 @@ class BlogPostManager {
 		if ($offset < 0)
 			$offset = 0;
 
-		$q = "SELECT *, creation_date > DATETIME('NOW') AS hidden FROM g_blog ";
+		$q = "SELECT *, creation_date > :now AS hidden FROM g_blog ";
 		$params = [];
 
 		if (!$this->m_app->getUser()->isLoggedIn()
 		    || !$this->m_app->getMemberManager()->memberIs('editor')) {
-			$q .= "WHERE creation_date <= DATETIME('NOW') ";
+			$q .= "WHERE creation_date <= :now ";
 		} else {
 			$q .= 'WHERE 1 ';
 		}
@@ -207,6 +207,8 @@ class BlogPostManager {
 
 		if ($count > -1) // LIMIT supplied
 			$q .= "LIMIT $count OFFSET $offset ";
+
+		$params['now'] = date('Y-m-d H:i:s');
 
 		return $this->fetchBlogPostsFromDatabase($q, $params, $formatFunction, $formatFunctionParams);
 	}
@@ -265,11 +267,11 @@ class BlogPostManager {
 
 		// Getting the posts
 
-		$q = "SELECT *, creation_date > DATETIME('NOW') AS hidden FROM g_blog WHERE ($query) ";
+		$q = "SELECT *, creation_date > :now AS hidden FROM g_blog WHERE ($query) ";
 
 		if (!$this->m_app->getUser()->isLoggedIn()
 		    || !$this->m_app->getMemberManager()->memberIs('editor')) {
-			$q .= "AND creation_date <= DATETIME('NOW') ";
+			$q .= "AND creation_date <= :now ";
 		}
 
 		if (!empty($locale)) {
@@ -281,6 +283,8 @@ class BlogPostManager {
 
 		if ($count > -1) // LIMIT supplied
 			$q .= "LIMIT $count OFFSET $offset ";
+
+		$params['now'] = date('Y-m-d H:i:s');
 
 		return $this->fetchBlogPostsFromDatabase($q, $params, $formatFunction, $formatFunctionParams);
 	}
@@ -303,7 +307,7 @@ class BlogPostManager {
 					  FROM g_blog
 					  WHERE
 					        creation_date < :blog_post_creation_date
-					    AND creation_date <= DATETIME('NOW')
+					    AND creation_date <= :now
 					    $locale
 					  ORDER BY creation_date DESC
 					  LIMIT 1";
@@ -314,7 +318,7 @@ class BlogPostManager {
 					  FROM g_blog
 					  WHERE
 					        creation_date > :blog_post_creation_date
-					    AND creation_date <= DATETIME('NOW')
+					    AND creation_date <= :now
 				        $locale
 					  ORDER BY creation_date ASC
 					  LIMIT 1";
@@ -322,6 +326,8 @@ class BlogPostManager {
 		} else {
 			return null;
 		}
+
+		$params['now'] = date('Y-m-d H:i:s');
 
 		$query = $this->m_db->prepare($query);
 		$query->execute($params);
@@ -419,6 +425,17 @@ class BlogPostManager {
 			// Update form with new permalink
 			$this->m_form->getInputByName('blog-post[permalink]')->setValue($permalink);
 
+		// Date
+		$date = [];
+		$date['year'] = $this->m_form->getInputByName('blog-post[publication-date][year]')->getValue();
+		$date['month'] = $this->m_form->getInputByName('blog-post[publication-date][month]')->getValue();
+		$date['day'] = $this->m_form->getInputByName('blog-post[publication-date][day]')->getValue();
+		$date['hours'] = $this->m_form->getInputByName('blog-post[publication-date][hours]')->getValue();
+		$date['minutes'] = $this->m_form->getInputByName('blog-post[publication-date][minutes]')->getValue();
+		$date['seconds'] = $this->m_form->getInputByName('blog-post[publication-date][seconds]')->getValue();
+
+		$date = "{$date['year']}-{$date['month']}-{$date['day']} {$date['hours']}:{$date['minutes']}:{$date['seconds']}";
+
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
@@ -433,7 +450,7 @@ class BlogPostManager {
 		$query->execute([
 			'locale' => $locale,
 			'permalink' => $permalink,
-			'creation_date' => date('Y-m-d H:i:s'),
+			'creation_date' => $date,
 			'last_edit_date' => date('Y-m-d H:i:s'),
 			'title' => $title,
 			'post' => $post,
@@ -460,13 +477,14 @@ class BlogPostManager {
 		if ($id === null)
 			$this->m_parent->errorBlogPostDoesNotExist();
 
-		$q = "SELECT *, creation_date > DATETIME('NOW') AS hidden
+		$q = "SELECT *, creation_date > :now AS hidden
 			  FROM g_blog
 			  WHERE " . ($isPermalink ? 'permalink' : 'id') . "=:id";
 
 		$query = $this->m_db->prepare($q);
 		$query->execute([
-			'id' => $id
+			'id' => $id,
+			'now' => date('Y-m-d H:i:s')
 		]);
 
 		$reply = $query->fetch();
@@ -569,18 +587,18 @@ class BlogPostManager {
 		if ($updatePermalink) {
 
 			$q = 'UPDATE g_blog
-				  SET permalink=:permalink, creation_date=:creation_date, title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
+				  SET permalink=:permalink, creation_date=:creation_date, last_edit_date=:last_edit_date, title=:title, post=:post, illustration=:illustration, description=:description
 				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
 
 			$query = $this->m_db->prepare($q);
 			$query->execute([
 				'permalink' => $permalink,
 				'creation_date' => $date,
+				'last_edit_date' => date('Y-m-d H:i:s'),
 				'title' => $title,
 				'post' => $post,
 				'illustration' => $illustration,
 				'description' => $description,
-				'last_edit_date' => date('Y-m-d H:i:s'),
 				'id' => $id
 			]);
 

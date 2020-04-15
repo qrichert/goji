@@ -153,6 +153,7 @@
 							blogPostContainer.appendChild(blogPostPreview);
 
 						let blogPostPreviewLink = document.createElement('a');
+							blogPostPreviewLink.classList.add('blog-posts-list__preview-link');
 							blogPostPreviewLink.href = link;
 							blogPostPreviewLink.textContent = READ_MORE;
 								blogPostPreview.appendChild(blogPostPreviewLink);

@@ -122,6 +122,10 @@
 	padding: var(--gutter-thin) var(--gutter-medium);
 }
 
+#blog__blog-posts-list .blog-posts-list__preview-link {
+	white-space: nowrap;
+}
+
 @media all and (min-width: 470px) {
 	#blog .blog__toolbar {
 		flex-wrap: nowrap;
