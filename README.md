@@ -16,7 +16,7 @@ Installation
 
 1. Download the source files.
    ```sh
-   git clone -–depth 1 https://github.com/qrichert/goji.git <project-name>
+   git clone --depth 1 https://github.com/qrichert/goji.git <project-name>
    rm -rf <project-name>/.git
    ```
 2. Make sure your domain points to the `public` folder (web root).
