@@ -80,7 +80,7 @@ class SimpleTemplate implements RobotsInterface {
 
 	const CONFIG_FILE = ROOT_PATH . '/config/templating.json5';
 
-	const VIEW_PATH = ROOT_PATH . '/src/%{VIEW}.%{FILETYPE}';
+	const VIEW_PATH = ROOT_PATH . '/src/%{VIEW}%{LOCALE}.%{FILETYPE}';
 	const TEMPLATE_PATH = ROOT_PATH . '/template/%{TEMPLATE}.template.%{FILETYPE}';
 
 	const NORMAL = 'normal';
@@ -363,15 +363,39 @@ class SimpleTemplate implements RobotsInterface {
 	 * Returns file path for given View
 	 *
 	 * @param string $view
+	 * @param string $locale
 	 * @param string $fileType
 	 * @return string
 	 */
-	public function getView(string $view, string $fileType = 'php'): string {
+	public function getView(string $view, string $locale = null, string $fileType = 'php'): string {
 
 		$view = AutoLoader::sanitizeView($view, false);
 
 		$view = str_replace('%{VIEW}', $view, self::VIEW_PATH);
 		$view = str_replace('%{FILETYPE}', $fileType, $view);
+
+		if ($locale !== null) {
+
+			// Try with full locale (we expect it to be a full one 'en_US', but if not—'en'—it's fine too)
+			$localizedView = str_replace('%{LOCALE}', ".$locale", $view);
+
+			if (is_file($localizedView)) {
+				$view = $localizedView;
+			} else {
+				// If not found with full locale 'en_US', try with country code only—'en'
+				$locale = mb_substr($locale, 0, 2);
+				$localizedView = str_replace('%{LOCALE}', ".$locale", $view);
+
+				if (is_file($localizedView))
+					$view = $localizedView;
+				else
+					// If still not found, return default without locale
+					$view = str_replace('%{LOCALE}', '', $view); // Don't use locale
+			}
+
+		} else {
+			$view = str_replace('%{LOCALE}', '', $view); // Don't use locale
+		}
 
 		return $view;
 	}

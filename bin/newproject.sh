@@ -85,7 +85,7 @@ then
 	git add . >/dev/null 2>&1
 	git commit -am "Initial commit." >/dev/null 2>&1
 	git checkout -b wip >/dev/null 2>&1
-	git checkout master >/dev/null 2>&1
+	#git checkout master >/dev/null 2>&1
 	# Back to original directory
 	cd $currentDir
 fi
