@@ -103,6 +103,24 @@ class BasicMarkdown {
 	 */
 	public static function listsToHTML(string $text, bool $fakeLists = false): string {
 
+		/*
+		 * Lists after titles can be buggy because the heading function removes the new line after it
+		 * We revert this behaviour for lists so that we can identify them
+		 *
+		 *                          ⌄ Bug here because no new line
+		 * <h2>hello, world!</h2><p>- List item 1
+		 * - List item 2
+		 * ...
+		 *
+		 * Becomes:
+		 *
+		 * <h2>hello, world!</h2><p>
+		 * - List item 1
+		 * - List item 2
+		 * ...
+		 */
+		$text = str_replace('<p>-', "<p>$*£$*£$*£$*£\n-", $text);
+
 		$lines = preg_split('#\R#', $text);
 		$linesCount = count($lines);
 
@@ -184,6 +202,9 @@ class BasicMarkdown {
 
 		$text = str_replace('@@@@@@@@@@', '<', $text);
 		$text = str_replace('€€€€€€€€€€', '>', $text);
+
+		// We can remove the newlines we added now, or else there will be too much space
+		$text = str_replace("<p>$*£$*£$*£$*£\n", '<p>', $text);
 
 		return $text;
 	}
