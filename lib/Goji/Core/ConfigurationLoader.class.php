@@ -2,9 +2,9 @@
 
 namespace Goji\Core;
 
+use Exception;
 use Goji\Parsing\JSON5;
 use Goji\Toolkit\SimpleCache;
-use Exception;
 
 /**
  * Class ConfigurationLoader

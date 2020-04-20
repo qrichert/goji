@@ -3,9 +3,9 @@
 namespace HR\Controller;
 
 use Exception;
+use Goji\Blueprints\XhrControllerAbstract;
 use Goji\Core\App;
 use Goji\Core\HttpResponse;
-use Goji\Blueprints\XhrControllerAbstract;
 use Goji\Form\Form;
 use Goji\HumanResources\MemberManager;
 use Goji\Toolkit\Mail;

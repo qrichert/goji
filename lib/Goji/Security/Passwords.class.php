@@ -2,9 +2,9 @@
 
 namespace Goji\Security;
 
+use Exception;
 use Goji\Core\ConfigurationLoader;
 use Goji\Toolkit\SwissKnife;
-use Exception;
 
 /**
  * Class Passwords

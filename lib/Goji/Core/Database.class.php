@@ -2,8 +2,8 @@
 
 namespace Goji\Core;
 
-use PDO;
 use Exception;
+use PDO;
 
 /**
  * Class Database

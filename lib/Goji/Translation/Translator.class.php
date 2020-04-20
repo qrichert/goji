@@ -2,10 +2,9 @@
 
 namespace Goji\Translation;
 
+use Exception;
 use Goji\Core\App;
 use Goji\Debug\Logger;
-use Goji\Toolkit\SimpleCache;
-use Exception;
 use SimpleXMLElement;
 
 /**

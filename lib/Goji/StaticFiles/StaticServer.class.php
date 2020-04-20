@@ -2,8 +2,8 @@
 
 namespace Goji\StaticFiles;
 
-use Goji\Core\ConfigurationLoader;
 use Exception;
+use Goji\Core\ConfigurationLoader;
 
 /**
  * Class StaticServer

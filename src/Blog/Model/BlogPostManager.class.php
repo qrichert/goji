@@ -3,8 +3,8 @@
 namespace Blog\Model;
 
 use Blog\Controller\BlogControllerAbstract;
-use Goji\Toolkit\SwissKnife;
 use Exception;
+use Goji\Toolkit\SwissKnife;
 use HR\Model\MemberProfile;
 
 /**

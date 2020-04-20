@@ -2,11 +2,11 @@
 
 namespace Goji\Translation;
 
+use Exception;
 use Goji\Core\App;
 use Goji\Core\ConfigurationLoader;
 use Goji\Core\Cookies;
 use Goji\Core\Session;
-use Exception;
 
 /**
  * Class Languages

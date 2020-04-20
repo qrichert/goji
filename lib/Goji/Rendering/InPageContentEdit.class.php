@@ -2,8 +2,8 @@
 
 namespace Goji\Rendering;
 
-use Goji\Core\App;
 use Goji\Blueprints\HtmlAttributesManagerAbstract;
+use Goji\Core\App;
 
 /**
  * Class InPageContentEdit

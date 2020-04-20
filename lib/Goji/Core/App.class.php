@@ -2,6 +2,7 @@
 
 namespace Goji\Core;
 
+use Exception;
 use Goji\HumanResources\Authentication;
 use Goji\HumanResources\HrFactory;
 use Goji\HumanResources\MemberManager;
@@ -9,7 +10,6 @@ use Goji\HumanResources\User;
 use Goji\Translation\Languages;
 use Goji\Translation\Translator;
 use PDO;
-use Exception;
 
 /**
  * Class App

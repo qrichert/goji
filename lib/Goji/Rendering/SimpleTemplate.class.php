@@ -2,10 +2,10 @@
 
 namespace Goji\Rendering;
 
+use Exception;
 use Goji\Blueprints\RobotsInterface;
 use Goji\Core\AutoLoader;
 use Goji\Core\ConfigurationLoader;
-use Exception;
 use Goji\Toolkit\SwissKnife;
 
 /**
