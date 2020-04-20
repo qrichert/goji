@@ -101,3 +101,9 @@ IndexOrderDefault Ascending Name
 # --- REMOVE UNWANTED HEADERS ---
 
 # Header unset <HTTP HEADER>
+
+# --- CHARSET OPTIONS ---
+
+# AddDefaultCharset works only with text/plain and text/html
+AddDefaultCharset utf-8
+AddCharset utf-8 .css .html .js .php .txt .xml
