@@ -134,7 +134,7 @@ class MemberManager {
 		}
 
 		if (!$newRoleExists) {
-			trigger_error("Given role doesn't exist: '$newRole'.", E_USER_WARNING);
+			Logger::warning("Given role doesn't exist: '$newRole'.");
 			return false;
 		}
 
@@ -181,7 +181,7 @@ class MemberManager {
 
 			// Check if identifier exists
 			if (empty($this->m_roles[$roleRequired])) {
-				trigger_error("Given role doesn't exist: '$roleRequired'.", E_USER_WARNING);
+				Logger::warning("Given role doesn't exist: '$roleRequired'.");
 				return false;
 			}
 

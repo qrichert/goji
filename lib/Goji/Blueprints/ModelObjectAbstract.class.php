@@ -4,6 +4,7 @@ namespace Goji\Blueprints;
 
 use Exception;
 use Goji\Core\App;
+use Goji\Debug\Logger;
 
 /**
  * Class ModelObjectAbstract
@@ -55,7 +56,7 @@ abstract class ModelObjectAbstract {
 	/* <CONSTANTS> */
 
 	const E_OBJECT_NOT_FOUND_IN_DATABASE = 0;
-	const E_COLUMN_IS_WRITE_LOCKED = 1;
+	const E_METHOD_DOES_NOT_EXIST = 1;
 
 	/**
 	 * ModelAbstract constructor.
@@ -122,29 +123,37 @@ abstract class ModelObjectAbstract {
 		$this->writeLock($columnsToAffect, false);
 	}
 
+	/**
+	 * @param $name
+	 * @param null $arguments
+	 * @return mixed|void|null
+	 * @throws \Exception
+	 */
 	public function __call($name, $arguments = null) {
 
 		$columnName = mb_substr($name, 3);
 		$method = mb_substr($name, 0, 3); // get || set
 
-		if ($method == 'get')
+		if ($method == 'get') {
 			return $this->get($columnName);
+		} else if ($method == 'set') {
+			$this->set($columnName, $arguments[0] ?? null);
+			return;
+		}
 
-		elseif ($method == 'set')
-			return $this->set($columnName, $arguments[0] ?? null);
-
-		trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+		throw new Exception('Call to undefined method ' . __CLASS__ . '::' . $name . '()', self::E_METHOD_DOES_NOT_EXIST);
 	}
 
 	/**
 	 * @param string $name Column name
-	 * @return bool
+	 * @return mixed|void|null
+	 * @throws \Exception
 	 */
 	protected function get(string $name) {
 
 		// Can't be empty if column exists, always contains associative array with original name and value field
 		if (empty($this->m_data[$name]))
-			trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+			throw new Exception('Call to undefined method ' . __CLASS__ . '::' . $name . '()', self::E_METHOD_DOES_NOT_EXIST);
 
 		return $this->m_data[$name]['value'] ?? null;
 	}
@@ -154,15 +163,16 @@ abstract class ModelObjectAbstract {
 	 * @param null $arguments
 	 * @throws \Exception
 	 */
-	protected function set(string $name, $arguments = null) {
+	protected function set(string $name, $arguments = null): void {
 
 		// Can't be empty if column exists, always contains associative array with original name and value field
 		if (empty($this->m_data[$name]))
-			trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+			throw new Exception('Call to undefined method ' . __CLASS__ . '::' . $name . '()', self::E_METHOD_DOES_NOT_EXIST);
 
-		if ($this->m_data[$name]['locked'])
-			throw new Exception("Column '{$this->m_data[$name]['column']}' is write-locked.", self::E_COLUMN_IS_WRITE_LOCKED);
-
+		if ($this->m_data[$name]['locked']) {
+			Logger::warning("Column '{$this->m_data[$name]['column']}' is write-locked. Value not changed.");
+			return;
+		}
 
 		$this->m_data[$name]['value'] = $arguments;
 		$this->m_data[$name]['modified'] = true;
@@ -179,11 +189,12 @@ abstract class ModelObjectAbstract {
 
 		// Can't be empty if column exists, always contains associative array with original name and value field
 		if (empty($this->m_data[$name]))
-			trigger_error('Call to undefined method ' . __CLASS__ . '::' . $name . '()', E_USER_ERROR);
+			throw new Exception('Call to undefined method ' . __CLASS__ . '::' . $name . '()', self::E_METHOD_DOES_NOT_EXIST);
 
-		if ($this->m_data[$name]['locked'])
-			throw new Exception("Column '{$this->m_data[$name]['column']}' is write-locked.", self::E_COLUMN_IS_WRITE_LOCKED);
-
+		if ($this->m_data[$name]['locked']) {
+			Logger::warning("Column '{$this->m_data[$name]['column']}' is write-locked. Value not changed.");
+			return;
+		}
 
 		$query = $this->m_db->prepare("UPDATE {$this->m_tableName}
 										SET {$this->m_data[$name]['column']}=:new_value

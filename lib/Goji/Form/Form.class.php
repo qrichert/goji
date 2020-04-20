@@ -212,9 +212,9 @@ class Form extends FormObjectAbstract {
 
 			if ($input instanceof InputFile)
 				$inputValue = $_FILES[$matches[0]] ?? null;
-			elseif ($input instanceof InputRadioButton) // Before InputCheckBox because of inheritance
+			else if ($input instanceof InputRadioButton) // Before InputCheckBox because of inheritance
 				$inputValue = $this->getRadioButtonValue($input, $matches, $_POST);
-			elseif ($input instanceof InputCheckBox)
+			else if ($input instanceof InputCheckBox)
 				$inputValue = $this->getCheckBoxValue($matches, $_POST);
 			else
 				$inputValue = $this->getValueFromArrayKeys($matches, $_POST);

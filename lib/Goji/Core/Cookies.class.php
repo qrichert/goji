@@ -65,7 +65,7 @@ class Cookies {
 
 				return true;
 
-			} elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+			} else if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
 			        || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && mb_strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on') {
 
 				return true;

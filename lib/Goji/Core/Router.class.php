@@ -4,6 +4,7 @@ namespace Goji\Core;
 
 use Exception;
 use Goji\Blueprints\HttpStatusInterface;
+use Goji\Debug\Logger;
 use Goji\HumanResources\Authentication;
 use Goji\Parsing\RegexPatterns;
 use Goji\Toolkit\SimpleCache;
@@ -506,8 +507,10 @@ class Router implements HttpStatusInterface {
 		$isPasswordWallPage = $page == 'password-wall';
 
 		// Make sure page exists
-		if (!isset($this->m_routes[$page]) && !$isErrorPage && !$isPasswordWallPage)
-			throw new Exception('Page does not exist: ' . $page, self::E_PAGE_DOES_NOT_EXIST);
+		if (!isset($this->m_routes[$page]) && !$isErrorPage && !$isPasswordWallPage) {
+			Logger::warning("Page does not exist: '$page'. Empty string returned.");
+			return '';
+		}
 
 		if (!isset($locale))
 			$locale = $this->m_app->getLanguages()->getCurrentLocale(); // Current one if none given
@@ -557,8 +560,10 @@ class Router implements HttpStatusInterface {
 
 		// If link was not found, there must be a misconfiguration somewhere,
 		// because we already know that the page exists at this point.
-		if (!isset($link))
-			throw new Exception('Page does not exist: ' . $page, self::E_PAGE_DOES_NOT_EXIST);
+		if (!isset($link)) {
+			Logger::warning("Page does not exist: '$page'. Route may be misconfigured. Empty string returned.");
+			return '';
+		}
 
 		// Remove leading / (/home -> home)
 		$link = mb_substr($link, 1);

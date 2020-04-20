@@ -222,7 +222,7 @@ class SwissKnife {
 				'unit' => self::UNIT_BYTE
 			];
 		}
-		elseif ($bytes < 1000000) {
+		else if ($bytes < 1000000) {
 
 			$bytes = round($bytes / 1000, $precision);
 
@@ -231,7 +231,7 @@ class SwissKnife {
 				'unit' => self::UNIT_KILO_BYTE
 			];
 		}
-		elseif ($bytes < 1000000000) {
+		else if ($bytes < 1000000000) {
 
 			$bytes = round($bytes / 1000000, $precision);
 
@@ -240,7 +240,7 @@ class SwissKnife {
 				'unit' => self::UNIT_MEGA_BYTE
 			];
 		}
-		elseif ($bytes < 1000000000000) {
+		else if ($bytes < 1000000000000) {
 
 			$bytes = round($bytes / 1000000000, $precision);
 

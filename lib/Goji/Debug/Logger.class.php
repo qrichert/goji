@@ -98,4 +98,20 @@ class Logger {
 
 		Logger::log("\t" . implode("\n\t", $result), $output);
 	}
+
+	/**
+	 * Does not stop execution (E_USER_WARNING)
+	 *
+	 * @param string $message
+	 */
+	public static function warning(string $message): void {
+
+		trigger_error($message, E_USER_WARNING);
+
+		$e = new Exception();
+		$trace = explode("\n", $e->getTraceAsString())[1];
+		$trace = preg_replace('/^#1/', 'from', $trace);
+
+		Logger::log($trace, Logger::CONSOLE);
+	}
 }

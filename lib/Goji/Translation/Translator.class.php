@@ -3,6 +3,7 @@
 namespace Goji\Translation;
 
 use Goji\Core\App;
+use Goji\Debug\Logger;
 use Goji\Toolkit\SimpleCache;
 use Exception;
 use SimpleXMLElement;
@@ -356,7 +357,7 @@ class Translator {
 			// and it's just a regular segment
 			// ($count is an associative array of REGEX => STRING)
 			if (!is_array($this->m_segments[$segmentID])) {
-				trigger_error("Segment '$segmentID' doesn't accept count, string returned.", E_USER_WARNING);
+				Logger::warning("Segment '$segmentID' doesn't accept count, string returned.");
 				return $this->m_segments[$segmentID];
 			}
 
@@ -373,12 +374,12 @@ class Translator {
 			if (isset($this->m_segments[$segmentID]['rest'])) {
 				return str_replace('%{COUNT}', $count, $this->m_segments[$segmentID]['rest']);
 			} else {
-				trigger_error("Segment '$segmentID' has no alternative set for '$count' and no default count, ID returned.", E_USER_WARNING);
+				Logger::warning("Segment '$segmentID' has no alternative set for '$count' and no default count, ID returned.");
 				return $segmentID;
 			}
 
 		} else {
-			trigger_error("Undefined segment '$segmentID', ID returned.", E_USER_WARNING);
+			Logger::warning("Undefined segment '$segmentID', ID returned.");
 			return $segmentID;
 		}
 	}

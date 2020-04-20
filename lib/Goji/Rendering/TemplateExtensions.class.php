@@ -75,7 +75,7 @@ class TemplateExtensions {
 			$json = JSON5::decode('{' . $match[1] . '}', true); // Add {}, it's JSON
 
 			if ($json === null) {
-				trigger_error("Book can't be displayed because JSON can't be read. Content returned.", E_USER_WARNING);
+				Logger::warning("Book can't be displayed because JSON can't be read. Content returned.");
 				return $match[1];
 			}
 
