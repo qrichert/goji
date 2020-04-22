@@ -115,7 +115,6 @@ class Terminal {
 //					case self::SHELL_EXEC:  $output = self::shell_exec($command);  break;
 				default:
 					throw new Exception("Command '$forceCommand' doesn't exist", self::E_COMMAND_DOES_NOT_EXIST);
-					break;
 			}
 
 		} else {

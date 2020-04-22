@@ -34,11 +34,12 @@ class ConfigurationLoader {
 		$extension = pathinfo($file, PATHINFO_EXTENSION);
 
 		switch ($extension) {
-			case 'json':    return self::loadJSONFileToArray($file, $useCache);    break;
-			case 'json5':   return self::loadJSON5FileToArray($file, $useCache);   break;
+			case 'json':
+				return self::loadJSONFileToArray($file, $useCache);
+			case 'json5':
+				return self::loadJSON5FileToArray($file, $useCache);
 			default:
 				throw new Exception("Configuration file cannot be read. (" . $file . ")", self::E_FILE_CANNOT_BE_READ);
-				break;
 		}
 	}
 

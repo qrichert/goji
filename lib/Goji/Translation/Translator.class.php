@@ -273,11 +273,14 @@ class Translator {
 					$extension = mb_strtolower($extension);
 
 					switch ($extension) {
-						case 'php': $this->loadPHPConstants($translationResource);                                break;
-						case 'xml': $this->loadXML($translationResource, $currentPage, $loadSegmentsAsConstants); break;
+						case 'php':
+							$this->loadPHPConstants($translationResource);
+							break;
+						case 'xml':
+							$this->loadXML($translationResource, $currentPage, $loadSegmentsAsConstants);
+							break;
 						default:
 							throw new Exception('Resource type not supported: ' . $extension, self::E_RESOURCE_TYPE_NOT_SUPPORTED);
-							break;
 					}
 
 					$translationResourceFound = true;

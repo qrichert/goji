@@ -52,9 +52,12 @@ class Session {
 		$status = session_status();
 
 		switch ($status) {
-			case PHP_SESSION_DISABLED:  return false;           break;
-			case PHP_SESSION_NONE:      return session_start(); break;
-			case PHP_SESSION_ACTIVE:    return true;            break;
+			case PHP_SESSION_DISABLED:
+				return false;
+			case PHP_SESSION_NONE:
+				return session_start();
+			case PHP_SESSION_ACTIVE:
+				return true;
 		}
 
 		return false;
