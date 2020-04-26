@@ -64,10 +64,10 @@
 	*/
 	--burger-menu-height-unfolded: 16.56px;
 
-	--text-size-small: 13px;
-	--text-size-medium: 15px;
-	--text-size-default: 18px;
-	--text-size-big: 21px;
+	--text-size-small: 12px;
+	--text-size-medium: 14px;
+	--text-size-default: 17px;
+	--text-size-big: 20px;
 	--text-size-xbig: 30px;
 	--text-size-xxbig: 45px;
 	--text-size-huge: 60px;
@@ -211,6 +211,17 @@
 	/* Black & White */
 
 	/* filter: grayscale(100%); */
+}
+
+/* <RESPONSIVE> */
+
+@media all and (max-width: 800px){
+	:root {
+		--text-size-small: 13px;
+		--text-size-medium: 15px;
+		--text-size-default: 18px;
+		--text-size-big: 21px;
+	}
 }
 
 /* <ANIMATIONS> */
