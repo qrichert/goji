@@ -5,11 +5,9 @@
 				<img src="<?= $template->rsc('img/placeholder?w=1500&h=1250'); ?>" alt="" class="scalable">
 			</figure>
 			<div>
-				<h2>Lorem ipsum</h2>
+				<h2><?= $tr->_('FOOTER_ABOUT_TITLE'); ?></h2>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab, accusantium ad cum dignissimos
-					dolore ea enim eos est harum, iusto necessitatibus nulla odio possimus sunt ut voluptatum!
-					Blanditiis, perspiciatis.
+					<?= $tr->_('FOOTER_ABOUT'); ?>
 				</p>
 				<p class="call-to-action__wrapper">
 					<a href="#" class="call-to-action smaller transparent"><?= $tr->_('LEARN_MORE'); ?></a>

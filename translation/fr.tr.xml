@@ -59,6 +59,11 @@
 		<segment id="HEADER_HERO_CTA">Un framework full-stack simple pour le web. %{CTA smaller}En savoir plus%{/CTA}</segment>
 
 		<!-- Footer -->
+		<segment id="FOOTER_ABOUT_TITLE">Lorem ipsum</segment>
+		<segment id="FOOTER_ABOUT"><![CDATA[
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab, accusantium ad cum dignissimos dolore ea enim
+			eos est harum, iusto necessitatibus nulla odio possimus sunt ut voluptatum! Blanditiis, perspiciatis.
+		]]></segment>
 		<segment id="FOOTER_GOJI_ON_GITHUB">Goji sur GitHub</segment>
 		<segment id="FOOTER_PRIVACY_AND_TERMS">Mentions Légales</segment>
 		<segment id="FOOTER_LOG_IN">Connexion</segment>
