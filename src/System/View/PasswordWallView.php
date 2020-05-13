@@ -6,7 +6,7 @@
 
 	<section class="centered no-padding h">
 		<?php $form->render(); ?>
-	<section>
+	</section>
 </main>
 
 <?php
