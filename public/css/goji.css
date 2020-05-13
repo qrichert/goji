@@ -187,6 +187,7 @@ pre > code {
 .pre-heading,
 .sub-heading {
 	margin: 0;
+	font-weight: normal;
 	font-family: var(--font-code);
 	font-size: var(--text-size-medium);
 	color: var(--color-text-xxlight);
