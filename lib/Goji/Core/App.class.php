@@ -50,7 +50,7 @@ class App {
 	const DEBUG = 'debug';
 	const RELEASE = 'release';
 
-	const PASSWORD_WALL_COOKIE = 'password-wall-authenticated';
+	const PASSWORD_WALL_COOKIE = 'password-wall';
 
 	const E_NO_LANGUAGES = 0;
 	const E_NO_ROUTER = 1;
@@ -100,9 +100,10 @@ class App {
 
 		// If set, use password wall. If not set or empty, don't use it
 		$this->m_passwordWallPassword = !empty($config['password_wall']) ? (string) $config['password_wall'] : null;
-		// Use it IF password IS set AND cookie IS NOT set
+
+		// Use it IF password IS set AND cookie IS NOT set OR cookie contains wrong password
 		$this->m_showPasswordWall = !empty($this->m_passwordWallPassword)
-		                                && empty(Cookies::get(self::PASSWORD_WALL_COOKIE));
+		                                && Cookies::get(self::PASSWORD_WALL_COOKIE) !== $this->m_passwordWallPassword;
 	}
 
 	/**

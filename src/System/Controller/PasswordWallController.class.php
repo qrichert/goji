@@ -36,7 +36,7 @@ class PasswordWallController extends ControllerAbstract { // Not cached, sends r
 			], false);
 		}
 
-		Cookies::set(App::PASSWORD_WALL_COOKIE, true);
+		Cookies::set(App::PASSWORD_WALL_COOKIE, $this->m_app->getPasswordWallPassword());
 
 		HttpResponse::JSON([], true);
 	}
