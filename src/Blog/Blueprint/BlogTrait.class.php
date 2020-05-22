@@ -3,8 +3,6 @@
 namespace Blog\Blueprint;
 
 use Goji\Rendering\BasicFormatting;
-use Goji\Rendering\TemplateExtensions;
-use Goji\Toolkit\SwissKnife;
 
 trait BlogTrait {
 
@@ -15,27 +13,7 @@ trait BlogTrait {
 	 * @return string
 	 */
 	public static function renderAsHTML(string $content): string {
-
-		// Backup %{CTA}
-		preg_match_all('#%\{CTA(.*)%\{/CTA\}#isU', $content, $hit, PREG_PATTERN_ORDER);
-
-		$hitCount = count($hit[0]);
-		for ($i = 0; $i < $hitCount; $i++) {
-			$content = str_replace($hit[0][$i], '$£$£$£$£$£' . $i . '$£$£$£$£$£', $content);
-		}
-
-		$content = BasicFormatting::formatTextInlineAndEscape($content, true, false);
-
-		// Restore backupped values within single or double quotes
-		for ($i = 0; $i < $hitCount; $i++) {
-			$content = str_replace('$£$£$£$£$£' . $i . '$£$£$£$£$£', $hit[0][$i], $content);
-		}
-
-		$content = TemplateExtensions::ctaToHTML($content, '#', true);
-		$content = TemplateExtensions::embedInstagram($content);
-		$content = TemplateExtensions::embedYouTube($content);
-
-		return $content;
+		return BasicFormatting::renderAsHTML($content);
 	}
 
 	/**
@@ -45,7 +23,7 @@ trait BlogTrait {
 	 * @return string
 	 */
 	public static function renderClean(string $content): string {
-		return strip_tags(self::renderAsHTML($content));
+		return BasicFormatting::renderClean($content);
 	}
 
 	/**
@@ -56,12 +34,6 @@ trait BlogTrait {
 	 * @return string
 	 */
 	public static function renderCleanAndCut(string $content, int $maxLength = 250) {
-
-		$content = self::renderClean($content);
-
-		if (mb_strlen($content) > $maxLength)
-			$content = SwissKnife::ceil_str($content, $maxLength) . '...';
-
-		return $content;
+		return BasicFormatting::renderCleanAndCut($content, $maxLength);
 	}
 }

@@ -65,8 +65,8 @@ class InPageEditableContent extends ModelObjectAbstract {
 			if ($e->getCode() == self::E_OBJECT_NOT_FOUND_IN_DATABASE) {
 
 				$query = $this->m_app->db()->prepare('INSERT INTO g_editable_content
-															( content_id,  page_id,  locale,  content,  last_edit_date,  last_edit_by)
-													 VALUES (:content_id, :page_id, :locale, :content, :last_edit_date, :last_edit_by)');
+														   ( content_id,  page_id,  locale,  content,  last_edit_date,  last_edit_by)
+													VALUES (:content_id, :page_id, :locale, :content, :last_edit_date, :last_edit_by)');
 
 				$query->execute([
 					'content_id' => $this->m_contentId,
