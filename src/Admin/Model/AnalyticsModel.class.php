@@ -91,8 +91,8 @@ class AnalyticsModel {
 	private function savePageViewsToDatabase(string $year, string $month, string $day, string $page, int $nbViews): void {
 
 		$query = $this->m_db->prepare('INSERT INTO g_pageview
-												(snapshot_date,   page,  nb_views)
-										 VALUES (:snapshot_date, :page, :nb_views)');
+											   (snapshot_date,   page,  nb_views)
+										VALUES (:snapshot_date, :page, :nb_views)');
 
 		$query->execute([
 			'snapshot_date' => "$year-$month-$day 00:00:00",

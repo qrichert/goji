@@ -23,12 +23,14 @@
 	<?php if ($this->m_app->getRouter()->getCurrentPage() == 'home'): ?>
 
 		<!-- /!\ Takes retina displays @2x into account -->
-		<img srcset="<?= $template->rsc('../img/placeholder?w=900&h=556&t=Goji'); ?> 900w,
-					 <?= $template->rsc('../img/placeholder?w=1500&h=927&t=Goji'); ?> 1500w,
-					 <?= $template->rsc('../img/placeholder?w=2500&h=1545&t=Goji'); ?> 2500w"
-		     sizes="100vw"
-		     src="<?= $template->rsc('../img/placeholder?w=2500&h=1545&t=Goji'); ?>"
-		     alt="<?= $this->m_app->getSiteName(); ?>">
+		<img
+			srcset="<?= $template->rsc('../img/placeholder?w=900&h=556&t=Goji'); ?> 900w,
+					<?= $template->rsc('../img/placeholder?w=1500&h=927&t=Goji'); ?> 1500w,
+					<?= $template->rsc('../img/placeholder?w=2500&h=1545&t=Goji'); ?> 2500w"
+			sizes="100vw"
+			src="<?= $template->rsc('../img/placeholder?w=2500&h=1545&t=Goji'); ?>"
+			alt="<?= $this->m_app->getSiteName(); ?>"
+		>
 
 		<div class="header__home-hero">
 			<div>

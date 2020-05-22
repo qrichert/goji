@@ -32,6 +32,8 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 	protected $m_editorClass;
 	protected $m_buttonsClass;
 
+	protected $m_savedClasses;
+
 	/**
 	 * InPageContentEdit constructor.
 	 *
@@ -62,6 +64,8 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 		$this->m_editableAreaClass = $this->m_baseClass . '__editable-area';
 		$this->m_editorClass = $this->m_baseClass . '__editor';
 		$this->m_buttonsClass = $this->m_baseClass . '__buttons';
+
+		$this->m_savedClasses = [];
 
 		$this->addClass($this->m_baseClass);
 		$this->setAttribute('data-action', $this->m_app->getRouter()->getLinkForPage('xhr-admin-in-page-content-edit'));
@@ -193,6 +197,20 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 	// }
 
 	/**
+	 * Save current state of classes
+	 */
+	private function saveCurrentClasses(): void {
+		$this->m_savedClasses = $this->m_classes;
+	}
+
+	/**
+	 * Restore saved state of classes
+	 */
+	private function restoreSavedClasses(): void {
+		$this->m_classes = $this->m_savedClasses;
+	}
+
+	/**
 	 * @param string $contentId
 	 * @param string $tagName
 	 * @param array $specialClasses
@@ -200,17 +218,8 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 	 */
 	public function renderContent(string $contentId, string $tagName = 'p', $specialClasses = []) {
 
-		// Make sure it's an array
-		if (!is_array($specialClasses))
-			$specialClasses = explode(' ', (string) $specialClasses);
-
-		// We don't want to toggle those who are already there, only the 'special/unique ones'
-		foreach ($specialClasses as $key => $specialClass) {
-			if ($this->hasClass($specialClass))
-				unset($specialClasses[$key]);
-			else // Add it in the same stint, se we gain a loop
-				$this->addClass($specialClass);
-		}
+		$this->saveCurrentClasses(); // Save current state of classes
+		$this->addClasses($specialClasses);
 
 		// Render JS if first block
 		if ($this->m_nbContentAreasRendered == 0)
@@ -229,12 +238,12 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 		if (!$this->userCanEdit()) {
 
 			$area = <<<EOT
-				<div {$this->renderAttributesNoEdit()}>
-					<{$tagName}>{$formattedContent}</{$tagName}>
-				</div>
+				<{$tagName} {$this->renderAttributesNoEdit()}>{$formattedContent}</{$tagName}>
 				EOT;
 
 			echo $area;
+
+			$this->restoreSavedClasses();
 
 			return;
 		}
@@ -256,7 +265,7 @@ class InPageContentEdit extends HtmlAttributesManagerAbstract {
 			EOT;
 
 		// Now we can remove the classes which are unique to the current in-page editor
-		$this->removeClasses($specialClasses);
+		$this->restoreSavedClasses();
 
 		echo $area;
 	}
