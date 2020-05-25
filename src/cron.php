@@ -1,6 +1,6 @@
 <?php
 
-require_once '../lib/Goji/Goji.php';
+require_once __DIR__ . '/../lib/Goji/Goji.php';
 
 use Goji\Core\Database;
 use Goji\Toolkit\BackUp;
