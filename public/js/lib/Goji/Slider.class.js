@@ -104,6 +104,7 @@
  *      navigation_blocks_default_width: "calc(100% / 3)", // Location of the arrows, by default 1/3 from left/right border (CSS Value)
  *      navigation_blocks_minimum_width: "100px", // Minimum arrow distance from border (CSS Value)
  *      jump_to_first_and_last_image: false // Jump to first beyond last & to last beyond first
+ *      default_focused_index: null // Index of image to focus on page load (ceiled middle index if null, default)
  * });
  *
  * Of course, you can leave out those you want to keep as default:
@@ -171,6 +172,7 @@ class Slider {
 		this.m_navigationBlocksDefaultWidth = this.coalesce(options, 'navigation_blocks_default_width', 'calc(100% / 3)');
 		this.m_navigationBlocksMinimumWidth = this.coalesce(options, 'navigation_blocks_minimum_width', '100px');
 		this.m_jumpToFirstAndLastImage = this.coalesce(options, 'jump_to_first_and_last_image', false);
+		this.m_defaultFocusedIndex = this.coalesce(options, 'default_focused_index', null);
 
 		this.m_images = [];
 		this.m_links = [];
@@ -550,7 +552,10 @@ class Slider {
 		// Images
 		this.resizeImages();
 
-		this.moveTo(this.getMiddleIndex());
+		if (this.m_defaultFocusedIndex !== null)
+			this.moveTo(this.m_defaultFocusedIndex);
+		else
+			this.moveTo(this.getMiddleIndex());
 	}
 
 	/**

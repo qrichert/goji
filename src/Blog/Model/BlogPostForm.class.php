@@ -59,8 +59,8 @@ class BlogPostForm extends Form {
 
 			// Permalink
 			$this->addInput(new InputLabel())
-			     ->setAttribute('for', 'blog-post__permalink')
-			     ->setAttribute('textContent', $tr->_('BLOG_POST_PERMALINK'));
+				 ->setAttribute('for', 'blog-post__permalink')
+				 ->setAttribute('textContent', $tr->_('BLOG_POST_PERMALINK'));
 			$this->addInput(new InputText())
 				 ->setName('blog-post[permalink]')
 				 ->setId('blog-post__permalink')
@@ -68,8 +68,8 @@ class BlogPostForm extends Form {
 
 			// Date
 			$this->addInput(new InputLabel())
-			     ->setAttribute('for', 'blog-post__publication-date--year')
-			     ->setAttribute('textContent', $tr->_('BLOG_POST_DATE'));
+				 ->setAttribute('for', 'blog-post__publication-date--year')
+				 ->setAttribute('textContent', $tr->_('BLOG_POST_DATE'));
 
 			$this->addInput(new InputCustom('<div id="blog-post__publication-date">'));
 
@@ -82,44 +82,44 @@ class BlogPostForm extends Form {
 				$this->addInput(new InputCustom('<span>/</span>'));
 
 				$this->addInput(new InputNumber())
-				     ->setName('blog-post[publication-date][month]')
-				     ->setId('blog-post__publication-date--month')
-				     ->setAttribute('max', 12)
-				     ->setAttribute('min', 1)
+					 ->setName('blog-post[publication-date][month]')
+					 ->setId('blog-post__publication-date--month')
+					 ->setAttribute('max', 12)
+					 ->setAttribute('min', 1)
 					 ->setAttribute('placeholder', date('m'));
 
 				$this->addInput(new InputCustom('<span>/</span>'));
 
 				$this->addInput(new InputNumber())
-				     ->setName('blog-post[publication-date][day]')
-				     ->setId('blog-post__publication-date--day')
-				     ->setAttribute('max', 31)
-				     ->setAttribute('min', 1)
-				     ->setAttribute('placeholder', date('d'));
+					 ->setName('blog-post[publication-date][day]')
+					 ->setId('blog-post__publication-date--day')
+					 ->setAttribute('max', 31)
+					 ->setAttribute('min', 1)
+					 ->setAttribute('placeholder', date('d'));
 
 				$this->addInput(new InputNumber())
-				     ->setName('blog-post[publication-date][hours]')
-				     ->setId('blog-post__publication-date--hours')
-				     ->setAttribute('max', 23)
-				     ->setAttribute('min', 0)
-				     ->setAttribute('placeholder', date('H'));
+					 ->setName('blog-post[publication-date][hours]')
+					 ->setId('blog-post__publication-date--hours')
+					 ->setAttribute('max', 23)
+					 ->setAttribute('min', 0)
+					 ->setAttribute('placeholder', date('H'));
 
 				$this->addInput(new InputCustom('<span>:</span>'));
 
 				$this->addInput(new InputNumber())
-				     ->setName('blog-post[publication-date][minutes]')
-				     ->setId('blog-post__publication-date--minutes')
-				     ->setAttribute('max', 59)
-				     ->setAttribute('min', 0)
-				     ->setAttribute('placeholder', date('i'));
+					 ->setName('blog-post[publication-date][minutes]')
+					 ->setId('blog-post__publication-date--minutes')
+					 ->setAttribute('max', 59)
+					 ->setAttribute('min', 0)
+					 ->setAttribute('placeholder', date('i'));
 
 				$this->addInput(new InputNumber())
-				     ->setName('blog-post[publication-date][seconds]')
-				     ->setId('blog-post__publication-date--seconds')
+					 ->setName('blog-post[publication-date][seconds]')
+					 ->setId('blog-post__publication-date--seconds')
 					 ->addClass('hidden')
-				     ->setAttribute('max', 59)
-				     ->setAttribute('min', 0)
-				     ->setAttribute('placeholder', date('s'));
+					 ->setAttribute('max', 59)
+					 ->setAttribute('min', 0)
+					 ->setAttribute('placeholder', date('s'));
 
 				$this->addInput(new InputCustom(<<<'EOT'
 					<script>
@@ -149,12 +149,12 @@ class BlogPostForm extends Form {
 
 			// Illustration
 			$this->addInput(new InputLabel())
-			     ->setAttribute('for', 'blog-post__illustration')
-			     ->setAttribute('textContent', $tr->_('BLOG_POST_ILLUSTRATION'));
+				 ->setAttribute('for', 'blog-post__illustration')
+				 ->setAttribute('textContent', $tr->_('BLOG_POST_ILLUSTRATION'));
 			$this->addInput(new InputText(null, false, $sanitizeIllustration)) // Can't use URL because we allow %{WEBROOT}/img/img.jpg style links
-			     ->setName('blog-post[illustration]')
-			     ->setId('blog-post__illustration')
-			     ->setAttribute('placeholder', $tr->_('BLOG_POST_ILLUSTRATION_PLACEHOLDER'));
+				 ->setName('blog-post[illustration]')
+				 ->setId('blog-post__illustration')
+				 ->setAttribute('placeholder', $tr->_('BLOG_POST_ILLUSTRATION_PLACEHOLDER'));
 
 			// Description
 			$this->addInput(new InputLabel())
@@ -206,26 +206,26 @@ class BlogPostForm extends Form {
 
 			// Title
 			$this->addInput(new InputLabel())
-			     ->setAttribute('for', 'blog-post__title')
+				 ->setAttribute('for', 'blog-post__title')
 				 ->addClass('required')
-			     ->setAttribute('textContent', $tr->_('BLOG_POST_TITLE'));
-			$this->addInput(new InputText())
-			     ->setName('blog-post[title]')
-			     ->setId('blog-post__title')
-			     ->setAttribute('placeholder', $tr->_('BLOG_POST_TITLE_PLACEHOLDER'))
+				 ->setAttribute('textContent', $tr->_('BLOG_POST_TITLE'));
+			$this->addInput(new InputTextArea())
+				 ->setName('blog-post[title]')
+				 ->setId('blog-post__title')
+				 ->setAttribute('placeholder', $tr->_('BLOG_POST_TITLE_PLACEHOLDER'))
 				 ->setAttribute('required');
 
 			// Post
 			$this->addInput(new InputLabel())
-			     ->setAttribute('for', 'blog-post__post')
-			     ->addClass('required')
-			     ->setAttribute('textContent', $tr->_('BLOG_POST_POST'));
+				 ->setAttribute('for', 'blog-post__post')
+				 ->addClass('required')
+				 ->setAttribute('textContent', $tr->_('BLOG_POST_POST'));
 			$this->addInput(new InputTextArea())
-			     ->setName('blog-post[post]')
-			     ->setId('blog-post__post')
-			     ->addClasses('big content-like')
-			     ->setAttribute('placeholder', $tr->_('BLOG_POST_POST_PLACEHOLDER'))
-			     ->setAttribute('required');
+				 ->setName('blog-post[post]')
+				 ->setId('blog-post__post')
+				 ->addClasses('big content-like')
+				 ->setAttribute('placeholder', $tr->_('BLOG_POST_POST_PLACEHOLDER'))
+				 ->setAttribute('required');
 
 			// Progress
 			$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
