@@ -912,6 +912,10 @@ img.header__logo {
 	text-decoration: none;
 }
 
+.nav__main img {
+	height: 1.4em;
+}
+
 /* Down to 1081px */
 @media all and (min-width: 1081px) {
 
