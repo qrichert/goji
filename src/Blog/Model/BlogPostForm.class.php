@@ -151,7 +151,7 @@ class BlogPostForm extends Form {
 			$this->addInput(new InputLabel())
 				 ->setAttribute('for', 'blog-post__illustration')
 				 ->setAttribute('textContent', $tr->_('BLOG_POST_ILLUSTRATION'));
-			$this->addInput(new InputText(null, false, $sanitizeIllustration)) // Can't use URL because we allow %{WEBROOT}/img/img.jpg style links
+			$this->addInput(new InputText(null, false, $sanitizeIllustration)) // Can't use URL because we allow web://img/img.jpg style links
 				 ->setName('blog-post[illustration]')
 				 ->setId('blog-post__illustration')
 				 ->setAttribute('placeholder', $tr->_('BLOG_POST_ILLUSTRATION_PLACEHOLDER'));

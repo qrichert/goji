@@ -48,7 +48,7 @@ $template->linkFiles([
 				img.alt = '';
 
 				img.addEventListener('click', () => {
-					alert(`%{WEBROOT}${fileName}`)
+					alert(`web:/${fileName}`)
 				}, false);
 
 			uploadsFrame.insertBefore(img, uploadsFrame.firstChild);
@@ -80,7 +80,7 @@ $template->linkFiles([
 					docFrag.appendChild(img);
 
 				img.addEventListener('click', () => {
-					alert(`%{WEBROOT}${upload.path + upload.name}`);
+					alert(`web:/${upload.path + upload.name}`);
 				}, false);
 		}
 

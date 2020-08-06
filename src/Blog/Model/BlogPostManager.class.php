@@ -110,7 +110,7 @@ class BlogPostManager {
 	public function hydrateFormWithExistingBlogPost($id): void {
 
 		// If bad ID, read() will fail
-		$data = $this->read($id, false, true); // Read raw (e.g. don't transform '%{WEBROOT}')
+		$data = $this->read($id, false, true); // Read raw (e.g. don't transform 'web://')
 
 		$date = SwissKnife::dateToComponents($data['creation_date']);
 
@@ -495,7 +495,7 @@ class BlogPostManager {
 			$this->m_parent->errorBlogPostDoesNotExist();
 
 		if (!$raw) {
-			$reply['illustration'] = str_replace('%{WEBROOT}', WEBROOT, $reply['illustration']);
+			$reply['illustration'] = str_replace('web://', WEBROOT . '/', $reply['illustration']);
 			$reply['creation_date'] = SwissKnife::dateToComponents($reply['creation_date']);
 			$reply['last_edit_date'] = SwissKnife::dateToComponents($reply['last_edit_date']);
 			$reply['hidden'] = SwissKnife::sqlBool($reply['hidden']);

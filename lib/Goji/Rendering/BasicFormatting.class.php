@@ -49,7 +49,7 @@ class BasicFormatting {
 		if ($escapeHTML)
 			$text = htmlspecialchars($text);
 
-		$text = str_replace('%{WEBROOT}', WEBROOT, $text);
+		$text = str_replace('web://', WEBROOT . '/', $text);
 
 		$text = BasicMarkdown::headingsToHTML($text, $fakeHeadings); // true = <h1> to <span>
 		$text = BasicMarkdown::inlineToHTML($text);
