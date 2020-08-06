@@ -2,15 +2,21 @@
 
 namespace Blog\Controller\Admin;
 
+use Blog\Model\BlogCategories;
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
 
 class AdminBlogCategories extends ControllerAbstract {
+
 	public function render(): void {
+
 		// Translation
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
+
+		// Form
+		$blogCategoriesForm = new BlogCategories($tr);
 
 		// Template
 		$template = new SimpleTemplate($tr->_('BLOG_CATEGORIES_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
@@ -21,7 +27,7 @@ class AdminBlogCategories extends ControllerAbstract {
 		$template->startBuffer();
 
 		// Getting the view (into buffer)
-		require_once $template->getView('Blog/Admin/BlogCategoriesView');
+		require_once $template->getView('Blog/Admin/AdminBlogCategoriesView');
 
 		// Now the view is accessible as string w/ $template->getPageContent()
 		$template->saveBuffer();

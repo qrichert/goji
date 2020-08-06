@@ -92,5 +92,12 @@
 		<segment id="BLOG_CATEGORIES_PAGE_TITLE">Blog Categories</segment>
 		<segment id="BLOG_CATEGORIES_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_CATEGORIES_MAIN_TITLE">Categories</segment>
+		<segment id="BLOG_CATEGORIES_FORM_HELP_TEXT"><![CDATA[
+			<p>
+				List blog post categories in the field below.<br>
+				One category name per line, empty lines will be ignored.
+			</p>
+		]]></segment>
+		<segment id="BLOG_CATEGORIES_FORM_CATEGORIES_PLACEHOLDER">Category list</segment>
 	</page>
 </translation>

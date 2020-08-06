@@ -92,5 +92,12 @@
 		<segment id="BLOG_CATEGORIES_PAGE_TITLE">Catégories du Blog</segment>
 		<segment id="BLOG_CATEGORIES_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_CATEGORIES_MAIN_TITLE">Catégories</segment>
+		<segment id="BLOG_CATEGORIES_FORM_HELP_TEXT"><![CDATA[
+			<p>
+				Listez les catégories d'articles de blog dans le champ ci-dessous.<br>
+				Un nom de catégorie par ligne, les lignes vides seront ignorées.
+			</p>
+		]]></segment>
+		<segment id="BLOG_CATEGORIES_FORM_CATEGORIES_PLACEHOLDER">Liste des catégories</segment>
 	</page>
 </translation>
