@@ -48,6 +48,7 @@
 				"admin-blog-post",
 				"xhr-admin-blog-post",
 				"admin-blog-categories",
+				"xhr-admin-blog-categories",
 				"admin-contact",
 				"xhr-admin-contact"
 			],

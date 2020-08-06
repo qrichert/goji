@@ -25,7 +25,7 @@ class XhrBlogSearchController extends BlogControllerAbstract {
 			$this->m_app->getRouter()->redirectTo($this->m_app->getRouter()->getLinkForPage('home'));
 	}
 
-	private function treatForm(Form $form) {
+	private function treatForm(Form $form): void {
 
 		$tr = $this->m_app->getTranslator();
 

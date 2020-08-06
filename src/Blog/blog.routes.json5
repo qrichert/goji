@@ -23,6 +23,10 @@
 	},
 	"admin-blog-categories": {
 		route: "/admin/blog-categories",
-		controller: "Blog/Admin/AdminBlogCategories"
+		controller: "Blog/Admin/AdminBlogCategoriesController"
 	},
+	"xhr-admin-blog-categories": {
+		route: "/admin/xhr-blog-categories",
+		controller: "Blog/Admin/XhrAdminBlogCategoriesController"
+	}
 }

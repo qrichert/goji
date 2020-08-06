@@ -24,11 +24,14 @@ class TagManager {
 		// Removing doubles
 		$tagsArray = array_unique($tagsArray, SORT_STRING);
 
-		// Converting tags to String
+		// Converting tags to String and trimming them (remove white space around)
 		foreach ($tagsArray as &$tag) {
-			$tag = (string) $tag;
+			$tag = (string) trim($tag);
 		}
 		unset($tag);
+
+		// Remove empty items
+		$tagsArray = array_filter($tagsArray, function($el) { return !empty($el); });
 
 		if ($sort)
 			sort($tagsArray); // Sorting to alphabetical order

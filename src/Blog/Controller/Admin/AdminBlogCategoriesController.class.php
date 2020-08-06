@@ -7,7 +7,7 @@ use Goji\Blueprints\ControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
 
-class AdminBlogCategories extends ControllerAbstract {
+class AdminBlogCategoriesController extends ControllerAbstract {
 
 	public function render(): void {
 
@@ -16,7 +16,8 @@ class AdminBlogCategories extends ControllerAbstract {
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
 		// Form
-		$blogCategoriesForm = new BlogCategories($tr);
+		// TODO: /!\ Hydrate according to locale !!!
+		$blogCategoriesForm = new BlogCategories($tr, $this->m_app);
 
 		// Template
 		$template = new SimpleTemplate($tr->_('BLOG_CATEGORIES_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),

@@ -11,7 +11,7 @@ use Goji\Translation\Translator;
 
 class XhrAddMemberController extends XhrControllerAbstract {
 
-	private function treatForm(Form $form) {
+	private function treatForm(Form $form): void {
 
 		$tr = $this->m_app->getTranslator();
 

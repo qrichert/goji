@@ -88,7 +88,7 @@
 			</p>
 		]]></segment>
 	</page>
-	<page id="admin-blog-categories">
+	<page id="(xhr-)?admin-blog-categories">
 		<segment id="BLOG_CATEGORIES_PAGE_TITLE">Blog Categories</segment>
 		<segment id="BLOG_CATEGORIES_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_CATEGORIES_MAIN_TITLE">Categories</segment>
@@ -99,5 +99,6 @@
 			</p>
 		]]></segment>
 		<segment id="BLOG_CATEGORIES_FORM_CATEGORIES_PLACEHOLDER">Category list</segment>
+		<segment id="BLOG_CATEGORIES_FORM_ERROR">Error while updating. Please try again later.</segment>
 	</page>
 </translation>

@@ -12,7 +12,7 @@ use Goji\Translation\Translator;
 
 class XhrUploadController extends XhrControllerAbstract {
 
-	private function treatForm(Form $form) {
+	private function treatForm(Form $form): void {
 
 		$tr = $this->m_app->getTranslator();
 

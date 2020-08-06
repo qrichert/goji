@@ -11,7 +11,7 @@ use Goji\Translation\Translator;
 
 class XhrAnalyticsController extends XhrControllerAbstract {
 
-	private function treatForm(Form $form) {
+	private function treatForm(Form $form): void {
 
 		$detail = [];
 

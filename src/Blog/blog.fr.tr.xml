@@ -88,7 +88,7 @@
 			</p>
 		]]></segment>
 	</page>
-	<page id="admin-blog-categories">
+	<page id="(xhr-)?admin-blog-categories">
 		<segment id="BLOG_CATEGORIES_PAGE_TITLE">Catégories du Blog</segment>
 		<segment id="BLOG_CATEGORIES_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_CATEGORIES_MAIN_TITLE">Catégories</segment>
@@ -99,5 +99,6 @@
 			</p>
 		]]></segment>
 		<segment id="BLOG_CATEGORIES_FORM_CATEGORIES_PLACEHOLDER">Liste des catégories</segment>
+		<segment id="BLOG_CATEGORIES_FORM_ERROR">Erreur lors de la mise à jour. Veuillez réessayer plus tard.</segment>
 	</page>
 </translation>
