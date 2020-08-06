@@ -24,7 +24,7 @@
 		<segment id="BLOG_POST_BACK_TO_BLOG_POSTS">← Retourner à la liste des articles</segment>
 	</page>
 	<page id="(xhr-)?admin-blog-post">
-		<segment id="BLOG_POST_PAGE_TITLE">Blog Post</segment>
+		<segment id="BLOG_POST_PAGE_TITLE">Article de Blog</segment>
 		<segment id="BLOG_POST_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_POST_MAIN_TITLE">
 			<option id="create">Nouvel article</option>
@@ -87,5 +87,10 @@
 				&nbsp;&nbsp; <strong>###### Titre 6</strong>
 			</p>
 		]]></segment>
+	</page>
+	<page id="admin-blog-categories">
+		<segment id="BLOG_CATEGORIES_PAGE_TITLE">Catégories du Blog</segment>
+		<segment id="BLOG_CATEGORIES_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_CATEGORIES_MAIN_TITLE">Catégories</segment>
 	</page>
 </translation>

@@ -12,6 +12,7 @@ use Goji\Translation\Translator;
 class AdminController extends ControllerAbstract {
 
 	private $m_contactUnopenedMailCount;
+	private $m_useBlog;
 	private $m_useGit;
 	private $m_terminalPath;
 
@@ -21,6 +22,9 @@ class AdminController extends ControllerAbstract {
 
 		// Contact, unopened mail
 		$this->m_contactUnopenedMailCount = (new ContactManager($this->m_app))->getUnopenedMailCount();
+
+		// Blog
+		$this->m_useBlog = array_key_exists('blog', $this->m_app->getRouter()->getRoutesAvailable());
 
 		// Git
 		$this->m_useGit = is_dir('../.git');

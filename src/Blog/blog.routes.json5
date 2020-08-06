@@ -20,5 +20,9 @@
 	"xhr-admin-blog-post": {
 		route: "/admin/xhr-blog-post",
 		controller: "Blog/Admin/XhrAdminBlogPostController"
-	}
+	},
+	"admin-blog-categories": {
+		route: "/admin/blog-categories",
+		controller: "Blog/Admin/AdminBlogCategories"
+	},
 }

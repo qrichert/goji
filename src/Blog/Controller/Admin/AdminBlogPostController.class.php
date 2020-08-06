@@ -53,7 +53,7 @@ class AdminBlogPostController extends BlogAdminControllerAbstract {
 		}
 
 		// Template
-		$template = new SimpleTemplate($tr->_('BLOG_POST_PAGE_TITLE'),
+		$template = new SimpleTemplate($tr->_('BLOG_POST_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 									   $tr->_('BLOG_POST_PAGE_DESCRIPTION'),
 									   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 			$template->addSpecial('is-focus-page', true);

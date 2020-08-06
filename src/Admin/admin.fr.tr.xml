@@ -13,9 +13,10 @@
 		<segment id="ADMIN_SECTION_ROOT">Root</segment>
 		<segment id="ADMIN_ACTION_SETTINGS">Déconnexion</segment>
 		<segment id="ADMIN_ACTION_LOG_OUT">Paramètres</segment>
+		<segment id="ADMIN_ACTION_CONTACT">Contact</segment>
 		<segment id="ADMIN_ACTION_UPLOAD">Upload</segment>
 		<segment id="ADMIN_ACTION_NEW_BLOG_POST">Nouvel article</segment>
-		<segment id="ADMIN_ACTION_CONTACT">Contact</segment>
+		<segment id="ADMIN_ACTION_EDIT_BLOG_CATEGORIES">Catégories</segment>
 		<segment id="ADMIN_DISK_SPACE_USED">Espace disque utilisé :</segment>
 		<segment id="ADMIN_ACTION_ADD_MEMBER">Nouv. membre</segment>
 		<segment id="ADMIN_ACTION_BACK_UP_DATABASE">Back-up BDD</segment>

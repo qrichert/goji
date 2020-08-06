@@ -47,6 +47,7 @@
 				"xhr-admin-disk-space-usage",
 				"admin-blog-post",
 				"xhr-admin-blog-post",
+				"admin-blog-categories",
 				"admin-contact",
 				"xhr-admin-contact"
 			],

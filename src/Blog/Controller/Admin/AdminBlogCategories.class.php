@@ -1,34 +1,27 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace Blog\Controller\Admin;
 
-use App\Model\ContactManager;
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
 
-class AdminContactController extends ControllerAbstract {
-
+class AdminBlogCategories extends ControllerAbstract {
 	public function render(): void {
-
 		// Translation
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-		$contactManager = new ContactManager($this->m_app);
-			$messages = $contactManager->getMail(0, -1);
-			$contactManager->markAllAsOpened();
-
 		// Template
-		$template = new SimpleTemplate($tr->_('ADMIN_CONTACT_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
-									   $tr->_('ADMIN_CONTACT_PAGE_DESCRIPTION'),
+		$template = new SimpleTemplate($tr->_('BLOG_CATEGORIES_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
+									   $tr->_('BLOG_CATEGORIES_PAGE_DESCRIPTION'),
 									   SimpleTemplate::ROBOTS_NOINDEX_NOFOLLOW);
 			$template->addSpecial('is-focus-page', true);
 
 		$template->startBuffer();
 
 		// Getting the view (into buffer)
-		require_once $template->getView('App/Admin/AdminContactView');
+		require_once $template->getView('Blog/Admin/BlogCategoriesView');
 
 		// Now the view is accessible as string w/ $template->getPageContent()
 		$template->saveBuffer();

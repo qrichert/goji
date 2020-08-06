@@ -88,4 +88,9 @@
 			</p>
 		]]></segment>
 	</page>
+	<page id="admin-blog-categories">
+		<segment id="BLOG_CATEGORIES_PAGE_TITLE">Blog Categories</segment>
+		<segment id="BLOG_CATEGORIES_PAGE_DESCRIPTION"></segment>
+		<segment id="BLOG_CATEGORIES_MAIN_TITLE">Categories</segment>
+	</page>
 </translation>
