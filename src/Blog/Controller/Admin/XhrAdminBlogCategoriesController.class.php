@@ -7,7 +7,7 @@ use Blog\Model\BlogManager;
 use Goji\Blueprints\XhrControllerAbstract;
 use Goji\Core\HttpResponse;
 use Goji\Form\Form;
-use Goji\Toolkit\TagManager;
+use Goji\Toolkit\SwissKnife;
 use Goji\Translation\Translator;
 
 class XhrAdminBlogCategoriesController extends XhrControllerAbstract {
@@ -26,14 +26,42 @@ class XhrAdminBlogCategoriesController extends XhrControllerAbstract {
 			], false);
 		}
 
-		$categories = $form->getInputByName('blog-categories[categories]')->getValue();
+		$categories = [];
 
-		// Cleaning categories to sorted array of unique values
-		$categories = preg_split('#\R#', $categories); // Split by lines
-		$categories = TagManager::sanitizeTags($categories);
+		if (!empty($_POST['blog-categories__categories']['id'])
+			&& !empty($_POST['blog-categories__categories']['name'])) {
 
-		$blogManager = new BlogManager($this->m_app);
-			$blogManager->setCategories($categories);
+			$categories = SwissKnife::zip(
+				$_POST['blog-categories__categories']['id'],
+				$_POST['blog-categories__categories']['name'],
+				['id', 'name']
+			);
+
+			// TODO: put that sanitation in BlogManager
+			foreach ($categories as &$category) {
+				// Make ID integer or null if none (new category)
+				$category['id'] = !empty($category['id']) ? (int) $category['id'] : null;
+				// Clean category name
+				$category['name'] = (string) $category['name'];
+				$category['name'] = trim($category['name']);
+				$category['name'] = preg_replace(\Goji\Parsing\RegexPatterns::whiteSpace(), ' ', $category['name']);
+			}
+			unset($category);
+		}
+
+		\Goji\Debug\Logger::dump($categories);
+
+		// Give new category to blog manager, it will save them,
+		// then fetch them using SQL to sort & shit so it's same order as what will be show everywhere else
+		// + most important WITH IDs
+		// DELETE FROM categories WHERE locale = currentLocale AND id NOT IN(all ids)
+		// foreach:
+		//     if ID: UPDATE categories, SET name = newname WHERE id=ID
+		//     if NO ID: INSERT INTO categories NEW CATEGORY
+		// Then send them back to update order in interface
+
+		// $blogManager = new BlogManager($this->m_app);
+		// 	$blogManager->setCategories($categories);
 
 		HttpResponse::JSON([
 			'categories' => $categories

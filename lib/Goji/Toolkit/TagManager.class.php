@@ -26,7 +26,8 @@ class TagManager {
 
 		// Converting tags to String and trimming them (remove white space around)
 		foreach ($tagsArray as &$tag) {
-			$tag = (string) trim($tag);
+			$tag = (string) $tag;
+			$tag = trim($tag);
 		}
 		unset($tag);
 

@@ -330,12 +330,12 @@ class Form extends FormObjectAbstract {
 	/**
 	 * Select an input by looking for its ID
 	 *
-	 * $this->m_form->getInputByID('login__password')->render();
+	 * $this->m_form->getInputById('login__password')->render();
 	 *
 	 * @param string $id
 	 * @return \Goji\Form\FormElementAbstract|null
 	 */
-	public function getInputByID(string $id): ?FormElementAbstract {
+	public function getInputById(string $id): ?FormElementAbstract {
 		return $this->getInputBy('id', $id);
 	}
 }

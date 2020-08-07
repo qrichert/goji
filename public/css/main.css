@@ -150,6 +150,27 @@ body#verify-email {
 	}
 }
 
+/* <CATEGORIES> */
+
+#blog-categories__interface {
+	border: 1px solid red;
+	/*max-width: 400px;*/
+}
+
+#blog-categories__interface input {
+	width: 100%;
+}
+
+.blog-categories__delete-category {
+	margin: 0;
+	text-align: right;
+}
+
+.blog-categories__delete-category > a{
+	color: var(--color-invalid);
+	font-size: var(--text-size-small);
+}
+
 /* <PRIVACY & TERMS> */
 
 body#privacy-and-terms    { counter-reset: h1; /********************/ }

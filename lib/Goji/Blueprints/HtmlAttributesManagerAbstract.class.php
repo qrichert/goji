@@ -323,11 +323,11 @@ abstract class HtmlAttributesManagerAbstract {
 	 * action="#" method="post" etc.
 	 *
 	 * @param bool $skipValueAttribute
-	 * @param bool $addSlashes
+	 * @param bool $replaceQuotsWithHtmlEntity
 	 * @param string|array $dontRender
 	 * @return string
 	 */
-	public function renderAttributes(bool $skipValueAttribute = false, bool $addSlashes = true, $dontRender = []): string {
+	public function renderAttributes(bool $skipValueAttribute = false, bool $replaceQuotsWithHtmlEntity = true, $dontRender = []): string {
 
 		$dontRender = (array) $dontRender;
 
@@ -355,8 +355,8 @@ abstract class HtmlAttributesManagerAbstract {
 				&& empty($value)
 			);
 
-			if (!$empty && $addSlashes)
-				$attr .= ' ' . $key . '="' . addcslashes($value, '"') . '"';
+			if (!$empty && $replaceQuotsWithHtmlEntity)
+				$attr .= ' ' . $key . '="' . str_replace('"', '&quot;', $value) . '"';
 			else if (!$empty)
 				$attr .= ' ' . $key . '="' . $value . '"';
 			else

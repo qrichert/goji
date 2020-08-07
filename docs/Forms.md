@@ -30,7 +30,7 @@ optional parameters (that can also be set later via the setters): `action`,
   that has the specified attribute with the specified value.
 - `getInputByName(string $name): ?FormElementAbstract`, shortcut to the previous one that
   queries the `name` attribute.
-- `getInputByID(string $id): ?FormElementAbstract`, same but but the `id` attribute.
+- `getInputById(string $id): ?FormElementAbstract`, same but but the `id` attribute.
 
 To add inputs to the form, use the `addInput(FormElementAbstract $input): FormElementAbstract`
 method. This method accepts an input as parameter and returns it.

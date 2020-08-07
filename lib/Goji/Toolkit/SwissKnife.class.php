@@ -402,4 +402,49 @@ class SwissKnife {
 
 		return $fileType;
 	}
+
+	/**
+	 * Zips two arrays together Python-like
+	 *
+	 * Array1: [1, 7, 9]
+	 * Array2: ['Health', 'Travel', 'Beauty']
+	 *
+	 * => [
+	 *     [1, 'Health'],
+	 *     [7, 'Travel'],
+	 *     [6, 'Beauty'],
+	 * ]
+	 *
+	 * If you specify keys (ex: ['id', 'name']) it will output associative arrays with given keys :
+	 *
+	 * => [
+	 *     ['id' => 1, 'name' => 'Health'],
+	 *     ['id' => 7, 'name' => 'Travel'],
+	 *     ['id' => 6, 'name' => 'Beauty'],
+	 * ]
+	 *
+	 * @param array $array1
+	 * @param array $array2
+	 * @param array|null $keys List array of two values [$keyForArray1, $keyForArray2]
+	 * @return array
+	 */
+	public static function zip(array $array1, array $array2, array $keys = null): array {
+
+		$shortestArrayLength = min(count($array1), count($array2));
+		$zippedArray = [];
+
+		for ($i = 0; $i < $shortestArrayLength; $i++) {
+
+			if ($keys !== null) {
+				$zippedArray[] = [
+					$keys[0] => $array1[$i],
+					$keys[1] => $array2[$i],
+				];
+			} else {
+				$zippedArray[] = [$array1[$i], $array2[$i]];
+			}
+		}
+
+		return $zippedArray;
+	}
 }

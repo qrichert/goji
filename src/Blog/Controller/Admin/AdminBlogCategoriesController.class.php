@@ -18,6 +18,10 @@ class AdminBlogCategoriesController extends ControllerAbstract {
 		// Form
 		// TODO: /!\ Hydrate according to locale !!!
 		$blogCategoriesForm = new BlogCategories($tr, $this->m_app);
+			$blogCategoriesForm->getInputById('blog-categories__categories')->setValue(json_encode([
+				['id' => 1, 'name' => 'Food'],
+				['id' => 2, 'name' => 'Health'],
+			]));
 
 		// Template
 		$template = new SimpleTemplate($tr->_('BLOG_CATEGORIES_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),

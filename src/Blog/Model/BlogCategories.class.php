@@ -6,7 +6,8 @@ use Goji\Core\App;
 use Goji\Form\Form;
 use Goji\Form\InputButtonElement;
 use Goji\Form\InputCustom;
-use Goji\Form\InputTextArea;
+use Goji\Form\InputHidden;
+use Goji\Form\InputText;
 use Goji\Translation\Translator;
 
 class BlogCategories extends Form {
@@ -20,11 +21,11 @@ class BlogCategories extends Form {
 
 			$this->addInput(new InputCustom($tr->_('BLOG_CATEGORIES_FORM_HELP_TEXT')));
 			$this->addInput(new InputCustom('<p class="form__error"></p>'));
-			$this->addInput(new InputTextArea())
-				 ->setName('blog-categories[categories]')
-				 ->setId('blog-categories__categories')
-				 ->setAttribute('placeholder', $tr->_('BLOG_CATEGORIES_FORM_CATEGORIES_PLACEHOLDER'))
-				 ->setAttribute('autofocus');
+			$this->addInput(new InputCustom('<div id="blog-categories__interface"></div>'));
+			$this->addInput(new InputCustom('<a id="blog-categories__add-category">+ ' . $tr->_('BLOG_CATEGORIES_FORM_NEW_CATEGORY') . '</a>'));
+			$this->addInput(new \Goji\Form\InputTextArea())
+			// $this->addInput(new InputHidden())
+				 ->setId('blog-categories__categories');
 			$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 			$this->addInput(new InputButtonElement())
 			     ->addClass('highlight loader')

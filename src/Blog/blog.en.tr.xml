@@ -98,7 +98,8 @@
 				One category name per line, empty lines will be ignored.
 			</p>
 		]]></segment>
-		<segment id="BLOG_CATEGORIES_FORM_CATEGORIES_PLACEHOLDER">Category list</segment>
 		<segment id="BLOG_CATEGORIES_FORM_ERROR">Error while updating. Please try again later.</segment>
+		<segment id="BLOG_CATEGORIES_FORM_NEW_CATEGORY">Add category</segment>
+		<segment id="BLOG_CATEGORIES_FORM_CATEGORY_INPUT_PLACEHOLDER">Category name</segment>
 	</page>
 </translation>
