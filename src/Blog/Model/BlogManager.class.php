@@ -14,25 +14,111 @@ class BlogManager {
 		$this->m_app = $app;
 	}
 
+	/**
+	 * @return array
+	 * @throws \Exception
+	 */
+	public function getCategories(): array {
+
+		$query = $this->m_app->getDatabase()->prepare('SELECT id, name
+														FROM g_blog_category
+														WHERE locale=:locale
+														ORDER BY name');
+
+		$query->execute([
+			'locale' => $this->m_app->getLanguages()->getCurrentLocale()
+		]);
+
+		$reply = $query->fetchAll();
+
+		$query->closeCursor();
+
+		return $reply;
+	}
+
+	/**
+	 * @param array $categories
+	 * @return bool
+	 * @throws \Exception
+	 */
 	public function setCategories(array $categories): bool {
 
-		\Goji\Debug\Logger::log($categories);
+	// 1: Sanitation
 
-		$currentLocale = $this->m_app->getLanguages()->getCurrentLocale();
-
-		\Goji\Debug\Logger::log($currentLocale);
-
-		// Calculate fingerprint for each category
 		foreach ($categories as &$category) {
-			$category = [
-				'label' => $category,
-				'fingerprint' => md5($category),
-			];
+			// Make ID integer or null if none (new category)
+			$category['id'] = !empty($category['id']) ? (int) $category['id'] : null;
+			// Clean category name
+			$category['name'] = (string) $category['name'];
+			$category['name'] = trim($category['name']);
+			$category['name'] = preg_replace(\Goji\Parsing\RegexPatterns::whiteSpace(), ' ', $category['name']);
 		}
 		unset($category);
 
+	// 2: Delete categories that no longer exist in new list
 
-		\Goji\Debug\Logger::log($categories);
+		// $ids = array_column($categories, 'id'); --> No, we want to sanitize it first
+		$ids = [];
+
+		foreach ($categories as $category) {
+			if (!empty($category['id']))
+				$ids[] = $category['id'];
+		}
+
+		$query = 'DELETE FROM g_blog_category
+					WHERE locale=:locale ';
+
+		// If $ids empty, just delete all of them
+		if (!empty($ids))
+			$query .= 'AND id NOT IN (' . implode(', ', $ids) . ')';
+
+		$query = $this->m_app->getDatabase()->prepare($query);
+
+		$query->execute([
+			'locale' => $this->m_app->getLanguages()->getCurrentLocale()
+		]);
+
+	// 3: Delete links between categories and blog posts when category doesn't exist
+		// DELETE FROM g_blog_category_post WHERE category_id NOT IN (SELECT id FROM blog_category)
+		// TODO: Same when deleting blog post: DELETE FROM g_blog_category_post WHERE post_id=:id
+
+		$query->closeCursor();
+
+		foreach ($categories as $category) {
+
+			if (empty($category['name']))
+				continue;
+
+	// 4.a Already exists in DB -> UPDATE
+			if (!empty($category['id'])) {
+
+				$query = $this->m_app->getDatabase()->prepare('UPDATE g_blog_category
+																SET name=:name
+																WHERE id=:id');
+
+				$query->execute([
+					'name' => $category['name'],
+					'id' => $category['id']
+				]);
+
+				$query->closeCursor();
+
+	// 4.b Doesn't exist in DB -> INSERT
+			} else {
+
+				$query = $this->m_app->getDatabase()->prepare('INSERT INTO g_blog_category
+																		( id,  locale,  name)
+																 VALUES (:id, :locale, :name)');
+
+				$query->execute([
+					'id' => $category['id'],
+					'locale' => $this->m_app->getLanguages()->getCurrentLocale(),
+					'name' => $category['name'],
+				]);
+
+				$query->closeCursor();
+			}
+		}
 
 		return true;
 	}

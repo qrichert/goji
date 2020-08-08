@@ -36,35 +36,13 @@ class XhrAdminBlogCategoriesController extends XhrControllerAbstract {
 				$_POST['blog-categories__categories']['name'],
 				['id', 'name']
 			);
-
-			// TODO: put that sanitation in BlogManager
-			foreach ($categories as &$category) {
-				// Make ID integer or null if none (new category)
-				$category['id'] = !empty($category['id']) ? (int) $category['id'] : null;
-				// Clean category name
-				$category['name'] = (string) $category['name'];
-				$category['name'] = trim($category['name']);
-				$category['name'] = preg_replace(\Goji\Parsing\RegexPatterns::whiteSpace(), ' ', $category['name']);
-			}
-			unset($category);
 		}
 
-		\Goji\Debug\Logger::dump($categories);
-
-		// Give new category to blog manager, it will save them,
-		// then fetch them using SQL to sort & shit so it's same order as what will be show everywhere else
-		// + most important WITH IDs
-		// DELETE FROM categories WHERE locale = currentLocale AND id NOT IN(all ids)
-		// foreach:
-		//     if ID: UPDATE categories, SET name = newname WHERE id=ID
-		//     if NO ID: INSERT INTO categories NEW CATEGORY
-		// Then send them back to update order in interface
-
-		// $blogManager = new BlogManager($this->m_app);
-		// 	$blogManager->setCategories($categories);
+		$blogManager = new BlogManager($this->m_app);
+			$blogManager->setCategories($categories);
 
 		HttpResponse::JSON([
-			'categories' => $categories
+			'categories' => $blogManager->getCategories()
 		], true);
 	}
 

@@ -74,8 +74,7 @@ $template->linkFiles([
 					docFrag.appendChild(categoryWrapper);
 
 					let categoryId = document.createElement('input');
-						categoryId.type = 'text';
-						// categoryId.type = 'hidden';
+						categoryId.type = 'hidden';
 						categoryId.name = 'blog-categories__categories[id][]';
 						categoryId.value = category !== null ? category.id : null;
 							categoryWrapper.appendChild(categoryId);

@@ -3,6 +3,7 @@
 namespace Blog\Controller\Admin;
 
 use Blog\Model\BlogCategories;
+use Blog\Model\BlogManager;
 use Goji\Blueprints\ControllerAbstract;
 use Goji\Rendering\SimpleTemplate;
 use Goji\Translation\Translator;
@@ -15,13 +16,11 @@ class AdminBlogCategoriesController extends ControllerAbstract {
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
+		$blogManager = new BlogManager($this->m_app);
+
 		// Form
-		// TODO: /!\ Hydrate according to locale !!!
 		$blogCategoriesForm = new BlogCategories($tr, $this->m_app);
-			$blogCategoriesForm->getInputById('blog-categories__categories')->setValue(json_encode([
-				['id' => 1, 'name' => 'Food'],
-				['id' => 2, 'name' => 'Health'],
-			]));
+			$blogCategoriesForm->getInputById('blog-categories__categories')->setValue(json_encode($blogManager->getCategories()));
 
 		// Template
 		$template = new SimpleTemplate($tr->_('BLOG_CATEGORIES_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),

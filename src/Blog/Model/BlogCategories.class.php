@@ -7,7 +7,6 @@ use Goji\Form\Form;
 use Goji\Form\InputButtonElement;
 use Goji\Form\InputCustom;
 use Goji\Form\InputHidden;
-use Goji\Form\InputText;
 use Goji\Translation\Translator;
 
 class BlogCategories extends Form {
@@ -17,14 +16,15 @@ class BlogCategories extends Form {
 		parent::__construct();
 
 		$this->setAction($app->getRouter()->getLinkForPage('xhr-admin-blog-categories'));
-		$this->setId('form__blog-categories');
+
+		$this->addClass('settings')
+			 ->setId('form__blog-categories');
 
 			$this->addInput(new InputCustom($tr->_('BLOG_CATEGORIES_FORM_HELP_TEXT')));
 			$this->addInput(new InputCustom('<p class="form__error"></p>'));
 			$this->addInput(new InputCustom('<div id="blog-categories__interface"></div>'));
 			$this->addInput(new InputCustom('<a id="blog-categories__add-category">+ ' . $tr->_('BLOG_CATEGORIES_FORM_NEW_CATEGORY') . '</a>'));
-			$this->addInput(new \Goji\Form\InputTextArea())
-			// $this->addInput(new InputHidden())
+			$this->addInput(new InputHidden())
 				 ->setId('blog-categories__categories');
 			$this->addInput(new InputCustom('<div class="progress-bar"><div class="progress"></div></div>'));
 			$this->addInput(new InputButtonElement())

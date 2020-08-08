@@ -32,8 +32,10 @@ class BlogController extends BlogControllerAbstract {
 		$blogPostManager = new BlogPostManager($this);
 		$blogPosts = $blogPostManager->getBlogPosts(0,
 		                                            -1,
-		                                            $this->m_app->getLanguages()->getCurrentCountryCode(),
+		                                            // $this->m_app->getLanguages()->getCurrentCountryCode(),
+		                                            $this->m_app->getLanguages()->getCurrentLocale(),
 		                                            [self::class, 'renderCleanAndCut']);
+													// Can add [190] to limit at 190 chars for example, see renderCLeanAndCut function
 
 		$template = new SimpleTemplate($tr->_('BLOG_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 		                               $tr->_('BLOG_PAGE_DESCRIPTION'));
