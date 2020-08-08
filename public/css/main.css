@@ -152,13 +152,13 @@ body#verify-email {
 
 /* <CATEGORIES> */
 
-#blog-categories__interface {
-	border: 1px solid red;
-	/*max-width: 400px;*/
+#blog-categories__interface > div {
+	margin-top: var(--gutter-default);
 }
 
 #blog-categories__interface input {
 	width: 100%;
+	margin-bottom: 0;
 }
 
 .blog-categories__delete-category {
@@ -166,9 +166,17 @@ body#verify-email {
 	text-align: right;
 }
 
-.blog-categories__delete-category > a{
+.blog-categories__delete-category > a {
 	color: var(--color-invalid);
 	font-size: var(--text-size-small);
+}
+
+#blog-categories__add-category {
+	margin: var(--gutter-medium) 0 var(--gutter-default) 0;
+}
+
+#blog-categories__interface:empty + #blog-categories__add-category {
+	margin-top: 0;
 }
 
 /* <PRIVACY & TERMS> */

@@ -92,12 +92,6 @@
 		<segment id="BLOG_CATEGORIES_PAGE_TITLE">Blog Categories</segment>
 		<segment id="BLOG_CATEGORIES_PAGE_DESCRIPTION"></segment>
 		<segment id="BLOG_CATEGORIES_MAIN_TITLE">Categories</segment>
-		<segment id="BLOG_CATEGORIES_FORM_HELP_TEXT"><![CDATA[
-			<p>
-				List blog post categories in the field below.<br>
-				One category name per line, empty lines will be ignored.
-			</p>
-		]]></segment>
 		<segment id="BLOG_CATEGORIES_FORM_ERROR">Error while updating. Please try again later.</segment>
 		<segment id="BLOG_CATEGORIES_FORM_NEW_CATEGORY">Add category</segment>
 		<segment id="BLOG_CATEGORIES_FORM_CATEGORY_INPUT_PLACEHOLDER">Category name</segment>
