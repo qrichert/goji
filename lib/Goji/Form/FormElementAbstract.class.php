@@ -49,6 +49,11 @@ abstract class FormElementAbstract extends FormObjectAbstract {
 	}
 
 	/**
+	 * Sets the value of the field
+	 *
+	 * /!\ setValue() is meant for hydration, if you want to set the value="" attribute
+	 * (like for <select> <option>s), you should use setAttribute('value', '') instead
+	 *
 	 * @param $value
 	 * @param bool $updateValueAttribute
 	 * @return \Goji\Form\FormElementAbstract

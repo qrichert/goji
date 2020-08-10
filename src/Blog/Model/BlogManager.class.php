@@ -78,11 +78,14 @@ class BlogManager {
 			'locale' => $this->m_app->getLanguages()->getCurrentLocale()
 		]);
 
-	// 3: Delete links between categories and blog posts when category doesn't exist
-		// DELETE FROM g_blog_category_post WHERE category_id NOT IN (SELECT id FROM blog_category)
-		// TODO: Same when deleting blog post: DELETE FROM g_blog_category_post WHERE post_id=:id
-
 		$query->closeCursor();
+
+	// 3: Delete links between categories and blog posts when category doesn't exist
+		$this->m_app->getDatabase()->exec('DELETE FROM g_blog_category_post
+														WHERE category_id NOT IN (
+														    SELECT id
+														    FROM g_blog_category
+														)');
 
 		foreach ($categories as $category) {
 

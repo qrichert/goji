@@ -71,6 +71,11 @@
 	text-decoration: underline;
 }
 
+.form__blog-post #blog-post__category,
+.form__blog-post #blog-post__category--wrapper {
+	width: unset;
+}
+
 .form__blog-post #blog-post__illustration {
 	color: var(--color-text-xlight);
 }

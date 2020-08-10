@@ -2,15 +2,17 @@
 
 namespace Blog\Model;
 
+use Goji\Core\App;
 use Goji\Form\Form;
 use Goji\Form\InputButtonElement;
 use Goji\Form\InputCustom;
 use Goji\Form\InputLabel;
 use Goji\Form\InputNumber;
+use Goji\Form\InputSelect;
+use Goji\Form\InputSelectOption;
 use Goji\Form\InputText;
 use Goji\Form\InputTextArea;
 use Goji\Parsing\RegexPatterns;
-use Goji\Translation\Translator;
 
 /**
  * Class BlogPostForm
@@ -19,9 +21,12 @@ use Goji\Translation\Translator;
  */
 class BlogPostForm extends Form {
 
-	function __construct(Translator $tr) {
+	function __construct(App $app) {
 
 		parent::__construct();
+
+		$tr = $app->getTranslator();
+		$blogManager = new BlogManager($app);
 
 		$sanitizeIllustration = function($illustration) {
 			return trim($illustration);
@@ -147,6 +152,32 @@ class BlogPostForm extends Form {
 
 			$this->addInput(new InputCustom('</div>'));
 
+			// Category
+			$categories = $blogManager->getCategories();
+
+			if (!empty($categories)) {
+				$this->addInput(new InputLabel())
+				     ->setAttribute('for', 'blog-post__category')
+				     ->setAttribute('textContent', $tr->_('BLOG_POST_CATEGORY'));
+
+				$inputCategory = new InputSelect();
+				$inputCategory->setName('blog-post[category]')
+				              ->setId('blog-post__category');
+
+					$inputCategory->addOption(new InputSelectOption())
+					              ->setAttribute('value', '')
+					              ->setAttribute('textContent', $tr->_('BLOG_POST_CATEGORY_WITHOUT'));
+
+					foreach ($categories as $category) {
+						$inputCategory->addOption(new InputSelectOption())
+						              ->setAttribute('value', $category['id'])
+						              ->setAttribute('textContent', $category['name']);
+
+					}
+
+				$this->addInput($inputCategory);
+			}
+
 			// Illustration
 			$this->addInput(new InputLabel())
 				 ->setAttribute('for', 'blog-post__illustration')
@@ -178,12 +209,17 @@ class BlogPostForm extends Form {
 							'#blog-post__permalink',
 							'label[for="blog-post__publication-date--year"]',
 							'#blog-post__publication-date',
+							'label[for="blog-post__category"]',
+							'#blog-post__category',
+							'#blog-post__category--wrapper',
 							'label[for="blog-post__illustration"]',
 							'#blog-post__illustration',
 							'label[for="blog-post__description"]',
-							'#blog-post__description'
+							'#blog-post__description',
 						].forEach(el => {
-							moreOptionsElements.push(document.querySelector(el));
+							el = document.querySelector(el);
+							if (el != null)
+								moreOptionsElements.push(el);
 						});
 
 						let toggleMoreOptions = () => {

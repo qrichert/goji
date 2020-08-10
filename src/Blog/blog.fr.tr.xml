@@ -41,6 +41,8 @@
 		<segment id="BLOG_POST_PERMALINK">Permalien</segment>
 		<segment id="BLOG_POST_PERMALINK_PLACEHOLDER">mon-histoire</segment>
 		<segment id="BLOG_POST_DATE">Date</segment>
+		<segment id="BLOG_POST_CATEGORY">Catégorie</segment>
+		<segment id="BLOG_POST_CATEGORY_WITHOUT">(sans catégorie)</segment>
 		<segment id="BLOG_POST_ILLUSTRATION">Illustration</segment>
 		<segment id="BLOG_POST_ILLUSTRATION_PLACEHOLDER">https://lien.vers/image.jpg</segment>
 		<segment id="BLOG_POST_DESCRIPTION">Description</segment>

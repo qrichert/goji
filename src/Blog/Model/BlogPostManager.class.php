@@ -81,7 +81,7 @@ class BlogPostManager {
 		if ($this->hasForm())
 			return false;
 
-		$this->m_form = new BlogPostForm($this->m_translator);
+		$this->m_form = new BlogPostForm($this->m_app);
 
 		return true;
 	}
@@ -123,6 +123,7 @@ class BlogPostManager {
 			$this->m_form->getInputByName('blog-post[publication-date][hours]')->setValue($date['hour']);
 			$this->m_form->getInputByName('blog-post[publication-date][minutes]')->setValue($date['min']);
 			$this->m_form->getInputByName('blog-post[publication-date][seconds]')->setValue($date['sec']);
+			$this->m_form->getInputByName('blog-post[category]')->setValue($data['category']['id']);
 			$this->m_form->getInputByName('blog-post[illustration]')->setValue($data['illustration']);
 			$this->m_form->getInputByName('blog-post[description]')->setValue($data['description']);
 			$this->m_form->getInputByName('blog-post[title]')->setValue($data['title']);
@@ -387,6 +388,48 @@ class BlogPostManager {
 		return $modifiedPermalink;
 	}
 
+	/**
+	 * @param int $blogPostId
+	 * @return array|null
+	 */
+	protected function getBlogPostCategory(int $blogPostId): ?array {
+
+		$query = $this->m_db->prepare('SELECT g_blog_category_post.category_id AS category_id,
+														g_blog_category.name AS category_name
+										FROM g_blog_category_post
+										INNER JOIN g_blog_category
+										ON g_blog_category_post.category_id = g_blog_category.id
+										WHERE g_blog_category_post.post_id=:blog_post_id');
+
+		$query->execute([
+			'blog_post_id' => $blogPostId
+		]);
+
+		$reply = $query->fetch();
+
+		$query->closeCursor();
+
+		if ($reply === false)
+			return null;
+
+		return [
+			'id' => $reply['category_id'],
+			'name' => $reply['category_name']
+		];
+	}
+
+	protected function getBlogPostIdFromPermalink(string $permalink): ?int {
+		$query = $this->m_db->prepare('SELECT id FROM g_blog WHERE permalink=:permalink');
+		$query->execute(['permalink' => $permalink]);
+		$reply = $query->fetch();
+		$query->closeCursor();
+
+		if ($reply === false)
+			return null;
+
+		return (int) $reply['id'];
+	}
+
 // <CRUD>
 
 	/**
@@ -436,6 +479,9 @@ class BlogPostManager {
 
 		$date = "{$date['year']}-{$date['month']}-{$date['day']} {$date['hours']}:{$date['minutes']}:{$date['seconds']}";
 
+		// Category
+		$category = $this->m_form->getInputByName('blog-post[category]')->getValue();
+
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
@@ -461,7 +507,22 @@ class BlogPostManager {
 
 		$query->closeCursor();
 
-		return (int) $this->m_db->lastInsertId();
+		$newBlogPostId = (int) $this->m_db->lastInsertId();
+
+		if (!empty($category)) {
+			$query = $this->m_db->prepare('INSERT INTO g_blog_category_post
+										       ( category_id,  post_id)
+										VALUES (:category_id, :post_id)');
+
+			$query->execute([
+				'category_id' => (int) $category,
+				'post_id' => $newBlogPostId
+			]);
+
+			$query->closeCursor();
+		}
+
+		return $newBlogPostId;
 	}
 
 	/**
@@ -477,11 +538,15 @@ class BlogPostManager {
 		if ($id === null)
 			$this->m_parent->errorBlogPostDoesNotExist();
 
-		$q = "SELECT *, creation_date > :now AS hidden
-			  FROM g_blog
-			  WHERE " . ($isPermalink ? 'permalink' : 'id') . "=:id";
+		if ($isPermalink)
+			$id = $this->getBlogPostIdFromPermalink($id);
 
-		$query = $this->m_db->prepare($q);
+		if ($id === null)
+			$this->m_parent->errorBlogPostDoesNotExist();
+
+		$query = $this->m_db->prepare('SELECT *, creation_date > :now AS hidden
+										  FROM g_blog
+										  WHERE id=:id');
 		$query->execute([
 			'id' => $id,
 			'now' => date('Y-m-d H:i:s')
@@ -493,6 +558,8 @@ class BlogPostManager {
 
 		if ($reply === false)
 			$this->m_parent->errorBlogPostDoesNotExist();
+
+		$reply['category'] = $this->getBlogPostCategory($id);
 
 		if (!$raw) {
 			$reply['illustration'] = str_replace('web://', WEBROOT . '/', $reply['illustration']);
@@ -521,6 +588,12 @@ class BlogPostManager {
 		if ($id === null)
 			return false;
 
+		if ($isPermalink)
+			$id = $this->getBlogPostIdFromPermalink($id);
+
+		if ($id === null)
+			return false;
+
 		// Getting values
 
 		// Title
@@ -537,7 +610,7 @@ class BlogPostManager {
 		// Permalink - Get the old permalink
 		$q = 'SELECT permalink
 			  FROM g_blog
-			  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
+			  WHERE id=:id';
 
 		$query = $this->m_db->prepare($q);
 		$query->execute([
@@ -575,6 +648,9 @@ class BlogPostManager {
 
 		$date = "{$date['year']}-{$date['month']}-{$date['day']} {$date['hours']}:{$date['minutes']}:{$date['seconds']}";
 
+		// Category
+		$category = $this->m_form->getInputByName('blog-post[category]')->getValue();
+
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
 
@@ -582,47 +658,65 @@ class BlogPostManager {
 		$description = $this->m_form->getInputByName('blog-post[description]')->getValue();
 
 		// Update
-		$query = null;
+		$query = $this->m_db->prepare('UPDATE g_blog
+										  SET creation_date=:creation_date,
+										      title=:title,
+										      post=:post,
+										      illustration=:illustration,
+										      description=:description,
+										      last_edit_date=:last_edit_date
+										  WHERE id=:id');
 
-		if ($updatePermalink) {
-
-			$q = 'UPDATE g_blog
-				  SET permalink=:permalink, creation_date=:creation_date, last_edit_date=:last_edit_date, title=:title, post=:post, illustration=:illustration, description=:description
-				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
-
-			$query = $this->m_db->prepare($q);
-			$query->execute([
-				'permalink' => $permalink,
-				'creation_date' => $date,
-				'last_edit_date' => date('Y-m-d H:i:s'),
-				'title' => $title,
-				'post' => $post,
-				'illustration' => $illustration,
-				'description' => $description,
-				'id' => $id
-			]);
-
-		} else {
-
-			$q = 'UPDATE g_blog
-				  SET creation_date=:creation_date, title=:title, post=:post, illustration=:illustration, description=:description, last_edit_date=:last_edit_date
-				  WHERE ' . ($isPermalink ? 'permalink' : 'id') . '=:id';
-
-			$query = $this->m_db->prepare($q);
-			$query->execute([
-				'creation_date' => $date,
-				'title' => $title,
-				'post' => $post,
-				'illustration' => $illustration,
-				'description' => $description,
-				'last_edit_date' => date('Y-m-d H:i:s'),
-				'id' => $id
-			]);
-		}
+		$query->execute([
+			'creation_date' => $date,
+			'title' => $title,
+			'post' => $post,
+			'illustration' => $illustration,
+			'description' => $description,
+			'last_edit_date' => date('Y-m-d H:i:s'),
+			'id' => $id
+		]);
 
 		$rowsAffected = $query->rowCount();
 
 		$query->closeCursor();
+
+		// Permalink
+		if ($updatePermalink) {
+
+			$query = $this->m_db->prepare('UPDATE g_blog
+											  SET permalink=:permalink
+											  WHERE id=:id');
+			$query->execute([
+				'permalink' => $permalink,
+				'id' => $id
+			]);
+
+			$query->closeCursor();
+		}
+
+		// Category
+		$query = $this->m_db->prepare('DELETE FROM g_blog_category_post
+										WHERE post_id=:id');
+
+		$query->execute([
+			'id' => $id
+		]);
+
+		$query->closeCursor();
+
+		if (!empty($category)) {
+			$query = $this->m_db->prepare('INSERT INTO g_blog_category_post
+										       ( category_id,  post_id)
+										VALUES (:category_id, :post_id)');
+
+			$query->execute([
+				'category_id' => (int) $category,
+				'post_id' => $id
+			]);
+
+			$query->closeCursor();
+		}
 
 		return $rowsAffected !== 0;
 	}
@@ -647,6 +741,17 @@ class BlogPostManager {
 		]);
 
 		$rowsAffected = $query->rowCount();
+
+		$query->closeCursor();
+
+		// Category
+
+		$query = $this->m_db->prepare('DELETE FROM g_blog_category_post
+										WHERE post_id=:id');
+
+		$query->execute([
+			'id' => $id
+		]);
 
 		$query->closeCursor();
 

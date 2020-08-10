@@ -212,7 +212,7 @@ $form = new Form();
             $optGroup = new InputSelectOptionGroup();
             $optGroup->setAttribute('label', 'Group');
             $optGroup->addOption(new InputSelectOption())
-                     ->setAttribute('value', 'hello')
+                     ->setAttribute('value', 'hello') // setValue() is meant for hydration, not for setting the value="" attribute
                      ->setAttribute('textContent', 'Hello');
             $optGroup->addOption(new InputSelectOption())
                      ->setAttribute('value', 'world')

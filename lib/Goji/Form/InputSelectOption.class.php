@@ -19,4 +19,8 @@ class InputSelectOption extends FormElementAbstract {
 		$this->m_openingTag = '<option %{ATTRIBUTES}>';
 		$this->m_closingTag = '</option>';
 	}
+
+	public function setValue($value, $updateValueAttribute = true): FormElementAbstract {
+		return parent::setValue($value, $updateValueAttribute);
+	}
 }

@@ -183,6 +183,12 @@ class Form extends FormObjectAbstract {
 			return true;
 	}
 
+	/**
+	 * @param \Goji\Form\InputRadioButton $input
+	 * @param array $keys
+	 * @param array $subject
+	 * @return bool
+	 */
 	private function getRadioButtonValue(InputRadioButton $input, array $keys, array &$subject): bool {
 
 		$value = $this->getValueFromArrayKeys($keys, $subject);

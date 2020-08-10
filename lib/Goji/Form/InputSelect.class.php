@@ -26,7 +26,7 @@ class InputSelect extends FormElementAbstract {
 
 		parent::__construct($isValidCallback, $forceCallbackOnly, $sanitizeCallback);
 
-		$this->m_openingTag = '<div class="select-wrapper"><select %{ATTRIBUTES}>';
+		$this->m_openingTag = '<div class="select-wrapper" %{WRAPPER_ID}><select %{ATTRIBUTES}>';
 		$this->m_closingTag = '</select></div>';
 
 		$this->m_options = [];
@@ -45,6 +45,8 @@ class InputSelect extends FormElementAbstract {
 
 			return $option;
 		}
+
+		return null;
 	}
 
 	/**
@@ -88,7 +90,14 @@ class InputSelect extends FormElementAbstract {
 
 	public function render(): void {
 
-		echo str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag), PHP_EOL;
+		$openingTag = str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $this->m_openingTag);
+
+		if (!empty($this->getId()))
+			$openingTag = str_replace('%{WRAPPER_ID}', 'id="' . $this->getId() . '--wrapper"', $openingTag);
+		else
+			$openingTag = str_replace('%{WRAPPER_ID}', '', $openingTag);
+
+		echo $openingTag, PHP_EOL;
 
 		foreach ($this->m_options as $option) {
 			$option->render();
