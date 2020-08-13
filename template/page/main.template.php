@@ -8,6 +8,12 @@
 		<meta charset="utf-8">
 		<!--<base href="<?= $this->m_app->getRequestHandler()->getRootFolder(); ?>">-->
 
+		<!-- Vendor -->
+		<?php
+		if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
+			require_once $template->getTemplate('page/include/vendor');
+		?>
+
 		<!-- SEO -->
 		<title><?= htmlspecialchars($template->getPageTitle()); ?></title>
 		<meta name="description" content="<?= htmlspecialchars($template->getPageDescription()); ?>">
@@ -81,12 +87,6 @@
 
 		<!-- Social -->
 		<?php require_once $template->getTemplate('page/include/opengraph'); ?>
-
-		<!-- Analytics -->
-		<?php
-		if ($this->m_app->getAppMode() !== \Goji\Core\App::DEBUG)
-			require_once $template->getTemplate('page/include/analytics');
-		?>
 
 		<!-- Scripts -->
 		<?php require_once $template->getTemplate('page/include/head-javascript'); ?>
