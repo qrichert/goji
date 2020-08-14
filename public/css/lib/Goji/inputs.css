@@ -631,6 +631,7 @@ input[type=checkbox].toggle:checked + label > span::after {
 
 .call-to-action__wrapper {
 	display: block;
+	opacity: 1 !important;
 }
 
 span.call-to-action__wrapper {

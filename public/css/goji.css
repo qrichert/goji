@@ -899,7 +899,8 @@ img.header__logo {
 	flex-shrink: 0;
 }
 
-.nav__main > a {
+.nav__main > a,
+.nav__main > span {
 	font-family: var(--font-title);
 	text-decoration: none;
 	opacity: 0.92;
@@ -907,7 +908,8 @@ img.header__logo {
 				transform var(--transition-medium);
 }
 
-.nav__main > a:hover {
+.nav__main > a:hover,
+.nav__main > span:hover {
 	opacity: 1;
 	text-decoration: none;
 }
@@ -919,7 +921,8 @@ img.header__logo {
 /* Down to 1081px */
 @media all and (min-width: 1081px) {
 
-	.nav__main > a {
+	.nav__main > a,
+	.nav__main > span {
 		margin-left: calc(2.3 * var(--gutter-default));
 	}
 }
@@ -927,7 +930,8 @@ img.header__logo {
 /* Up to 1080px */
 @media all and (max-width: 1080px) {
 
-	.nav__main > a {
+	.nav__main > a,
+	.nav__main > span {
 		margin-left: calc(1.7 * var(--gutter-default));
 	}
 }
@@ -935,7 +939,8 @@ img.header__logo {
 /* Up to to 920px */
 @media all and (max-width: 920px) {
 
-	.nav__main > a {
+	.nav__main > a,
+	.nav__main > span {
 		margin-left: calc(1 * var(--gutter-default));
 	}
 }
@@ -948,16 +953,19 @@ img.header__logo {
 		justify-content: flex-end;
 	}
 
-	.nav__main > a {
+	.nav__main > a,
+	.nav__main > span {
 		color: var(--color-nav-link);
 		transition: margin-left var(--transition-default);
 	}
 
-	.nav__main > a:first-child {
+	.nav__main > a:first-child,
+	.nav__main > span:first-child {
 		margin-left: 0;
 	}
 
-	.nav__main > a:hover {
+	.nav__main > a:hover,
+	.nav__main > span:hover {
 		color: var(--color-nav-link-hover);
 	}
 }
@@ -985,7 +993,8 @@ img.header__logo {
 		background-color: var(--color-default);
 	}
 
-	.nav__main > a {
+	.nav__main > a,
+	.nav__main > span {
 		color: var(--color-nav-link-alt);
 		margin-left: 0;
 		margin-bottom: 25px;
@@ -993,7 +1002,8 @@ img.header__logo {
 		font-size: var(--text-size-big);
 	}
 
-	.nav__main > a:hover {
+	.nav__main > a:hover,
+	.nav__main > span:hover {
 		color: var(--color-nav-link-hover-alt);
 		transform: translateY(-5px);
 	}
@@ -1022,7 +1032,8 @@ img.header__logo {
 /* User can't use :hover properly */
 @media all and (any-hover: none) {
 
-	.nav__main > a:hover {
+	.nav__main > a:hover,
+	.nav__main > span:hover {
 		opacity: 1;
 	}
 
