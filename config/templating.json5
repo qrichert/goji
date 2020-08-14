@@ -23,7 +23,7 @@
 	 * If true, CSS variables will be replaced by their value (in merge mode only)
 	 * Activate it if you need to support legacy browsers (IE11 doesn't support them)
 	 *
-	 * /!\ Be very careful because the replacement is naive, in the sens that it only remembers
+	 * /!\ Be very careful because the replacement is naive, in the sense that it only remembers
 	 * the initial value. Once a variable is set, you can't change its value (i.e. you can't have
 	 * a different with different media queries for example). So, if you want to overwrite the default
 	 * values you must either edit the default root.css or include your custom.root.css BEFORE root.css

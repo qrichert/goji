@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<translation target="en">
+	<!--
+		~~~ <ENGLISH> ~~~
+		This is the English language file.
+	-->
+	<page>
+		<segment id="REDIRECTION_PAGE_TITLE">Redirection</segment>
+		<segment id="REDIRECTION_PAGE_DESCRIPTION"></segment>
+		<segment id="REDIRECTION_MAIN_TITLE">You're almost there...</segment>
+		<segment id="REDIRECTION_IN_PROGRESS">Redirection in progress, please wait a few seconds...</segment>
+		<segment id="REDIRECTION_NOT_WORKING"><![CDATA[If nothing happens, <a href="%{LINK}">click here</a>.]]></segment>
+	</page>
+</translation>

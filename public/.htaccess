@@ -62,7 +62,7 @@ ErrorDocument 500 /index.php
 
 # --- CACHING ---
 
-<FilesMatch "\.(css|js|jpe?g|png|gif|svg|pdf)$">
+<FilesMatch "\.(css|js|jpe?g|png|gif|svg|pdf|ttf|otf|woff[0-9]?|eot)$">
 	# max-age = 2 weeks
 	Header set Cache-Control max-age=1209600
 </FilesMatch>

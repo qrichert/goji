@@ -96,6 +96,7 @@
 	resources: [ // The order here also determines the order in analytics
 		'Funnel/funnel.routes.json5',
 		'Blog/blog.routes.json5',
+		'Redirection/redirection.routes.json5',
 		'HR/hr.routes.json5',
 		'Admin/admin.routes.json5',
 		'System/system.routes.json5'

@@ -148,5 +148,6 @@
 	<resource file="Blog/blog.fr.tr.xml"/>
 	<resource file="Funnel/funnel.fr.tr.xml"/>
 	<resource file="HR/hr.fr.tr.xml"/>
+	<resource file="Redirection/redirection.fr.tr.xml"/>
 	<resource file="System/system.fr.tr.xml"/>
 </translation>

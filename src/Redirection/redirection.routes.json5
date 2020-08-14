@@ -1,0 +1,6 @@
+{
+	"redirect-github": {
+		route: "/github",
+		controller: "Redirection/GitHubController"
+	},
+}
