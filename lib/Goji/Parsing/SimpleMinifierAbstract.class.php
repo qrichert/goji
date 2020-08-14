@@ -22,6 +22,10 @@ abstract class SimpleMinifierAbstract {
 	abstract public static function minify(string $code): string;
 
 	/**
+	 * Minifies a file or list of files.
+	 * If list of files, files get aggregated/merged.
+	 * Files with a .min suffix don't get minified
+	 *
 	 * @param array|string $file
 	 * @return string|null
 	 * @throws \Exception
@@ -34,14 +38,17 @@ abstract class SimpleMinifierAbstract {
 
 		foreach ($file as $f) {
 
-			if (is_file($f))
-				$code .= file_get_contents($f);
-			else
+			if (is_file($f)) {
+				if (preg_match('#\.min\.#i', $f))
+					$code .= file_get_contents($f);
+				else
+					$code .= static::minify(file_get_contents($f));
+			} else
 				throw new Exception("File not found: $f", self::E_FILE_NOT_FOUND);
 		}
 
 		if (!empty($code))
-			return static::minify($code);
+			return $code;
 		else
 			return null;
 	}
