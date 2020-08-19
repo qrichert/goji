@@ -26,18 +26,20 @@ class BlogSearchForm extends Form {
 
 		$categories = $blogManager->getCategories();
 
-		$this->addInput(new InputCustom('<div id="blog-search__categories">'));
+		if (!empty($categories)) {
+			$this->addInput(new InputCustom('<div id="blog-search__categories">'));
 
-		foreach ($categories as $category) {
-			$categoryId = $category['id'];
-			$categoryName = $category['name'];
-			$this->addInput(new InputCheckBox())
-				 ->setName("blog-search[category][$categoryId]")
-				 ->setId("blog-search__category--$categoryId]")
-				 ->addClass('squared')
-				 ->setAttribute('textContent', $categoryName);
+			foreach ($categories as $category) {
+				$categoryId = $category['id'];
+				$categoryName = $category['name'];
+				$this->addInput(new InputCheckBox())
+				     ->setName("blog-search[category][$categoryId]")
+				     ->setId("blog-search__category--$categoryId]")
+				     ->addClass('squared')
+				     ->setAttribute('textContent', $categoryName);
+			}
+
+			$this->addInput(new InputCustom('</div>'));
 		}
-
-		$this->addInput(new InputCustom('</div>'));
 	}
 }
