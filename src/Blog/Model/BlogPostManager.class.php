@@ -123,11 +123,13 @@ class BlogPostManager {
 			$this->m_form->getInputByName('blog-post[publication-date][hours]')->setValue($date['hour']);
 			$this->m_form->getInputByName('blog-post[publication-date][minutes]')->setValue($date['min']);
 			$this->m_form->getInputByName('blog-post[publication-date][seconds]')->setValue($date['sec']);
-			$this->m_form->getInputByName('blog-post[category]')->setValue($data['category']['id']);
 			$this->m_form->getInputByName('blog-post[illustration]')->setValue($data['illustration']);
 			$this->m_form->getInputByName('blog-post[description]')->setValue($data['description']);
 			$this->m_form->getInputByName('blog-post[title]')->setValue($data['title']);
 			$this->m_form->getInputByName('blog-post[post]')->setValue($data['post']);
+
+			if ($this->m_form->getInputByName('blog-post[category]') !== null)
+				$this->m_form->getInputByName('blog-post[category]')->setValue($data['category']['id']);
 	}
 
 // <READ/WRITE>
@@ -499,7 +501,10 @@ class BlogPostManager {
 		$date = "{$date['year']}-{$date['month']}-{$date['day']} {$date['hours']}:{$date['minutes']}:{$date['seconds']}";
 
 		// Category
-		$category = $this->m_form->getInputByName('blog-post[category]')->getValue();
+		$category = null;
+
+		if ($this->m_form->getInputByName('blog-post[category]') !== null)
+			$category = $this->m_form->getInputByName('blog-post[category]')->getValue();
 
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
@@ -668,7 +673,10 @@ class BlogPostManager {
 		$date = "{$date['year']}-{$date['month']}-{$date['day']} {$date['hours']}:{$date['minutes']}:{$date['seconds']}";
 
 		// Category
-		$category = $this->m_form->getInputByName('blog-post[category]')->getValue();
+		$category = null;
+
+		if ($this->m_form->getInputByName('blog-post[category]') !== null)
+			$category = $this->m_form->getInputByName('blog-post[category]')->getValue();
 
 		// Illustration
 		$illustration = $this->m_form->getInputByName('blog-post[illustration]')->getValue();
