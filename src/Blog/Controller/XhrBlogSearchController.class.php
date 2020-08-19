@@ -3,6 +3,7 @@
 namespace Blog\Controller;
 
 use Blog\Blueprint\BlogTrait;
+use Blog\Model\BlogManager;
 use Blog\Model\BlogPostManager;
 use Blog\Model\BlogSearchForm;
 use Goji\Core\App;
@@ -40,9 +41,21 @@ class XhrBlogSearchController extends BlogControllerAbstract {
 
 		$formQuery = $form->getInputByName('blog-search[query]')->getValue();
 
+		$blogManager = new BlogManager($this->m_app);
+
+		$categories = $blogManager->getCategories();
+		$categoriesSelected = [];
+
+		foreach ($categories as $category) {
+			$categoryId = $category['id'];
+			if ($form->getInputByName("blog-search[category][$categoryId]")->getValue())
+				$categoriesSelected[] = $categoryId;
+		}
+
 		$blogPostManager = new BlogPostManager($this);
 		$blogPosts = $blogPostManager->getBlogPostsForQuery(
 													$formQuery,
+													$categoriesSelected,
 													0,
 		                                            -1,
 		                                            $this->m_app->getLanguages()->getCurrentCountryCode(),

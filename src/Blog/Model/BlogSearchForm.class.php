@@ -22,8 +22,7 @@ class BlogSearchForm extends Form {
 			$this->addInput(new InputText())
 				 ->setName('blog-search[query]')
 				 ->setId('blog-search__query')
-				 ->setAttribute('placeholder', $tr->_('BLOG_SEARCH_BLOG_POST_PLACEHOLDER'))
-				 ->setAttribute('required');
+				 ->setAttribute('placeholder', $tr->_('BLOG_SEARCH_BLOG_POST_PLACEHOLDER'));
 
 		$categories = $blogManager->getCategories();
 
@@ -33,8 +32,8 @@ class BlogSearchForm extends Form {
 			$categoryId = $category['id'];
 			$categoryName = $category['name'];
 			$this->addInput(new InputCheckBox())
-				 ->setName("blog-search[categories][$categoryId]")
-				 ->setId("blog-search__categories--$categoryId]")
+				 ->setName("blog-search[category][$categoryId]")
+				 ->setId("blog-search__category--$categoryId]")
 				 ->addClass('squared')
 				 ->setAttribute('textContent', $categoryName);
 		}

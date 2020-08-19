@@ -67,6 +67,7 @@
 
 			let form = document.querySelector('#form__blog-search');
 			let formQuery = document.querySelector('#blog-search__query');
+			let formCategories = document.querySelectorAll('[id^="blog-search__category--"]');
 
 			form.addEventListener('submit', e => { e.preventDefault(); }, false);
 
@@ -168,6 +169,14 @@
 
 			regenerateBlogPostList(defaultArticles);
 
+			let atLeaseOneCategorySelected = () => {
+				for (let el of formCategories) {
+					if (el.checked)
+						return true;
+				}
+				return false;
+			}
+
 			let fetchArticlesForQuery = (query) => {
 
 				let error  = () => {
@@ -187,8 +196,10 @@
 
 
 					// Without that late no-results response would overwrite default articles list
-					if (formQuery.value === '')
+					if (formQuery.value === '' && !atLeaseOneCategorySelected()) {
+						regenerateBlogPostList(defaultArticles);
 						return;
+					}
 
 					if (r === null || s !== 200)
 						return;
@@ -223,7 +234,7 @@
 					clearTimeout(timerId);
 
 				// We can reset it immediately since we don't make a request for that
-				if (formQuery.value === '') {
+				if (formQuery.value === '' && !atLeaseOneCategorySelected()) {
 					regenerateBlogPostList(defaultArticles);
 					timerId = null;
 					return;
@@ -236,6 +247,12 @@
 				}, 750);
 
 			}, false);
+
+			formCategories.forEach(el => {
+				el.addEventListener('change', () => {
+					fetchArticlesForQuery(formQuery.value);
+				}, false);
+			});
 
 		})();
 	</script>

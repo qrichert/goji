@@ -214,7 +214,18 @@ class BlogPostManager {
 		return $this->fetchBlogPostsFromDatabase($q, $params, $formatFunction, $formatFunctionParams);
 	}
 
+	/**
+	 * @param string $query Keywords entered in search field
+	 * @param array $categories Category filters currently selected
+	 * @param int $offset
+	 * @param int $count
+	 * @param string|null $locale
+	 * @param callable|null $formatFunction
+	 * @param array $formatFunctionParams
+	 * @return array
+	 */
 	public function getBlogPostsForQuery(string $query,
+	                                     array $categories,
 	                                     int $offset = 0,
 	                                     int $count = -1,
 	                                     string $locale = null,
@@ -229,7 +240,7 @@ class BlogPostManager {
 		// (1) Put all the 'words' into an array
 		$queryKeywords = preg_split('#[\W\s_-]#', $query);
 
-		$queryKeywords = array_filter($queryKeywords);
+		$queryKeywords = array_filter($queryKeywords); // Remove all 'falsy' elements
 
 		foreach ($queryKeywords as &$keyword) {
 
@@ -268,16 +279,24 @@ class BlogPostManager {
 
 		// Getting the posts
 
-		$q = "SELECT *, creation_date > :now AS hidden FROM g_blog WHERE ($query) ";
+		$q = 'SELECT *, creation_date > :now AS hidden FROM g_blog WHERE 1 ';
+
+		if (!empty($query))
+			$q .= "AND ($query) ";
 
 		if (!$this->m_app->getUser()->isLoggedIn()
 		    || !$this->m_app->getMemberManager()->memberIs('editor')) {
-			$q .= "AND creation_date <= :now ";
+			$q .= 'AND creation_date <= :now ';
 		}
 
 		if (!empty($locale)) {
 			$q .= 'AND locale LIKE :locale ';
 			$params['locale'] = "$locale%";
+		}
+
+		if (!empty($categories)) {
+			$categories = implode(',', $categories);
+			$q .= "AND id IN (SELECT post_id FROM g_blog_category_post WHERE category_id IN ($categories)) ";
 		}
 
 		$q .= 'ORDER BY creation_date DESC ';
