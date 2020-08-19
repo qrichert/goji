@@ -169,7 +169,7 @@
 
 			regenerateBlogPostList(defaultArticles);
 
-			let atLeaseOneCategorySelected = () => {
+			let atLeastOneCategorySelected = () => {
 				for (let el of formCategories) {
 					if (el.checked)
 						return true;
@@ -196,7 +196,7 @@
 
 
 					// Without that late no-results response would overwrite default articles list
-					if (formQuery.value === '' && !atLeaseOneCategorySelected()) {
+					if (formQuery.value === '' && !atLeastOneCategorySelected()) {
 						regenerateBlogPostList(defaultArticles);
 						return;
 					}
@@ -234,7 +234,7 @@
 					clearTimeout(timerId);
 
 				// We can reset it immediately since we don't make a request for that
-				if (formQuery.value === '' && !atLeaseOneCategorySelected()) {
+				if (formQuery.value === '' && !atLeastOneCategorySelected()) {
 					regenerateBlogPostList(defaultArticles);
 					timerId = null;
 					return;
