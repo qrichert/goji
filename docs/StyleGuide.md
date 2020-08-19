@@ -182,6 +182,7 @@ Special Form Elements
 
 - **`.select-wrapper > select`**: To style `select` inputs
 - **`input[type=checkbox] + label > span`**: Styled checkbox
+    - **`.squared`**: A tag-like checkbox
     - **`.toggle`**: A toggle style checkbox
   ```html
   <input type="checkbox" id="cb" class="toggle"><label for="cb"><span></span>Toggle me!</label>

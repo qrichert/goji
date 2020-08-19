@@ -2,15 +2,20 @@
 
 namespace Blog\Model;
 
+use Goji\Core\App;
 use Goji\Form\Form;
+use Goji\Form\InputCheckBox;
+use Goji\Form\InputCustom;
 use Goji\Form\InputText;
-use Goji\Translation\Translator;
 
 class BlogSearchForm extends Form {
 
-	function __construct(Translator $tr) {
+	function __construct(App $app) {
 
 		parent::__construct();
+
+		$tr = $app->getTranslator();
+		$blogManager = new BlogManager($app);
 
 		$this->setId('form__blog-search');
 
@@ -19,5 +24,21 @@ class BlogSearchForm extends Form {
 				 ->setId('blog-search__query')
 				 ->setAttribute('placeholder', $tr->_('BLOG_SEARCH_BLOG_POST_PLACEHOLDER'))
 				 ->setAttribute('required');
+
+		$categories = $blogManager->getCategories();
+
+		$this->addInput(new InputCustom('<div id="blog-search__categories">'));
+
+		foreach ($categories as $category) {
+			$categoryId = $category['id'];
+			$categoryName = $category['name'];
+			$this->addInput(new InputCheckBox())
+				 ->setName("blog-search[categories][$categoryId]")
+				 ->setId("blog-search__categories--$categoryId]")
+				 ->addClass('squared')
+				 ->setAttribute('textContent', $categoryName);
+		}
+
+		$this->addInput(new InputCustom('</div>'));
 	}
 }

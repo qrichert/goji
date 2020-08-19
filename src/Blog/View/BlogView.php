@@ -4,8 +4,8 @@
 
 		<div class="blog__toolbar toolbar main-toolbar">
 			<?php
-				if (!empty($blogPosts))
-					$blogSearchForm->render();
+			if (!empty($blogPosts))
+				$blogSearchForm->render();
 			?>
 
 			<?php if ($this->m_app->getUser()->isLoggedIn()

@@ -51,7 +51,7 @@ class XhrAdminBlogCategoriesController extends XhrControllerAbstract {
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-		$form = new BlogCategories($tr, $this->m_app);
+		$form = new BlogCategories($this->m_app);
 			$form->hydrate();
 
 		$this->treatForm($form);

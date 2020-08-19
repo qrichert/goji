@@ -113,6 +113,10 @@
 	margin: 0;
 }
 
+#form__blog-search #blog-search__categories {
+	margin-top: var(--gutter-thin);
+}
+
 #blog .blog__toolbar {
 	margin-bottom: var(--gutter-thin);
 }

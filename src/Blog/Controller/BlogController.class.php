@@ -27,7 +27,7 @@ class BlogController extends BlogControllerAbstract {
 		$tr = new Translator($this->m_app);
 			$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-		$blogSearchForm = new BlogSearchForm($tr);
+		$blogSearchForm = new BlogSearchForm($this->m_app);
 
 		$blogPostManager = new BlogPostManager($this);
 		$blogPosts = $blogPostManager->getBlogPosts(0,
@@ -36,6 +36,7 @@ class BlogController extends BlogControllerAbstract {
 		                                            $this->m_app->getLanguages()->getCurrentLocale(),
 		                                            [self::class, 'renderCleanAndCut']);
 													// Can add [190] to limit at 190 chars for example, see renderCLeanAndCut function
+													// /!\ Use same value as in XhrBlogSearchController
 
 		$template = new SimpleTemplate($tr->_('BLOG_PAGE_TITLE') . ' - ' . $this->m_app->getSiteName(),
 		                               $tr->_('BLOG_PAGE_DESCRIPTION'));

@@ -47,6 +47,8 @@ class XhrBlogSearchController extends BlogControllerAbstract {
 		                                            -1,
 		                                            $this->m_app->getLanguages()->getCurrentCountryCode(),
 		                                            [self::class, 'renderCleanAndCut']);
+													// Can add [190] to limit at 190 chars for example, see renderCLeanAndCut function
+													// /!\ Use same value as in BlogController !
 
 		HttpResponse::JSON([
 			'message' => $formQuery,
@@ -59,7 +61,7 @@ class XhrBlogSearchController extends BlogControllerAbstract {
 		$tr = new Translator($this->m_app);
 		$tr->loadTranslationResource('%{LOCALE}.tr.xml');
 
-		$form = new BlogSearchForm($tr);
+		$form = new BlogSearchForm($this->m_app);
 		$form->hydrate();
 
 		$this->treatForm($form);

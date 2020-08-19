@@ -7,13 +7,14 @@ use Goji\Form\Form;
 use Goji\Form\InputButtonElement;
 use Goji\Form\InputCustom;
 use Goji\Form\InputHidden;
-use Goji\Translation\Translator;
 
 class BlogCategories extends Form {
 
-	function __construct(Translator $tr, App $app) {
+	function __construct(App $app) {
 
 		parent::__construct();
+
+		$tr = $app->getTranslator();
 
 		$this->setAction($app->getRouter()->getLinkForPage('xhr-admin-blog-categories'));
 

@@ -19,7 +19,7 @@ class AdminBlogCategoriesController extends ControllerAbstract {
 		$blogManager = new BlogManager($this->m_app);
 
 		// Form
-		$blogCategoriesForm = new BlogCategories($tr, $this->m_app);
+		$blogCategoriesForm = new BlogCategories($this->m_app);
 			$blogCategoriesForm->getInputById('blog-categories__categories')->setValue(json_encode($blogManager->getCategories()));
 
 		// Template

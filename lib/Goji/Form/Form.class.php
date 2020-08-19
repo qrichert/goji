@@ -122,7 +122,7 @@ class Form extends FormObjectAbstract {
 	}
 
 	/**
-	 * Will recover a value in a multi-level array, following given keys
+	 * Will recover a value in a multi-level array, following given keys in the given order (= specific route)
 	 *
 	 * keys = 1stLevel, 2ndLevel, 3rdLevel
 	 *
@@ -131,10 +131,16 @@ class Form extends FormObjectAbstract {
 	 *         '2ndLevel' => [
 	 *             '3rdLevel' => VALUE
 	 *         ]
-	 *     ]
+	 *     ],
+	 *     '2ndLevel' => 'not what we want',
+	 *     '3ndLevel' => 'not what we want either',
 	 * ]
 	 *
 	 * => VALUE
+	 *
+	 * 1st pass: $value = $arr['1stLevel'] -> (array) -> recurse
+	 * 2nd pass: $value = $arr['2ndLevel'] -> (array) -> recurse
+	 * 3rd pass: $value = $arr['3rdLevel'] -> VALUE   -> return
 	 *
 	 * @param array $keys
 	 * @param array $subject
@@ -143,19 +149,15 @@ class Form extends FormObjectAbstract {
 	private function getValueFromArrayKeys(array $keys, array &$subject) {
 
 		$key = array_shift($keys); // Get the first key and remove it
-		$value = &$subject[$key] ?? null;
+		$value = $subject[$key] ?? null;
 
 		if ($value === null)
 			return null;
 
-		if (empty($keys)) { // It was the last key, se we good
-
+		if (empty($keys)) // It was the last key, se we good
 			return $value;
-
-		} else {
-
+		else
 			return $this->getValueFromArrayKeys($keys, $value);
-		}
 	}
 
 	/**
@@ -193,7 +195,7 @@ class Form extends FormObjectAbstract {
 
 		$value = $this->getValueFromArrayKeys($keys, $subject);
 
-		if ($value == $input->getAttribute('value'))
+		if ($value == $input->getAttribute('value')) // 'on'
 			return true;
 		else
 			return false;

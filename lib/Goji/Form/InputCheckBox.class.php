@@ -46,36 +46,6 @@ class InputCheckBox extends FormElementAbstract {
 		return $valid && $this->isValidCallback();
 	}
 
-	/**
-	 * Skips id attribute.
-	 *
-	 * @param bool $skipValueAttribute
-	 * @param bool $addSlashes
-	 * @param array $dontRender
-	 * @return string
-	 */
-	public function renderAttributes($skipValueAttribute = false, bool $addSlashes = true, $dontRender = []): string {
-
-		$attr = '';
-
-		foreach ($this->m_attributes as $key => $value) {
-
-			if ($key == 'id')
-				continue;
-
-			// Never render textContent attribute
-			if ($key == 'textContent')
-				continue;
-
-			if (!empty($value))
-				$attr .= ' ' . $key . '="' . addslashes($value) . '"';
-			else
-				$attr .= ' ' . $key;
-		}
-
-		return trim($attr);
-	}
-
 	public function render(): void {
 
 		$id = $this->hasAttribute('id') ? $this->getAttribute('id') : '';
@@ -93,7 +63,7 @@ class InputCheckBox extends FormElementAbstract {
 		$openingTag = $this->m_openingTag;
 			$openingTag = str_replace('%{ID}', $id, $openingTag);
 			$openingTag = str_replace('%{FOR}', $for, $openingTag);
-			$openingTag = str_replace('%{ATTRIBUTES}', $this->renderAttributes(), $openingTag);
+			$openingTag = str_replace('%{ATTRIBUTES}', $this->renderAttributes(true, true, ['id']), $openingTag);
 
 		$output = $openingTag;
 		$output .= $this->hasAttribute('textContent') ? $this->getAttribute('textContent') : '';

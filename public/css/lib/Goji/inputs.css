@@ -487,7 +487,6 @@ input[type=radio] + label > span {
 	margin-right: var(--gutter-thin);
 	position: relative;
 	top: 1px;
-	/*box-shadow: var(--shadow-inset-default);*/
 	transition: background-color var(--transition-duration-default) ease;
 }
 
@@ -535,6 +534,38 @@ input[type=radio]:checked + label > span::after {
 	left: var(--input-radio-checkmark-center);
 	border-radius: calc(var(--input-radio-checkmark-width) / 2);
 	background-color: white;
+}
+
+/* CheckBox - Squared */
+
+input[type=checkbox].squared {
+	display: none;
+}
+
+input[type=checkbox].squared + label {
+	font-weight: normal;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: inline-block;
+	color: white;
+	margin: calc(var(--gutter-xthin) / 2) 0;
+	padding: 4px 8px 4px 8px;
+	border-radius: var(--border-radius-default);
+	background-color: var(--color-disabled);
+	transition: background-color var(--transition-duration-default) ease;
+}
+
+input[type=checkbox].squared:checked + label {
+	background-color: var(--color-highlight);
+}
+
+input[type=checkbox].squared + label:hover,
+input[type=checkbox].squared:checked + label:hover {
+	background-color: var(--color-highlight-hover);
+}
+
+input[type=checkbox].squared + label > span {
+	display: none;
 }
 
 /* CheckBox - Toggle */
