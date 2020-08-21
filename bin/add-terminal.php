@@ -1,4 +1,9 @@
 <?php
+
+/*
+ * Put this in public/ and execute it from the browser
+ */
+
 header('Content-Type: text/plain');
 
 $return_var = null;
