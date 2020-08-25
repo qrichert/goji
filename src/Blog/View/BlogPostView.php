@@ -8,6 +8,15 @@
 			<h1><?= $blogPost['title']; ?></h1>
 			<p class="sub-heading">
 				<?php
+				$date = $blogPost['creation_date']['year'] . '-' .
+				        $blogPost['creation_date']['month'] . '-' .
+				        $blogPost['creation_date']['day'] . 'T' .
+				        $blogPost['creation_date']['hour'] . ':' .
+				        $blogPost['creation_date']['min'] . ':' .
+				        $blogPost['creation_date']['sec'];
+
+				echo '<time datetime="' . $date . '">';
+
 				$date = $tr->_('BLOG_POST_DATE');
 					$date = str_replace('%{YEAR}', $blogPost['creation_date']['year'], $date);
 					$date = str_replace('%{MONTH}', $blogPost['creation_date']['month'], $date);
@@ -18,6 +27,8 @@
 					$date = str_replace('%{SEC}', $blogPost['creation_date']['sec'], $date);
 
 				echo $date;
+
+				echo '</time>';
 
 				if (!empty($blogPost['created_by_display_name']))
 					echo " - {$tr->_('BY')} {$blogPost['created_by_display_name']}";
