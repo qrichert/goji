@@ -18,6 +18,8 @@
 
 		if (heroHeight === null)
 			ratio = 0;
+		else if (scroll === 0)
+			ratio = 0;
 		else if (scroll >= heroHeight)
 			ratio = 1;
 		else

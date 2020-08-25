@@ -54,7 +54,7 @@
 <?php
 if ($this->m_app->getRouter()->getCurrentPage() == 'home') {
 	$template->linkFiles([
-		'js/HomeHeroParallax.js'
+		'js/HomeHeroParallax.min.js'
 	]);
 }
 ?>

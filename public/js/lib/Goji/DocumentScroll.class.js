@@ -54,12 +54,12 @@ class DocumentScroll {
 
 		if (this.m_useRatio) {
 
-			let s = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			let scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
-			if (s === 0)
+			if (scroll === 0)
 				this.m_scroll = 0;
 			else
-				this.m_scroll =  s / (document.body.clientHeight - window.innerHeight);
+				this.m_scroll =  scroll / (document.body.clientHeight - window.innerHeight);
 
 		} else {
 
