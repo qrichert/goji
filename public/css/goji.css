@@ -1662,3 +1662,17 @@ label {
 .form__side-info {
 	font-size: var(--text-size-small);
 }
+
+/* <PRINTING> */
+
+@media print {
+
+	@page {
+		size: auto;
+		margin: 0mm;
+	}
+
+	.noprint {
+		display: none;
+	}
+}

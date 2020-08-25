@@ -95,6 +95,7 @@ Classes
           + span.action-item__caption
       /* etc... */
   ```
+- **`.noprint`**: Will not be printed on paper
 
 Widgets
 -------
