@@ -44,10 +44,11 @@ class TextAreaAutoResize {
 		let x = window.scrollX;
 		let y = window.scrollY;
 
-		this.m_parent.style.height = 'auto';
-		this.m_parent.style.height = this.m_parent.scrollHeight + 'px';
-
-		window.scrollTo(x, y); // Restore scroll to avoid jumps
+		requestAnimationFrame(() => {
+			this.m_parent.style.height = 'auto';
+			this.m_parent.style.height = this.m_parent.scrollHeight + 'px';
+			window.scrollTo(x, y); // Restore scroll to avoid jumps
+		});
 	}
 
 	/**

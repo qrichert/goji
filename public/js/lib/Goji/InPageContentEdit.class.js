@@ -105,10 +105,11 @@ class InPageContentEdit {
 		let x = window.scrollX;
 		let y = window.scrollY;
 
-		this.m_editor.style.height = 'auto';
-		this.m_editor.style.height = this.m_editor.scrollHeight + 'px';
-
-		window.scrollTo(x, y); // Restore scroll to avoid jumps
+		requestAnimationFrame(() => {
+			this.m_editor.style.height = 'auto';
+			this.m_editor.style.height = this.m_editor.scrollHeight + 'px';
+			window.scrollTo(x, y); // Restore scroll to avoid jumps
+		});
 	}
 
 	/**
