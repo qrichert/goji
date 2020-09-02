@@ -6,6 +6,7 @@ use Exception;
 use Goji\Blueprints\RobotsInterface;
 use Goji\Core\AutoLoader;
 use Goji\Core\ConfigurationLoader;
+use Goji\Core\HttpResponse;
 use Goji\Toolkit\SwissKnife;
 
 /**
@@ -108,12 +109,12 @@ class SimpleTemplate implements RobotsInterface {
 								string $configFile = self::CONFIG_FILE) {
 
 		$this->m_webRoot = WEBROOT;
-		$this->m_pageTitle = $pageTitle;
-		$this->m_pageDescription = $pageDescription;
-		$this->m_robotsBehaviour = $robotsBehaviour;
-		$this->m_showCanonicalPageAndAlternates = $showCanonicalPageAndAlternates;
-		$this->m_pageContent = '';
-		$this->m_specials = [];
+		$this->setPageTitle($pageTitle);
+		$this->setPageDescription($pageDescription);
+		$this->setRobotsBehaviour($robotsBehaviour);
+		$this->setShowCanonicalPageAndAlternates($showCanonicalPageAndAlternates);
+		$this->setPageContent('');
+		$this->setSpecials([]);
 
 		try {
 
@@ -220,6 +221,8 @@ class SimpleTemplate implements RobotsInterface {
 	 */
 	public function setRobotsBehaviour(int $behaviour): void {
 		$this->m_robotsBehaviour = $behaviour;
+		if (!headers_sent())
+			HttpResponse::setRobotsHeader($behaviour);
 	}
 
 	/**
@@ -253,10 +256,7 @@ class SimpleTemplate implements RobotsInterface {
 	 * @param string $content
 	 */
 	public function setPageContent(string $content): void {
-
-		// Make sure it's valid
-		if (is_string($content))
-			$this->m_pageContent = $content;
+		$this->m_pageContent = $content;
 	}
 
 	/**
