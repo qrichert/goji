@@ -68,9 +68,9 @@ class HttpResponse implements HttpStatusInterface, HttpMethodInterface, RobotsIn
 	public static function setRobotsHeader(int $behaviour): void {
 
 		switch ($behaviour) {
-			case self::ROBOTS_NOINDEX:          header('X-Robots-Tag: "noindex"', true);            break;
-			case self::ROBOTS_NOFOLLOW:         header('X-Robots-Tag: "nofollow"', true);           break;
-			case self::ROBOTS_NOINDEX_NOFOLLOW: header('X-Robots-Tag: "noindex, nofollow"', true);  break;
+			case self::ROBOTS_NOINDEX:          header('X-Robots-Tag: noindex', true);            break;
+			case self::ROBOTS_NOFOLLOW:         header('X-Robots-Tag: nofollow', true);           break;
+			case self::ROBOTS_NOINDEX_NOFOLLOW: header('X-Robots-Tag: noindex, nofollow', true);  break;
 			default:                            header_remove('X-Robots-Tag');                      break;
 		}
 	}
