@@ -9,7 +9,9 @@ if [[ -z "$1" ]] || [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
 	echo "  stop         Stop running Docker container"
 	echo "  push         Push new commits to Git repository"
 	echo "  update       Update from Git repository and rebuild Docker container"
+	echo "  undocommit   Undo last commit (soft)"
 	echo "  clearcache   Delete content of cache folder (/var/cache/*.cache)"
+	echo "  freeze       Freeze pip packages into requirements.txt file"
 
 	exit 0
 else
@@ -22,12 +24,16 @@ else
 	elif [[ $COMMAND = 'stop' ]]; then
 		docker-compose down
 	elif [[ $COMMAND = 'push' ]]; then
-		#git checkout master && git merge wip && git checkout wip
-		git pull && git push && git checkout master && git pull && git merge wip && git push && git checkout wip
+		#git checkout master && git merge develop && git checkout develop
+		git pull && git push && git checkout master && git pull && git merge develop && git push && git checkout develop
 	elif [[ $COMMAND = 'update' ]]; then
 		git pull && docker-compose up --build --detach
+	elif [[ $COMMAND = 'undocommit' ]]; then
+		git reset --soft HEAD~1
 	elif [[ $COMMAND = 'clearcache' ]]; then
 		rm -f var/cache/*.cache
+	elif [[ $COMMAND = 'freeze' ]]; then
+		pip freeze > requirements.txt
 	else
 		echo "Error: Command not found."
 	fi

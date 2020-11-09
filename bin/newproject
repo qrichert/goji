@@ -38,7 +38,7 @@ echo -e "TODO\n====" > "$BASE_DIR/$projectName/_WIP_/TODO.txt"
 
 # Will be done after symlinks, but we ask before because you can pass the symlinks questions
 # by quickly typing y/Enter or n/Enter and so you'll probably miss the Git question at the end.
-read -p "Do you want to create a Git repository with a 'wip' branch? (y/n): " useGit
+read -p "Do you want to create a Git repository with a 'develop' branch? (y/n): " useGit
 
 read -p "Do you want to share library files with a clean Goji repository? (y/n): " useSymlinks
 
@@ -84,7 +84,7 @@ then
 	git init >/dev/null 2>&1
 	git add . >/dev/null 2>&1
 	git commit -am "Initial commit." >/dev/null 2>&1
-	git checkout -b wip >/dev/null 2>&1
+	git checkout -b develop >/dev/null 2>&1
 	#git checkout master >/dev/null 2>&1
 	# Back to original directory
 	cd $currentDir

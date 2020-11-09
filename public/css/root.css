@@ -74,13 +74,13 @@
 	--text-size-xhuge: 80px;
 	--text-size-xxhuge: 100px;
 
-	--input-height-default: 34px;
-
-	--progress-bar-height: 2px;
-
 	--line-height-default: 1.2;
 	--line-height-medium: 1.5;
 	--line-height-big: 2;
+
+	--input-height-default: 34px;
+
+	--progress-bar-height: 2px;
 
 	/* Colors */
 
