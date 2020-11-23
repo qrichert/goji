@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-BASE_DIR=~/Sites  # Goji's parent dir
+# Exit if any command fails
+set -e
+
+# Goji's default parent dir
+BASE_DIR=~/Developer
 
 if [[ -n "$1" ]]; then
 	BASE_DIR=$1
@@ -81,11 +85,9 @@ then
 	currentDir=$PWD
 	cd "$BASE_DIR/$projectName"
 	# Init project from project dir (don't show output)
-	git init >/dev/null 2>&1
-	git commit --allow-empty -m "Initial commit." >/dev/null 2>&1
-	# TODO: Change this in Git 2.28 to git init [-b|--initial-branch=] main
-	git branch -m "main"
-	git checkout -b dev >/dev/null 2>&1
+	git init --initial-branch=main > /dev/null
+	git commit --allow-empty --message "Initial commit." > /dev/null
+	git switch --create dev > /dev/null
 	# Back to original directory
 	cd $currentDir
 fi
