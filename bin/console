@@ -8,6 +8,7 @@ show_help_message() {
 	echo "  push         Push new commits to Git repository"
 	echo "  update       Update from Git repository and rebuild Docker container"
 	echo "  undocommit   Undo last commit (soft)"
+	echo "  commitat     Commit at given date (first parameter must be a string like '2020-01-23 12:52:27 +0100')"
 	echo "  clearcache   Delete content of cache folder (/var/cache/*.cache)"
 	echo "  freeze       Freeze pip packages into requirements.txt file"
 }
@@ -40,6 +41,19 @@ elif [[ $COMMAND = 'update' ]]; then
 	git pull && docker-compose up --build --detach
 elif [[ $COMMAND = 'undocommit' ]]; then
 	git reset --soft HEAD~1
+elif [[ $COMMAND = 'commitat' ]]; then
+	if [[ -n $2 ]]; then
+		commit_date=$2
+		export GIT_COMMITTER_DATE=$commit_date
+		export GIT_AUTHOR_DATE=$commit_date
+		shift 2
+		git commit "$@"
+		unset GIT_COMMITTER_DATE
+		unset GIT_AUTHOR_DATE
+	else
+		show_error_message "No arguments given."
+		echo "Try: bin/console commitat \"2020-01-23 12:52:27 +0100\" -am \"Some commit in the past\""
+	fi
 elif [[ $COMMAND = 'clearcache' ]]; then
 	rm -f var/cache/*.cache
 elif [[ $COMMAND = 'freeze' ]]; then
