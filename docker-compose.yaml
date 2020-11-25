@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ".:/var/www/html"
-#      - "./var:/var/www/html/var"
-      - "./var/log/apache2:/var/log/apache2"
-      - "./var/log/php:/var/log/php"
+      - .:/var/www/html
+#      - ./var:/var/www/html/var
+      - ./var/log/apache2:/var/log/apache2
+      - ./var/log/php:/var/log/php

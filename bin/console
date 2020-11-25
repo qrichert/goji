@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-COMMAND=''
-
-if [[ -z "$1" ]] || [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
+show_help_message() {
 	echo "Commands:"
 	echo "  build        Build Docker container"
 	echo "  buildnrun    Build Docker container and run it"
@@ -10,31 +8,58 @@ if [[ -z "$1" ]] || [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
 	echo "  push         Push new commits to Git repository"
 	echo "  update       Update from Git repository and rebuild Docker container"
 	echo "  undocommit   Undo last commit (soft)"
+	echo "  commitat     Commit at given date (first parameter must be a string like '2020-01-23 12:52:27 +0100')"
 	echo "  clearcache   Delete content of cache folder (/var/cache/*.cache)"
 	echo "  freeze       Freeze pip packages into requirements.txt file"
+}
 
-	exit 0
-else
-	COMMAND=$1
-
-	if [[ $COMMAND = 'build' ]]; then
-		docker-compose build
-	elif [[ $COMMAND = 'buildnrun' ]]; then
-		docker-compose up --build --detach
-	elif [[ $COMMAND = 'stop' ]]; then
-		docker-compose down
-	elif [[ $COMMAND = 'push' ]]; then
-		#git checkout main && git merge dev && git checkout dev
-		git pull && git push && git checkout main && git pull && git merge dev && git push && git checkout dev
-	elif [[ $COMMAND = 'update' ]]; then
-		git pull && docker-compose up --build --detach
-	elif [[ $COMMAND = 'undocommit' ]]; then
-		git reset --soft HEAD~1
-	elif [[ $COMMAND = 'clearcache' ]]; then
-		rm -f var/cache/*.cache
-	elif [[ $COMMAND = 'freeze' ]]; then
-		pip freeze > requirements.txt
-	else
-		echo "Error: Command not found."
+show_error_message() {
+	echo -n $'\e[31m[Error]'
+	if [[ -n "$1" ]]; then
+		echo -n " $1"
 	fi
+	echo $'\e[39m'
+}
+
+if [[ -z "$1" ]] || [[ $1 = '-h' ]] || [[ $1 = '--help' ]]; then
+	show_help_message
+	exit 0
+fi
+
+COMMAND=$1
+
+if [[ $COMMAND = 'build' ]]; then
+	docker-compose build
+elif [[ $COMMAND = 'buildnrun' ]]; then
+	docker-compose up --build --detach
+elif [[ $COMMAND = 'stop' ]]; then
+	docker-compose down
+elif [[ $COMMAND = 'push' ]]; then
+	#git checkout main && git merge dev && git checkout dev
+	git pull && git push && git checkout main && git pull && git merge dev && git push && git checkout dev
+elif [[ $COMMAND = 'update' ]]; then
+	git pull && docker-compose up --build --detach
+elif [[ $COMMAND = 'undocommit' ]]; then
+	git reset --soft HEAD~1
+elif [[ $COMMAND = 'commitat' ]]; then
+	if [[ -n $2 ]]; then
+		commit_date=$2
+		export GIT_COMMITTER_DATE=$commit_date
+		export GIT_AUTHOR_DATE=$commit_date
+		shift 2
+		git commit "$@"
+		unset GIT_COMMITTER_DATE
+		unset GIT_AUTHOR_DATE
+	else
+		show_error_message "No arguments given."
+		echo "Try: bin/console commitat \"2020-01-23 12:52:27 +0100\" -am \"Some commit in the past\""
+	fi
+elif [[ $COMMAND = 'clearcache' ]]; then
+	rm -f var/cache/*.cache
+elif [[ $COMMAND = 'freeze' ]]; then
+	pip freeze > requirements.txt
+else
+	show_error_message "Unknown command '$COMMAND'"
+	show_help_message
+	exit 1
 fi
