@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Bitbucket doesn't have access tokens like GitHub or GitLab.
+# You can of course grant access to a repository with an SSH key,
+# but on cheap shared hosting you usually can't configure SSH.
+#
+# As a workaround, you can create an OAuth consumer on the workspace level
+# and grant him read access to the whole workspace, and with that you
+# can clone over HTTPS by providing the token in the URL GitHub/GitLab-like.
+#
+# The only drawback is that you have to regenerate this token after a few hours.
+# This script helps with that by regenerating the token before executing a command.
+#
+# To create an OAuth token on GitLab, go to the workspace settings -> OAuth consumers ->
+# dd consumer -> Name: production -> Callback URL: whatever ->
+# Check: This is a private consumer -> Permissions: Repositories / read
+#
+# Take note of Key and Secret given to you by Bitbucket.
+#
+# Now you can use this script like this:
+# bin/bitbucket-git clone <key> <secret> <user/repo.git>
+#
+# For example:
+# bin/bitbucket-git pull 8K9zDMhPcMZoyks9SM bMmzRJlh3hVDPeytLRgqOsrDnuEtvhDK you/therepo.git
+#
+# Don't forget to update the "git pull" command in Goji in src/Admin/Controller/XhrUpdateController.class.php
+
+if [[ -z "$4" ]]; then
+	echo "Not enough arguments."
+	echo "bitbucket-git {clone|fetch|pull} <key> <secret> <user/repo.git>"
+	exit 1
+fi
+
+COMMAND=$1
+
+if [[ "$COMMAND" != 'clone' && "$COMMAND" != 'fetch' && "$COMMAND" != 'pull' ]]; then
+	echo "Unknown command '$COMMAND'"
+	echo "Possible commands are: clone, fetch or pull"
+	exit 1
+fi
+
+KEY=$2
+SECRET=$3
+REPO_PATH=$4
+
+# Retrieve Access Token
+
+res=$(curl --silent -X POST -u "$KEY:$SECRET" https://bitbucket.org/site/oauth2/access_token -d grant_type=client_credentials)
+ACCESS_TOKEN=$(echo $res | sed -En 's/.*"access_token": "([^"]*).*/\1/p')
+
+REMOTE_URL="https://x-token-auth:$ACCESS_TOKEN@bitbucket.org/$REPO_PATH"
+
+# Execute command
+
+if [[ $COMMAND == 'clone' ]]; then
+	git clone $REMOTE_URL
+else
+	if [[ $COMMAND == 'pull' ]]; then
+		COMMAND='pull --ff-only'
+	fi
+
+	git remote set-url origin $REMOTE_URL
+	git $COMMAND origin
+fi
