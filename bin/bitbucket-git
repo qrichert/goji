@@ -11,8 +11,8 @@
 # The only drawback is that you have to regenerate this token after a few hours.
 # This script helps with that by regenerating the token before executing a command.
 #
-# To create an OAuth token on GitLab, go to the workspace settings -> OAuth consumers ->
-# dd consumer -> Name: production -> Callback URL: whatever ->
+# To create an OAuth token on Bitbucket, go to the workspace settings -> OAuth consumers ->
+# Add consumer -> Name: production -> Callback URL: whatever ->
 # Check: This is a private consumer -> Permissions: Repositories / read
 #
 # Take note of Key and Secret given to you by Bitbucket.
